@@ -1,0 +1,867 @@
+\newpage
+\section{Rank of a Matrix}
+\label{sec:5_4}
+
+In this section we use the concept of dimension to clarify the definition of the rank of a matrix given in Section~\ref{sec:1_2}, and to study its properties. This requires that we deal with rows and columns in the same way. While it has been our custom to write the $n$-tuples\index{$n$-tuples}\index{set of all ordered $n$-tuples ($\RR^n$)!$n$-tuples} in $\RR^n$ as columns, in this section we will frequently write them as rows. Subspaces, independence, spanning, and dimension are defined for rows using matrix operations, just as for columns. If $A$ is an $m \times n$ matrix, we define:
+
+\begin{definition}{Column and Row Space of a Matrix}{015376} %5.10 
+The \textbf{column space}\index{column space}, $\func{col} A$, of $A$ is the subspace of $\RR^m$ spanned by the columns of $A$.
+
+The \textbf{row space}\index{row space}, $\func{row} A$, of $A$ is the subspace of $\RR^n$ spanned by the rows of $A$.
+\end{definition}
+
+\noindent Much of what we do in this section involves these subspaces. We begin with:
+
+\begin{lemma}{}{015383}
+Let $A$ and $B$ denote $m \times n$ matrices.
+
+\begin{enumerate}
+\item If $A \to B$ by elementary row operations, then $\func{row} A = \func{row} B$.
+
+\item If $A \to B$ by elementary column operations, then $\func{col} A = \func{col} B$.
+
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We prove (1); the proof of (2) is analogous. It is enough to do it in the case when $A \to B$ by a single row operation. Let
+$R_{1}, R_{2}, \dots, R_{m}$ denote the rows of $A$. The row
+operation $A \to B$ either interchanges two rows, multiplies a row by
+a nonzero constant, or adds a multiple of a row to a different row. We
+leave the first two cases to the reader. In the last case, suppose
+that $a$ times row $p$ is added to row $q$ where $p < q$. Then the
+rows of $B$ are $R_{1}, \dots, R_{p}, \dots, R_{q} + aR_p, \dots,
+R_{m}$, and Theorem~\ref{thm:013606} shows that
+\begin{equation*}
+\func{span}\{ R_1, \dots, R_p, \dots, R_q, \dots, R_m \} =
+\func{span}\{ R_1, \dots, R_p, \dots, R_q + aR_p, \dots, R_m \}
+\end{equation*}
+That is, $\func{row} A = \func{row} B$.
+\end{proof}
+
+If $A$ is any matrix, we can carry $A \to R$ by elementary row operations where $R$ is a row-echelon matrix. Hence $\func{row} A = \func{row} R$ by Lemma~\ref{lem:015383}; so the first part of the following result is of interest.
+
+\begin{lemma}{}{015405}
+If $R$ is a row-echelon matrix\index{matrix!row-echelon matrix}, then
+
+\begin{enumerate}
+\item The nonzero rows of $R$ are a basis of $\func{row} R$.
+
+\item The columns of $R$ containing leading ones are a basis of $\func{col} R$.
+
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The rows of $R$ are independent by Example~\ref{exa:014089}, and they span $\func{row} R$ by definition. This proves (1).
+
+Let $\vect{c}_{j_{1}}, \vect{c}_{j_{2}}, \dots, \vect{c}_{j_{r}}$ denote the columns of $R$ containing leading $1$s. Then $\{\vect{c}_{j_{1}}, \vect{c}_{j_{2}}, \dots, \vect{c}_{j_{r}}\}$ is independent because the leading $1$s are in different rows (and have zeros below and to the left of them). Let $U$ denote the subspace of all columns in $\RR^m$ in which the last $m - r$ entries are zero. Then $\func{dim}U = r$ (it is just $\RR^r$ with extra zeros). Hence the independent set $\{\vect{c}_{j_{1}}, \vect{c}_{j_{2}}, \dots, \vect{c}_{j_{r}}\}$ is a basis of $U$ by Theorem~\ref{thm:014436}. Since each $\vect{c}_{j_{i}}$ is in $\func{col} R$, it follows that $\func{col} R = U$, proving (2).
+\end{proof}
+
+With Lemma~\ref{lem:015405} we can fill a gap in the definition of the rank of a matrix given in Chapter~\ref{chap:1}. Let $A$ be any matrix and suppose $A$ is carried to some row-echelon matrix $R$ by row operations. Note that $R$ is not unique. In Section~\ref{sec:1_2} we defined the \textbf{rank}\index{rank!matrix}\index{matrix!rank}\index{set of all ordered $n$-tuples ($\RR^n$)!rank of a matrix} of $A$, denoted $\func{rank} A$, to be the number of leading $1$s in $R$, that is the number of nonzero rows of $R$. The fact that this number does not depend on the choice of $R$ was not proved in Section~\ref{sec:1_2}. However part 1 of Lemma~{\ref{lem:015405} shows that
+\begin{equation*}
+\func{rank } A = \func{dim} (\func{row } A)
+\end{equation*}
+and hence that $\func{rank} A$ is independent of $R$.
+
+Lemma~{\ref{lem:015405} can be used to find bases of subspaces of $\RR^n$ (written as rows). Here is an example.
+
+\begin{example}{}{015433}
+Find a basis of $U = \func{span}\{(1, 1, 2, 3), (2, 4, 1, 0), (1, 5, -4, -9)\}$.
+
+\begin{solution}
+$U$ is the row space of $\leftB \begin{array}{rrrr}
+1 & 1 & 2 & 3 \\
+2 & 4 & 1 & 0 \\
+1 & 5 & -4&-9
+\end{array} \rightB$. This matrix has row-echelon form
+$\leftB \begin{array}{rrrr}
+1 & 1 & 2 & 3 \\
+0 & 1 & -\frac{3}{2} & -3 \\
+0 & 0 & 0 & 0
+\end{array} \rightB$, so $\{(1, 1, 2, 3), (0, 1, - \frac{3}{2}, -3)\}$ is basis of $U$ by Lemma~\ref{lem:015405}.
+
+Note that $\{(1, 1, 2, 3), (0, 2, -3, -6)\}$ is another basis that avoids fractions.
+\end{solution}
+\end{example}
+
+Lemmas~\ref{lem:015383} and \ref{lem:015405} are enough to prove the following fundamental theorem.
+
+\begin{theorem}{Rank Theorem}{015444} %theorem1
+Let $A$ denote any $m \times n$ matrix of rank $r$. Then\index{rank!theorem}
+\begin{equation*}
+\func{dim}(\func{col }A ) = \func{dim} (\func{row } A) = r
+\end{equation*}
+Moreover, if $A$ is carried to a row-echelon matrix $R$ by row operations, then
+
+\begin{enumerate}
+\item The $r$ nonzero rows of $R$ are a basis of $\func{row} A$.
+
+\item If the leading $1$s lie in columns $j_{1}, j_{2}, \dots, j_{r}$ of $R$, then columns $j_{1}, j_{2}, \dots, j_{r}$ of $A$ are a basis of $\func{col} A$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We have $\func{row} A = \func{row} R$ by Lemma~\ref{lem:015383}, so (1) follows from Lemma~\ref{lem:015405}. Moreover, $R = UA$ for some invertible matrix $U$ by Theorem~\ref{thm:005294}. Now write $A =
+\leftB \begin{array}{cccc}
+\vect{c}_1 & \vect{c}_2 & \dots & \vect{c}_n
+\end{array} \rightB$ where $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}$ are the columns of $A$. Then
+\begin{equation*}
+R = UA = U
+\leftB \begin{array}{cccc}
+	\vect{c}_1 & \vect{c}_2 & \cdots & \vect{c}_n
+\end{array} \rightB
+= 
+\leftB \begin{array}{cccc}
+	U\vect{c}_1 & U\vect{c}_2 & \cdots & U\vect{c}_n
+\end{array} \rightB
+\end{equation*}
+Thus, in the notation of (2), the set $B = \{U\vect{c}_{j_{1}}, U\vect{c}_{j_{2}}, \dots, U\vect{c}_{j_{r}}\}$ is a basis of $\func{col} R$ by Lemma~\ref{lem:015405}. So, to prove (2) and the fact that $\func{dim}(\func{col} A) = r$, it is enough to show that $D = \{\vect{c}_{j_{1}}, \vect{c}_{j_{2}}, \dots, \vect{c}_{j_{r}}\}$ is a basis of $\func{col} A$. First, $D$ is linearly independent because $U$ is invertible (verify), so we show that, for each $j$, column $\vect{c}_{j}$ is a linear combination of the $\vect{c}_{j_{i}}$. But $U\vect{c}_{j}$ is column $j$ of $R$, and so is a linear combination of the $U\vect{c}_{j_{i}}$, say $U\vect{c}_{j} = a_{1}U\vect{c}_{j_{1}} + a_{2}U\vect{c}_{j_{2}} + \dots + a_{r}U\vect{c}_{j_{r}}$ where each $a_{i}$ is a real number.
+
+Since $U$ is invertible, it follows that
+$\vect{c}_{j} =
+a_{1}\vect{c}_{j_{1}} +
+a_{2}\vect{c}_{j_{2}} +
+\dots +
+a_{r}\vect{c}_{j_{r}}$ and the proof is complete.
+\end{proof}
+
+\begin{example}{}{015497}
+Compute the rank of 
+$A = \leftB \begin{array}{rrrr}
+1 & 2 & 2 & -1 \\
+3 & 6 & 5 & 0 \\
+1 & 2 & 1 & 2
+\end{array} \rightB$ and find bases for $\func{row} A$ and $\func{col} A$.
+
+\begin{solution}
+  The reduction of $A$ to row-echelon form is as follows:
+\begin{equation*}
+\leftB \begin{array}{rrrr}
+1 & 2 & 2 & -1 \\
+3 & 6 & 5 & 0 \\
+1 & 2 & 1 & 2
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrr}
+1 & 2 & 2 & -1 \\
+0 & 0 & -1 & 3 \\
+0 & 0 & -1 & 3
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrr}
+1 & 2 & 2 & -1 \\
+0 & 0 & -1 & 3 \\
+0 & 0 & 0 & 0
+\end{array} \rightB
+\end{equation*}
+Hence $\func{rank} A$ = 2, and $ \{
+\leftB \begin{array}{cccc}
+1 & 2 & 2 & -1
+\end{array} \rightB, 
+\leftB \begin{array}{cccc}
+0 & 0 & 1 & -3
+\end{array} \rightB \}$
+is a basis of $\func{row} A$ by Lemma~\ref{lem:015405}. Since the leading $1$s are in columns 1 and 3 of the row-echelon matrix, Theorem~\ref{thm:015444} shows that columns 1 and 3 of $A$ are a basis
+$\left\{
+\leftB \begin{array}{r}
+1\\
+3\\
+1
+\end{array} \rightB, \leftB \begin{array}{r}
+2\\
+5\\
+1
+\end{array} \rightB
+\right\}$ of $\func{col} A$.
+\end{solution}
+\end{example}
+
+Theorem~\ref{thm:015444} has several important consequences. The first, Corollary~\ref{cor:015507} below, follows because the rows of $A$ are independent (respectively span $\func{row} A$) if and only if their transposes are independent (respectively span $\func{col} A$).
+
+\begin{corollary}{}{015507}
+If $A$ is any matrix, then $\func{rank} A = \func{rank}(A^{T})$.
+\end{corollary}
+
+If $A$ is an $m \times n$ matrix, we have $\func{col} A \subseteq \RR^m$ and $\func{row} A \subseteq \RR^n$. Hence Theorem~\ref{thm:014447} shows that $\func{dim}(\func{col} A) \leq \func{dim}(\RR^m) = m$ and $\func{dim}(\func{row} A) \leq \func{dim}(\RR^n) = n$. Thus Theorem~\ref{thm:015444} gives:
+
+\begin{corollary}{}{015516}
+If $A$ is an $m \times n$ matrix, then $\func{rank }A \leq m$  and $\func{rank }A \leq n$.
+\end{corollary}
+
+\begin{corollary}{}{015519}
+$\func{rank} A = \func{rank}(UA) = \func{rank}(AV)$ whenever $U$ and $V$ are invertible.
+\end{corollary}
+
+\begin{proof}
+Lemma~\ref{lem:015383} gives $\func{rank} A = \func{rank}(UA)$. Using this and Corollary~\ref{cor:015507} we get
+\begin{equation*}
+\func{rank} (AV) = \func{rank}(AV)^T = \func{rank} (V^TA^T) = \func{rank}(A^T)= \func{rank } A
+\end{equation*}
+\vspace*{-2em}\end{proof}
+
+The next corollary requires a preliminary lemma.
+
+\begin{lemma}{}{015527}
+Let $A$, $U$, and $V$ be matrices of sizes $m \times n$, $p \times m$,
+and $n \times q$ respectively.
+
+\begin{enumerate}
+\item $\func{col}(AV) \subseteq \func{col} A$, with equality if $VV^{\prime}= I_{n}$ for some $V^{\prime}$.
+
+\item $\func{row}(UA) \subseteq \func{row} A$, with equality if $U^{\prime}U=I_{m}$ for some $U^{\prime}$.
+
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For (1), write $V = \leftB \vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{q}\rightB$ where $\vect{v}_{j}$ is column $j$ of $V$. Then we have \newline $AV = \leftB A\vect{v}_{1}, A\vect{v}_{2}, \dots, A\vect{v}_{q}\rightB$, and each $A\vect{v}_{j}$ is in $\func{col} A$ by Definition~\ref{def:002606}. It follows that $\func{col}(AV) \subseteq $
+ $\func{col} A$. If $VV^{\prime}=I_{n}$, we obtain $\func{col} A = \func{col}\leftB (AV)V^{\prime} \rightB \subseteq \func{col}(AV)$ in the same way. This proves (1).
+
+As to (2), we have $\func{col}\leftB (UA)^{T}\rightB = \func{col}(A^{T}U^{T}) \subseteq \func{col}(A^{T})$ by (1), from which $\func{row}(UA) \subseteq \func{row} A$. If $U^{\prime}U=I_{m}$, this is equality as in the proof of (1).
+\end{proof}
+
+\begin{corollary}{}{015552}
+If $A$ is $m \times n$ and $B$ is $n \times m$, then $\func{rank} AB \leq \func{rank} A$ and $\func{rank} AB \leq \func{rank} B$.
+\end{corollary}
+
+\begin{proof}
+By Lemma~\ref{lem:015527}, $\func{col}(AB) \subseteq \func{col} A$ and $\func{row}(BA) \subseteq \func{row} A$, so Theorem~\ref{thm:015444} applies.
+\end{proof}
+
+In Section~\ref{sec:5_1} we discussed two other subspaces associated with an $m \times n$ matrix $A$: the null space $\func{null}(A)$ and the image space $\func{im}(A)$
+\begin{equation*}
+\func{null} (A) = \{\vect{x} \mbox{ in } \RR^n \mid A\vect{x} = \vect{0} \}
+\mbox{ and } \func{im} (A) = \{A\vect{x} \mid \vect{x} \mbox{ in } \RR^n \}
+\end{equation*}
+Using rank, there are simple ways to find bases of these spaces. If $A$ has rank $r$, we have $\func{im}(A) = \func{col}(A)$ by Example~\ref{exa:013734}, so $\func{dim}[\func{im}(A)] = \func{dim}[\func{col}(A)] = r$. Hence Theorem~\ref{thm:015444} provides a method of finding a basis of $\func{im}(A)$. This is recorded as part (2) of the following theorem.
+
+\begin{theorem}{}{015561} %theorem2
+Let $A$ denote an $m \times n$ matrix of rank $r$. Then
+
+\begin{enumerate}
+\item The $n - r$ basic solutions to the system $A\vect{x} = \vect{0}$ provided by the gaussian algorithm are a basis of $\func{null}(A)$, so $\func{dim}[\func{null}(A)] = n - r$.
+
+\item Theorem~\ref{thm:015444} provides a basis of $\func{im}(A) = \func{col}(A)$, and $\func{dim}[\func{im}(A)] = r$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+It remains to prove (1). We already know (Theorem~\ref{thm:002684}) that $\func{null}(A)$ is spanned by the $n - r$ basic solutions of $A\vect{x} = \vect{0}$. Hence using Theorem~\ref{thm:014436}, it suffices to show that $\func{dim}[\func{null}(A)] = n - r$. So let $\{\vect{x}_{1}, \dots, \vect{x}_{k}\}$ be a basis of $\func{null}(A)$, and extend it to a basis $\{\vect{x}_{1}, \dots, \vect{x}_{k}, \vect{x}_{k+1}, \dots, \vect{x}_{n}\}$ of $\RR^n$ (by Theorem~\ref{thm:014407}). It is enough to show that $\{A\vect{x}_{k+1}, \dots, A\vect{x}_{n}\}$ is a basis of $\func{im}(A)$; then $n - k = r$ by the above and so $k = n - r$ as required.
+
+\textit{Spanning}. Choose $A\vect{x}$ in $\func{im}(A)$, $\vect{x}$ in
+$\RR^n$, and write $\vect{x} = a_{1}\vect{x}_{1} + \dots + a_{k}\vect{x}_{k} + a_{k+1}\vect{x}_{k+1} + \dots + a_{n}\vect{x}_{n}$ where the $a_{i}$ are in $\RR$.
+Then $A\vect{x} = a_{k+1}A\vect{x}_{k+1} + \dots + a_{n}A\vect{x}_{n}$ because $\{\vect{x}_{1}, \dots, \vect{x}_{k}\} \subseteq \func{null}(A)$.
+
+\textit{Independence}. Let $t_{k+1}A\vect{x}_{k+1} + \dots + t_{n}A\vect{x}_{n} = \vect{0}$, $t_{i}$ in $\RR$. Then $t_{k+1}\vect{x}_{k+1} + \dots + t_{n}\vect{x}_{n}$ is in $\func{null} A$, so $t_{k+1}\vect{x}_{k+1} + \dots + t_{n}\vect{x}_{n} = t_{1}\vect{x}_{1} + \dots + t_{k}\vect{x}_{k}$ for some $t_{1}, \dots, t_{k}$ in $\RR$. But then the independence of the $\vect{x}_{i}$ shows that $t_{i} = 0$ for every $i$.
+\end{proof}
+
+\begin{example}{}{015632}
+If $A = 
+\leftB \begin{array}{rrrr}
+1 & -2 & 1 & 1 \\
+-1 & 2 & 0 & 1 \\
+2 & -4 & 1 & 0
+\end{array} \rightB$, find bases of $\func{null}(A)$ and $\func{im}(A)$, and so find their dimensions.
+
+\begin{solution}
+If $\vect{x}$ is in $\func{null}(A)$, then $A\vect{x} = \vect{0}$, so $\vect{x}$ is given by solving the system $A\vect{x} = \vect{0}$. The reduction of the augmented matrix to reduced form is
+\begin{equation*}
+\leftB \begin{array}{rrrr|r}
+1 & -2 & 1 & 1 & 0 \\
+-1 & 2 & 0 & 1 & 0 \\
+2 & -4 & 1 & 0 & 0
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrr|r}
+1 & -2 & 0 & -1 & 0 \\
+0 &  0 & 1 &  2 & 0 \\
+0 &  0 & 0 &  0 & 0 
+\end{array} \rightB
+\end{equation*}
+Hence $r = \func{rank}(A) = 2$. Here, $\func{im}(A) = \func{col}(A)$ has basis 
+$\left\{
+\leftB \begin{array}{r}
+1\\
+-1\\
+2
+\end{array} \rightB, \leftB \begin{array}{r}
+1\\
+0\\
+1
+\end{array} \rightB
+\right\}$ by Theorem~\ref{thm:015444} because the leading $1$s are in columns 1 and 3. In particular, $\func{dim}[\func{im}(A)] = 2 = r$ as in Theorem~\ref{thm:015561}.
+
+Turning to $\func{null}(A)$, we use gaussian elimination. The leading variables are $x_{1}$ and $x_{3}$, so the nonleading variables become parameters: $x_{2} = s$ and $x_{4} = t$. It follows from the reduced matrix that $x_{1} = 2s + t$ and $x_{3} = -2t$, so the general solution is
+\begin{equation*}
+\vect{x} = 
+\leftB \begin{array}{r}
+x_1\\
+x_2\\
+x_3\\
+x_4
+\end{array} \rightB = \leftB \begin{array}{c}
+2s + t\\
+s\\
+-2t\\
+t
+\end{array} \rightB = s\vect{x}_1 + t\vect{x}_2 \mbox{ where } \vect{x}_1 = 
+\leftB \begin{array}{r}
+2\\
+1\\
+0\\
+0
+\end{array} \rightB, \mbox{ and } \vect{x}_2 =
+\leftB \begin{array}{r}
+1\\
+0\\
+-2\\
+1
+\end{array} \rightB.
+\end{equation*}
+Hence $\func{null}(A)$. But $\vect{x}_{1}$ and $\vect{x}_{2}$ \textit{are} solutions (basic), so
+\begin{equation*}
+\func{null}(A) = \func{span}\{\vect{x}_1, \vect{x}_2 \}
+\end{equation*}
+However Theorem~\ref{thm:015561} asserts that $\{\vect{x}_{1}, \vect{x}_{2}\}$ is a \textit{basis} of $\func{null}(A)$. (In fact it is easy to verify directly that $\{\vect{x}_{1}, \vect{x}_{2}\}$ is independent in this case.) In particular, $\func{dim}[\func{null}(A)] = 2 = n - r$, as Theorem~\ref{thm:015561} asserts.
+\end{solution}
+\end{example}
+
+Let $A$ be an $m \times n$ matrix. Corollary~\ref{cor:015516} of Theorem~\ref{thm:015444} asserts that $\func{rank} A \leq m$ and $\func{rank} A \leq n$, and it is natural to ask when these extreme cases arise. If $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}$ are the columns of $A$, Theorem~\ref{thm:014172} shows that $\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\}$ spans $\RR^m$ if and only if the system $A\vect{x} = \vect{b}$ is consistent for every $\vect{b}$ in $\RR^m$, and that $\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\}$ is independent if and only if $A\vect{x} = \vect{0}$, $\vect{x}$ in $\RR^n$, implies $\vect{x} = \vect{0}$. The next two useful theorems improve on both these results, and relate them to when the rank of $A$ is $n$ or $m$.
+
+\begin{theorem}{}{015672} %theorem3
+The following are equivalent for an $m \times n$ matrix $A$:
+
+\begin{enumerate}
+\item $\func{rank} A = n$.
+
+\item The rows of $A$ span $\RR^n$.
+
+\item The columns of $A$ are linearly independent in $\RR^m$.
+
+\item The $n \times n$ matrix $A^{T}A$ is invertible.
+
+\item $CA = I_{n}$ for some $n \times m$ matrix $C$.
+
+\item If $A\vect{x} = \vect{0}$, $\vect{x}$ in $\RR^n$, then $\vect{x} = \vect{0}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) $\Rightarrow$ (2). We have $\func{row} A \subseteq \RR^n$, and $\func{dim}(\func{row} A) = n$ by (1), so $\func{row} A = \RR^n$ by Theorem~\ref{thm:014447}. This is (2).
+
+(2) $\Rightarrow$ (3). By (2), $\func{row} A = \RR^n$, so $\func{rank} A = n$. This means $\func{dim}(\func{col} A) = n$. Since the $n$ columns of $A$ span $\func{col} A$, they are independent by Theorem~\ref{thm:014436}.
+
+(3) $\Rightarrow$ (4). If $(A^{T}A)\vect{x} = \vect{0}$, $\vect{x}$ in $\RR^n$, we show that $\vect{x} = \vect{0}$ (Theorem~\ref{thm:004553}). We have
+\begin{equation*}
+\vectlength A\vect{x}\vectlength^2 = (A\vect{x})^TA\vect{x} = \vect{x}^TA^TA\vect{x} = \vect{x}^T\vect{0} = \vect{0}
+\end{equation*}
+Hence $A\vect{x} = \vect{0}$, so $\vect{x} = \vect{0}$ by (3) and Theorem~\ref{thm:014172}.
+
+(4) $\Rightarrow$ (5). Given (4), take $C = (A^{T}A)^{-1}A^{T}$.
+
+(5) $\Rightarrow$ (6). If $A\vect{x} = \vect{0}$, then left multiplication by $C$ (from (5)) gives $\vect{x} = \vect{0}$.
+
+(6) $\Rightarrow$ (1). Given (6), the columns of $A$ are independent by Theorem~\ref{thm:014172}. Hence $\func{dim}(\func{col} A) = n$, and (1) follows.
+\end{proof}
+
+\begin{theorem}{}{015711} %theorem4
+The following are equivalent for an $m \times n$ matrix $A$:
+
+\begin{enumerate}
+\item $\func{rank} A = m$.
+
+\item The columns of $A$ span $\RR^m$.
+
+\item The rows of $A$ are linearly independent in $\RR^n$.
+
+\item The $m \times m$ matrix $AA^T$ is invertible.
+
+\item $AC = I_m$ for some $n \times m$ matrix $C$.
+
+\item The system $A\vect{x} = \vect{b}$ is consistent for every $\vect{b}$ in $\RR^m$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) $\Rightarrow$ (2). By (1), $\func{dim}(\func{col} A = m$, so $\func{col} A = \RR^m$ by Theorem~\ref{thm:014447}.
+
+(2) $\Rightarrow$ (3). By (2), $\func{col} A = \RR^m$, so $\func{rank} A = m$. This means $\func{dim}(\func{row} A) = m$. Since the $m$ rows of $A$ span $\func{row} A$, they are independent by Theorem~\ref{thm:014436}.
+
+(3) $\Rightarrow$ (4). We have $\func{rank} A = m$ by (3), so the $n \times m$ matrix $A^{T}$ has rank $m$. Hence applying Theorem~\ref{thm:015672} to $A^{T}$ in place of $A$ shows that $(A^{T})^{T}A^{T}$ is invertible, proving (4).
+
+(4) $\Rightarrow$ (5). Given (4), take $C = A^{T}(AA_{T})^{-1}$ in (5).
+
+(5) $\Rightarrow$ (6). Comparing columns in $AC = I_{m}$ gives $A\vect{c}_{j} = \vect{e}_{j}$ for each $j$, where $\vect{c}_{j}$ and $\vect{e}_{j}$ denote column $j$ of $C$ and $I_{m}$ respectively. Given $\vect{b}$ in $\RR^m$, write $\vect{b} = \sum_{j=1}^{m} r_j\vect{e}_j$, $r_{j}$ in $\RR$. Then $A\vect{x} = \vect{b}$ holds with $\vect{x}= \sum_{j=1}^{m} r_j\vect{c}_j $ as the reader can verify.
+
+(6) $\Rightarrow$ (1). Given (6), the columns of $A$ span $\RR^m$ by Theorem~\ref{thm:014172}. Thus $\func{col} A = \RR^m$ and (1) follows.
+\end{proof}
+
+\begin{example}{}{015762}
+Show that $\leftB \begin{array}{cc}
+3 & x + y + z \\
+x + y + z & x^2 +y^2 + z^2
+\end{array} \rightB$ is invertible if $x$, $y$, and $z$ are not all equal.
+
+\begin{solution}
+The given matrix has the form $A^{T}A$ where $A =
+\leftB \begin{array}{rr}
+1 & x\\
+1 & y \\
+1 & z
+\end{array} \rightB$ has independent columns because $x$, $y$, and $z$ are not all equal (verify). Hence Theorem~\ref{thm:015672} applies.
+\end{solution}
+\end{example}
+
+Theorem~\ref{thm:015672} and Theorem~\ref{thm:015711} relate several important properties of an $m \times n$ matrix $A$ to the invertibility of the square, symmetric matrices $A^{T}A$ and $AA^{T}$. In fact, even if the columns of $A$ are not independent or do not span $\RR^m$, the matrices $A^{T}A$ and $AA^T$ are both symmetric and, as such, have real eigenvalues as we shall see. We return to this in Chapter~\ref{chap:7}.
+
+\section*{Exercises for \ref{sec:5_4}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:5_4}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case find bases for the row and column spaces of $A$ and determine the rank of $A$.
+
+\begin{exenumerate}
+\exitem
+$\leftB \begin{array}{rrrr}
+2 & -4 & 6 & 8 \\
+2 & -1 & 3 & 2 \\
+4 & -5 & 9 & 10\\
+0 & -1 & 1 & 2
+\end{array} \rightB$
+\exitem 
+$\leftB \begin{array}{rrr}
+2 & -1 & 1 \\
+-2 & 1 & 1 \\
+4 & -2 & 3 \\
+-6 & 3 & 0
+\end{array} \rightB$
+\exitem*
+$\leftB \begin{array}{rrrrr}
+1 & -1 & 5 & -2 & 2 \\
+2 & -2 & -2 & 5 & 1 \\
+0 & 0 & -12 & 9 & -3 \\
+-1 & 1 & 7 & -7 & 1
+\end{array} \rightB$
+\exitem*
+$\leftB \begin{array}{rrrr}
+1 & 2 & -1 & 3 \\
+-3 & -6 & 3 & -2
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item \hspace{1em} \\
+\hspace*{-2em}$
+\left\{
+\leftB \begin{array}{r}
+2\\
+-1\\
+1
+\end{array} \rightB, \leftB \begin{array}{r}
+0\\
+0\\
+1
+\end{array} \rightB
+\right\};
+\left\{
+\leftB \begin{array}{r}
+2\\
+-2\\
+4\\
+-6
+\end{array} \rightB, \leftB \begin{array}{r}
+1\\
+1\\
+3\\
+0
+\end{array} \rightB
+\right\}; 2$
+
+\setcounter{enumi}{3}
+\item 
+$\left\{
+\leftB \begin{array}{r}
+1\\
+2\\
+-1\\
+3
+\end{array} \rightB, \leftB \begin{array}{r}
+0\\
+0\\
+0\\
+1
+\end{array} \rightB
+\right\}; 
+\left\{
+\leftB \begin{array}{r}
+1\\
+-3
+\end{array} \rightB, \leftB \begin{array}{r}
+3\\
+-2
+\end{array} \rightB
+\right\}; 2$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case find a basis of the subspace $U$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $U = \func{span}\{(1, -1, 0, 3), (2, 1, 5, 1), (4, -2, 5, 7)\}$
+
+\item $U = \func{span}\{(1, -1, 2, 5, 1), (3, 1, 4, 2, 7), \\ (1, 1, 0, 0, 0), (5, 1, 6, 7, 8)\}$
+
+\item
+$U = \func{span}
+\left\{
+\leftB \begin{array}{r}
+1\\
+1\\
+0\\
+0
+\end{array} \rightB, \leftB \begin{array}{r}
+0\\
+0\\
+1\\
+1
+\end{array} \rightB, \leftB \begin{array}{r}
+1\\
+0\\
+1\\
+0
+\end{array} \rightB, \leftB \begin{array}{r}
+0\\
+1\\
+0\\
+1
+\end{array} \rightB
+\right\}$
+
+\item \hspace{1em} \\
+\hspace*{-2.5em}$
+U = \func{span}
+\left\{
+\leftB \begin{array}{r}
+1\\
+5\\
+-6
+\end{array} \rightB, \leftB \begin{array}{r}
+2\\
+6\\
+-8
+\end{array} \rightB, \leftB \begin{array}{r}
+3\\
+7\\
+-10
+\end{array} \rightB, \leftB \begin{array}{r}
+4\\
+8\\
+12
+\end{array} \rightB
+\right\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\left\{
+\leftB \begin{array}{r}
+1\\
+1\\
+0\\
+0\\
+0
+\end{array} \rightB, \leftB \begin{array}{r}
+0\\
+-2\\
+2\\
+5\\
+1
+\end{array} \rightB, \leftB \begin{array}{r}
+0\\
+0\\
+2\\
+-3\\
+6
+\end{array} \rightB
+\right\}$
+
+\setcounter{enumi}{3}
+\item 
+$\left\{
+\leftB \begin{array}{r}
+1\\
+5\\
+-6
+\end{array} \rightB, \leftB \begin{array}{r}
+0\\
+1\\
+-1
+\end{array} \rightB
+\leftB \begin{array}{r}
+0\\
+0\\
+1
+\end{array} \rightB
+\right\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Can a $3 \times 4$ matrix have independent columns? \newline Independent rows? Explain.
+
+\item If $A$ is $4 \times 3$ and $\func{rank} A = 2$, can $A$ have independent columns? Independent rows? Explain.
+
+\item If $A$ is an $m \times n$ matrix and $\func{rank} A = m$, show that $m \leq n$.
+
+\item Can a nonsquare matrix have its rows independent and its columns independent? Explain.
+
+\item Can the null space of a $3 \times 6$ matrix have dimension $2$? Explain.
+
+\item Suppose that $A$ is $5 \times 4$ and $\func{null}(A) = \RR\vect{x}$ for some column $\vect{x} \neq \vect{0}$. Can $\func{dim}(\func{im} A) = 2$?
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No; no 
+
+\setcounter{enumi}{3}
+\item No
+
+\setcounter{enumi}{5}
+\item  Otherwise, if $A$ is $m \times n$, we have $m = \func{dim}(\func{row} A) = \func{rank} A = \func{dim}(\func{col} A) = n$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is $m \times n$ show that 
+\begin{equation*}
+\func{col}(A) = \{A\vect{x} \mid \vect{x} \mbox{ in }\RR^n\}
+\end{equation*}
+
+\begin{sol}
+Let $A = 
+\leftB \begin{array}{ccc}
+\vect{c}_{1} & \dots & \vect{c}_{n}
+\end{array} \rightB$. Then $\func{col} A = \func{span}\{\vect{c}_{1}, \dots, \vect{c}_{n}\} =
+\{x_{1}\vect{c}_{1} + \dots + x_{n}\vect{c}_{n} \mid x_{i} \mbox{ in }\RR\}
+= \{A\vect{x} \mid \vect{x} \mbox{ in }\RR^n$\}.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is $m \times n$ and $B$ is $n \times m$, show that $AB = 0$ if and only if $\func{col} B \subseteq \func{null} A$.
+\end{ex}
+
+\begin{ex}
+Show that the rank does not change when an elementary row or column operation is performed on a matrix.
+\end{ex}
+
+\begin{ex}
+In each case find a basis of the null space of $A$. Then compute rank $A$ and verify (1) of Theorem~\ref{thm:015561}.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$A = \leftB \begin{array}{rrr}
+3 & 1 & 1 \\
+2 & 0 & 1 \\
+4 & 2 & 1 \\
+1 & -1 & 1
+\end{array} \rightB$
+
+\item 
+$A = \leftB \begin{array}{rrrrr}
+3 & 5 & 5 & 2 & 0 \\
+1 & 0 & 2 & 2 & 1 \\
+1 & 1 & 1 &-2 &-2 \\
+-2& 0 &-4 &-4 &-2 \\
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item The basis is 
+$\left\{
+\leftB \begin{array}{r}
+6\\
+0\\
+-4\\
+1\\
+0
+\end{array} \rightB, \leftB \begin{array}{r}
+5\\
+0\\
+-3\\
+0\\
+1
+\end{array} \rightB
+\right\}$ so the dimension is $2$.
+
+Have $\func{rank} A = 3$ and $n - 3 = 2$.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak 
+
+\begin{ex}
+Let $A = \vect{c}\vect{r}$ where $\vect{c} \neq \vect{0}$ is a column in $\RR^m$ and $\vect{r} \neq \vect{0}$ is a row in $\RR^n$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{col} A = \func{span}\{\vect{c}\}$ and \newline $\func{row} A = \func{span}\{\vect{r}\}$.
+
+\item Find $\func{dim}(\func{null} A$).
+
+\item Show that $\func{null} A = \func{null} \vect{r}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $n - 1$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be $m \times n$ with columns $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\{\vect{c}_{1}, \dots, \vect{c}_{n}\}$ is independent, show $\func{null} A = \{\vect{0}\}$.
+
+\item If $\func{null} A = \{\vect{0}\}$, show that $\{\vect{c}_{1}, \dots, \vect{c}_{n}\}$ is independent.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $r_{1}\vect{c}_{1} + \dots + r_{n}\vect{c}_{n} = \vect{0}$, let $\vect{x} = \leftB r_{1}, \dots, r_{n} \rightB^{T}$. Then $C\vect{x} = r_{1}\vect{c}_{1} + \dots + r_{n}\vect{c}_{n} = \vect{0}$, so $\vect{x}$ is in $\func{null} A = 0$. Hence each $r_{i} = 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be an $n \times n$ matrix.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A^{2} = 0$ if and only if $\func{col} A \subseteq \func{null} A$.
+
+\item Conclude that if $A^{2} = 0$, then $\func{rank} A \leq \frac{n}{2}$.
+
+\item Find a matrix $A$ for which $\func{col} A = \func{null} A$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Write $r = \func{rank} A$. Then \textbf{(a)} gives $r = \func{dim}(\func{col} A \leq \func{dim}(\func{null} A) = n - r$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $B$ be $m \times n$ and let $AB$ be $k \times n$. If $\func{rank} B = \func{rank}(AB)$, show that $\func{null} B = \func{null}(AB)$. [\textit{Hint}: Theorem~\ref{thm:015444}.]
+\end{ex}
+
+\begin{ex}
+	\label{ex:5_4_12}
+Give a careful argument why $\func{rank}(A^{T}) = \func{rank} A$.
+
+\begin{sol}
+We have $\func{rank}(A) = \func{dim}[\func{col}(A)]$ and $\func{rank}(A^T) = \func{dim}[\func{row}(A^T)]$. Let $\{\vect{c}_1, \vect{c}_2, \dots, \vect{c}_k\}$ be a basis of $\func{col}(A)$; it suffices to show that $\{\vect{c}_1^T, \vect{c}_2^T, \dots, \vect{c}_k^T\}$ is a basis of $\func{row}(A^T)$. But if $t_1\vect{c}_1^T + t_2\vect{c}_2^T + \dots + t_k\vect{c}_k^T = \vect{0}$, $t_j$ in $\RR$, then (taking transposes) $t_1\vect{c}_1 + t_2\vect{c}_2 + \dots + t_k\vect{c}_k = \vect{0}$ so each $t_j = 0$. Hence $\{\vect{c}_1^T, \vect{c}_2^T, \dots, \vect{c}_k^T\}$ is independent. Given $\vect{v}$ in $\func{row}(A^T)$ then $\vect{v}^T$ is in $\func{col}(A)$; say $\vect{v}^T = s_1\vect{c}_1 + s_2\vect{c}_2 + \dots + s_k\vect{c}_k, s_j $ in $\RR$:
+Hence $\vect{v} = s_1\vect{c}_1^T + s_2\vect{c}_2^T + \dots + s_k\vect{c}_k^T,$ so $\{\vect{c}_1^T, \vect{c}_2^T, \dots, \vect{c}_k^T \}$ spans $\func{row}(A^T)$, as required.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be an $m \times n$ matrix with columns $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}$. If $\func{rank} A = n$, show that $\{A^{T}\vect{c}_{1}, A^{T}\vect{c}_{2}, \dots, A^{T}\vect{c}_{n}\}$ is a basis of $\RR^n$.
+\end{ex}
+
+\begin{ex}
+	\label{ex:5_4_14}
+If $A$ is $m \times n$ and $\vect{b}$ is $m \times 1$, show that $\vect{b}$ lies in the column space of $A$ if and only if \newline $\func{rank} [A \ \vect{b}] = \func{rank} A$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A\vect{x} = \vect{b}$ has a solution if and only if $\func{rank} A$ = $\func{rank}[A \ \vect{b}]$. [\textit{Hint}: Exercises \ref{ex:5_4_12} and \ref{ex:5_4_14}.] 
+
+\item If $A\vect{x} = \vect{b}$ has no solution, show that \newline $\func{rank}[A \ \vect{b}] = 1 + \func{rank} A$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Let $\{\vect{u}_{1}, \dots, \vect{u}_{r}\}$ be a basis of $\func{col}(A)$. Then $\vect{b}$ is \textit{not} in $\func{col}(A)$, so $\{\vect{u}_{1}, \dots, \vect{u}_{r}, \vect{b}\}$ is linearly independent. Show that $\func{col}[A \ \vect{b}] = \func{span}\{\vect{u}_{1}, \dots, \vect{u}_{r}, \vect{b}\}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $X$ be a $k \times m$ matrix. If $I$ is the $m \times m$ identity matrix, show that $I + X^{T}X$ is invertible.
+
+
+[\textit{Hint}: $I + X^{T}X = A^{T}A$ where 
+$A = \leftB \begin{array}{c}
+I\\
+X
+\end{array} \rightB$ in block form.]
+\end{ex}
+
+\begin{ex}
+If $A$ is $m \times n$ of rank $r$, show that $A$ can be factored as $A = PQ$ where $P$ is $m \times r$ with $r$ independent columns, and $Q$ is $r \times n$ with $r$ independent rows. [\textit{Hint}: Let 
+$UAV = \leftB \begin{array}{rr}
+I_r & 0 \\
+0 & 0
+\end{array} \rightB$ by Theorem~\ref{thm:005369}, and write $U^{-1} = \leftB \begin{array}{rr}
+U_1 & U_2 \\
+U_3 & U_4
+\end{array} \rightB$ and $V^{-1} = \leftB \begin{array}{rr}
+V_1 & V_2 \\
+V_3 & V_4
+\end{array} \rightB$ in block form, where $U_{1}$ and $V_{1}$ are $r \times r$.]
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that if $A$ and $B$ have independent columns, so does $AB$.
+
+\item Show that if $A$ and $B$ have independent rows, so does $AB$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+A matrix obtained from $A$ by deleting rows and columns is called a \textbf{submatrix}\index{matrix!submatrix}\index{submatrix} of $A$. If $A$ has an invertible $k \times k$ submatrix, show that $\func{rank} A \geq k$. [\textit{Hint}: Show that row and column operations carry 
+\newline $A \rightarrow
+\leftB \begin{array}{rr}
+I_k & P \\
+0 & Q
+\end{array} \rightB$ in block form.] \textit{Remark}: It can be shown that $\func{rank} A$ is the largest integer $r$ such that $A$ has an invertible $r \times r$ submatrix.
+\end{ex}
+\end{multicols}

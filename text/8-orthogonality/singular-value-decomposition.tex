@@ -1,0 +1,1438 @@
+
+\section{The Singular Value Decomposition}\label{sec:SVD}
+
+\noindent When working with a square matrix $A$ it is clearly useful to be
+able to ``diagonalize'' $A$, that is to
+find a factorization $A=Q^{-1}DQ$ where $Q$ is invertible and $D$ is
+diagonal. Unfortunately such a factorization may not exist for $A$. However,
+even if $A$ is not square gaussian elimination provides a factorization of
+the form $A=PDQ$ where $P$ and $Q$ are invertible and $D$ is diagonal---the
+Smith Normal form (Theorem \ref{thm:005369}). However, if $A$ is real we can choose $P$ and $Q$ to be \emph{orthogonal} real matrices and $D$ to be real.
+Such a factorization is called a \textbf{singular value decomposition (SVD)}\index{singular value decomposition}
+for $A$, one of the most useful tools in applied linear algebra. In this
+Section we show how to explicitly compute an SVD for any real matrix $A$,
+and illustrate some of its many applications.
+
+We need a fact about two subspaces associated with an $m\times n$ matrix $A$:
+\begin{equation*}
+\func{im}A=\{A\vect{x}\mid \vect{x} \mbox{ in } \RR^{n}\}\qquad \mbox{and}\qquad \func{col}A=\func{span}\{\vect{a}\mid\vect{a} \mbox{ is a column of }A\}
+\end{equation*}
+
+\noindent Then $\func{im}A$ is called the \textbf{image}\index{image space}\index{subspaces!image} of $A$ (so
+named because of the linear transformation $\RR^{n}\rightarrow \RR^{m}$ with $\vect{x}\mapsto A\vect{x}$); and $\func{col}A$
+is called the \textbf{column space}\index{column space}\index{subspaces!column space} of $A$ (Definition \ref{def:015376}). Surprisingly,
+these spaces are equal:
+
+\begin{lemma}{}{svdlemma1}
+For any $m\times n$ matrix $A$, $\func{im} A=\func{col} A$.
+\end{lemma}
+
+\begin{proof} Let $A=\leftB \begin{array}{cccc} \vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n} \end{array}\rightB$ in terms of its columns. Let $\vect{x}\in \func{im} A$, say $\vect{x}=A\vect{y}$, $\vect{y}$ in $\RR^{n}$. If $\vect{y}=\leftB \begin{array}{cccc} y_{1} & y_{2} & \cdots & y_{n}\end{array}\rightB^{T}$, then $A\vect{y}=y_{1}\vect{a}_{1}+y_{2}\vect{a}_{2}+\cdots +y_{n}\vect{a}_{n}\in \func{col} A$ by
+Definition \ref{def:002668}. This shows that $\func{im} A\subseteq \func{col}A$.
+For the other inclusion, each $\vect{a}_{k}=A\vect{e}_{k}$ where $\vect{e}_{k}$ is column $k$ of $I_{n}$. 
+\end{proof}
+
+
+\subsection{Singular Value Decompositions}
+
+\noindent We know a lot about any real symmetric matrix: Its eigenvalues are
+real (Theorem \ref{thm:016397}), and it is orthogonally diagonalizable by the Principal
+Axes Theorem (Theorem \ref{thm:024303}). So for any real matrix $A$ (square or not),
+the fact that both $A^{T}A$ and $AA^{T}$ are real and symmetric suggests
+that we can learn a lot about $A$ by studying them. This section shows just
+how true this is.
+
+The following Lemma reveals some similarities between $A^{T}A$ and $AA^{T}$
+which simplify the statement and the proof of the SVD we are constructing.
+
+\begin{lemma}{}{svdlemma2}
+ Let $A$ be a real $m\times n$ matrix. Then:
+
+\begin{enumerate}
+\item The eigenvalues of $A^{T}A$ and $AA^{T}$ are real and non-negative.
+
+\item $A^{T}A$ and $AA^{T}$ have the same set of positive eigenvalues.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof} 
+\begin{enumerate}\item Let $\lambda $ be an eigenvalue of $A^{T}A$,
+with eigenvector $\vect{0}\neq \vect{q}\in \RR^{n}$.
+Then:
+\begin{equation*}
+\vectlength A\vect{q}\vectlength^{2}=(A\vect{q})^{T}(A\vect{q})=\vect{q}^{T}(A^{T}A\vect{q})=\vect{q}^{T}(\lambda \vect{q})=\lambda (\vect{q}^{T}\vect{q})=\lambda \vectlength \vect{q}\vectlength ^{2}
+\end{equation*}
+
+\noindent Then (1.) follows for $A^{T}A$, and the case $AA^{T}$ follows by
+replacing $A$ by $A^{T}$.
+
+\item Write $N(B)$ for the set of positive eigenvalues of a matrix $B$. We
+must show that $N(A^{T}A)=N(AA^{T})$. If $\lambda \in N(A^{T}A)$ with
+eigenvector $\vect{0}\neq \vect{q}\in \RR^{n}$, then $A\vect{q}\in \RR^{m}$ and 
+\begin{equation*}
+AA^{T}(A\vect{q})=A[(A^{T}A)\vect{q}]=A(\lambda \vect{q})=\lambda (A\vect{q})
+\end{equation*}
+
+\noindent Moreover, $A\vect{q}\neq \vect{0}$  since $A^{T}A\vect{q}=\lambda \vect{q}\neq \vect{0}$ and both $\lambda \neq 0$ and $\vect{q}\neq \vect{0}$. Hence $\lambda $ is an eigenvalue of $AA^{T}$, proving $N(A^{T}A)\subseteq N(AA^{T})$. For the other inclusion replace $A$ by $A^{T}$.
+\end{enumerate}
+\vspace*{-1em}
+\end{proof}
+
+To analyze an $m\times n$ matrix $A$ we have two symmetric matrices to work
+with: $A^{T}A$ and $AA^{T}$. In view of Lemma \ref{lem:svdlemma2}, we choose $A^{T}A$
+(sometimes called the \textbf{Gram}\index{Gram matrix}\index{matrix!Gram} matrix of $A$), and derive a series of
+facts which we will need. This narrative is a bit long, but trust that it
+will be worth the effort. We parse it out in several steps:
+
+
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=*]
+\item The $n\times n$ matrix $A^{T}A$ is real and symmetric
+so, by the Principal Axes Theorem \ref{thm:024303}, let \newline $\{\vect{q}_{1},\vect{q}_{2},\ldots ,\vect{q}_{n}\}\subseteq \RR^{n}$ be an orthonormal basis of eigenvectors of $A^{T}A,$ with corresponding eigenvalues $\lambda_{1},\lambda_{2},\ldots ,\lambda_{n}$. By Lemma \ref{lem:svdlemma2}(1), $\lambda_{i}$
+is real for each $i$ and $\lambda_{i}\geq 0$. By re-ordering the $\vect{q}_{i}$ we may (and do) assume that
+\begin{equation}\label{svdeqni}
+\lambda_{1}\geq \lambda_{2}\geq \cdots \geq \lambda_{r}>0 \quad \mbox{ and }\footnote{Of course they could \emph{all} be positive $(r=n)$ or \emph{all} zero (so $A^{T}A=0$, and hence $A=0$ by Exercise \ref{ex:5.3.9}).} \quad \lambda_{i}=0 \mbox{ if } i>r  \tag{\textbf{i}}
+\end{equation}
+
+\noindent By Theorems \ref{thm:024227} and \ref{thm:009214}, the matrix
+\begin{equation}\label{svdeqnii}
+Q=\leftB \begin{array}{cccc} \vect{q}_{1} & \vect{q}_{2} & \cdots & \vect{q}_{n} \end{array}\rightB \mbox{ is orthogonal }\quad \mbox{and} \quad \mbox{ orthogonally diagonalizes }A^{T}A \tag{\textbf{ii}}
+\end{equation}
+
+\item Even though the $\lambda_{i}$ are the eigenvalues of 
+$A^{T}A$, the number $r$ in (\ref{svdeqni}) turns out to be $\func{rank} A$.
+To understand why, consider the vectors $A\vect{q}_{i}\in \func{im} A$.
+For all $i$,$j$:
+\begin{equation*}
+A\vect{q}_{i}\dotprod A\vect{q}_{j}=(A\vect{q}_{i})^{T}A\vect{q}_{j}=\vect{q}_{i}^{T}(A^{T}A)\vect{q}_{j}=\vect{q}_{i}^{T}(\lambda_{j}\vect{q}_{j})=\lambda_{j}(\vect{q}_{i}^{T}\vect{q}_{j})=\lambda_{j}(\vect{q}_{i}\dotprod \vect{q}_{j})
+\end{equation*}
+
+\noindent Because $\{\vect{q}_{1},\vect{q}_{2},\ldots ,\vect{q}_{n}\}$ is an orthonormal set, this gives
+\begin{equation}\label{svdeqniii}
+A\vect{q}_{i}\dotprod A\vect{q}_{j}=0 \mbox{ if } i\neq j \quad \quad \mbox{and} \quad \quad \vectlength A\vect{q}_{i}\vectlength^{2}=\lambda_{i}\vectlength \vect{q}_{i}\vectlength ^{2}=\lambda_{i} \mbox{ for each } i \tag{\textbf{iii}}
+\end{equation}
+
+
+\noindent We can extract two conclusions from (\ref{svdeqniii}) and (\ref{svdeqni}): 
+\begin{equation}\label{svdeqniv}
+\{A\vect{q}_{1}, A\vect{q}_{2},\ldots ,A\vect{q}_{r}\}\subseteq \func{im} A \mbox{ is an orthogonal set}\quad \mbox{and} \quad A\vect{q}_{i}=\vect{0} \mbox{ if }i>r  \tag{\textbf{iv}}
+\end{equation}
+
+\noindent With this write $U=\func{span}\{A\vect{q}_{1}, A\vect{q}_{2},\ldots ,A\vect{q}_{r}\}\subseteq \func{im}A$; we claim that $U=\func{im}A$, that is $\func{im}A\subseteq U$. For this we must show
+that $A\vect{x}\in U$ for each $\vect{x}\in \RR^{n}$. Since $\{\vect{q}_{1},\ldots ,\vect{q}_{r},\ldots ,\vect{q}_{n}\}$ is a basis
+of $\RR^{n}$ (it is orthonormal), we can write $\vect{x}_{k}=t_{1}\vect{q}_{1}+\cdots +t_{r}\vect{q}_{r}+\cdots +t_{n}\vect{q}_{n}$ where each $t_{j}\in \RR$. Then, using (\ref{svdeqniv}) we
+obtain
+\begin{equation*}
+A\vect{x}=t_{1}A\vect{q}_{1}+\cdots +t_{r}A\vect{q}_{r}+\cdots +t_{n}A\vect{q}_{n}=t_{1}A\vect{q}_{1}+\cdots +t_{r}A\vect{q}_{r}\in U
+\end{equation*}
+
+\noindent This shows that $U=\func{im}A$, and so 
+\begin{equation}\label{svdeqnv}
+\{A\vect{q}_{1}, A\vect{q}_{2},\ldots ,A\vect{q}_{r}\} \mbox{ is an \emph{orthogonal} basis of } \func{im}(A) \tag{\textbf{v}}
+\end{equation}
+
+\noindent But $\func{col}A=\func{im}A$ by Lemma \ref{lem:svdlemma1}, and $\func{rank}A=\func{dim}(\func{col}A)$ by Theorem \ref{thm:015444}, so
+\begin{equation}\label{svdeqnvi}
+\func{rank} A=\func{dim}(\func{col}A)=\func{dim}(\func{im}A)\overset{(\text{\vect{v}})}{=}r \tag{\textbf{vi}}
+\end{equation}
+
+\item Before proceeding, some definitions are in
+order:
+
+\begin{definition}{}{svddef1}
+The real numbers $\sigma_{i}=\sqrt{\lambda_{i}}\overset{\text{(\textbf{iii})}}{=}\vectlength A\bar{\vect{q}_{i}}\vectlength $ for $i=1,2,\ldots,n$, are called the \textbf{singular values}\index{singular values} of the matrix $A$. 
+\end{definition}
+
+Clearly $\sigma_{1},\sigma_{2},\ldots ,\sigma_{r}$ are the \emph{positive}
+singular values of $A$. By (\ref{svdeqni}) we have 
+\begin{equation}\label{svdeqnvii}
+\sigma_{1}\geq \sigma _{2}\geq \cdots \geq \sigma_{r}>0 \qquad \mbox{and} \qquad \sigma_{i}=0 \mbox{ if } i>r \tag{\textbf{vii}}
+\end{equation}
+
+\noindent With (\ref{svdeqnvi}) this makes the following definitions depend
+only upon $A$. 
+
+\begin{definition}{}{svddef2}
+Let $A$ be a real, $m\times n$ matrix of rank $r$, with positive singular
+values $\sigma_{1}\geq \sigma_{2}\geq \cdots \geq \sigma_{r}>0$ and $\sigma_{i}=0$ if $i>r$. Define:
+
+\begin{equation*}
+D_{A}=\func{diag}(\sigma_{1},\ldots ,\sigma_{r})\quad
+\qquad \mbox{and}\quad \qquad \Sigma_{A}=
+\leftB 
+\begin{array}{cc}
+D_{A} & 0 \\ 
+0 & 0
+\end{array}
+\rightB_{m\times n}
+\end{equation*}
+
+\noindent Here $\Sigma_{A}$ is in block form and is called the \textbf{singular matrix}\index{singular matrix}\index{matrix!singular matrix} of $A$.
+\end{definition}
+
+\noindent The singular values $\sigma_{i}$ and the matrices $D_{A}$ and $\Sigma_{A}$ will be referred to frequently below.
+
+\noindent \item Returning to our narrative, normalize the vectors $A\vect{q}_{1}$, $A\vect{q}_{2},\ldots, A\vect{q}_{r}$, by defining
+\begin{equation}\label{svdeqnviii}
+\vect{p}_{i}=\frac{1}{\vectlength A\vect{q}_{i}\vectlength }A\vect{q}_{i}\in \RR^{m} \quad \mbox{for each }
+i=1,2,\ldots ,r \tag{\textbf{viii}}
+\end{equation}
+
+\noindent By (\ref{svdeqnv}) and Lemma \ref{lem:svdlemma1}, we conclude that
+\begin{equation}\label{svdeqnix}
+\{\vect{p}_{1},\vect{p}_{2},\ldots ,\vect{p}_{r}\} \mbox{ is an \emph{orthonormal} basis of } \func{col}A\subseteq \RR^{m}  \tag{\textbf{ix}}
+\end{equation}
+
+\noindent Employing the Gram-Schmidt algorithm (or otherwise), construct $\vect{p}_{r+1},\ldots ,\vect{p}_{m}$ so that
+\begin{equation}\label{svdeqnx}
+\{\vect{p}_{1},\ldots ,\vect{p}_{r},\ldots ,\vect{p}_{m}\} \mbox{ is an orthonormal basis of } \RR^{m} \tag{\textbf{x}}
+\end{equation}
+
+\item By (\ref{svdeqnx}) and (\ref{svdeqnii}) we have \emph{two}
+orthogonal matrices
+\begin{equation*}
+P=\leftB \begin{array}{ccccc} \vect{p}_{1} & \cdots & \vect{p}_{r} & \cdots & \vect{p}_{m} \end{array}\rightB \mbox{ of size } m\times m \quad \mbox{and} \quad Q=\leftB \begin{array}{ccccc} \vect{q}_{1} & \cdots & \vect{q}_{r} & \cdots & \vect{q}_{n}\end{array}\rightB \mbox{ of size } n\times n
+\end{equation*}
+
+\noindent These matrices are related. In fact we have: 
+\begin{equation}\label{svdeqnxi}
+\sigma_{i}\vect{p}_{i}=\sqrt{\lambda_{i}} \vect{p}_{i}\overset{(\text{\ref{svdeqniii}})}{=}\vectlength A\vect{q}_{i}\vectlength \vect{p}_{i}\overset{(\text{\ref{svdeqnviii}})}{=}A\vect{q}_{i} \quad \mbox{ for each } i=1,2,\ldots ,r \tag{\textbf{xi}}
+\end{equation}
+
+\noindent This yields the following expression for $AQ$ in terms of its
+columns:
+\begin{equation}\label{svdeqnxii}
+AQ=\leftB \begin{array}{cccccc} A\vect{q}_{1} & \cdots & A\vect{q}_{r} & A\vect{q}_{r+1} & \cdots & A\vect{q}_{n}\end{array}\rightB \overset{(\text{\ref{svdeqniv}})}{=}\leftB \begin{array}{cccccc}\sigma _{1} \vect{p}_{1} & \cdots & \sigma_{r}\vect{p}_{r}& \vect{0}& \cdots &\vect{0}\end{array}\rightB \tag{\textbf{xii}}
+\end{equation}
+
+\noindent Then we compute:
+\begin{align*}
+P\Sigma _{A} & =  \leftB \begin{array}{cccccc}\vect{p}_{1} & \cdots & \vect{p}_{r} & \vect{p}_{r+1} & \cdots & \vect{p}_{m}\end{array}\rightB \leftB 
+\begin{array}{cc}
+\begin{array}{ccc}
+\sigma _{1} & \cdots  & 0 \\ 
+\vdots  & \ddots  & \vdots  \\ 
+0 & \cdots  & \sigma _{r}
+\end{array}
+& 
+\begin{array}{ccc}
+0 & \cdots  & 0 \\ 
+\vdots  &  & \vdots  \\ 
+0 & \cdots  & 0
+\end{array}
+\\ 
+\begin{array}{ccc}
+0 & \cdots  & ~0 \\ 
+\vdots  &  & \vdots  \\ 
+0 & \cdots  & ~0
+\end{array}
+& 
+\begin{array}{ccc}
+0 & \cdots  & 0 \\ 
+\vdots  &  & \vdots  \\ 
+0 & \cdots  & 0
+\end{array}
+\end{array}
+\rightB  \\ 
+&= \leftB \begin{array}{cccccc}\sigma_{1}\vect{p}_{1} & \cdots & \sigma_{r}\vect{p}_{r} & \vect{0} & \cdots & \vect{0}\end{array}\rightB \\ 
+& \overset{\text{(\ref{svdeqnxii})}}{=}  AQ
+\end{align*}
+
+\noindent Finally, as $Q^{-1}=Q^{T}$ it follows that $A=P\Sigma _{A}Q^{T}$.
+\end{enumerate}
+
+With this we can state the main theorem of this Section.
+
+\begin{theorem}{}{svdtheorem1} 
+Let $A$ be a real $m\times n$ matrix, and let $\sigma_{1}\geq \sigma_{2}\geq
+\cdots \geq \sigma_{r}>0$ be the positive singular values of $A$.
+Then $r$ is the rank of $A$ and we have the factorization
+\begin{equation*}
+A=P\Sigma_{A}Q^{T}\qquad \mbox{where } P \mbox{ and } Q \mbox{ are orthogonal matrices}
+\end{equation*}
+\end{theorem}
+
+The factorization $A=P\Sigma _{A}Q^{T}$ in Theorem \ref{thm:svdtheorem1}, where $P$ and $Q$
+are orthogonal matrices, is called a \emph{Singular Value Decomposition} (\emph{SVD}) of $A$. This decomposition is not unique. For example if $r<m$ then the vectors $\vect{p}_{r+1},\ldots ,\vect{p}_{m}$ can be \emph{any}
+extension of $\{\vect{p}_{1},\ldots ,\vect{p}_{r}\}$ to an orthonormal
+basis of $\RR^{m}$, and each will lead to a different matrix $P$ in
+the decomposition. For a more dramatic example, if $A=I_{n}$ then $\Sigma_{A}=I_{n}$, and $A=P\Sigma_{A}P^{T}$ is a SVD of $A$ for \emph{any} orthogonal $n\times n$ matrix $P$. 
+
+\begin{example}{}{svdexample1}
+Find a singular value decomposition for $A=
+\leftB 
+\begin{array}{rrr}
+1 & 0 & 1 \\ 
+-1 & 1 & 0
+\end{array}
+\rightB$.
+
+\begin{solution} We have $A^{T}A=
+\leftB 
+\begin{array}{rrr}
+2 & -1 & 1 \\ 
+-1 & 1 & 0 \\ 
+1 & 0 & 1
+\end{array}
+\rightB$, so the characteristic polynomial is 
+\begin{equation*}
+c_{A^{T}A}(x)=\func{det}
+\leftB 
+\begin{array}{ccc}
+x-2 & 1 & -1 \\ 
+1 & x-1 & 0 \\ 
+-1 & 0 & x-1
+\end{array}
+\rightB =(x-3)(x-1)x
+\end{equation*}
+
+\noindent Hence the eigenvalues of $A^{T}A$ (in descending order) are $\lambda_{1}=3$, $\lambda_{2}=1$ and $\lambda_{3}=0$ with, respectively, unit eigenvectors 
+\begin{equation*}
+\vect{q}_{1}=\frac{1}{\sqrt{6}}
+\leftB 
+\begin{array}{r}
+2 \\ 
+-1 \\ 
+1
+\end{array}
+\rightB, \quad  \vect{q}_{2}=\frac{1}{\sqrt{2}}
+\leftB 
+\begin{array}{r}
+0 \\ 
+1 \\ 
+1
+\end{array}
+\rightB,\quad  \mbox{and} \quad \vect{q}_{3}=\frac{1}{\sqrt{3}}
+\leftB 
+\begin{array}{r}
+-1 \\ 
+-1 \\ 
+1
+\end{array}
+\rightB
+\end{equation*}
+
+\noindent It follows that the orthogonal matrix $Q$ in Theorem \ref{thm:svdtheorem1} is
+\begin{equation*}
+Q=\leftB \begin{array}{ccc}\vect{q}_{1} & \vect{q}_{2} & \vect{q}_{3}\end{array}\rightB=\frac{1}{\sqrt{6}}
+\leftB 
+\begin{array}{rrr}
+2 & 0 & -\sqrt{2} \\ 
+-1 & \sqrt{3} & -\sqrt{2} \\ 
+1 & \sqrt{3} & \sqrt{2}
+\end{array}
+\rightB 
+\end{equation*}
+
+\noindent The singular values here are $\sigma_{1}=\sqrt{3}$, $\sigma_{2}=1 $ and $\sigma_{3}=0,$ so $\func{rank}(A)=2$---clear in this case---and the singular matrix is
+\begin{equation*}
+\Sigma_{A}=
+\leftB
+\begin{array}{ccc}
+\sigma_{1} & 0 & 0 \\ 
+0 & \sigma_{2} & 0
+\end{array}
+\rightB =\leftB
+\begin{array}{ccc}
+\sqrt{3} & 0 & 0 \\ 
+0 & 1 & 0
+\end{array}
+\rightB 
+\end{equation*}
+
+\noindent So it remains to find the $2\times 2$ orthogonal matrix $P$ in
+Theorem \ref{thm:svdtheorem1}. This involves the vectors 
+\begin{equation*}
+A\vect{q}_{1}=\frac{\sqrt{6}}{2}
+\leftB 
+\begin{array}{r}
+1 \\ 
+-1
+\end{array}
+\rightB,\quad  A\vect{q}_{2}=\frac{\sqrt{2}}{2}
+\leftB 
+\begin{array}{c}
+1 \\ 
+1
+\end{array}
+\rightB ,\quad  \mbox{and} \quad A\vect{q}_{3}=
+\leftB 
+\begin{array}{c}
+0 \\ 
+0
+\end{array}
+\rightB 
+\end{equation*}
+
+\noindent Normalize $A\vect{q}_{1}$ and $A\vect{q}_{2}$ to get
+\begin{equation*}
+\vect{p}_{1}=\frac{1}{\sqrt{2}}
+\leftB 
+\begin{array}{r}
+1 \\ 
+-1
+\end{array}
+\rightB  \quad  \mbox{and} \quad \vect{p}_{2}=\frac{1}{\sqrt{2}}
+\leftB
+\begin{array}{c}
+1 \\ 
+1
+\end{array}
+\rightB 
+\end{equation*}
+
+\noindent In this case, $\{\vect{p}_{1},\vect{p}_{2}\}$ is \emph{already}
+a basis of $\RR^{2}$ (so the Gram-Schmidt algorithm is not needed),
+and we have the $2\times 2$ orthogonal matrix 
+
+\begin{equation*}
+P=\leftB \begin{array}{cc} \vect{p}_{1} & \vect{p}_{2} \end{array}\rightB=\frac{1}{\sqrt{2}}
+\leftB 
+\begin{array}{rr}
+1 & 1 \\ 
+-1 & 1
+\end{array}
+\rightB 
+\end{equation*}
+
+\noindent Finally (by Theorem \ref{thm:svdtheorem1}) the singular value decomposition for $A$ is 
+
+\begin{equation*}
+A=P\Sigma_{A}Q^{T}=
+\frac{1}{\sqrt{2}}\leftB 
+\begin{array}{rr}
+1 & 1 \\ 
+-1 & 1
+\end{array}
+\rightB \leftB 
+\begin{array}{ccc}
+\sqrt{3} & 0 & 0 \\ 
+0 & 1 & 0
+\end{array}
+\rightB \frac{1}{\sqrt{6}}\leftB 
+\begin{array}{rrr}
+2 & -1 & 1 \\ 
+0 & \sqrt{3} & \sqrt{3} \\ 
+-\sqrt{2} & -\sqrt{2} & \sqrt{2}
+\end{array}
+\rightB 
+\end{equation*}
+
+\noindent Of course this can be confirmed by direct matrix multiplication.
+\end{solution}
+\end{example}
+
+Thus, computing an SVD for a real matrix $A$ is a routine matter, and we now
+describe a systematic procedure for doing so.
+
+
+\begin{theorem*}{SVD Algorithm}{svdalgorithm}
+Given a real $m\times n$ matrix $A$, find an SVD $A=P\Sigma_{A}Q^{T}$ as follows:
+
+\begin{enumerate}
+\item Use the Diagonalization Algorithm (see page \pageref{thm:009304}) to find
+the (real and non-negative) eigenvalues $\lambda_{1},\lambda_{2},\ldots,\lambda_{n}$ of $A^{T}A$ with corresponding (orthonormal) eigenvectors $\vect{q}_{1},\vect{q}_{2},\ldots ,\vect{q}_{n}$. Reorder
+the $\vect{q}_{i}$ (if necessary) to ensure that the nonzero eigenvalues
+are $\lambda_{1}\geq \lambda_{2}\geq \cdots \geq \lambda_{r}>0$ and $\lambda_{i}=0$ if $i>r$.
+
+\item The integer $r$ is the rank of the matrix $A$.
+
+\item The $n\times n$ orthogonal matrix $Q$ in the SVD is $Q=\leftB \begin{array}{cccc}\vect{q}_{1} & \vect{q}_{2} & \cdots & \vect{q}_{n}\end{array}\rightB$.
+
+\item Define $\vect{p}_{i}=\frac{1}{\vectlength A\vect{q}_{i}\vectlength}A\vect{q}_{i}$ for $i=1,2,\ldots ,r$ (where $r$ is as in step 1).
+Then $\{\vect{p}_{1},\vect{p}_{2},\ldots ,\vect{p}_{r}\}$ is
+orthonormal in $\RR^{m}$ so (using Gram-Schmidt or otherwise) extend
+it to an orthonormal basis $\{\vect{p}_{1},\ldots ,\vect{p}_{r},\ldots , \vect{p}_{m}\}$ in $\RR^{m}$.
+
+\item The $m\times m$ orthogonal matrix $P$ in the SVD is $P=\leftB \begin{array}{ccccc} \vect{p}_{1} & \cdots & \vect{p}_{r} & \cdots & \vect{p}_{m}\end{array}\rightB$.
+
+\item The \emph{singular values} for $A$ are $\sigma_{1},\sigma_{2,}\ldots,\sigma_{n}$ where $\sigma_{i}=\sqrt{\lambda_{i}}$ for each $i$. Hence the nonzero singular values are $\sigma_{1}\geq \sigma_{2}\geq \cdots \geq \sigma_{r}>0$, and so the singular matrix of $A$ in the SVD is $\Sigma_{A}= 
+\leftB 
+\begin{array}{cc}
+\func{diag}(\sigma_{1},\ldots ,\sigma_{r}) & 0 \\ 
+0 & 0
+\end{array}
+\rightB_{m\times n}$.
+
+\item Thus $A=P\Sigma Q^{T}$ is a SVD for $A$.
+\end{enumerate}
+\end{theorem*}
+
+In practise the singular values $\sigma_{i}$, the matrices $P$ and $Q$, and
+even the rank of an $m\times n$ matrix are not calculated this way. There
+are sophisticated numerical algorithms for calculating them to a high degree
+of accuracy. The reader is referred to books on numerical linear algebra.
+
+So the main virtue of Theorem \ref{thm:svdtheorem1} is that it provides a way of \emph{constructing} an SVD for every real matrix $A$. In particular it shows that
+every real matrix $A$ \emph{has} a singular value decomposition\footnote{In fact every complex matrix has an SVD [J.T. Scheick, Linear Algebra with
+Applications, McGraw-Hill, 1997]} in the following, more general,
+sense:
+
+\begin{definition}{}{svddef3}
+A \textbf{Singular Value Decomposition} (\textbf{SVD})\index{singular value decomposition} of an $m\times n$ matrix $A$ of rank $r$ is a factorization $A=U\Sigma V^{T}$ where $U$ and $V$ are orthogonal and $\Sigma =  
+\leftB 
+\begin{array}{cc}
+D & 0 \\ 
+0 & 0
+\end{array}
+\rightB_{m\times n}$ in block form where $D=\func{diag}(d_{1},d_{2},\ldots ,d_{r})$ where each $d_{i}>0$, and $r\leq m$ and $r\leq n$.
+\end{definition}
+
+\noindent Note that for \emph{any} SVD $A=U\Sigma V^{T}$ we immediately
+obtain some information about $A$:
+
+\begin{lemma}{}{svdlemma3} 
+If $A=U\Sigma V^{T}$ is any SVD for $A$ as in Definition \ref{def:svddef3}, then:
+
+\begin{enumerate}
+\item $r=\func{rank}A$.
+
+\item The numbers $d_{1},d_{2},\dots ,d_{r}$ are the singular values of $A^{T}A$ in some order.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof} Use the notation of Definition \ref{def:svddef3}. We
+have
+\begin{equation*}
+A^{T}A=(V\Sigma^{T}U^{T})(U\Sigma V^{T})=V(\Sigma^{T}\Sigma)V^{T}
+\end{equation*}
+
+\noindent so $\Sigma^{T}\Sigma $ and $A^{T}A$ are similar $n\times n$
+matrices (Definition \ref{def:015930}). Hence $r=\func{rank} A$ by
+Corollary \ref{cor:015519}, proving (1.).  Furthermore, $\Sigma^{T}\Sigma $ and $A^{T}A$
+have the same eigenvalues by Theorem \ref{thm:016008}; that is (using (1.)):
+\begin{equation*}
+\{d_{1}^{2},d_{2}^{2},\dots ,d_{r}^{2}\}=\{\lambda_{1},\lambda_{2},\dots ,\lambda_{r}\} \quad \mbox{are equal as sets} 
+\end{equation*} 
+
+\noindent where $\lambda_{1},\lambda_{2},\dots ,\lambda_{r}$ are the
+positive eigenvalues of $A^{T}A$. Hence there is a permutation $\tau $ of $\{1,2,\cdots ,r\}$ such that  $d_{i}^{2}=\lambda_{i\tau }$ for each $i=1,2,\dots ,r$. Hence $d_{i}=\sqrt{\lambda_{i\tau }}=\sigma_{i\tau }$
+for each $i$ by Definition \ref{def:svddef1}. This proves (2.). 
+\end{proof} 
+
+We note in passing that more is true. Let $A$ be $m\times n$\ of rank $r$,
+and let $A=U\Sigma V^{T}$ be any SVD for $A$. Using the proof of Lemma \ref{lem:svdlemma3}
+we have $d_{i}=\sigma_{i\tau }$ for some permutation $\tau $ of $\{1,2,\dots ,r\}.$ In fact, it can be shown that there exist orthogonal
+matrices $U_{1}$ and $V_{1}$ obtained from $U$ and $V$ by $\tau$-permuting columns and rows respectively, such that $A=U_{1}\Sigma_{A}V_{1}^{T}$ is an SVD of $A$. 
+
+
+\subsection{Fundamental Subspaces}
+
+\noindent It turns out that any singular value decomposition contains a
+great deal of information about an $m\times n$ matrix $A$ and the subspaces
+associated with $A$. For example, in addition to Lemma \ref{lem:svdlemma3}, the set $\{\vect{p}_{1},\vect{p}_{2},\ldots ,\vect{p}_{r}\}$ of vectors
+constructed in the proof of Theorem \ref{thm:svdtheorem1} is an orthonormal basis of $\func{col} A$ (by (\ref{svdeqnv}) and (\ref{svdeqnviii}) in the proof). There
+are more such examples, which is the thrust of this subsection. In
+particular, there are four subspaces associated to a real $m\times n$ matrix 
+$A$ that have come to be called fundamental: 
+
+\begin{definition}{}{svddef4} 
+The \textbf{fundamental subspaces}\index{fundamental subspaces}\index{subspaces!fundamental} of an $m\times n$ matrix $A$ are:
+
+\begin{itemize}
+\item[] $\func{row}A=\func{span}\{\vect{x}\mid \vect{x} \mbox{ is a row of } A\}$
+
+\item[] $\func{col}A=\func{span}\{\vect{x}\mid \vect{x} \mbox{ is a column of } A\}$
+
+\item[] $\func{null}A=\{\vect{x}\in \RR^{n}\mid A\vect{x}=\vect{0}\}$
+
+\item[] $\func{null}A^{T}=\{\vect{x}\in \RR^{n}\mid A^{T}\vect{x}=\vect{0}\}$
+\end{itemize}
+\end{definition}
+
+\noindent If $A=U\Sigma V^{T}$ is \emph{any} SVD for the real $m\times n$
+matrix $A$, any orthonormal bases of $U$ and $V$ provide orthonormal bases
+for each of these fundamental subspaces. We are going to prove this, but
+first we need three properties related to the \emph{orthogonal complement} $U^{\perp}$ of a subspace $U$ of $\RR^{n}$, where (Definition \ref{def:023776}):
+\begin{equation*}
+U^{\perp}=\{\vect{x}\in \RR^{n}\mid \vect{u} \dotprod \vect{x}=0 \mbox{ for all } \vect{u}\in U\}
+\end{equation*}
+
+\noindent The orthogonal complement plays an important role in the
+Projection Theorem (Theorem \ref{thm:023885}), and we return to it in Section \ref{sec:10_2}. For
+now we need:
+
+\begin{lemma}{}{svdlemma4}
+If $A$ is any matrix then:
+
+\begin{enumerate}
+\item $(\func{row}A)^{\perp}=\func{null}A$\quad and \quad $(\func{col}A)^{\perp}=\func{null}A^{T}$.
+
+\item If $U$ is any subspace of $\RR^{n}$ then $U^{\perp\perp}=U$.
+
+\item Let $\{\vect{f}_{1},\ldots ,\vect{f}_{m}\}$ be an orthonormal basis of $\RR^{m}$. If $U=\func{span}\{\vect{f}_{1},\ldots ,\vect{f}_{k}\}$, then
+\begin{equation*}
+U^{\perp}=\func{span}\{\vect{f}_{k+1},\ldots ,\vect{f}_{m}\}
+\end{equation*}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Assume $A$ is $m\times n$, and let $\vect{b}_{1},\ldots ,\vect{b}_{m}$ be the rows of $A$. If $\vect{x}$ is a column
+in $\RR^{n}$, then entry $i$ of $A\vect{x}$ is $\vect{b}_{i}\dotprod \vect{x}$, so $A\vect{x}=\vect{0}$ if and only if $\vect{b}_{i}\dotprod \vect{x}=0$ for each $i$. Thus:
+\begin{equation*}
+\vect{x}\in \func{null}A \quad \Leftrightarrow \quad \vect{b}_{i}\dotprod \vect{x}=0 \mbox{ for each } i \quad \Leftrightarrow \quad \vect{x}\in (\func{span}\{\vect{b}_{1},\ldots,\vect{b}_{m}\})^{\perp}=(\func{row}A)^{\perp}
+\end{equation*}
+
+\noindent Hence $\func{null}A=(\func{row}A)^{\perp}$. Now replace $A$
+by $A^{T}$ to get $\func{null}A^{T}=(\func{row}A^{T})^{\perp}=(\func{col}A)^{\perp}$, which is the other identity in (1).
+
+\item If $\vect{x}\in U$ then $\vect{y}\dotprod \vect{x}=0$ for all $\vect{y}\in U^{\perp}$, that is $\vect{x}\in U^{\perp\perp}$. This proves that $U\subseteq U^{\perp\perp}$, so it is enough to show that $\func{dim}U=\func{dim}U^{\perp\perp}$. By Theorem \ref{thm:023953} we see that $\func{dim}V^{\perp}=n-\func{dim}V$ for any subspace $V\subseteq \RR^{n}$. Hence 
+\begin{equation*}
+\func{dim}U^{\perp\perp}=n-\func{dim}U^{\perp}=n-(n-\func{dim}U)=\func{dim}U, \mbox{ as required}
+\end{equation*}
+
+\item We have $\func{span}\{\vect{f}_{k+1},\ldots ,\vect{f}_{m}\}\subseteq U^{\perp}$ because $\{\vect{f}_{1},\ldots ,\vect{f}_{m}\} $ is orthogonal. For the other inclusion, let $\vect{x}\in U^{\perp} $ so $\vect{f}_{i}\dotprod \vect{x}=0$ for $i=1,2,\ldots ,k$. By the
+Expansion Theorem \ref{thm:015082}: 
+
+\begin{equation*}
+\begin{array}{ccccccccccccc}
+\vect{x} & =  & (\vect{f}_{1}\dotprod \vect{x})\vect{f}_{1} & + & \cdots & + & (\vect{f}_{k}\dotprod \vect{x})\vect{f}_{k} & + &(\vect{f}_{k+1}\dotprod \vect{x})\vect{f}_{k+1} & + &\cdots &+&(\vect{f}_{m}\dotprod \vect{x})\vect{f}_{m} \\ 
+& =  & \vect{0} &+ &\cdots  &+ &\vect{0} &+ &(\vect{f}_{k+1}\dotprod \vect{x})\vect{f}_{k+1}& + &\cdots &+&(\vect{f}_{m}\dotprod \vect{x})\vect{f}_{m}
+\end{array}
+\end{equation*} 
+
+\noindent Hence $U^{\perp}\subseteq \func{span}\{\vect{f}_{k+1},\ldots ,\vect{f}_{m}\}$.
+\end{enumerate}
+\end{proof}
+
+With this we can see how \emph{any} SVD for a matrix $A$ provides
+orthonormal bases for each of the four fundamental subspaces of $A$.
+
+\begin{theorem}{}{svdtheorem2}
+Let $A$ be an $m\times n$ real matrix, let $A=U\Sigma V^{T}$ be \emph{any} SVD for $A$ where $U$ and $V$ are orthogonal of size $m\times m$ and $n\times n$ respectively, and let
+\begin{equation*} 
+\Sigma =
+\leftB 
+\begin{array}{cc}
+D & 0 \\ 
+0 & 0
+\end{array}
+\rightB_{m\times n}\qquad  \mbox{where} \qquad D=\func{diag}(\lambda_{1},\lambda_{2},\ldots ,\lambda_{r}), \mbox{ with each } \lambda_{i}>0
+\end{equation*}
+
+\noindent Write $U=\leftB \begin{array}{ccccc}\vect{u}_{1} & \cdots & \vect{u}_{r} & \cdots & \vect{u}_{m}\end{array}\rightB$ and $V=\leftB \begin{array}{ccccc}\vect{v}_{1} & \cdots & \vect{v}_{r} & \cdots & \vect{v}_{n}\end{array}\rightB,$ so $\{\vect{u}_{1},\ldots ,\vect{u}_{r},\ldots ,\vect{u}_{m}\}$ and $\{\vect{v}_{1},\ldots ,\vect{v}_{r},\ldots ,\vect{v}_{n}\}$ are orthonormal bases of $\RR^{m}$ and $\RR^{n}$ respectively. Then
+\begin{enumerate}
+\item $r=\func{rank}A$, and the singular values of $A$ are $\sqrt{\lambda_{1}},\sqrt{\lambda_{2}},\ldots ,\sqrt{\lambda_{r}}$.
+
+\item The fundamental spaces are described as follows:
+\begin{enumerate}[label=\alph*.]
+\item $\{\vect{u}_{1},\ldots ,\vect{u}_{r}\}$ is an orthonormal basis of $\func{col}A$.
+
+\item $\{\vect{u}_{r+1},\ldots ,\vect{u}_{m}\}$ is an
+orthonormal basis of $\func{null}A^{T}$.
+
+\item $\{\vect{v}_{r+1},\ldots ,\vect{v}_{n}\}$ is an
+orthonormal basis of $\func{null}A$.
+
+\item $\{\vect{v}_{1},\ldots ,\vect{v}_{r}\}$ is an
+orthonormal basis of $\func{row}A$.
+\end{enumerate}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof} 
+\begin{enumerate}
+
+\item This is Lemma \ref{lem:svdlemma3}. 
+
+\item
+\begin{enumerate}[label=\alph*.]
+\item As $\func{col}A=\func{col}(AV)$ by Lemma \ref{lem:015527} and $AV=U\Sigma$, (a.) follows from
+\begin{equation*}
+U\Sigma =\leftB \begin{array}{ccccc} \vect{u}_{1} & \cdots & \vect{u}_{r} & \cdots & \vect{u}_{m} \end{array}\rightB
+\leftB 
+\begin{array}{cc}
+\func{diag}(\lambda_{1},\lambda_{2},\ldots ,\lambda_{r}) & 0 \\ 
+0 & 0
+\end{array}
+\rightB =  \leftB \begin{array}{cccccc} \lambda_{1}\vect{u}_{1} & \cdots & \lambda_{r}\vect{u}_{r} & \vect{0} & \cdots & \vect{0} \end{array}\rightB
+\end{equation*}
+
+\item We have $(\func{col}A)^{\perp}\overset{\text{(a.)}}{=}(\func{span}\{\vect{u}_{1},\ldots ,\vect{u}_{r}\})^{\perp}=\func{span}\{\vect{u}_{r+1},\ldots ,\vect{u}_{m}\}$ by Lemma \ref{lem:svdlemma4}(3). This proves (b.) because $(\func{col}A)^{\perp}=\func{null}A^{T}$ by Lemma \ref{lem:svdlemma4}(1). 
+
+\item We have $\func{dim}(\func{null}A)+\func{dim}(\func{im}A)=n$
+by the Dimension Theorem \ref{thm:021499}, applied to \newline $T:\RR^{n}\rightarrow \RR^{m}$ where $T(\vect{x})=A\vect{x}$. Since also $\func{im}A=\func{col}A$ by Lemma \ref{lem:svdlemma1}, we obtain
+\begin{equation*}
+\func{dim}(\func{null}A)=n-\func{dim}(\func{col}A)=n-r=\func{dim}(\func{span}\{\vect{v}_{r+1},\ldots ,\vect{v}_{n}\})
+\end{equation*}
+
+\noindent So to prove (c.) it is enough to show that $\vect{v}_{j}\in 
+\func{null}A$ whenever $j>r$. To this end write
+\begin{equation*}
+\lambda_{r+1}=\cdots =\lambda_{n}=0,\quad \mbox{so} \quad E^{T}E=\func{diag}(\lambda_{1}^{2},\ldots ,\lambda_{r}^{2},\lambda_{r+1}^{2},\ldots,\lambda_{n}^{2})
+\end{equation*}
+
+\noindent Observe that each $\lambda_{j}$ is an eigenvalue of $\Sigma^{T}\Sigma $ with eigenvector $\vect{e}_{j}=$ column $j$ of $I_{n}$. Thus $\vect{v}_{j}=V\vect{e}_{j}$ for each $j$. As $A^{T}A=V\Sigma^{T}\Sigma V^{T}$ (proof of Lemma \ref{lem:svdlemma3}), we obtain 
+\begin{equation*}
+(A^{T}A)\vect{v}_{j}=(V\Sigma^{T}\Sigma V^{T})(V\vect{e}_{j})=V(\Sigma^{T}\Sigma \vect{e}_{j})=V\left( \lambda_{j}^{2}\vect{e}_{j}\right) =\lambda_{j}^{2}V\vect{e}_{j}=\lambda_{j}^{2}\vect{v}_{j} 
+\end{equation*}
+
+\noindent for $1\leq j\leq n$. Thus each $\vect{v}_{j}$ is an eigenvector
+of $A^{T}A$ corresponding to $\lambda_{j}^{2}$. But then
+\begin{equation*}
+\vectlength A\vect{v}_{j}\vectlength^{2}=(A\vect{v}_{j})^{T}A\vect{v}_{j}=\vect{v}_{j}^{T}(A^{T}A\vect{v}_{j})=\vect{v}_{j}^{T}(\lambda _{j}^{2}\vect{v}_{j})=\lambda_{j}^{2}\vectlength \vect{v}_{j}\vectlength^{2}=\lambda_{j}^{2}\quad \mbox{for } i=1,\ldots ,n
+\end{equation*}
+
+\noindent In particular, $A\vect{v}_{j}=\vect{0}$ whenever $j>r$, so $\vect{v}_{j}\in \func{null}A$ if $j>r$, as desired. This proves (c).
+
+\item Observe that $\func{span}\{\vect{v}_{r+1},\ldots ,\vect{v}_{n}\}\overset{\text{(c.)}}{=}\func{null}A=(\func{row}A)^{\perp}$ by
+Lemma \ref{lem:svdlemma4}(1). But then parts (2) and (3) of Lemma \ref{lem:svdlemma4} show 
+\begin{equation*}
+\func{row}A=\left((\func{row}\,A)^{\perp}\right)^{\perp}=(\func{span}\{\vect{v}_{r+1},\ldots ,\vect{v}_{n}\})^{\perp}=\func{span}\{\vect{v}_{1},\ldots ,\vect{v}_{r}\}
+\end{equation*}
+
+\noindent This proves (d.), and hence Theorem \ref{thm:svdtheorem2}.
+\end{enumerate}
+\end{enumerate}
+\end{proof}
+
+\begin{example}{}{svdexample2}
+Consider the homogeneous linear system 
+\begin{equation*}
+A\vect{x}=\vect{0} \mbox{ of } m \mbox{ equations in } n \mbox{ variables}
+\end{equation*}
+
+\noindent Then the set of all solutions is $\func{null} A$. 
+Hence if $A=U\Sigma V^{T}$ is any SVD for $A$ then (in the notation of Theorem \ref{thm:svdtheorem2}) $\{\vect{v}_{r+1},\ldots ,\vect{v}_{n}\}$ is an orthonormal basis of the set of solutions for the system. As such they are a set of \textbf{basic solutions}\index{basic solutions}\index{solution!basic solutions} for the system, the most basic notion in Chapter \ref{chap:1}.
+\end{example}
+
+\subsection{The Polar Decomposition of a Real Square Matrix}
+
+
+\noindent If $A$ is real and $n\times n$ the factorization in the title is
+related to the polar decomposition $A$. Unlike the SVD, in this case the
+decomposition is \emph{uniquely} determined by $A$. 
+
+Recall (Section \ref{sec:8_3}) that a symmetric matrix $A$ is called positive definite if and only if
+$\vect{x}^{T}A\vect{x}>0$ for every column $\vect{x} \neq \vect{0} \in \RR^{n}$. Before
+proceeding, we must explore the following weaker notion:
+
+\begin{definition}{}{svddef5} 
+A real $n\times n$ matrix $G$ is called \textbf{positive}\footnotemark if it is symmetric and \index{positive matrix}\index{matrix!positive}
+
+\begin{equation*}
+\vect{x}^{T}G\vect{x}\geq 0 \quad \mbox{for all } \vect{x}\in \RR^{n}
+\end{equation*}
+\end{definition}
+\footnotetext{Also called \textbf{positive semi-definite.}\index{positive semi-definite matrix}\index{matrix!positive semi-definite}}
+
+\noindent Clearly every positive definite matrix is positive, but the
+converse fails. Indeed, $A=
+\leftB 
+\begin{array}{cc}
+1 & 1 \\ 
+1 & 1
+\end{array}
+\rightB $ is positive because, if $\vect{x}=\leftB \begin{array}{cc} a & b \end{array}\rightB^{T}$ in $\RR^{2}$, then $\vect{x}^{T}A\vect{x}=(a+b)^{2}\geq 0$. But $\vect{y}^{T}A\vect{y}=0$ if $\vect{y}=\leftB \begin{array}{cc} 1 & -1 \end{array}\rightB^{T}$, so $A$ is not positive
+definite.
+
+\begin{lemma}{}{svdlemma5}
+Let $G$ denote an $n\times n$ positive matrix.
+
+\begin{enumerate}
+\item If $A$ is any $m\times n$ matrix and $G$ is positive, then $A^{T}GA$ is positive (and $m\times m$).
+
+\item If $G=\func{diag}(d_{1}, d_{2},\cdots ,d_{n})$ and each $d_{i}\geq 0$ then $G$ is positive.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof} 
+\begin{enumerate}
+\item $\vect{x}^{T}(A^{T}GA)\vect{x}=(A\vect{x})^{T}G(A\vect{x})\geq 0$ because $G$ is positive.
+
+\item If $\vect{x}=\leftB \begin{array}{cccc}x_{1}& x_{2} & \cdots & x_{n}\end{array}\rightB^{T}$, then
+\begin{equation*}
+\vect{x}^{T}G\vect{x}=d_{1}x_{1}^{2}+d_{2}x_{2}^{2}+\cdots +d_{n}x_{n}^{2}\geq 0
+\end{equation*}
+because $d_{i}\geq 0$ for each $i$. 
+\end{enumerate}
+\end{proof}
+
+\begin{definition}{}{svddef6} 
+If $A$ is a real $n\times n$ matrix, a factorization 
+\begin{equation*}
+A=GQ \mbox{ where } G \mbox{ is positive and } Q \mbox{ is orthogonal}
+\end{equation*}
+
+\noindent is called a \textbf{polar decomposition}\index{polar decomposition}\index{matrix!polar decomposition} for $A$.
+\end{definition}
+
+Any SVD for a real square matrix $A$ yields a polar form for $A$.
+
+\begin{theorem}{}{svdtheorem3}
+Every square real matrix has a polar form.
+\end{theorem}
+
+\begin{proof}
+Let $A=U\Sigma V^{T}$ be a SVD for $A$ with $\Sigma $ as in Definition \ref{def:svddef3} and $m=n$. Since $U^{T}U=I_{n}$ here we have 
+\begin{equation*}
+A=U\Sigma V^{T}=(U\Sigma )(U^{T}U)V^{T}=(U\Sigma U^{T})(UV^{T})
+\end{equation*}
+
+\noindent So if we write $G=U\Sigma U^{T}$ and $Q=UV^{T}$, then $Q$ is
+orthogonal, and it remains to show that $G$ is positive. But this follows
+from Lemma \ref{lem:svdlemma5}.
+\end{proof}
+
+The SVD for a square matrix $A$ is not unique ($I_{n}=PI_{n}P^{T}$ for any
+orthogonal matrix $P$). But given the proof of Theorem \ref{thm:svdtheorem3} it is
+surprising that the polar decomposition \emph{is} unique.\footnote{See J.T. Scheick, Linear Algebra with Applications, McGraw-Hill, 1997, page
+379.} We omit the proof.
+
+The name ``polar form'' is reminiscent of
+the same form for complex numbers (see Appendix \ref{chap:appacomplexnumbers}). This is no coincidence.
+To see why, we represent the complex numbers as real $2\times 2$ matrices.
+Write $\vectspace{M}_{2}(\RR)$ for the set of all real $2\times 2$ matrices, and
+define 
+\begin{equation*}
+\sigma :\mathbb{C}\rightarrow \vectspace{M}_{2}(\RR)\quad \mbox{by} \quad
+\sigma (a+bi)=
+\leftB 
+\begin{array}{rr}
+a & -b \\ 
+b & a
+\end{array}
+\rightB  \mbox{ for all } a+bi \mbox{ in } \mathbb{C}
+\end{equation*}
+
+\noindent One verifies that $\sigma $ preserves addition and multiplication
+in the sense that 
+\begin{equation*}
+\sigma (zw)=\sigma (z)\sigma (w)\qquad \mbox{and}\qquad \sigma
+(z+w)=\sigma (z)+\sigma (w)
+\end{equation*}
+
+\noindent for all complex numbers $z$ and $w$. Since $\theta $ is one-to-one
+we may \emph{identify} each complex number $a+bi$ with the matrix $\theta (a+bi)$, that is we write 
+\begin{equation*}
+a+bi=
+\leftB 
+\begin{array}{rr}
+a & -b \\ 
+b & a
+\end{array}
+\rightB  \quad \mbox{for all } a+bi \mbox{ in } \mathbb{C}
+\end{equation*}
+
+\noindent Thus $0=
+\leftB 
+\begin{array}{cc}
+0 & 0 \\ 
+0 & 0
+\end{array}
+\rightB$, $1=
+\leftB 
+\begin{array}{cc}
+1 & 0 \\ 
+0 & 1
+\end{array}
+\rightB =I_{2}$, $i=
+\leftB 
+\begin{array}{rr}
+0 & -1 \\ 
+1 & 0
+\end{array}
+\rightB$, and $r =
+\leftB 
+\begin{array}{cc}
+r & 0 \\ 
+0 & r
+\end{array}
+\rightB $ if $r$ is real. 
+
+If $z=a+bi$ is nonzero then the \emph{absolute value} $r=|z| =\sqrt{a^{2}+b^{2}}\neq 0$. If $\theta $ is the \emph{angle} of 
+$z$ in standard position, then $\cos\theta =a/r$ and $\sin\theta =b/r$. Observe:
+\begin{equation}\label{svdeqnxiii}
+\leftB 
+\begin{array}{rr}
+a & -b \\ 
+b & a
+\end{array}
+\rightB =\leftB 
+\begin{array}{cc}
+r & 0 \\ 
+0 & r
+\end{array}
+\rightB \leftB 
+\begin{array}{rr}
+a/r & -b/r \\ 
+b/r & a/r
+\end{array}
+\rightB =\leftB 
+\begin{array}{cc}
+r & 0 \\ 
+0 & r
+\end{array}
+\rightB \leftB 
+\begin{array}{rr}
+\cos\theta  & -\sin\theta  \\ 
+\sin\theta  & \cos\theta 
+\end{array}
+\rightB =  GQ \tag{\textbf{xiii}}
+\end{equation}
+
+\noindent where $G=
+\leftB 
+\begin{array}{cc}
+r & 0 \\ 
+0 & r
+\end{array}
+\rightB$ is positive and $Q=
+\leftB 
+\begin{array}{rr}
+\cos\theta  & -\sin\theta  \\ 
+\sin\theta  & \cos\theta 
+\end{array}
+\rightB $ is orthogonal. But in $\mathbb{C}$ we have $G=r$ and $Q=\cos\theta +i\sin\theta $ so (\ref{svdeqnxiii}) reads $z=r(\cos\theta +i\sin\theta )=re^{i\theta }$ which is the 
+\emph{classical polar form} for the complex number $a+bi$. This is
+why (\ref{svdeqnxiii}) is called the polar form of the matrix $
+\leftB 
+\begin{array}{rr}
+a & -b \\ 
+b & a
+\end{array}
+\rightB$; Definition \ref{def:svddef6} simply adopts the terminology for $n\times n$
+matrices.
+
+\subsection{The Pseudoinverse of a Matrix}
+
+\noindent It is impossible for a non-square matrix $A$ to have an inverse
+(see the footnote to Definition \ref{def:004202}). Nonetheless, one candidate for an ``inverse'' of $A$ is an $m\times n$ matrix 
+$B$ such that
+\begin{equation*}
+ABA=A \qquad \mbox{and} \qquad BAB=B
+\end{equation*}
+
+\noindent Such a matrix $B$ is called a \emph{middle inverse} for $A$. If $A$ is invertible then $A^{-1}$ is the unique middle inverse for $A$, but a
+middle inverse is not unique in general, even for square matrices. For
+example, if $A=
+\leftB 
+\begin{array}{cc}
+1 & 0 \\ 
+0 & 0 \\ 
+0 & 0
+\end{array}
+\rightB $ then $B=
+\leftB 
+\begin{array}{ccc}
+1 & 0 & 0 \\ 
+b & 0 & 0
+\end{array}
+\rightB $ is a middle inverse for $A$ for any $b$.
+
+If $ABA=A$ and $BAB=B$ it is easy to see that $AB$ and $BA$ are both
+idempotent matrices. In 1955 Roger Penrose observed that the middle inverse
+is unique if both $AB$ and $BA$ are symmetric. We omit the proof.
+
+\begin{theorem}{Penrose' Theorem\footnotemark}{penrosetheorem}
+
+Given any real $m\times n$ matrix $A$, there is exactly one $n\times m$ matrix $B$ such that $A$ and $B$ 
+satisfy the following conditions:
+
+\begin{enumerate}
+\item[\textbf{P1}] $ABA=A$ and $BAB=B$.
+
+\item[\textbf{P2}] Both $AB$ and $BA$ are symmetric.
+\end{enumerate}
+\end{theorem}
+\footnotetext{R. Penrose, \emph{A generalized inverse for matrices}, Proceedings of the
+Cambridge Philosophical Society \textbf{5l} (1955), 406-413. In fact Penrose
+proved this for any complex matrix, where $AB$ and $BA$ are both required to
+be hermitian (see Definition \ref{def:025684} in the following section).}
+
+\begin{definition}{}{svddef7} 
+Let $A$ be a real $m\times n$ matrix. The \textbf{pseudoinverse}\index{pseudoinverse}\index{matrix!pseudoinverse} of $A$ is the unique $n\times m$ matrix $A^{+}$ such that $A$ and $A^{+}$ satisfy \textbf{P1} and \textbf{P2}, that is:
+
+\begin{equation*}
+AA^{+}A=A,\qquad A^{+}AA^{+}=A^{+},\qquad \mbox{and both } AA^{+} \mbox{ and } A^{+}A \mbox{ are symmetric}\footnotemark
+\end{equation*}
+\end{definition}
+\footnotetext{Penrose called the matrix $A^{+}$ the generalized inverse of $A$, but the
+term pseudoinverse is now commonly used. The matrix $A^{+}$ is also called
+the \textbf{Moore-Penrose}\index{Moore-Penrose inverse}\index{matrix!Moore-Penrose inverse} inverse after E.H. Moore who had the idea in 1935
+as part of a larger work on ``General Analysis''. Penrose independently re-discovered it 20 years later.}
+
+If $A$ is invertible then $A^{+}=A^{-1}$ as expected. In general, the
+symmetry in conditions P1 and P2 shows that $A$ is the pseudoinverse of $A^{+}$, that is $A^{++}=A$. 
+
+\newpage 
+\begin{theorem}{}{svdtheorem4} 
+Let $A$ be an $m\times n$ matrix.
+
+\begin{enumerate}
+\item If $\func{rank}A=m$ then $AA^{T}$ is invertible and $A^{+}=A^{T}(AA^{T})^{-1}$.
+
+\item If $\func{rank}A=n$ then $A^{T}A$ is invertible and $A^{+}=(A^{T}A)^{-1}A^{T}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Here $AA^{T}$ (respectively $A^{T}A)$ is
+invertible by Theorem \ref{thm:015711} (respectively Theorem \ref{thm:015672}). The rest is a
+routine verification.
+\end{proof}
+
+In general, given an $m\times n$ matrix $A$, the pseudoinverse $A^{+}$ can
+be computed from any SVD for $A$. To see how, we need some notation. Let $A=U\Sigma V^{T}$ be an SVD for $A$ (as in Definition \ref{def:svddef3}) where $U$ and $V$ are orthogonal and $\Sigma =
+\leftB 
+\begin{array}{cc}
+D & 0 \\ 
+0 & 0
+\end{array}
+\rightB_{m\times n}$ in block form where $D=\func{diag}(d_{1},d_{2},\ldots ,d_{r})$ where each $d_{i}>0$. Hence $D$ is
+invertible, so we make:
+
+\begin{definition}{}{svddef8} 
+$\Sigma^{\prime }=
+\leftB 
+\begin{array}{cc}
+D^{-1} & 0 \\ 
+0 & 0
+\end{array}
+\rightB_{n\times m}.$
+\end{definition}
+
+\noindent A routine calculation gives:
+
+\begin{lemma}{}{svdlemma6}
+\begin{multicols}{2}
+\begin{itemize}
+\item $\Sigma \Sigma^{\prime }\Sigma =\Sigma$
+\item $\Sigma^{\prime }\Sigma \Sigma^{\prime }=\Sigma^{\prime }$
+\columnbreak
+\item $\Sigma \Sigma^{\prime }= 
+\leftB 
+\begin{array}{cc}
+I_{r} & 0 \\ 
+0 & 0
+\end{array}
+\rightB_{m\times m}$
+\item $\Sigma^{\prime }\Sigma =
+\leftB 
+\begin{array}{cc}
+I_{r} & 0 \\ 
+0 & 0
+\end{array}
+\rightB_{n\times n}$
+\end{itemize}
+\end{multicols}
+\vspace*{0.1em}
+\end{lemma}
+
+\noindent That is, $\Sigma^{\prime }$ is the pseudoinverse of $\Sigma$.
+
+Now given $A=U\Sigma V^{T}$, define $B=V\Sigma^{\prime }U^{T}$. Then
+\begin{equation*}
+ABA=(U\Sigma V^{T})(V\Sigma^{\prime }U^{T})(U\Sigma V^{T})=U(\Sigma
+\Sigma^{\prime }\Sigma )V^{T}=U\Sigma V^{T}=A
+\end{equation*}
+
+\noindent by Lemma \ref{lem:svdlemma6}. Similarly $BAB=B$. Moreover $AB=U(\Sigma \Sigma^{\prime })U^{T}$ and $BA=V(\Sigma^{\prime }\Sigma )V^{T}$ are both
+symmetric again by Lemma \ref{lem:svdlemma6}. This proves
+
+\begin{theorem}{}{svdtheorem5}
+Let $A$ be real and $m\times n$, and let $A=U\Sigma V^{T}$ is any SVD for $A$ as in Definition \ref{def:svddef3}. Then $A^{+}=V\Sigma^{\prime }U^{T}$.
+\end{theorem}
+
+Of course we can always use the SVD constructed in Theorem \ref{thm:svdtheorem1} to find the
+pseudoinverse. If $A=
+\leftB 
+\begin{array}{cc}
+1 & 0 \\ 
+0 & 0 \\ 
+0 & 0
+\end{array}
+\rightB$, we observed above that $B=
+\leftB 
+\begin{array}{ccc}
+1 & 0 & 0 \\ 
+b & 0 & 0
+\end{array}
+\rightB $ is a middle inverse for $A$ for any $b$. Furthermore $AB$ is
+symmetric but $BA$ is not, so $B\neq A^{+}$.
+
+\begin{example}{}{svdexample3} 
+Find $A^{+}$ if $A=
+\leftB 
+\begin{array}{cc}
+1 & 0 \\ 
+0 & 0 \\ 
+0 & 0
+\end{array}
+\rightB$.
+
+\begin{solution} $A^{T}A=
+\leftB 
+\begin{array}{cc}
+1 & 0 \\ 
+0 & 0
+\end{array}
+\rightB $ with eigenvalues $\lambda_{1}=1$ and $\lambda_{2}=0$ and
+corresponding eigenvectors $\vect{q}_{1}=
+\leftB 
+\begin{array}{c}
+1 \\ 
+0
+\end{array}
+\rightB $ and $\vect{q}_{2}=
+\leftB 
+\begin{array}{c}
+0 \\ 
+1
+\end{array}
+\rightB$. Hence $Q=\leftB \begin{array}{cc}\vect{q}_{1}&\vect{q}_{2}\end{array}\rightB=I_{2}$. Also $A$ has
+rank $1$ with singular values $\sigma_{1}=1$ and $\sigma_{2}=0,$ so $\Sigma_{A}=
+\leftB 
+\begin{array}{cc}
+1 & 0 \\ 
+0 & 0 \\ 
+0 & 0
+\end{array}
+\rightB=A$ and $\Sigma^{\prime}_{A}=
+\leftB 
+\begin{array}{ccc}
+1 & 0 & 0 \\ 
+0 & 0 & 0
+\end{array}
+\rightB=A^{T}$ in this case.
+
+Since $A\vect{q}_{1}=
+\leftB 
+\begin{array}{c}
+1 \\ 
+0 \\ 
+0
+\end{array}
+\rightB$ and $A\vect{q}_{2}=
+\leftB 
+\begin{array}{c}
+0 \\ 
+0 \\ 
+0
+\end{array}
+\rightB$, we have $\vect{p}_{1}=
+\leftB 
+\begin{array}{c}
+1 \\ 
+0 \\ 
+0
+\end{array}
+\rightB$ which extends to an orthonormal basis $\{\vect{p}_{1},\vect{p}_{2},\vect{p}_{3}\}$ of $\RR^{3}$ where (say) $\vect{p}_{2}=
+\leftB 
+\begin{array}{c}
+0 \\ 
+1 \\ 
+0
+\end{array}
+\rightB$ and $\vect{p}_{3}=
+\leftB 
+\begin{array}{c}
+0 \\ 
+0 \\ 
+1
+\end{array}
+\rightB$. Hence $P=\leftB \begin{array}{ccc} \vect{p}_{1}&\vect{p}_{2}&\vect{p}_{3}\end{array}\rightB=I$, so
+the SVD for $A$ is $A=P\Sigma _{A}Q^{T}.$ Finally, the pseudoinverse of $A$
+is $A^{+}=Q\Sigma^{\prime}_{A}P^{T}=\Sigma^{\prime}_{A}=
+\leftB 
+\begin{array}{ccc}
+1 & 0 & 0 \\ 
+0 & 0 & 0
+\end{array}
+\rightB$. Note that $A^{+}=A^{T}$ in this case.
+\end{solution}
+\end{example}
+
+The following Lemma collects some properties of the pseudoinverse that mimic
+those of the inverse. The verifications are left as exercises.
+
+\begin{lemma}{}{svdlemma7} 
+Let $A$ be an $m\times n$ matrix of rank $r$.
+
+\begin{enumerate}
+\item $A^{++}=A$.
+
+\item If $A$ is invertible then $A^{+}=A^{-1}$.
+
+\item $(A^{T})^{+}=(A^{+})^{T}$.
+
+\item $(kA)^{+}=kA^{+}$ for any real $k$.
+
+\item $(UAV)^{+}=U^{T}(A^{+})V^{T}$ whenever $U$ and $V$ are orthogonal.
+\end{enumerate}
+\end{lemma}
+
+\section*{Exercises for \ref{sec:SVD}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:SVD}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+If $ACA=A$ show that $B=CAC$ is a middle inverse for $A$.
+\end{ex} 
+
+\begin{ex} 
+For any matrix $A$ show that
+\begin{equation*}
+\Sigma_{A^{T}}=(\Sigma_{A})^{T}
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+If $A$ is $m\times n$ with all singular values positive, what is $\func{rank}A$?
+\end{ex}
+
+\begin{ex}
+If $A$ has singular values $\sigma_{1},\dots ,\sigma_{r}$, what are the singular values of:
+
+\begin{exenumerate}
+\exitem $A^{T}$ 
+\exitem $tA$ where $t>0$ is real
+\exitem* $A^{-1}$ assuming $A$ is invertible.
+\end{exenumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $t\sigma _{1},\dots ,t\sigma _{r}.$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is square show that $| \func{det}A |$ is the product of the singular values of $A$.
+\end{ex}
+
+\begin{ex}
+If $A$ is square and real, show that $A=0$ if and only if every eigenvalue of $A^T A$ is $0$.
+\end{ex} 
+
+\begin{ex}
+Given a SVD for an invertible matrix $A$, find one for $A^{-1}$. How are $\Sigma_{A}$ and $\Sigma_{A^{-1}}$ related?
+\begin{sol}
+If $A=U\Sigma V^{T}$ then $\Sigma$ is invertible, so $A^{-1}=V\Sigma^{-1}U^{T}$ is a SVD.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A^{-1}=A=A^{T}$ where $A$ is $n\times n$. Given any orthogonal $n\times n$ matrix $U$, find an orthogonal matrix $V$ such that $A=U\Sigma_{A}V^{T}$ is an SVD for $A$.
+
+\noindent If $A=
+\leftB 
+\begin{array}{cc}
+0 & 1 \\ 
+1 & 0
+\end{array}
+\rightB $ do this for:
+\begin{exenumerate}
+\exitem $U=\frac{1}{5}
+\leftB 
+\begin{array}{rr}
+3 & -4 \\ 
+4 & 3
+\end{array}
+\rightB$
+\exitem $U=\frac{1}{\sqrt{2}}
+\leftB 
+\begin{array}{rr}
+1 & -1 \\ 
+1 & 1
+\end{array}
+\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item First $A^{T}A=I_{n}$ so $\Sigma _{A}=I_{n}$.  
+\begin{eqnarray*}
+A &=& \frac{1}{\sqrt{2}}\leftB
+\begin{array}{rr}
+1 & 1 \\ 
+1 & -1
+\end{array}
+\rightB
+\leftB
+\begin{array}{rr}
+1 & 0 \\ 
+0 & 1
+\end{array}
+\rightB \frac{1}{\sqrt{2}}
+\leftB 
+\begin{array}{rr}
+1 & 1 \\ 
+-1 & 1
+\end{array}
+\rightB \\
+& =&\frac{1}{\sqrt{2}}\leftB 
+\begin{array}{rr}
+1 & -1 \\ 
+1 & 1
+\end{array}
+\rightB \frac{1}{\sqrt{2}}
+\leftB 
+\begin{array}{rr}
+-1 & 1 \\ 
+1 & 1
+\end{array}
+\rightB \\
+& =& \leftB
+\begin{array}{rr}
+-1 & 0 \\ 
+0 & 1
+\end{array}
+\rightB 
+\end{eqnarray*}
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find a SVD for the following
+matrices:
+
+\begin{exenumerate}
+\exitem  $A=
+\leftB 
+\begin{array}{rr}
+1 & -1 \\ 
+0 & 1 \\ 
+1 & 0
+\end{array}
+\rightB$
+\exitem  
+$\leftB 
+\begin{array}{rrr}
+1 & 1 & 1 \\ 
+-1 & 0 & -2 \\ 
+1 & 2 & 0
+\end{array}
+\rightB $
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+\begin{equation*}
+\hspace*{-15em} A = F
+\end{equation*}
+\begin{equation*}
+\hspace*{-5em} = \scriptsize \frac{1}{5}\leftB
+\begin{array}{rr}
+3 & 4 \\ 
+4 & -3
+\end{array}
+\rightB 
+\leftB 
+\begin{array}{rrrr}
+20 & 0 & 0 & 0 \\ 
+0 & 10 & 0 & 0
+\end{array}
+\rightB \frac{1}{2}
+\leftB 
+\begin{array}{rrrr}
+1 & 1 & 1 & 1 \\ 
+1 & -1 & 1 & -1 \\ 
+1 & 1 & -1 & -1 \\ 
+1 & -1 & 1 & -1
+\end{array}
+\rightB 
+\end{equation*}
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find an SVD for $A=
+\leftB 
+\begin{array}{rr}
+0 & 1 \\ 
+-1 & 0
+\end{array}
+\rightB$.
+\end{ex}
+
+
+\begin{ex}
+If $A=U\Sigma V^{T}$ is an SVD for $A$, find an SVD for $A^{T}$.
+\end{ex} 
+
+\begin{ex}
+Let $A$ be a real, $m\times n$ matrix with positive singular values $\sigma_{1},\sigma_{2},\dots ,\sigma_{r}$, and write 
+\begin{equation*}
+s(x)=(x-\sigma_{1})(x-\sigma_{2})\cdots (x-\sigma_{r})
+\end{equation*}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $c_{A^{T}A}(x)=s(x)x^{n-r}$ and \newline $c_{A^{T}A}(c)=s(x)x^{m-r}$.
+\item If $m\leq n$ conclude that $c_{A^{T}A}(x)=s(x)x^{n-m}$.
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $G$ is positive show that: 
+\begin{enumerate}[label={\alph*.}]
+\item $rG$ is positive if $r\geq 0$
+\item $G+H$ is positive for any positive $H$.
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item If $\vect{x}\in \RR^{n}$ then $\vect{x}^{T}(G+H)\vect{x}=\vect{x}^{T}G\vect{x}+\vect{x}^{T}H\vect{x}\geq 0+0=0$.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $G$ is positive and $\lambda$ is an eigenvalue, show that $\lambda \geq 0$.
+\end{ex}
+
+\begin{ex}
+If $G$ is positive show that $G=H^{2}$ for some positive matrix $H$. [Hint: Preceding exercise and Lemma \ref{lem:svdlemma5}] 
+\end{ex}
+
+\begin{ex}
+If $A$ is $n\times n$ show that $AA^{T}$ and $A^{T}A$ are similar. [Hint: Start with an SVD for $A$.]
+\end{ex} 
+
+\begin{ex}
+Find $A^{+}$ if: 
+\begin{enumerate}[label={\alph*.}]
+\item
+ $A=
+\leftB 
+\begin{array}{rr}
+1 & 2 \\ 
+-1 & -2
+\end{array}
+\rightB$
+
+\item $A=
+\leftB 
+\begin{array}{rr}
+1 & -1 \\ 
+0 & 0 \\ 
+1 & -1
+\end{array}
+\rightB $
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $
+\leftB 
+\begin{array}{rrr}
+\frac{1}{4} & 0 & \frac{1}{4} \\ 
+-\frac{1}{4} & 0 & -\frac{1}{4}
+\end{array}
+\rightB $
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\begin{ex}
+Show that $(A^{+})^{T}=(A^{T})^{+}$.
+\end{ex}
+\end{multicols}

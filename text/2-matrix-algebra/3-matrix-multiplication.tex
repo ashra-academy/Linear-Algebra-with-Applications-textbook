@@ -1,0 +1,1930 @@
+\section{Matrix Multiplication}
+\label{sec:2_3}
+
+\index{matrix algebra!matrix multiplication}\index{multiplication!matrix multiplication}
+In Section~\ref{sec:2_2} matrix-vector products were introduced. If $A$ is an $m \times n$ matrix, the product $A\vect{x}$ was defined for any $n$-column $\vect{x}$ in $\RR^n$ as follows: If $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ where the $\vect{a}_{j}$ are the columns of $A$, and if $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{array} \rightB$,
+ Definition~\ref{def:002668} reads
+\begin{equation} \label{eq:mvectorprod}
+A\vect{x} = x_{1}\vect{a}_{1} + x_{2}\vect{a}_{2} + \cdots + x_{n}\vect{a}_{n}
+\end{equation}
+This was motivated as a way of describing systems of linear equations with coefficient matrix $A$. Indeed every such system has the form $A\vect{x} = \vect{b}$ where $\vect{b}$ is the column of constants.
+
+In this section we extend this matrix-vector multiplication\index{matrix algebra!matrix-vector multiplication} to a way of multiplying matrices in general, and then investigate matrix algebra for its own sake. While it shares several properties of ordinary arithmetic, it will soon become clear that matrix arithmetic is different in a number of ways.
+
+Matrix multiplication is closely related to composition of transformations.
+
+
+\subsection*{Composition and Matrix Multiplication}
+
+\index{linear transformations!composite}\index{matrix multiplication!and composition of transformations}\index{transformations!composite}
+Sometimes two transformations ``link'' together as follows:
+\begin{equation*}
+\RR^{k} \xrightarrow{T} \RR^{n} \xrightarrow{S} \RR^{m}
+\end{equation*}
+
+\begin{wrapfigure}[7]{l}{5cm} 
+\centering
+\vspace*{-3em}
+\input{2-matrix-algebra/figures/3-matrix-multiplication/composition2.3.1}
+%\caption{\label{fig:003416}}
+\end{wrapfigure}
+
+In this case we can apply $T$ first and then apply $S$, and the result is a new transformation
+\begin{equation*}
+S \circ T : \RR^{k} \rightarrow \RR^{m}
+\end{equation*}
+called the \textbf{composite}\index{composite}\index{composition} of $S$ and $T$, defined by
+\begin{equation*}
+(S \circ T)(\vect{x}) = S \left[ T(\vect{x}) \right] \quad \mbox{ for all } \vect{x} \mbox{ in } \RR^{k}
+\end{equation*}
+
+The action of $S \circ T$ can be described as ``first $T$ then $S$ '' (note the order!)\footnote{When reading the notation $S \circ T$, we read $S$ first and then $T$ even though the action is ``first $T$ then $S$ ''. This annoying state of affairs results because we write $T(\vect{x})$ for the effect of the transformation $T$ on $\vect{x}$, with $T$ on the left. If we wrote this instead as ($\vect{x}$)$T$, the confusion would not occur. However the notation $T(\vect{x})$ is well established.}. This new transformation is described in the diagram. The reader will have encountered composition of ordinary functions: For example, consider $\RR \xrightarrow{g} \RR \xrightarrow{f} \RR$ where $f(x) = x^{2}$ and $g(x) = x + 1$ for all $x$ in $\RR$. Then
+\begin{align*}
+(f \circ g)(x) &= f \left[ g(x) \right] = f(x + 1) = (x + 1)^{2} \\
+(g \circ f)(x) &= g \left[ f(x) \right] = g(x^{2}) = x^{2} + 1
+\end{align*} for all $x$ in $\RR$.
+
+
+Our concern here is with matrix transformations. Suppose that $A$ is an $m \times n$ matrix and $B$ is an $n \times k$ matrix, and let $\RR^{k} \xrightarrow{T_{B}} \RR^{n} \xrightarrow{T_{A}} \RR^{m}$ be the matrix transformations induced by $B$ and $A$ respectively, that is:
+\begin{equation*}
+T_{B}(\vect{x}) = B\vect{x} \mbox{ for all } \vect{x} \mbox{ in } \RR^{k} \quad \mbox{ and } \quad T_{A}(\vect{y}) = A\vect{y} \mbox{ for all } \vect{y} \mbox{ in } \RR^{n}
+\end{equation*}
+Write $B = \leftB \begin{array}{cccc}
+\vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{k}
+\end{array} \rightB$ where $\vect{b}_{j}$ denotes column $j$ of $B$ for each $j$. Hence each $\vect{b}_{j}$ is an $n$-vector ($B$ is $n \times k$) so we can form the matrix-vector product $A\vect{b}_{j}$. In particular, we obtain an $m \times k$ matrix
+\begin{equation*}
+\leftB \begin{array}{cccc}
+A\vect{b}_{1} & A\vect{b}_{2} & \cdots & A\vect{b}_{k}
+\end{array} \rightB
+\end{equation*}
+with columns $A\vect{b}_{1}, A\vect{b}_{2}, \cdots, A\vect{b}_{k}$. Now compute $(T_{A} \circ T_{B})(\vect{x})$ for any $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{k}
+\end{array} \rightB$ in $\RR^k$:
+\begin{equation*}
+\begin{array}{lllll}
+(T_{A} \circ T_{B})(\vect{x}) & = & T_{A} \left[ T_{B}(\vect{x}) \right] & & \mbox{Definition of } T_{A} \circ T_{B} \\
+& = & A(B\vect{x}) & & A \mbox{ and } B \mbox{ induce } T_{A} \mbox{ and } T_{B} \\
+& = & A(x_{1}\vect{b}_{1} + x_{2}\vect{b}_{2} + \cdots + x_{k}\vect{b}_{k}) & & \mbox{Equation~\ref{eq:mvectorprod} above} \\
+& = & A(x_{1}\vect{b}_{1}) + A(x_{2}\vect{b}_{2}) + \cdots + A(x_{k}\vect{b}_{k}) & & \mbox{Theorem~\ref{thm:002811}} \\
+& = & x_{1}(A\vect{b}_{1}) + x_{2}(A\vect{b}_{2}) + \cdots + x_{k}(A\vect{b}_{k}) & & \mbox{Theorem~\ref{thm:002811}} \\
+& = & \leftB \begin{array}{cccc}
+	A\vect{b}_{1} & A\vect{b}_{2} & \cdots & A\vect{b}_{k}
+	\end{array} \rightB \vect{x} & & \mbox{Equation~\ref{eq:mvectorprod} above}
+\end{array}
+\end{equation*}
+Because $\vect{x}$ was an arbitrary vector in $\RR^n$, this shows that $T_{A} \circ T_{B}$ is the matrix transformation induced by the matrix $\leftB \begin{array}{cccc} A\vect{b}_{1} &  A\vect{b}_{2} & \cdots  & A\vect{b}_{n} \end{array} \rightB$. This motivates the following definition.
+
+
+\begin{definition}{Matrix Multiplication}{003447}
+Let $A$ be an $m \times n$ matrix, let $B$ be an $n \times k$ matrix, and write $B = \leftB \begin{array}{cccc}
+\vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{k}
+\end{array} \rightB$ where $\vect{b}_{j}$ is column $j$ of $B$ for each $j$. The product matrix $AB$ is the $m \times k$ matrix defined as follows:\index{matrix multiplication!definition}\index{matrix multiplication!matrix products}\index{product!matrix products}
+\begin{equation*}
+AB = A \leftB \begin{array}{cccc} \vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{k} \end{array} \rightB = \leftB \begin{array}{cccc} A\vect{b}_{1} & A\vect{b}_{2} & \cdots & A\vect{b}_{k} \end{array} \rightB
+\end{equation*}
+\end{definition}
+
+\noindent Thus the product matrix $AB$ is given in terms of its columns $A\vect{b}_{1}, A\vect{b}_{2}, \dots, A\vect{b}_{n}$: Column $j$ of $AB$ is the matrix-vector product $A\vect{b}_{j}$ of $A$ and the corresponding column $\vect{b}_{j}$ of $B$. Note that each such product $A\vect{b}_{j}$ makes sense by Definition~\ref{def:002668} because $A$ is $m \times n$ and each $\vect{b}_{j}$ is in $\RR^n$ (since $B$ has $n$ rows). Note also that if $B$ is a column matrix, this definition reduces to Definition~\ref{def:002668} for matrix-vector multiplication.
+
+
+Given matrices $A$ and $B$, Definition~\ref{def:003447} and the above computation give
+\begin{equation*}
+A(B\vect{x}) = \leftB \begin{array}{cccc}
+A\vect{b}_{1} & A\vect{b}_{2} & \cdots & A\vect{b}_{n}
+\end{array} \rightB \vect{x} = (AB)\vect{x}
+\end{equation*}
+for all $\vect{x}$ in $\RR^k$. We record this for reference.
+
+
+\begin{theorem}{}{003469}
+Let $A$ be an $m \times n$ matrix and let $B$ be an $n \times k$ matrix. Then the product matrix $AB$ is $m \times k$ and satisfies
+\begin{equation*}
+A(B\vect{x}) = (AB)\vect{x} \quad \mbox{ for all } \vect{x} \mbox{ in } \RR^{k}
+\end{equation*}
+\end{theorem}
+
+\noindent Here is an example of how to compute the product $AB$ of two matrices using Definition~\ref{def:003447}.
+
+\begin{example}{}{003474}
+Compute $AB$ if $A = \leftB \begin{array}{rrr}
+2 & 3 & 5 \\
+1 & 4 & 7 \\
+0 & 1 & 8
+\end{array} \rightB$
+ and
+ $B = \leftB \begin{array}{rr}
+ 8 & 9 \\
+ 7 & 2 \\
+ 6 & 1
+ \end{array} \rightB$.
+
+
+
+\begin{solution}
+  The columns of $B$ are 
+  $\vect{b}_{1} = \leftB \begin{array}{r}
+  8 \\
+  7 \\
+  6
+  \end{array} \rightB$
+ and $\vect{b}_{2} = \leftB \begin{array}{r}
+ 9 \\
+ 2 \\
+ 1
+ \end{array} \rightB$, so Definition~\ref{def:002668} gives
+\begin{equation*}
+A\vect{b}_{1} = \leftB \begin{array}{rrr}
+2 & 3 & 5 \\
+1 & 4 & 7 \\
+0 & 1 & 8
+\end{array} \rightB \leftB \begin{array}{r}
+8 \\
+7 \\
+6
+\end{array} \rightB = \leftB \begin{array}{r}
+67 \\
+78 \\
+55
+\end{array} \rightB \mbox{ and } A\vect{b}_{2} = \leftB \begin{array}{rrr}
+2 & 3 & 5 \\
+1 & 4 & 7 \\
+0 & 1 & 8
+\end{array} \rightB \leftB \begin{array}{r}
+9 \\
+2 \\
+1
+\end{array} \rightB = \leftB \begin{array}{r}
+29 \\
+24 \\
+10
+\end{array} \rightB
+\end{equation*}
+Hence Definition~\ref{def:003447} above gives $AB = \leftB \begin{array}{cc}
+A\vect{b}_{1} & A\vect{b}_{2}
+\end{array} \rightB = \leftB \begin{array}{rr}
+67 & 29 \\
+78 & 24 \\
+55 & 10
+\end{array} \rightB$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{example232}
+If $A$ is $m \times n$ and $B$ is $n \times k$, Theorem \ref{thm:003469} gives a simple formula for the composite of the matrix transformations $T_{A}$ and $T_{B}$:
+\begin{equation*}
+T_{A} \circ T_{B} = T_{AB}
+\end{equation*}
+
+\begin{solution}
+Given any $\vect{x}$ in $\RR^{k}$,
+\begin{eqnarray*}
+(T_{A} \circ T_{B})(\vect{x}) &=& T_{A}[T_{B}(\vect{x})] \\
+&=& A[B\vect{x}]\\
+&=& (AB)\vect{x}\\
+&=& T_{AB}(\vect{x})
+\end{eqnarray*}
+\end{solution}
+\end{example}
+
+While Definition~\ref{def:003447} is important, there is another way to compute the matrix product $AB$ that gives a way to calculate each individual entry. In Section~\ref{sec:2_2} we defined the dot product of two $n$-tuples to be the sum of the products of corresponding entries. We went on to show (Theorem~\ref{thm:002903}) that if $A$ is an $m \times n$ matrix and $\vect{x}$ is an $n$-vector, then entry $j$ of the product $A\vect{x}$ is the dot product of row $j$ of $A$ with $\vect{x}$. This observation was called the ``dot product rule'' for matrix-vector multiplication, and the next theorem shows that it extends to matrix multiplication in general.
+
+
+\begin{theorem}{Dot Product Rule}{003488}
+Let $A$ and $B$ be matrices of sizes $m \times n$ and $n \times k$, respectively. Then the $(i, j)$-entry of $AB$ is the dot 
+product of row $i$ of $A$ with column $j$ of $B$.\index{dot product!dot product rule}\index{matrix multiplication!dot product rule}\index{dot product!and matrix multiplication}
+\end{theorem}
+
+\begin{proof}
+Write $B = \leftB \begin{array}{cccc}
+\vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{n}
+\end{array} \rightB$ in terms of its columns. Then $A\vect{b}_{j}$ is column $j$ of $AB$ for each $j$. Hence the $(i, j)$-entry of $AB$ is entry $i$ of $A\vect{b}_{j}$, which is the dot product of row $i$ of $A$ with $\vect{b}_{j}$. This proves the theorem.
+\end{proof}
+
+\noindent Thus to compute the $(i, j)$-entry of $AB$, proceed as follows (see the diagram):
+
+
+\begin{center}
+Go \textit{across} row $i$ of $A$, and \textit{down} column $j$ of $B$, multiply corresponding entries, and add the results.\index{matrix multiplication!results of}
+\end{center}
+
+\begin{equation*}
+\leftB\begin{array}{ccc}
+ \; & \tn{A}{} & \;\\
+\tn{rowi1}{} & \tn{rowi}{} & \tn{rowi2}{}\\
+& & \\
+\end{array}\rightB
+\leftB\begin{array}{ccc}
+\; & \tn{columnj1}{}& \;\\
+ & & \\
+ & \tn{columnj2}{} & \\
+\end{array}\rightB = 
+\leftB \begin{array}{ccc}
+\; & \tn{columnj3}{} & \; \\
+\tn{rowi3}{} & \tn{ijentry}{} & \tn{rowi4}{} \\
+\; & \tn{columnj4}{} & \; \\
+\end{array}\rightB
+\end{equation*}
+\begin{tikzpicture}[remember picture, overlay]
+\draw[color=blue!30!gray,rounded corners]([xshift=-8pt, yshift=5pt]rowi1.west) rectangle ([xshift=6pt, yshift=-5pt]rowi2.east);
+\draw[-latex](rowi1)--(rowi2);
+\draw[color=red!30!gray,rounded corners]([xshift=-7pt, yshift=5pt]columnj1.north) rectangle ([xshift=5pt, yshift=-5pt]columnj2.south);
+\draw[-latex](columnj1)--(columnj2);
+\draw[color=blue!30!gray,rounded corners]([xshift=-8pt, yshift=5pt]rowi3.west) rectangle ([xshift=6pt, yshift=-5pt]rowi4.east);
+\draw[color=red!30!gray,rounded corners]([xshift=-7pt, yshift=5pt]columnj3.north) rectangle ([xshift=5pt, yshift=-5pt]columnj4.south);
+\draw[color=purple!30!gray,rounded corners]([xshift=-8pt, yshift=5pt]ijentry.west) rectangle ([xshift=5pt, yshift=-5pt]ijentry.east);
+\node[below=0.75cm of rowi, font=\footnotesize] (rowlabel){row $i$};
+\draw[thin] (rowi.south)++(0,-0.1cm) to [bend right] (rowlabel.north);
+\node[below=0.25cm of columnj2, font=\footnotesize] (columnlabel){column $j$};
+\draw[thin] (columnj2) to [bend right] (columnlabel);
+\node[below=0.75cm of ijentry, font=\footnotesize] (ijlabel){$(i,j)$-entry};
+\draw[thin] (ijentry.south)++(0,-0.05cm) to [bend right] (ijlabel.north);
+\node[above=0.25cm of A, font=\footnotesize]{$A$};
+\node[above=0.25cm of columnj1, font=\footnotesize]{$B$};
+\node[above=0.75cm of ijentry, font=\footnotesize]{$AB$};
+\end{tikzpicture}
+\vspace{2em}
+
+\noindent Note that this requires that the rows of $A$ must be the same length as the columns of $B$. The following rule is useful for remembering this and for deciding the size of the product matrix $AB$.
+
+\vspace{1em}
+\noindent{\sl\textbf{Compatibility Rule}}
+
+ \begin{wrapfigure}[4]{l}{5cm}
+ \centering
+ \input{2-matrix-algebra/figures/3-matrix-multiplication/compatibilityrule}
+%% %\caption{\label{fig:003510}}
+ \end{wrapfigure}
+
+\noindent Let $A$ and $B$ denote matrices. If $A$ is $m \times n$ and $B$ is $n^\prime \times k$, the product $AB$ can be formed if and only if $n=n^\prime$. In this case the size of the product matrix $AB$ is $m \times k$, and we say that $AB$ is \textbf{defined}\index{defined}, or that $A$ and $B$ are \textbf{compatible} for multiplication\index{compatible!for multiplication}\index{compatibility rule}\index{matrix multiplication!compatibility rule}\index{multiplication!compatible}.
+
+\noindent The diagram provides a useful mnemonic for remembering this. We adopt the following convention:
+
+\vspace{1em}
+\noindent{\sl\textbf{Convention}}
+
+\noindent Whenever a product of matrices is written, it is tacitly assumed that the sizes of the factors are such that the product is defined.
+
+To illustrate the dot product rule, we recompute the matrix product in Example~\ref{exa:003474}.
+
+
+\begin{example}{}{003516}
+Compute $AB$ if $A = \leftB \begin{array}{rrr}
+2 & 3 & 5 \\
+1 & 4 & 7 \\
+0 & 1 & 8
+\end{array} \rightB$
+ and $B = \leftB \begin{array}{rr}
+ 8 & 9 \\
+ 7 & 2 \\
+ 6 & 1
+ \end{array} \rightB$.
+
+
+\begin{solution}
+  Here $A$ is $3 \times 3$ and $B$ is $3 \times 2$, so the product matrix $AB$ is defined and will be of size $3 \times 2$. Theorem~\ref{thm:003488} gives each entry of $AB$ as the dot product of the corresponding row of $A$ with the corresponding column of $B_{j}$ that is,
+\begin{equation*}
+AB = \leftB \begin{array}{rrr}
+2 & 3 & 5 \\
+1 & 4 & 7 \\
+0 & 1 & 8
+\end{array} \rightB \leftB \begin{array}{rr}
+8 & 9 \\
+7 & 2 \\
+6 & 1
+\end{array} \rightB = \leftB \arraycolsep=8pt \begin{array}{cc}
+2 \cdot 8 + 3 \cdot 7 + 5 \cdot 6 & 2 \cdot 9 + 3 \cdot 2 + 5 \cdot 1 \\
+1 \cdot 8 + 4 \cdot 7 + 7 \cdot 6 & 1 \cdot 9 + 4 \cdot 2 + 7 \cdot 1 \\
+0 \cdot 8 + 1 \cdot 7 + 8 \cdot 6 & 0 \cdot 9 + 1 \cdot 2 + 8 \cdot 1
+\end{array} \rightB = \leftB \begin{array}{rr}
+67 & 29 \\
+78 & 24 \\
+55 & 10
+\end{array} \rightB
+\end{equation*}
+Of course, this agrees with Example~\ref{exa:003474}.
+\end{solution}
+\end{example}
+
+
+\begin{example}{}{003527}
+Compute the $(1, 3)$- and $(2, 4)$-entries of $AB$ where
+\begin{equation*}
+A = \leftB \begin{array}{rrr}
+3 & -1 & 2 \\
+0 & 1 & 4
+\end{array} \rightB \mbox{ and } B = \leftB \begin{array}{rrrr}
+2 & 1 & 6 & 0 \\
+0 & 2 & 3 & 4 \\
+-1 & 0 & 5 & 8
+\end{array} \rightB.
+\end{equation*}
+Then compute $AB$.
+
+
+\begin{solution}
+  The $(1, 3)$-entry of $AB$ is the dot product of row 1 of $A$ and column 3 of $B$ (highlighted in the following display), computed by multiplying corresponding entries and adding the results.
+\begin{equation*}
+\begin{array}{ll}
+\leftB \begin{array}{rrr}
+\tn{a1}{3} & -1 & \tn{a2}{2} \\
+0 & 1 & 4
+\end{array} \rightB \leftB \begin{array}{rrrr}
+2 & 1 & \tn{b1}{6} & 0 \\
+0 & 2 & 3 & 4 \\
+-1 & 0 & \tn{b2}{5} & 8
+\end{array} \rightB &
+(1, 3)\mbox{-entry} = 3 \cdot 6 + (-1) \cdot 3 + 2 \cdot 5 = 25
+\end{array}
+\begin{tikzpicture}[remember picture, overlay]
+\draw[color=blue!30!gray,rounded corners]([xshift=-7pt, yshift=5pt]a1.west) rectangle ([xshift=5pt, yshift=-5pt]a2.east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-7pt, yshift=5pt]b1.north) rectangle ([xshift=5pt, yshift=-5pt]b2.south);
+\end{tikzpicture}
+\end{equation*}
+Similarly, the $(2, 4)$-entry of $AB$ involves row 2 of $A$ and column 4 of $B$.
+\begin{equation*}
+\begin{array}{ll}
+\leftB \begin{array}{rrr}
+3 & -1 & 2 \\
+\tn{a3}{0} & 1 & \tn{a4}{4}
+\end{array} \rightB \leftB \begin{array}{rrrr}
+2 & 1 & 6 & \tn{b3}{0} \\
+0 & 2 & 3 & 4 \\
+-1 & 0 & 5 & \tn{b4}{8}
+\end{array} \rightB &
+(2, 4)\mbox{-entry} = 0 \cdot 0 + 1 \cdot 4 + 4 \cdot 8 = 36
+\end{array}
+\begin{tikzpicture}[remember picture, overlay]
+\draw[color=blue!30!gray,rounded corners]([xshift=-7pt, yshift=5pt]a3.west) rectangle ([xshift=5pt, yshift=-5pt]a4.east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-7pt, yshift=5pt]b3.north) rectangle ([xshift=5pt, yshift=-5pt]b4.south);
+\end{tikzpicture}
+\end{equation*}
+Since $A$ is $2 \times 3$ and $B$ is $3 \times 4$, the product is $2 \times 4$.
+\begin{equation*}
+AB = \leftB \begin{array}{rrr}
+3 & -1 & 2 \\
+0 & 1 & 4
+\end{array} \rightB \leftB \begin{array}{rrrr}
+2 & 1 & 6 & 0 \\
+0 & 2 & 3 & 4 \\
+-1 & 0 & 5 & 8
+\end{array} \rightB = \leftB \begin{array}{rrrr}
+4 & 1 & 25 & 12 \\
+-4 & 2 & 23 & 36
+\end{array} \rightB
+\end{equation*}
+\end{solution}
+\end{example}
+
+\addtocounter{footnote}{1}
+\footnotetext{As for numbers, we write $A^{2} = A \cdot A$, $A^{3} = A \cdot A \cdot A$, etc. Note that $A^{2}$ is defined if and only if $A$ is of size $n \times n$ for some $n$.}
+\addtocounter{footnote}{-1}
+
+\begin{example}{}{003540}
+If $A = \leftB \begin{array}{ccc}
+1 & 3 & 2\end{array}\rightB$ and $B = \leftB \begin{array}{r}
+5 \\
+6 \\
+4
+\end{array} \rightB$, compute $A^{2}$, $AB$, $BA$, and $B^{2}$ when they are defined.\footnotemark
+
+\begin{solution}
+  Here, $A$ is a $1 \times 3$ matrix and $B$ is a $3 \times 1$ matrix, so $A^{2}$ and $B^{2}$ are not defined. However, the compatibility rule reads
+\begin{equation*}
+\begin{array}{ccc}
+\begin{array}{cc}
+A & B\\
+1 \times 3 & 3 \times 1
+\end{array}
+& \mbox{ and } &
+\begin{array}{cc}
+B & A \\
+3 \times 1 & 1 \times 3
+\end{array}
+\end{array}
+\end{equation*}
+so both $AB$ and $BA$ can be formed and these are $1 \times 1$ and $3 \times 3$ matrices, respectively.
+
+
+\begin{equation*}
+AB = \leftB \begin{array}{rrr}
+1 & 3 & 2
+\end{array} \rightB \leftB \begin{array}{r}
+5 \\
+6 \\
+4
+\end{array} \rightB = \leftB \begin{array}{c} 1 \cdot 5 + 3 \cdot 6 + 2 \cdot 4 \end{array} \rightB = \arraycolsep=1.5pt \leftB \begin{array}{c} 31 \end{array}\rightB
+\end{equation*}
+\begin{equation*}
+BA = \leftB \begin{array}{r}
+5 \\
+6 \\
+4
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & 3 & 2
+\end{array} \rightB = \leftB \begin{array}{rrr}
+5 \cdot 1 & 5 \cdot 3 & 5 \cdot 2 \\
+6 \cdot 1 & 6 \cdot 3 & 6 \cdot 2 \\
+4 \cdot 1 & 4 \cdot 3 & 4 \cdot 2
+\end{array} \rightB = \leftB \begin{array}{rrr}
+5 & 15 & 10 \\
+6 & 18 & 12 \\
+4 & 12 & 8
+\end{array} \rightB
+\end{equation*}
+\end{solution}
+\end{example}
+
+Unlike numerical multiplication, matrix products $AB$ and $BA$ \textit{need not be equal}. In fact they need not even be the same size, as Example~\ref{exa:003540} shows. It turns out to be rare that $AB = BA$ (although it is by no means impossible), and $A$ and $B$ are said to \textbf{commute}\index{commute}\index{matrix multiplication!commute} when this happens.
+
+
+\begin{example}{}{003554}
+Let $A = \leftB \begin{array}{rr}
+6 & 9 \\
+-4 & -6
+\end{array} \rightB$
+ and $B = \leftB \begin{array}{rr}
+ 1 & 2 \\
+ -1 & 0
+ \end{array} \rightB$. Compute $A^{2}$, $AB$, $BA$.
+
+
+\begin{solution}
+  $A^{2} = \leftB \begin{array}{rr}
+  6 & 9 \\
+  -4 & -6
+  \end{array} \rightB \leftB \begin{array}{rr}
+  6 & 9 \\
+  -4 & -6
+  \end{array} \rightB = \leftB \begin{array}{rr}
+  0 & 0 \\
+  0 & 0
+  \end{array} \rightB$, so $A^{2} = 0$ can occur even if $A \neq 0$. Next,
+\begin{align*}
+AB & =  \leftB \begin{array}{rr}
+6 & 9 \\
+-4 & -6
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 2 \\
+-1 & 0
+\end{array} \rightB  =  \leftB \begin{array}{rr}
+-3 & 12 \\
+2 & -8
+\end{array} \rightB \\
+BA & =  \leftB \begin{array}{rr}
+1 & 2 \\
+-1 & 0
+\end{array} \rightB \leftB \begin{array}{rr}
+6 & 9 \\
+-4 & -6
+\end{array} \rightB  =  \leftB \begin{array}{rr}
+-2 & -3 \\
+-6 & -9
+\end{array} \rightB
+\end{align*}
+Hence $AB \neq BA$, even though $AB$ and $BA$ are the same size.
+\end{solution}
+\end{example}
+
+\begin{example}{}{003567}
+If $A$ is any matrix, then $IA = A$ and $AI = A$, and where $I$ denotes an identity matrix of a size so that the multiplications are defined.
+
+
+\begin{solution}
+  These both follow from the dot product rule as the reader should verify. For a more formal proof, write $A = \leftB \begin{array}{rrrr}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ where $\vect{a}_{j}$ is column $j$ of $A$. Then Definition~\ref{def:003447} and Example~\ref{exa:002949} give
+\begin{equation*}
+IA = \leftB \begin{array}{rrrr}
+I\vect{a}_{1} & I\vect{a}_{2} & \cdots & I\vect{a}_{n}
+\end{array} \rightB = \leftB \begin{array}{rrrr}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB = A
+\end{equation*}
+If $\vect{e}_{j}$ denotes column $j$ of $I$, then $A\vect{e}_{j} = \vect{a}_{j}$ for each $j$ by Example~\ref{exa:002964}. Hence Definition~\ref{def:003447} gives:
+\begin{equation*}
+AI = A \leftB \begin{array}{rrrr}
+\vect{e}_{1} & \vect{e}_{2} & \cdots & \vect{e}_{n}
+\end{array} \rightB = \leftB \begin{array}{rrrr}
+A\vect{e}_{1} & A\vect{e}_{2} & \cdots & A\vect{e}_{n}
+\end{array} \rightB = \leftB \begin{array}{rrrr}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB = A
+\end{equation*}
+\end{solution}
+\end{example}
+
+The following theorem collects several results about matrix multiplication that are used everywhere in linear algebra.\index{system of linear equations!matrix multiplication}
+
+\begin{theorem}{}{003584}
+Assume that $a$ is any scalar, and that $A$, $B$, and $C$ are matrices of sizes such that the indicated matrix products are defined. Then:
+\begin{multicols}{2}
+\begin{enumerate}
+\item $IA = A$ and $AI = A$ where $I$ denotes an identity matrix.
+
+\item $A(BC) = (AB)C$.
+
+\item $A(B + C) = AB + AC$.
+
+\item $(B + C)A = BA + CA$.
+
+\item $a(AB) = (aA)B = A(aB)$.
+
+\item $(AB)^{T} = B^{T}A^{T}$.
+\end{enumerate}
+\end{multicols}
+\vspace*{0.005em}
+\end{theorem}
+
+\vspace*{-0.5em}\begin{proof} Condition (1) is Example~\ref{exa:003567}; we prove (2), (4), and (6) and leave (3) and (5) as exercises.
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item If $C = \leftB \begin{array}{cccc}
+\vect{c}_{1} & \vect{c}_{2} & \cdots & \vect{c}_{k}
+\end{array} \rightB$ in terms of its columns, then $BC = \leftB \begin{array}{cccc}
+B\vect{c}_{1} & B\vect{c}_{2} & \cdots & B\vect{c}_{k}
+\end{array} \rightB$ by Definition~\ref{def:003447}, so
+\begin{equation*}
+\begin{array}{lllll}
+A(BC) & = & \leftB \begin{array}{rrrr}
+A(B\vect{c}_{1}) & A(B\vect{c}_{2}) & \cdots & A(B\vect{c}_{k}) 
+\end{array} \rightB & & \mbox{Definition~\ref{def:003447}} \\
+& & & & \\
+& = & \leftB \begin{array}{rrrr}
+(AB)\vect{c}_{1} & (AB)\vect{c}_{2} & \cdots & (AB)\vect{c}_{k})
+\end{array} \rightB & & \mbox{Theorem~\ref{thm:003469}} \\
+& & & & \\
+& = & (AB)C & & \mbox{Definition~\ref{def:003447}}
+\end{array}
+\end{equation*}
+
+\setcounter{enumi}{3}
+\item We know (Theorem~\ref{thm:002811}) that $(B + C)\vect{x} = B\vect{x} + C\vect{x}$ holds for every column $\vect{x}$. If we write \\ $A = \leftB \begin{array}{rrrr}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ in terms of its columns, we get
+\begin{equation*}
+\begin{array}{lllll}
+(B + C)A & = & \leftB \begin{array}{rrrr}
+(B + C)\vect{a}_{1} & (B + C)\vect{a}_{2} & \cdots & (B + C)\vect{a}_{n}
+\end{array} \rightB & & \mbox{Definition~\ref{def:003447}} \\
+& & & & \\
+& = & \leftB \begin{array}{rrrr}
+B\vect{a}_{1} + C\vect{a}_{1} & B\vect{a}_{2} + C\vect{a}_{2} & \cdots & B\vect{a}_{n} + C\vect{a}_{n}
+\end{array} \rightB & & \mbox{Theorem~\ref{thm:002811}} \\
+& & & & \\
+& = & \leftB \begin{array}{rrrr}
+B\vect{a}_{1} & B\vect{a}_{2} & \cdots & B\vect{a}_{n}
+\end{array} \rightB + \leftB \begin{array}{rrrr}
+C\vect{a}_{1} & C\vect{a}_{2} & \cdots & C\vect{a}_{n}
+\end{array} \rightB & & \mbox{Adding Columns} \\
+& & & & \\
+& = & BA + CA & & \mbox{Definition~\ref{def:003447}}
+\end{array}
+\end{equation*}
+\setcounter{enumi}{5}
+\item As in Section~\ref{sec:2_1}, write $A = [a_{ij}]$ and $B = [b_{ij}]$, so that $A^{T} = [a^\prime_{ij}]$ and $B^{T} = [b^\prime_{ij}]$ where $a^\prime_{ij} = a_{ji}$ and $b^\prime_{ji} = b_{ij}$ for all $i$ and $j$. If $c_{ij}$ denotes the $(i, j)$-entry of $B^{T}A^{T}$, then $c_{ij}$ is the dot product of row $i$ of $B^{T}$ with column $j$ of $A^{T}$. Hence
+\begin{align*}
+c_{ij} = b_{i1}^\prime a_{1j}^\prime + b_{i2}^\prime a_{2j}^\prime + \cdots + b_{im}^\prime a_{mj}^\prime  &= b_{1i} a_{j1} + b_{2i} a_{j2} + \cdots + b_{mi} a_{jm} \\
+&= a_{j1}b_{1i} + a_{j2}b_{2i} + \cdots + a_{jm}b_{mi} 
+\end{align*}
+But this is the dot product of row $j$ of $A$ with column $i$ of $B$; that is, the $(j, i)$-entry of $AB$; that is, the $(i, j)$-entry of $(AB)^{T}$. This proves (6).
+\end{enumerate}
+\vspace*{-2em}
+\end{proof}
+
+Property 2 in Theorem~\ref{thm:003584} is called the \textbf{associative law}\index{associative law}\index{matrix multiplication!associative law} of matrix multiplication. It asserts that the equation $A(BC) = (AB)C$ holds for all matrices (if the products are defined). Hence this product is the same no matter how it is formed, and so is written simply as $ABC$. This extends: The product $ABCD$ of four matrices can be formed several ways---for example, $(AB)(CD)$, $[A(BC)]D$, and $A[B(CD)]$---but the associative law implies that they are all equal and so are written as $ABCD$. A similar remark applies in general: Matrix products can be written unambiguously with no parentheses.
+
+However, a note of caution about matrix multiplication must be taken: The fact that $AB$ and $BA$ need \textit{not} be equal means that the \textit{order} of the factors\index{matrix multiplication!order of the factors} is important in a product of matrices. For example $ABCD$ and $ADCB$ may \textit{not} be equal.
+
+\vspace{0.5em}
+\noindent{\sl\textbf{Warning}}
+\begin{quotation} {\slshape \noindent If the order of the factors in a product of matrices is changed, the product matrix may change (or may not be defined). Ignoring this warning is a source of many errors by students of linear algebra!}
+\end{quotation}
+
+
+Properties 3 and 4 in Theorem~\ref{thm:003584} are called \textbf{distributive laws}\index{distributive laws}\index{matrix multiplication!distributive laws}. They assert that $A(B + C) = AB + AC$ and $(B + C)A = BA + CA$ hold whenever the sums and products are defined. These rules extend to more than two terms and, together with Property 5, ensure that many manipulations familiar from ordinary algebra extend to matrices. For example
+\begin{align*} 
+A(2B - 3C + D - 5E) & = 2AB - 3AC + AD - 5AE \\
+(A + 3C - 2D)B & = AB + 3CB - 2DB
+\end{align*}
+Note again that the warning is in effect: For example $A(B - C)$ need \textit{not} equal $AB - CA$. These rules make possible a lot of simplification of matrix expressions.
+
+
+\begin{example}{}{003663}
+Simplify the expression $A(BC - CD) + A(C - B)D - AB(C - D)$.
+
+
+\begin{solution}
+\begin{align*}
+A(BC - CD) + A(C - B)D - AB(C - D) &= A(BC) - A(CD) + (AC-AB)D - (AB)C + (AB)D \\
+&= ABC - ACD + ACD - ABD - ABC + ABD \\
+&= 0
+\end{align*}
+\end{solution}
+\end{example}
+
+Example~\ref{exa:003671} and Example~\ref{exa:003678} below show how we can use the properties in Theorem~\ref{thm:003488} to deduce other facts about matrix multiplication. Matrices $A$ and $B$ are said to \textbf{commute}\index{commute}\index{matrix multiplication!commute} if $AB = BA$.
+
+
+\begin{example}{}{003671}
+Suppose that $A$, $B$, and $C$ are $n \times n$ matrices and that both $A$ and $B$ commute with $C$; that is, $AC = CA$ and $BC = CB$. Show that $AB$ commutes with $C$.
+
+\begin{solution}
+  Showing that $AB$ commutes with $C$ means verifying that $(AB)C = C(AB)$. The computation uses the associative law several times, as well as the given facts that $AC = CA$ and $BC = CB$.
+\begin{equation*}
+(AB)C = A(BC) = A(CB) = (AC)B = (CA)B = C(AB)
+\end{equation*}
+\end{solution}
+\end{example}
+
+\begin{example}{}{003678}
+Show that $AB = BA$ if and only if $(A - B)(A + B) = A^{2} - B^{2}$.
+
+
+\begin{solution}
+  The following \textit{always} holds:
+\begin{equation} \label{eq:commute}
+(A - B)(A + B) = A(A + B) - B(A + B) = A^{2} + AB - BA -B^{2}
+\end{equation}
+Hence if $AB = BA$, then $(A - B)(A + B) = A^{2} - B^{2}$ follows. Conversely, if this last equation holds, then equation (\ref{eq:commute}) becomes
+\begin{equation*}
+A^{2} - B^{2} = A^{2} + AB - BA - B^{2}
+\end{equation*}
+This gives $0 = AB - BA$, and $AB = BA$ follows.
+\end{solution}
+\end{example}
+
+In Section~\ref{sec:2_2} we saw (in Theorem~\ref{thm:002684}) that every system of linear equations has the form
+\begin{equation*}
+A\vect{x} = \vect{b}
+\end{equation*}
+where $A$ is the coefficient matrix, $\vect{x}$ is the column of variables, and $\vect{b}$ is the constant matrix. Thus the \textit{system} of linear equations becomes a single matrix equation. Matrix multiplication can yield information about such a system.
+
+
+\begin{example}{}{003694}
+Consider a system $A\vect{x} = \vect{b}$ of linear equations where $A$ is an $m \times n$ matrix. Assume that a matrix $C$ exists such that $CA = I_{n}$. If the system $A\vect{x} = \vect{b}$ \textit{has} a solution, show that this solution must be $C\vect{b}$. Give a condition guaranteeing that $C\vect{b}$ \textit{is in fact} a solution.
+
+
+\begin{solution}
+  Suppose that $\vect{x}$ is any solution to the system, so that $A\vect{x} = \vect{b}$. Multiply both sides of this matrix equation by $C$ to obtain, successively,
+\begin{equation*}
+C(A\vect{x}) = C\vect{b}, \quad (CA)\vect{x} = C\vect{b}, \quad I_{n}\vect{x} = C\vect{b}, \quad \vect{x} = C\vect{b}
+\end{equation*}
+This shows that \textit{if} the system has a solution $\vect{x}$, then that solution must be $\vect{x} = C\vect{b}$, as required. But it does \textit{not} guarantee that the system \textit{has} a solution. However, if we write $\vect{x}_{1} = C\vect{b}$, then
+\begin{equation*}
+A\vect{x}_{1} = A(C\vect{b}) = (AC)\vect{b}
+\end{equation*}
+Thus $\vect{x}_{1} = C\vect{b}$ will be a solution if the condition $AC = I_{m}$ is satisfied.
+\end{solution}
+\end{example}
+
+The ideas in Example~\ref{exa:003694} lead to important information about matrices; this will be pursued in the next section.
+
+
+
+\subsection*{Block Multiplication}
+
+
+\begin{definition}{Block Partition of a Matrix}{003711}
+It is often useful to consider matrices whose entries are themselves matrices (called \textbf{blocks}\index{blocks}\index{matrix!block matrix}). A matrix viewed in this way is said to be \textbf{partitioned into blocks}\index{partitioned into blocks}\index{matrix!partitioned into blocks}\index{matrix multiplication!block}\index{multiplication!block multiplication}.
+\end{definition}
+
+\noindent For example, writing a matrix $B$ in the form
+\begin{equation*}
+B = \leftB \begin{array}{cccc}
+\vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{k}
+\end{array} \rightB \mbox{ where the } \vect{b}_{j} \mbox{ are the columns of } B
+\end{equation*}
+is such a block partition of $B$. Here is another example.
+
+Consider the matrices
+\begin{equation*}
+A = \leftB \begin{array}{rr|rrr}
+1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+\hline
+2 & -1 & 4 & 2 & 1 \\
+3 & 1 & -1 & 7 & 5
+\end{array} \rightB = \leftB \begin{array}{cc}
+I_{2} & 0_{23} \\
+P & Q
+\end{array} \rightB \quad \mbox{ and } \quad B = \leftB \begin{array}{rr}
+4 & -2 \\
+5 & 6 \\
+\hline
+7 & 3 \\
+-1 & 0 \\
+1 & 6
+\end{array} \rightB = \leftB \begin{array}{c}
+X \\
+Y
+\end{array} \rightB
+\end{equation*}
+where the blocks have been labelled as indicated. This is a natural way to partition $A$ into blocks in view of the blocks $I_{2}$ and $0_{23}$ that occur. This notation is particularly useful when we are multiplying the matrices $A$ and $B$ because the product $AB$ can be computed in block form as follows:
+\begin{equation*}
+AB = \leftB \begin{array}{cc}
+I & 0 \\
+P & Q
+\end{array} \rightB \leftB \begin{array}{c}
+X \\
+Y
+\end{array} \rightB = \leftB \begin{array}{c}
+IX + 0Y \\
+PX + QY
+\end{array} \rightB = \leftB \begin{array}{c}
+X \\
+PX + QY
+\end{array} \rightB = \leftB \begin{array}{rr}
+4 & -2 \\
+5 & 6 \\
+\hline
+30 & 8 \\
+8 & 27
+\end{array} \rightB
+\end{equation*}
+This is easily checked to be the product $AB$, computed in the conventional manner.
+
+In other words, \textit{we can compute the product} $AB$ \textit{by ordinary matrix multiplication, using blocks as entries}. The only requirement is that the blocks be \textbf{compatible}\index{compatible!blocks}\index{multiplication!compatible}. That is, \textit{the sizes of the blocks must be such that all} (\textit{matrix}) \textit{products of blocks that occur make sense}. This means that the number of columns in each block of $A$ must equal the number of rows in the corresponding block of $B$.
+
+
+\begin{theorem}{Block Multiplication}{003723}
+If matrices $A$ and $B$ are partitioned compatibly into blocks, the product $AB$ can be computed by matrix multiplication using blocks as entries.\index{block multiplication}
+\end{theorem}
+
+\noindent We omit the proof.
+
+We have been using two cases of block multiplication. If $B = \leftB \begin{array}{cccc}
+\vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{k}
+\end{array} \rightB$ is a matrix where the $\vect{b}_{j}$ are the columns of $B$, and if the matrix product $AB$ is defined, then we have
+\begin{equation*}
+AB = A \leftB \begin{array}{rrrr}
+\vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{k}
+\end{array} \rightB = \leftB \begin{array}{rrrr}
+A\vect{b}_{1} & A\vect{b}_{2} & \cdots & A\vect{b}_{k}
+\end{array} \rightB
+\end{equation*}
+This is Definition~\ref{def:003447} and is a block multiplication where $A = \leftB A \rightB$ has only one block. As another illustration,
+\begin{equation*}
+B\vect{x} = \leftB \begin{array}{rrrr}
+\vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{k}
+\end{array} \rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{k}
+\end{array} \rightB = x_{1}\vect{b}_{1} + x_{2}\vect{b}_{2} + \cdots + x_{k}\vect{b}_{k}
+\end{equation*}
+where $\vect{x}$ is any $k \times 1$ column matrix (this is Definition~\ref{def:002668}).
+
+
+It is not our intention to pursue block multiplication in detail here. However, we give one more example because it will be used below. 
+
+
+\begin{theorem}{}{003738}
+Suppose matrices $A = \leftB \begin{array}{cc}
+B & X \\
+0 & C
+\end{array} \rightB$
+ and $A_{1} = \leftB \begin{array}{cc}
+ B_{1} & X_{1} \\
+ 0 & C_{1}
+ \end{array} \rightB$ are partitioned as shown where $B$ and $B_{1}$ are square matrices of the same size, and $C$ and $C_{1}$ are also square of the same size. These are compatible partitionings and block multiplication gives
+\begin{equation*}
+AA_{1} = \leftB \begin{array}{cc}
+B & X \\
+0 & C
+\end{array} \rightB \leftB \begin{array}{cc}
+B_{1} & X_{1} \\
+0 & C_{1}
+\end{array} \rightB = \leftB \begin{array}{cc}
+BB_{1} & BX_{1} + XC_{1} \\
+0 & CC_{1}
+\end{array} \rightB
+\end{equation*}
+\end{theorem}
+
+\begin{example}{}{003746}
+Obtain a formula for $A^{k}$ where $A = \leftB \begin{array}{cc}
+I & X \\
+0 & 0
+\end{array} \rightB$
+ is square and $I$ is an identity matrix.
+
+
+\begin{solution}
+  We have $A^{2} = \leftB \begin{array}{cc}
+  I & X \\
+  0 & 0
+  \end{array} \rightB \leftB \begin{array}{cc}
+  I & X \\
+  0 & 0
+  \end{array} \rightB = \leftB \begin{array}{cc}
+  I^{2} & IX + X0 \\
+  0 & 0^{2}
+  \end{array} \rightB = \leftB \begin{array}{cc}
+  I & X \\
+  0 & 0
+  \end{array} \rightB = A$. Hence $A^{3} = AA^{2} = AA = A^{2} = A$. Continuing in this way, we see that $A^{k} = A$ for every $k \geq 1$.
+\end{solution}
+\end{example}
+
+Block multiplication has theoretical uses as we shall see. However, it is also useful in computing products of matrices in a computer with limited memory capacity. The matrices are partitioned into blocks in such a way that each product of blocks can be handled. Then the blocks are stored in auxiliary memory and their products are computed one by one.
+
+
+\subsection*{Directed Graphs}
+
+
+The study of directed graphs illustrates how matrix multiplication arises in ways other than the study of linear equations or matrix transformations.
+
+A \textbf{directed graph}\index{directed graphs}\index{graphs!directed graphs}\index{matrix multiplication!directed graphs} consists of a set of points (called \textbf{vertices}\index{vertices}) connected by arrows (called \textbf{edges}\index{edges}). For example, the vertices could represent cities and the edges available flights. If the graph has $n$ vertices $v_{1}, v_{2}, \dots, v_{n}$, the \textbf{adjacency} matrix\index{adjacency matrix}\index{matrix!adjacency matrix} $A = \leftB a_{ij} \rightB$ is the $n \times n$ matrix whose $(i, j)$-entry $a_{ij}$ is $1$ if there is an edge from $v_{j}$ to $v_{i}$ (note the order), and zero otherwise. For example, the adjacency matrix of the directed graph shown is $A = \leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+1 & 0 & 1 \\
+1 & 0 & 0
+\end{array} \rightB$. 
+
+\begin{wrapfigure}[5]{l}{5cm} 
+\centering
+\input{2-matrix-algebra/figures/3-matrix-multiplication/directedgraph2.3.1}
+%\caption{\label{fig:003763}}
+\end{wrapfigure}
+
+\noindent A \textbf{path of length}\index{path of length}\index{length!path of length} $r$ (or an $r$-\textbf{path}) from vertex $j$ to vertex $i$ is a sequence of $r$ edges leading from $v_{j}$ to $v_{i}$. Thus $v_{1} \to v_{2} \to v_{1} \to v_{1} \to v_{3}$ is a $4$-path from $v_{1}$ to $v_{3}$ in the given graph. The edges are just the paths of length $1$, so the $(i, j)$-entry $a_{ij}$ of the adjacency matrix $A$ is the number of $1$-paths from $v_{j}$ to $v_{i}$. This observation has an important extension:
+
+
+\begin{theorem}{}{003785}
+If $A$ is the adjacency matrix of a directed graph with $n$ vertices, then the $(i, j)$-entry of $A^r$ is the number of $r$-paths $v_{j} \to v_{i}$.
+\end{theorem}
+
+As an illustration, consider the adjacency matrix $A$ in the graph shown. Then
+\begin{equation*}
+A = \leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+1 & 0 & 1 \\
+1 & 0 & 0
+\end{array} \rightB, \quad A^{2} = \leftB \begin{array}{rrr}
+2 & 1 & 1 \\
+2 & 1 & 0 \\
+1 & 1 & 0
+\end{array} \rightB, \quad \mbox{ and } \quad A^{3} = \leftB \begin{array}{rrr}
+4 & 2 & 1 \\
+3 & 2 & 1 \\
+2 & 1 & 1
+\end{array} \rightB
+\end{equation*}
+Hence, since the $(2, 1)$-entry of $A^{2}$ is $2$, there are two $2$-paths $v_{1} \to v_{2}$ (in fact they are $v_{1} \to v_{1} \to v_{2}$ and $v_{1} \to v_{3} \to v_{2}$). Similarly, the $(2, 3)$-entry of $A^{2}$ is zero, so there are \textit{no} $2$-paths $v_{3} \to v_{2}$, as the reader can verify. The fact that no entry of $A^{3}$ is zero shows that it is possible to go from any vertex to any other vertex in exactly three steps.
+
+
+To see why Theorem~\ref{thm:003785} is true, observe that it asserts that
+\begin{equation} \label{eq:assert}
+\mbox{the } (i, j)\mbox{-entry of } A^{r} \mbox{ equals the number of } r\mbox{-paths } v_{j} \rightarrow v_{i}
+\end{equation}
+holds for each $r \geq 1$. We proceed by induction\index{induction!on path of length $r$} on $r$ (see Appendix~\ref{chap:appcinduction}). The case $r = 1$ is the definition of the adjacency matrix. So assume inductively that (\ref{eq:assert}) is true for some $r \geq 1$; we must prove that (\ref{eq:assert}) also holds for $r + 1$. But every $(r + 1)$-path $v_{j} \to v_{i}$ is the result of an $r$-path $v_{j} \to v_{k}$ for some $k$, followed by a $1$-path $v_{k} \to v_{i}$. Writing $A = \leftB a_{ij} \rightB$ and $A^{r} = \leftB b_{ij} \rightB$, there are $b_{kj}$ paths of the former type (by induction) and $a_{ik}$ of the latter type, and so there are $a_{ik}b_{kj}$ such paths in all. Summing over $k$, this shows that there are
+\begin{equation*}
+a_{i1}b_{1j} + a_{i2}b_{2j} + \cdots + a_{in}b_{nj} \quad (r + 1)\mbox{-paths } v_{j} \rightarrow v_{i}
+\end{equation*}
+But this sum is the dot product of the $i$th row $\leftB \arraycolsep=2pt \begin{array}{cccc}
+a_{i1} & a_{i2} & \cdots & a_{in}
+\end{array} \rightB$ of $A$ with the $j$th column $\leftB \arraycolsep=2pt \begin{array}{cccc}
+b_{1j} & b_{2j} & \cdots & b_{nj}
+\end{array} \rightB^{T}$ of $A^{r}$. As such, it is the $(i, j)$-entry of the matrix product $A^{r}A = A^{r+1}$. This shows that (\ref{eq:assert}) holds for $r + 1$, as required.
+
+\section*{Exercises for \ref{sec:2_3}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:2_3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Compute the following matrix products.
+\begin{exenumerate}
+\exitem*
+$ \leftB \begin{array}{rr}
+1 & 3 \\
+0 & -2
+\end{array} \rightB \leftB \begin{array}{rr}
+2 & -1 \\
+0 & 1
+\end{array} \rightB
+$
+\exitem*
+$ \leftB \begin{array}{rrr}
+1 & -1 & 2 \\
+2 & 0 & 4
+\end{array} \rightB \leftB \begin{array}{rrr}
+2 & 3 & 1 \\
+1 & 9 & 7 \\
+-1 & 0 & 2
+\end{array} \rightB
+$
+\exitem*
+$ \leftB \begin{array}{rrr}
+5 & 0 & -7 \\
+1 & 5 & 9
+\end{array} \rightB \leftB \begin{array}{r}
+3 \\
+1 \\
+-1 \\
+\end{array} \rightB
+$
+\exitem*
+$ \leftB \begin{array}{rrr}
+1 & 3 & -3
+\end{array} \rightB \leftB \begin{array}{rr}
+3 & 0 \\
+-2 & 1 \\
+0 & 6
+\end{array} \rightB
+$
+\exitem*
+$ \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{rr}
+3 & -2  \\
+5 & -7 \\
+9 & 7
+\end{array} \rightB
+$
+\exitem*
+$ \leftB \begin{array}{rrr}
+1 & -1 & 3
+\end{array} \rightB \leftB \begin{array}{r}
+2 \\
+1 \\
+-8
+\end{array} \rightB
+$
+\exitem*
+$ \leftB \begin{array}{r}
+2 \\
+1 \\
+-7
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & -1 & 3
+\end{array} \rightB
+$
+%\columnbreak 
+\exitem* 
+$ \leftB \begin{array}{rr}
+3 & 1 \\
+5 & 2
+\end{array} \rightB \leftB \begin{array}{rr}
+2 & -1 \\
+-5 & 3
+\end{array} \rightB
+ $
+\exitem*
+$ \leftB \begin{array}{rrr}
+2 & 3 & 1 \\
+5 & 7 & 4
+\end{array} \rightB \leftB \begin{array}{ccc}
+a & 0 & 0 \\
+0 & b & 0 \\
+0 & 0 & c
+\end{array} \rightB
+$
+\exitem*
+$\leftB \begin{array}{ccc}
+a & 0 & 0 \\
+0 & b & 0 \\
+0 & 0 & c
+\end{array} \rightB 
+\leftB \begin{array}{ccc}
+a^\prime & 0 & 0 \\
+0 & b^\prime & 0 \\
+0 & 0 & c^\prime
+\end{array} \rightB
+$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$\leftB \begin{array}{rrr}
+-1 & -6 & -2 \\
+0 & 6 & 10
+\end{array} \rightB
+$
+
+\setcounter{enumi}{3}
+\item  
+$\leftB \begin{array}{rr}
+-3 & -15
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item 
+$\leftB -23 \rightB$
+
+\setcounter{enumi}{7}
+\item 
+$\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+$
+
+\setcounter{enumi}{9}
+\item  
+$\leftB \begin{array}{rrr}
+aa^\prime & 0 & 0 \\
+0 & bb^\prime & 0 \\
+0 & 0 & cc^\prime
+\end{array} \rightB
+$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each of the following cases, find all possible products $A^{2}$, $AB$, $AC$, and so on.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item
+$A = \leftB \begin{array}{rrr}
+1 & 2 & 3 \\
+-1 & 0 & 0
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rr}
+1 & -2 \\
+\frac{1}{2} & 3
+\end{array} \rightB$, \\
+ $C = \leftB \begin{array}{rr}
+-1 & 0 \\
+2 & 5 \\
+0 & 3
+\end{array} \rightB
+$ 
+
+\item
+$A = \leftB \begin{array}{rrr}
+	1 & 2 & 4 \\
+	0 & 1 & -1
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rr}
+	-1 & 6 \\
+	1 & 0
+\end{array} \rightB$, \\
+$C = \leftB \begin{array}{rr}
+	2 & 0 \\
+	-1 & 1 \\
+	1 & 2
+\end{array} \rightB
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$
+BA = \leftB \begin{array}{rrr}
+-1 & 4 & -10 \\
+1 & 2 & 4
+\end{array} \rightB$, $B^{2} = \leftB \begin{array}{rr}
+7 & -6 \\
+-1 & 6
+\end{array} \rightB$, $CB = \leftB \begin{array}{rr}
+-2 & 12 \\
+2 & -6 \\
+1 & 6
+\end{array} \rightB$ \\
+$AC = \leftB \begin{array}{rr}
+4 & 10 \\
+-2 & -1
+\end{array} \rightB$, $CA = \leftB \begin{array}{rrr}
+2 & 4 & 8 \\
+-1 & -1 & -5 \\
+1 & 4 & 2
+\end{array} \rightB
+$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Find $a$, $b$, $a_{1}$, and $b_{1}$ if:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item
+$\leftB \begin{array}{cc}
+a & b \\
+a_{1} & b_{1}
+\end{array} \rightB \leftB \begin{array}{rr}
+3 & -5 \\
+-1 & 2
+\end{array} \rightB = \leftB \begin{array}{rr}
+1 & -1 \\
+2 & 0
+\end{array} \rightB
+$
+
+\item 
+$\leftB \begin{array}{rr}
+2 & 1 \\
+-1 & 2
+\end{array} \rightB \leftB \begin{array}{cc}
+a & b \\
+a_{1} & b_{1}
+\end{array} \rightB = \leftB \begin{array}{rr}
+7 & 2 \\
+-1 & 4
+\end{array} \rightB
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(a, b, a_{1}, b_{1}) = (3, 0, 1, 2)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Verify that $A^{2} - A - 6I = 0$ if:
+\begin{exenumerate}
+\exitem 
+$ \leftB \begin{array}{rr}
+3 & -1 \\
+0 & -2
+\end{array} \rightB
+$
+\exitem 
+$ \leftB \begin{array}{rr}
+2 & 2 \\
+2 & -1
+\end{array} \rightB
+$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$A^{2} - A - 6I = \leftB \begin{array}{rr}
+8 & 2 \\
+2 & 5
+\end{array} \rightB - \leftB \begin{array}{rr}
+2 & 2 \\
+2 & -1
+\end{array} \rightB - \leftB \begin{array}{rr}
+6 & 0 \\
+0 & 6
+\end{array} \rightB = \leftB \begin{array}{rr}
+0 & 0 \\
+0 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex2_3_5}
+
+Given $A = \leftB \begin{array}{rr}
+1 & -1 \\
+0 & 1
+\end{array} \rightB$, $B = \leftB \begin{array}{rrr}
+1 & 0 & -2 \\
+3 & 1 & 0
+\end{array} \rightB$, \\ $C = \leftB \begin{array}{rr}
+1 & 0 \\
+2 & 1 \\
+5 & 8
+\end{array} \rightB$, and $D = \leftB \begin{array}{rrr}
+ 3 & -1 & 2 \\
+ 1 & 0 & 5
+ \end{array} \rightB$, verify the \newline following facts from Theorem~\ref{thm:003469}.
+\begin{exenumerate}
+\exitem $A(B - D) = AB - AD$
+\exitem $A(BC) = (AB)C$
+\exitem $(CD)^{T} = D^{T}C^{T}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$
+A(BC) = \leftB \begin{array}{rr}
+1 & -1 \\
+0 & 1
+\end{array} \rightB \leftB \begin{array}{rr}
+-9 & -16 \\
+5 & 1
+\end{array} \rightB = \leftB \begin{array}{rr}
+-14 & -17 \\
+5 & 1
+\end{array} \rightB = \leftB \begin{array}{rrr}
+-2 & -1 & -2 \\
+3 & 1 & 0
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+2 & 1 \\
+5 & 8
+\end{array} \rightB = (AB)C
+$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be a $2 \times 2$ matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ commutes with $\leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB$, show that \\ $A = \leftB \begin{array}{rr}
+ a & b \\
+ 0 & a
+ \end{array} \rightB$
+ for some $a$ and $b$.
+
+\item If $A$ commutes with $\leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB$, show that \\ $A = \leftB \begin{array}{rr}
+ a & 0 \\
+ c & a
+ \end{array} \rightB$
+ for some $a$ and $c$.
+
+\item Show that $A$ commutes with \textit{every} $2 \times 2$ matrix \newline if and only if $A = \leftB \begin{array}{rr}
+a & 0 \\
+0 & a
+\end{array} \rightB$
+ for some $a$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $A = \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB$
+ and $E = \leftB \begin{array}{rr}
+ 0 & 0 \\
+ 1 & 0
+ \end{array} \rightB$, compare entries an $AE$ and $EA$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $A^{2}$ can be formed, what can be said about the size of $A$?
+
+\item If $AB$ and $BA$ can both be formed, describe the sizes of $A$ and $B$.
+
+\item If $ABC$ can be formed, $A$ is $3 \times 3$, and $C$ is $5 \times 5$, what size is $B$?
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $m \times n$ and $n \times m$ for some $m$ and $n$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Find two $2 \times 2$ matrices $A$ such that $A^{2} = 0$.
+
+\item Find three $2 \times 2$ matrices $A$ such that (i) $A^{2} = I$; (ii) $A^{2} = A$.
+
+\item Find $2 \times 2$ matrices $A$ and $B$ such that $AB = 0$ but $BA \neq 0$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+\begin{enumerate}[label={\roman*.}]
+\item
+$
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB$, $\leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB$, $\leftB \begin{array}{rr}
+1 & 1 \\
+0 & -1
+\end{array} \rightB
+$
+
+\item
+$
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB$, $\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB$, $\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB
+$
+\end{enumerate}
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Write $P = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0
+\end{array} \rightB$, and let $A$ be $3 \times n$ and $B$ be $m \times 3$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Describe $PA$ in terms of the rows of $A$.
+
+\item Describe $BP$ in terms of the columns of $B$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $A$, $B$, and $C$ be as in Exercise~\ref{ex:ex2_3_5}. Find the $(3, 1)$-entry of $CAB$ using exactly six numerical multiplications.
+\end{ex}
+
+\begin{ex}
+Compute $AB$, using the indicated block partitioning.
+\begin{equation*}
+A = \leftB \begin{array}{rr|rr}
+2 & -1 & 3 & 1 \\
+1 & 0  & 1 & 2 \\
+\hline
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array} \rightB \quad
+B = \leftB \begin{array}{rr|r}
+1 & 2 & 0 \\
+-1 & 0  & 0 \\
+\hline
+0 & 5 & 1 \\
+1 & -1 & 0 
+\end{array} \rightB
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+In each case give formulas for all powers $A, A^{2}, A^{3}, \dots$ of $A$ using the block decomposition indicated.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item
+$A = \leftB \begin{array}{r|rr}
+1 & 0 & 0 \\
+\hline
+1 & 1  & -1\\
+1 & -1 & 1
+\end{array} \rightB
+$
+
+\item
+$A = \leftB \begin{array}{rr|rr}
+1 & -1 & 2 & -1 \\
+0 & 1 & 0 & 0 \\
+\hline
+0 & 0 & -1 & 1 \\
+0 & 0 & 0 & 1
+\end{array} \rightB
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$
+A^{2k} = \leftB \begin{array}{rc|rr}
+1 & -2k & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+\hline
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array} \rightB$ for $k = 0, 1, 2, \dots$, \\ 
+$A^{2k + 1} = A^{2k}A = \leftB \begin{array}{rc|rr}
+1 & -(2k + 1) & 2 & -1 \\
+0 & 1 & 0 & 0 \\
+\hline
+0 & 0 & -1 & 1 \\
+0 & 0 & 0 & 1
+\end{array} \rightB$ for $k = 0, 1, 2, \dots$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+%\newpage
+\begin{ex}
+Compute the following using block multiplication (all blocks are $k \times k$).
+\begin{exenumerate}
+\exitem
+$\leftB \begin{array}{rr}
+I & X \\
+-Y & I
+\end{array} \rightB \leftB \begin{array}{rr}
+I & 0 \\
+Y & I
+\end{array} \rightB
+$
+\exitem 
+$\leftB \begin{array}{rr}
+I & X \\
+0 & I
+\end{array} \rightB \leftB \begin{array}{rr}
+I & -X \\
+0 & I
+\end{array} \rightB
+$
+\exitem 
+$\leftB \begin{array}{cc}
+I & X
+\end{array} \rightB \leftB \begin{array}{cc}
+I & X
+\end{array} \rightB^{T}
+$
+\exitem
+$\leftB \begin{array}{cc}
+I & X^{T}
+\end{array} \rightB \leftB \begin{array}{cc}
+-X & I
+\end{array} \rightB^{T}
+$
+\exitem*
+$\leftB \begin{array}{cc}
+I & X \\
+0 & -I
+\end{array} \rightB^{n}
+$ any $n \geq 1$
+\exitem* 
+$\leftB \begin{array}{cc}
+0 & X \\
+I & 0
+\end{array} \rightB^{n}
+$ any $n \geq 1$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$\leftB \begin{array}{cc}
+I & 0 \\
+0 & I
+\end{array} \rightB = I_{2k}$
+
+\setcounter{enumi}{3}
+\item $0_{k}$
+
+
+\setcounter{enumi}{5}
+\item
+$\leftB \begin{array}{cc}
+X^{m} & 0 \\
+0 & X^{m}
+\end{array} \rightB$ if $n = 2m$; 
+$\leftB \begin{array}{cc}
+0 & X^{m + 1} \\
+X^{m} & 0
+\end{array} \rightB$ if $n = 2m + 1$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ denote an $m \times n$ matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $AX = 0$ for every $n \times 1$ matrix $X$, show that $A = 0$.
+
+\item If $YA = 0$ for every $1 \times m$ matrix $Y$, show that $A = 0$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $Y$ is row $i$ of the identity matrix $I$, then $YA$ is row $i$ of $IA = A$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $U = \leftB \begin{array}{rr}
+1 & 2 \\
+0 & -1
+\end{array} \rightB$, and $AU = 0$, show that $A = 0$.
+
+\item Let $U$ be such that $AU = 0$ implies that $A = 0$. If $PU = QU$, show that $P = Q$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Simplify the following expressions where $A$, $B$, and $C$ represent matrices.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A(3B - C) + (A - 2B)C + 2B(C + 2A)$
+
+\item $A(B + C - D) + B(C - A + D) - (A + B)C \\ + (A - B)D$
+
+\item $AB(BC - CB) + (CA - AB)BC + CA(A - B)C$
+
+\item $(A - B)(C - A) + (C - B)(A - C) + (C - A)^{2}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $AB - BA$
+
+\setcounter{enumi}{3}
+\item $0$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A = \leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB$
+ where $a \neq 0$, show that $A$ factors in the form 
+ $A = \leftB \begin{array}{cc}
+ 1 & 0 \\
+ x & 1
+ \end{array} \rightB \leftB \begin{array}{cc}
+ y & z \\
+ 0 & w
+ \end{array} \rightB$.
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ commute with $C$, show that the same is true of:
+\begin{exenumerate}
+\exitem $A + B$
+\exitem $kA$, $k$ any scalar
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $(kA)C = k(AC) = k(CA) = C(kA)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is any matrix, show that both $AA^{T}$ and $A^{T}A$ are symmetric.
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ are symmetric, show that $AB$ is symmetric if and only if $AB = BA$.
+
+\begin{sol}
+We have $A^{T} = A$ and $B^{T} = B$, so $(AB)^{T} = B^{T}A^{T} = BA$. Hence $AB$ is symmetric if and only if $AB = BA$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is a $2 \times 2$ matrix, show that \newline $A^{T}A = AA^{T}$ if and only if $A$ is symmetric or \newline $A = \leftB \begin{array}{cc}
+a & b \\
+-b & a
+\end{array} \rightB$
+ for some $a$ and $b$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Find all symmetric $2 \times 2$ matrices $A$ such that $A^{2} = 0$.
+
+\item Repeat (a) if $A$ is $3 \times 3$.
+
+\item Repeat (a) if $A$ is $n \times n$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $A = 0$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that there exist no $2 \times 2$ matrices $A$ and $B$ such that $AB - BA = I$. [\textit{Hint}: Examine the $(1, 1)$- and $(2, 2)$-entries.]
+\end{ex}
+
+\begin{ex}
+Let $B$ be an $n \times n$ matrix. Suppose $AB = 0$ for some nonzero $m \times n$ matrix $A$. Show that no $n \times n$ matrix $C$ exists such that $BC = I$.
+
+\begin{sol}
+If $BC = I$, then $AB = 0$ gives $0 = 0C = (AB)C = A(BC) = AI = A$, contrary to the assumption that $A \neq 0$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+An autoparts manufacturer makes fenders, doors, and hoods. Each requires assembly and packaging carried out at factories: Plant 1, Plant 2, and Plant 3. Matrix $A$ below gives the number of hours for assembly and packaging, and matrix $B$ gives the hourly rates at the three plants. Explain the meaning of the $(3, 2)$-entry in the matrix $AB$. Which plant is the most economical to operate? Give reasons.
+
+\begin{tabu}{lccll}
+& Assembly & Packaging & & \\
+$\begin{array}{l}
+	\mbox{Fenders} \\
+	\mbox{Doors} \\
+	\mbox{Hoods}
+\end{array}$ &
+\multicolumn{2}{l}{
+$\leftB \arraycolsep=20pt \begin{array}{cr}
+	12 & 2 \\
+	21 & 3 \\
+	10 & 2
+\end{array} \rightB$
+} & $=$ & $A$
+\end{tabu}
+
+\medskip
+
+\noindent\makebox[\linewidth]{
+\begin{tabu}{lcccll}
+	& Plant 1 & Plant 2 & Plant 3 & & \\
+	$\begin{array}{l}
+	\mbox{Assembly} \\
+	\mbox{Packaging}
+	\end{array}$ &
+	\multicolumn{3}{c}{
+		$\leftB \arraycolsep=15pt \begin{array}{rrr}
+		21 & 18 & 20 \\
+		14 & 10 & 13
+		\end{array} \rightB$
+	} & $=$ & $B$
+\end{tabu}}
+\end{ex}
+
+
+\begin{ex}
+For the directed graph below, find the adjacency matrix $A$, compute $A^{3}$, and determine the number of paths of length $3$ from $v_{1}$ to $v_{4}$ and from $v_{2}$ to $v_{3}$.
+
+
+\begin{figure}[H]
+\centering
+\input{2-matrix-algebra/figures/3-matrix-multiplication/exercise2.3.26}
+%\caption{\label{fig:004072}}
+\end{figure}
+
+\begin{sol}
+$3$ paths $v_{1} \rightarrow v_{4}$, $0$ paths $v_{2} \rightarrow v_{3}$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case either show the statement is true, or give an example showing that it is false.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A^{2} = I$, then $A = I$.
+
+\item If $AJ = A$, then $J = I$.
+
+\item If $A$ is square, then $(A^{T})^{3} = (A^{3})^{T}$.
+
+\item If $A$ is symmetric, then $I + A$ is symmetric.
+
+\item If $AB = AC$ and $A \neq 0$, then $B = C$.
+
+\item If $A \neq 0$, then $A^{2} \neq 0$.
+
+\item If $A$ has a row of zeros, so also does $BA$ for all $B$.
+
+\item If $A$ commutes with $A + B$, then $A$ commutes with $B$.
+
+\item If $B$ has a column of zeros, so also does $AB$.
+
+\item If $AB$ has a column of zeros, so also does $B$.
+
+\item If $A$ has a row of zeros, so also does $AB$.
+
+\item If $AB$ has a row of zeros, so also does $A$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  False. If $A = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB = J$, then $AJ = A$ but $J \neq I$.
+
+\setcounter{enumi}{3}
+\item  True. Since $A^{T} = A$, we have $(I + AT = I^{T} + A^{T} = I + A$.
+
+\setcounter{enumi}{5}
+\item  False. If $A = \leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB$, then $A \neq 0$ but $A^{2} = 0$.
+
+\setcounter{enumi}{7}
+\item  True. We have $A(A + B) = (A + B)A$; that is, $A^{2} + AB = A^{2} + BA$. Subtracting $A^{2}$ gives $AB = BA$.
+
+\setcounter{enumi}{9}
+\item  False. $A = \leftB \begin{array}{rr}
+1 & -2 \\
+2 & 4
+\end{array} \rightB$, $B = \leftB \begin{array}{rr}
+2 & 4 \\
+1 & 2
+\end{array} \rightB$
+
+\setcounter{enumi}{11}
+\item  False. See \textbf{(j)}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ and $B$ are $2 \times 2$ matrices whose rows sum to $1$, show that the rows of $AB$ also sum to $1$.
+
+\item Repeat part (a) for the case where $A$ and $B$ are $n \times n$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $A = \leftB a_{ij} \rightB$ and $B = \leftB b_{ij} \rightB$ and $\sum_{j}a_{ij} = 1 = \sum_{j}b_{ij}$, then the $(i, j)$-entry of $AB$ is $c_{ij} = \sum_{k}a_{ik}b_{kj}$, whence $\sum_{j}c_{ij} = \sum_{j}\sum_{k}a_{ik}b_{kj} = \sum_{k}a_{ik}(\sum_{j}b_{kj}) = \sum_{k}a_{ik} = 1$. Alternatively: If $\vect{e} = (1, 1, \dots, 1)$, then the rows of $A$ sum to $1$ if and only if $A\vect{e} = \vect{e}$. If also $B\vect{e} = \vect{e}$ then $(AB)\vect{e} = A(B\vect{e}) = A\vect{e} = \vect{e}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be $n \times n$ matrices for which the systems of equations $A\vect{x} = \vect{0}$ and $B\vect{x} = \vect{0}$ each have only the trivial solution $\vect{x} = \vect{0}$. Show that the system $(AB)\vect{x} = \vect{0}$ has only the trivial solution.
+\end{ex}
+
+
+\begin{ex}
+The \textbf{trace}\index{trace}\index{square matrix ($n \times n$ matrix)!square} of a square matrix $A$, denoted $\func{tr }A$, is the sum of the elements on the main diagonal of $A$. Show that, if $A$ and $B$ are $n \times n$ matrices:
+\begin{exenumerate}
+\exitem* $\func{tr}(A + B) = \func{tr }A + \func{tr }B$.
+\exitem* $\func{tr}(kA) = k \func{tr}(A)$ for any number $k$.
+\exitem $\func{tr}(A^{T}) = \func{tr}(A)$.
+\exitem $\func{tr}(AB) = \func{tr}(BA)$.
+\exitem* $\func{tr}(AA^{T})$ is the sum of the squares of all entries of $A$.
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $A = \leftB a_{ij} \rightB$, then $\func{tr}(kA) = \func{tr}\leftB ka_{ij} \rightB = \sum_{i=1}^{n} ka_{ii} = k\sum_{i=1}^{n} a_{ii} = k \func{tr}(A)$.
+
+
+\setcounter{enumi}{4}
+\item  Write $A^{T} = \leftB a_{ij}^\prime \rightB$, where $a_{ij}^\prime = a_{ji}$. Then $AA^{T} = \left( \sum_{k=1}^{n} a_{ik}a_{kj}^\prime \right)$, so $\func{tr}(AA^{T}) = \sum_{i=1}^{n} \leftB \sum_{k=1}^{n} a_{ik}a_{ki}^\prime \rightB = \sum_{i=1}^{n} \sum_{k=1}^{n} a_{ik}^{2}$.
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that $AB - BA = I$ is impossible.
+
+
+[\textit{Hint}: See the preceding exercise.]
+\end{ex}
+
+\columnbreak
+\begin{ex}
+A square matrix $P$ is called an \newline \textbf{idempotent}\index{idempotents}\index{square matrix ($n \times n$ matrix)!idempotent} if $P^{2} = P$. Show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $0$ and $I$ are idempotents.
+
+\item $\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB$, $\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 0
+\end{array} \rightB$, and $\frac{1}{2} \leftB \begin{array}{rr}
+ 1 & 1 \\
+ 1 & 1
+ \end{array} \rightB$, are idempotents.
+
+\item If $P$ is an idempotent, so is $I - P$. Show further that $P(I - P) = 0$.
+
+\item If $P$ is an idempotent, so is $P^{T}$.
+
+\item If $P$ is an idempotent, so is $Q = P + AP - PAP$ for any square matrix $A$ (of the same size as $P$).
+
+\item If $A$ is $n \times m$ and $B$ is $m \times n$, and if $AB = I_{n}$, then $BA$ is an idempotent.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{4}
+\item  Observe that $PQ = P^{2} + PAP - P^{2}AP = P$, so $Q^{2} = PQ + APQ - PAPQ = P + AP - PAP = Q$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be $n \times n$ \textbf{diagonal matrices}\index{diagonal matrices}\index{matrix!diagonal matrices}\index{square matrix ($n \times n$ matrix)!diagonal matrices} (all entries off the main diagonal are zero).
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $AB$ is diagonal and $AB = BA$.
+
+\item Formulate a rule for calculating $XA$ if $X$ is $m \times n$.
+
+\item Formulate a rule for calculating $AY$ if $Y$ is $n \times k$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ are $n \times n$ matrices, show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $AB = BA$ if and only if
+\begin{equation*}
+(A + B)^{2} = A^{2} + 2AB + B^{2}
+\end{equation*}
+\item $AB = BA$ if and only if
+\begin{equation*}
+(A + B)(A - B) = (A - B)(A + B)
+\end{equation*}
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $(A + B)(A - B) = A^{2} - AB + BA - B^{2}$, and $(A - B)(A + B) = A^{2} + AB - BA - B^{2}$. These are equal if and only if $-AB + BA = AB - BA$; that is, $2BA = 2AB$; that is, $BA = AB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In Theorem~\ref{thm:003584}, prove
+\begin{exenumerate}
+\exitem part 3;
+\exitem part 5.
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(A + B)(A - B) = A^{2} - AB + BA - B^{2}$ and $(A - B)(A + B) = A^{2} - BA + AB - B^{2}$. These are equal if and only if $-AB + BA = -BA + AB$, that is $2AB = 2BA$, that is $AB = BA$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+%\begin{ex}
+%(V. Camillo) Show that the product of two reduced row-echelon matrices is also reduced row-echelon.
+
+%\begin{sol}
+%See V. Camillo, Communications in Algebra 25(6), (1997), 1767--1782; Theorem~\ref{thm:003488}.
+
+%\end{sol}
+%\end{ex}
+
+\end{multicols}

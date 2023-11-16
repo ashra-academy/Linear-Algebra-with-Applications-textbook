@@ -1,0 +1,873 @@
+\section{More on the Cross Product}
+\label{sec:4_3}
+
+The cross product $\vect{v} \times \vect{w}$ of two $\RR^3$-vectors $\vect{v} = \leftB
+\begin{array}{r}
+x_{1}\\
+y_{1}\\
+z_{1}
+\end{array}
+\rightB$ and $\vect{w} = \leftB
+\begin{array}{r}
+x_{2}\\
+y_{2}\\
+z_{2}
+\end{array}
+\rightB$
+ was defined in Section~\ref{sec:4_2} where we observed that it can be best remembered using a determinant:\index{cross product!defined}\index{cross product!determinant form}\index{determinants!cross product}
+\begin{equation} \label{eq:crossPdeterminant}
+\vect{v} \times \vect{w} = \func{det}\leftB
+\begin{array}{rrr}
+\vect{i} & x_{1} & x_{2}\\
+\vect{j} & y_{1} & y_{2}\\
+\vect{k} & z_{1} & z_{2}
+\end{array}
+\rightB
+=
+\left|
+\begin{array}{rr}
+y_{1} & y_{2}\\
+z_{1} & z_{2}
+\end{array}
+\right|\vect{i}
+-
+\left|
+\begin{array}{rr}
+x_{1} & x_{2}\\
+z_{1} & z_{2}
+\end{array}
+\right|\vect{j}
++
+\left|
+\begin{array}{rr}
+x_{1} & x_{2}\\
+y_{1} & y_{2}
+\end{array}
+\right|\vect{k}
+\end{equation}
+Here $\vect{i} = \leftB
+\begin{array}{r}
+1\\
+0\\
+0
+\end{array}
+\rightB$, 
+$\vect{j} = \leftB
+\begin{array}{r}
+0\\
+1\\
+0
+\end{array}
+\rightB$, and
+$\vect{k} = \leftB
+\begin{array}{r}
+1\\
+0\\
+0
+\end{array}
+\rightB$ are the coordinate vectors, and the determinant is expanded along the first column. We observed (but did not prove) in Theorem \ref{thm:012164} that $\vect{v} \times \vect{w}$ is orthogonal to both $\vect{v}$ and $\vect{w}$. This follows easily from the next result.
+
+
+\begin{theorem}{}{012676}
+If 
+$\vect{u} = \leftB
+\begin{array}{r}
+x_{0}\\
+y_{0}\\
+z_{0}
+\end{array}
+\rightB$,
+$\vect{v} = \leftB
+\begin{array}{r}
+x_{1}\\
+y_{1}\\
+z_{1}
+\end{array}
+\rightB$, and 
+$\vect{w} = \leftB
+\begin{array}{r}
+x_{2}\\
+y_{2}\\
+z_{2}
+\end{array}
+\rightB$, then 
+$\vect{u} \dotprod (\vect{v} \times \vect{w}) = \func{det}\leftB
+\begin{array}{rrr}
+x_{0} & x_{1} & x_{2}\\
+y_{0} & y_{1} & y_{2}\\
+z_{0} & z_{1} & z_{2}
+\end{array}
+\rightB$.
+\end{theorem}
+
+\begin{proof}
+Recall that $\vect{u} \dotprod (\vect{v} \times \vect{w})$ is computed by multiplying corresponding components of $\vect{u}$ and $\vect{v} \times \vect{w}$ and then adding. Using equation (\ref{eq:crossPdeterminant}), the result is:
+\begin{equation*}
+\vect{u} \dotprod (\vect{v} \times \vect{w}) 
+= x_{0}\left(\left|
+\begin{array}{rr}
+y_{1} & y_{2}\\
+z_{1} & z_{2}
+\end{array}
+\right|\right)
++ y_{0}\left(-
+\left|
+\begin{array}{rr}
+x_{1} & x_{2}\\
+z_{1} & z_{2}
+\end{array}
+\right|\right)
++z_{0}\left(
+\left|
+\begin{array}{rr}
+x_{1} & x_{2}\\
+y_{1} & y_{2}
+\end{array}
+\right|\right)
+=
+\func{det}\leftB
+\begin{array}{rrr}
+x_{0} & x_{1} & x_{2}\\
+y_{0} & y_{1} & y_{2}\\
+z_{0} & z_{1} & z_{2}
+\end{array}
+\rightB
+\end{equation*}
+where the last determinant is expanded along column 1.
+\end{proof}
+
+The result in Theorem~\ref{thm:012676} can be succinctly stated as follows: If $\vect{u}$, $\vect{v}$, and $\vect{w}$ are three vectors in $\RR^3$, then
+\begin{equation*}
+\vect{u} \dotprod (\vect{v} \times \vect{w}) = \func{det} \leftB \begin{array}{ccc} \vect{u} & \vect{v} & \vect{w}\end{array}\rightB
+\end{equation*}
+where $\leftB \begin{array}{ccc} \vect{u} & \vect{v} & \vect{w}\end{array}\rightB$ denotes the matrix with $\vect{u}$, $\vect{v}$, and $\vect{w}$ as its columns. Now it is clear that $\vect{v} \times \vect{w}$ is orthogonal to both $\vect{v}$ and $\vect{w}$ because the determinant of a matrix is zero if two columns are identical.
+
+
+Because of (\ref{eq:crossPdeterminant}) and Theorem~\ref{thm:012676},
+ several of the following properties of the cross product follow from 
+properties of determinants (they can also be verified directly).
+
+\begin{theorem}{}{012690}
+Let $\vect{u}$, $\vect{v}$, and $\vect{w}$ denote arbitrary vectors in $\RR^3$.
+
+\begin{multicols}{2}
+\begin{enumerate}
+\item $\vect{u} \times \vect{v}$ is a vector.
+
+\item $\vect{u} \times \vect{v}$ is orthogonal to both $\vect{u}$ and $\vect{v}$.
+
+\item $\vect{u} \times \vect{0} = \vect{0} = \vect{0} \times \vect{u}$.
+
+\item $\vect{u} \times \vect{u} = \vect{0}$.
+
+\item $\vect{u} \times \vect{v} = -(\vect{v} \times \vect{u})$.
+
+\item $(k\vect{u}) \times \vect{v} = k(\vect{u} \times \vect{v}) = \vect{u} \times (k\vect{v})$ for any scalar $k$.
+
+\item $\vect{u} \times (\vect{v} + \vect{w}) = (\vect{u} \times \vect{v}) + (\vect{u} \times \vect{w})$.
+
+\item $(\vect{v} + \vect{w}) \times \vect{u} = (\vect{v} \times \vect{u}) + (\vect{w} \times \vect{u})$.
+
+\end{enumerate}\index{cross product!properties of}
+\end{multicols}
+\end{theorem}
+
+\begin{proof}
+(1) is clear; (2) follows from Theorem~\ref{thm:012676};
+ and (3) and (4) follow because the determinant of a matrix is zero if 
+one column is zero or if two columns are identical. If two columns are 
+interchanged, the determinant changes sign, and this proves (5). The 
+proofs of (6), (7), and (8) are left as Exercise \ref{ex:ch4_3_ex15}. 
+\end{proof}
+
+\noindent We now come to a fundamental relationship between the dot and cross products.\index{cross product!and dot product}\index{dot product!and cross product}
+
+\begin{theorem}{Lagrange Identity\footnotemark}{012715}
+If $\vect{u}$ and $\vect{v}$ are any two vectors in $\RR^3$, then\index{Lagrange identity}\index{cross product!Lagrange Identity}
+\begin{equation*}
+\vectlength \vect{u} \times \vect{v} \vectlength^2 = \vectlength \vect{u} \vectlength^2\vectlength \vect{v} \vectlength^2 - (\vect{u} \dotprod \vect{v})^2
+\end{equation*}
+%\begin{figure}[H]
+%\centering
+%\includegraphics{4-vector-geometry/figures/3-more-on-the-cross-product/ufg04015}
+%\caption{\label{fig:012721}}
+%Photo \textcopyright  Corbis.
+%\end{figure}
+\end{theorem}
+\footnotetext{Joseph
+ Louis Lagrange\index{Lagrange, Joseph Louis} (1736--1813) was born in Italy and spent his early years 
+in Turin. At the age of 19 he solved a famous problem by inventing an 
+entirely new method, known today as the calculus of variations, and went
+ on to become one of the greatest mathematicians of all time. His work 
+brought a new level of rigour to analysis and his \textit{M\'{e}canique Analytique}\index{\textit{M\'{e}canique Analytique} (Lagrange)}
+ is a masterpiece in which he introduced methods still in use. In 1766 
+he was appointed to the Berlin Academy by Frederik the Great who 
+asserted that the ``greatest mathematician in Europe'' should be at the 
+court of the ``greatest king in Europe.'' After the death of Frederick, 
+Lagrange went to Paris at the invitation of Louis XVI. He remained there
+ throughout the revolution and was made a count by Napoleon.}
+
+\begin{proof}
+Given $\vect{u}$ and $\vect{v}$, introduce a coordinate system and write 
+$\vect{u} = \leftB
+\begin{array}{r}
+x_{1}\\
+y_{1}\\
+z_{1}
+\end{array}
+\rightB$
+and 
+$\vect{v} = \leftB
+\begin{array}{r}
+x_{2}\\
+y_{2}\\
+z_{2}
+\end{array}
+\rightB$ in component form. Then all the terms in the identity can be computed 
+in terms of the components. The detailed proof is left as Exercise ~\ref{ex:ch4_3_ex14}. 
+\end{proof}
+
+An expression for the magnitude of the vector $\vect{u} \times \vect{v}$ can be easily obtained from the Lagrange identity. If $\theta$ is the angle between $\vect{u}$ and $\vect{v}$, substituting $\vect{u} \dotprod \vect{v} = \vectlength\vect{u}\vectlength\vectlength\vect{v}\vectlength \cos \theta$ into the Lagrange identity gives
+\begin{equation*}
+\vectlength \vect{u} \times \vect{v} \vectlength^2 = \vectlength \vect{u} \vectlength^2\vectlength \vect{v} \vectlength^2 - \vectlength \vect{u} \vectlength^2\vectlength \vect{v} \vectlength^2\cos^2\theta = \vectlength \vect{u} \vectlength^2\vectlength \vect{v} \vectlength^2\sin^2\theta
+\end{equation*}
+using the fact that $1 - \cos^{2} \theta = \sin^{2} \theta$. But $\sin \theta$ is nonnegative on the range $0 \leq \theta \leq \pi$, so taking the positive square root of both sides gives
+\begin{equation*}
+\vectlength \vect{u} \times \vect{v} \vectlength = \vectlength \vect{u} \vectlength \vectlength \vect{v} \vectlength \sin\theta
+\end{equation*}
+
+\begin{wrapfigure}[7]{l}{6cm} 
+\centering
+\input{4-vector-geometry/figures/3-more-on-the-cross-product/figure4.3.1}
+\caption{\label{fig:012736}}
+\end{wrapfigure}
+
+This expression for $\vectlength\vect{u} \times \vect{v}\vectlength$
+ makes no reference to a coordinate system and, moreover, it has a nice 
+geometrical interpretation. The parallelogram determined by the vectors $\vect{u}$ and $\vect{v}$ has base length $\vectlength\vect{v}\vectlength$ and altitude $\vectlength\vect{u}\vectlength \sin \theta$ (see Figure~\ref{fig:012736}). Hence the area of the parallelogram formed by $\vect{u}$ and $\vect{v}$ is
+\begin{equation*}
+(\vectlength \vect{u} \vectlength \sin\theta) \vectlength \vect{v} \vectlength = \vectlength \vect{u} \times \vect{v} \vectlength
+\end{equation*}
+
+This proves the first part of Theorem~\ref{thm:012738}.
+
+
+\begin{theorem}{}{012738}
+If $\vect{u}$ and $\vect{v}$ are two nonzero vectors and $\theta$ is the angle between $\vect{u}$ and $\vect{v}$, then\index{area!parallelogram!equal to zero}\index{parallelogram!area equal to zero}
+
+
+\begin{enumerate}
+\item $\vectlength\vect{u} \times \vect{v}\vectlength = \vectlength\vect{u}\vectlength\vectlength\vect{v}\vectlength \sin \theta =$ the area of the parallelogram determined by $\vect{u}$ and $\vect{v}$.
+
+\item $\vect{u}$ and $\vect{v}$ are parallel if and only if $\vect{u} \times \vect{v} = \vect{0}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of (2)]
+By (1), $\vect{u} \times \vect{v} = \vect{0}$ if and only if the area of the parallelogram is zero. By Figure~\ref{fig:012736} the area vanishes if and only if $\vect{u}$ and $\vect{v}$ have the same or opposite direction---that is, if and only if they are parallel.
+\end{proof}
+
+\begin{example}{}{012749}
+
+\begin{wrapfigure}[4]{l}{5cm} 
+\vspace*{-1em}
+\input{4-vector-geometry/figures/3-more-on-the-cross-product/example4.3.1}
+%\captionof{figure}{\label{fig:012760}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+Find the area of the triangle with vertices $P(2, 1, 0)$, $Q(3, -1, 1)$, and $R(1, 0, 1)$.
+
+\begin{solution}
+We have 
+$\longvect{RP} = \leftB
+\begin{array}{r}
+1\\
+1\\
+-1
+\end{array}
+\rightB$
+ and 
+$\longvect{RQ} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+0
+\end{array}
+\rightB$. The area of the triangle is half the area of the parallelogram (see the diagram), and so equals $\frac{1}{2} \vectlength \longvect{RP} \times \longvect{RQ} \vectlength$. We have
+\begin{equation*}
+\longvect{RP} \times \longvect{RQ} = \func{det}\leftB
+\begin{array}{rrr}
+\vect{i} & 1 & 2\\
+\vect{j} & 1 & -1\\
+\vect{k} & -1 & 0
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+-1\\
+-2\\
+-3
+\end{array}
+\rightB
+\end{equation*} so the area of the triangle is $\frac{1}{2} \vectlength \longvect{RP} \times \longvect{RQ} \vectlength = \frac{1}{2}\sqrt{1 + 4 + 9} = \frac{1}{2}\sqrt{14}.$
+
+\end{solution}
+\end{example}
+
+\begin{wrapfigure}{l}{5cm} 
+	\centering
+	\input{4-vector-geometry/figures/3-more-on-the-cross-product/figure4.3.2}
+	\caption{\label{fig:012763}}
+\end{wrapfigure}
+
+If three vectors $\vect{u}$, $\vect{v}$, and $\vect{w}$ are given, they determine a ``squashed'' rectangular solid called a \textbf{parallelepiped}\index{parallelepiped} (Figure~\ref{fig:012763}),
+ and it is often useful to be able to find the volume of such a solid. 
+The base of the solid is the parallelogram determined by $\vect{u}$ and $\vect{v}$, so it has area $A = \vectlength\vect{u} \times \vect{v}\vectlength$ by Theorem~\ref{thm:012738}. The height of the solid is the length $h$ of the projection of $\vect{w}$ on $\vect{u} \times \vect{v}$. Hence
+\begin{equation*}
+h = \left| \frac{\vect{w} \dotprod (\vect{u} \times \vect{v})}{\vectlength \vect{u} \times \vect{v} \vectlength^2}\right|\vectlength \vect{u} \times \vect{v} \vectlength = \frac{|\vect{w} \dotprod (\vect{u} \times \vect{v})|}{\vectlength \vect{u} \times \vect{v} \vectlength} = \frac{|\vect{w} \dotprod (\vect{u} \times \vect{v})|}{A}
+\end{equation*}
+
+Thus the volume of the parallelepiped is $hA = |\vect{w} \dotprod (\vect{u} \times \vect{v})|$\index{volume!of parallelepiped}. This proves
+
+
+\begin{theorem}{}{012765}
+The volume of the parallelepiped determined by three vectors $\vect{w}$, $\vect{u}$, and $\vect{v}$ (Figure~\ref{fig:012763}) is given by $|\vect{w} \dotprod (\vect{u} \times \vect{v})|$.
+\end{theorem}
+
+\begin{example}{}{012768}
+Find the volume of the parallelepiped determined by the vectors
+\begin{equation*}
+\vect{w} = \leftB
+\begin{array}{r}
+1\\
+2\\
+-1
+\end{array}
+\rightB,
+\vect{u} = \leftB
+\begin{array}{r}
+1\\
+1\\
+0
+\end{array}
+\rightB,
+\vect{v} = \leftB
+\begin{array}{r}
+-2\\
+0\\
+1
+\end{array}
+\rightB
+\end{equation*}
+\begin{solution}
+By Theorem~\ref{thm:012676}, 
+$\vect{w} \dotprod (\vect{u} \times \vect{v}) = \func{det}\leftB
+\begin{array}{rrr}
+1 & 1 & -2\\
+2 & 1 & 0\\
+-1 & 0 & 1
+\end{array}
+\rightB = -3$.
+Hence the volume is $|\vect{w} \dotprod (\vect{u} \times \vect{v})| = |-3| = 3$ by Theorem~\ref{thm:012765}.
+\end{solution}
+\end{example}
+
+\begin{wrapfigure}[15]{l}{5cm}
+\vspace*{-1em} 
+\centering
+\input{4-vector-geometry/figures/3-more-on-the-cross-product/figure4.3.3}
+\caption{\label{fig:012779}}
+\end{wrapfigure}
+
+We can now give an intrinsic description of the cross product $\vect{u} \times \vect{v}$. Its magnitude $\vectlength\vect{u} \times \vect{v}\vectlength = \vectlength\vect{u}\vectlength\vectlength\vect{v}\vectlength \sin \theta$ is coordinate-free. If $\vect{u} \times \vect{v} \neq \vect{0}$, its direction is very nearly determined by the fact that it is orthogonal to both $\vect{u}$ and $\vect{v}$ and so points along the line normal to the plane determined by $\vect{u}$ and $\vect{v}$. It remains only to decide which of the two possible directions is correct.\index{cross product!coordinate-free description}
+
+Before this can be done, the basic issue of how coordinates are assigned must be clarified. When coordinate axes are chosen in space, the procedure is as follows: An origin is selected, two perpendicular lines (the $x$ and $y$ axes) are chosen through the origin, and a positive direction on each of these axes is selected quite arbitrarily. Then the line through the origin normal to this $x$-$y$ plane is called the $z$ axis, but there is a choice of which direction on this axis is the positive one. The two possibilities are shown in Figure~\ref{fig:012779}, and it is a standard convention that cartesian coordinates are always \textbf{right-hand coordinate systems}\index{right-hand coordinate systems}. The reason for this terminology is that, in such a system, if the $z$ axis is grasped in the right hand with the thumb pointing in the positive $z$ direction, then the fingers curl around from the positive $x$ axis to the positive $y$ axis (through a right angle).
+
+Suppose now that $\vect{u}$ and $\vect{v}$ are given and that $\theta$ is the angle between them (so $0 \leq \theta \leq \pi$). Then the direction of $\vectlength\vect{u} \times \vect{v}\vectlength$ is given by the right-hand rule.
+
+
+\begin{theorem*}{Right-hand Rule}{012781}
+If the vector $\vect{u} \times \vect{v}$ is grasped in the right hand and the fingers curl around from $\vect{u}$ to $\vect{v}$ through the angle $\theta$, the thumb points in the direction for $\vect{u} \times \vect{v}$.\index{cross product!right-hand rule}\index{right-hand rule}
+\end{theorem*}
+
+\begin{wrapfigure}[12]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/3-more-on-the-cross-product/figure4.3.4}
+\caption{\label{fig:012789}}
+\end{wrapfigure}
+
+\noindent To indicate why this is true, introduce coordinates in $\RR^3$ as follows: Let $\vect{u}$ and $\vect{v}$ have a common tail $O$, choose the origin at $O$, choose the $x$ axis so that $\vect{u}$ points in the positive $x$ direction, and then choose the $y$ axis so that $\vect{v}$ is in the $x$-$y$ plane and the positive $y$ axis is on the same side of the $x$ axis as $\vect{v}$. Then, in this system, $\vect{u}$ and $\vect{v}$ have component form 
+$\vect{u} = \leftB
+\begin{array}{r}
+a\\
+0\\
+0
+\end{array}
+\rightB$
+and 
+$\vect{v} = \leftB
+\begin{array}{r}
+b\\
+c\\
+0
+\end{array}
+\rightB$
+ where $a > 0$ and $c > 0$. The situation is depicted in Figure~\ref{fig:012789}. The right-hand rule asserts that $\vect{u} \times \vect{v}$ should point in the positive $z$ direction. But our definition of $\vect{u} \times \vect{v}$ gives
+\begin{equation*}
+\vect{u} \times \vect{v} = \func{det}\leftB
+\begin{array}{rrr}
+\vect{i} & a & b\\
+\vect{j} & 0 & c\\
+\vect{k} & 0 & 0
+\end{array}
+\rightB = 
+\leftB
+\begin{array}{c}
+0\\
+0\\
+ac
+\end{array}
+\rightB = (ac)\vect{k}
+\end{equation*}
+and $(ac) \vect{k}$ has the positive $z$ direction because $ac > 0$.
+
+\section*{Exercises for \ref{sec:4_3}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:4_3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+If $\vect{i}$, $\vect{j}$, and $\vect{k}$ are the coordinate vectors, verify that $\vect{i} \times \vect{j} = \vect{k}$, $\vect{j} \times \vect{k} = \vect{i}$, and $\vect{k} \times \vect{i} = \vect{j}$.
+\end{ex}
+
+\begin{ex}
+Show that $\vect{u} \times (\vect{v} \times \vect{w})$ need not equal $(\vect{u} \times \vect{v}) \times \vect{w}$ by calculating both when
+\begin{equation*}
+\vect{u} = \leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB,
+\vect{v} = \leftB
+\begin{array}{r}
+1\\
+1\\
+0
+\end{array}
+\rightB, \mbox{ and }
+\vect{w} = \leftB
+\begin{array}{r}
+0\\
+0\\
+1
+\end{array}
+\rightB
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+Find two unit vectors orthogonal to both $\vect{u}$ and $\vect{v}$ if:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\vect{u} = \leftB
+\begin{array}{r}
+1\\
+2\\
+2
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+2
+\end{array}
+\rightB$
+
+\item 
+$\vect{u} = \leftB
+\begin{array}{r}
+1\\
+2\\
+-1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+3\\
+1\\
+2
+\end{array}
+\rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\pm \frac{\sqrt{3}}{3} \leftB
+\begin{array}{r}
+1\\
+-1\\
+-1
+\end{array}
+\rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the area of the triangle with the following vertices.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A(3, -1, 2)$, $B(1, 1, 0)$, and $C(1, 2, -1)$
+
+\item $A(3, 0, 1)$, $B(5, 1, 0)$, and $C(7, 2, -1)$
+
+\item $A(1, 1, -1)$, $B(2, 0, 1)$, and $C(1, -1, 3)$
+
+\item $A(3, -1, 1)$, $B(4, 1, 0)$, and $C(2, -3, 0)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $0$
+
+\setcounter{enumi}{3}
+\item $\sqrt{5}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the volume of the parallelepiped determined by $\vect{w}$, $\vect{u}$, and $\vect{v}$ when:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\vect{w} = \leftB
+\begin{array}{r}
+2\\
+1\\
+1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+0\\
+2
+\end{array}
+\rightB$, and 
+$\vect{u} = \leftB
+\begin{array}{r}
+2\\
+1\\
+-1
+\end{array}
+\rightB$
+
+\item 
+$\vect{w} = \leftB
+\begin{array}{r}
+1\\
+0\\
+3
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+2\\
+1\\
+-3
+\end{array}
+\rightB$, and 
+$\vect{u} = \leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $7$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $P_{0}$ be a point with vector $\vect{p}_{0}$, and let $ax + by + cz = d$ be the equation of a plane with normal 
+$\vect{n} = \leftB
+\begin{array}{r}
+a\\
+b\\
+c
+\end{array}
+\rightB$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the point on the plane closest to $P_{0}$ has vector $\vect{p}$ given by
+\begin{equation*}
+\vect{p} = \vect{p}_{0} + \frac{d - (\vect{p}_{0} \dotprod \vect{n})}{\vectlength \vect{n} \vectlength^2}\vect{n}.
+\end{equation*}
+[\textit{Hint}: $\vect{p} = \vect{p}_{0} + t\vect{n}$ for some $t$, and $\vect{p} \dotprod \vect{n} = \vect{d}$.]
+
+\item Show that the shortest distance from $P_{0}$ to the plane is $\frac{|d - (\vect{p}_{0} \dotprod \vect{n})|}{\vectlength \vect{n} \vectlength}$.
+
+\item Let $P_{0}^\prime$ denote the reflection of $P_{0}$ in the plane---that is, the point on the opposite side of the plane such that the line through $P_{0}$ and $P_{0}^\prime$ is perpendicular to the plane.
+
+
+Show that $\vect{p}_{0} + 2\frac{d - (\vect{p}_{0} \dotprod \vect{n})}{\vectlength \vect{n} \vectlength^2}\vect{n}$ is the vector of $P_{0}^\prime$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The distance is $\vectlength\vect{p} - \vect{p}_{0}\vectlength$; use part (a.).
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Simplify $(a\vect{u} + b\vect{v}) \times (c\vect{u} + d\vect{v})$.
+\end{ex}
+
+\begin{ex}
+Show that the shortest distance from a point $P$ to the line through $P_{0}$ with direction vector $\vect{d}$ is $\frac{\vectlength \longvect{P_{0}P} \times \vect{d} \vectlength}{\vectlength \vect{d} \vectlength}$.
+\end{ex}
+
+\begin{ex}
+Let $\vect{u}$ and $\vect{v}$ be nonzero, nonorthogonal vectors. If $\theta$ is the angle between them, show that $\tan\theta = \frac{\vectlength \vect{u} \times \vect{v} \vectlength}{\vect{u} \dotprod \vect{v}}.$
+\end{ex}
+
+\begin{ex}
+Show that points $A$, $B$, and $C$ are all on one line if and only if $\longvect{AB} \times \longvect{AC} = 0$
+
+
+\begin{sol}
+$\vectlength \longvect{AB} \times \longvect{AC} \vectlength$ is the area of the parallelogram determined by $A$, $B$, and $C$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that points $A$, $B$, $C$, and $D$ are all on one plane if and only if  $\longvect{AB} \dotprod (\longvect{AB} \times \longvect{AC}) = 0$
+\end{ex}
+
+\begin{ex}
+Use Theorem~\ref{thm:012765} to confirm that, if $\vect{u}$, $\vect{v}$, and $\vect{w}$ are mutually perpendicular, the (rectangular) parallelepiped they determine has volume $\vectlength\vect{u}\vectlength\vectlength\vect{v}\vectlength\vectlength\vect{w}\vectlength$.
+
+\begin{sol}
+Because $\vect{u}$ and $\vect{v} \times \vect{w}$ are parallel, the angle $\theta$ between them is $0$ or $\pi$. Hence $\cos(\theta) = \pm 1$, so the volume is $|\vect{u} \dotprod (\vect{v} \times \vect{w})| = \vectlength\vect{u}\vectlength\vectlength\vect{v} \times \vect{w}\vectlength \cos(\theta) = \vectlength\vect{u}\vectlength\vectlength(\vect{v} \times \vect{w})\vectlength$. But the angle between $\vect{v}$ and $\vect{w}$ is $\frac{\pi}{2}$ so $\vectlength\vect{v} \times \vect{w}\vectlength = \vectlength\vect{v} \vectlength \vectlength\vect{w}\vectlength \cos(\frac{\pi}{2}) = \vectlength\vect{v}\vectlength\vectlength\vect{w}\vectlength$. The result follows.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the volume of the parallelepiped determined by $\vect{u}$, $\vect{v}$, and $\vect{u} \times \vect{v}$ is $\vectlength\vect{u} \times \vect{v}\vectlength^{2}$.
+\end{ex}
+
+\begin{ex} \label{ex:ch4_3_ex14}
+Complete the proof of Theorem~\ref{thm:012715}.
+\end{ex}
+
+\begin{ex} \label{ex:ch4_3_ex15}
+Prove the following properties in Theorem~\ref{thm:012690}.
+
+\begin{exenumerate}
+\exitem Property 6
+\exitem Property 7
+\exitem Property 8
+\end{exenumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1} 
+\item If
+$\vect{u} = \leftB
+\begin{array}{r}
+u_{1}\\
+u_{2}\\
+u_{3}
+\end{array}
+\rightB$,
+$\vect{v} = \leftB
+\begin{array}{r}
+v_{1}\\
+v_{2}\\
+v_{3}
+\end{array}
+\rightB$ and
+$\vect{w} = \leftB
+\begin{array}{r}
+w_{1}\\
+w_{2}\\
+w_{3}
+\end{array}
+\rightB$, then
+$\vect{u} \times (\vect{v} + \vect{w}) = \func{det}\leftB
+\begin{array}{rrr}
+\vect{i} & u_{1} & v_{1} + w_{1}\\
+\vect{j} & u_{2} & v_{2} + w_{2}\\
+\vect{k} & u_{3} & v_{3} + w_{3}
+\end{array}
+\rightB$ \\
+${} = 
+\func{det}\leftB
+\begin{array}{rrr}
+\vect{i} & u_{1} & v_{1}\\
+\vect{j} & u_{2} & v_{2}\\
+\vect{k} & u_{3} & v_{3}
+\end{array}
+\rightB
++
+\func{det}\leftB
+\begin{array}{rrr}
+\vect{i} & u_{1} & w_{1}\\
+\vect{j} & u_{2} & w_{2}\\
+\vect{k} & u_{3} & w_{3}
+\end{array}
+\rightB$ \\ ${} = (\vect{u} \times \vect{v}) + (\vect{u} \times \vect{w})$
+where we used Exercise \ref{ex:ch4_3_ex21}. 
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:ch4_3_ex16}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vect{w} \dotprod (\vect{u} \times \vect{v}) = \vect{u} \dotprod (\vect{v} \times \vect{w}) = \vect{v} \times (\vect{w} \times \vect{u})$ holds for all vectors $\vect{w}$, $\vect{u}$, and $\vect{v}$.
+
+\item Show that $\vect{v} - \vect{w}$ and $(\vect{u} \times \vect{v}) + (\vect{v} \times \vect{w}) + (\vect{w} \times \vect{u})$ are orthogonal.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(\vect{v} - \vect{w}) \dotprod [(\vect{u} \times \vect{v}) + (\vect{v} \times \vect{w}) + (\vect{w} \times \vect{u})] = (\vect{v} - \vect{w}) \dotprod (\vect{u} \times \vect{v}) + (\vect{v} - \vect{w}) \dotprod (\vect{v} \times \vect{w}) + (\vect{v} - \vect{w}) \dotprod (\vect{w} \times \vect{u}) = -\vect{w} \dotprod (\vect{u} \times \vect{v}) + 0 + \vect{v} \cdot (\vect{w} \times \vect{u}) = 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:ch4_3_ex17}
+Show $\vect{u} \times (\vect{v} \times \vect{w}) = (\vect{u} \dotprod \vect{w}) \vect{v} - (\vect{u} \times \vect{v})\vect{w}$. [\textit{Hint}: First do it for $\vect{u} = \vect{i}$, $\vect{j}$, and $\vect{k}$; then write $\vect{u} = x\vect{i} + y\vect{j} + z\vect{k}$ and use Theorem~\ref{thm:012690}.]
+\end{ex}
+
+\begin{ex}
+Prove the \textbf{Jacobi identity}\index{Jacobi identity}: 
+\begin{equation*}
+\vect{u} \times (\vect{v} \times \vect{w}) + \vect{v} \times (\vect{w} \times \vect{u}) + \vect{w} \times (\vect{u} \times \vect{v}) = \vect{0}
+\end{equation*}
+ [\textit{Hint}: The preceding exercise.]
+\end{ex}
+
+\begin{ex}
+Show that 
+\begin{equation*}(\vect{u} \times \vect{v}) \dotprod (\vect{w} \times \vect{z})  = \func{det}\leftB
+\begin{array}{cc}
+\vect{u} \dotprod \vect{w} & \vect{u} \dotprod \vect{z}\\
+\vect{v} \dotprod \vect{w} & \vect{v} \dotprod \vect{z}
+\end{array}
+\rightB
+\end{equation*}
+
+[\textit{Hint}: Exercises~\ref{ex:ch4_3_ex16} and~\ref{ex:ch4_3_ex17}.] 
+\end{ex}
+
+\begin{ex}
+Let $P$, $Q$, $R$, and $S$ be four points, not all on one plane, as in the diagram. Show that the volume of the pyramid they determine is
+\begin{equation*}
+\frac{1}{6}|\longvect{PQ} \dotprod (\longvect{PR} \times \longvect{PS})|.
+\end{equation*}
+[\textit{Hint}: The volume of a cone with base area $A$ and height $h$ as in the diagram below right is $\frac{1}{3}Ah$.]
+
+
+\begin{figure}[H]
+\centering
+\input{4-vector-geometry/figures/3-more-on-the-cross-product/exercise4.3.20}
+%\caption{\label{fig:012901}}
+\end{figure}
+\end{ex}
+
+\begin{ex} \label{ex:ch4_3_ex21}
+Consider a triangle with vertices $A$, $B$, and $C$, as in the diagram below. Let $\alpha$, $\beta$, and $\gamma$ denote the angles at $A$, $B$, and $C$, respectively, and let $a$, $b$, and $c$ denote the lengths of the sides opposite $A$, $B$, and $C$, respectively. Write $\vect{u} = \longvect{AB}$, $\vect{v} = \longvect{BC}$, and $\vect{w} = \longvect{CA}$.
+
+
+\begin{figure}[H]
+\centering
+\input{4-vector-geometry/figures/3-more-on-the-cross-product/exercise4.3.21}
+%\caption{\label{fig:012904}}
+\end{figure}
+
+\begin{enumerate}[label={\alph*.}]
+\item Deduce that $\vect{u} + \vect{v} + \vect{w} = \vect{0}$.
+
+\item Show that $\vect{u} \times \vect{v} = \vect{w} \times \vect{u} = \vect{v} \times \vect{w}$. [\textit{Hint}: Compute $\vect{u} \times (\vect{u} + \vect{v} + \vect{w})$ and $\vect{v} \times (\vect{u} + \vect{v} + \vect{w})$.]
+
+\item Deduce the \textbf{law of sines}\index{law of sines}:
+\begin{equation*}
+\frac{\sin\alpha}{a} = \frac{\sin\beta}{b} = \frac{\sin\gamma}{c}
+\end{equation*}
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Show that the (shortest) distance between two planes $\vect{n} \dotprod \vect{p} = d_{1}$ and $\vect{n} \dotprod \vect{p} = d_{2}$ with $\vect{n}$ as normal is $\frac{|d_{2} - d_{1}|}{\vectlength \vect{n} \vectlength}$.
+
+\begin{sol}
+Let $\vect{p}_{1}$ and $\vect{p}_{2}$ be vectors of points in the planes, so $\vect{p}_{1} \dotprod \vect{n} = d_{1}$ and $\vect{p}_{2} \dotprod \vect{n} = d_{2}$. The distance is the length of the projection of $\vect{p}_{2} - \vect{p}_{1}$ along $\vect{n}$; that is $\frac{|(\vect{p}_{2} - \vect{p}_{1}) \dotprod \vect{n}|}{\vectlength \vect{n} \vectlength} = \frac{|d_{1} - d_{2}|}{\vectlength \vect{n} \vectlength}$.
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Let $A$ and $B$ be points other than the origin, and let $\vect{a}$ and $\vect{b}$ be their vectors. If $\vect{a}$ and $\vect{b}$ are not parallel, show that the plane through $A$, $B$, and the origin is given by
+\begin{equation*}
+\{P(x, y, z) \mid
+\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB = s\vect{a} + t\vect{b} \mbox{ for some } s \mbox{ and } t \} 
+\end{equation*}
+\end{ex} 
+
+\begin{ex}
+Let $A$ be a $2 \times 3$ matrix of rank 2 with rows $\vect{r}_{1}$ and $\vect{r}_{2}$. Show that 
+\begin{equation*}
+P = \{XA \mid X = [x y]; x, y \mbox{ arbitrary}\}
+\end{equation*}
+ is the plane through the origin with normal $\vect{r}_{1} \times \vect{r}_{2}$. 
+\end{ex}
+
+\begin{ex}
+Given the cube with vertices $P(x, y, z)$, where each of $x$, $y$, and $z$ is either $0$ or $2$, consider the plane perpendicular to the diagonal through $P(0, 0, 0)$ and $P(2, 2, 2)$ and bisecting it.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the plane meets six of the edges of the cube and bisects them.
+
+\item Show that the six points in (a) are the vertices of a regular hexagon.
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

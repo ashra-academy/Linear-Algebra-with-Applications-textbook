@@ -1,0 +1,329 @@
+\section{An Application to Differential Equations}
+\label{sec:6_6}
+
+Call a function $f : \RR \to \RR$ \textbf{differentiable}\index{differentiable function}\index{function!differentiable function} if it can be differentiated as many times as we want. If $f$ is a differentiable function, the $n$th derivative $f^{(n)}$ of $f$ is the result of differentiating $n$ times. Thus $f^{(0)} = f,  f^{(1)} = f^\prime, f^{(2)} = f^{(1)\prime}, \dots$ and, in general, $f^{(n+1)} = f^{(n)\prime}$ for each $n \geq 0$. For small values of $n$ these are often written as $f,  f^\prime, f^\dprime, f^{\dprime\prime}, \dots$.\index{differential equations}\index{vector spaces!differential equations}
+
+If $a$, $b$, and $c$ are numbers, the differential equations
+\begin{equation*}
+f^\dprime + af^\prime + bf = 0 \quad \mbox{or} \quad f^{\dprime\prime} + af^\dprime + bf^\prime + cf = 0
+\end{equation*}
+are said to be of \textbf{second-order}\index{second-order differential equation} and \textbf{third-order}\index{third-order differential equation}, respectively. In general, an equation
+\begin{equation}
+\label{eq:differential_equation_of_order_n}
+f^{(n)} + a_{n - 1}f^{(n - 1)} + a_{n - 2}f^{(n - 2)} + \dots + a_2f^{(2)} + a_1f^{(1)} + a_0f^{(0)} = 0, \quad a_i \mbox{ in } \RR
+\end{equation}
+is called a \textbf{differential equation of order $n$}\index{differential equation of order $n$}. In this section we investigate the set of solutions to (\ref{eq:differential_equation_of_order_n}) and, if $n$ is $1$ or $2$, find explicit solutions. Of course an acquaintance with calculus is required.
+
+Let $f$ and $g$ be solutions to (\ref{eq:differential_equation_of_order_n}). Then $f + g$ is also a solution because $(f + g)^{(k)} = f^{(k)} + g^{(k)}$ for all $k$, and $af$ is a solution for any $a$ in $\RR$ because $(af)^{(k)} = af^{(k)}$. It follows that the set of solutions to (\ref{eq:differential_equation_of_order_n}) is a vector space, and we ask for the dimension of this space.
+
+We have already dealt with the simplest case (see Theorem~\ref{thm:010427}):
+
+\begin{theorem}{}{020389}
+The set of solutions of the first-order differential equation $f^\prime + af = 0$ is a one-dimensional vector space and $\{e^{-ax}\}$ is a basis.
+\end{theorem}
+
+There is a far-reaching generalization of Theorem~\ref{thm:020389} that will be proved in Theorem~\ref{thm:022833}.
+
+\begin{theorem}{}{020395}
+The set of solutions to the $n$th order equation (\ref{eq:differential_equation_of_order_n}) has dimension $n$.
+\end{theorem}
+
+\subsubsection*{Remark}
+\vspace{-1em}
+Every differential equation of order $n$ can be converted into a system of $n$ linear first-order equations (see Exercises \ref{ex:3_5_6} and \ref{ex:3_5_7}). In the case that the matrix of this system is diagonalizable, this approach provides a proof of Theorem~\ref{thm:020395}. But if the matrix is not diagonalizable, Theorem~\ref{thm:022833} is required.
+
+\bigskip
+
+Theorem~\ref{thm:020389} suggests that we look for solutions to (\ref{eq:differential_equation_of_order_n}) of the form $e^{\lambda x}$ for some number $\lambda$. This is a good idea. If we write $f(x) = e^{\lambda x}$, it is easy to verify that $f^{(k)}(x) = \lambda^{k}e^{\lambda x}$ for each $k \geq 0$, so substituting $f$ in (\ref{eq:differential_equation_of_order_n}) gives
+\begin{equation*}
+(\lambda^n + a_{n - 1}\lambda^{n - 1} + a_{n - 2}\lambda^{n - 2} + \dots + a_2\lambda^2 + a_1\lambda^1 + a_0)e^{\lambda x} = 0
+\end{equation*}
+Since $e^{\lambda x} \neq 0$ for all $x$, this shows that $e^{\lambda x}$ is a solution of (\ref{eq:differential_equation_of_order_n}) if and only if $\lambda$ is a root of the \textbf{characteristic polynomial}\index{characteristic polynomial!root of}\index{polynomials!root of characteristic polynomial}\index{root!of characteristic polynomial} $c(x)$, defined to be
+\begin{equation*}
+c(x) = x^n + a_{n - 1}x^{n - 1} + a_{n - 2}x^{n - 2} + \dots + a_2x^2 + a_1x + a_0
+\end{equation*}
+This proves Theorem~\ref{thm:020418}.
+
+\begin{theorem}{}{020418}
+If $\lambda$ is real, the function $e^{\lambda x}$ is a solution of (\ref{eq:differential_equation_of_order_n}) if and only if $\lambda$ is a root of the characteristic polynomial $c(x)$.\index{characteristic polynomial!root of}\index{root!of characteristic polynomial}
+\end{theorem}
+
+\begin{example}{}{020422}
+Find a basis of the space $U$ of solutions of $f^{\dprime\prime} - 2f^\dprime - f^\prime - 2f = 0$.
+
+\begin{solution}
+The characteristic polynomial is $x^{3} - 2x^{2} - x - 1 = (x - 1)(x + 1)(x - 2)$, with roots $\lambda_{1} = 1$, $\lambda_{2} = -1$, and $\lambda_{3} = 2$. Hence $e^{x}$, $e^{-x}$, and $e^{2x}$ are all in $U$. Moreover they are independent (by Lemma~\ref{lem:020443} below) so, since $\func{dim}(U) = 3$ by Theorem~\ref{thm:020395}, $\{e^{x}, e^{-x}, e^{2x}\}$ is a basis of $U$.
+\end{solution}
+\end{example}
+
+\begin{lemma}{}{020443}
+If $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$ are distinct, then $\{e^{\lambda_1 x}, e^{\lambda_2 x}, \dots, e^{\lambda_k x}\}$ is linearly independent.
+\end{lemma}
+
+\begin{proof}
+If $r_1e^{\lambda_1 x} + r_2e^{\lambda_2 x} + \dots + r_ke^{\lambda_k x} = 0$ for all $x$, then $r_1 + r_2e^{(\lambda_2 - \lambda_1)x} + \dots + r_ke^{(\lambda_k - \lambda_1)x} = 0$; that is,
+$r_2e^{(\lambda_2 - \lambda_1)x} + \dots + r_ke^{(\lambda_k - \lambda_1)x}$ is a constant. Since the $\lambda_i$ are distinct, this forces $r_2 = \dots = r_k = 0$,  whence $r_1 = 0$ also. This is what we wanted.
+\end{proof}
+
+\begin{theorem}{}{020478}
+Let $U$ denote the space of solutions to the second-order equation
+\begin{equation*}
+f^\dprime + af^\prime + bf = 0
+\end{equation*}
+where $a$ and $b$ are real constants. Assume that the characteristic polynomial $x^{2} + ax + b$ has two real roots $\lambda$ and $\mu$. Then
+
+\begin{enumerate}
+\item If $\lambda \neq \mu$, then $\{e^{\lambda x}, e^{\mu x}\}$ is a basis of $U$.
+
+\item If $\lambda = \mu$, then $\{e^{\lambda x}, xe^{\lambda x}\}$ is a basis of $U$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Since $\func{dim}(U) = 2$ by Theorem~\ref{thm:020395}, (1) follows by Lemma~\ref{lem:020443}, and (2) follows because the set $\{e^{\lambda x}, xe^{\lambda x}\}$ is independent (Exercise \ref{ex:6_6_3}).
+\end{proof}
+
+\begin{example}{}{020499}
+Find the solution of $f^\dprime + 4f^\prime + 4f = 0$ that satisfies the \textbf{boundary conditions}\index{boundary condition} $f(0) = 1$, $f(1) = -1$.
+
+\begin{solution}
+The characteristic polynomial is $x^{2} + 4x + 4 = (x + 2)^{2}$, so $-2$ is a double root. Hence $\{e^{-2x}, xe^{-2x}\}$ is a basis for the space of solutions, and the general solution takes the form $f(x) = ce^{-2x} + dxe^{-2x}$. Applying the boundary conditions gives $1 = f(0) = c$ and $-1 = f(1) = (c + d)e^{-2}$. Hence $c = 1$ and $d = -(1 + e^{2})$, so the required solution is
+\begin{equation*}
+f(x) = e^{-2x} - (1 + e^2)xe^{-2x}
+\end{equation*}
+\end{solution}
+\end{example}
+
+One other question remains: What happens if the roots of the characteristic polynomial are not real? To answer this, we must first state precisely what $e^{\lambda x}$ means when $\lambda$ is not real. If $q$ is a real number, define
+\begin{equation*}
+e^{iq} = \cos q + i \sin q
+\end{equation*}
+where $i^{2} = -1$. Then the relationship $e^{iq}e^{iq_1} = e^{i(q + q_1)}$ holds for all real $q$ and $q_{1}$, as is easily verified. If $\lambda = p + iq$, where $p$ and $q$ are real numbers, we define
+\begin{equation*}
+e^\lambda = e ^p e^{iq} = e^p (\cos q + i \sin q)
+\end{equation*}
+Then it is a routine exercise to show that
+
+\begin{enumerate}
+\item $e^{\lambda} e^{\mu} = e^{\lambda + \mu}$
+
+\item $e^{\lambda} = 1$ if and only if $\lambda = 0$
+
+\item $(e^{\lambda x})^\prime = \lambda e^{\lambda x}$
+
+\end{enumerate}
+
+\noindent These easily imply that $f(x) = e^{\lambda x}$ is a solution to $f^\dprime + af^\prime + bf = 0$ if $\lambda$ is a (possibly complex) root of the characteristic polynomial $x^{2} + ax + b$. Now write $\lambda = p + iq$ so that
+\begin{equation*}
+f(x) = e^{\lambda x} = e^{px} \cos(qx) + ie^{px} \sin(qx)
+\end{equation*}
+For convenience, denote the real and imaginary parts of $f(x)$ as $u(x) = e^{px} \cos(qx)$ and $v(x) = e^{px} \sin(qx)$. Then the fact that $f(x)$ satisfies the differential equation gives
+\begin{equation*}
+0 = f^\dprime + af^\prime + bf = (u^\dprime + au^\prime + bu) + i(v^\dprime + av^\prime + bv)
+\end{equation*}
+Equating real and imaginary parts shows that $u(x)$ and $v(x)$ are both solutions to the differential equation. This proves part of Theorem~\ref{thm:020551}.
+
+\begin{theorem}{}{020551}
+Let $U$ denote the space of solutions of the second-order differential equation
+\begin{equation*}
+f^\dprime + af^\prime + bf = 0
+\end{equation*}
+where $a$ and $b$ are real. Suppose $\lambda$ is a nonreal root of the characteristic polynomial $x^{2} + ax + b$. If $\lambda = p + iq$, where $p$ and $q$ are real, then
+\begin{equation*}
+\{e^{px}\cos(qx), e^{px}\sin(qx) \}
+\end{equation*}
+is a basis of $U$.
+\end{theorem}
+
+\begin{proof}
+The foregoing discussion shows that these functions lie in $U$. Because $\func{dim} U = 2$ by Theorem~\ref{thm:020395}, it suffices to show that they are linearly independent. But if
+\begin{equation*}
+re^{px} \cos(qx) + se^{px} \sin(qx) = 0
+\end{equation*}
+for all $x$, then $r \cos(qx) + s \sin(qx) = 0$ for all $x$ (because $e^{px} \neq 0$). Taking $x = 0$ gives $r = 0$, and taking $x = \frac{\pi}{2q}$ gives $s = 0$ ($q \neq 0$ because $\lambda$ is not real). This is what we wanted.
+\end{proof}
+
+\begin{example}{}{020563}
+Find the solution $f(x)$ to $f^\dprime - 2f^\prime + 2f = 0$ that satisfies $f(0) = 2$ and $f(\frac{\pi}{2}) = 0$.
+
+\begin{solution}
+The characteristic polynomial $x^{2} - 2x + 2$ has roots $1 + i$ and $1 - i$. Taking $\lambda = 1 + i$ (quite arbitrarily) gives $p = q = 1$ in the notation of Theorem~\ref{thm:020551}, so $\{e^{x} \cos x, e^{x} \sin x\}$ is a basis for the space of solutions. The general solution is thus $f(x) = e^{x}(r \cos x + s \sin x)$. The boundary conditions yield $2 = f(0) = r$ and $0 = f(\frac{\pi}{2}) = e^{\pi/2}s$. Thus $r = 2$ and $s = 0$, and the required solution is $f(x) = 2e^{x} \cos x$.
+\end{solution}
+\end{example}
+
+The following theorem is an important special case of Theorem~\ref{thm:020551}.
+
+\begin{theorem}{}{020577}
+If $q \neq 0$ is a real number, the space of solutions to the differential equation $f^\dprime + q^2f = 0$ has basis $\{\cos(qx), \sin(qx)\}$.
+\end{theorem}
+
+\begin{proof}
+The characteristic polynomial $x^{2} + q^{2}$ has roots $qi$ and $-qi$, so Theorem~\ref{thm:020551} applies with $p = 0$.
+\end{proof}
+
+In many situations, the displacement $s(t)$ of some object at time $t$ turns out to have an oscillating form $s(t) = c \sin(at) + d \cos(at)$. These are called \textbf{simple harmonic motions}\index{simple harmonic motions}. An example follows.
+
+\begin{example}{}{020588}
+\begin{wrapfigure}[11]{l}{3cm}
+	\centering
+	\input{6-vector-spaces/figures/6-an-application-to-differential-equations/example6.6.4}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+A weight is attached to an extension spring (see diagram). If it is pulled from the equilibrium position and released, it is observed to oscillate up and down. Let $d(t)$ denote the distance of the weight below the equilibrium position $t$ seconds later. It is known (\textbf{Hooke's law})\index{Hooke's law} that the acceleration $d^\dprime(t)$ of the weight is proportional to the displacement $d(t)$ and in the opposite direction. That is,
+\begin{equation*}
+d^\dprime(t) = -kd(t)
+\end{equation*}
+where $k > 0$ is called the \textbf{spring constant}\index{spring constant}. Find $d(t)$ if the maximum extension is 10 cm below the equilibrium position and find the \textbf{period}\index{period} of the oscillation (time taken for the weight to make a full oscillation).
+
+\begin{solution}
+It follows from Theorem~\ref{thm:020577} (with $q^{2} = k$) that
+\begin{equation*}
+d(t) = r \sin (\sqrt{k}\ t) + s \cos(\sqrt{k}\ t)
+\end{equation*}
+where $r$ and $s$ are constants. The condition $d(0) = 0$ gives $s = 0$, so $d(t) = r \sin (\sqrt{k}\ t)$. Now the maximum value of the function $\sin x$ is $1$ (when $x = \frac{\pi}{2}$), so $r = 10$ (when $t = \frac{\pi}{2\sqrt{k}}$). Hence
+\begin{equation*}
+d(t) = 10 \sin (\sqrt{k}\ t) 
+\end{equation*}
+Finally, the weight goes through a full oscillation as $\sqrt{k}\ t$ increases from $0$ to $2 \pi$. The time taken is $t = \frac{2 \pi}{\sqrt{k}}$, the period of the oscillation.
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:6_6}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:6_6}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Find a solution $f$ to each of the following differential equations satisfying the given boundary conditions.
+
+\begin{enumerate}[label={\alph*.}]
+\item $f^\prime - 3f = 0$; $f(1) = 2$
+
+\item $f^\prime + f = 0$; $f(1) = 1$
+
+\item $f^\dprime + 2f^\prime - 15f = 0$; $f(1) = f(0) = 0$
+
+\item $f^\dprime + f^\prime - 6f = 0$; $f(0) = 0$, $f(1) = 1$
+
+\item $f^\dprime - 2f^\prime + f = 0$; $f(1) = f(0) = 1$
+
+\item $f^\dprime - 4f^\prime + 4f = 0$; $f(0) = 2$, $f(-1) = 0$
+
+\item $f^\dprime - 3af^\prime + 2a^{2}f = 0$; $a \neq 0$; $f(0) = 0$, \newline $f(1) = 1 - e^{a}$
+
+\item $f^\dprime - a^{2}f = 0$, $a \neq 0$; $f(0) = 1$, $f(1) = 0$
+
+\item $f^\dprime - 2f^\prime + 5f = 0$; $f(0) = 1$, $f(\frac{\pi}{4}) = 0$
+
+\item $f^\dprime + 4f^\prime + 5f = 0$; $f(0) = 0$, $f(\frac{\pi}{2}) = 1$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $e^{1 - x}$
+
+\setcounter{enumi}{3}
+\item  $\frac{e^{2x} - e^{-3x}}{e^2 - e^{-3}}$
+
+\setcounter{enumi}{5}
+\item  $2e^{2x}(1 + x)$
+
+\setcounter{enumi}{7}
+\item  $\frac{e^{ax} - e^{a(2 - x)}}{1 - e^{2a}}$
+
+\setcounter{enumi}{9}
+\item  $e^{\pi-2x} \sin x$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If the characteristic polynomial of \newline $f^\dprime + af^\prime + bf = 0$ has real roots, show that $f = 0$ is the only solution satisfying $f(0) = 0 = f(1)$.
+\end{ex}
+
+\begin{ex} \label{ex:6_6_3}
+Complete the proof of Theorem~\ref{thm:020395}. [\textit{Hint}: If $\lambda$ is a double root of $x^{2} + ax + b$, show that $a = -2\lambda$ and $b = \lambda^{2}$. Hence $xe^{\lambda x}$ is a solution.]
+\end{ex}
+
+\columnbreak 
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Given the equation $f^\prime + af = b$, $(a \neq 0)$, make the
+  substitution $f(x) = g(x) + b/a$ and obtain a differential equation for $g$. Then derive the general solution for $f^\prime + af = b$.
+
+\item Find the general solution to $f^\prime + f = 2$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ce^{-x} + 2$, $c$ a constant
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Consider the differential equation \newline $f^\prime + af^\prime + bf = g$, where $g$ is some fixed function. Assume that $f_{0}$ is one solution of this equation.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the general solution is $cf_{1} + df_{2} + f_{0}$, where $c$ and $d$ are constants and $\{f_{1}, f_{2}\}$ is any basis for the solutions to $f^\dprime + af^\prime + bf = 0$.
+
+\item Find a solution to $f^\dprime + f^\prime - 6f = 2x^{3} - x^{2} - 2x$. [\textit{Hint}: Try $f(x) = \frac{-1}{3}x^3$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ce^{-3x} + de^{2x} - \frac{x^3}{3}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+A radioactive element decays at a rate proportional to the amount present. Suppose an initial mass of $10$ grams decays to $8$ grams in $3$ hours.
+
+\begin{enumerate}[label={\alph*.}]
+\item Find the mass $t$ hours later.
+
+\item Find the \textit{half-life} of the element---the time it takes to decay to half its mass.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $t = \frac{3 \ln(\frac{1}{2})}{\ln(\frac{4}{5})} = 9.32$ hours
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+The population $N(t)$ of a region at time $t$ increases at a rate proportional to the population. If the population doubles in $5$ years and is $3$ million initially, find $N(t)$.
+\end{ex}
+
+\begin{ex}
+Consider a spring, as in Example~\ref{exa:020588}. If the period of the oscillation is $30$ seconds, find the spring constant $k$.
+
+\begin{sol}
+$k = (\frac{\pi}{15})^2 = 0.044$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+As a pendulum swings (see the diagram), let $t$ measure the time since it was vertical. The angle $\theta = \theta(t)$ from the vertical can be shown to satisfy the equation $\theta^\dprime + k\theta = 0$, provided that $\theta$ is small. If the maximal angle is $\theta = 0.05$ radians, find $\theta(t)$ in terms of $k$. If the period is $0.5$ seconds, find $k$. [Assume that $\theta = 0$ when $t = 0$.]
+
+\begin{figure}[H]
+	\centering
+	\input{6-vector-spaces/figures/6-an-application-to-differential-equations/exercise6.6.9}
+\end{figure}
+\end{ex}
+\end{multicols}

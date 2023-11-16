@@ -1,0 +1,104 @@
+
+\begin{tikzpicture}[scale=0.75]
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    hide obscured x ticks=false,
+    xtick={-3.14,0,3.14}, 
+    ytick={3.14}, 
+    xticklabels={$-\pi$,$0$,$\pi$}, 
+    yticklabels={$\pi$}, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    tick label style={font=\footnotesize},
+    domain=-5:5, 
+    samples=100, 
+    xmin=-4, 
+    xmax=4, 
+    ymin=-0.15, 
+    ymax=4]
+\draw[dkgreenvect,thick](-3.14,0)--(0,3.14)--(3.14,0);
+\fill (-3.14,0) circle (1.5pt) ;
+\fill (0,3.14) circle (1.5pt) ;
+\fill (3.14,0) circle (1.5pt) ;
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=0.75]
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+    clip mode=individual,
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    hide obscured x ticks=false,
+    xtick={-4,-3,...,3,4}, 
+    ytick={1,2,3,4}, 
+    xticklabels={-4,-3,...,3,4}, 
+    yticklabels={1,2,3,4}, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    tick label style={font=\footnotesize},
+    domain=-5:5, 
+    samples=100, 
+    xmin=-4, 
+    xmax=4, 
+    ymin=0, 
+    ymax=4]
+\addplot[dkgreenvect,thick]{(pi/2)+(4/pi)*(cos(deg(x))+(1/9)*cos(deg(3*x))+(1/25)*cos(deg(5*x)))};
+\node[font=\footnotesize] at (0,-1){$f_{5}(x)$};
+\end{axis}
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[scale=0.75]
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+    clip mode=individual,
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    hide obscured x ticks=false,
+    xtick={-4,-3,...,3,4}, 
+    ytick={1,2,3,4}, 
+    xticklabels={-4,-3,...,3,4}, 
+    yticklabels={1,2,3,4}, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    tick label style={font=\footnotesize},
+    domain=-5:5, 
+    samples=100, 
+    xmin=-4, 
+    xmax=4, 
+    ymin=0, 
+    ymax=4]
+\addplot[dkgreenvect,thick]{(pi/2)+(4/pi)*(cos(deg(x))+(1/9)*cos(deg(3*x))+(1/25)*cos(deg(5*x))+(1/49)*cos(deg(7*x)))};
+\node[font=\footnotesize] at (0,-1){$f_{13}(x)$};
+\end{axis}
+\end{tikzpicture}

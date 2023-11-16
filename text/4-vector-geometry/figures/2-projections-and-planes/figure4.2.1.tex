@@ -1,0 +1,25 @@
+\begin{tikzpicture}[scale=0.9]
+\coordinate (ptRight) at (4, 0.5);
+\coordinate (ptBottom) at (2, -1);
+\filldraw[color=dkbluevect, fill=ltbluevect, thick] (0, 0)--(2, 1.5)--(ptRight)--(ptBottom)--cycle;
+\coordinate (ptP) at (1.5, 1.75);
+\coordinate (ptQ) at (2, 0.25);
+
+%line under the plane
+\path[name path=lineRightEdge] (ptRight)--(ptBottom);
+\path[name path=linePQ] (ptP)-- ++(1, -3);
+\path[dkbluevect, thick, name intersections={of=lineRightEdge and linePQ, by=ptBelow}];
+\draw[dkbluevect, thick] (ptBelow)-- +(0.25, -0.75);
+
+%lines and right angles near Q
+\draw[dkbluevect, thick] (ptQ)-- +(-0.5, 0.25); %left of Q, m = -0.5
+\draw[dkbluevect, thick] (ptQ)-- +(0.5, 0.375); %right of Q, m = 0.75
+\draw[dkbluevect, thick] (ptQ)--(ptP)-- +(-0.1, 0.3); %line PQ, m = -3
+\draw[dkbluevect, thick] (ptQ)++(-0.179, 0.0895) -- ++(-0.063, 0.189) -- ++(0.179, -0.0895) -- ++(0.16, 0.12) -- ++(0.063, -0.189) ; %x^2 + (0.5x)^2 = 0.2^2 => x = 0.179
+
+\fill[dkbluevect] (ptP) circle (2pt);
+\fill[dkbluevect] (ptQ) circle (2pt);
+
+\node[right] at (ptP) {\small $P$};
+\node[right] at (ptQ) {\small $Q$};
+\end{tikzpicture}

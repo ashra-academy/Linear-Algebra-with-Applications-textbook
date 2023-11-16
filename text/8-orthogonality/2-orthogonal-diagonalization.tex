@@ -1,0 +1,909 @@
+\section{Orthogonal Diagonalization}
+\label{sec:8_2}\index{diagonalization!orthogonal diagonalization}\index{orthogonal diagonalization}\index{orthogonality!orthogonal diagonalization}
+
+Recall (Theorem~\ref{thm:016068}) that an $n \times n$ matrix $A$ is diagonalizable if and only if it has $n$ linearly independent eigenvectors. Moreover, the matrix $P$ with these eigenvectors as columns is a diagonalizing matrix for $A$, that is
+\begin{equation*}
+P^{-1}AP \mbox{ is diagonal.}
+\end{equation*}
+As we have seen, the really nice bases of $\RR^n$ are the orthogonal ones, so a natural question is: which $n \times n$ matrices have an \textit{orthogonal} basis of eigenvectors? These turn out to be precisely the symmetric matrices, and this is the main result of this section.\index{eigenvector!orthogonal basis}
+
+
+Before proceeding, recall that an orthogonal set of vectors is called \textit{orthonormal} if $\vectlength\vect{v}\vectlength = 1$ for each vector $\vect{v}$ in the set, and that any orthogonal set $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ can be ``\textit{normalized}'', that is converted into an orthonormal set $\lbrace \frac{1}{\vectlength \vect{v}_{1} \vectlength}\vect{v}_{1}, \frac{1}{\vectlength \vect{v}_{2} \vectlength}\vect{v}_{2}, \dots, \frac{1}{\vectlength \vect{v}_{k} \vectlength}\vect{v}_{k} \rbrace$. In particular, if a matrix $A$ has $n$ orthogonal eigenvectors, they can (by normalizing) be taken to be orthonormal. The corresponding diagonalizing matrix $P$ has orthonormal columns, and such matrices are very easy to invert.
+
+
+\begin{theorem}{}{024227}
+The following conditions are equivalent for an $n \times n$ matrix $P$.
+
+
+\begin{enumerate}
+\item $P$ is invertible and $P^{-1} = P^{T}$.
+
+\item The rows of $P$ are orthonormal.
+
+\item The columns of $P$ are orthonormal.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+First recall that condition (1) is equivalent to $PP^{T} = I$ by Corollary~\ref{cor:004612} of Theorem~\ref{thm:004553}. Let $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}$ denote the rows of $P$. Then $\vect{x}_{j}^{T}$ is the $j$th column of $P^{T}$, so the $(i, j)$-entry of $PP^{T}$ is $\vect{x}_{i} \dotprod \vect{x}_{j}$. Thus $PP^{T} = I$ means that $\vect{x}_{i} \dotprod \vect{x}_{j} = 0$ if $i \neq j$ and $\vect{x}_{i} \dotprod \vect{x}_{j} = 1$ if $i = j$. Hence condition (1) is equivalent to (2). The proof of the equivalence of (1) and (3) is similar.
+\end{proof}
+
+\begin{definition}{Orthogonal Matrices}{024256}
+An $n \times n$ matrix $P$ is called an \textbf{orthogonal matrix}\index{orthogonal matrix}\index{matrix!orthogonal matrix}\footnotemark if it satisfies one (and hence all) of the conditions in Theorem~\ref{thm:024227}.
+\end{definition}
+\footnotetext{In view of (2) and (3) of Theorem~\ref{thm:024227}, \textit{orthonormal matrix} might be a better name. But \textit{orthogonal matrix} is standard.\index{matrix!orthogonal matrix}\index{matrix!orthonormal matrix}\index{orthogonal matrix}\index{orthonormal matrix}}
+
+\begin{example}{}{024259}
+The rotation matrix 
+$\leftB \begin{array}{rr}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{array}\rightB$ is orthogonal for any angle $\theta$.
+\end{example}
+
+These orthogonal matrices have the 
+virtue that they are easy to invert---simply take the transpose. But they 
+have many other important properties as well. If $T : \RR^n \to \RR^n$ is a linear operator, we will prove (Theorem~\ref{thm:032147}) that $T$ is distance preserving if and only if its matrix is orthogonal. In particular, the matrices of rotations and reflections about the origin in $\RR^2$ and $\RR^3$ are all orthogonal (see Example~\ref{exa:024259}).
+
+
+It is not enough that the rows of a matrix $A$ are merely orthogonal for $A$ to be an orthogonal matrix. Here is an example.
+
+
+\begin{example}{}{024269}
+The matrix $\leftB \begin{array}{rrr}
+2 & 1 & 1 \\
+-1 & 1 & 1 \\
+0 & -1 & 1 
+\end{array}\rightB$
+ has orthogonal rows but the columns are not orthogonal.
+However, if the rows are normalized, the resulting matrix $\def\arraystretch{1.5}\leftB \begin{array}{rrr}
+\frac{2}{\sqrt{6}} & \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{6}} \\
+\frac{-1}{\sqrt{3}} & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \\
+0 & \frac{-1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
+\end{array}\rightB$
+ is orthogonal (so the columns are now orthonormal as the reader can verify).
+\end{example}
+
+\begin{example}{}{024275}
+If $P$ and $Q$ are orthogonal matrices, then $PQ$ is also orthogonal, as is $P^{-1} = P^{T}$.
+
+
+\begin{solution}
+$P$ and $Q$ are invertible, so $PQ$ is also invertible and 
+\begin{equation*}
+(PQ)^{-1} = Q^{-1}P^{-1} = Q^{T}P^{T} = (PQ)^{T}
+\end{equation*}
+Hence $PQ$ is orthogonal. Similarly, 
+\begin{equation*}
+(P^{-1})^{-1} = P = (P^{T})^{T} = (P^{-1})^{T}
+\end{equation*}
+shows that $P^{-1}$ is orthogonal.
+\end{solution}
+\end{example}
+
+\begin{definition}{Orthogonally Diagonalizable Matrices}{024297}
+An $n \times n$ matrix $A$ is said to be \textbf{orthogonally diagonalizable}\index{orthogonally diagonalizable} when an orthogonal matrix $P$ can be found such that  $P^{-1}AP = P^{T}AP$ is diagonal.
+\end{definition}
+
+This condition turns out to characterize the symmetric matrices.
+
+\begin{theorem}{Principal Axes Theorem}{024303}
+The following conditions are equivalent for an $n \times n$ matrix $A$.
+\index{orthogonality!principal axes theorem}\index{principal axes theorem}\index{symmetric matrix!orthogonal eigenvectors}
+
+\begin{enumerate}
+\item $A$ has an orthonormal set of $n$ eigenvectors.
+
+\item $A$ is orthogonally diagonalizable.
+
+\item $A$ is symmetric.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) $\Leftrightarrow$ (2). Given (1), let $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}$ be orthonormal eigenvectors of $A$. Then $P = \leftB \begin{array}{cccc} 
+\vect{x}_{1} & \vect{x}_{2} & \dots & \vect{x}_{n}
+\end{array}\rightB$ is orthogonal, and $P^{-1}AP$ is diagonal by Theorem~\ref{thm:009214}. This proves (2). Conversely, given (2) let $P^{-1}AP$ be diagonal where $P$ is orthogonal. If $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}$ are the columns of $P$ then $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}\}$ is an orthonormal basis of $\RR^n$ that consists of eigenvectors of $A$ by Theorem~\ref{thm:009214}. This proves (1).
+
+(2) $\Rightarrow$ (3). If $P^{T}AP = D$ is diagonal, where $P^{-1} = P^{T}$, then $A = PDP^{T}$. But $D^{T} = D$, so this gives $A^{T} = P^{TT}D^{T}P^{T} = PDP^{T} = A$.
+
+(3) $\Rightarrow$ (2). If $A$ is an $n \times n$ symmetric matrix, we proceed by induction on $n$. If $n = 1$, $A$ is already diagonal. If $n > 1$, assume that (3) $\Rightarrow$ (2) for $(n - 1) \times (n - 1)$ symmetric matrices. By Theorem~\ref{thm:016397} let $\lambda_{1}$ be a (real) eigenvalue of $A$, and let $A\vect{x}_{1} = \lambda_{1}\vect{x}_{1}$, where $\vectlength\vect{x}_{1}\vectlength = 1$. Use the Gram-Schmidt algorithm\index{Gram-Schmidt orthogonalization algorithm}\index{orthogonality!Gram-Schmidt orthogonalization algorithm} to find an orthonormal basis $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}\}$ for $\RR^n$. Let $P_{1} = \leftB \begin{array}{cccc} 
+\vect{x}_{1} & \vect{x}_{2} & \dots & \vect{x}_{n}
+\end{array}\rightB$, so $P_{1}$ is an orthogonal matrix and $P_{1}^TAP_{1} = \leftB \begin{array}{cc}
+\lambda_{1} & B \\
+0 & A_{1}
+\end{array}\rightB$
+ in block form by Lemma~\ref{lem:016161}. But $P_{1}^TAP_{1}$ is symmetric ($A$ is), so it follows that $B = 0$ and $A_{1}$ is symmetric. Then, by induction, there exists an $(n - 1) \times (n - 1)$ orthogonal matrix $Q$ such that $Q^{T}A_{1}Q = D_{1}$ is diagonal. Observe that $P_{2} = \leftB \begin{array}{cc}
+ 1 & 0\\
+ 0 & Q
+ \end{array}\rightB$
+ is orthogonal, and compute:
+\begin{align*}
+(P_{1}P_{2})^TA(P_{1}P_{2}) &= P_{2}^T(P_{1}^TAP_{1})P_{2} \\
+&= \leftB \begin{array}{cc}
+1 & 0 \\
+0 & Q^T
+\end{array}\rightB \leftB \begin{array}{cc}
+\lambda_{1} & 0 \\
+0 & A_{1}
+\end{array}\rightB\leftB \begin{array}{cc}
+1 & 0 \\
+0 & Q
+\end{array}\rightB\\
+&= \leftB \begin{array}{cc}
+\lambda_{1} & 0 \\
+0 & D_{1}
+\end{array}\rightB
+\end{align*}
+is diagonal. Because $P_{1}P_{2}$ is orthogonal, this proves (2).
+\end{proof}
+
+\noindent A set of orthonormal eigenvectors of a symmetric matrix $A$ is called a set of \textbf{principal axes}\index{principal axes} for $A$. The name comes from geometry, and this is discussed in Section~\ref{sec:8_8}. Because the eigenvalues of a (real) symmetric matrix are real, Theorem~\ref{thm:024303} is also called the \textbf{real spectral theorem}\index{orthogonality!real spectral theorem}\index{real spectral theorem}, and the set of distinct eigenvalues is called the \textbf{spectrum}\index{spectrum}\index{matrix!spectrum}\index{eigenvalues!spectrum of the matrix} of the matrix. In full generality, the spectral theorem is a similar result for matrices with complex entries (Theorem~\ref{thm:025860}).
+
+
+\begin{example}{}{024374}
+Find an orthogonal matrix $P$ such that $P^{-1}AP$ is diagonal, where $A = \leftB \begin{array}{rrr}
+1 & 0 & -1 \\
+0 & 1 & 2 \\
+-1 & 2 & 5 
+\end{array}\rightB$.
+
+\begin{solution}
+ The characteristic polynomial of $A$ is (adding twice row 1 to row 2):
+\begin{equation*}
+c_{A}(x) = \func{det}\leftB \begin{array}{ccc}
+x - 1 & 0 & 1 \\
+0 & x - 1 & -2 \\
+1 & -2 & x - 5 
+\end{array}\rightB = x(x - 1)(x - 6)
+\end{equation*}
+Thus the eigenvalues are $\lambda = 0$, $1$, and $6$, and corresponding eigenvectors are
+\begin{equation*}
+\vect{x}_{1} = \leftB \begin{array}{r}
+1 \\
+-2 \\
+1
+\end{array}\rightB \;
+\vect{x}_{2} = \leftB \begin{array}{r}
+2 \\
+1 \\
+0
+\end{array}\rightB \;
+\vect{x}_{3} = \leftB \begin{array}{r}
+-1 \\
+2 \\
+5
+\end{array}\rightB
+\end{equation*}
+respectively. Moreover, by what appears to be remarkably good luck, these eigenvectors are \textit{orthogonal}. We have $\vectlength\vect{x}_{1}\vectlength^{2} = 6$, $\vectlength\vect{x}_{2}\vectlength^{2} = 5$, and $\vectlength\vect{x}_{3}\vectlength^{2} = 30$, so
+\begin{equation*}
+P = \leftB \begin{array}{ccc}
+\frac{1}{\sqrt{6}}\vect{x}_{1} & \frac{1}{\sqrt{5}}\vect{x}_{2} & \frac{1}{\sqrt{30}}\vect{x}_{3}
+\end{array}\rightB = \frac{1}{\sqrt{30}} \leftB \begin{array}{ccc}
+\sqrt{5} & 2\sqrt{6} & -1 \\
+-2\sqrt{5} & \sqrt{6} & 2 \\
+\sqrt{5} & 0 & 5 
+\end{array}\rightB
+\end{equation*}
+is an orthogonal matrix. Thus $P^{-1} = P^{T}$ and
+\begin{equation*}
+P^TAP = \leftB \begin{array}{ccc}
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 6
+\end{array}\rightB
+\end{equation*}
+by the diagonalization algorithm.
+\end{solution}
+\end{example}
+
+Actually, the fact that the eigenvectors in Example~\ref{exa:024374} are orthogonal is no coincidence. Theorem~\ref{thm:016090} guarantees they are linearly independent (they correspond to distinct eigenvalues); the fact that the matrix is \textit{symmetric} implies that they are orthogonal. To prove this we need the following useful fact about symmetric matrices.\index{eigenvector!orthogonal eigenvectors}
+
+
+\begin{theorem}{}{024396}
+If A is an $n \times n$ symmetric matrix, then
+\begin{equation*}
+(A\vect{x}) \dotprod \vect{y} = \vect{x} \dotprod (A\vect{y})
+\end{equation*}
+for all columns $\vect{x}$ and $\vect{y}$ in $\RR^n$.\footnotemark
+\end{theorem}
+\footnotetext{The converse also holds (Exercise \ref{ex:8_2_15}).}
+
+\begin{proof}
+Recall that $\vect{x} \dotprod \vect{y} = \vect{x}^{T} \vect{y}$ for all columns $\vect{x}$ and $\vect{y}$. Because $A^{T} = A$, we get
+\begin{equation*}
+(A\vect{x}) \dotprod \vect{y} = (A\vect{x})^T\vect{y} = \vect{x}^TA^T\vect{y} =  \vect{x}^TA\vect{y} = \vect{x} \dotprod (A\vect{y})
+\end{equation*}
+\end{proof}
+
+\begin{theorem}{}{024407}
+If $A$ is a symmetric matrix, then eigenvectors of $A$ corresponding to distinct eigenvalues are orthogonal.
+\end{theorem}
+
+\begin{proof}
+Let $A\vect{x} = \lambda \vect{x}$ and $A\vect{y} = \mu \vect{y}$, where $\lambda \neq \mu$. Using Theorem~\ref{thm:024396}, we compute
+\begin{equation*}
+\lambda(\vect{x} \dotprod \vect{y}) = (\lambda\vect{x}) \dotprod \vect{y} = (A\vect{x}) \dotprod \vect{y} = \vect{x} \dotprod (A\vect{y}) = \vect{x} \dotprod (\mu\vect{y}) = \mu(\vect{x} \dotprod \vect{y})
+\end{equation*}
+Hence $(\lambda - \mu)(\vect{x} \dotprod \vect{y}) = 0$, and so $\vect{x} \dotprod \vect{y} = 0$ because $\lambda \neq \mu$.
+\end{proof}
+
+Now the procedure for diagonalizing a symmetric $n \times n$ matrix is clear. Find the distinct eigenvalues (all real by Theorem~\ref{thm:016397})
+ and find orthonormal bases for each eigenspace (the Gram-Schmidt 
+algorithm\index{Gram-Schmidt orthogonalization algorithm}\index{orthogonality!Gram-Schmidt orthogonalization algorithm} may be needed). Then the set of all these basis vectors is 
+orthonormal (by Theorem~\ref{thm:024407}) and contains $n$ vectors. Here is an example.
+
+
+\begin{example}{}{024416}
+Orthogonally diagonalize the symmetric matrix $A = \leftB \begin{array}{rrr}
+8 & -2 & 2 \\
+-2 & 5 & 4 \\
+2 & 4 & 5
+\end{array}\rightB$.
+
+
+\begin{solution}
+  The characteristic polynomial is
+\begin{equation*}
+c_{A}(x) = \func{det} \leftB \begin{array}{ccc}
+x-8 & 2 & -2 \\
+2 & x-5 & -4 \\
+-2 & -4 & x-5
+\end{array}\rightB = x(x-9)^2
+\end{equation*}
+Hence the distinct eigenvalues are $0$ and $9$ of multiplicities $1$ and $2$, respectively, so $\func{dim}(E_{0}) = 1$ and $\func{dim}(E_{9}) = 2$ by Theorem~\ref{thm:016250} ($A$ is diagonalizable, being symmetric). Gaussian elimination gives
+\begin{equation*}
+E_{0}(A) = \func{span}\{\vect{x}_{1}\}, \enskip \vect{x}_{1} = \leftB \begin{array}{r}
+1 \\
+2 \\
+-2
+\end{array}\rightB, \quad \mbox{ and } \quad E_{9}(A) = \func{span} \left\lbrace \leftB \begin{array}{r}
+	-2 \\
+	1 \\
+	0
+	\end{array}\rightB, \leftB \begin{array}{r}
+2 \\
+0 \\
+1
+\end{array}\rightB \right\rbrace
+\end{equation*}
+The eigenvectors in $E_{9}$ are both orthogonal to $\vect{x}_{1}$ as Theorem~\ref{thm:024407} guarantees, but not to each other. However, the Gram-Schmidt process yields an orthogonal basis
+\begin{equation*}
+\{\vect{x}_{2}, \vect{x}_{3}\} \mbox{ of } E_{9}(A) \quad \mbox{ where } \quad \vect{x}_{2} = \leftB \begin{array}{r}
+-2 \\
+1 \\
+0
+\end{array}\rightB \mbox{ and }  \vect{x}_{3} = \leftB \begin{array}{r}
+2 \\
+4 \\
+5
+\end{array}\rightB
+\end{equation*}
+Normalizing gives orthonormal vectors $\{\frac{1}{3}\vect{x}_{1}, \frac{1}{\sqrt{5}}\vect{x}_{2}, \frac{1}{3\sqrt{5}}\vect{x}_{3}\}$, so
+\begin{equation*}
+P = \leftB \begin{array}{rrr}
+\frac{1}{3}\vect{x}_{1} & \frac{1}{\sqrt{5}}\vect{x}_{2} & \frac{1}{3\sqrt{5}}\vect{x}_{3}
+\end{array}\rightB = \frac{1}{3\sqrt{5}}\leftB \begin{array}{rrr}
+\sqrt{5} & -6 & 2 \\
+2\sqrt{5} & 3 & 4 \\
+-2\sqrt{5} & 0 & 5
+\end{array}\rightB
+\end{equation*}
+is an orthogonal matrix such that $P^{-1}AP$ is diagonal.
+
+
+It is worth noting that other, more convenient, diagonalizing matrices $P$ exist. For example, $\vect{y}_{2} = \leftB \begin{array}{r}
+2 \\
+1 \\
+2
+\end{array}\rightB$ and $\vect{y}_{3} = \leftB \begin{array}{r}
+-2 \\
+2 \\
+1
+\end{array}\rightB$
+ lie in $E_{9}(A)$ and they are orthogonal. Moreover, they both have norm $3$ (as does $\vect{x}_{1}$), so
+\begin{equation*}
+Q = \leftB \begin{array}{ccc}
+\frac{1}{3}\vect{x}_{1} & \frac{1}{3}\vect{y}_{2} & \frac{1}{3}\vect{y}_{3}
+\end{array}\rightB = \frac{1}{3}\leftB \begin{array}{rrr}
+1 & 2 & -2 \\
+2 & 1 & 2 \\
+-2 & 2 & 1
+\end{array}\rightB
+\end{equation*}
+is a nicer orthogonal matrix with the property that $Q^{-1}AQ$ is diagonal.
+\end{solution}
+\end{example}
+
+\begin{wrapfigure}[12]{l}{5cm} 
+\vspace*{-2em}
+\centering
+\input{8-orthogonality/figures/2-orthogonal-diagonalization/quadratic-graph}
+%\caption{\label{fig:024448}}
+\end{wrapfigure}
+
+If $A$ is symmetric and a set of orthogonal eigenvectors of $A$ is given, the eigenvectors are called principal axes\index{eigenvector!principal axes} of $A$. The name comes from geometry. An expression $q = ax_{1}^2 + bx_{1}x_{2} + cx_{2}^2$ is called a \textbf{quadratic form}\index{orthogonality!quadratic forms}\index{quadratic form} in the variables $x_{1}$ and $x_{2}$, and the graph of the equation $q = 1$ is called a \textbf{conic} in these variables. For example, if $q = x_{1}x_{2}$, the graph of $q = 1$ is given in the first diagram.
+
+But if we introduce new variables $y_{1}$ and $y_{2}$ by setting $x_{1} = y_{1} + y_{2}$ and $x_{2} = y_{1} - y_{2}$, then $q$ becomes $q = y_{1}^2 - y_{2}^2$, a diagonal form with no cross term $y_{1}y_{2}$ (see the second diagram). Because of this, the $y_{1}$ and $y_{2}$ axes are called the principal axes for the conic (hence the name). Orthogonal diagonalization provides a systematic method for finding principal axes. Here is an illustration.
+
+\vspace*{2em}
+\begin{example}{}{024463}
+Find principal axes for the quadratic form $q = x_{1}^2 -4x_{1}x_{2} + x_{2}^2$.
+
+
+\begin{solution}
+  In order to utilize diagonalization, we first express $q$ in matrix form. Observe that
+\begin{equation*}
+q = \leftB \begin{array}{cc}
+x_{1} & x_{2} 
+\end{array}\rightB \leftB \begin{array}{rr}
+1 & -4 \\
+0 & 1 
+\end{array}\rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} 
+\end{array}\rightB
+\end{equation*}
+The matrix here is not symmetric, but we can remedy that by writing
+\begin{equation*}
+q = x_{1}^2 -2x_{1}x_{2} - 2x_{2}x_{1} + x_{2}^2
+\end{equation*}
+Then we have
+\begin{equation*}
+q = \leftB \begin{array}{cc}
+x_{1} & x_{2} 
+\end{array}\rightB \leftB \begin{array}{rr}
+1 & -2 \\
+-2 & 1 
+\end{array}\rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} 
+\end{array}\rightB = \vect{x}^TA\vect{x}
+\end{equation*}
+where $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} 
+\end{array}\rightB$ and $A = \leftB \begin{array}{rr}
+1 & -2 \\
+-2 & 1
+\end{array}\rightB$ is symmetric. The eigenvalues of $A$ are $\lambda_{1} = 3$ and $\lambda_{2} = -1$, with corresponding (orthogonal) eigenvectors $\vect{x}_{1} = \leftB \begin{array}{r}
+1 \\
+-1
+\end{array}\rightB$
+and $\vect{x}_{2} = \leftB \begin{array}{c}
+1 \\
+1
+\end{array}\rightB$. Since $\vectlength \vect{x}_{1} \vectlength = \vectlength \vect{x}_{2} \vectlength = \sqrt{2}$, so
+\begin{equation*}
+P = \frac{1}{\sqrt{2}}\leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 1
+\end{array}\rightB \mbox{ is orthogonal and } P^TAP = D = \leftB \begin{array}{rr}
+3 & 0 \\
+0 & -1
+\end{array}\rightB
+\end{equation*}
+Now define new variables $\leftB \begin{array}{c}
+y_{1} \\
+y_{2} 
+\end{array}\rightB = \vect{y}$ by $\vect{y} = P^{T}\vect{x}$, equivalently $\vect{x} = P\vect{y}$ (since $P^{-1} = P^{T}$). Hence
+\begin{equation*}
+y_{1} = \frac{1}{\sqrt{2}}(x_{1} - x_{2}) \quad \mbox{ and } \quad y_{2} = \frac{1}{\sqrt{2}}(x_{1} + x_{2})
+\end{equation*}
+In terms of $y_{1}$ and $y_{2}$, $q$ takes the form
+\begin{equation*}
+q = \vect{x}^TA\vect{x} = (P\vect{y})^TA(P\vect{y}) = \vect{y}^T(P^TAP)\vect{y} = \vect{y}^TD\vect{y} = 3y_{1}^2 - y_{2}^2
+\end{equation*}
+Note that $\vect{y} = P^{T}\vect{x}$ is obtained from $\vect{x}$ by a counterclockwise rotation of $\frac{\pi}{4}$
+ (see Theorem~\ref{thm:004693}).
+\end{solution}
+\end{example}
+
+Observe that the quadratic form $q$ in Example~\ref{exa:024463} can be diagonalized in other ways. For example
+\begin{equation*}
+q = x_{1}^2 - 4x_{1}x_2 + x_{2}^2 = z_{1}^2 - \frac{1}{3}z_{2}^2
+\end{equation*}
+where $z_{1} = x_{1} -2x_{2}$ and $z_{2} = 3x_{2}$. We examine this more carefully in Section~\ref{sec:8_8}.
+
+
+If we are willing to replace ``diagonal'' by ``upper triangular'' in the principal axes theorem, we can weaken the requirement that $A$ is symmetric to insisting only that $A$ has real eigenvalues.
+
+\begin{theorem}{Triangulation Theorem}{024503}
+If $A$ is an $n \times n$ matrix with $n$ real eigenvalues, an orthogonal matrix $P$ exists such that $P^{T}AP$ is upper triangular.\footnotemark \index{triangulation theorem}\index{orthogonality!triangulation theorem}
+\end{theorem}
+\footnotetext{There is also a lower triangular version.}
+
+\begin{proof}
+We modify the proof of Theorem~\ref{thm:024303}. If $A\vect{x}_{1} = \lambda_{1}\vect{x}_{1}$ where $\vectlength\vect{x}_{1}\vectlength = 1$, let $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}\}$ be an orthonormal basis of $\RR^n$, and let $P_{1} = \leftB \begin{array}{cccc}
+\vect{x}_{1} & \vect{x}_{2} & \cdots &  \vect{x}_{n}
+\end{array}\rightB$. Then $P_{1}$ is orthogonal and $P_{1}^TAP_{1} = \leftB \begin{array}{cc}
+\lambda_{1} & B \\
+0 & A_{1}
+\end{array}\rightB$ in block form. By induction, let $Q^{T}A_{1}Q = T_{1}$ be upper triangular where $Q$ is of size $(n-1)\times(n-1)$ and orthogonal. Then $P_{2} = \leftB \begin{array}{cc}
+1 & 0 \\
+0 & Q
+\end{array}\rightB$ is orthogonal, so $P = P_{1}P_{2}$ is also orthogonal and $P^TAP = \leftB \begin{array}{cc}
+\lambda_{1} & BQ \\
+0 & T_{1}
+\end{array}\rightB$
+ is upper triangular.
+\end{proof}
+
+\noindent The proof of Theorem~\ref{thm:024503} gives no way to construct the matrix $P$. However, an algorithm will be given in Section~\ref{sec:11_1} where an improved version of Theorem~\ref{thm:024503} is presented. In a different direction, a version of Theorem~\ref{thm:024503} holds for an arbitrary matrix with complex entries (Schur's theorem in Section~\ref{sec:8_6}).
+
+
+As for a diagonal matrix, the eigenvalues of an upper triangular matrix are displayed along the main diagonal. Because $A$ and $P^{T}AP$ have the same determinant and trace whenever $P$ is orthogonal, Theorem~\ref{thm:024503} gives:
+
+
+\begin{corollary}{}{024536}
+If $A$ is an $n \times n$ matrix with real eigenvalues $\lambda_{1}, \lambda_{2}, \dots, \lambda_{n}$ (possibly not all distinct), then $\func{det}A = \lambda_{1}\lambda_{2} \dots \lambda_{n}$ and $\func{tr}A = \lambda_{1} + \lambda_{2} + \dots  + \lambda_{n}$.
+\end{corollary}
+
+\noindent This corollary remains true even if the eigenvalues are not real (using Schur's theorem).
+
+
+\section*{Exercises for \ref{sec:8_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:8_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Normalize the rows to make each of the following matrices orthogonal.
+
+%[label={\alph*.}]
+\begin{exenumerate}[column-sep=-5em]
+\exitem $A = \leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 1
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rr}
+3 & -4 \\
+4 & 3
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rr}
+1 & 2 \\
+-4 & 2
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rr}
+a & b \\
+-b & a
+\end{array}\rightB$, $(a,b) \neq (0,0)$
+\exitem* $A = \leftB \begin{array}{ccc}
+\cos\theta & -\sin\theta & 0 \\
+\sin\theta & \cos\theta & 0 \\
+0 & 0 & 2 
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rrr}
+2 & 1 & -1 \\
+1 & -1 & 1 \\
+0 & 1 & 1 
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rrr}
+-1 & 2 & 2 \\
+2 & -1 & 2 \\
+2 & 2 & -1 
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rrr}
+2 & 6 & -3 \\
+3 & 2 & 6 \\
+-6 & 3 & 2 
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\frac{1}{5}\leftB \begin{array}{rr}
+3 & -4 \\
+4 & 3
+\end{array}\rightB$
+
+\setcounter{enumi}{3}
+\item  $\frac{1}{\sqrt{a^2 + b^2}}\leftB \begin{array}{rr}
+a & b \\
+-b & a
+\end{array}\rightB$
+
+\setcounter{enumi}{5}
+\item  $\leftB \begin{array}{rrr}
+\frac{2}{\sqrt{6}} & \frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{6}}\\
+\frac{1}{\sqrt{3}} & -\frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \\
+0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+\end{array}\rightB$
+
+
+\setcounter{enumi}{7}
+\item  $\frac{1}{7}\leftB \begin{array}{rrr}
+2 & 6 & -3 \\
+3 & 2 & 6 \\
+-6 & 3 & 2
+\end{array}\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $P$ is a triangular orthogonal matrix, show that $P$ is diagonal and that all diagonal entries are $1$ or $-1$.
+
+\begin{sol}
+We have $P^{T} = P^{-1}$; this matrix is lower triangular (left side) and also upper triangular (right side--see Lemma~\ref{lem:006547}), and so is diagonal. But then $P = P^{T} = P^{-1}$, so $P^{2} = I$. This implies that the diagonal entries of $P$ are all $\pm 1$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $P$ is orthogonal, show that $kP$ is orthogonal if and only if $k = 1$ or $k = -1$.
+\end{ex}
+
+\begin{ex}
+If the first two rows of an orthogonal matrix are $(\frac{1}{3}, \frac{2}{3}, \frac{2}{3})$ and $(\frac{2}{3}, \frac{1}{3}, \frac{-2}{3})$, find all possible third rows.
+\end{ex}
+
+\begin{ex}
+For each matrix $A$, find an orthogonal matrix $P$ such that $P^{-1}AP$ is diagonal.
+
+\begin{exenumerate}[column-sep=-15pt]
+\exitem $A = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rr}
+1 & -1 \\
+-1 & 1
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+3 & 0 & 0 \\
+0 & 2 & 2 \\
+0 & 2 & 5 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+3 & 0 & 7 \\
+0 & 5 & 0 \\
+7 & 0 & 3 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+1 & 1 & 0 \\
+0 & 0 & 2 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+5 & -2 & -4 \\
+-2 & 8 & -2\\
+-4 & -2 & 5 
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+5 & 3 & 0 & 0 \\
+3 & 5 & 0 & 0 \\
+0 & 0 & 7 & 1 \\
+0 & 0 & 1 & 7 
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+3 & 5 & -1 & 1 \\
+5 & 3 & 1 & -1 \\
+-1 & 1 & 3 & 5 \\
+1 & -1 & 5 & 3 
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\frac{1}{\sqrt{2}}\leftB \begin{array}{rr}
+1 & -1 \\
+1 & 1
+\end{array}\rightB$
+
+\setcounter{enumi}{3}
+\item  $\frac{1}{\sqrt{2}}\leftB \begin{array}{rrr}
+0 & 1 & 1\\
+\sqrt{2} & 0 & 0\\
+0 & 1 & -1
+\end{array}\rightB$
+
+\setcounter{enumi}{5}
+\item  $\frac{1}{3\sqrt{2}}\leftB \begin{array}{rrr}
+2\sqrt{2} & 3 & 1\\
+\sqrt{2} & 0 & -4\\
+2\sqrt{2} & -3 & 1
+\end{array}\rightB$ or $\frac{1}{3}\leftB \begin{array}{rrr}
+2 & -2 & 1\\
+1 & 2 & 2\\
+2 & 1 & -2
+\end{array}\rightB$
+
+\setcounter{enumi}{7}
+\item  $\frac{1}{2}\leftB \begin{array}{rrrr}
+1 & -1 & \sqrt{2} & 0\\
+-1 & 1 & \sqrt{2} & 0\\
+-1 & -1 & 0 & \sqrt{2}\\
+1 & 1 & 0 & \sqrt{2}
+\end{array}\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Consider $A = \leftB \begin{array}{rrr}
+0 & a & 0 \\
+a & 0 & c \\
+0 & c & 0 
+\end{array}\rightB$
+ where one of $a, c \neq 0$. Show that $c_{A}(x) = x(x - k)(x + k)$, where $k = \sqrt{a^2 + c^2}$ and find an orthogonal matrix $P$ such that $P^{-1}AP$ is diagonal.
+
+\begin{sol}
+$P = \frac{1}{\sqrt{2}k}\leftB \begin{array}{rrr}
+c\sqrt{2} & a & a \\
+0 & k & -k \\
+-a\sqrt{2} & c & c
+\end{array}\rightB$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Consider $A = \leftB \begin{array}{rrr}
+0 & 0 & a \\
+0 & b & 0 \\
+a & 0 & 0 
+\end{array}\rightB$. Show that $c_{A}(x) = (x - b)(x - a)(x + a)$ and find an orthogonal matrix $P$ such that $P^{-1}AP$ is diagonal.
+\end{ex}
+
+\begin{ex}
+Given $A = \leftB \begin{array}{rr}
+b & a \\
+a & b
+\end{array}\rightB$, show that \\ $c_{A}(x) = (x - a - b)(x + a - b)$ and find an orthogonal matrix $P$ such that $P^{-1}AP$ is diagonal.
+\end{ex}
+
+\begin{ex}
+Consider $A = \leftB \begin{array}{rrr}
+b & 0 & a \\
+0 & b & 0 \\
+a & 0 & b 
+\end{array}\rightB$. Show that $c_{A}(x) = (x - b)(x - b - a)(x - b + a)$ and find an orthogonal matrix $P$ such that $P^{-1}AP$ is diagonal.
+\end{ex}
+
+\begin{ex}
+In each case find new variables $y_{1}$ and $y_{2}$ that diagonalize the quadratic form $q$.
+
+\begin{exenumerate}
+\exitem $q = x_{1}^2 + 6x_{1}x_2 + x_{2}^2$
+\exitem $q = x_{1}^2 + 4x_{1}x_2 - 2x_{2}^2$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $y_{1} = \frac{1}{\sqrt{5}}(-x_{1} + 2x_{2})$ and $y_{2} = \frac{1}{\sqrt{5}}(2x_{1} + x_{2})$; $q = -3y_{1}^2 + 2y_{2}^2$.
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the following are equivalent for a symmetric matrix $A$.
+
+
+\begin{exenumerate}
+\exitem $A$ is orthogonal.
+\exitem $A^{2} = I$.
+\exitem* All eigenvalues of $A$ are $\pm 1$.
+\end{exenumerate}
+[Hint: For (b) if and only if (c), use Theorem~\ref{thm:024303}.]
+
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{2}
+\item $\Rightarrow$ a. By Theorem~\ref{thm:024227} let $P^{-1}AP = D = \func{diag}(\lambda_{1}, \dots, \lambda_{n})$ where the $\lambda_{i}$ are the eigenvalues of $A$. By c. we have $\lambda_{i} = \pm 1$ for each $i$, whence $D^{2} = I$. But then $A^{2} = (PDP^{-1})^{2} = PD^{2}P^{-1} = I$. Since $A$ is symmetric this is $AA^{T} = I$, proving a.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\begin{ex}\label{ex:8_2_12}
+We call matrices $A$ and $B$ \textbf{orthogonally similar}\index{orthogonality!orthogonally similar}\index{orthogonally similar} (and write $A \stackrel{\circ}{\sim} B$) if $B = P^{T}AP$ for an orthogonal matrix $P$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A \stackrel{\circ}{\sim} A$ for all $A$; $A \stackrel{\circ}{\sim} B \Rightarrow B \stackrel{\circ}{\sim} A$; and $A \stackrel{\circ}{\sim} B$ and $B \stackrel{\circ}{\sim} C \Rightarrow A \stackrel{\circ}{\sim} C$.
+
+\item Show that the following are equivalent for two symmetric matrices $A$ and $B$.
+
+
+\begin{enumerate}[label={\roman*.}]
+\item $A$ and $B$ are similar.
+
+\item $A$ and $B$ are orthogonally similar.
+
+\item $A$ and $B$ have the same eigenvalues.
+
+\end{enumerate}
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Assume that $A$ and $B$ are orthogonally similar (Exercise \ref{ex:8_2_12}).
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ and $B$ are invertible, show that $A^{-1}$ and $B^{-1}$ are orthogonally similar.
+
+\item Show that $A^{2}$ and $B^{2}$ are orthogonally similar.
+
+\item Show that, if $A$ is symmetric, so is $B$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $B = P^{T}AP = P^{-1}$, then $B^{2} = P^{T}APP^{T}AP = P^{T}A^{2}P$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is symmetric, show that every eigenvalue of $A$ is nonnegative if and only if $A = B^{2}$ for some symmetric matrix $B$.
+\end{ex}
+
+\begin{ex}\label{ex:8_2_15}
+Prove the converse of Theorem~\ref{thm:024396}:
+
+
+If $(A\vect{x}) \dotprod \vect{y} = \vect{x} \dotprod (A\vect{y})$ for all $n$-columns $\vect{x}$ and $\vect{y}$, then $A$ is symmetric.
+
+\begin{sol}
+If $\vect{x}$ and $\vect{y}$ are respectively columns $i$ and $j$ of $I_{n}$, then $\vect{x}^{T}A^{T}\vect{y} = \vect{x}^{T}A\vect{y}$ shows that the $(i, j)$-entries of $A^{T}$ and $A$ are equal.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that every eigenvalue of $A$ is zero if and only if $A$ is nilpotent ($A^{k} = 0$ for some $k \geq 1$).
+\end{ex}
+
+\begin{ex}
+If $A$ has real eigenvalues, show that $A = B + C$ where $B$ is symmetric and $C$ is nilpotent. \newline [\textit{Hint}: Theorem~\ref{thm:024503}.]
+\end{ex}
+
+\begin{ex}
+Let $P$ be an orthogonal matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{det}P = 1$ or $\func{det}P = -1$.
+
+\item Give $2 \times 2$ examples of $P$ such that $\func{det}P = 1$ and $\func{det} P = -1$.
+
+\item If $\func{det} P = -1$, show that $I + P$ has no inverse. [\textit{Hint}: $P^{T}(I + P) = (I + P)^{T}$.]
+
+\item If $P$ is $n \times n$ and $\func{det}P \neq (-1)^{n}$, show that $I - P$ has no inverse.
+
+
+[\textit{Hint}: $P^{T}(I - P) = -(I - P)^{T}$.]
+
+\end{enumerate}
+\begin{sol} 
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\func{det}\leftB \begin{array}{rr}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{array}\rightB = 1$ \\ and $\func{det}\leftB \begin{array}{rr}
+\cos\theta & \sin\theta \\
+\sin\theta & -\cos\theta
+\end{array}\rightB = -1$
+
+[\textit{Remark}: These are the \textit{only} $2 \times 2$ examples.]
+
+\setcounter{enumi}{3}
+\item Use the fact that $P^{-1} = P^{T}$ to show that $P^{T}(I - P) = -(I - P)^{T}$. Now take determinants and use the hypothesis that $\func{det}P \neq (-1)^{n}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+We call a square matrix $E$ a \textbf{projection matrix}\index{matrix!projection matrix}\index{projection matrix} if $E^{2} = E = E^{T}$. (See Exercise \ref{ex:8_1_17}.)
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $E$ is a projection matrix, show that $P = I - 2E$ is orthogonal and symmetric.
+
+\item If $P$ is orthogonal and symmetric, show that \\ $E = \frac{1}{2}(I - P)$ is a projection matrix.
+
+\item If $U$ is $m \times n$ and $U^{T}U = I$ (for example, a unit column in $\RR^n$), show that $E = UU^{T}$ is a projection matrix.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+A matrix that we obtain from the identity matrix by writing its rows in a different order is called a \textbf{permutation matrix}\index{matrix!permutation matrix}\index{permutation matrix}. Show that every permutation matrix is orthogonal.
+\end{ex}
+
+\begin{ex}
+If the rows $\vect{r}_{1}, \dots, \vect{r}_{n}$ of the $n \times n$ matrix $A = \leftB a_{ij} \rightB$ are orthogonal, show that the $(i, j)$-entry of $A^{-1}$ is $\frac{a_{ji}}{\vectlength \vect{r}_{j} \vectlength^2}$.
+
+\begin{sol}
+We have $AA^{T} = D$, where $D$ is diagonal with main diagonal entries $\vectlength R_{1}\vectlength^{2}, \dots, \vectlength R_{n}\vectlength^{2}$. Hence $A^{-1} = A^{T}D^{-1}$, and the result follows because $D^{-1}$ has diagonal entries $1 / \vectlength R_{1}\vectlength^{2}, \dots, 1 / \vectlength R_{n}\vectlength^{2}$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Let $A$ be an $m \times n$ matrix. Show that the following are equivalent.
+
+
+\begin{enumerate}[label={\roman*.}]
+\item $A$ has orthogonal rows.
+
+\item $A$ can be factored as $A = DP$, where $D$ is invertible and diagonal and $P$ has orthonormal rows.
+
+\item $AA^{T}$ is an invertible, diagonal matrix.
+
+\end{enumerate}
+\item Show that an $n \times n$ matrix $A$ has orthogonal rows if and only if $A$ can be factored as $A = DP$, where $P$ is orthogonal and $D$ is diagonal and invertible.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $A$ be a skew-symmetric matrix; that is, $A^{T} = -A$. Assume that $A$ is an $n \times n$ matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $I + A$ is invertible. [\textit{Hint}: By Theorem~\ref{thm:004553}, it suffices to show that $(I + A)\vect{x} = \vect{0}$, $\vect{x}$ in $\RR^n$, implies $\vect{x} = \vect{0}$. Compute $\vect{x} \dotprod \vect{x} = \vect{x}^{T}\vect{x}$, and use the fact that $A\vect{x} = -\vect{x}$ and $A^{2}\vect{x} = \vect{x}$.]
+
+\item Show that $P = (I - A)(I + A)^{-1}$ is orthogonal.
+
+\item Show that every orthogonal matrix $P$ such that $I + P$ is invertible arises as in part (b) from some skew-symmetric matrix $A$. \newline [\textit{Hint}: Solve $P = (I - A)(I + A)^{-1}$ for $A$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Because $I - A$ and $I + A$ commute, $PP^{T} = (I - A)(I + A)^{-1}[(I + A)^{-1}]^{T}(I - A)^{T} = (I - A)(I + A)^{-1}(I - A)^{-1}(I + A) = I$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the following are equivalent for an $n \times n$ matrix $P$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $P$ is orthogonal.
+
+\item $\vectlength P\vect{x}\vectlength = \vectlength\vect{x}\vectlength$ for all columns $\vect{x}$ in $\RR^n$.
+
+\item $\vectlength P\vect{x} - P\vect{y}\vectlength = \vectlength\vect{x} - \vect{y}\vectlength$ for all columns $\vect{x}$ and $\vect{y}$ in $\RR^n$.
+
+\item $(P\vect{x}) \dotprod (P\vect{y}) = \vect{x} \dotprod \vect{y}$ for all columns $\vect{x}$ and $\vect{y}$ in $\RR^n$.
+
+
+[\textit{Hints}: For (c) $\Rightarrow$ (d), see Exercise \ref{ex:5_3_14}(a). For (d) $\Rightarrow$ (a), show that column $i$ of $P$ equals $P\vect{e}_{i}$, where $\vect{e}_{i}$ is column $i$ of the identity matrix.]
+
+\end{enumerate}
+\end{ex}
+
+\columnbreak 
+
+\begin{ex}
+Show that every $2 \times 2$ orthogonal matrix has the form $\leftB \begin{array}{rr}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{array}\rightB$ or $\leftB \begin{array}{rr}
+\cos\theta & \sin\theta \\
+\sin\theta & -\cos\theta
+\end{array}\rightB$
+ for some angle $\theta$. \newline [\textit{Hint}: If $a^{2} + b^{2} = 1$, then $a = \cos\theta$ and $b = \sin\theta$ for some angle $\theta$.]
+\end{ex}
+
+\begin{ex}
+Use Theorem~\ref{thm:024503} to show that every symmetric matrix is orthogonally diagonalizable.
+\end{ex}
+\end{multicols}

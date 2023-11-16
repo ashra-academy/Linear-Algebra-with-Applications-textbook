@@ -1,0 +1,62 @@
+\begin{tikzpicture}[scale=0.9]
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x_1$}, 
+    ylabel={$x_2$}, 
+    axis lines=middle, 
+    xtick={\empty}, 
+    ytick={\empty}, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+	clip mode = individual,
+    domain=-5:5, 
+    samples=100, 
+    xmin=-1, 
+    xmax=3, 
+    ymin=-1, 
+    ymax=3]
+    
+\def \angleTheta{30}
+\coordinate (ptY1) at (cos \angleTheta * 2, sin \angleTheta * 2);
+\coordinate (ptY2) at ({cos (\angleTheta + 90)}, {sin (\angleTheta + 90)});
+\coordinate (ptX1) at ({cos \angleTheta * 2 - sin \angleTheta * 1}, 0); %cos theta (y_1) - sin theta (y_2)
+\coordinate (ptX2) at (0, sin \angleTheta * 2 + cos \angleTheta * 1); %sin theta (y_1) + cos theta (y_2)
+\coordinate (ptP) at (ptX1 |- ptX2);
+
+%green lines
+\draw [dkgreenvect, thick, ->, rotate=\angleTheta, name path=lineY1] (-1, 0)--(3, 0) node[text=black, right] {\footnotesize $y_1$}; %y_1
+\draw [dkgreenvect, thick, ->, rotate=\angleTheta] (0, -1)--(0, 3) node[text=black, left] {\footnotesize $y_2$}; %y_2
+
+%dashed lines
+\draw [dkbluevect, thick, dashed] (ptX1)--(ptP)--(ptX2);
+\draw [dkbluevect, thick, dashed] (ptY1)--(ptP)--(ptY2);
+
+%points
+\fill (ptX1) circle (2pt);
+\fill (ptX2) circle (2pt);
+\fill (ptP) circle (2pt);
+\fill (ptY1) circle (2pt);
+\fill (ptY2) circle (2pt);
+
+%labels
+\draw [dkbluevect, thick, ->] (0.5, 0) arc [start angle=0, end angle={\angleTheta - 0}, radius=0.5];
+\node at (0.8, 0.2) {\footnotesize $\theta$};
+\node at (-0.2, -0.4) {\footnotesize $O$};
+\node [below] at (ptX1) {\footnotesize $x_1$};
+\node [left] at (ptX2) {\footnotesize $x_2$};
+\node [above right] at (ptP) {\footnotesize $\vect{p}$};
+\node [below] at (ptY1) {\footnotesize $y_1$};
+\node [left] at (ptY2) {\footnotesize $y_2$};
+
+\end{axis}
+\end{tikzpicture}

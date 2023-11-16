@@ -1,0 +1,20 @@
+\begin{tikzpicture}[scale=0.7]
+\draw[dkbluevect,thick, dashed](1,2)--(3,2);
+\draw[dkbluevect,thick, dashed](2,0)--(3,2);
+\draw[dkgreenvect,-latex,thick](0,0)--(1,2) node[left, text=black, midway]{$\vect{v}$};
+\draw[dkgreenvect,-latex,thick](0,0)--(2,0) node[below, text=black, midway]{$\vect{w}$};
+\draw[dkgreenvect,-latex,thick](0,0)--(3,2);
+\node[right, text=black] at (0.8, 0.5){$\vect{v} + \vect{w}$};
+\node[left] at (0, 0) {$\vect{P}$};
+\node[left] at (0, -0.5) {(a)};
+%(b)
+\draw[dkgreenvect,-latex, thick](1,-1)--(3,-1) node[above, text=black, midway]{$\vect{w}$};;
+\draw[dkgreenvect,-latex, thick](0,-3)--(1,-1) node[left, text=black, midway]{$\vect{v}$};
+\draw[dkgreenvect,-latex, thick](0,-3)--(3,-1) node[below right, text=black, pos=0.5]{$\vect{v} + \vect{w}$};
+\node[left] at (0, -3) {(b)};
+%(c)
+\draw[dkgreenvect,-latex,thick](2,-5.5)--(3,-3.5) node[right, text=black, midway]{$\vect{v}$};
+\draw[dkgreenvect,-latex,thick](0,-5.5)--(2,-5.5) node[below, text=black, midway]{$\vect{w}$};
+\draw[dkgreenvect,-latex, thick](0,-5.5)--(3,-3.5) node[left, text=black, pos=0.5]{$\vect{w} + \vect{v}$};
+\node[left] at (0, -5.5) {(c)};
+\end{tikzpicture}

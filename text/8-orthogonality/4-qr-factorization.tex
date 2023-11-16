@@ -1,0 +1,282 @@
+\section[QR-Factorization]{QR-Factorization\footnote{This section is not used elsewhere in the book}}
+\label{sec:8_4}\index{orthogonality!QR-factorization}
+
+One of the main virtues of orthogonal 
+matrices is that they can be easily inverted---the transpose is the 
+inverse. This fact, combined with the factorization theorem in this 
+section, provides a useful way to simplify many matrix calculations (for
+ example, in least squares approximation).
+
+
+\begin{definition}{QR-factorization}{025100}
+Let $A$ be an $m \times n$ matrix with independent columns. A \textbf{QR-factorization}\index{QR-factorization} of $A$ expresses it as $A = QR$ where $Q$ is $m \times n$ with orthonormal columns and $R$ is an invertible and upper triangular matrix with positive diagonal entries.
+\end{definition}
+
+\noindent The importance of the factorization 
+lies in the fact that there are computer algorithms that accomplish it 
+with good control over round-off error, making it particularly useful in
+ matrix calculations. The factorization is a matrix version of the 
+Gram-Schmidt process.\index{Gram-Schmidt orthogonalization algorithm}\index{orthogonality!Gram-Schmidt orthogonalization algorithm}
+
+
+Suppose $A = \leftB \begin{array}{cccc}
+\vect{c}_{1} & \vect{c}_{2} & \cdots &  \vect{c}_{n}
+\end{array}\rightB$ is an $m \times n$ matrix with linearly independent columns $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}$. The Gram-Schmidt algorithm can be applied to these columns to provide orthogonal columns $\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}$ where $\vect{f}_{1} = \vect{c}_{1}$ and
+\begin{equation*}
+\vect{f}_{k} = \vect{c}_{k} - \frac{\vect{c}_{k} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} + \frac{\vect{c}_{k} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\vect{f}_{2} - \dots - \frac{\vect{c}_{k} \dotprod \vect{f}_{k-1}}{\vectlength \vect{f}_{k-1} \vectlength^2}\vect{f}_{k-1}
+\end{equation*}
+for each $k = 2, 3, \dots, n$. Now write $\vect{q}_{k} = \frac{1}{\vectlength \vect{f}_{k} \vectlength}\vect{f}_{k}$ for each $k$. Then $\vect{q}_{1}, \vect{q}_{2}, \dots, \vect{q}_{n}$ are orthonormal columns, and the above equation becomes
+\begin{equation*}
+\vectlength \vect{f}_{k} \vectlength \vect{q}_{k} = \vect{c}_{k} - (\vect{c}_{k} \dotprod \vect{q}_{1})\vect{q}_{1} - (\vect{c}_{k} \dotprod \vect{q}_{2})\vect{q}_{2} - \dots - (\vect{c}_{k} \dotprod \vect{q}_{k-1})\vect{q}_{k-1}
+\end{equation*}
+Using these equations, express each $\vect{c}_{k}$ as a linear combination of the $\vect{q}_{i}$:
+\begin{equation*}
+\begin{array}{ccl}
+\vect{c}_{1} &=& \vectlength \vect{f}_{1} \vectlength \vect{q}_{1} \\
+\vect{c}_{2} &=& (\vect{c}_{2} \dotprod \vect{q}_{1})\vect{q}_{1} + \vectlength \vect{f}_{2} \vectlength \vect{q}_{2} \\
+\vect{c}_{3} &=& (\vect{c}_{3} \dotprod \vect{q}_{1})\vect{q}_{1} + (\vect{c}_{3} \dotprod \vect{q}_{2})\vect{q}_{2} + \vectlength \vect{f}_{3} \vectlength \vect{q}_{3} \\
+\vdots && \vdots \\
+\vect{c}_{n} &=& (\vect{c}_{n} \dotprod \vect{q}_{1})\vect{q}_{1} + (\vect{c}_{n} \dotprod \vect{q}_{2})\vect{q}_{2} + (\vect{c}_{n} \dotprod \vect{q}_{3})\vect{q}_{3} + \dots + \vectlength \vect{f}_{n} \vectlength \vect{q}_{n} 
+\end{array}
+\end{equation*}
+These equations have a matrix form that gives the required factorization:
+\begin{align} 
+A & = \leftB \begin{array}{ccccc}
+\vect{c}_{1} & \vect{c}_{2} & \vect{c}_{3} & \cdots & \vect{c}_{n}
+\end{array} \rightB \nonumber \\
+&= \leftB \begin{array}{ccccc}
+\vect{q}_{1} & \vect{q}_{2} & \vect{q}_{3} & \cdots & \vect{q}_{n}
+\end{array} \rightB \leftB \begin{array}{ccccc}
+\vectlength \vect{f}_{1} \vectlength & \vect{c}_{2} \dotprod \vect{q}_{1} & \vect{c}_{3} \dotprod \vect{q}_{1} & \cdots & \vect{c}_{n} \dotprod \vect{q}_{1} \\
+0 & \vectlength \vect{f}_{2} \vectlength & \vect{c}_{3} \dotprod \vect{q}_{2} & \cdots & \vect{c}_{n} \dotprod \vect{q}_{2} \\
+0 & 0 & \vectlength \vect{f}_{3} \vectlength & \cdots & \vect{c}_{n} \dotprod \vect{q}_{3} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 & \cdots & \vectlength \vect{f}_{n} \vectlength
+\end{array} \rightB \label{matrixFactEq}
+\end{align}
+Here the first factor $Q = \leftB \begin{array}{ccccc}
+\vect{q}_{1} & \vect{q}_{2} & \vect{q}_{3} & \cdots & \vect{q}_{n}
+\end{array}\rightB$ has orthonormal columns, and the second factor is an $n \times n$ upper triangular matrix $R$ with positive diagonal entries (and so is invertible). We record this in the following theorem.
+
+\begin{theorem}{QR-Factorization}{025133}
+Every $m \times n$ matrix $A$ with linearly independent columns has a QR-factorization $A = QR$ where $Q$ has orthonormal columns and $R$ is upper triangular with positive diagonal entries.
+\end{theorem}
+
+\noindent The matrices $Q$ and $R$ in Theorem~\ref{thm:025133} are uniquely determined by $A$; we return to this below.
+
+
+\begin{example}{}{025139}
+Find the QR-factorization of $A = \leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+-1 & 0 & 1 \\
+0 & 1 & 1 \\
+0 & 0 & 1
+\end{array}\rightB$.
+
+\begin{solution}
+  Denote the columns of $A$ as $\vect{c}_{1}$, $\vect{c}_{2}$, and $\vect{c}_{3}$, and observe that $\{\vect{c}_{1}, \vect{c}_{2}, \vect{c}_{3}\}$ is independent. If we apply the Gram-Schmidt algorithm to these columns, the result is:
+\begin{equation*}
+\vect{f}_{1} = \vect{c}_{1} = \leftB \begin{array}{r}
+1  \\
+-1  \\
+0  \\
+0 
+\end{array}\rightB, \quad \vect{f}_{2} = \vect{c}_{2} - \frac{1}{2}\vect{f}_{1} = \leftB \def\arraystretch{1.2} \begin{array}{r}
+\frac{1}{2}  \\
+\frac{1}{2}  \\
+1  \\
+0 
+\end{array}\rightB, \mbox{ and } \quad \vect{f}_{3} = \vect{c}_{3} + \frac{1}{2}\vect{f}_{1} - \vect{f}_{2} = \leftB \begin{array}{r}
+0  \\
+0  \\
+0  \\
+1 
+\end{array}\rightB.
+\end{equation*}
+Write $\vect{q}_{j} = \frac{1}{\vectlength \vect{f}_{j} \vectlength^2}\vect{f}_{j}$
+ for each $j$, so $\{\vect{q}_{1}, \vect{q}_{2}, \vect{q}_{3}\}$ is orthonormal. Then equation (\ref{matrixFactEq}) preceding Theorem~\ref{thm:025133} gives $A = QR$ where
+\begin{align*}
+Q &= \leftB \begin{array}{ccc}
+\vect{q}_{1} & \vect{q}_{2} & \vect{q}_{3} 
+\end{array}\rightB = \leftB \def\arraystretch{1.3}\begin{array}{ccc}
+\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{6}} & 0 \\
+\frac{-1}{\sqrt{2}} & \frac{1}{\sqrt{6}} & 0 \\
+0 & \frac{2}{\sqrt{6}} & 0 \\
+0 & 0 & 1 
+\end{array}\rightB  = \frac{1}{\sqrt{6}} \leftB \begin{array}{ccc}
+\sqrt{3} & 1 & 0 \\
+-\sqrt{3} & 1 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & \sqrt{6} 
+\end{array} \rightB 
+\\
+R &= \leftB \begin{array}{ccc}
+\vectlength \vect{f}_{1} \vectlength & \vect{c}_{2} \dotprod \vect{q}_{1} & \vect{c}_{3} \dotprod \vect{q}_{1} \\
+0 & \vectlength \vect{f}_{2} \vectlength & \vect{c}_{3} \dotprod \vect{q}_{2} \\
+0 & 0 & \vectlength \vect{f}_{3} \vectlength \\
+\end{array} \rightB = \leftB \def\arraystretch{1.5} \begin{array}{ccc}
+\sqrt{2} & \frac{1}{\sqrt{2}} & \frac{-1}{\sqrt{2}} \\
+0 & \frac{\sqrt{3}}{\sqrt{2}} & \frac{\sqrt{3}}{\sqrt{2}} \\
+0 & 0 & 1 
+\end{array} \rightB = \frac{1}{\sqrt{2}}\leftB \begin{array}{ccc}
+2 & 1 & -1 \\
+0 & \sqrt{3} & \sqrt{3} \\
+0 & 0 & \sqrt{2} 
+\end{array} \rightB 
+\end{align*}
+
+The reader can verify that indeed $A = QR$.
+\end{solution}
+\end{example}
+
+If a matrix $A$ has independent rows and we apply QR-factorization to $A^{T}$, the result is:
+
+
+\begin{corollary}{}{025162}
+If $A$ has independent rows, then $A$ factors uniquely as $A = LP$ where $P$ has orthonormal rows and $L$ is an invertible lower triangular matrix with positive main diagonal entries.
+\end{corollary}
+
+\noindent Since a square matrix with orthonormal columns is orthogonal, we have
+
+
+\begin{theorem}{}{025166}
+Every square, invertible matrix $A$ has factorizations $A = QR$ and $A = LP$ where $Q$ and $P$ are orthogonal, $R$ is upper triangular with positive diagonal entries, and $L$ is lower triangular with positive diagonal entries.\index{invertible matrix!orthogonal matrices}
+\end{theorem}
+
+\vspace{1em}
+\noindent{\sl\textbf{Remark}}
+
+\noindent In Section~\ref{sec:5_6} we found how to find a best approximation $\vect{z}$ to a solution of a (possibly inconsistent) system $A\vect{x} = \vect{b}$ of linear equations: take $\vect{z}$ to be any solution of the ``normal'' equations $(A^{T}A)\vect{z} = A^{T}\vect{b}$. If $A$ has independent columns this $\vect{z}$ is unique ($A^{T}A$ is invertible by Theorem~\ref{thm:015672}), so it is often desirable to compute $(A^{T}A)^{-1}$. This is particularly useful in least squares approximation (Section~\ref{sec:5_6}). This is simplified if we have a QR-factorization of $A$ (and is one of the main reasons for the importance of Theorem~\ref{thm:025133}). For if $A = QR$ is such a factorization, then $Q^{T}Q = I_{n}$ because $Q$ has orthonormal columns (verify), so we obtain
+\begin{equation*}
+A^TA = R^TQ^TQR = R^TR
+\end{equation*}
+Hence computing $(A^{T}A)^{-1}$ amounts to finding $R^{-1}$, and this is a routine matter because $R$ is upper triangular. Thus the difficulty in computing $(A^{T}A)^{-1}$ lies in obtaining the QR-factorization of $A$.
+
+\bigskip
+
+We conclude by proving the uniqueness of the QR-factorization.
+
+
+\begin{theorem}{}{025187}
+Let $A$ be an $m \times n$ matrix with independent columns. If $A = QR$ and $A = Q_{1}R_{1}$ are QR-factorizations of $A$, then $Q_{1} = Q$ and $R_{1} = R$.
+\end{theorem}
+
+\begin{proof}
+Write $Q = \leftB \begin{array}{cccc}
+\vect{c}_{1} & \vect{c}_{2}  & \cdots & \vect{c}_{n}
+\end{array} \rightB$  and $Q_{1} =  \leftB \begin{array}{cccc}
+\vect{d}_{1} & \vect{d}_{2} & \cdots & \vect{d}_{n}
+\end{array} \rightB$ in terms of their columns, and observe first that $Q^TQ = I_{n} = Q_{1}^TQ_{1}$ because $Q$ and $Q_{1}$ have orthonormal columns. Hence it suffices to show that $Q_{1} = Q$ (then $R_{1} = Q_{1}^TA = Q^TA = R$). Since $Q_{1}^TQ_{1} = I_{n}$, the equation $QR = Q_{1}R_{1}$ gives $Q_{1}^TQ = R_{1}R^{-1}$; for convenience we write this matrix as
+\begin{equation*}
+Q_{1}^TQ = R_{1}R^{-1} = \leftB \begin{array}{c} t_{ij} \end{array}\rightB
+\end{equation*}
+This matrix is upper triangular with positive diagonal elements (since this is true for $R$ and $R_{1}$), so $t_{ii} > 0$ for each $i$ and $t_{ij} = 0$ if $i > j$. On the other hand, the $(i, j)$-entry of $Q_{1}^TQ$ is $\vect{d}_{i}^T\vect{c}_{j} = \vect{d}_{i} \dotprod \vect{c}_{j}$, so we have $\vect{d}_{i} \dotprod \vect{c}_{j} = t_{ij}$ for all $i$ and $j$. But each $\vect{c}_{j}$ is in $\func{span}\{\vect{d}_{1}, \vect{d}_{2}, \dots, \vect{d}_{n}\}$ because $Q = Q_{1}(R_{1}R^{-1})$. Hence the expansion theorem gives
+\begin{equation*}
+\vect{c}_{j} = (\vect{d}_{1} \dotprod \vect{c}_{j})\vect{d}_{1} + (\vect{d}_{2} \dotprod \vect{c}_{j})\vect{d}_{2} + \dots + (\vect{d}_{n} \dotprod \vect{c}_{j})\vect{d}_{n} = t_{1j}\vect{d}_{1} + t_{2j}\vect{d}_{2} + \dots + t_{jj}\vect{d}_{i}
+\end{equation*}
+because $\vect{d}_{i} \dotprod \vect{c}_{j} = t_{ij} = 0$ if $i > j$. The first few equations here are
+\begin{equation*}
+\begin{array}{ccl}
+\vect{c}_{1} &=& t_{11}\vect{d}_{1} \\
+\vect{c}_{2} &=& t_{12}\vect{d}_{1} + t_{22}\vect{d}_{2} \\
+\vect{c}_{3} &=& t_{13}\vect{d}_{1} + t_{23}\vect{d}_{2} + t_{33}\vect{d}_{3} \\
+\vect{c}_{4} &=& t_{14}\vect{d}_{1} + t_{24}\vect{d}_{2} + t_{34}\vect{d}_{3} + t_{44}\vect{d}_{4} \\
+\vdots && \vdots
+\end{array}
+\end{equation*}
+The first of these equations gives $1 = \vectlength \vect{c}_{1} \vectlength = \vectlength t_{11}\vect{d}_{1} \vectlength = | t_{11} | \vectlength \vect{d}_{1} \vectlength = t_{11}$, whence $\vect{c}_{1} = \vect{d}_{1}$. But then we have $t_{12} = \vect{d}_{1} \dotprod \vect{c}_{2} = \vect{c}_{1} \dotprod \vect{c}_{2} = 0$, so the second equation becomes $\vect{c}_{2} = t_{22}\vect{d}_{2}$. Now a similar argument gives $\vect{c}_{2} = \vect{d}_{2}$, and then $t_{13} = 0$ and $t_{23} = 0$ follows in the same way. Hence $\vect{c}_{3} = t_{33}\vect{d}_{3}$ and $\vect{c}_{3} = \vect{d}_{3}$. Continue in this way to get $\vect{c}_{i} = \vect{d}_{i}$ for all $i$. This means that $Q_{1} = Q$, which is what we wanted.
+\end{proof}
+
+\section*{Exercises for \ref{sec:8_4}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:8_4}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case find the QR-factorization of $A$.
+
+
+\begin{exenumerate}[column-sep=-15pt]
+\exitem $A = \leftB \begin{array}{rr}
+1 & -1 \\
+-1 & 0
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rr}
+2 & 1 \\
+1 &1
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+1 & 1 & 1 \\
+1 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 0 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+-1 & 0 & 1 \\
+0 & 1 & 1 \\
+1 & -1 & 0 
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $Q = \frac{1}{\sqrt{5}}\leftB \begin{array}{rr}
+2 & -1 \\
+1 & 2 
+\end{array}\rightB$,
+ $R = \frac{1}{\sqrt{5}}\leftB \begin{array}{rr}
+5 & 3 \\
+0 & 1 
+\end{array}\rightB$
+
+\setcounter{enumi}{3}
+\item  $Q = \frac{1}{\sqrt{3}}\leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+-1 & 0 & 1 \\
+0 & 1 & 1 \\
+1 & -1 & 1
+\end{array}\rightB$, \\
+$R = \frac{1}{\sqrt{3}}\leftB \begin{array}{rrr}
+3 & 0 & -1 \\
+0 & 3 & 1 \\
+0 & 0 & 2 
+\end{array}\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ denote matrices.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ and $B$ have independent columns, show that $AB$ has independent columns. [\textit{Hint}: Theorem~\ref{thm:015672}.]
+
+\item Show that $A$ has a QR-factorization if and only if $A$ has independent columns.
+
+\item If $AB$ has a QR-factorization, show that the same is true of $B$ but not necessarily $A$.
+
+
+[\textit{Hint}: Consider $AA^{T}$ where $A = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+1 & 1 & 1
+\end{array}\rightB$.]
+
+\end{enumerate}
+\begin{sol}
+If $A$ has a QR-factorization, use (a). For the converse use Theorem~\ref{thm:025133}.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $R$ is upper triangular and invertible, show that there exists a diagonal matrix $D$ with diagonal entries $\pm 1$ such that $R_{1} = DR$ is invertible, upper triangular, and has positive diagonal entries.
+\end{ex}
+
+\begin{ex}
+If $A$ has independent columns, let \\ $A = QR$ where $Q$ has orthonormal columns and $R$ is invertible and upper triangular. [Some authors call \textit{this} a QR-factorization of $A$.] Show that there is a diagonal matrix $D$ with diagonal entries $\pm 1$ such that $A = (QD)(DR)$ is the QR-factorization of $A$. [\textit{Hint}: Preceding exercise.]
+\end{ex}
+\end{multicols}

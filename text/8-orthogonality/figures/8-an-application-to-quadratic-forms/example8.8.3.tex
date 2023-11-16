@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+width=5cm, 
+height=5cm, 
+xlabel={$x_1$}, 
+ylabel={$x_2$}, 
+axis lines=middle, 
+xtick={\empty}, 
+ytick={\empty}, 
+xticklabels=\empty, 
+yticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode = individual,
+domain=-5:5, 
+samples=100, 
+xmin=-2, 
+xmax=2, 
+ymin=-2, 
+ymax=2]
+
+\def \widthA {0.9}
+\draw [dkbluevect, thick, rotate=45] (0, 0) ellipse [x radius = 2 * \widthA, y radius = 1.4 * \widthA];
+\draw [dkgreenvect, thick, ->] (1.5, -1.5)--(-1.5, 1.5) node[left, text=black] {\small $y_1$};
+\draw [dkgreenvect, thick, ->] (1.5, 1.5)--(-1.5, -1.5) node[left, text=black] {\small $y_2$};
+\draw [dkbluevect, thick, -latex] (0.4, 0) arc [start angle=0, end angle=3/4 * 180, radius=0.4] node[above, pos=0.35] {\scriptsize $\frac{3 \pi}{4}$};
+
+\end{axis}
+\end{tikzpicture}

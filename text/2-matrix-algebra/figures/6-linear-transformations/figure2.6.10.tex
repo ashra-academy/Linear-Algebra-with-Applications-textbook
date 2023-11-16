@@ -1,0 +1,59 @@
+
+\begin{tikzpicture}
+\begin{axis}[disabledatascaling, 
+	clip mode=individual, 
+    width=5cm, 
+    height=3.75cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick=\empty, 
+    ytick=\empty, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-5:5, 
+    samples=100, 
+    xmin=-1.5, 
+    xmax=1.5, 
+    ymin=-0.5, 
+    ymax=1.5]
+\draw[dkgreenvect,thick] (1,0) arc [start angle=0,end angle=90,radius=1] (0,1) arc [start angle=90,end angle=180,radius=1];
+\draw[thin,-latex] (0.35,0) arc [start angle=0,end angle=22,radius=0.5] node [right, text=black,font=\scriptsize,midway]{$\theta$};
+\draw[thin,-latex] (0,0.35) arc [start angle=90,end angle=112,radius=0.5] node [above, text=black,font=\scriptsize,midway]{$\theta$};
+\def \angle{30}
+\draw[dkgreenvect,thick,-latex](0,0)--(cos \angle, sin \angle);
+\draw[dkgreenvect,thick,-latex](0,0)--(-sin \angle, cos \angle);
+\draw[dkgreenvect,thick,-latex](0,0)--(1.06,0);
+\draw[dkgreenvect,thick,-latex](0,0)--(0,1.06);
+\draw[dkgreenvect,thick](cos \angle,0)--(cos \angle, sin \angle);
+\draw[dkgreenvect,thick](0,cos \angle)--(-sin \angle,cos \angle);
+\draw[dkbluevect,thick](0,0.71603)--(-0.15,0.71603)--(-0.15,0.86603);
+\draw[dkbluevect,thick](0.71603,0)--(0.71603,0.15)--(0.86603,0.15);
+\fill[black] (1,0) circle (1.5pt);
+\fill[black] (0,1) circle (1.5pt);
+\fill[black] (cos \angle, sin \angle) circle (1.5pt);
+\fill[black] (-sin \angle, cos \angle) circle (1.5pt);
+\node[below left,font=\footnotesize] at (0,0){$\vect{0}$};
+\node[below right,font=\footnotesize] at (1,0){$\vect{e}_1$};
+\node[above right,font=\footnotesize] at (0,1){$\vect{e}_2$};
+\node[above right,font=\footnotesize] at (cos \angle, sin \angle){$R_{\theta}(\vect{e}_1)$};
+\node[above left,font=\footnotesize] at (-sin \angle, cos \angle){$R_{\theta}(\vect{e}_2)$};
+\draw[thin,-latex] (1.14,0.23)--(0.9,0.23);
+\draw[thin,-latex] (-0.3,1.3)--(-0.25,0.9);
+\draw[thin,-latex] (0.8,1)--(0.05,0.5);
+\node[below,font=\footnotesize] at (0.43302,0){$\func{cos}\theta$};
+\node[right,font=\footnotesize] at (1,0.25){$\func{sin}\theta$};
+\node[right,font=\footnotesize] at (0.45,1.2){$\func{cos}\theta$};
+\node[above,font=\footnotesize] at (-0.4,1.25){$\func{sin}\theta$};
+\node[above,font=\footnotesize] at (0.38,0.14){$1$};
+\node[below left,font=\footnotesize] at (-0.2,0.6){$1$};
+\end{axis} 
+\end{tikzpicture}

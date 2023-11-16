@@ -1,0 +1,24 @@
+(defun shell-command-on-region-replace (start end)
+  "Run shell-command-on-region interactivly replacing the region in place"
+  (interactive "r" (let  
+;         (unless (mark)
+;           (error "The mark is not set now, so there is no region"))
+;         (list (region-beginning) (region-end)
+;               "/home/nathan/workspace/Latex2HTML/convertmath.sh --fragment")
+  ))
+  (shell-command-on-region start end "/home/nathan/workspace/Latex2HTML/convertmath.sh --fragment" t t)
+  )
+
+(defun shell-command-on-region-replace2 (start end)
+  "Run shell-command-on-region interactivly replacing the region in place"
+  (interactive "r" (let  
+;         (unless (mark)
+;           (error "The mark is not set now, so there is no region"))
+;         (list (region-beginning) (region-end)
+;               "/home/nathan/workspace/Latex2HTML/convertmath.sh --fragment")
+  ))
+  (shell-command-on-region start end "/home/nathan/workspace/Latex2HTML/convertmath.sh --fragment --removeitalics" t t)
+  )
+
+(global-set-key [f3] 'shell-command-on-region-replace)
+(global-set-key [f4] 'shell-command-on-region-replace2)

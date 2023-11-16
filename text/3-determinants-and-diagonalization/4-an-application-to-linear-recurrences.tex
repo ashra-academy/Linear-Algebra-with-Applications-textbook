@@ -1,0 +1,525 @@
+\section{An Application to Linear Recurrences}
+\label{sec:3_4}
+
+It often happens that a problem can be solved by finding a sequence of numbers $x_{0}, x_{1}, x_{2}, \dots$  where the first few are known, and subsequent numbers are given in 
+terms of earlier ones. Here is a combinatorial example where the object 
+is to count the number of ways to do something.\index{sequences!linear recurrences}
+
+
+\begin{example}{}{009969}
+An urban planner wants to determine the number $x_{k}$ of ways that a row of $k$ parking spaces can be filled with cars and trucks if trucks take up two spaces each. Find the first few values of $x_{k}$.
+
+
+\begin{solution}
+  Clearly, $x_{0} = 1$ and $x_{1} = 1$, while $x_{2} = 2$ since there can be two cars or one truck. We have $x_{3} = 3$ (the $3$ configurations are \textit{ccc}, \textit{cT}, and \textit{Tc}) and $x_{4} = 5$ (\textit{cccc, ccT, cTc, Tcc,} and \textit{TT}). The key to this method is to find a way to express each subsequent $x_{k}$ in terms of earlier values. In this case we claim that
+\begin{equation}\label{eq:recurrenceequation}
+x_{k+2} = x_k + x_{k+1} \mbox{ for every } k \geq 0
+\end{equation}
+Indeed, every way to fill $k + 2$ spaces falls into one of two categories: Either a car is parked in the first space (and the remaining $k + 1$ spaces are filled in $x_{k+1}$ ways), or a truck is parked in the first two spaces (with the other $k$ spaces filled in $x_{k}$ ways). Hence, there are $x_{k+1} + x_{k}$ ways to fill the $k + 2$ spaces. This is Equation \ref{eq:recurrenceequation}.
+
+
+The recurrence in Equation \ref{eq:recurrenceequation} determines $x_{k}$ for every $k \geq 2$ since $x_{0}$ and $x_{1}$ are given. In fact, the first few values are
+\begin{equation*}
+\begin{array}{cllll}
+x_0 &=& 1 \\
+x_1 &=& 1 \\
+x_2 &=& x_0 + x_1 &=& 2 \\
+x_3 &=& x_1 + x_2 &=& 3 \\
+x_4 &=& x_2 + x_3 &=& 5 \\
+x_5 &=& x_3 + x_4 &=& 8 \\
+\vdots & &\vdots  & & \vdots
+\end{array}
+\end{equation*}
+Clearly, we can find $x_{k}$ for any value of $k$, but one wishes for a ``formula'' for $x_{k}$ as a function of $k$. It turns out that such a formula can be found using diagonalization. We will return to this example later.
+\end{solution}
+\end{example}
+
+A sequence $x_{0}, x_{1}, x_{2}, \dots$  of numbers is said to be given \textbf{recursively}
+ if each number in the sequence is completely determined by those that 
+come before it. Such sequences arise frequently in mathematics and 
+computer science, and also occur in other parts of science. The formula $x_{k+2} = x_{k+1} + x_{k}$ in Example~\ref{exa:009969} is an example of a \textbf{linear recurrence relation}\index{linear recurrence relation}\index{recurrence} of length 2 because $x_{k+2}$ is the sum of the two preceding terms $x_{k+1}$ and $x_{k}$; in general, the \textbf{length}\index{length!linear recurrence relation}\index{linear recurrences!length} is $m$ if $x_{k+m}$ is a sum of multiples of $x_{k}, x_{k+1}, \dots , x_{k+m-1}$.\index{recursive sequence}\index{sequences!recursive sequence}
+
+
+The simplest linear recursive sequences are of length 1, that is $x_{k+1}$ is a fixed multiple of $x_{k}$ for each $k$, say $x_{k+1} = ax_{k}$. If $x_{0}$ is specified, then $x_{1} = ax_{0}, x_{2} = ax_{1} = a^{2}x_{0}$, and $x_{3} = ax_{2} = a^{3}x_{0}, \dots$. Continuing, we obtain $x_{k} = a^{k}x_{0}$ for each $k \geq 0$, which is an explicit formula for $x_{k}$ as a function of $k$ (when $x_{0}$ is given).
+
+
+Such formulas are not always so easy to
+ find for all choices of the initial values. Here is an example where 
+diagonalization helps.
+
+
+\begin{example}{}{010047}
+Suppose the numbers $x_{0}, x_{1}, x_{2}, \dots$ are given by the linear recurrence relation
+\begin{equation*}
+x_{k+2} = x_{k+1} +6x_k \mbox{ for } k \geq 0
+\end{equation*}
+where $x_{0}$ and $x_{1}$ are specified. Find a formula for $x_{k}$ when $x_{0} = 1$ and $x_{1} = 3$, and also when $x_{0} = 1$ and $x_{1} = 1$.
+
+
+\begin{solution}
+  If $x_{0} = 1$ and $x_{1} = 3$, then 
+\begin{equation*}
+x_{2} = x_{1} + 6x_{0} = 9, \quad x_{3} = x_{2} + 6x_{1} = 27, \quad x_{4} = x_{3} + 6x_{2} = 81
+\end{equation*}
+and it is apparent that
+\begin{equation*}
+x_k = 3^k \mbox{ for } k = 0, 1, 2, 3, \mbox{ and } 4
+\end{equation*}
+This formula holds for all $k$ because it is true for $k = 0$ and $k = 1$, and it satisfies the recurrence $x_{k+2} = x_{k+1} + 6x_{k}$ for each $k$ as is readily checked.
+
+
+However, if we begin instead with $x_{0} = 1$ and $x_{1} = 1$, the sequence continues 
+\begin{equation*}
+x_{2} = 7, \quad x_{3} = 13, \quad x_{4} = 55, \quad x_{5} = 133, \quad \dots 
+\end{equation*}
+ In this case, the sequence is uniquely determined but no 
+formula is apparent. Nonetheless, a simple device transforms the 
+recurrence into a matrix recurrence to which our diagonalization 
+techniques apply.
+
+
+The idea is to compute the sequence $\vect{v}_{0}, \vect{v}_{1}, \vect{v}_{2}, \dots$  of columns instead of the numbers $x_{0}, x_{1}, x_{2}, \dots,$ where
+\begin{equation*}
+\vect{v}_k = \leftB \begin{array}{c}
+x_k \\
+x_{k+1} 
+\end{array}\rightB
+\mbox{ for each } k \geq 0
+\end{equation*}
+Then $\vect{v}_0 = \leftB \begin{array}{c}
+x_0 \\
+x_1
+\end{array} \rightB = \leftB \begin{array}{c}
+1 \\
+1
+\end{array}\rightB$
+ is specified, and the numerical recurrence $x_{k+2} =x_{k+1} + 6x_{k}$ transforms into a matrix recurrence as follows:
+\begin{equation*}
+\vect{v}_{k+1} = \leftB \begin{array}{c}
+x_{k+1} \\
+x_{k+2}
+\end{array}\rightB = \leftB \begin{array}{c}
+x_{k+1} \\
+6x_k + x_{k+1}
+\end{array}\rightB = \leftB \begin{array}{rr}
+0 & 1 \\
+6 & 1 
+\end{array}\rightB \leftB \begin{array}{c}
+x_k \\
+x_{k+1}
+\end{array}\rightB = A \vect{v}_k
+\end{equation*}
+where $A = \leftB \begin{array}{rr}
+0 & 1 \\
+6 & 1 
+\end{array}\rightB$.
+ Thus these columns $\vect{v}_{k}$ are a linear dynamical system, so Theorem \ref{thm:009500} applies provided the matrix $A$ is diagonalizable.
+
+
+We have $c_{A}(x) = (x -3)(x + 2)$ so the eigenvalues are $\lambda_{1} = 3$ and $\lambda_{2} = -2$ with corresponding eigenvectors $\vect{x}_1 = \leftB \begin{array}{c}
+1\\
+3
+\end{array}\rightB$
+ and $\vect{x}_2 = \leftB \begin{array}{r}
+-1\\
+2
+\end{array}\rightB$
+ as the reader can check. Since $P = \leftB \begin{array}{cc}
+\vect{x}_1 & \vect{x}_2 
+\end{array}\rightB = \leftB \begin{array}{rr}
+1 & -1 \\
+3 & 2 
+\end{array} \rightB$
+ is invertible, it is a diagonalizing matrix for $A$. The coefficients $b_{i}$ in Theorem \ref{thm:009500} are given by $ \leftB \begin{array}{c}
+b_1 \\
+b_2 
+\end{array} \rightB = P^{-1} \vect{v}_0 = \leftB \def\arraystretch{1.25}\begin{array}{r}
+\frac{3}{5} \\
+\frac{-2}{5}
+\end{array}\rightB$, so that the theorem gives
+\begin{equation*}
+\leftB \begin{array}{c}
+x_k \\
+x_{k+1} 
+\end{array}\rightB = \vect{v}_k = b_1 \lambda_1^k \vect{x}_1 + b_2 \lambda_2^k \vect{x}_2 = \frac{3}{5} 3^k \leftB \begin{array}{c}
+1 \\
+3
+\end{array}\rightB + \frac{-2}{5} (-2)^k \leftB \begin{array}{r}
+-1 \\
+2
+\end{array}\rightB
+\end{equation*}
+Equating top entries yields
+\begin{equation*}
+x_k = \frac{1}{5} \left[ 3^{k+1} - (-2)^{k+1} \right] \mbox{ for } k \geq 0
+\end{equation*}
+This gives $x_{0} = 1 = x_{1}$, and it satisfies the recurrence $x_{k+2} = x_{k+1} + 6x_{k}$ as is easily verified. Hence, it is the desired formula for the $x_{k}$.
+\end{solution}
+\end{example}
+\index{linear recurrences!diagonalization}
+
+\noindent Returning to Example~\ref{exa:009969}, these methods give an exact formula and a good approximation for the numbers $x_{k}$ in that problem.
+
+
+\begin{example}{}{010132}
+In Example~\ref{exa:009969}, an urban planner wants to determine $x_{k}$, the number of ways that a row of $k$ parking spaces can be filled with cars and trucks if trucks take up two spaces each. Find a formula for $x_{k}$ and estimate it for large $k$.
+
+
+\begin{solution}
+  We saw in Example~\ref{exa:009969} that the numbers $x_{k}$ satisfy a linear recurrence
+\begin{equation*}
+x_{k+2} = x_k + x_{k+1} \mbox{ for every } k \geq 0
+\end{equation*}
+If we write $\vect{v}_k = \leftB \begin{array}{c}
+x_k \\
+x_{k+1}
+\end{array}\rightB$ 
+as before, this recurrence becomes a matrix recurrence for the $\vect{v}_{k}$:
+\begin{equation*}
+\vect{v}_{k+1} = \leftB \begin{array}{c}
+x_{k+1} \\
+x_{k+2} 
+\end{array}\rightB = \leftB \begin{array}{c}
+x_{k+1} \\
+x_k + x_{k+1}
+\end{array}\rightB = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 1 
+\end{array}\rightB \leftB \begin{array}{c}
+x_k \\
+x_{k+1}
+\end{array}\rightB = A \vect{v}_k
+\end{equation*}
+for all $k \geq 0$ where $A = \leftB \begin{array}{cc}
+0 & 1 \\
+1 & 1 
+\end{array}\rightB$. 
+ Moreover, $A$ is diagonalizable here. The characteristic polynomial is $c_{A}(x) = x^{2} - x - 1$ with roots $\frac{1}{2} \left[ 1 \pm \sqrt{5} \right]$
+ by the quadratic formula, so $A$ has eigenvalues 
+\begin{equation*}
+\lambda_1 = \frac{1}{2} \left( 1 + \sqrt{5} \right) \mbox{ and }\lambda_2 = \frac{1}{2} \left( 1 - \sqrt{5} \right)
+\end{equation*}
+Corresponding eigenvectors are $\vect{x}_1 = \leftB \begin{array}{c}
+1 \\
+\lambda_1 
+\end{array}\rightB$
+ and $ \vect{x}_2 = \leftB \begin{array}{c}
+1 \\
+\lambda_2
+\end{array}\rightB$ 
+ respectively as the reader can verify. As the matrix $P = \leftB \begin{array}{cc} 
+\vect{x}_1 & \vect{x}_2 \end{array} \rightB = \leftB \begin{array}{cc}
+1 & 1 \\
+\lambda_1 & \lambda_2 
+\end{array} \rightB$
+ is invertible, it is a diagonalizing matrix for $A$. We compute the coefficients $b_{1}$ and $b_{2}$ (in Theorem \ref{thm:009500}) as follows:
+\begin{equation*}
+\leftB \begin{array}{c}
+b_1 \\
+b_2 
+\end{array}\rightB = P^{-1} \vect{v}_0 = \frac{1}{-\sqrt{5}} \leftB \begin{array}{rr}
+\lambda_2 & -1 \\
+-\lambda_1 & 1 
+\end{array} \rightB \leftB \begin{array}{c}
+1 \\
+1
+\end{array}\rightB = \frac{1}{\sqrt{5}} \leftB \begin{array}{r}
+\lambda_1 \\
+-\lambda_2
+\end{array}\rightB 
+\end{equation*}
+where we used the fact that $\lambda_{1} + \lambda_{2} = 1$. Thus Theorem \ref{thm:009500} gives
+\begin{equation*}
+\leftB \begin{array}{c}
+x_k \\
+x_{k+1}
+\end{array}\rightB
+= \vect{v}_k = b_1 \lambda_1^k \vect{x}_1 + b_2 \lambda_2^k \vect{x}_2 = \frac{\lambda_1}{\sqrt{5}} \lambda_1^k \leftB \begin{array}{c}
+1\\
+\lambda_1
+\end{array}\rightB - \frac{\lambda_2}{\sqrt{5}} \lambda_2^k \leftB \begin{array}{c}
+1 \\
+\lambda_2
+\end{array}\rightB
+\end{equation*}
+Comparing top entries gives an exact formula for the numbers $x_{k}$:
+\begin{equation*}
+x_k = \frac{1}{\sqrt{5}} \left[ \lambda_1^{k+1} - \lambda_2^{k+1} \right] \mbox{ for } k \geq 0 
+\end{equation*}
+Finally, observe that $\lambda_{1}$ is dominant here (in fact, $\lambda_{1} = 1.618$ and $\lambda_{2} = -0.618$ to three decimal places) so $\lambda_2^{k+1}$  is negligible compared with $\lambda_1^{k+1} $ is large. Thus, 
+\begin{equation*}
+x_k \approx \frac{1}{\sqrt{5}} \lambda_1^{k+1} \mbox{ for each } k \geq 0.
+\end{equation*}
+This is a good approximation, even for as small a value as $k = 12$. Indeed, repeated use of the recurrence $x_{k+2} = x_{k} + x_{k+1}$ gives the exact value $x_{12} = 233$, while the approximation is $x_{12} \approx \frac{(1.618)^{13}}{\sqrt{5}} = 232.94$. 
+\end{solution}
+\end{example}
+
+The sequence $x_{0}, x_{1}, x_{2}, \dots$ in Example~\ref{exa:010132} was first discussed in 1202 by Leonardo Pisano of Pisa\index{Pisano, Leonardo}, also known as Fibonacci,\footnote{Fibonacci was born in Italy. As a young man he travelled to India where he encountered the ``Fibonacci'' sequence. He returned to Italy and published this in his book \textit{Liber Abaci} in 1202. In the book he is the first to bring the Hindu decimal system for representing numbers to Europe.\index{Fibonacci sequence}\index{sequences!Fibonacci}}
+ and is now called the \textbf{Fibonacci sequence}\index{Fibonacci sequence}\index{sequence!Fibonacci}. It is completely determined by the conditions $x_{0} = 1$, $x_{1} = 1$ and the recurrence $x_{k+2} = x_{k} + x_{k+1}$ for each $k \geq 0$. These numbers have been studied for centuries and have many interesting properties (there is even a journal, the \textit{Fibonacci Quarterly},
+ devoted exclusively to them). For example, biologists have discovered 
+that the arrangement of leaves around the stems of some plants follow a 
+Fibonacci pattern. The formula $x_k = \frac{1}{\sqrt{5}} \left[ \lambda_1^{k+1} - \lambda_2^{k+1} \right]$
+ in Example~\ref{exa:010132} is called the \textbf{Binet formula}\index{Binet formula}. It is remarkable in that the $x_{k}$ are integers but $\lambda_{1}$ and $\lambda_{2}$ are not. This phenomenon can occur even if the eigenvalues $\lambda_{i}$ are nonreal complex numbers.
+
+
+We conclude with an example showing that \textit{nonlinear} recurrences can be very complicated.\index{nonlinear recurrences}
+
+
+\begin{example}{}{010194}
+Suppose a sequence $x_{0}, x_{1}, x_{2}, \dots$  satisfies the following recurrence:
+\begin{equation*}
+x_{k+1} = \left\lbrace \begin{array}{ll}
+\frac{1}{2} x_k & \mbox{if } x_k \mbox{ is even} \\
+3x_k + 1 & \mbox{if } x_k \mbox{ is odd}
+\end{array} \right.
+\end{equation*}
+If $x_{0} = 1$, the sequence is $1, 4, 2, 1, 4, 2, 1, \dots$  and so continues to cycle indefinitely. The same thing happens if $x_{0} = 7$. Then the sequence is
+\begin{equation*}
+7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1, \ldots
+\end{equation*}
+and it again cycles. However, it is not known whether every choice of $x_{0}$ will lead eventually to 1. It is quite possible that, for some $x_{0}$,
+ the sequence will continue to produce different values indefinitely, or
+ will repeat a value and cycle without reaching 1. No one knows for 
+sure.
+\end{example}
+
+\section*{Exercises for \ref{sec:3_4}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:3_4}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Solve the following linear recurrences.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $x_{k+2} = 3x_{k} + 2x_{k+1}$, where $x_{0} = 1$ and $x_{1} = 1$.
+
+\item $x_{k+2} = 2x_{k} - x_{k+1}$, where $x_{0} = 1$ and $x_{1} = 2$.
+
+\item $x_{k+2} = 2x_{k} + x_{k+1}$, where $x_{0} = 0$ and $x_{1} = 1$.
+
+\item $x_{k+2} = 6x_{k} - x_{k+1}$, where $x_{0} = 1$ and $x_{1} = 1$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x_k = \frac{1}{3} \left[ 4 - (-2)^k \right]$
+
+
+\setcounter{enumi}{3}
+\item  $x_k = \frac{1}{5} \left[ 2^{k+2} + (-3)^k \right]$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Solve the following linear recurrences.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $x_{k+3} = 6x_{k+2} - 11x_{k+1} + 6x_{k}$, where $x_{0} = 1$, $x_{1} = 0$, and $x_{2} = 1$.
+\columnbreak 
+
+\item $x_{k+3} = -2x_{k+2} + x_{k+1} + 2x_{k}$, where $x_{0} = 1$, $x_{1} = 0$, and $x_{2} = 1$.
+
+\end{enumerate}
+
+[\textit{Hint}: Use $\vect{v}_k = \leftB \begin{array}{c}
+x_k \\
+x_{k+1}\\
+x_{k+2}
+\end{array}\rightB$.]
+
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x_k = \frac{1}{2} \left[ (-1)^k + 1  \right]$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In Example~\ref{exa:009969} suppose buses are also allowed to park, and let $x_{k}$ denote the number of ways a row of $k$ parking spaces can be filled with cars, trucks, and buses.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If trucks and buses take up 2 and 3 spaces respectively, show that $x_{k+3} = x_{k} + x_{k+1} + x_{k+2}$ for each $k$, and use this recurrence to compute $x_{10}$. [\textit{Hint}: The eigenvalues are of little use.]
+
+\item If buses take up 4 spaces, find a recurrence for the $x_{k}$ and compute $x_{10}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x_{k+4} = x_k + x_{k+2} + x_{k+3}; x_{10} = 169$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+A man must climb a flight of $k$
+ steps. He always takes one or two steps at a time. Thus he can climb 3 
+steps in the following ways: 1, 1, 1; 1, 2; or 2, 1. Find $s_{k}$, the number of ways he can climb the flight of $k$ steps. [\textit{Hint}: Fibonacci.]
+\end{ex}
+
+\begin{ex}
+How many ``words'' of $k$ letters can be made from the letters $\{a, b\}$ if there are no adjacent $a$'s?
+
+\begin{sol}
+$\frac{1}{2\sqrt{5}} \left[ 3 +\sqrt{5} \right] \lambda_1^k + (-3 + \sqrt{5}) \lambda_2^k$ where $ \lambda_1 = \frac{1}{2} (1 +  \sqrt{5})$ and $ \lambda_2 = \frac{1}{2} (1 -  \sqrt{5})$. 
+\end{sol}
+\end{ex}
+
+\begin{ex}
+How many sequences of $k$ flips of a coin are there with no \textit{HH}?
+\end{ex}
+
+\begin{ex}
+Find $x_{k}$, the number of ways to make a stack of $k$ poker chips if only red, blue, and gold chips are used and no two gold chips are adjacent. [\textit{Hint}: Show that $x_{k+2} = 2x_{k+1} + 2x_{k}$ by considering how many stacks have a red, blue, or gold chip on top.]
+
+\begin{sol}
+$\frac{1}{2\sqrt{3}} \left[ 2 +\sqrt{3} \right] \lambda_1^k + (-2 + \sqrt{3}) \lambda_2^k$ where $ \lambda_1 = 1 +  \sqrt{3}$ and $ \lambda_2 = 1 -  \sqrt{3}$. 
+\end{sol}
+\end{ex}
+
+\begin{ex}
+A nuclear reactor contains $\alpha$- and $\beta$-particles. In every second each $\alpha$-particle splits into three $\beta$-particles, and each $\beta$-particle splits into an $\alpha$-particle and two $\beta$-particles. If there is a single $\alpha$-particle in the reactor at time $t = 0$, how many $\alpha$-particles are there at $t = 20$ seconds? [\textit{Hint}: Let $x_{k}$ and $y_{k}$ denote the number of $\alpha$- and $\beta$-particles at time $t = k$ seconds. Find $x_{k+1}$ and $y_{k+1}$ in terms of $x_{k}$ and $y_{k}$.]
+\end{ex}
+
+\begin{ex}
+The
+ annual yield of wheat in a certain country has been found to equal the 
+average of the yield in the previous two years. If the yields in 1990 
+and 1991 were 10 and 12 million tons respectively, find a formula for 
+the yield $k$ years after 1990. What is the long-term average yield?
+
+\begin{sol}
+$\frac{34}{3} - \frac{4}{3}\left( -\frac{1}{2} \right)^k$. Long term 11$\frac{1}{3}$ million tons.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the general solution to the recurrence $x_{k+1} = rx_{k} + c$ where $r$ and $c$ are constants. [\textit{Hint}: Consider the cases $r = 1$ and $r \neq$ 1 separately. If $r \neq 1$, you will need the identity $ 1 + r + r^2 + \cdots + r^{n-1} = \frac{1 - r^n}{1-r}$  for  $n \geq 1$.]
+\end{ex}
+
+\begin{ex}
+Consider the length $3$ recurrence \newline $x_{k+3} = ax_{k} + bx_{k+1} + cx_{k+2}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\vect{v}_k = \leftB \begin{array}{c}
+x_k \\
+x_{k+1} \\
+x_{k+2}
+\end{array}\rightB$
+ and $A = \leftB \begin{array}{rrr}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+a & b & c
+\end{array}\rightB$
+ show that $\vect{v}_{k+1} = A\vect{v}_{k}$.
+
+\item If $\lambda$ is any eigenvalue of $A$, show that $\vect{x} = \leftB \begin{array}{c}
+1 \\
+\lambda \\
+\lambda^2
+\end{array}\rightB$
+ is a $\lambda$-eigenvector.
+
+
+[\textit{Hint}: Show directly that $A\vect{x} = \lambda\vect{x}$.]
+
+\item Generalize (a) and (b) to a recurrence 
+\begin{equation*}
+x_{k+4} = ax_{k} + bx_{k+1} + cx_{k+2} + dx_{k+3}
+\end{equation*}
+of length $4$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ A \leftB \begin{array}{c}
+1 \\
+\lambda \\
+\lambda^2 
+\end{array}\rightB = \leftB \begin{array}{c}
+\lambda \\
+\lambda^2 \\
+a + b\lambda + c\lambda^2 \end{array}\rightB = \leftB \begin{array}{c}
+\lambda \\
+\lambda^2 \\
+\lambda^3 
+\end{array}\rightB = \lambda
+\leftB \begin{array}{c}
+1 \\
+\lambda \\
+\lambda^2 
+\end{array}\rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Consider the recurrence 
+\begin{equation*}
+x_{k+2} = ax_{k+1} + bx_{k} + c
+\end{equation*}
+where $c$ may not be zero.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $a + b \neq 1$ show that $p$ can be found such that, if we set $y_{k} = x_{k} + p$, then $y_{k+2} = ay_{k+1} + by_{k}$. [Hence, the sequence $x_{k}$ can be found provided $y_{k}$ can be found by the methods of this section (or otherwise).]
+
+\item Use (a) to solve $x_{k+2} = x_{k+1} + 6x_{k} + 5$ where $x_{0} = 1$ and $x_{1} = 1$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $x_k = \frac{11}{10} 3^k + \frac{11}{15}(-2)^k - \frac{5}{6}$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Consider the recurrence
+\begin{equation}\label{eq:exrecurrence1}
+x_{k+2} = ax_{k+1} + bx_k + c(k) 
+\end{equation}
+where $c(k)$ is a function of $k$, and consider the related recurrence
+\begin{equation}\label{eq:exrecurrence2}
+x_{k+2} = ax_{k+1} + bx_k  
+\end{equation}
+Suppose that $x_{k} = p_{k}$ is a particular solution of Equation \ref{eq:exrecurrence1}.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $q_{k}$ is any solution of Equation \ref{eq:exrecurrence2}, show that $q_{k} + p_{k}$ is a solution of Equation \ref{eq:exrecurrence1}.
+
+\item Show that every solution of Equation \ref{eq:exrecurrence1} arises as in (a) as the sum of a solution of Equation \ref{eq:exrecurrence2} plus the particular solution $p_{k}$ of Equation \ref{eq:exrecurrence1}.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\item $p_{k+2} + q_{k+2} = \left[ ap_{k+1} + bp_k + c(k) \right] + \left[ aq_{k+1} + bq_k \right] = a(p_{k+1} + q_{k+1}) + b(p_k+q_k) + c(k) $ 
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\end{multicols}
+

@@ -1,0 +1,740 @@
+\newpage
+\section{Orthogonality}
+\label{sec:5_3}
+
+Length and orthogonality are basic concepts in geometry and, in $\RR^2$ and $\RR^3$, they both can be defined using the dot product. In this section we extend the dot product to vectors in $\RR^n$, and so endow $\RR^n$ with euclidean geometry\index{euclidean geometry}. We then introduce the idea of an orthogonal basis---one of the most useful concepts in linear algebra, and begin exploring some of its applications.
+
+\subsection*{Dot Product, Length, and Distance}
+
+If $\vect{x} = (x_{1}, x_{2}, \dots, x_{n})$ and $\vect{y} =
+(y_{1}, y_{2}, \dots, y_{n})$ are two $n$-tuples in $\RR^n$, recall
+that their \textbf{dot product}\index{dot product!in set of all ordered $n$-tuples ($\RR^n$)}\index{orthogonality!dot product}\index{set of all ordered $n$-tuples ($\RR^n$)!dot product} was defined in Section~\ref{sec:2_2} as follows:
+\begin{equation*}
+\vect{x} \dotprod \vect{y} = x_1y_1 + x_2y_2 + \dots + x_ny_n
+\end{equation*} 
+Observe that if $\vect{x}$ and $\vect{y}$ are written as columns then
+$\vect{x} \dotprod \vect{y} = \vect{x}^{T}\vect{y}$ is a matrix
+product (and $\vect{x} \dotprod \vect{y} = \vect{x}\vect{y}^{T}$ if
+they are written as rows). Here $\vect{x} \dotprod \vect{y}$ is a $1
+\times 1 $ matrix, which we take to be a number.
+
+\begin{definition}{Length in $\RR^n$}{014814} %5.6
+As in $\RR^3$, the \textbf{length}\index{length!vector}\index{vectors!length} $\vectlength\vect{x}\vectlength$ of the vector is defined by
+\begin{equation*}
+\vectlength\vect{x}\vectlength = \sqrt{\vect{x}\dotprod\vect{x}} = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2}
+\end{equation*}
+Where $\sqrt{(\quad )}$ indicates the positive square root.
+\end{definition}
+
+\noindent A vector $\vect{x}$ of length $1$ is called a \textbf{unit vector}\index{unit vector}\index{vectors!unit vector}. If $\vect{x} \neq \vect{0}$, then $\vectlength\vect{x}\vectlength \neq 0$ and it follows easily that 
+$\frac{1}{\vectlength\vect{x}\vectlength}\vect{x}$ is a unit vector (see Theorem~\ref{thm:015082} below), a fact that we shall use later.
+
+\begin{example}{}{014822}
+If $\vect{x} = (1, -1, -3, 1)$ and $\vect{y} = (2, 1, 1, 0)$ in $\RR^4$, then $\vect{x} \dotprod \vect{y} = 2 - 1 - 3 + 0 = -2$ and $\vectlength\vect{x}\vectlength = \sqrt{1 + 1 + 9 + 1} = \sqrt{12} = 2\sqrt{3}$. Hence $\frac{1}{2\sqrt{3}}\vect{x}$ is a unit vector; similarly $\frac{1}{\sqrt{6}}\vect{y}$ is a unit vector.
+\end{example}
+
+\noindent These definitions agree with those in $\RR^2$ and $\RR^3$, and many properties carry over to $\RR^n$:
+
+\begin{theorem}{}{014833} %theorem1
+Let $\vect{x}$, $\vect{y}$, and $\vect{z}$ denote vectors in $\RR^n$. Then:
+
+\begin{enumerate}
+\item $\vect{x} \dotprod \vect{y} = \vect{y} \dotprod \vect{x}$.
+
+\item $\vect{x} \dotprod (\vect{y} + \vect{z}) = \vect{x} \dotprod \vect{y} + \vect{x} \dotprod \vect{z}$.
+
+\item $(a\vect{x}) \dotprod \vect{y} = a(\vect{x} \dotprod \vect{y}) = \vect{x} \dotprod (a\vect{y})$ for all scalars $a$.
+
+\item $\vectlength\vect{x}\vectlength^{2} = \vect{x} \dotprod \vect{x}$.
+
+\item $\vectlength\vect{x}\vectlength \geq 0$, and $\vectlength\vect{x}\vectlength = 0$ if and only if $\vect{x} = \vect{0}$.
+
+\item $\vectlength a \vect{x}\vectlength = | a | \vectlength\vect{x}\vectlength$ for all scalars $a$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1), (2), and (3) follow from matrix arithmetic because $\vect{x} \dotprod \vect{y} = \vect{x}^{T}\vect{y}$; (4) is clear from the definition; and (6) is a routine verification since $|a| = \sqrt{a^2}$. If $\vect{x} = (x_{1}, x_{2}, \dots, x_{n})$, then $\vectlength\vect{x}\vectlength = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2}$ so $\vectlength\vect{x}\vectlength = 0$ if and only if $ x_1^2 + x_2^2 + \dots + x_n^2 = 0$. Since each $x_{i}$ is a real number this happens if and only if $x_{i} = 0$ for each $i$; that is, if and only if $\vect{x} = \vect{0}$. This proves (5).
+\end{proof}
+
+Because of Theorem~\ref{thm:014833}, computations with dot products in $\RR^n$ are similar to those in $\RR^3$. In particular, the dot product
+\begin{equation*}
+(\vect{x}_1 + \vect{x}_2 + \dots + \vect{x}_m) \dotprod (\vect{y}_1 + \vect{y}_2 + \dots + \vect{y}_k)
+\end{equation*}
+equals the sum of $mk$ terms, $\vect{x}_{i} \dotprod \vect{y}_{j}$, one for each choice of $i$ and $j$. For example:
+\begin{align*}
+(3\vect{x} - 4\vect{y}) \dotprod (7\vect{x} + 2\vect{y}) & = 21(\vect{x} \dotprod \vect{x}) + 6(\vect{x} \dotprod \vect{y}) - 28(\vect{y} \dotprod \vect{x}) - 8(\vect{y} \dotprod \vect{y}) \\
+&= 21 \vectlength\vect{x}\vectlength^2 - 22(\vect{x} \dotprod \vect{y}) - 8\vectlength\vect{y}\vectlength^2
+\end{align*}
+holds for all vectors $\vect{x}$ and $\vect{y}$.
+
+\begin{example}{}{014869}
+Show that $\vectlength\vect{x} + \vect{y}\vectlength^{2} = \vectlength\vect{x}\vectlength^{2} + 2(\vect{x} \dotprod \vect{y}) + \vectlength\vect{y}\vectlength^{2}$ for any $\vect{x}$ and $\vect{y}$ in $\RR^n$.
+
+\begin{solution}
+Using Theorem~\ref{thm:014833} several times:
+\begin{align*}
+\vectlength\vect{x} + \vect{y}\vectlength^2 &= (\vect{x} + \vect{y}) \dotprod (\vect{x} + \vect{y}) = \vect{x} \dotprod \vect{x} + \vect{x} \dotprod \vect{y} + \vect{y} \dotprod \vect{x} + \vect{y} \dotprod \vect{y} \\
+&= \vectlength\vect{x}\vectlength^2 + 2(\vect{x} \dotprod \vect{y}) + \vectlength\vect{y}\vectlength^2
+\end{align*}
+\end{solution}
+\end{example}
+
+\begin{example}{}{014880}
+Suppose that $\RR^n = \func{span}\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{k}\}$ for some vectors $\vect{f}_{i}$. If $\vect{x} \dotprod \vect{f}_{i} = 0$ for each $i$ where $\vect{x}$ is in $\RR^n$, show that $\vect{x} = \vect{0}$.
+
+\begin{solution}
+We show $\vect{x} = \vect{0}$ by showing that $\vectlength\vect{x}\vectlength = 0$ and using (5) of Theorem~\ref{thm:014833}. Since the $\vect{f}_{i}$ span $\RR^n$, write $\vect{x} = t_{1}\vect{f}_{1} + t_{2}\vect{f}_{2} + \dots + t_{k}\vect{f}_{k}$ where the $t_{i}$ are in $\RR$. Then
+\begin{align*}
+\vectlength\vect{x}\vectlength^2 &= \vect{x} \dotprod \vect{x} = \vect{x} \dotprod (t_1\vect{f}_1 + t_2\vect{f}_2 + \dots + t_k\vect{f}_k) \\
+&= t_1(\vect{x} \dotprod \vect{f}_1) + t_2(\vect{x} \dotprod \vect{f}_2) + \dots + t_k(\vect{x} \dotprod \vect{f}_k) \\
+&= t_1(0) + t_2(0) + \cdots + t_k(0) \\
+&= 0
+\end{align*}
+\end{solution}
+\end{example}
+
+\noindent We saw in Section~\ref{sec:4_2} that if $\vect{u}$ and $\vect{v}$ are nonzero vectors\index{nonzero vectors} in $\RR^3$, then $\frac{\vect{u} \dotprod \vect{v}}{\vectlength\vect{u}\vectlength \vectlength\vect{v}\vectlength} = \cos\theta$ where $\theta$ is the angle between $\vect{u}$ and $\vect{v}$. Since $|\cos \theta| \leq 1$ for any angle $\theta$, this shows that $|\vect{u} \dotprod \vect{v}| \leq \vectlength\vect{u}\vectlength\vectlength\vect{v}\vectlength$. In this form the result holds in $\RR^n$.
+
+\begin{theorem}{Cauchy Inequality\footnotemark}{014907} %theorem2
+If $\vect{x}$ and $\vect{y}$ are vectors in $\RR^n$, then
+\begin{equation*}
+| \vect{x} \dotprod \vect{y}| \leq \vectlength\vect{x}\vectlength \vectlength\vect{y}\vectlength 
+\end{equation*}
+Moreover $|\vect{x} \dotprod \vect{y}| = \vectlength\vect{x}\vectlength \vectlength\vect{y}\vectlength$ if and only if one of $\vect{x}$ and $\vect{y}$ is a multiple of the other.\index{Cauchy inequality}
+\end{theorem}
+\footnotetext{Augustin Louis Cauchy (1789--1857) was born in Paris and became a professor at the \'{E}cole Polytechnique at the age of 26. He was one of the great mathematicians, producing more than 700 papers, and is best remembered for his work in analysis in which he established new standards of rigour and founded the theory of functions of a complex variable\index{function!of a complex variable}. He was a devout Catholic with a long-term interest in charitable work, and he was a royalist, following King Charles X into exile in Prague after he was deposed in 1830. Theorem~\ref{thm:014907} first appeared in his 1812 memoir on determinants.}
+
+%\begin{figure}[H]
+%\centering
+%\includegraphics{5-vector-space-rn/figures/3-orthogonality/ufg05006}
+%\caption{\label{fig:014915}}
+%Photo \textcopyright  Corbis.
+%\end{figure}
+
+\begin{proof}
+The inequality holds if $\vect{x} = \vect{0}$ or $\vect{y} = \vect{0}$ (in fact it is equality). Otherwise, write $\vectlength\vect{x}\vectlength = a > 0$ and $\vectlength\vect{y}\vectlength = b > 0$ for convenience. A computation like that preceding Example~\ref{exa:014869} gives
+\begin{equation}
+\label{eq:cauchy_inequality}
+\vectlength b\vect{x} - a\vect{y} \vectlength^2 = 2ab(ab - \vect{x} \dotprod \vect{y}) \mbox{ and } \vectlength b\vect{x} + a\vect{y} \vectlength^2 = 2ab(ab + \vect{x} \dotprod \vect{y})
+\end{equation}
+It follows that $ab - \vect{x} \dotprod \vect{y} \geq 0$ and $ab + \vect{x} \dotprod \vect{y} \geq 0$, and hence that $-ab \leq \vect{x} \dotprod \vect{y} \leq ab$. Hence $|\vect{x} \dotprod \vect{y}| \leq ab = \vectlength\vect{x}\vectlength\vectlength\vect{y}\vectlength$, proving the Cauchy inequality.
+
+If equality holds, then $|\vect{x} \dotprod \vect{y}| = ab$, so $\vect{x} \dotprod \vect{y} = ab$ or $\vect{x} \dotprod \vect{y} = -ab$. Hence Equation \ref{eq:cauchy_inequality} shows that $b\vect{x} - a\vect{y} = 0$ or $b\vect{x} + a\vect{y} = 0$, so one of $\vect{x}$ and $\vect{y}$ is a multiple of the other (even if $a = 0$ or $b = 0$).
+\end{proof}
+
+The Cauchy inequality is equivalent to $(\vect{x} \dotprod \vect{y})^{2} \leq \vectlength\vect{x}\vectlength^{2}\vectlength\vect{y}\vectlength^{2}$. In $\RR^5$ this becomes
+\begin{equation*}
+(x_1y_1 + x_2y_2 + x_3y_3 + x_4y_4 + x_5y_5)^2
+\leq (x_1^2 + x_2^2 + x_3^2 + x_4^2 + x_5^2)(y_1^2 + y_2^2 + y_3^2 + y_4^2 + y_5^2)
+\end{equation*}
+for all $x_{i}$ and $y_{i}$ in $\RR$.
+
+There is an important consequence of the Cauchy inequality. Given $\vect{x}$ and $\vect{y}$ in $\RR^n$, use Example~\ref{exa:014869} and the fact that $\vect{x} \dotprod \vect{y} \leq \vectlength\vect{x}\vectlength\vectlength\vect{y}\vectlength$ to compute
+\begin{equation*}
+\vectlength\vect{x} + \vect{y}\vectlength^2 = \vectlength\vect{x}\vectlength^2 + 2(\vect{x} \dotprod \vect{y}) + \vectlength\vect{y}\vectlength^2 
+\leq \vectlength\vect{x}\vectlength^2 + 2\vectlength\vect{x}\vectlength \vectlength\vect{y}\vectlength + \vectlength\vect{y}\vectlength^2 =
+(\vectlength\vect{x} + \vect{y}\vectlength)^2
+\end{equation*}
+Taking positive square roots gives:
+
+\begin{corollary}{Triangle Inequality}{014936}
+If $\vect{x}$ and $\vect{y}$ are vectors in $\RR^n$, then $\vectlength\vect{x} + \vect{y}\vectlength \leq \vectlength\vect{x}\vectlength + \vectlength\vect{y}\vectlength$.\index{triangle!inequality}
+\end{corollary}
+
+\begin{wrapfigure}[4]{l}{5cm} 
+\vspace{-2em}
+\centering
+\input{5-vector-space-rn/figures/3-orthogonality/corollary5.3.1}
+%\caption{\label{fig:014942}}
+\end{wrapfigure} 
+
+The reason for the name comes from the observation that in $\RR^3$ the inequality asserts that the sum of the lengths of two sides of a triangle is not less than the length of the third side. This is illustrated in the diagram.
+\vspace{2em}
+
+\begin{definition}{Distance in $\RR^n$}{014945} %5.7 
+If $\vect{x}$ and $\vect{y}$ are two vectors in $\RR^n$, we define the \textbf{distance}\index{distance} $d(\vect{x}, \vect{y})$ between $\vect{x}$ and $\vect{y}$ by
+\begin{equation*}
+d(\vect{x},\vect{y}) = \vectlength\vect{x} - \vect{y}\vectlength
+\end{equation*}
+\end{definition}
+
+\begin{wrapfigure}[3]{l}{5cm} 
+  \vspace*{-2em}
+	\centering
+	\input{5-vector-space-rn/figures/3-orthogonality/definition5.7}
+	%\caption{\label{fig:014953}}
+\end{wrapfigure}
+
+The motivation again comes from $\RR^3$ as is clear in the diagram. This distance function has all the intuitive properties of distance in $\RR^3$, including another version of the triangle inequality.
+\vspace{1em}
+
+\begin{theorem}{}{014954} %theorem3
+If $\vect{x}$, $\vect{y}$, and $\vect{z}$ are three vectors in $\RR^n$ we have:
+
+\begin{enumerate}
+\item $d(\vect{x}, \vect{y}) \geq 0$ for all $\vect{x}$ and $\vect{y}$.
+
+\item $d(\vect{x}, \vect{y}) = 0$ if and only if $\vect{x} = \vect{y}$.
+
+\item $d(\vect{x}, \vect{y}) = d(\vect{y}, \vect{x})$ for all $\vect{x}$ and $\vect{y}$ .
+
+\item $d(\vect{x}, \vect{z}) \leq d(\vect{x}, \vect{y}) + d(\vect{y}, \vect{z})$for all $\vect{x}$, $\vect{y}$, and $\vect{z}$. \quad Triangle inequality.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) and (2) restate part (5) of Theorem~\ref{thm:014833} because $d(\vect{x}, \vect{y}) = \vectlength\vect{x} - \vect{y}\vectlength$, and (3) follows because $\vectlength\vect{u}\vectlength = \vectlength -\vect{u}\vectlength$ for every vector $\vect{u}$ in $\RR^n$. To prove (4) use the Corollary to Theorem~\ref{thm:014907}:
+\begin{align*}
+d(\vect{x}, \vect{z}) = \vectlength\vect{x} - \vect{z}\vectlength &= 
+\vectlength(\vect{x} - \vect{y}) + (\vect{y} - \vect{z}) \vectlength \\
+&\leq \vectlength(\vect{x} - \vect{y})\vectlength + \vectlength(\vect{y} - \vect{z})\vectlength =
+d(\vect{x}, \vect{y}) + d(\vect{y}, \vect{z})
+\end{align*}
+\vspace*{-2em}\end{proof}
+
+\subsection*{Orthogonal Sets and the Expansion Theorem}
+
+\begin{definition}{Orthogonal and Orthonormal Sets}{014974} %5.8
+We say that two vectors $\vect{x}$ and $\vect{y}$ in $\RR^n$ are \textbf{orthogonal}\index{orthogonal vectors}\index{vectors!orthogonal vectors} if $\vect{x} \dotprod \vect{y} = 0$, extending the terminology in $\RR^3$ (See Theorem~\ref{thm:011886}). More generally, a set $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ of vectors in $\RR^n$ is called an \textbf{orthogonal set}\index{orthogonal sets}\index{orthogonality!orthogonal sets}\index{set of all ordered $n$-tuples ($\RR^n$)!orthogonal sets} if
+\begin{equation*}
+ \vect{x}_i \dotprod \vect{x}_j = 0 \mbox{ for all } i \neq j \quad \mbox{ and } \quad \vect{x}_i \neq \vect{0} \mbox{ for all } i \footnotemark
+\end{equation*} 
+Note that $\{\vect{x}\}$ is an orthogonal set if $\vect{x} \neq \vect{0}$. A set $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ of vectors in $\RR^n$ is called \textbf{orthonormal}\index{orthonormal vector}\index{vectors!orthonormal vector} if it is orthogonal and, in addition, each $\vect{x}_{i}$ is a unit vector:
+\begin{equation*}
+\vectlength\vect{x}_i\vectlength = 1 \mbox{ for each } i.
+\end{equation*}
+\end{definition}
+\footnotetext{The reason for insisting that orthogonal sets consist of \textit{nonzero} vectors is that we will be primarily concerned with orthogonal bases.}
+
+\begin{example}{}{014991}
+The standard basis $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is an orthonormal set in $\RR^n$.
+\end{example}
+
+The routine verification is left to the reader, as is the proof of:
+
+\begin{example}{}{014999}
+If $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is orthogonal, so also is $\{a_{1}\vect{x}_{1}, a_{2}\vect{x}_{2}, \dots, a_{k}\vect{x}_{k}\}$ for any nonzero scalars $a_{i}$.
+\end{example}
+
+If $\vect{x} \neq \vect{0}$, it follows from item (6) of Theorem~\ref{thm:014833} that $\frac{1}{\vectlength\vect{x}\vectlength}\vect{x}$ is a unit vector, that is it has length $1$.
+
+\begin{definition}{Normalizing an Orthogonal Set}{015014} %5.9 or 5.3.4
+Hence if $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is an orthogonal set, then
+$\{ \frac{1}{\vectlength\vect{x}_1\vectlength}\vect{x}_1,  
+\frac{1}{\vectlength\vect{x}_2\vectlength}\vect{x}_2, \cdots, 
+\frac{1}{\vectlength\vect{x}_k\vectlength}\vect{x}_k \}$
+ is an orthonormal set, and we say that it is the result of \textbf{normalizing}\index{normalizing the orthogonal set}\index{orthogonality!normalizing the orthogonal set} the orthogonal set $\{\vect{x}_{1}, \vect{x}_{2}, \cdots, \vect{x}_{k}\}$.
+\end{definition}
+
+\begin{example}{}{015024}
+If
+$\vect{f}_1 = 
+\leftB \begin{array}{r}
+1 \\
+1 \\
+1 \\
+-1
+\end{array} \rightB$, $\vect{f}_2 =
+\leftB \begin{array}{r}
+1 \\
+0 \\
+1 \\
+2
+\end{array} \rightB$, $\vect{f}_3 =
+\leftB \begin{array}{r}
+-1 \\
+0 \\
+1 \\
+0
+\end{array} \rightB$, and $\vect{f}_4 =
+\leftB \begin{array}{r}
+-1 \\
+3 \\
+-1 \\
+1
+\end{array} \rightB$
+then $\{ \vect{f}_1, \vect{f}_2, \vect{f}_3, \vect{f}_4 \}$ is an orthogonal set in $\RR^4$ as is easily verified. After normalizing, the corresponding orthonormal set is $\{ \frac{1}{2}\vect{f}_1, \frac{1}{\sqrt{6}}\vect{f}_2, \frac{1}{\sqrt{2}}\vect{f}_3, \frac{1}{2\sqrt{3}}\vect{f}_4 \}$
+\end{example}
+
+\begin{wrapfigure}[6]{l}{4.5cm} 
+\vspace*{-2em}
+\centering
+\input{5-vector-space-rn/figures/3-orthogonality/example5.3.6}
+%\caption{\label{fig:015036}}
+\end{wrapfigure}
+
+The most important result about orthogonality is Pythagoras' theorem. Given orthogonal vectors $\vect{v}$ and $\vect{w}$ in $\RR^3$, it asserts that 
+\begin{equation*}
+\vectlength\vect{v} + \vect{w}\vectlength^{2} = \vectlength\vect{v}\vectlength^{2} + \vectlength\vect{w}\vectlength^{2}
+\end{equation*}
+ as in the diagram. In this form the result holds for any orthogonal set in $\RR^n$.
+
+\begin{theorem}{Pythagoras' Theorem}{015037} %theorem4
+If $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is an orthogonal set in $\RR^n$, then
+\begin{equation*}
+\vectlength\vect{x}_1 + \vect{x}_2 + \dots + \vect{x}_k \vectlength^2 = \vectlength\vect{x}_1\vectlength^2 + \vectlength\vect{x}_2\vectlength^2 + \dots + \vectlength\vect{x}_k\vectlength^2.
+\end{equation*}\index{orthogonality!Pythagoras' theorem}\index{Pythagoras' theorem}
+\end{theorem}
+
+\begin{proof}
+The fact that $\vect{x}_{i} \dotprod \vect{x}_{j} = 0$ whenever $i \neq j$ gives
+
+\newpage
+\begin{align*}
+\vectlength\vect{x}_1 + \vect{x}_2 + \dots + \vect{x}_k \vectlength^2 & =
+(\vect{x}_1 + \vect{x}_2 + \dots + \vect{x}_k) \dotprod (\vect{x}_1 + \vect{x}_2 + \dots + \vect{x}_k) \\
+&= (\vect{x}_1 \dotprod \vect{x}_1 + \vect{x}_2 \dotprod \vect{x}_2 + \dots + \vect{x}_k \dotprod \vect{x}_k) + \sum_{i \neq j}\vect{x}_i \dotprod \vect{x}_j \\
+&= \vectlength\vect{x}_1\vectlength^2 + \vectlength\vect{x}_2\vectlength^2 + \dots + \vectlength\vect{x}_k\vectlength^2 + 0
+\end{align*} 
+This is what we wanted.
+\end{proof} 
+
+If $\vect{v}$ and $\vect{w}$ are orthogonal, nonzero vectors in $\RR^3$, then they are certainly not parallel, and so are linearly independent by Example~\ref{exa:014127}. The next theorem gives a far-reaching extension of this observation.
+
+\begin{theorem}{}{015056} %theorem5
+Every orthogonal set in $\RR^n$ is linearly independent.\index{linear independence!orthogonal sets}
+\end{theorem}
+
+\begin{proof}
+Let $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ be an orthogonal set in $\RR^n$ and suppose a linear combination vanishes, say: $t_{1}\vect{x}_{1} + t_{2}\vect{x}_{2} + \dots + t_{k}\vect{x}_{k} = \vect{0}$. Then
+\begin{align*}
+0 = \vect{x}_1 \dotprod \vect{0} &= \vect{x}_1 \dotprod (t_1\vect{x}_1 + t_2\vect{x}_2 + \dots + t_k\vect{x}_k) \\
+&= t_1(\vect{x}_1 \dotprod \vect{x}_1) + t_2(\vect{x}_1 \dotprod \vect{x}_2) + \dots + t_k(\vect{x}_1 \dotprod \vect{x}_k) \\
+&= t_1\vectlength\vect{x}_1\vectlength^2 +t_2(0) + \dots + t_k(0) \\
+&= t_1\vectlength\vect{x}_1\vectlength^2
+\end{align*}
+Since $\vectlength\vect{x}_{1}\vectlength^{2} \neq 0$, this implies that $t_{1} = 0$. Similarly $t_{i} = 0$ for each $i$.
+\end{proof}
+
+Theorem~\ref{thm:015056} suggests considering orthogonal bases for $\RR^n$, that is orthogonal sets that span $\RR^n$. These turn out to be the best bases in the sense that, when expanding a vector as a linear combination of the basis vectors, there are explicit formulas for the coefficients.
+
+\begin{theorem}{Expansion Theorem}{015082} %theorem6
+Let $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ be an orthogonal basis of a subspace U of $\RR^n$. If $\vect{x}$ is any vector in $U$, we have
+\begin{equation*}
+\vect{x} = \left(\frac{\vect{x} \dotprod \vect{f}_1}{\vectlength\vect{f}_1\vectlength^2} \right) \vect{f}_1 +
+\left(\frac{\vect{x} \dotprod \vect{f}_2}{\vectlength\vect{f}_2\vectlength^2} \right) \vect{f}_2 +
+\dots +
+\left(\frac{\vect{x} \dotprod \vect{f}_m}{\vectlength\vect{f}_m\vectlength^2} \right) \vect{f}_m
+\end{equation*}\index{expansion theorem}\index{set of all ordered $n$-tuples ($\RR^n$)!expansion theorem}\index{basis!orthogonal basis}
+\end{theorem}
+
+\begin{proof}
+Since $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ spans $U$, we have $\vect{x} = t_{1}\vect{f}_{1} + t_{2}\vect{f}_{2} + \dots + t_{m}\vect{f}_{m}$ where the $t_{i}$ are scalars. To find $t_{1}$ we take the dot product of both sides with $\vect{f}_{1}$:
+\begin{align*}
+\vect{x} \dotprod \vect{f}_1 &= (t_1\vect{f}_1 + t_2\vect{f}_2 + \dots + t_m\vect{f}_m) \dotprod \vect{f}_1 \\
+&= t_1(\vect{f}_1 \dotprod \vect{f}_1) + t_2(\vect{f}_2 \dotprod \vect{f}_1) + \dots + t_m(\vect{f}_m \dotprod \vect{f}_1) \\
+&= t_1\vectlength\vect{f}_1\vectlength^2 + t_2(0) + \dots + t_m(0) \\
+&= t_1\vectlength\vect{f}_1\vectlength^2
+\end{align*}
+Since $\vect{f}_{1} \neq \vect{0}$, this gives $t_1 = \frac{\vect{x} \dotprod \vect{f}_1}{\vectlength\vect{f}_1\vectlength^2}$. Similarly,
+$t_i = \frac{\vect{x} \dotprod \vect{f}_i}{\vectlength\vect{f}_i\vectlength^2}$
+ for each $i$.
+\end{proof}
+
+\noindent The expansion in Theorem~\ref{thm:015082} of $\vect{x}$ as a linear combination of the orthogonal basis $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ is called the \textbf{Fourier expansion}\index{Fourier expansion}\index{orthogonality!Fourier expansion} of $\vect{x}$, and the coefficients $t_1 = \frac{\vect{x} \dotprod \vect{f}_i}{\vectlength\vect{f}_i\vectlength^2}$ are called the \textbf{Fourier coefficients}\index{Fourier coefficients}\index{coefficients!Fourier coefficients}. Note that if $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ is actually orthonormal, then $t_{i} = \vect{x} \dotprod \vect{f}_{i}$ for each $i$. We will have a great deal more to say about this in Section~\ref{sec:10_5}.\index{linear combinations!of orthogonal basis}
+
+\begin{example}{}{015122}
+Expand $\vect{x} = (a, b, c, d)$ as a linear combination of the orthogonal basis $\{\vect{f}_{1}, \vect{f}_{2}, \vect{f}_{3}, \vect{f}_{4}\}$ of $\RR^4$ given in Example~\ref{exa:015024}.
+
+\newpage
+\begin{solution}
+We have $\vect{f}_{1} = (1, 1, 1, -1)$, $\vect{f}_{2} = (1, 0, 1, 2)$, $\vect{f}_{3} = (-1, 0, 1, 0)$, and $\vect{f}_{4} = (-1, 3, -1, 1)$ so the Fourier coefficients are
+\begin{equation*}
+\begin{array}{lcl}
+	t_1 = \frac{\vect{x} \dotprod \vect{f}_1}{\vectlength\vect{f}_1\vectlength^2} = \frac{1}{4}(a + b + c + d) & \hspace{3em} &
+	t_3 = \frac{\vect{x} \dotprod \vect{f}_3}{\vectlength\vect{f}_3\vectlength^2} = \frac{1}{2}(-a + c) \\
+	& \\
+	t_2 = \frac{\vect{x} \dotprod \vect{f}_2}{\vectlength\vect{f}_2\vectlength^2} = \frac{1}{6}(a + c + 2d) & &
+	t_4 = \frac{\vect{x} \dotprod \vect{f}_4}{\vectlength\vect{f}_4\vectlength^2} = \frac{1}{12}(-a + 3b -c + d)
+\end{array}
+\end{equation*}
+The reader can verify that indeed $\vect{x} = t_{1}\vect{f}_{1} + t_{2}\vect{f}_{2} + t_{3}\vect{f}_{3} + t_{4}\vect{f}_{4}$.
+\end{solution}
+\end{example}
+
+A natural question arises here: Does every subspace $U$ of $\RR^n$ \textit{have} an orthogonal basis? The answer is ``yes''; in fact, there is a systematic procedure, called the Gram-Schmidt algorithm\index{Gram-Schmidt orthogonalization algorithm}, for turning any basis of $U$ into an orthogonal one. This leads to a definition of the projection onto a subspace $U$ that generalizes the projection along a vector used in $\RR^2$ and $\RR^3$. All this is discussed in Section~\ref{sec:8_1}.
+
+\section*{Exercises for \ref{sec:5_3}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:5_3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\noindent We often write vectors in $\RR^n$ as row n-tuples.
+\begin{ex}
+Obtain orthonormal bases of $\RR^3$ by normalizing the following.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{(1, -1, 2), (0, 2, 1), (5, 1, -2)\}$
+
+\item $\{(1, 1, 1), (4, 1, -5), (2, -3, 1)\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item \hspace{1em} \\
+\hspace*{-2em}$
+\left\{
+\frac{1}{\sqrt{3}}
+\leftB \begin{array}{r}
+1\\
+1\\
+1
+\end{array} \rightB, \frac{1}{\sqrt{42}}
+\leftB \begin{array}{r}
+4\\
+1\\
+-5
+\end{array} \rightB, \frac{1}{\sqrt{14}}
+\leftB \begin{array}{r}
+2\\
+-3\\
+1
+\end{array} \rightB
+\right\}
+$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that the set of vectors is orthogonal in $\RR^4$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{(1, -1, 2, 5), (4, 1, 1, -1), (-7, 28, 5, 5)\}$
+
+\item $\{(2, -1, 4, 5), (0, -1, 1, -1), (0, 3, 2, -1)\}$
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+In each case, show that $B$ is an orthogonal basis of $\RR^3$ and use Theorem~\ref{thm:015082} to expand $\vect{x} = (a, b, c)$ as a linear combination of the basis vectors.
+
+\begin{enumerate}[label={\alph*.}]
+\item $B = \{(1, -1, 3), (-2, 1, 1), (4, 7, 1)\}$
+
+\item $B = \{(1, 0, -1), (1, 4, 1), (2, -1, 2)\}$
+
+\item $B = \{(1, 2, 3), (-1, -1, 1), (5, -4, 1)\}$
+
+\item $B = \{(1, 1, 1), (1, -1, 0), (1, 1, -2)\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$ \leftB \begin{array}{r}
+a\\
+b\\
+c
+\end{array} \rightB
+= \frac{1}{2}(a - c)
+\leftB \begin{array}{r}
+1\\
+0\\
+-1
+\end{array} \rightB
++ \frac{1}{18}(a + 4b + c)
+\leftB \begin{array}{r}
+1\\
+4\\
+1
+\end{array} \rightB
++ \frac{1}{9}(2a - b + 2c)
+\leftB \begin{array}{r}
+2\\
+-1\\
+2
+\end{array} \rightB$.
+
+\setcounter{enumi}{3}
+\item  
+$\leftB \begin{array}{r}
+a\\
+b\\
+c
+\end{array} \rightB
+= \frac{1}{3}(a + b + c)
+\leftB \begin{array}{r}
+1\\
+1\\
+1
+\end{array} \rightB
++ \frac{1}{2}(a - b)
+\leftB \begin{array}{r}
+1\\
+-1\\
+0
+\end{array} \rightB
++ \frac{1}{6}(a + b - 2c)
+\leftB \begin{array}{r}
+1\\
+1\\
+-2
+\end{array} \rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, write $\vect{x}$ as a linear combination of the orthogonal basis of the subspace $U$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{x} = (13, -20, 15)$; $U = \func{span}\{(1, -2, 3), (-1, 1, 1)\}$
+
+\item $\vect{x} = (14, 1, -8, 5)$; \\ $U = \func{span}\{(2, -1, 0, 3), (2, 1, -2, -1)\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\leftB \begin{array}{r}
+14\\
+1\\
+-8\\
+5
+\end{array} \rightB = 3
+\leftB \begin{array}{r}
+2\\
+-1\\
+0\\
+3
+\end{array} \rightB + 4
+\leftB \begin{array}{r}
+2\\
+1\\
+-2\\
+-1
+\end{array} \rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find all $(a, b, c, d)$ in $\RR^4$ such that the given set is orthogonal.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{(1, 2, 1, 0), (1, -1, 1, 3), (2, -1, 0, -1), \\ (a, b, c, d)\}$
+
+\item $\{(1, 0, -1, 1), (2, 1, 1, -1), (1, -3, 1, 0), \\ (a, b, c, d)\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$t \leftB \begin{array}{r}
+-1\\
+3\\
+10\\
+11
+\end{array} \rightB$, in $\RR$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\vectlength\vect{x}\vectlength = 3$, $\vectlength\vect{y}\vectlength = 1$, and $\vect{x} \dotprod \vect{y} = -2$, compute:
+
+\begin{exenumerate}
+\exitem $\vectlength 3\vect{x} - 5\vect{y}\vectlength$
+\exitem $\vectlength 2\vect{x} + 7\vect{y}\vectlength$
+\exitem $(3\vect{x} - \vect{y}) \dotprod (2\vect{y} - \vect{x})$
+\exitem $(\vect{x} - 2\vect{y}) \dotprod (3\vect{x} + 5\vect{y})$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\sqrt{29}$
+
+\setcounter{enumi}{3}
+\item  $19$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case either show that the statement is true or give an example showing that it is false.
+
+\begin{enumerate}[label={\alph*.}]
+\item Every independent set in $\RR^n$ is orthogonal.
+
+\item If $\{\vect{x}, \vect{y}\}$ is an orthogonal set in $\RR^n$, then $\{\vect{x}, \vect{x} + \vect{y}\}$ is also orthogonal.
+
+\item If $\{\vect{x}, \vect{y}\}$ and $\{\vect{z}, \vect{w}\}$ are both orthogonal in $\RR^n$, then $\{\vect{x}, \vect{y}, \vect{z}, \vect{w}\}$ is also orthogonal.
+
+\item If $\{\vect{x}_{1}, \vect{x}_{2}\}$ and $\{\vect{y}_{1}, \vect{y}_{2}, \vect{y}_{3}\}$ are both orthogonal and $\vect{x}_{i} \dotprod \vect{y}_{j} = 0$ for all $i$ and $j$, then $\{\vect{x}_{1}, \vect{x}_{2}, \vect{y}_{1}, \vect{y}_{2}, \vect{y}_{3}\}$ is orthogonal.
+
+\item If $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}\}$ is orthogonal in $\RR^n$, then $\RR^n = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}\}$.
+
+\item If $\vect{x} \neq \vect{0}$ in $\RR^n$, then $\{\vect{x}\}$ is an orthogonal set.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  F. $\vect{x} = 
+\leftB \begin{array}{r}
+1\\
+0
+\end{array} \rightB$ and $\vect{y} = 
+\leftB \begin{array}{r}
+0\\
+1
+\end{array} \rightB$.
+
+\setcounter{enumi}{3}
+\item  T. Every $\vect{x}_{i} \dotprod \vect{y}_{j} = 0$ by assumption, every $\vect{x}_{i} \dotprod \vect{x}_{j} = 0$ if $i \neq j$ because the $\vect{x}_{i}$ are orthogonal, and every $\vect{y}_{i} \dotprod \vect{y}_{j} = 0$ if $i \neq j$ because the $\vect{y}_{i}$ are orthogonal. As all the vectors are nonzero, this does it.
+
+\setcounter{enumi}{5}
+\item  T. Every pair of \textit{distinct} vectors in the set $\{\vect{x}\}$ has dot product zero (there are no such pairs).
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\vect{v}$ denote a nonzero vector in $\RR^n$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $P = \{\vect{x} \mbox{ in } \RR^n \mid \vect{x} \dotprod \vect{v} = 0\}$ is a subspace of $\RR^n$.
+
+\item Show that $\RR\vect{v} = \{t\vect{v} \mid t  \mbox{ in }\RR\}$ is a subspace of $\RR^n$.
+
+\item Describe $P$ and $\RR\vect{v}$ geometrically when $n = 3$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}\label{ex:5.3.9}
+If $A$ is an $m \times n$ matrix with orthonormal columns, show that $A^{T}A = I_{n}$. [\textit{Hint}: If $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}$ are the columns of $A$, show that column $j$ of $A^{T}A$ has entries $\vect{c}_{1} \dotprod \vect{c}_{j}, \vect{c}_{2} \dotprod \vect{c}_{j}, \dots, \vect{c}_{n} \dotprod \vect{c}_{j}$].
+
+\begin{sol}
+Let $\vect{c}_{1}, \dots, \vect{c}_{n}$ be the columns of $A$. Then row $i$ of $A^{T}$ is $\vect{c}_{i}^{T}$, so the $(i, j)$-entry of $A^{T}A$ is $\vect{c}_{i}^{T}\vect{c}_j = \vect{c}_{i} \dotprod \vect{c}_{j} = 0, 1$ according as $i \neq j$, $i = j$. So $A^{T}A = I$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Use the Cauchy inequality to show that $\sqrt{xy} \leq \frac{1}{2}(x + y)$ for all $x \geq 0$ and $y \geq 0$. Here  $\sqrt{xy}$ and $\frac{1}{2}(x + y)$ are called, respectively, the \textit{geometric mean} and \textit{arithmetic mean} of $x$ and $y$.
+
+[\textit{Hint}: Use 
+$ \vect{x} = 
+\leftB \begin{array}{r}
+\sqrt{x} \\
+\sqrt{y}
+\end{array} \rightB
+$
+ \textit{and} 
+$
+\vect{y} = 
+\leftB \begin{array}{r}
+\sqrt{y} \\
+\sqrt{x}
+\end{array} \rightB
+$.]
+\end{ex}
+
+\begin{ex}
+Use the Cauchy inequality to prove that:
+
+\begin{enumerate}[label={\alph*.}]
+\item  $r_1 + r_2 + \dots + r_n \leq n(r_1^2 + r_2^2 + \dots + r_n^2)$ for all $ r_i $ in $\RR$ and all $n \geq 1$.
+
+\item $r_1r_2 + r_1r_3 + r_2r_3 \leq r_1^2 + r_2^2 + r_3^2$ for all $r_1, r_2,$ and $r_3$ in $\RR$. [\textit{Hint}: See part (a).]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Take $n = 3$ in \textbf{(a)}, expand, and simplify.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vect{x}$ and $\vect{y}$ are orthogonal in $\RR^n$ if and only if $\vectlength\vect{x} + \vect{y}\vectlength = \vectlength\vect{x} - \vect{y}\vectlength$.
+
+\item Show that $\vect{x} + \vect{y}$ and $\vect{x} - \vect{y}$ are orthogonal in $\RR^n$ if and only if $\vectlength\vect{x}\vectlength = \vectlength\vect{y}\vectlength$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  We have $(\vect{x} + \vect{y}) \dotprod (\vect{x} - \vect{y}) = \vectlength\vect{x}\vectlength^{2} - \vectlength\vect{y}\vectlength^{2}$. Hence $(\vect{x} + \vect{y}) \dotprod (\vect{x} - \vect{y}) = 0$ if and only if $\vectlength\vect{x}\vectlength^{2} = \vectlength\vect{y}\vectlength^{2}$; if and only if $\vectlength\vect{x}\vectlength = \vectlength\vect{y}\vectlength$---where we used the fact that $\vectlength\vect{x}\vectlength \geq 0$ and $\vectlength\vect{y}\vectlength \geq 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vectlength\vect{x} + \vect{y}\vectlength^{2} = \vectlength\vect{x}\vectlength^{2} + \vectlength\vect{y}\vectlength^{2}$ if and only if $\vect{x}$ is orthogonal to $\vect{y}$.
+
+\item If $\vect{x} = 
+\leftB \begin{array}{r}
+1 \\
+1
+\end{array} \rightB
+$, $\vect{y} = 
+\leftB \begin{array}{r}
+1 \\
+0
+\end{array} \rightB
+$ and $\vect{z} = 
+\leftB \begin{array}{r}
+-2 \\
+3
+\end{array} \rightB$, show that $\vectlength\vect{x} + \vect{y} + \vect{z}\vectlength^{2} = \vectlength\vect{x}\vectlength^{2} + \vectlength\vect{y}\vectlength^{2} + \vectlength\vect{z}\vectlength^{2}$ but \newline $\vect{x} \dotprod \vect{y} \neq 0$, $\vect{x} \dotprod \vect{z} \neq 0$, and $\vect{y} \dotprod \vect{z} \neq 0$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}\label{ex:5_3_14}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vect{x} \dotprod \vect{y} = \frac{1}{4}[\vectlength\vect{x} + \vect{y}\vectlength^{2} - \vectlength\vect{x} - \vect{y}\vectlength^{2}]$ for all $\vect{x}$, $\vect{y}$ in $\RR^n$.
+
+\item Show that $\vectlength\vect{x}\vectlength^{2} + \vectlength\vect{y}\vectlength^{2} = \frac{1}{2}\leftB \vectlength\vect{x} + \vect{y}\vectlength^{2} + \vectlength\vect{x} - \vect{y}\vectlength^{2}\rightB$ for all $\vect{x}$, $\vect{y}$ in $\RR^n$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $A$ is $n \times n$, show that every eigenvalue of $A^{T}A$ is
+nonnegative. [\textit{Hint}: Compute $\vectlength A\vect{x}\vectlength^{2}$ where $\vect{x}$ is an eigenvector.]
+
+\begin{sol}
+If $A^{T}A\vect{x} = \lambda\vect{x}$, then $\vectlength A\vect{x}\vectlength^{2} = (A\vect{x}) \dotprod (A\vect{x}) = \vect{x}^{T}A^{T}A\vect{x} = \vect{x}^{T}(\lambda\vect{x}) = \lambda\vectlength\vect{x}\vectlength^{2}$.
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:orthogonalexercise}
+If $\RR^n = \func{span}\{\vect{x}_{1}, \dots, \vect{x}_{m}\}$ and \newline $\vect{x} \dotprod \vect{x}_{i} = 0$ for all $i$, show that $\vect{x} = 0$. [\textit{Hint}: Show $\vectlength\vect{x}\vectlength = 0$.]
+\end{ex}
+
+\begin{ex}
+If $\RR^n = \func{span}\{\vect{x}_{1}, \dots, \vect{x}_{m}\}$ and $\vect{x} \dotprod \vect{x}_{i} = \vect{y} \dotprod \vect{x}_{i}$ for all $i$, show that $\vect{x} = \vect{y}$. [\textit{Hint}: Exercise \ref{ex:orthogonalexercise}]
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ be an orthogonal basis of $\RR^n$. Given $\vect{x}$ and $\vect{y}$ in $\RR^n$, show that
+\begin{equation*}
+\vect{x} \dotprod \vect{y} = \frac{(\vect{x} \dotprod \vect{e}_1)(\vect{y} \dotprod \vect{e}_1)}{\vectlength\vect{e}_1\vectlength^2} +
+\dots +
+\frac{(\vect{x} \dotprod \vect{e}_n)(\vect{y} \dotprod \vect{e}_n)}{\vectlength\vect{e}_n\vectlength^2}
+\end{equation*}
+\end{ex}
+\end{multicols}

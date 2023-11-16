@@ -1,0 +1,232 @@
+\section*{Supplementary Exercises for Chapter~\ref{chap:2}}
+\addcontentsline{toc}{section}{Supplementary Exercises for Chapter~\ref{chap:2}}
+
+\begin{Filesave}{solutions}
+\solsection{Supplementary Exercises for Chapter~\ref{chap:2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{supex}
+Solve for the matrix $X$ if:
+\begin{exenumerate}
+\exitem $PXQ = R$;
+\exitem $XP = S$;
+\end{exenumerate}
+where
+$
+P = \leftB \begin{array}{rr}
+1 & 0 \\
+2 & -1 \\
+0 & 3
+\end{array} \rightB$, $ 
+Q = \leftB \begin{array}{rrr}
+1 & 1 & -1 \\
+2 & 0 & 3
+\end{array} \rightB$, \\ $ 
+R = \leftB \begin{array}{rrr}
+-1 & 1 & -4 \\
+-4 & 0 & -6 \\
+6 & 6 & -6
+\end{array} \rightB$, $ 
+S = \leftB \begin{array}{rr}
+1 & 6\\
+3 & 1
+\end{array} \rightB$
+\end{supex}
+
+\begin{supex}
+Consider \begin{equation*}
+p(X) = X^{3} - 5X^{2} + 11X - 4I.
+\end{equation*}
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $p(U) = \leftB \begin{array}{rr}
+1 & 3 \\
+-1 & 0
+\end{array} \rightB$
+ compute $p(U^{T})$.
+
+\item If $p(U) = 0$ where $U$ is $n \times n$, find $U^{-1}$ in terms of $U$.
+
+\end{enumerate}
+\begin{supsol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $U^{-1} = \frac{1}{4}(U^{2} - 5U + 11I)$.
+
+\end{enumerate}
+\end{supsol}
+\end{supex}
+
+\begin{supex}
+Show that, if a (possibly nonhomogeneous) system of equations is consistent and has more variables than equations, then it must have infinitely many solutions. [\textit{Hint}: Use Theorem~\ref{thm:002811} and Theorem~\ref{thm:001473}.]
+
+\end{supex}
+
+\begin{supex}
+Assume that a system $A\vect{x} = \vect{b}$ of linear equations has at least two distinct solutions $\vect{y}$ and $\vect{z}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vect{x}_{k} = \vect{y} + k(\vect{y} - \vect{z})$ is a solution for every $k$.
+
+\item Show that $\vect{x}_{k} = \vect{x}_{m}$ implies $k = m$. [\textit{Hint}: See Example~\ref{exa:002159}.]
+
+\item Deduce that $A\vect{x} = \vect{b}$ has infinitely many solutions.
+
+\end{enumerate}
+\begin{supsol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $\vect{x}_{k} = \vect{x}_{m}$, then $\vect{y} + k(\vect{y} - \vect{z}) = \vect{y} + m(\vect{y} - \vect{z})$. So $(k - m)(\vect{y} - \vect{z}) = \vect{0}$. But $\vect{y} - \vect{z}$ is not zero (because $\vect{y}$ and $\vect{z}$ are distinct), so $k - m = 0$ by Example~~\ref{exa:002159}.
+
+\end{enumerate}
+\end{supsol}
+\end{supex}
+
+
+\begin{supex}
+
+\begin{enumerate}[label={\alph*.}]
+\item Let $A$ be a $3 \times 3$ matrix with all entries on and below the main diagonal zero. Show that $A^{3} = 0$.
+
+\item Generalize to the $n \times n$ case and prove your answer.
+
+\end{enumerate}
+\end{supex}
+
+\begin{supex}\label{ex:ex2_suppl_6}
+Let $I_{pq}$ denote the $n \times n$ matrix with $(p, q)$-entry equal to $1$ and all other entries $0$. Show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $I_{n} = I_{11} + I_{22} + \cdots  + I_{nn}$.
+
+\item $I_{pq}I_{rs} = \left\lbrace \begin{array}{cl}
+I_{ps} & \mbox{if } q = r \\
+0 & \mbox{if } q \neq r
+\end{array} \right.$.
+
+\item If $A = \leftB a_{ij} \rightB$ is $n \times n$, then $A = \sum_{i=1}^{n} \sum_{j=1}^{n} a_{ij}I_{ij}$.
+
+
+\item If $A = \leftB a_{ij} \rightB$, then $I_{pq}AI_{rs} = a_{qr}I_{ps}$ for all $p$, $q$, $r$, and $s$.
+
+\end{enumerate}
+\begin{supsol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{3}
+\item  Using parts \textbf{(c)} and \textbf{(b)} gives $I_{pq}AI_{rs} = \sum_{i=1}^{n} \sum_{j=1}^{n} a_{ij}I_{pq}I_{ij}I_{rs}$. The only nonzero term occurs when $i = q$ and $j = r$, so $I_{pq}AI_{rs} = a_{qr}I_{ps}$.
+
+\end{enumerate}
+\end{supsol}
+\end{supex}
+
+\begin{supex}
+A matrix of the form $aI_{n}$, where $a$ is a number, is called an $n \times n$ \textbf{scalar matrix}\index{scalar matrix}\index{square matrix ($n \times n$ matrix)!scalar matrix}.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that each $n \times n$ scalar matrix commutes with every $n \times n$ matrix.
+
+\item Show that $A$ is a scalar matrix if it commutes with every $n \times n$ matrix. [\textit{Hint}: See part (d.) of Exercise~\ref{ex:ex2_suppl_6}.]
+
+\end{enumerate}
+\begin{supsol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $A = \left[a_{ij}\right] = \sum_{ij}a_{ij}I_{ij}$, then $I_{pq}AI_{rs} = a_{qr}I_{ps}$ by 6(d). But then $a_{qr}I_{ps} = AI_{pq}I_{rs} = 0$ if $q \neq r$, so $a_{qr} = 0$ if $q \neq r$. If $q = r$, then $a_{qq}I_{ps} = AI_{pq}I_{rs} = AI_{ps}$ is independent of $q$. Thus $a_{qq} = a_{11}$ for all $q$.
+
+\end{enumerate}
+\end{supsol}
+\end{supex}
+
+\begin{supex}
+Let $M = \leftB \begin{array}{rr}
+A & B \\
+C & D
+\end{array} \rightB$,
+ where $A$, $B$, $C$, and $D$ are all $n \times n$ and each commutes with all the others. If $M^{2} = 0$, show that $(A + D)^{3} = 0$. [\textit{Hint}: First show that $A^{2} = -BC = D^{2}$ and that 
+\begin{equation*}
+B(A + D) = 0 = C(A + D).]
+\end{equation*}
+
+
+\end{supex}
+
+\begin{supex}
+If $A$ is $2 \times 2$, show that $A^{-1} = A^{T}$ if and only if $A = \leftB \begin{array}{rr}
+\cos \theta & \sin \theta \\
+-\sin \theta & \cos \theta
+\end{array} \rightB$
+ for some $\theta$ or \newline $A = \leftB \begin{array}{rr}
+ \cos \theta & \sin \theta \\
+ \sin \theta & -\cos \theta
+ \end{array} \rightB$
+ for some $\theta$.
+
+
+[\textit{Hint}: If $a^{2} + b^{2} = 1$, then $a = \cos \theta$, $b = \sin \theta$ for some $\theta$. Use 
+\begin{equation*}
+\cos(\theta - \phi) = \cos \theta \cos \phi + \sin \theta \sin \phi.]
+\end{equation*}
+
+\end{supex}
+
+\begin{supex}
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$,
+ show that $A^{2} = I$.
+
+\item What is wrong with the following argument? If $A^{2} = I$, then $A^{2} - I = 0$, so $(A - I)(A + I) = 0$, whence $A = I$ or $A = -I$.
+
+\end{enumerate}
+\end{supex}
+
+\begin{supex}
+Let $E$ and $F$ be elementary matrices obtained from the identity matrix by adding multiples of row $k$ to rows $p$ and $q$. If $k \neq p$ and $k \neq q$, show that $EF = FE$.
+
+\end{supex}
+
+\begin{supex}
+If $A$ is a $2 \times 2$ real matrix, $A^{2} = A$ and $A^{T} = A$, show that either $A$ is one of $\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 0
+\end{array} \rightB$, \\ $\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB$, $\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB$, $\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB$, or $A = \leftB \begin{array}{cc}
+a & b \\
+b & 1 - a
+\end{array} \rightB$
+ where $a^{2} + b^{2} = a$, $-\frac{1}{2} \leq b \leq \frac{1}{2}$ and $b \neq 0$.
+
+\end{supex}
+
+\begin{supex}
+Show that the following are equivalent for matrices $P$, $Q$:
+
+
+\begin{enumerate}
+\item $P$, $Q$, and $P + Q$ are all invertible and 
+\begin{equation*}
+(P + Q)^{-1} = P^{-1} + Q^{-1}
+\end{equation*}
+
+\item $P$ is invertible and $Q = PG$ where $G^{2} + G + I = 0$.
+
+\end{enumerate}
+\end{supex}
+
+\end{multicols}

@@ -1,0 +1,2005 @@
+\newpage
+\section{Matrix-Vector Multiplication}
+\label{sec:2_2}
+
+Up to now we have used matrices to solve systems of linear equations by manipulating the rows of the augmented matrix. In this section we introduce a different way of describing linear systems that makes more use of the coefficient matrix of the system and leads to a useful way of ``multiplying'' matrices.
+
+
+\subsection*{Vectors}
+
+
+It is a well-known fact in analytic geometry\index{analytic geometry} that two points in the plane with coordinates $(a_{1}, a_{2})$ and $(b_{1}, b_{2})$ are equal if and only if $a_{1} = b_{1}$ and $a_{2} = b_{2}$. Moreover, a similar condition applies to points $(a_{1}, a_{2}, a_{3})$ in space. We extend this idea as follows.
+
+
+An ordered sequence $(a_{1}, a_{2}, \dots, a_{n})$ of real numbers\index{real numbers}\index{sequences!ordered sequence of real numbers} is called an \textbf{ordered} $\bm{n}$\textbf{-tuple}\index{ordered $n$-tuple}. The word ``ordered'' here reflects our insistence that two ordered $n$-tuples are equal if and only if corresponding entries are the same. In other words, 
+\begin{equation*}
+(a_{1}, a_{2}, \dots, a_{n}) = (b_{1}, b_{2}, \dots, b_{n}) \quad \mbox{if and only if} \quad a_{1} = b_{1}, a_{2} = b_{2}, \dots, \mbox{ and } a_{n} = b_{n}.
+\end{equation*}
+Thus the ordered $2$-tuples and $3$-tuples are just the ordered pairs and triples familiar from geometry.
+
+
+\begin{definition}{The set $\RR^n$ of ordered $n$-tuples of real numbers}{002606}
+Let $\RR$ denote the set of all real numbers. The set of {\normalfont all} ordered $n$-tuples from $\RR$ has a special notation:\index{set of all ordered $n$-tuples ($\RR^n$)!notation}
+\begin{equation*}
+\RR^{n} \mbox{ denotes the set of all ordered }n\mbox{-tuples of real numbers.}
+\end{equation*}
+\end{definition}
+
+There are two commonly used ways to denote the $n$-tuples in $\RR^{n}$: As rows $(r_{1}, r_{2}, \dots, r_{n})$ or columns\index{column matrix} $\leftB \begin{array}{c}
+r_{1} \\
+r_{2} \\
+\vdots \\
+r_{n}
+\end{array} \rightB$;
+ the notation we use depends on the context. In any event they are called \textbf{vectors}\index{vectors!defined} or $n$-\textbf{vectors}\index{$n$-vectors} and will be denoted using bold type such as $\vect{x}$ or $\vect{v}$. For example, an $m \times n$ matrix $A$ will be written as a row of columns:
+\begin{equation*}
+A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB \mbox{ where } \vect{a}_{j} \mbox{ denotes column } j \mbox{ of } A \mbox{ for each } j.
+\end{equation*}
+If $\vect{x}$ and $\vect{y}$ are two $n$-vectors in $\RR^n$, it is clear that their matrix sum $\vect{x} + \vect{y}$ is also in $\RR^n$ as is the scalar multiple $k\vect{x}$ for any real number $k$. We express this observation by saying that $\RR^n$ is \textbf{closed} under addition\index{closed under addition}\index{addition!closed under addition} and scalar multiplication\index{closed under scalar multiplication}\index{scalar multiplication!closed under}\index{set of all ordered $n$-tuples ($\RR^n$)!closed under addition and scalar multiplication}. In particular, all the basic properties in Theorem~\ref{thm:002170} are true of these $n$-vectors. These properties are fundamental and will be used frequently below without comment. As for matrices in general, the $n \times 1$ zero matrix is called the \textbf{zero} $\bm{n}$\textbf{-vector}\index{zero $n$-vector}\index{vectors!zero $n$-vector} in $\RR^n$ and, if $\vect{x}$ is an $n$-vector, the $n$-vector $-\vect{x}$ is called the \textbf{negative} $\vect{x}$\index{negative $x$}\index{negative!vector}\index{vectors!negative}.
+
+
+Of course, we have already encountered these $n$-vectors in Section~\ref{sec:1_3} as the solutions to systems of linear equations with $n$ variables. In particular we defined the notion of a linear combination of vectors and showed that a linear combination of solutions to a homogeneous system is again a solution. Clearly, a linear combination of $n$-vectors in $\RR^n$ is again in $\RR^n$, a fact that we will be using.
+
+
+\subsection*{Matrix-Vector Multiplication}
+
+
+Given a system of linear equations, the left sides of the equations depend only on the coefficient matrix $A$ and the column $\vect{x}$ of variables, and not on the constants. This observation leads to a fundamental idea in linear algebra: We view the left sides of the equations as the ``product'' $A\vect{x}$ of the matrix $A$ and the vector $\vect{x}$. This simple change of perspective leads to a completely new way of viewing linear systems---one that is very useful and will occupy our attention throughout this book.\index{multiplication!matrix-vector multiplication}\index{vectors!matrix-vector multiplication}
+
+To motivate the definition of the ``product'' $A\vect{x}$, consider first the following system of two equations in three variables:
+\begin{equation}\label{eq:linsystem}
+\arraycolsep=1pt
+\begin{array}{rrrrrrr}
+ax_{1} & + & bx_{2} & + & cx_{3} & = & b_{1} \\
+a^{\prime}x_{1} & + & b^{\prime}x_{2} & + & c^{\prime}x_{3} & = & b_{1}
+\end{array}
+\end{equation}
+and let $A = \leftB \begin{array}{ccc}
+a & b & c \\
+a^\prime & b^\prime & c^\prime
+\end{array} \rightB$, 
+$\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array} \rightB$, 
+$\vect{b} = \leftB \begin{array}{c}
+b_{1} \\
+b_{2}
+\end{array} \rightB$ denote the coefficient matrix, the variable matrix, and the constant matrix, respectively. The system (\ref{eq:linsystem}) can be expressed as a single vector equation \index{single vector equation}\index{vectors!single vector equation}
+\begin{equation*}
+\leftB \arraycolsep=1pt \begin{array}{rrrrr}
+ax_{1} & + & bx_{2} & + & cx_{3} \\
+a^\prime x_{1} & + & b^\prime x_{2} & + & c^\prime x_{3}
+\end{array} \rightB = \leftB \begin{array}{c}
+b_{1} \\
+b_{2}
+\end{array} \rightB
+\end{equation*}
+which in turn can be written as follows:
+\begin{equation*}
+x_{1} \leftB \begin{array}{c}
+a \\
+a^\prime
+\end{array} \rightB + 
+x_{2} \leftB \begin{array}{c}
+b \\
+b^\prime
+\end{array} \rightB + 
+x_{3} \leftB \begin{array}{c}
+c \\
+c^\prime
+\end{array} \rightB = \leftB \begin{array}{c}
+b_{1} \\
+b_{2}
+\end{array} \rightB
+\end{equation*}
+Now observe that the vectors appearing on the left side are just the columns
+\begin{equation*}
+\vect{a}_{1} = \leftB \begin{array}{c}
+a \\
+a^\prime
+\end{array} \rightB, 
+\vect{a}_{2} = \leftB \begin{array}{c}
+b \\
+b^\prime
+\end{array} \rightB, \mbox{ and }
+\vect{a}_{3} = \leftB \begin{array}{c}
+c \\
+c^\prime
+\end{array} \rightB
+\end{equation*}
+of the coefficient matrix $A$. Hence the system (\ref{eq:linsystem}) takes the form
+\begin{equation} \label{eq:linsystem2}
+x_{1}\vect{a}_{1} + x_{2}\vect{a}_{2} + x_{3}\vect{a}_{3} = \vect{b}
+\end{equation} 
+This shows that the system (\ref{eq:linsystem}) has a solution if and only if the constant matrix $\vect{b}$ is a linear combination\footnote{Linear combinations were introduced in Section~\ref{sec:1_3} to describe the solutions of homogeneous systems of linear equations. They will be used extensively in what follows.} of the columns of $A$, and that in this case the entries of the solution are the coefficients $x_{1}$, $x_{2}$, and $x_{3}$ in this linear combination.
+
+
+Moreover, this holds in general. If $A$ is any $m \times n$ matrix, it is often convenient to view $A$ as a row of columns. That is, if $\vect{a}_{1}, \vect{a}_{2}, \dots, \vect{a}_{n}$ are the columns of $A$, we write
+\begin{equation*}
+A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB
+\end{equation*} 
+and say that $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ is \textit{given in terms of its columns}.
+
+
+Now consider any system of linear equations with $m \times n$ coefficient matrix $A$. If $\vect{b}$ is the constant matrix of the system, and if $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{array} \rightB$
+ is the matrix of variables then, exactly as above, the system can be written as a single vector equation
+\begin{equation} \label{eq:singlevector}
+x_{1}\vect{a}_{1} + x_{2}\vect{a}_{2} + \dots + x_{n}\vect{a}_{n} = \vect{b}
+\end{equation}
+\begin{example}{}{002659}
+Write the system 
+$\left\lbrace
+\arraycolsep=1pt
+\begin{array}{rrrrrrr}
+3x_{1} & + & 2x_{2} & - & 4x_{3} & = & 0 \\
+x_{1} & - & 3x_{2} & + & x_{3} & = & 3 \\
+& & x_{2} & - & 5x_{3} & = & -1
+\end{array} \right.$
+ in the form given in  (\ref{eq:singlevector}).
+
+
+\begin{solution}
+\begin{equation*}
+x_{1} \leftB \begin{array}{r}
+3 \\
+1 \\
+0
+\end{array} \rightB + 
+x_{2} \leftB \begin{array}{r}
+2 \\
+-3 \\
+1
+\end{array} \rightB + 
+x_{3} \leftB \begin{array}{r}
+-4 \\
+1 \\
+-5
+\end{array} \rightB =
+\leftB \begin{array}{r}
+0 \\
+3 \\
+-1
+\end{array} \rightB
+\end{equation*}
+\end{solution}
+\end{example}
+
+As mentioned above, we view the left side of (\ref{eq:singlevector}) as the \textit{product} of the matrix $A$ and the vector $\vect{x}$. This basic idea is formalized in the following definition:
+
+
+\begin{definition}{Matrix-Vector Multiplication}{002668}
+Let $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ be an $m \times n$ matrix, written in terms of its columns $\vect{a}_{1}, \vect{a}_{2}, \dots, \vect{a}_{n}$. If $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{array} \rightB$
+ is any n-vector, the \textbf{product}\index{matrix-vector products}\index{multiplication!matrix-vector products}\index{matrix algebra!matrix-vector multiplication}\index{product!matrix-vector products}\index{vectors!matrix-vector products} $A\vect{x}$ is defined to be the $m$-vector given by:
+\begin{equation*}
+A\vect{x} = x_{1}\vect{a}_{1} + x_{2}\vect{a}_{2} + \cdots + x_{n}\vect{a}_{n}
+\end{equation*}
+\end{definition}
+
+
+\noindent In other words, if $A$ is $m \times n$ and $\vect{x}$ is an $n$-vector, the product $A\vect{x}$ is the linear combination of the columns of $A$ where the coefficients are the entries of $\vect{x}$ (in order).\index{linear combinations!of columns of coefficient matrix}
+
+
+Note that if $A$ is an $m \times n$ matrix, the product $A\vect{x}$ is only defined if $\vect{x}$ is an $n$-vector and then the vector $A\vect{x}$ is an $m$-vector because this is true of each column $\vect{a}_{j}$ of $A$. But in this case the \textit{system} of linear equations with coefficient matrix $A$ and constant vector $\vect{b}$ takes the form of a \textit{single} matrix equation\index{system of linear equations!with $m \times n$ coefficient matrix}
+\begin{equation*}
+A\vect{x} = \vect{b}
+\end{equation*}
+The following theorem combines Definition~\ref{def:002668} and equation (\ref{eq:singlevector}) and summarizes the above discussion. Recall that a system of linear equations is said to be \textit{consistent} if it has at least one solution.
+
+
+\begin{theorem}{}{002684}
+\begin{enumerate}
+\item Every system of linear equations has the form $A\vect{x} = \vect{b}$ where $A$ is the coefficient matrix, $\vect{b}$ is the constant matrix, and $\vect{x}$ is the matrix of variables.
+
+\item The system $A\vect{x} = \vect{b}$ is consistent if and only if $\vect{b}$ is a linear combination of the columns of $A$.
+
+\item If $\vect{a}_{1}, \vect{a}_{2}, \dots, \vect{a}_{n}$ are the columns of $A$ and if $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{array} \rightB$, then $\vect{x}$ is a solution to the linear system $A\vect{x} = \vect{b}$ if and only if $x_{1}, x_{2}, \dots, x_{n}$ are a solution of the vector equation 
+\begin{equation*}
+x_{1}\vect{a}_{1} + x_{2}\vect{a}_{2} + \cdots  + x_{n}\vect{a}_{n} = \vect{b}
+\end{equation*}
+\end{enumerate}
+\end{theorem}
+
+\noindent A system of linear equations in the form $A\vect{x} = \vect{b}$ as in (1) of Theorem~\ref{thm:002684} is said to be written in \textbf{matrix form}\index{matrix form!defined}. This is a useful way to view linear systems as we shall see.
+
+
+Theorem~\ref{thm:002684} transforms the problem of solving the linear system $A\vect{x} = \vect{b}$ into the problem of expressing the constant matrix $B$ as a linear combination of the columns of the coefficient matrix $A$. Such a change in perspective is very useful because one approach or the other may be better in a particular situation; the importance of the theorem is that there is a choice.
+
+\begin{example}{}{002708}
+If $A = \leftB \begin{array}{rrrr}
+2 & -1 & 3 & 5 \\
+0 & 2 & -3 & 1 \\
+-3 & 4 & 1 & 2 
+\end{array} \rightB$ and
+$\vect{x} = \leftB \begin{array}{r}
+2 \\
+1 \\
+0 \\
+-2
+\end{array} \rightB$, compute $A\vect{x}$.
+
+
+\begin{solution}
+  By Definition~\ref{def:002668}: 
+  $A\vect{x} = 2 \leftB \begin{array}{r}
+  2 \\
+  0 \\
+  -3
+  \end{array} \rightB + 1
+  \leftB \begin{array}{r}
+  -1 \\
+  2 \\
+  4
+  \end{array} \rightB + 0
+  \leftB \begin{array}{r}
+  3 \\
+  -3 \\
+  1
+  \end{array} \rightB - 2
+  \leftB \begin{array}{r}
+  5 \\
+  1 \\
+  2
+  \end{array} \rightB =
+  \leftB \begin{array}{r}
+  -7 \\
+  0 \\
+  -6
+  \end{array} \rightB$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{002717}
+Given columns $\vect{a}_{1}$, $\vect{a}_{2}$, $\vect{a}_{3}$, and $\vect{a}_{4}$ in $\RR^3$, write $2\vect{a}_{1} - 3\vect{a}_{2} + 5\vect{a}_{3} + \vect{a}_{4}$ in the form $A\vect{x}$ where $A$ is a matrix and $\vect{x}$ is a vector.
+
+
+\begin{solution}
+  Here the column of coefficients is 
+  $
+  \vect{x} = \leftB \begin{array}{r}
+  2 \\
+  -3 \\
+  5 \\
+  1
+  \end{array} \rightB. $
+ Hence Definition~\ref{def:002668} gives
+\begin{equation*}
+A\vect{x} = 2\vect{a}_{1} - 3\vect{a}_{2} + 5\vect{a}_{3} + \vect{a}_{4}
+\end{equation*}
+where $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \vect{a}_{3} & \vect{a}_{4}
+\end{array} \rightB$ is the matrix with $\vect{a}_{1}$, $\vect{a}_{2}$, $\vect{a}_{3}$, and $\vect{a}_{4}$ as its columns.
+\end{solution}
+\end{example}
+
+
+\begin{example}{}{002742}
+Let $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \vect{a}_{3} & \vect{a}_{4}
+\end{array} \rightB$ be the $3 \times 4$ matrix given in terms of its columns 
+$\vect{a}_{1} = \leftB \begin{array}{r}
+2 \\
+0 \\
+-1
+\end{array} \rightB$, $\vect{a}_{2} = \leftB \begin{array}{r}
+1 \\
+1 \\
+1
+\end{array} \rightB$, 
+$\vect{a}_{3} = \leftB \begin{array}{r}
+3 \\
+-1 \\
+-3
+\end{array} \rightB$, and 
+$\vect{a}_{4} = \leftB \begin{array}{r}
+3 \\
+1 \\
+0
+\end{array} \rightB$.
+ In each case below, either express $\vect{b}$ as a linear combination of $\vect{a}_{1}$, $\vect{a}_{2}$, $\vect{a}_{3}$, and $\vect{a}_{4}$, or show that it is not such a linear combination. Explain what your answer means for the corresponding system $A\vect{x} = \vect{b}$ of linear equations.
+\begin{multicols}{2}
+\begin{enumerate}[label={\alph*.}]
+\item
+$\vect{b} = \leftB \begin{array}{r}
+1 \\
+2 \\
+3
+\end{array} \rightB
+$
+
+\columnbreak
+\item 
+$\vect{b} = \leftB \begin{array}{r}
+4 \\
+2 \\
+1
+\end{array} \rightB$
+
+\end{enumerate}
+\end{multicols}
+
+\begin{solution}
+  By Theorem~\ref{thm:002684}, $\vect{b}$ is a linear combination of $\vect{a}_{1}$, $\vect{a}_{2}$, $\vect{a}_{3}$, and $\vect{a}_{4}$ if and only if the system $A\vect{x} = \vect{b}$ is consistent (that is, it has a solution). So in each case we carry the augmented matrix $\leftB A|\vect{b} \rightB$ of the system $A\vect{x} = \vect{b}$ to reduced form.
+
+\begin{enumerate}[label={\alph*.}]
+\item Here 
+$
+\leftB \begin{array}{rrrr|r}
+2 & 1 & 3 & 3 & 1 \\
+0 & 1 & -1 & 1 & 2 \\
+-1 & 1 & -3 & 0 & 3
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrr|r}
+1 & 0 & 2 & 1 & 0 \\
+0 & 1 & -1 & 1 & 0 \\
+0 & 0 & 0 & 0 & 1
+\end{array} \rightB$, so the system $A\vect{x} = \vect{b}$ has no solution in this case. Hence $\vect{b}$ is \textit{not} a linear combination of $\vect{a}_{1}$, $\vect{a}_{2}$, $\vect{a}_{3}$, and $\vect{a}_{4}$.
+
+\item Now
+$
+\leftB \begin{array}{rrrr|r}
+2 & 1 & 3 & 3 & 4 \\
+0 & 1 & -1 & 1 & 2 \\
+-1 & 1 & -3 & 0 & 1
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrr|r}
+1 & 0 & 2 & 1 & 1 \\
+0 & 1 & -1 & 1 & 2 \\
+0 & 0 & 0 & 0 & 0
+\end{array} \rightB$, so the system $A\vect{x} = \vect{b}$ is consistent.
+
+\end{enumerate}
+
+Thus $\vect{b}$ is a linear combination of $\vect{a}_{1}$, $\vect{a}_{2}$, $\vect{a}_{3}$, and $\vect{a}_{4}$ in this case. In fact the general solution is $x_{1} = 1 - 2s - t$, $x_{2} = 2 + s - t$, $x_{3} = s$, and $x_{4} = t$ where $s$ and $t$ are arbitrary parameters. Hence $x_{1}\vect{a}_{1} + x_{2}\vect{a}_{2} + x_{3}\vect{a}_{3} + x_{4}\vect{a}_{4} = \vect{b} = \leftB \begin{array}{r}
+4 \\
+2 \\
+1
+\end{array} \rightB$
+ for \textit{any} choice of $s$ and $t$. If we take $s = 0$ and $t = 0$, this becomes $\vect{a}_{1} + 2\vect{a}_{2} = \vect{b}$, whereas taking $s = 1 = t$ gives $-2\vect{a}_{1} + 2\vect{a}_{2} + \vect{a}_{3} + \vect{a}_{4} = \vect{b}$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{002796}
+Taking $A$ to be the zero matrix, we have $0\vect{x} = \vect{0}$ for all vectors $\vect{x}$ by Definition~\ref{def:002668} because every column of the zero matrix is zero. Similarly, $A\vect{0} = \vect{0}$ for all matrices $A$ because every entry of the zero vector is zero.
+\end{example}
+
+\begin{example}{}{002799}
+If $I = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$, show that $I\vect{x} = \vect{x}$ for any vector $\vect{x}$ in $\RR^3$.
+
+
+\begin{solution}
+  If $\vect{x} = \leftB \begin{array}{r}
+  x_{1} \\
+  x_{2} \\
+  x_{3}
+  \end{array} \rightB$
+ then Definition~\ref{def:002668} gives
+\begin{equation*}
+I\vect{x} = x_{1} \leftB \begin{array}{r}
+1 \\
+0 \\
+0 \\
+\end{array} \rightB +
+x_{2} \leftB \begin{array}{r}
+0 \\
+1 \\
+0 \\
+\end{array} \rightB +
+x_{3} \leftB \begin{array}{r}
+0 \\
+0 \\
+1 \\
+\end{array} \rightB =
+\leftB \begin{array}{r}
+x_{1} \\
+0 \\
+0 \\
+\end{array} \rightB +
+\leftB \begin{array}{r}
+0 \\
+x_{2} \\
+0 \\
+\end{array} \rightB +
+\leftB \begin{array}{r}
+0 \\
+0 \\
+x_{3} \\
+\end{array} \rightB =
+\leftB \begin{array}{r}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+\end{array} \rightB = \vect{x}
+\end{equation*}
+\end{solution}
+\end{example}
+
+The matrix $I$ in Example~\ref{exa:002799} is called the $3 \times 3$ \textbf{identity matrix}\index{identity matrix}\index{matrix!identity matrix}\index{square matrix ($n \times n$ matrix)!identity matrix}, and we will encounter such matrices again in Example~\ref{exa:002949} below. Before proceeding, we develop some algebraic properties of matrix-vector multiplication that are used extensively throughout linear algebra.
+
+\begin{theorem}{}{002811}
+Let $A$ and $B$ be $m \times n$ matrices, and let $\vect{x}$ and $\vect{y}$ be $n$-vectors in $\RR^n$. Then:
+
+
+\begin{enumerate}
+\item $A(\vect{x} + \vect{y}) = A\vect{x} + A\vect{y}$.
+
+\item $A(a\vect{x}) = a(A\vect{x}) = (aA)\vect{x}$ for all scalars $a$.
+
+\item $(A + B)\vect{x} = A\vect{x} + B\vect{x}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We prove (3); the other verifications are similar and are left as exercises. Let $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ and $B = \leftB \begin{array}{cccc}
+\vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{n}
+\end{array} \rightB$ be given in terms of their columns. Since adding two matrices is the same as adding their columns, we have
+\begin{equation*}
+A + B = \leftB \begin{array}{cccc}
+\vect{a}_{1} + \vect{b}_{1} & \vect{a}_{2} + \vect{b}_{2} & \cdots & \vect{a}_{n} + \vect{b}_{n}
+\end{array} \rightB
+\end{equation*}
+If we write $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{array} \rightB$
+Definition~\ref{def:002668} gives
+\begin{align*}
+(A + B)\vect{x} &= x_{1}(\vect{a}_{1} + \vect{b}_{1}) + x_{2}(\vect{a}_{2} + \vect{b}_{2}) + \dots + x_{n}(\vect{a}_{n} + \vect{b}_{n}) \\
+&= (x_{1}\vect{a}_{1} + x_{2}\vect{a}_{2} + \dots + x_{n}\vect{a}_{n}) + (x_{1}\vect{b}_{1} + x_{2}\vect{b}_{2} + \dots + x_{n}\vect{b}_{n})\\
+&= A\vect{x} + B\vect{x}
+\end{align*}
+\end{proof}
+
+\noindent Theorem~\ref{thm:002811} allows matrix-vector computations to be carried out much as in ordinary arithmetic. For example, for any $m \times n$ matrices $A$ and $B$ and any $n$-vectors $\vect{x}$ and $\vect{y}$, we have:
+\begin{equation*}
+A(2\vect{x} - 5\vect{y}) = 2A\vect{x} - 5A\vect{y} \quad \mbox{ and } \quad (3A -7B)\vect{x} = 3A\vect{x} - 7B\vect{x}
+\end{equation*}
+We will use such manipulations throughout the book, often without mention.
+
+\subsection*{Linear Equations}
+
+Theorem~\ref{thm:002811} also gives a useful way to describe the solutions to a system
+\begin{equation*}
+A\vect{x} = \vect{b}
+\end{equation*}
+of linear equations. There is a related system
+\begin{equation*}
+A\vect{x} = \vect{0}
+\end{equation*}
+called the \textbf{associated homogeneous system}\index{associated homogeneous system}\index{homogeneous equations!associated homogeneous system}\index{system of linear equations!associated homogeneous system}, obtained from the original system $A\vect{x} = \vect{b}$ by replacing all the constants by zeros. Suppose $\vect{x}_{1}$ is a solution to $A\vect{x} = \vect{b}$ and $\vect{x}_{0}$ is a solution to $A\vect{x} = \vect{0}$ (that is $A\vect{x}_{1} = \vect{b}$ and $A\vect{x}_{0} = \vect{0}$). Then $\vect{x}_{1} + \vect{x}_{0}$ is another solution to $A\vect{x} = \vect{b}$. Indeed, Theorem~\ref{thm:002811} gives
+\begin{equation*}
+A(\vect{x}_{1} + \vect{x}_{0}) = A\vect{x}_{1} + A\vect{x}_{0} = \vect{b} + \vect{0} = \vect{b}
+\end{equation*}
+This observation has a useful converse.
+
+
+\begin{theorem}{}{002849}
+Suppose $\vect{x}_{1}$ is any particular solution to the system $A\vect{x} = \vect{b}$ of linear equations. Then every solution $\vect{x}_{2}$ to $A\vect{x} = \vect{b}$ has the form
+\begin{equation*}
+\vect{x}_{2} = \vect{x}_{0} + \vect{x}_{1}
+\end{equation*}
+for some solution $\vect{x}_{0}$ of the associated homogeneous system $A\vect{x} = \vect{0}$.
+\end{theorem}
+
+\begin{proof}
+Suppose $\vect{x}_{2}$ is also a solution to $A\vect{x} = \vect{b}$, so that $A\vect{x}_{2} = \vect{b}$. Write $\vect{x}_{0} = \vect{x}_{2} - \vect{x}_{1}$. Then $\vect{x}_{2} = \vect{x}_{0} + \vect{x}_{1}$ and, using Theorem~\ref{thm:002811}, we compute
+\begin{equation*}
+A\vect{x}_{0} = A(\vect{x}_{2} - \vect{x}_{1}) = A\vect{x}_{2} - A\vect{x}_{1} = \vect{b} - \vect{b} = \vect{0}
+\end{equation*}
+Hence $\vect{x}_{0}$ is a solution to the associated homogeneous system $A\vect{x} = \vect{0}$.
+\end{proof}
+
+\noindent Note that gaussian elimination provides one such representation.
+
+\begin{example}{}{002871}
+Express every solution to the following system as the sum of a specific solution plus a solution to the associated homogeneous system.
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rrrrrrrrr}
+x_{1} & - & x_{2} & - & x_{3} & + & 3x_{4} & = & 2 \\
+2x_{1} & - & x_{2} & - & 3x_{3}&  + & 4x_{4} & = & 6 \\
+x_{1} & & & - & 2x_{3} & + & x_{4} & = & 4
+\end{array}
+\end{equation*}
+
+\newpage
+\begin{solution}
+  Gaussian elimination gives $x_{1} = 4 + 2s - t$, $x_{2} = 2 + s + 2t$, $x_{3} = s$, and $x_{4} = t$ where $s$ and $t$ are arbitrary parameters. Hence the general solution can be written
+\begin{equation*}
+\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array} \rightB = 
+\leftB \begin{array}{c}
+4 + 2s - t \\
+2 + s + 2t \\
+s \\
+t
+\end{array} \rightB = 
+\leftB \begin{array}{r}
+4 \\
+2 \\
+0 \\
+0
+\end{array} \rightB +
+\left( s \leftB \begin{array}{r}
+2 \\
+1 \\
+1 \\
+0
+\end{array} \rightB + t \leftB \begin{array}{r}
+-1 \\
+2 \\
+0 \\
+1
+\end{array} \rightB \right)
+\end{equation*}
+Thus 
+$\vect{x}_1 = \leftB \begin{array}{r}
+4 \\
+2 \\
+0 \\
+0
+\end{array} \rightB$
+ is a particular solution (where $s = 0 = t$), and 
+$
+\vect{x}_{0} = s \leftB \begin{array}{r}
+2 \\
+1 \\
+1 \\
+0
+\end{array} \rightB + t \leftB \begin{array}{r}
+-1 \\
+2 \\
+0 \\
+1
+\end{array} \rightB$ gives \textit{all} solutions to the associated homogeneous system. (To see why this is so, carry out the gaussian elimination again but with all the constants set equal to zero.)
+\end{solution}
+\end{example}
+
+The following useful result is included with no proof.
+
+\begin{theorem}{}{theorem224}
+Let $A\vect{x} = \vect{b}$ be a system of equations with augmented matrix $\leftB \begin{array}{c|c} A & \vect{b}
+\end{array}\rightB$. Write $\func{rank} A = r$. 
+\begin{enumerate}
+\item $\func{rank} \leftB \begin{array}{c|c} A & \vect{b}
+\end{array}\rightB$ is either $r$ or $r+1$.
+\item The system is consistent if and only if $\func{rank} \leftB \begin{array}{c|c} A & \vect{b}
+\end{array}\rightB = r$.
+\item The system is inconsistent if and only if $\func{rank} \leftB \begin{array}{c|c} A & \vect{b}
+\end{array}\rightB = r+1$.
+\end{enumerate}
+\end{theorem}
+
+\subsection*{The Dot Product}
+
+
+Definition~\ref{def:002668} is not always the easiest way to compute a matrix-vector product $A\vect{x}$ because it requires that the columns of $A$ be explicitly identified. There is another way to find such a product which uses the matrix $A$ as a whole with no reference to its columns, and hence is useful in practice. The method depends on the following notion.
+
+
+\begin{definition}{Dot Product in $\RR^n$}{002889}
+If $(a_{1}, a_{2}, \dots, a_{n})$ and $(b_{1}, b_{2}, \dots, b_{n})$ are two ordered $n$-tuples, their \textbf{dot product}\index{dot product!of two ordered $n$-tuples}\index{matrix algebra!dot product} is defined to be the number
+\begin{equation*}
+a_{1}b_{1} + a_{2}b_{2} + \dots + a_{n}b_{n}
+\end{equation*}
+obtained by multiplying corresponding entries and adding the results.
+\end{definition}
+
+\noindent To see how this relates to matrix products, let $A$ denote a $3 \times 4$ matrix and let $\vect{x}$ be a $4$-vector. Writing
+\begin{equation*}
+\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array} \rightB \quad \mbox{ and } \quad
+A = \leftB \begin{array}{cccc}
+a_{11} & a_{12} & a_{13} & a_{14} \\
+a_{21} & a_{22} & a_{23} & a_{24} \\
+a_{31} & a_{32} & a_{33} & a_{34}
+\end{array} \rightB 
+\end{equation*}
+in the notation of Section~\ref{sec:2_1}, we compute
+\begin{align*}
+A\vect{x} = \leftB \begin{array}{cccc}
+a_{11} & a_{12} & a_{13} & a_{14} \\
+a_{21} & a_{22} & a_{23} & a_{24} \\
+a_{31} & a_{32} & a_{33} & a_{34}
+\end{array} \rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array} \rightB &= x_{1} \leftB \begin{array}{c}
+a_{11} \\
+a_{21} \\
+a_{31}
+\end{array} \rightB + x_{2} \leftB \begin{array}{c}
+a_{12} \\
+a_{22} \\
+a_{32}
+\end{array} \rightB + x_{3} \leftB \begin{array}{c}
+a_{13} \\
+a_{23} \\
+a_{33}
+\end{array} \rightB + x_{4} \leftB \begin{array}{c}
+a_{14} \\
+a_{24} \\
+a_{34}
+\end{array} \rightB \\
+&= \leftB \begin{array}{c}
+a_{11}x_{1} + a_{12}x_{2} + a_{13}x_{3} + a_{14}x_{4} \\
+a_{21}x_{1} + a_{22}x_{2} + a_{23}x_{3} + a_{24}x_{4} \\
+a_{31}x_{1} + a_{32}x_{2} + a_{33}x_{3} + a_{34}x_{4}
+\end{array} \rightB
+\end{align*}
+From this we see that each entry of $A\vect{x}$ is the dot product of the corresponding row of $A$ with $\vect{x}$. This computation goes through in general, and we record the result in Theorem~\ref{thm:002903}.
+
+
+\begin{theorem}{Dot Product Rule}{002903}
+Let $A$ be an $m \times n$ matrix and let $\vect{x}$ be an $n$-vector. Then each entry of the vector $A\vect{x}$ is the dot product of the corresponding row of $A$ with $\vect{x}$.\index{dot product!dot product rule}
+\end{theorem}
+
+\noindent This result is used extensively throughout linear algebra.
+
+If $A$ is $m \times n$ and $\vect{x}$ is an $n$-vector, the computation of $A\vect{x}$ by the dot product rule is simpler than using Definition~\ref{def:002668} because the computation can be carried out directly with no explicit reference to the columns of $A$ (as in Definition~\ref{def:002668}). The first entry of $A\vect{x}$ is the dot product of row 1 of $A$ with $\vect{x}$. In hand calculations this is computed by going \textit{across} row one of $A$, going \textit{down} the column $\vect{x}$, multiplying corresponding entries, and adding the results. The other entries of $A\vect{x}$ are computed in the same way using the other rows of $A$ with the column $\vect{x}$.
+
+\begin{wrapfigure}[5]{l}{5cm}
+\begin{equation*}
+\leftB\begin{array}{ccc}
+ \; & \tn{A}{} & \;\\
+\tn{rowi1}{} & \tn{rowi}{} & \tn{rowi2}{}\\
+& & \\
+\end{array}\rightB
+\leftB\begin{array}{c}
+\tn{columnx1}{}\\
+ \\
+\tn{columnx2}{} \\
+\end{array}\rightB = 
+\leftB \begin{array}{c}
+\\
+\tn{ientry}{} \\
+\\
+\end{array}\rightB
+\end{equation*}
+\begin{tikzpicture}[remember picture, overlay]
+\draw[color=blue!30!gray,rounded corners]([xshift=-8pt, yshift=5pt]rowi1.west) rectangle ([xshift=5pt, yshift=-5pt]rowi2.east);
+\draw[-latex](rowi1)--(rowi2);
+\draw[color=blue!30!gray,rounded corners]([xshift=-7pt, yshift=5pt]columnx1.north)  rectangle ([xshift=5pt, yshift=-5pt]columnx2);
+\draw[-latex](columnx1)--(columnx2);
+\draw[color=blue!30!gray,rounded corners]([xshift=-8pt, yshift=5pt]ientry.west) rectangle ([xshift=6pt, yshift=-5pt]ientry.east);
+\node[below =0.75cm of rowi, font=\footnotesize] (rowlabel){row $i$};
+\draw[thin] (rowi.south)++(0,-0.1cm) to [bend right] (rowlabel.north);
+\node[below=0.75cm of ientry, font=\footnotesize] (ijlabel){entry $i$};
+\draw[thin] (ientry.south)++(0,-0.05cm) to [bend left] (ijlabel.north);
+\node[above=0.35cm of A, font=\footnotesize]{$A$};
+\node[above=0.35cm of columnx1, font=\footnotesize]{$\vect{x}$};
+\node[above=0.85cm of ientry, font=\footnotesize]{$A\vect{x}$};
+\end{tikzpicture}
+\end{wrapfigure}
+
+In general, compute entry $i$ of $A\vect{x}$ as follows (see the diagram):
+
+\begin{quotation}
+\noindent Go \textit{across} row $i$ of $A$ and \textit{down} column $\vect{x}$, multiply corresponding entries, and add the results.
+\end{quotation}
+
+\noindent As an illustration, we rework Example~\ref{exa:002708} using the dot product rule instead of Definition~\ref{def:002668}.
+
+
+\begin{example}{}{002915}
+If $A = \leftB \begin{array}{rrrr}
+2 & -1 & 3 & 5 \\
+0 & 2 & -3 & 1 \\
+-3 & 4 & 1 & 2
+\end{array} \rightB$
+ and $\vect{x} = \leftB \begin{array}{r}
+ 2 \\
+ 1 \\
+ 0 \\
+ -2
+ \end{array} \rightB$, compute $A\vect{x}$.
+
+
+\begin{solution}
+  The entries of $A\vect{x}$ are the dot products of the rows of $A$ with $\vect{x}$:
+\begin{equation*}
+A\vect{x} = \leftB \begin{array}{rrrr}
+2 & -1 & 3 & 5 \\
+0 & 2 & -3 & 1 \\
+-3 & 4 & 1 & 2
+\end{array} \rightB \leftB \begin{array}{r}
+ 2 \\
+1 \\
+0 \\
+-2
+\end{array} \rightB = \leftB \begin{array}{rrrrrrr}
+2 \cdot 2 & + & (-1)1 & + & 3 \cdot 0 & + & 5(-2) \\
+0 \cdot 2 & + & 2 \cdot 1 & + & (-3)0 & + & 1(-2) \\
+(-3)2 & + & 4 \cdot 1 & + & 1 \cdot 0 & + & 2(-2)
+\end{array} \rightB = \leftB \begin{array}{r}
+-7 \\
+0 \\
+-6
+\end{array} \rightB
+\end{equation*}
+Of course, this agrees with the outcome in Example~\ref{exa:002708}.
+\end{solution}
+\end{example}
+
+\begin{example}{}{002925}
+Write the following system of linear equations in the form $A\vect{x} = \vect{b}$.
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rrrrrrrrrrr}
+5x_{1} & - & x_{2} & + & 2x_{3} & + & x_{4} & - & 3x_{5} & = & 8 \\
+x_{1} & + & x_{2} & + & 3x_{3} & - & 5x_{4} & + & 2x_{5} & = & -2 \\
+-x_{1} & + & x_{2} & - & 2x_{3} & + & & - & 3x_{5} & = & 0
+\end{array}
+\end{equation*}
+\begin{solution}
+  Write $A = \leftB \begin{array}{rrrrr}
+ 5 & -1 & 2 & 1 & -3 \\
+ 1 & 1 & 3 & -5 & 2 \\
+ -1 & 1 & -2 & 0 & -3
+  \end{array} \rightB$, $\vect{b} = \leftB \begin{array}{r}
+  8 \\
+  -2 \\
+  0
+  \end{array} \rightB$, and $\vect{x} = \leftB \begin{array}{c}
+  x_{1} \\
+  x_{2} \\
+  x_{3} \\
+  x_{4} \\
+  x_{5}
+  \end{array} \rightB$. Then the dot product rule gives $A\vect{x} = \leftB \arraycolsep=1pt \begin{array}{rrrrrrrrr}
+ 5x_{1} & - & x_{2} & + & 2x_{3} & + & x_{4} & - & 3x_{5} \\
+ x_{1} & + & x_{2} & + & 3x_{3} & - & 5x_{4} & + & 2x_{5} \\
+ -x_{1} & + & x_{2} & - & 2x_{3} & & & - & 3x_{5}
+ \end{array} \rightB$, so the entries of $A\vect{x}$ are the left sides of the equations in the linear system. Hence the system becomes $A\vect{x} = \vect{b}$ because matrices are equal if and only corresponding entries are equal.
+\end{solution}
+\end{example}
+
+\begin{example}{}{002935}
+If $A$ is the zero $m \times n$ matrix, then $A\vect{x} = \vect{0}$ for each $n$-vector $\vect{x}$.
+
+
+\begin{solution}
+  For each $k$, entry $k$ of $A\vect{x}$ is the dot product of row $k$ of $A$ with $\vect{x}$, and this is zero because row $k$ of $A$ consists of zeros.
+\end{solution}
+\end{example}
+
+\begin{definition}{The Identity Matrix}{002941}
+For each $n > 2$, the \textbf{identity matrix}\index{identity matrix}\index{matrix!identity matrix}\index{square matrix ($n \times n$ matrix)!identity matrix} $I_{n}$ is the $n \times n$ matrix with 1s on the main diagonal (upper left to lower right), and zeros elsewhere.
+\end{definition}
+
+\noindent The first few identity matrices are
+\begin{equation*}
+I_{2} = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB, \quad I_{3} = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB, \quad I_{4} = \leftB \begin{array}{rrrr}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array} \rightB, \quad \dots
+\end{equation*}
+In Example~\ref{exa:002799} we showed that $I_{3}\vect{x} = \vect{x}$ for each $3$-vector $\vect{x}$ using Definition~\ref{def:002668}. The following result shows that this holds in general, and is the reason for the name.
+
+
+\begin{example}{}{002949}
+For each $n \geq 2$ we have $I_{n}\vect{x} = \vect{x}$ for each $n$-vector $\vect{x}$ in $\RR^n$.
+
+
+\begin{solution}
+  We verify the case $n = 4$. Given the $4$-vector $\vect{x} = \leftB \begin{array}{c}
+  x_{1} \\
+  x_{2} \\
+  x_{3} \\
+  x_{4}
+  \end{array} \rightB$
+ the dot product rule gives
+\begin{equation*}
+I_{4}\vect{x} = \leftB \begin{array}{rrrr}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array} \rightB = \leftB \begin{array}{c}
+x_{1} + 0 + 0 + 0 \\
+0 + x_{2} + 0 + 0 \\
+0 + 0 + x_{3} + 0 \\
+0 + 0 + 0 + x_{4}
+\end{array} \rightB = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array} \rightB = \vect{x}
+\end{equation*}
+In general, $I_{n}\vect{x} = \vect{x}$ because entry $k$ of $I_{n}\vect{x}$ is the dot product of row $k$ of $I_{n}$ with $\vect{x}$, and row $k$ of $I_{n}$ has $1$ in position $k$ and zeros elsewhere.
+\end{solution}
+\end{example}
+
+\begin{example}{}{002964}
+Let $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ be any $m \times n$ matrix with columns $\vect{a}_{1}, \vect{a}_{2}, \dots, \vect{a}_{n}$. If $\vect{e}_{j}$ denotes column $j$ of the $n \times n$ identity matrix $I_{n}$, then $A\vect{e}_{j} = \vect{a}_{j}$ for each $j = 1, 2, \dots, n$.
+
+
+\begin{solution}
+  Write $\vect{e}_{j} = \leftB \begin{array}{c}
+  t_{1} \\
+  t_{2} \\
+  \vdots \\
+  t_{n}
+  \end{array} \rightB$
+ where $t_{j} = 1$, but $t_{i} = 0$ for all $i \neq j$. Then Theorem~\ref{thm:002903} gives
+\begin{equation*}
+A\vect{e}_{j} = t_{1}\vect{a}_{1} + \dots + t_{j}\vect{a}_{j} + \dots + t_{n}\vect{a}_{n} = 0 + \dots + \vect{a}_{j} + \dots + 0 = \vect{a}_{j}
+\end{equation*}
+\end{solution}
+\end{example}
+
+Example~\ref{exa:002964} will be referred to later; for now we use it to prove:
+
+
+\begin{theorem}{}{002985}
+Let $A$ and $B$ be $m \times n$ matrices. If $A\vect{x} = B\vect{x}$ for all $\vect{x}$ in $\RR^n$, then $A = B$.
+\end{theorem}
+
+\begin{proof}
+Write $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ and $B = \leftB \begin{array}{cccc}
+\vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{n}
+\end{array} \rightB$ and in terms of their columns. It is enough to show that $\vect{a}_{k} = \vect{b}_{k}$ holds for all $k$. But we are assuming that $A\vect{e}_{k} = B\vect{e}_{k}$, which gives $\vect{a}_{k} = \vect{b}_{k}$ by Example~\ref{exa:002964}.
+\end{proof}
+
+We have introduced matrix-vector multiplication as a new way to think about systems of linear equations. But it has several other uses as well. It turns out that many geometric operations can be described using matrix multiplication, and we now investigate how this happens. As a bonus, this description provides a geometric ``picture'' of a matrix by revealing the effect on a vector when it is multiplied by $A$. This ``geometric view'' of matrices is a fundamental tool in understanding them.
+
+
+%\begin{wrapfigure}[7]{l}{5cm}
+%\centering
+%\vspace*{-1.5em}
+%\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/figure2.2.1}
+%\caption{\label{fig:003017}}
+%\vspace{1em}
+%\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/figure2.2.2}
+%\caption{\label{fig:003025}}
+%\end{wrapfigure}
+
+\subsection*{Transformations}
+\index{matrix algebra!transformations}
+
+The set $\RR^2$ has a geometrical interpretation as the euclidean plane where a vector $\leftB \begin{array}{c}
+a_{1} \\
+a_{2}
+\end{array} \rightB$
+ in $\RR^2$ represents the point $(a_{1}, a_{2})$ in the plane (see Figure~\ref{fig:003017}). In this way we regard $\RR^2$ as the set of all points in the plane. Accordingly, we will refer to vectors in $\RR^2$ as points, and denote their coordinates as a column rather than a row. To enhance this geometrical interpretation of the vector $\leftB \begin{array}{c}
+a_{1} \\
+a_{2}
+\end{array} \rightB$, it is denoted graphically by an arrow from the origin $\leftB \begin{array}{c}
+ 0 \\
+ 0
+ \end{array} \rightB$
+ to the vector as in Figure~\ref{fig:003017}.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.45\textwidth}
+\centering
+\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/figure2.2.1}
+\caption{\label{fig:003017}}
+\end{minipage}
+\hspace*{3em}
+\begin{minipage}{0.45\textwidth}
+\centering
+\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/figure2.2.2}
+\caption{\label{fig:003025}}
+\end{minipage}
+\end{figure}
+
+
+Similarly we identify $\RR^3$ with $3$-dimensional space\index{$3$-dimensional space} by writing a point $(a_{1}, a_{2}, a_{3})$ as the vector $\leftB \begin{array}{c}
+a_{1} \\
+a_{2} \\
+a_{3}
+\end{array} \rightB$
+ in $\RR^3$, again represented by an arrow\footnote{This ``arrow'' representation of vectors in $\RR^2$ and $\RR^3$ will be used extensively in Chapter~\ref{chap:4}.\index{vectors!arrow representation}}
+ from the origin to the point as in Figure~\ref{fig:003025}. In this way the terms ``point'' and ``vector'' mean the same thing in the plane or in space.
+
+We begin by describing a particular geometrical transformation of the plane $\RR^2$.
+\vspace{1em}
+
+\begin{example}{}{003028}
+
+\begin{wrapfigure}[8]{l}{5cm}
+	\centering
+	\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/example2.2.13}
+	\caption{\label{fig:003037}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+Consider the transformation of $\RR^2$ given by \textit{reflection} in the $x$ axis. This operation carries the vector $\leftB \begin{array}{c}
+a_{1} \\
+a_{2}
+\end{array} \rightB$
+ to its reflection $\leftB \begin{array}{r}
+ a_{1} \\
+ -a_{2}
+ \end{array} \rightB$
+ as in Figure~\ref{fig:003037}. Now observe that
+\begin{equation*}
+\leftB \begin{array}{r}
+a_{1} \\
+-a_{2}
+\end{array} \rightB = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB \leftB \begin{array}{c}
+a_{1} \\
+a_{2}
+\end{array} \rightB
+\end{equation*}
+so reflecting $\leftB \begin{array}{c}
+a_{1} \\
+a_{2}
+\end{array} \rightB$
+ in the $x$ axis can be achieved by multiplying by the matrix 
+ $\leftB \begin{array}{rr}
+ 1 & 0 \\
+ 0 & -1
+ \end{array} \rightB$.
+\end{example}
+
+
+
+If we write $A = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB$, Example~\ref{exa:003028} shows that reflection in the $x$ axis carries each vector $\vect{x}$ in $\RR^2$ to the vector $A\vect{x}$ in $\RR^2$. It is thus an example of a function
+\begin{equation*}
+T : \RR^{2} \to \RR^{2} \quad \mbox{where} \quad T(\vect{x}) = A\vect{x} \mbox{ for all } \vect{x} \mbox{ in } \RR^{2}
+\end{equation*}
+As such it is a generalization of the familiar functions $f : \RR \to \RR$ that carry a \textit{number} $x$ to another real \textit{number} $f(x)$.
+
+\newpage
+\begin{wrapfigure}{l}{5cm}
+	\centering
+	\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/figure2.2.4}
+	\caption{\label{fig:003053}}
+\end{wrapfigure}
+More generally, functions $T : \RR^n \to \RR^m$ are called \textbf{transformations}\index{transformations!described}\index{linear transformations!defined} from $\RR^n$ to $\RR^m$. Such a transformation $T$ is a rule that assigns to every vector $\vect{x}$ in $\RR^n$ a uniquely determined vector $T(\vect{x})$ in $\RR^m$ called the \textbf{image}\index{image!of linear transformations}\index{linear transformations!image} of $\vect{x}$ under $T$. We denote this state of affairs by writing
+\begin{equation*}
+T : \RR^{n} \to \RR^{m} \quad \mbox{ or } \quad \RR^{n} \xrightarrow{T} \RR^{m}
+\end{equation*}
+The transformation $T$ can be visualized as in Figure~\ref{fig:003053}.
+
+
+
+To describe a transformation $T : \RR^n \to \RR^m$ we must specify the vector $T(\vect{x})$ in $\RR^m$ for every $\vect{x}$ in $\RR^n$. This is referred to as \textbf{defining}\index{defining transformation}\index{transformations!defining} $T$, or as specifying the \textbf{action}\index{action!transformations}\index{transformations!action} of $T$. Saying that the action \textit{defines} the transformation means that we regard two transformations $S : \RR^n \to \RR^m$  and $T : \RR^n  \to \RR^m$  as \textbf{equal}\index{equal!transformation}\index{linear transformations!equal}\index{transformations!equal} if they have the \textbf{same action}\index{action!same action}\index{same action}; more formally
+\begin{equation*}
+S = T \quad \mbox{if and only if} \quad S(\vect{x}) = T(\vect{x}) \mbox{ for all } \vect{x} \mbox{ in } \RR^{n}.
+\end{equation*}
+Again, this what we mean by $f = g$ where $f, g : \RR \to \RR$ are ordinary functions.
+
+
+Functions $f : \RR \to \RR$ are often described by a formula, examples being $f(x) = x^{2} + 1$ and $f(x) = \sin x$. The same is true of transformations; here is an example.\index{transformations!described}
+
+\begin{example}{}{003067}
+The formula $T \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\ 
+x_{4}
+\end{array} \rightB = \leftB \begin{array}{c}
+x_{1} + x_{2} \\
+x_{2} + x_{3} \\
+x_{3} + x_{4} 
+\end{array} \rightB$
+ defines a transformation $\RR^4 \to \RR^3$.
+\end{example}
+
+Example~\ref{exa:003028} suggests that matrix multiplication is an important way of defining transformations $\RR^n \to \RR^m$. If $A$ is any $m \times n$ matrix, multiplication by $A$ gives a transformation
+\begin{equation*}
+T_{A} : \RR^{n} \to \RR^{m} \quad \mbox{defined by} \quad T_{A}(\vect{x}) = A\vect{x} \mbox{ for every } \vect{x} \mbox{ in } \RR^{n}
+\end{equation*}
+\begin{definition}{Matrix Transformation $T_A$}{003077}
+$T_{A}$ is called the \textbf{matrix transformation induced}\index{matrix transformation induced}\index{linear transformations!matrix transformation induced}\index{transformations!matrix transformation} by $A$.
+\end{definition}
+
+Thus Example~\ref{exa:003028} shows that reflection in the \textit{x} axis is the matrix transformation $\RR^2 \to \RR^2$ induced by the matrix $\leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB$. Also, the transformation $R : \RR^4 \to \RR^3$ in Example~\ref{exa:003028} is the matrix transformation induced by the matrix
+\begin{equation*}
+A = \leftB \begin{array}{rrrr}
+1 & 1 & 0 & 0 \\
+0 & 1 & 1 & 0 \\
+0 & 0 & 1 & 1 \\
+\end{array} \rightB \mbox{ because } \leftB \begin{array}{rrrr}
+1 & 1 & 0 & 0 \\
+0 & 1 & 1 & 0 \\
+0 & 0 & 1 & 1 \\
+\end{array} \rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array} \rightB = \leftB \begin{array}{c}
+x_{1} + x_{2} \\
+x_{2} + x_{3} \\
+x_{3} + x_{4}
+\end{array} \rightB
+\end{equation*}
+
+\begin{example}{}{003088}
+Let $R_{\frac{\pi}{2}} : \RR^{2} \to \RR^{2}$ denote counterclockwise rotation about the origin through $\frac{\pi}{2}$ radians (that is, $90^{\circ}$)\footnotemark. Show that $R_{\frac{\pi}{2}}$ is induced by the matrix $\leftB \begin{array}{rr}
+ 0 & -1 \\
+ 1 & 0
+ \end{array} \rightB$.
+
+
+\newpage
+\begin{solution}
+ \begin{wrapfigure}{l}{5.5cm}
+	\centering
+	\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/figure2.2.5}
+	\caption{\label{fig:003108}}
+\end{wrapfigure}
+
+
+\setlength{\rightskip}{0pt plus 200pt} 
+The effect of $R_{\frac{\pi}{2}}$ is to rotate the vector $\vect{x} = \leftB \begin{array}{c}
+ a \\
+ b
+ \end{array} \rightB$ counterclockwise through  $\frac{\pi}{2}$ to produce the vector $R_{\frac{\pi}{2}}(\vect{x})$ shown in Figure~\ref{fig:003108}. Since triangles $\vect{0}\vect{p}\vect{x}$ and $\vect{0}\vect{q}R_{\frac{\pi}{2}}(\vect{x})$ are identical, we obtain $R_{\frac{\pi}{2}}(\vect{x}) = \leftB \begin{array}{r}
+ -b \\
+ a
+ \end{array} \rightB$. But $\leftB \begin{array}{r}
+ -b \\
+ a
+ \end{array} \rightB = \leftB \begin{array}{rr}
+ 0 & -1 \\
+ 1 & 0
+ \end{array} \rightB \leftB \begin{array}{c}
+ a \\
+ b
+ \end{array} \rightB$, so we obtain $R_{\frac{\pi}{2}}(\vect{x}) = A\vect{x}$ for all $\vect{x}$ in $\RR^2$ where $A = \leftB \begin{array}{rr}
+0 & -1 \\
+1 & 0
+\end{array} \rightB$. In other words, $R_{\frac{\pi}{2}}$ is the matrix transformation induced by $A$.
+\vspace{1em}
+\end{solution}
+\end{example}
+\footnotetext{\textit{Radian measure}\index{angles!radian measure} for angles is based on the fact that $360^{\circ}$  equals $2\pi$ radians. Hence $\pi \mbox{ radians }= 180^{\circ}$ and $\frac{\pi}{2} \mbox{ radians }= 90^{\circ}$.}
+
+If $A$ is the $m \times n$ zero matrix, then $A$ induces the transformation
+\begin{equation*}
+T : \RR^{n} \to \RR^{m} \quad \mbox{given by} \quad T(\vect{x}) = A\vect{x} = \vect{0} \mbox{ for all } \vect{x} \mbox{ in } \RR^{n}
+\end{equation*}
+This is called the \textbf{zero transformation}\index{zero transformation}\index{linear transformations!zero transformation}\index{transformations!zero transformation}, and is denoted $T = 0$.
+
+
+Another important example is the \textbf{identity transformation}\index{identity transformation}\index{transformations!identity transformation}
+\begin{equation*}
+1_{\RR^{n}} : \RR^{n} \to \RR^{n} \quad \mbox{ given by } \quad 1_{\RR^{n}}(\vect{x}) = \vect{x} \mbox{ for all } \vect{x} \mbox{ in } \RR^{n}
+\end{equation*}
+That is, the action of $1_{\RR^n}$ on $\vect{x}$ is to do nothing to it. If $I_{n}$ denotes the $n \times n$ identity matrix, we showed in Example~\ref{exa:002949} that $I_{n} \vect{x} = \vect{x}$ for all $\vect{x}$ in $\RR^n$. Hence $1_{\RR^n}(\vect{x}) = I_{n}\vect{x}$ for all $\vect{x}$ in $\RR^n$; that is, the identity matrix $I_{n}$ induces the identity transformation.
+
+
+Here are two more examples of matrix transformations with a clear geometric description.
+
+
+\begin{example}{}{003128}
+If $a > 0$, the matrix transformation $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \leftB \begin{array}{c}
+ax \\
+y
+\end{array} \rightB$
+ induced by the matrix $A = \leftB \begin{array}{cc}
+ a & 0 \\
+ 0 & 1
+ \end{array} \rightB$
+ is called an $\bm{x}$\textbf{-expansion}\index{$x$-expansion} of $\RR^2$ if $a > 1$, and an $\bm{x}$\textbf{-compression}\index{$x$-compression} if $0 < a < 1$. The reason for the names is clear in the diagram below. Similarly, if $b > 0$ the matrix $A = \leftB \begin{array}{cc}
+1 & 0 \\
+0 & b
+\end{array} \rightB$
+ gives rise to $\bm{y}$\textbf{-expansions}\index{$y$-expansion} and $\bm{y}$\textbf{-compressions}\index{$y$-compression}.
+
+
+\begin{center}
+\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/example2.2.16}
+%\captionof{figure}{\label{fig:003135}}
+\end{center}
+\end{example}
+
+\begin{example}{}{003136}
+If $a$ is a number, the matrix transformation $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \leftB \begin{array}{c}
+x + ay \\
+y
+\end{array} \rightB$
+ induced by the matrix $A = \leftB \begin{array}{cc}
+ 1 & a \\
+ 0 & 1
+ \end{array} \rightB$
+ is called an $\bm{x}$\textbf{-shear}\index{$x$-shear} of $\RR^2$ (\textbf{positive}\index{positive $x$-shear} if $a > 0$ and \textbf{negative}\index{negative $x$-shear} if $a < 0)$. Its effect is illustrated below when $a = \frac{1}{4}$ and $a = -\frac{1}{4}$.
+
+
+\begin{center}
+	\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/example2.2.17}
+%\captionof{figure}{\label{fig:003142}}
+\end{center}
+\end{example}
+
+\begin{wrapfigure}[8]{l}{5cm} 
+        \vspace*{-2em}
+	\centering
+	\input{2-matrix-algebra/figures/2-equations,-matrices,-and-transformations/figure2.2.6}
+	\caption{\label{fig:003155}}
+\end{wrapfigure}
+We hasten to note that there are important geometric transformations that are \textit{not} matrix transformations. For example, if $\vect{w}$ is a fixed column in $\RR^n$, define the transformation $T_{\vect{w}} : \RR^n \to \RR^n$ by
+\begin{equation*}
+T_{\vect{w}}(\vect{x}) = \vect{x} + \vect{w} \quad \mbox{ for all } \vect{x} \mbox{ in } \RR^{n}
+\end{equation*}
+Then $T_{\vect{w}}$ is called \textbf{translation}\index{translation} by $\vect{w}$. In particular, if $\vect{w} = \leftB \begin{array}{r}
+2 \\
+1
+\end{array} \rightB$
+ in $\RR^2$, the effect of $T_{\vect{w}}$ on $\leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB$
+ is to translate it two units to the right and one unit up (see Figure~\ref{fig:003155}).
+
+The translation $T_{\vect{w}}$ is not a matrix transformation unless $\vect{w} = \vect{0}$. Indeed, if $T_{\vect{w}}$ were induced by a matrix $A$, then $A\vect{x} = T_{\vect{w}}(\vect{x}) = \vect{x} + \vect{w}$ would hold for every $\vect{x}$ in $\RR^n$. In particular, taking $\vect{x} = \vect{0}$ gives $\vect{w} = A\vect{0} = \vect{0}$.
+
+
+\section*{Exercises for \ref{sec:2_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:2_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case find a system of equations that is equivalent to the given vector equation. (Do not solve the system.)
+
+
+\begin{enumerate}[leftmargin=1em,label={\alph*.}]
+\item {\footnotesize $x_{1} \leftB \begin{array}{r}
+2 \\
+-3 \\
+0
+\end{array} \rightB + x_{2} \leftB \begin{array}{r}
+1 \\
+1 \\
+4
+\end{array} \rightB + x_{3} \leftB \begin{array}{r}
+2 \\
+0 \\
+-1
+\end{array} \rightB = \leftB \begin{array}{r}
+5 \\
+6 \\
+-3
+\end{array} \rightB$}
+
+\item 
+{\scriptsize $x_{1} \leftB \begin{array}{r}
+1 \\
+0 \\
+1 \\
+0
+\end{array} \rightB + x_{2} \leftB \begin{array}{r}
+-3 \\
+8 \\
+2 \\
+1
+\end{array} \rightB + x_{3} \leftB \begin{array}{r}
+-3 \\
+0 \\
+2 \\
+2
+\end{array} \rightB + x_{4} \leftB \begin{array}{r}
+3 \\
+2 \\
+0 \\
+-2
+\end{array} \rightB = \leftB \begin{array}{r}
+5 \\
+1 \\
+2 \\
+0
+\end{array} \rightB$}
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\arraycolsep=1pt
+\begin{array}[t]{rrrrrrrrr}
+x_{1} & - & 3x_{2} & - & 3x_{3} & + & 3x_{4} & = & 5 \\
+ &  & 8x_{2} &  &  & + & 2x_{4} & = & 1 \\
+x_{1} & + & 2x_{2} & + & 2x_{3} &  &  & = & 2 \\
+&  & x_{2} & + & 2x_{3} & - & 5x_{4} & = & 0 \\
+\end{array}$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case find a vector equation that is equivalent to the given system of equations. (Do not solve the equation.)
+
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$ \arraycolsep=1pt
+\begin{array}[t]{rrrrrrr}
+x_{1} & - & x_{2} & + & 3x_{3} & = & 5 \\
+-3x_{1} & + & x_{2} & + & x_{3} & = & -6 \\
+5x_{1} & - & 8x_{2} & & & = & 9
+\end{array}
+$
+
+
+\item
+$ \arraycolsep=1pt
+\begin{array}[t]{rrrrrrrrr}
+x_{1} & - & 2x_{2} & - & x_{3} & + & x_{4} & = & 5 \\
+-x_{1} &  &  & + & x_{3} &  - & 2x_{4} & = & -3 \\
+2x_{1} & - & 2x_{2} & + & 7x_{3} & & & = & 8 \\
+3x_{1} & - & 4x_{2} & + & 9x_{3} & - & 2x_{4} & = & 12
+\end{array}
+$
+
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+$
+x_{1} \leftB \begin{array}{r}
+1 \\
+-1 \\
+2 \\
+3
+\end{array} \rightB + 
+x_{2} \leftB \begin{array}{r}
+-2 \\
+0 \\
+-2 \\
+-4
+\end{array} \rightB + 
+x_{3} \leftB \begin{array}{r}
+-1 \\
+1 \\
+7 \\
+9
+\end{array} \rightB + 
+x_{4} \leftB \begin{array}{r}
+1 \\
+-2 \\
+0 \\
+-2
+\end{array} \rightB = 
+\leftB \begin{array}{r}
+5 \\
+-3 \\
+8 \\
+12
+\end{array} \rightB
+$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case compute $A\vect{x}$ using: (i) Definition~\ref{def:002668}. (ii) Theorem~\ref{thm:002903}.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$A = \leftB \begin{array}{rrr}
+3 & -2 & 0 \\
+5 & -4 & 1
+\end{array} \rightB $ and $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array} \rightB$.
+
+\item 
+$A = \leftB \begin{array}{rrr}
+1 & 2 & 3 \\
+0 & -4 & 5
+\end{array} \rightB$ and $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array} \rightB$.
+
+
+\item
+$A = \leftB \begin{array}{rrrr}
+-2 & 0 & 5 & 4 \\
+1 & 2 & 0 & 3 \\
+-5 & 6 & -7 & 8
+\end{array} \rightB$ and $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array} \rightB$.
+
+\item
+$A = \leftB \begin{array}{rrrr}
+3 & -4 & 1 & 6 \\
+0 & 2 & 1 & 5 \\
+-8 & 7 & -3 & 0
+\end{array} \rightB$ and $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array} \rightB$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$
+A\vect{x} = \leftB \begin{array}{rrr}
+1 & 2 & 3 \\
+0 & -4 & 5
+\end{array} \rightB \leftB \begin{array}{r}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array} \rightB  = 
+x_{1} \leftB \begin{array}{r}
+1 \\
+0
+\end{array} \rightB + 
+x_{2} \leftB \begin{array}{r}
+2 \\
+-4
+\end{array} \rightB +
+x_{3} \leftB \begin{array}{r}
+3 \\
+5
+\end{array} \rightB  = \leftB \arraycolsep=1pt \begin{array}{rrrrr}
+x_{1} & + & 2x_{2} & + & 3x_{3} \\
+& - & 4x_{2} & + & 5x_{3}
+\end{array} \rightB
+$
+
+
+\setcounter{enumi}{3}
+\item
+$A\vect{x} = \leftB \begin{array}{rrrr}
+3 & -4 & 1 & 6 \\
+0 & 2 & 1 & 5 \\
+-8 & 7 & -3 & 0
+\end{array} \rightB \leftB \begin{array}{r}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array} \rightB$ \\ ${} =
+x_{1} \leftB \begin{array}{r}
+3 \\
+0 \\
+-8
+\end{array} \rightB + 
+x_{2} \leftB \begin{array}{r}
+-4 \\
+2 \\
+7
+\end{array} \rightB +
+x_{3} \leftB \begin{array}{r}
+1 \\
+1 \\
+-3
+\end{array} \rightB +
+x_{4} \leftB \begin{array}{r}
+6 \\
+5 \\
+0
+\end{array} \rightB = \leftB \arraycolsep=1pt \begin{array}{rrrrrrr}
+3x_{1} & - & 4x_{2} & + & x_{3} & + & 6x_{4} \\
+ &  & 2x_{2} & + & x_{3} & + & 5x_{4} \\
+-8x_{1} & + & 7x_{2} & - & 3x_{3} &  &  \\
+\end{array} \rightB
+$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \vect{a}_{3} & \vect{a}_{4}
+\end{array} \rightB$ be the $3 \times 4$ matrix given in terms of its columns  $\vect{a}_{1} = \leftB \begin{array}{r}
+1 \\
+1 \\
+-1
+\end{array} \rightB$, $\vect{a}_{2} = \leftB \begin{array}{r}
+3 \\
+0 \\
+2
+\end{array} \rightB$, $\vect{a}_{3} = \leftB \begin{array}{r}
+2 \\
+-1 \\
+3
+\end{array} \rightB$, and $\vect{a}_{4} = \leftB \begin{array}{r}
+0 \\
+-3 \\
+5
+\end{array} \rightB$.
+ In each case either express $\vect{b}$ as a linear combination of $\vect{a}_{1}$, $\vect{a}_{2}$, $\vect{a}_{3}$, and $\vect{a}_{4}$, or show that it is not such a linear combination. Explain what your answer means for the corresponding system $A\vect{x} = \vect{b}$ of linear equations.
+\begin{exenumerate}
+\exitem 
+$\vect{b} = \leftB \begin{array}{r}
+0 \\
+3 \\
+5
+\end{array} \rightB$
+\exitem 
+$\vect{b} = \leftB \begin{array}{r}
+4 \\
+1 \\
+1
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+To solve $A\vect{x} = \vect{b}$ the reduction is $\leftB \begin{array}{rrrr|r}
+1 & 3 & 2 & 0 & 4 \\
+1 & 0 & -1 & -3 & 1 \\
+-1 & 2 & 3 & 5 & 1
+\end{array} \rightB \rightarrow \leftB \begin{array}{rrrr|r}
+1 & 0 & -1 & -3 & 1 \\
+0 & 1 & 1 & 1 & 1 \\
+0 & 0 & 0 & 0 & 0
+\end{array} \rightB$
+ so the general solution is $\leftB \begin{array}{c}
+ 1 + s + 3t \\
+ 1 - s -t \\
+ s \\
+ t
+ \end{array} \rightB$.
+
+
+
+Hence $(1 + s + 3t)\vect{a}_{1} + (1 - s - t)\vect{a}_{2} + s\vect{a}_{3} + t\vect{a}_{4} = \vect{b}$ for any choice of $s$ and $t$. If $s = t = 0$, we get $\vect{a}_{1} + \vect{a}_{2} = \vect{b}$; if $s = 1$ and $t = 0$, we have $2\vect{a}_{1} + \vect{a}_{3} = \vect{b}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, express every solution of the system as a sum of a specific solution plus a solution of the associated homogeneous system.
+\begin{exenumerate}
+\exitem
+$ \arraycolsep=1pt
+\begin{array}[t]{rrrrrrr}
+x & + & y & + & z & = & 2 \\
+2x & + & y & & & = & 3 \\
+x & - & y & - & 3z & = & 0
+\end{array}
+$
+\exitem
+$ \arraycolsep=1pt
+\begin{array}[t]{rrrrrrr}
+x & - & y & - & 4z & = & -4 \\
+x & + & 2y & + & 5z & = & 2 \\
+x & + & y & + & 2z & = & 0
+\end{array}
+$
+\exitem*
+$ \arraycolsep=1pt
+\begin{array}[t]{rrrrrrrrrrr}
+x_{1} & + & x_{2} & - & x_{3} & & & - & 5x_{5} & = & 2 \\
+& & x_{2} & + & x_{3} & & & - & 4x_{5} & = & -1 \\
+& & x_{2} & + & x_{3} & + & x_{4} & - & x_{5} & = & -1 \\
+2x_{1} & & & - & 4x_{3} & + & x_{4} & + & x_{5} & = & 6
+\end{array}
+$
+\exitem*
+$ \arraycolsep=1pt
+\begin{array}[t]{rrrrrrrrrrr}
+2x_{1} & + & x_{2} & - & x_{3} & - & x_{4} & = & -1 \\
+3x_{1} & + & x_{2} & + & x_{3} & - & 2x_{4} & = & -2 \\
+-x_{1} & - & x_{2} & + & 2x_{3} & + & x_{4} & = & 2 \\
+-2x_{1} & - & x_{2} & & & + & 2x_{4} & = & 3
+\end{array}
+$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$\leftB \begin{array}{r}
+-2 \\
+2 \\
+0
+\end{array} \rightB + t \leftB \begin{array}{r}
+1 \\
+-3 \\
+1
+\end{array} \rightB$
+
+
+\setcounter{enumi}{3}
+\item
+$\leftB \begin{array}{r}
+3 \\
+-9 \\
+-2 \\
+0
+\end{array} \rightB + t \leftB \begin{array}{r}
+-1 \\
+4 \\
+1 \\
+1
+\end{array} \rightB$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\vect{x}_{0}$ and $\vect{x}_{1}$ are solutions to the homogeneous system of equations $A\vect{x} = \vect{0}$, use Theorem~\ref{thm:002811} to show that $s\vect{x}_{0} + t\vect{x}_{1}$ is also a solution for any scalars $s$ and $t$ (called a \textbf{linear combination}\index{linear combinations!homogeneous equations} of $\vect{x}_{0}$ and $\vect{x}_{1}$).
+
+\begin{sol}
+We have $A\vect{x}_{0} = \vect{0}$ and $A\vect{x}_{1} = \vect{0}$ and so $A(s\vect{x}_{0} + t\vect{x}_{1}) = s(A\vect{x}_{0}) + t(A\vect{x}_{1}) = s \cdot \vect{0} + t \cdot \vect{0} = \vect{0}$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Assume that $A \leftB \begin{array}{r}
+1 \\
+-1 \\
+2
+\end{array} \rightB = \vect{0} = A \leftB \begin{array}{r}
+2 \\
+0 \\
+3
+\end{array} \rightB$. Show that $\vect{x}_{0} = \leftB \begin{array}{r}
+2 \\
+-1 \\
+3
+\end{array} \rightB$ is a solution to $A\vect{x} = \vect{b}$. Find a two-parameter family of solutions to $A\vect{x} = \vect{b}$.
+\end{ex}
+
+\begin{ex}
+In each case write the system in the form $A\vect{x} = \vect{b}$, use the gaussian algorithm to solve the system, and express the solution as a particular solution plus a linear combination of basic solutions to the associated homogeneous system $A\vect{x} = \vect{0}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item \arraycolsep=1pt
+$\begin{array}[t]{rrrrrrrrrrr}
+x_{1} & - & 2x_{2} & + & x_{3} & + & 4x_{4} & - & x_{5} & = & 8 \\
+-2x_{1} & + & 4x_{2} & + & x_{3} & - & 2x_{4} & - & 4x_{5} & = & -1 \\
+3x_{1} & - & 6x_{2} & + & 8x_{3} & + & 4x_{4} & - & 13x_{5} & = & 1 \\
+8x_{1} & - & 16x_{2} & + & 7x_{3} & + & 12x_{4} & - & 6x_{5} & = & 11
+\end{array}
+$
+
+\item \arraycolsep=1pt
+$\begin{array}[t]{rrrrrrrrrrr}
+x_{1} & - & 2x_{2} & + & x_{3} & + & 2x_{4} & + & 3x_{5} & = & -4 \\
+-3x_{1} & + & 6x_{2} & - & 2x_{3} & - & 3x_{4} & - & 11x_{5} & = & 11 \\
+-2x_{1} & + & 4x_{2} & - & x_{3} & + & x_{4} & - & 8x_{5} & = & 7 \\
+-x_{1} & + & 2x_{2} &  &  & + & 3x_{4} & - & 5x_{5} & = & 3
+\end{array}
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$\vect{x} = \leftB \begin{array}{r}
+-3 \\
+0 \\
+-1 \\
+0 \\
+0
+\end{array} \rightB + \left( s \leftB \begin{array}{r}
+2 \\
+1 \\
+0 \\
+0 \\
+0
+\end{array} \rightB + t \leftB \begin{array}{r}
+-5 \\
+0 \\
+2 \\
+0 \\
+1
+\end{array} \rightB \right).
+$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given vectors $\vect{a}_{1} = \leftB \begin{array}{r}
+1 \\
+0 \\
+1
+\end{array} \rightB$, \\$\vect{a}_{2} = \leftB \begin{array}{r}
+1 \\
+1 \\
+0
+\end{array} \rightB$, and $\vect{a}_{3} = \leftB \begin{array}{r}
+0 \\
+-1 \\
+1
+\end{array} \rightB$, find a vector $\vect{b}$ that is \textit{not} a linear combination of $\vect{a}_{1}$, $\vect{a}_{2}$, and $\vect{a}_{3}$. Justify your answer. [\textit{Hint}: Part (2) of Theorem~\ref{thm:002684}.]
+\end{ex}
+
+\begin{ex}
+In each case either show that the statement is true, or give an example showing that it is false.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\leftB \begin{array}{r}
+3 \\
+2
+\end{array} \rightB$
+ is a linear combination of $\leftB \begin{array}{r}
+ 1 \\
+ 0
+ \end{array} \rightB$
+ and $\leftB \begin{array}{r}
+ 0 \\
+ 1
+ \end{array} \rightB$.
+
+
+\item If $A\vect{x}$ has a zero entry, then $A$ has a row of zeros.
+
+\item If $A\vect{x} = \vect{0}$ where $\vect{x} \neq \vect{0}$, then $A = 0$.
+
+\item Every linear combination of vectors in $\RR^n$ can be written in the form $A\vect{x}$.
+
+\item If $A = \leftB \begin{array}{ccc}
+\vect{a}_{1} & \vect{a}_{2} & \vect{a}_{3}
+\end{array} \rightB$ in terms of its columns, and if $\vect{b} = 3\vect{a}_{1} - 2\vect{a}_{2}$, then the system $A\vect{x} = \vect{b}$ has a solution.
+
+\item If $A = \leftB \begin{array}{ccc}
+\vect{a}_{1} & \vect{a}_{2} & \vect{a}_{3}
+\end{array} \rightB$ in terms of its columns, and if the system $A\vect{x} = \vect{b}$ has a solution, then $\vect{b} = s\vect{a}_{1} + t\vect{a}_{2}$ for some $s$, $t$.
+
+\item If $A$ is $m \times n$ and $m < n$, then $A\vect{x} = \vect{b}$ has a solution for every column $\vect{b}$.
+
+\item If $A\vect{x} = \vect{b}$ has a solution for some column $\vect{b}$, then it has a solution for every column $\vect{b}$.
+
+\item If $\vect{x}_{1}$ and $\vect{x}_{2}$ are solutions to $A\vect{x} = \vect{b}$, then $\vect{x}_{1} - \vect{x}_{2}$ is a solution to $A\vect{x} = \vect{0}$.
+
+\item Let $A = \leftB \begin{array}{ccc}
+\vect{a}_{1} & \vect{a}_{2} & \vect{a}_{3} \end{array}\rightB$ in terms of its columns. If $\vect{a}_{3} = s\vect{a}_{1} + t\vect{a}_{2}$, then $A\vect{x} = \vect{0}$, where $\vect{x} = \leftB \begin{array}{c}
+s \\
+t \\
+-1
+\end{array} \rightB$.
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item False. $\leftB \begin{array}{rr}
+1 & 2 \\
+2 & 4
+\end{array} \rightB \leftB \begin{array}{r}
+2 \\
+-1
+\end{array} \rightB = \leftB \begin{array}{r}
+0 \\
+0
+\end{array} \rightB$.
+
+\setcounter{enumi}{3}
+\item True. The linear combination $x_{1}\vect{a}_{1} + \cdots  + x_{n}\vect{a}_{n}$ equals $A\vect{x}$ where $A = \leftB \begin{array}{ccc}
+\vect{a}_{1} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ by Theorem~\ref{thm:002684}.
+
+\setcounter{enumi}{5}
+\item False. If $A = \leftB \begin{array}{rrr}
+1 & 1 & -1 \\
+2 & 2 & 0
+\end{array} \rightB$
+ and $\vect{x} = \leftB \begin{array}{r}
+ 2 \\
+ 0 \\
+ 1
+ \end{array} \rightB$, then
+\begin{equation*}
+A\vect{x} = \leftB \begin{array}{r}
+1 \\
+4
+\end{array} \rightB \neq s \leftB \begin{array}{r}
+1 \\
+2
+\end{array} \rightB + t \leftB \begin{array}{r}
+1 \\
+2
+\end{array} \rightB \mbox{ for any } s \mbox{ and } t.
+\end{equation*}
+\setcounter{enumi}{7}
+\item False. If 
+$
+A = \leftB \begin{array}{rrr}
+1 & -1 & 1 \\
+-1 & 1 & -1
+\end{array} \rightB$, there is a solution for $\vect{b} = \leftB \begin{array}{r}
+0 \\
+0
+\end{array} \rightB$ but not for $\vect{b} = \leftB \begin{array}{r}
+1 \\
+0
+\end{array} \rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : \RR^2 \to \RR^2$ be a transformation. In each case show that $T$ is induced by a matrix and find the matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T$ is a reflection in the $y$ axis.
+
+\item $T$ is a reflection in the line $y = x$.
+
+\item $T$ is a reflection in the line $y = -x$.
+
+\item $T$ is a clockwise rotation through $\frac{\pi}{2}$.
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Here $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \leftB \begin{array}{c}
+y \\
+x
+\end{array} \rightB  = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB$.
+
+
+\setcounter{enumi}{3}
+\item  Here $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \leftB \begin{array}{c}
+y \\
+-x
+\end{array} \rightB = \leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array} \rightB \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+The \textbf{projection}\index{projection matrix}\index{matrix!projection matrix} $P : \RR^3 \to \RR^2$ is defined by $P \leftB \begin{array}{c}
+x \\
+y \\
+z
+\end{array} \rightB = \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB$
+ for all $\leftB \begin{array}{c}
+ x \\
+ y \\
+ z
+ \end{array} \rightB$
+ in $\RR^3$. Show that $P$ is induced by a matrix and find the matrix.
+\end{ex}
+
+\begin{ex}
+Let $T : \RR^3 \to \RR^3$
+ be a transformation. In each case show that $T$ is induced by a matrix and find the matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T$ is a reflection in the $x-y$ plane.
+
+\item $T$ is a reflection in the $y-z$ plane.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Here 
+\begin{equation*}
+T \leftB \begin{array}{c}
+x \\
+y \\
+z
+\end{array} \rightB = \leftB \begin{array}{c}
+-x \\
+y \\
+z
+\end{array} \rightB = \leftB \begin{array}{rrr}
+-1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{c}
+x \\
+y \\
+z
+\end{array} \rightB,
+\end{equation*}
+ so the matrix is $\leftB \begin{array}{rrr}
+-1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$.
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Fix $a > 0$ in $\RR$, and define $T_{a} : \RR^4 \to \RR^4$ by $T_{a}(\vect{x}) = a\vect{x}$ for all $\vect{x}$ in $\RR^4$. Show that $T$ is induced by a matrix and find the matrix. [$T$ is called a \textbf{dilation}\index{dilation} if $a > 1$ and a \textbf{contraction}\index{contraction} if $a < 1$.]
+\end{ex}
+
+\begin{ex}
+Let $A$ be $m \times n$ and let $\vect{x}$ be in $\RR^n$. If $A$ has a row of zeros, show that $A\vect{x}$ has a zero entry.
+\end{ex}
+
+\begin{ex}
+If a vector $\vect{b}$ is a linear combination of the columns of $A$, show that the system $A\vect{x} = \vect{b}$ is consistent (that is, it has at least one solution.)
+
+\begin{sol}
+Write $A = \leftB \begin{array}{cccc}
+\vect{a}_{1} & \vect{a}_{2} & \cdots & \vect{a}_{n}
+\end{array} \rightB$ in terms of its columns. If $\vect{b} = x_{1}\vect{a}_{1} + x_{2}\vect{a}_{2} + \cdots + x_{n}\vect{a}_{n}$ where the $x_{i}$ are scalars, then $A\vect{x} = \vect{b}$ by Theorem~\ref{thm:002684} where $\vect{x} = \leftB \begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{n} 
+\end{array} \rightB^{T}$. That is, $\vect{x}$ is a solution to the system $A\vect{x} = \vect{b}$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If a system $A\vect{x} = \vect{b}$ is inconsistent (no solution), show that $\vect{b}$ is not a linear combination of the columns of $A$.
+\end{ex}
+
+\begin{ex}
+Let $\vect{x}_{1}$ and $\vect{x}_{2}$ be solutions to the homogeneous system $A\vect{x} = \vect{0}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vect{x}_{1} + \vect{x}_{2}$ is a solution to $A\vect{x} = \vect{0}$.
+
+\item Show that $t\vect{x}_{1}$ is a solution to $A\vect{x} = \vect{0}$ for any scalar $t$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  By Theorem~\ref{thm:002849}, $A(t\vect{x}_{1}) = t(A\vect{x}_{1}) = t \cdot \vect{0} = \vect{0}$; that is, $t\vect{x}_{1}$ is a solution to $A\vect{x} = \vect{0}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Suppose $\vect{x}_{1}$ is a solution to the system $A\vect{x} = \vect{b}$. If $\vect{x}_{0}$ is any nontrivial solution to the associated homogeneous system $A\vect{x} = \vect{0}$, show that $\vect{x}_{1} + t\vect{x}_{0}$, $t$ a scalar, is an infinite one parameter family of solutions to $A\vect{x} = \vect{b}$. [\textit{Hint}: Example~\ref{exa:002159} Section~\ref{sec:2_1}.]
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be matrices of the same size. If $\vect{x}$ is a solution to both the system $A\vect{x} = \vect{0}$ and the system $B\vect{x} = \vect{0}$, show that $\vect{x}$ is a solution to the system $(A + B)\vect{x} = \vect{0}$.
+\end{ex}
+
+\begin{ex}
+If $A$ is $m \times n$ and $A\vect{x} = \vect{0}$ for every $\vect{x}$ in $\RR^n$, show that $A = 0$ is the zero matrix. [\textit{Hint}: Consider $A\vect{e}_{j}$ where $\vect{e}_{j}$ is the $j$th column of $I_{n}$; that is, $\vect{e}_{j}$ is the vector in $\RR^n$ with $1$ as entry $j$ and every other entry $0$.]
+\end{ex}
+
+\begin{ex}
+Prove part (1) of Theorem~\ref{thm:002811}.
+
+\begin{sol}
+If $A$ is $m \times n$ and $\vect{x}$ and $\vect{y}$ are $n$-vectors, we must show that $A(\vect{x} + \vect{y}) = A\vect{x} + A\vect{y}$. Denote the columns of $A$ by $\vect{a}_{1}, \vect{a}_{2}, \dots, \vect{a}_{n}$, and write $\vect{x} = \leftB \begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{n}
+\end{array} \rightB^{T}$ and $\vect{y} = \leftB \begin{array}{cccc}
+y_{1} & y_{2} & \cdots & y_{n}
+\end{array} \rightB^{T}$. Then $\vect{x} + \vect{y} = \leftB \begin{array}{cccc}
+x_{1} + y_{1} & x_{2} + y_{2} & \cdots & x_{n} + y_{n}
+\end{array} \rightB^{T}$, so Definition~\ref{def:002068} and Theorem~\ref{thm:002170} give $A(\vect{x} + \vect{y}) = (x_{1} + y_{1})\vect{a}_{1} + (x_{2} + y_{2})\vect{a}_{2} + \cdots  + (x_{n} + y_{n})\vect{a}_{n} = (x_{1}\vect{a}_{1} + x_{2}\vect{a}_{2} + \cdots + x_{n}\vect{a}_{n}) + (y_{1}\vect{a}_{1} + y_{2}\vect{a}_{2} + \cdots  + y_{n}\vect{a}_{n}) = A\vect{x} + A\vect{y}$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Prove part (2) of Theorem~\ref{thm:002811}.
+\end{ex}
+\end{multicols}

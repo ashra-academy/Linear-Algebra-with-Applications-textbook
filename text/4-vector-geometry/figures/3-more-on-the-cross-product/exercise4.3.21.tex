@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+\coordinate (ptA) at (0, 0);
+\coordinate (ptC) at (4.5, 0);
+\path (ptA)--(60:2.937cm) node (ptB) {}; %alpha=60 deg, beta=80 deg, gamma = 40 deg. c = sin gamma / sin beta * b = 2.937
+
+\draw[dkgreenvect, thick] (ptA)--(ptB.center) node[left, text=black, midway] {\small $c$}
+	--(ptC) node[right, text=black, midway] {\small $a$} 
+	--cycle node[above, text=black, midway] {\small $b$};
+
+\draw[dkbluevect, thick] (ptA)+(0.5, 0) arc [start angle=0, end angle=60,radius=0.5] node[right, text=black, midway] {\small $\alpha$};
+\draw[dkbluevect, thick] (ptB) ++(-40:0.5) arc [start angle=-40, end angle=-120, radius=0.5] node[below, text=black, midway] {\small $\beta$};
+\draw[dkbluevect, thick] (ptC)+(-0.5, 0) arc [start angle=180, end angle=140,radius=0.5] node[left, text=black, pos=0.7] {\small $\gamma$};
+
+\node[left] at (ptA) {\small $A$};
+\node[above] at (ptB) {\small $B$};
+\node[right] at (ptC) {\small $C$};
+\end{tikzpicture}

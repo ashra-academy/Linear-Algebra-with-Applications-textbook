@@ -1,0 +1,14 @@
+\begin{circuitikz}[scale=0.6]
+\draw[dkgreenvect, text=black] (0,0) to [battery1, v_= $20\; V$, i>_=$I_1$, color=dkgreenvect, font=\small] (6,0)
+      to [R, i_=$I_4$, color=dkgreenvect, font=\small] (3,5)
+      to [R, i>_=$I_6$, color=dkgreenvect, font=\small] (0,0)
+(3,5) to [battery1, v_= $\;$, i=$I_2$, color=dkgreenvect, font=\small] (3,2)
+      to [R, i>^=$I_5$, color=dkgreenvect, font=\small] (0,0)
+(6,0) to [R, i_=$I_3$, color=dkgreenvect, font=\small] (3,2)
+;
+\fill[black] (0,0) circle (2pt) ;
+\fill[black] (3,2) circle (2pt) ;
+\fill[black] (3,5) circle (2pt) ;
+\fill[black] (6,0) circle (2pt) ;
+\node[font=\small] at (3,3.85) {$10\; V$};
+\end{circuitikz}

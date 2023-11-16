@@ -1,0 +1,619 @@
+\section{Examples and Basic Properties}
+\label{sec:6_1}
+
+Many mathematical entities have the property that they can be added and multiplied by a number. Numbers themselves have this property, as do $m \times n$ matrices: The sum of two such matrices is again $m \times n$ as is any scalar multiple of such a matrix. Polynomials are another familiar example, as are the geometric vectors in Chapter~\ref{chap:4}. It turns out that there are many other types of mathematical objects that can be added and multiplied by a scalar, and the general study of such systems is introduced in this chapter. Remarkably, much of what we could say in Chapter~\ref{chap:5} about the dimension of subspaces in $\RR^n$ can be formulated in this generality.\index{vector spaces!basic properties}\index{vector spaces!examples}
+
+
+\newpage
+\begin{definition}{Vector Spaces}{017629}
+A \textbf{vector space}\index{vector spaces!defined} consists of a nonempty set $V$ of objects (called \textbf{vectors}\index{vectors!defined}) that can be added, that can be multiplied by a real number (called a \textbf{scalar}\index{scalar} in this context), and for which certain axioms hold.\footnotemark If $\vect{v}$ and $\vect{w}$ are two vectors in $V$, their sum is expressed as $\vect{v} + \vect{w}$, and the scalar product of $\vect{v}$ by a real number $a$ is denoted as $a\vect{v}$. These operations are called \textbf{vector addition}\index{vector addition}\index{addition!vector addition}\index{vectors!addition} and \textbf{scalar multiplication}\index{scalar multiplication!vectors}\index{multiplication!scalar multiplication}\index{vectors!scalar multiplication}, respectively, and the following axioms are assumed to hold.\index{vectors!sum of two vectors}\index{sum!of two vectors}
+\end{definition}
+\footnotetext{The scalars will usually be real numbers\index{real numbers}, but they could be complex numbers, or elements of an algebraic system called a field\index{field}. Another 
+example is the field $\mathbb{Q}$ of rational numbers\index{rational numbers}. We will look briefly at finite fields in Section~\ref{sec:8_7}.}
+
+\subsubsection*{Axioms for vector addition}\index{vector spaces!axioms}
+\vspace{-1em}
+\begin{itemize}
+\item[\textit{A1.}] \textit{If} $\vect{u}$ \textit{and} $\vect{v}$ \textit{are in $V$, then} $\vect{u} + \vect{v}$ \textit{is in $V$.}
+
+\item[\textit{A2.}] $\vect{u} + \vect{v} = \vect{v} + \vect{u}$ \textit{for all} $\vect{u}$ \textit{and} $\vect{v}$ \textit{in $V$.}
+
+\item[\textit{A3.}] $\vect{u} + (\vect{v} + \vect{w}) = (\vect{u} + \vect{v}) + \vect{w}$ \textit{for all} $\vect{u}$, $\vect{v}$, \textit{and} $\vect{w}$ \textit{in $V$.}
+
+\item[\textit{A4.}] \textit{An element} $\vect{0}$ \textit{in $V$ exists such that} $\vect{v} + \vect{0} = \vect{v} = \vect{0} + \vect{v}$ \textit{for every} $\vect{v}$ \textit{in $V$.}
+
+\item[\textit{A5.}] \textit{For each} $\vect{v}$ \textit{in $V$, an element} $-\vect{v}$ \textit{in $V$ exists such that} $-\vect{v} + \vect{v} = \vect{0}$ \textit{and} $\vect{v} + (-\vect{v}) = \vect{0}$.
+
+\end{itemize}
+
+\subsubsection*{Axioms for scalar multiplication}\index{scalar multiplication!axioms}
+\vspace{-1em}
+\begin{itemize}
+\item[\textit{S1.}] \textit{If} $\vect{v}$ \textit{is in $V$, then} $a\vect{v}$ \textit{is in $V$ for all $a$ in $\RR$.}
+
+\item[\textit{S2.}] $a(\vect{v} + \vect{w}) = a\vect{v} + a\vect{w}$ \textit{for all} $\vect{v}$ \textit{and} $\vect{w}$ \textit{in $V$ and all $a$ in $\RR$.}
+
+\item[\textit{S3.}] $(a + b)\vect{v} = a\vect{v} + b\vect{v}$ \textit{for all} $\vect{v}$ \textit{in} $V$ \textit{and all $a$ and $b$ in $\RR$.}
+
+\item[\textit{S4.}] $a(b\vect{v}) = (ab)\vect{v}$ \textit{for all} $\vect{v}$ \textit{in $V$ and all $a$ and $b$ in $\RR$.}
+
+\item[\textit{S5.}] $1\vect{v} = \vect{v}$ \textit{for all} $\vect{v}$ \textit{in $V$.}
+
+\end{itemize}
+
+\noindent The content of axioms A1 and S1 is described by saying that $V$ is \textbf{closed}\index{closed under addition}\index{closed under scalar multiplication}\index{addition!closed under}\index{scalar multiplication!closed under} under vector addition and scalar multiplication. The element $\vect{0}$ in axiom A4 is called the \textbf{zero vector}\index{zero vector}\index{vectors!zero vector}, and the vector $-\vect{v}$ in axiom A5 is called the \textbf{negative}\index{negative!vector} of $\vect{v}$.
+
+The rules of matrix arithmetic, when applied to $\RR^n$, give\index{set of all ordered $n$-tuples ($\RR^n$)!rules of matrix arithmetic}
+
+\begin{example}{}{017663}
+$\RR^n$ is a vector space using matrix addition and scalar multiplication.\footnotemark
+\end{example}
+\footnotetext{We will usually write the vectors in $\RR^n$ as $n$-tuples\index{$n$-tuples}. However, if it is convenient, we will sometimes denote them as rows or columns.}
+
+It is important to realize that, in a general vector space, the vectors need not be $n$-tuples as in $\RR^n$. They can be any kind of objects at all as long as the addition and scalar multiplication are defined and the axioms are satisfied. The following examples illustrate the diversity of the concept.
+
+The space $\RR^n$ consists of special types of matrices\index{set of all ordered $n$-tuples ($\RR^n$)!special types of matrices}. More generally, let $\vectspace{M}_{mn}$ denote the set of all $m \times n$ matrices with real entries. Then Theorem~\ref{thm:002170} gives:
+
+\begin{example}{}{017672}
+The set $\vectspace{M}_{mn}$ of all $m \times n$ matrices is a vector space using matrix addition and scalar multiplication. The zero element in this vector space is the zero matrix of size $m \times n$, and the vector space negative of a matrix (required by axiom A5) is the usual matrix negative discussed in Section~\ref{sec:2_1}. Note that $\vectspace{M}_{mn}$ is just $\RR^{mn}$ in different notation.
+\end{example}
+
+\noindent In Chapter~\ref{chap:5} we identified many important subspaces of $\RR^n$ such as $\func{im} A$ and $\func{null} A$ for a matrix $A$. These are all vector spaces.\index{set of all ordered $n$-tuples ($\RR^n$)!subspaces}
+
+\begin{example}{}{017680}
+Show that every subspace of $\RR^n$ is a vector space in its own right using the addition and scalar multiplication of $\RR^n$.
+
+\begin{solution}
+Axioms A1 and S1 are two of the defining conditions for a subspace $U$ of $\RR^n$ (see Section~\ref{sec:5_1}). The other eight axioms for a vector space are inherited from $\RR^n$. For example, if $\vect{x}$ and $\vect{y}$ are in $U$ and $a$ is a scalar, then $a(\vect{x} + \vect{y}) = a\vect{x} + a\vect{y}$ because $\vect{x}$ and $\vect{y}$ are in $\RR^n$. This shows that axiom S2 holds for $U$; similarly, the other axioms also hold for $U$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{017691}
+Let $V$ denote the set of all ordered pairs $(x, y)$ and define addition in $V$ as in $\RR^2$. However, define a new scalar multiplication in $V$ by
+\begin{equation*}
+a(x, y) = (ay, ax)
+\end{equation*}
+Determine if $V$ is a vector space with these operations.
+
+\begin{solution}
+Axioms A1 to A5 are valid for $V$ because they hold for matrices. Also $a(x, y) = (ay, ax)$ is again in $V$, so axiom S1 holds. To verify axiom S2, let $\vect{v} = (x, y)$ and $\vect{w} = (x_{1}, y_{1})$ be typical elements in $V$ and compute
+\begin{align*}
+a(\vect{v} + \vect{w}) &= a(x + x_1, y + y_1) = (a(y + y_1), a(x + x_1)) \\
+a\vect{v} + a\vect{w} &= (ay, ax) + (ay_1, ax_1) = (ay + ay_1, ax + ax_1)
+\end{align*}
+Because these are equal, axiom S2 holds. Similarly, the reader can verify that axiom S3 holds. However, axiom S4 fails because
+\begin{equation*}
+a(b(x, y)) = a(by, bx) = (abx, aby)
+\end{equation*}
+need not equal $ab(x, y) = (aby, abx)$. Hence, $V$ is \textit{not} a vector space. (In fact, axiom S5 also fails.)
+\end{solution}
+\end{example}
+
+Sets of polynomials provide another important source of examples of vector spaces, so we review some basic facts. A \textbf{polynomial}\index{polynomials!defined} in an indeterminate $x$ is an expression\index{polynomials!vector spaces}\index{vector spaces!polynomials}
+\begin{equation*}
+p(x) = a_0 + a_1x + a_2x^2 + \dots + a_nx^n
+\end{equation*}
+where $a_{0}, a_{1}, a_{2}, \dots, a_{n}$ are real numbers called the \textbf{coefficients}\index{coefficients!of the polynomial}\index{polynomials!coefficients} of the polynomial. If all the coefficients are zero, the polynomial is called the \textbf{zero polynomial}\index{zero polynomial} and is denoted simply as $0$. If $p(x) \neq 0$, the highest power of $x$ with a nonzero coefficient is called the \textbf{degree}\index{degree of the polynomial}\index{polynomials!degree of the polynomial} of $p(x)$ denoted as $\func{deg} p(x)$. The coefficient itself is called the \textbf{leading coefficient}\index{leading coefficient}\index{polynomials!leading coefficient}\index{coefficients!leading coefficient} of $p(x)$. Hence $\func{deg}(3 + 5x) = 1$, $\func{deg}(1 + x + x^{2}) = 2$, and $\func{deg}(4) = 0$. (The degree of the zero polynomial is not defined.)
+
+Let $\vectspace{P}$ denote the set of all polynomials and suppose that
+\begin{align*}
+p(x) &= a_0 + a_1x + a_2x^2 + \cdots \\
+q(x) &= b_0 + b_1x + b_2x^2 + \cdots
+\end{align*}
+are two polynomials in $\vectspace{P}$ (possibly of different degrees). Then $p(x)$ and $q(x)$ are called \textbf{equal}\index{equal!polynomials}\index{polynomials!equal} [written $p(x) = q(x)$] if and only if all the corresponding coefficients are equal---that is, $a_{0} = b_{0}$, $a_{1} = b_{1}$, $a_{2} = b_{2}$, and so on. In particular, $a_{0} + a_{1}x + a_{2}x^{2} + \dots = 0$ means that $a_{0} = 0$, $a_{1} = 0$, $a_{2} = 0$, $\dots$, and this is the reason for calling $x$ an \textbf{indeterminate}\index{indeterminate}. The set $\vectspace{P}$ has an addition and scalar multiplication defined on it as follows: if $p(x)$ and $q(x)$ are as before and $a$ is a real number,
+\begin{align*}
+p(x) + q(x) &= (a_0 + b_0) + (a_1 + b_1)x + (a_2 + b_2)x^2 + \cdots \\
+ap(x) &= aa_0 + (aa_1)x + (aa_2)x^2 + \cdots
+\end{align*} 
+Evidently, these are again polynomials, so $\vectspace{P}$ is closed under
+these operations, called \textbf{pointwise}\index{pointwise addition}\index{addition!pointwise addition}\index{multiplication!scalar multiplication} addition and scalar multiplication. The other vector space axioms are easily verified, and we have
+
+\begin{example}{}{017729}
+The set $\vectspace{P}$ of all polynomials is a vector space with the foregoing addition and scalar multiplication. The zero vector is the zero polynomial, and the negative of a polynomial $p(x) = a_{0} + a_{1}x + a_{2}x^{2} + \dots$ is the polynomial $-p(x) = -a_{0} - a_{1}x - a_{2}x^{2} - \dots$ obtained by negating all the coefficients.
+\end{example}
+
+\noindent There is another vector space of polynomials that will be referred to later.
+
+\begin{example}{}{017741}
+Given $n \geq 1$, let $\vectspace{P}_{n}$ denote the set of all polynomials of degree at most $n$, together with the zero polynomial. That is 
+\begin{equation*}
+\vectspace{P}_n = \{a_0 + a_1x + a_2x^2 + \dots + a_nx^n \mid a_0, a_1, a_2, \dots, a_n \mbox{ in } \RR\}.
+\end{equation*}
+Then $\vectspace{P}_{n}$ is a vector space. Indeed, sums and scalar multiples of polynomials in $\vectspace{P}_{n}$ are again in $\vectspace{P}_{n}$, and the other vector space axioms are inherited from $\vectspace{P}$. In particular, the zero vector and the negative of a polynomial in $\vectspace{P}_{n}$ are the same as those in $\vectspace{P}$.
+\end{example}
+
+If $a$ and $b$ are real numbers and $a < b$, the \textbf{interval}\index{interval} $[a, b]$ is defined to be the set of all real numbers $x$ such that $a \leq x \leq b$. A (real-valued) \textbf{function}\index{function!defined}\index{function!real-valued}\index{real numbers} $f$ on $[a, b]$ is a rule that associates to every number $x$ in $[a, b]$ a real number denoted $f(x)$. The rule is frequently specified by giving a formula for $f(x)$ in terms of $x$. For example, $f(x) = 2^{x}$, $f(x) = \sin x$, and $f(x) = x^{2} + 1$ are familiar functions. In fact, every polynomial $p(x)$ can be regarded as the formula for a function $p$.
+
+\begin{wrapfigure}[9]{l}{5cm}
+	\centering
+	\input{6-vector-spaces/figures/1-examples-and-basic-properties/example6.1.6}
+\end{wrapfigure}
+
+
+
+The set of all functions on $[a, b]$ is denoted $\vectspace{F}[a, b]$. Two
+functions $f$ and $g$ in $\vectspace{F}[a, b]$ are \textbf{equal}\index{equal!functions}\index{function!equal} if $f(x) = g(x)$ for every $x$ in $[a, b]$, and we describe this by saying that $f$ and $g$ have the \textbf{same action}\index{same action}\index{action!same action}. Note that two polynomials are equal in $\vectspace{P}$ (defined prior to Example~\ref{exa:017729}) if and only if they are equal as functions.
+
+
+If $f$ and $g$ are two functions in $\vectspace{F}[a, b]$, and if $r$ is a real number, define the sum $f + g$ and the scalar product $rf$ by
+\begin{alignat*}{2}
+(f + g)(x) 	&= f(x) + g(x) \quad &\mbox{for each }x \mbox{ in }[a, b] \\
+(rf)(x) 	&= rf(x) \quad &\mbox{for each }x \mbox{ in }[a, b]
+\end{alignat*}
+
+In other words, the action of $f + g$ upon $x$ is to associate $x$
+with the number $f(x) + g(x)$, and $rf$ associates $x$ with
+$rf(x)$. The sum of $f(x) = x^{2}$ and $g(x) = -x$ is shown in the
+diagram. These operations on $\vectspace{F}[a, b]$ are called
+\textbf{pointwise addition and scalar multiplication}\index{pointwise addition}\index{scalar multiplication!of functions}\index{function!scalar multiplication}\index{function!pointwise addition} of functions and they are the usual operations familiar from elementary algebra and calculus.
+
+\begin{example}{}{017760}
+The set $\vectspace{F}[a, b]$ of all functions on the interval $[a, b]$ is a vector space using pointwise addition and scalar multiplication. The zero function (in axiom A4), denoted $0$, is the constant function defined by
+\begin{equation*}
+0(x) = 0 \quad \mbox{ for each }x \mbox{ in } [a, b]
+\end{equation*}
+The negative of a function $f$ is denoted $-f$ and has action defined by
+\begin{equation*}
+(-f)(x) = -f(x) \quad \mbox{ for each }x \mbox{ in } [a, b]
+\end{equation*}
+Axioms A1 and S1 are clearly satisfied because, if $f$ and $g$ are functions on $[a, b]$, then $f + g$ and $rf$ are again such functions. The verification of the remaining axioms is left as Exercise~\ref{ex:6_1_14}.
+\end{example}
+
+Other examples of vector spaces will appear later, but these are sufficiently varied to indicate the scope of the concept and to illustrate the properties of vector spaces to be discussed. With such a variety of examples, it may come as a surprise that a well-developed \textit{theory} of vector spaces exists. That is, many properties can be shown to hold for \textit{all} vector spaces and hence hold in every example. Such properties are called \textit{theorems} and can be deduced from the axioms. Here is an important example.\index{vector spaces!theory of vector spaces}
+
+\begin{theorem}{Cancellation}{017768} %theorem1
+Let $\vect{u}$, $\vect{v}$, and $\vect{w}$ be vectors in a vector space $V$. If $\vect{v} + \vect{u} = \vect{v} + \vect{w}$, then $\vect{u} = \vect{w}$.\index{cancellation}\index{vector spaces!cancellation}
+\end{theorem}
+\vspace{-1em}
+\begin{proof}
+We are given $\vect{v} + \vect{u} = \vect{v} + \vect{w}$. If these were numbers instead of vectors, we would simply subtract $\vect{v}$ from both sides of the equation to obtain $\vect{u} = \vect{w}$. This can be accomplished with vectors by adding $-\vect{v}$ to both sides of the equation. The steps (using only the axioms) are as follows:\index{vector spaces!axioms}
+\begin{align}
+\vect{v} + \vect{u} &= \vect{v} + \vect{w} \nonumber \\
+-\vect{v} + (\vect{v} + \vect{u}) &= -\vect{v} + (\vect{v} + \vect{w}) \tag{axiom A5} \\
+(-\vect{v} + \vect{v}) + \vect{u} &= (-\vect{v} + \vect{v}) + \vect{w} \tag{axiom A3} \\
+\vect{0} + \vect{u} &= \vect{0} + \vect{w} \tag{axiom A5} \\
+\vect{u} &= \vect{w} \tag{axiom A4}
+\end{align} 
+This is the desired conclusion.\footnote{Observe that none of the scalar multiplication axioms are needed here.}
+\end{proof}
+
+As with many good mathematical theorems, the technique of the proof of
+Theorem~\ref{thm:017768} is at least as important as the theorem
+itself. The idea was to mimic the well-known process of numerical
+subtraction in a vector space $V$ as follows: To subtract a vector
+$\vect{v}$ from both sides of a vector equation, we added $-\vect{v}$
+to both sides. With this in mind, we define \textbf{difference}\index{difference!of two vectors}\index{vectors!difference of} $\vect{u} - \vect{v}$ of two vectors in $V$ as
+\begin{equation*}
+\vect{u} - \vect{v} = \vect{u} + (-\vect{v})
+\end{equation*}
+We shall say that this vector is the result of having \textbf{subtracted}\index{vectors!subtracted} $\vect{v}$ from $\vect{u}$ and, as in arithmetic, this operation has the property given in Theorem~\ref{thm:017781}.
+
+\begin{theorem}{}{017781} %theorem2
+If $\vect{u}$ and $\vect{v}$ are vectors in a vector space $V$, the equation
+\begin{equation*}
+\vect{x} + \vect{v} = \vect{u}
+\end{equation*}
+has one and only one solution $\vect{x}$ in $V$ given by
+\begin{equation*}
+\vect{x} = \vect{u} - \vect{v}
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+The difference $\vect{x} = \vect{u} - \vect{v}$ is indeed a solution to the equation because (using several axioms)
+\begin{equation*}
+\vect{x} + \vect{v} = (\vect{u} - \vect{v}) + \vect{v} = [ \vect{u} + (-\vect{v})] + \vect{v} = \vect{u} + (-\vect{v} + \vect{v}) = \vect{u} + \vect{0} = \vect{u}
+\end{equation*}
+To see that this is the only solution, suppose $\vect{x}_{1}$ is another solution so that $\vect{x}_{1} + \vect{v} = \vect{u}$. Then $\vect{x} + \vect{v} = \vect{x}_{1} + \vect{v}$ (they both equal $\vect{u}$), so $\vect{x} = \vect{x}_{1}$ by cancellation.
+\end{proof}
+
+Similarly, cancellation shows that there is only one zero vector in any vector space and only one negative of each vector (Exercises \ref{ex:6_1_10} and \ref{ex:6_1_11}). Hence we speak of \textit{the} zero vector and \textit{the} negative of a vector.\index{cancellation}
+
+The next theorem derives some basic properties of scalar multiplication that hold in every vector space, and will be used extensively.\index{scalar multiplication!basic properties}\index{vector spaces!scalar multiplication!basic properties of}
+
+\begin{theorem}{}{017797} %theorem3
+Let $\vect{v}$ denote a vector in a vector space $V$ and let $a$ denote a real number.
+
+\begin{enumerate}
+\item $0\vect{v} = \vect{0}$.
+
+\item $a\vect{0} = \vect{0}$.
+
+\item If $a\vect{v} = \vect{0}$, then either $a = 0$ or $\vect{v} = \vect{0}$.
+
+\item $(-1)\vect{v} = -\vect{v}$.
+
+\item $(-a)\vect{v} = -(a\vect{v}) = a(-\vect{v})$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item Observe that $0\vect{v} + 0\vect{v} = (0 + 0)\vect{v} = 0\vect{v} = 0\vect{v} + \vect{0}$ where the first equality is by axiom S3. It follows that $0\vect{v} = \vect{0}$ by cancellation.
+
+\item The proof is similar to that of (1), and is left as Exercise \ref{ex:6_1_12}(a).
+
+\item Assume that $a\vect{v} = \vect{0}$. If $a = 0$, there is nothing to prove; if $a \neq 0$, we must show that $\vect{v} = \vect{0}$. But $a \neq 0$ means we can scalar-multiply the equation $a\vect{v} = \vect{0}$ by the scalar $\frac{1}{a}$. The result (using (2) and Axioms S5 and S4) is
+\begin{equation*}
+\vect{v} = 1\vect{v} = \left(\frac{1}{a}a\right)\vect{v} = \frac{1}{a}(a\vect{v}) = \frac{1}{a}\vect{0} = \vect{0}
+\end{equation*}
+\item We have $-\vect{v} + \vect{v} = \vect{0}$ by axiom A5. On the other hand,
+\begin{equation*}
+(-1)\vect{v} + \vect{v} = (-1)\vect{v} + 1\vect{v} = (-1 + 1)\vect{v} = 0\vect{v} = \vect{0}
+\end{equation*}
+using (1) and axioms S5 and S3. Hence $(-1)\vect{v} + \vect{v} = -\vect{v} + \vect{v}$ (because both are equal to $\vect{0}$), so $(-1)\vect{v} = -\vect{v}$ by cancellation.
+
+\item The proof is left as Exercise \ref{ex:6_1_12}.\footnotemark
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\noindent The properties in Theorem~\ref{thm:017797} are familiar for matrices; the point here is that they hold in \textit{every} vector space. It is hard to exaggerate the importance of this observation.\index{vector spaces!axioms}
+
+Axiom A3 ensures that the sum $\vect{u} + (\vect{v} + \vect{w}) = (\vect{u} + \vect{v}) + \vect{w}$ is the same however it is formed, and we write it simply as $\vect{u} + \vect{v} + \vect{w}$. Similarly, there are different ways to form any sum $\vect{v}_{1} + \vect{v}_{2} + \dots + \vect{v}_{n}$, and Axiom A3 guarantees that they are all equal. Moreover, Axiom A2 shows that the order in which the vectors are written does not matter (for example: $\vect{u} + \vect{v} + \vect{w} + \vect{z} = \vect{z} + \vect{u} + \vect{w} + \vect{v}$).
+
+Similarly, Axioms S2 and S3 extend. For example 
+\begin{equation*}
+a(\vect{u} + \vect{v} + \vect{w}) = a\left[ \vect{u} + (\vect{v}+\vect{w})\right] = a\vect{u} + a(\vect{v}+\vect{w})=a\vect{u} + a\vect{v} + a\vect{w}
+\end{equation*}
+for all $a$, $\vect{u}$, $\vect{v}$, and $\vect{w}$. Similarly $(a + b + c)\vect{v} = a\vect{v} + b\vect{v} + c\vect{v}$ hold for all values of $a$, $b$, $c$, and $\vect{v}$ (verify). More generally,
+\begin{align*}
+a(\vect{v}_1 + \vect{v}_2 + \dots + \vect{v}_n) &= a\vect{v}_1 + a\vect{v}_2 + \dots + a\vect{v}_n \\
+(a_1 + a_2 + \dots + a_n)\vect{v} &= a_1\vect{v} + a_2\vect{v} + \dots + a_n\vect{v}
+\end{align*}
+hold for all $n \geq 1$, all numbers $a, a_{1}, \dots, a_{n}$, and all vectors, $\vect{v}, \vect{v}_{1}, \dots, \vect{v}_{n}$. The verifications are by induction and are left to the reader (Exercise \ref{ex:6_1_13}). These facts---together with the axioms, Theorem~\ref{thm:017797}, and the definition of subtraction---enable us to simplify expressions involving sums of scalar multiples of vectors by collecting like terms, expanding, and taking out common factors. This has been discussed for the vector space of matrices in Section~\ref{sec:2_1} (and for geometric vectors in Section~\ref{sec:4_1}); the manipulations in an arbitrary vector space are carried out in the same way. Here is an illustration.
+
+\begin{example}{}{017838}
+If $\vect{u}$, $\vect{v}$, and $\vect{w}$ are vectors in a vector space $V$, simplify the expression
+\begin{equation*}
+2(\vect{u} + 3 \vect{w}) - 3(2\vect{w} - \vect{v}) - 3[2(2\vect{u} + \vect{v} - 4\vect{w}) - 4(\vect{u} - 2\vect{w})]
+\end{equation*}
+\begin{solution}
+The reduction proceeds as though $\vect{u}$, $\vect{v}$, and $\vect{w}$ were matrices or variables.
+\begin{align*}
+& 2(\vect{u} + 3 \vect{w}) - 3(2\vect{w} - \vect{v}) - 3[2(2\vect{u} + \vect{v} - 4\vect{w}) - 4(\vect{u} - 2\vect{w})] \\
+&= 2\vect{u} + 6\vect{w} - 6\vect{w} + 3\vect{v} - 3[4\vect{u} + 2\vect{v} - 8\vect{w} - 4\vect{u} + 8\vect{w}]  \\
+&= 2\vect{u} + 3\vect{v} - 3[2\vect{v}] \\
+&= 2\vect{u} + 3\vect{v} - 6\vect{v} \\
+&= 2\vect{u} - 3\vect{v}
+\end{align*}
+\end{solution}
+\end{example}
+
+Condition (2) in Theorem~\ref{thm:017797} points to another example of a vector space.
+
+\begin{example}{}{017847}
+A set $\{\vect{0}\}$ with one element becomes a vector space if we define
+\begin{equation*}
+\vect{0} + \vect{0} = \vect{0}  \quad \mbox{ and } \quad a\vect{0} = \vect{0} \mbox{ for all scalars } a.
+\end{equation*}
+The resulting space is called the \textbf{zero vector space}\index{zero vector space}\index{vector spaces!zero vector space} and is denoted $\{\vect{0}\}$.
+\end{example}
+
+\noindent The vector space axioms are easily verified for $\{\vect{0}\}$. In any vector space $V$, Theorem~\ref{thm:017797} shows that the zero subspace (consisting of the zero vector of $V$ alone) is a copy of the zero vector space.
+
+\section*{Exercises for \ref{sec:6_1}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:6_1}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Let $V$ denote the set of ordered triples $(x, y, z)$ and define addition in $V$ as in $\RR^3$. For each of the following definitions of scalar multiplication, decide whether $V$ is a vector space.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $a(x, y, z) = (ax, y, az)$
+
+\item $a(x, y, z) = (ax, 0, az)$
+
+\item $a(x, y, z) = (0, 0, 0)$
+
+\item $a(x, y, z) = (2ax, 2ay, 2az)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No; S5 fails.
+
+\setcounter{enumi}{3}
+\item  No; S4 and S5 fail.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Are the following sets vector spaces with the indicated operations? If not, why not?
+
+\begin{enumerate}[label={\alph*.}]
+\item The set $V$ of nonnegative real numbers; ordinary addition and scalar multiplication.
+
+\item The set $V$ of all polynomials of degree $\geq 3$, \newline together with $0$; operations of $\vectspace{P}$.
+
+\item The set of all polynomials of degree $\leq 3$; operations of $\vectspace{P}$.
+
+\item The set $\{1, x, x^{2}, \dots\}$; operations of $\vectspace{P}$.
+
+\item The set $V$ of all $2 \times 2$ matrices of the form 
+$\leftB \begin{array}{cc}
+a & b \\
+0 & c
+\end{array} \rightB
+$; operations of $\vectspace{M}_{22}$.
+
+\item The set $V$ of $2 \times 2$ matrices with equal column sums; operations of $\vectspace{M}_{22}$.
+
+\item The set $V$ of $2 \times 2$ matrices with zero determinant; usual matrix operations.
+
+\item The set $V$ of real numbers; usual operations.
+
+\item The set $V$ of complex numbers; usual addition and multiplication by a real number.
+
+\item The set $V$ of all ordered pairs $(x, y)$ with the addition of $\RR^2$, but using scalar multiplication $a(x, y) = (ax, -ay)$.
+
+\item The set $V$ of all ordered pairs $(x, y)$ with the addition of $\RR^2$, but using scalar multiplication $a(x, y) = (x, y)$ for all $a$ in $\RR$.
+
+\item The set $V$ of all functions $f$ : $\RR \to \RR$ with pointwise addition, but scalar multiplication defined by $(af)(x) = f(ax)$.
+
+\item The set $V$ of all $2 \times 2$ matrices whose entries sum to $0$; operations of $\vectspace{M}_{22}$.
+
+\item The set $V$ of all $2 \times 2$ matrices with the addition of $\vectspace{M}_{22}$ but scalar multiplication $*$ defined by $a * X = aX^{T}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No; only A1 fails.
+
+\setcounter{enumi}{3}
+\item  No.
+
+\setcounter{enumi}{5}
+\item  Yes.
+
+\setcounter{enumi}{7}
+\item  Yes.
+
+\setcounter{enumi}{9}
+\item  No.
+
+\setcounter{enumi}{11}
+\item  No; only S3 fails.
+
+\setcounter{enumi}{13}
+\item  No; only S4 and S5 fail.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex6_1_3}
+Let $V$ be the set of positive real numbers with vector addition being ordinary multiplication, and scalar multiplication being $a \cdot v = v^{a}$. Show that $V$ is a vector space.
+\end{ex}
+
+\begin{ex}\label{ex:ex6_1_4}
+If $V$ is the set of ordered pairs $(x, y)$ of real numbers, show that it is a vector space with addition $(x, y) + (x_{1}, y_{1}) = (x + x_{1}, y + y_{1} + 1)$ and scalar multiplication $a(x, y) = (ax, ay + a - 1)$. What is the zero vector in $V$?
+
+\begin{sol}
+The zero vector is $(0, -1)$; the negative of $(x, y)$ is $(-x, -2 - y)$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find $\vect{x}$ and $\vect{y}$ (in terms of $\vect{u}$ and $\vect{v}$) such that:
+\begin{exenumerate}
+\exitem $\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	2\vect{x} & + & \vect{y} & = & \vect{u}	\\
+	5\vect{x} & + & 3\vect{y} & = & \vect{v} \\
+\end{array}$
+\exitem $\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	3\vect{x} & - & 2\vect{y} & = & \vect{u} \\
+	4\vect{x} & - & 5\vect{y} & = & \vect{v} \\
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\vect{x} = \frac{1}{7}(5\vect{u} - 2\vect{v}), \vect{y} = \frac{1}{7}(4\vect{u} - 3\vect{v})$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak 
+
+\begin{ex}
+In each case show that the condition $a\vect{u} + b\vect{v} + c\vect{w} = \vect{0}$ in $V$ implies that $a = b = c = 0$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \RR^4$; $\vect{u} = (2, 1, 0, 2)$, $\vect{v} = (1, 1, -1, 0)$, $\vect{w} = (0, 1, 2, 1)$
+
+\item 
+$ V = \vectspace{M}_{22}$; $\vect{u} = 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB$, $\vect{v} = 
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$, \newline $\vect{w} = 
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & -1
+\end{array} \rightB$
+
+\item $V = \vectspace{P}$; $\vect{u} = x^{3} + x$, $\vect{v} = x^{2} + 1$, $\vect{w} = x^{3} - x^{2} + x + 1$
+
+\item $V = \vectspace{F}[0, \pi]$; $\vect{u} = \sin x$, $\vect{v} = \cos x$, $\vect{w} = 1$---the constant function
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Equating entries gives $a + c = 0$, $b + c = 0$, $b + c = 0$, $a - c = 0$. The solution is $a = b = c = 0$.
+
+\setcounter{enumi}{3}
+\item  If $a \sin x + b \cos y + c = 0$ in $\vectspace{F}[0, \pi]$, then this must hold for \textit{every} $x$ in $[0, \pi]$. Taking $x = 0, \frac{\pi}{2}$, and $\pi$, respectively, gives $b + c = 0$, $a + c = 0$, $-b + c = 0$ whence, $a = b = c = 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Simplify each of the following.
+
+\begin{enumerate}[label={\alph*.}]
+\item $3[2(\vect{u} - 2\vect{v} - \vect{w}) + 3(\vect{w} - \vect{v})] - 7(\vect{u} - 3\vect{v} - \vect{w})$
+
+\item $4(3\vect{u} - \vect{v} + \vect{w}) - 2[(3\vect{u} - 2\vect{v}) - 3(\vect{v} - \vect{w})] \newline + 6(\vect{w} - \vect{u} - \vect{v})$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $4\vect{w}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that $\vect{x} = \vect{v}$ is the only solution to the equation $\vect{x} + \vect{x} = 2\vect{v}$ in a vector space $V$. Cite all axioms used.
+\end{ex}
+
+\begin{ex}
+Show that $-\vect{0} = \vect{0}$ in any vector space. Cite all axioms used.
+\end{ex}
+
+\begin{ex}
+\label{ex:6_1_10}
+Show that the zero vector $\vect{0}$ is uniquely determined by the property in axiom A4.
+
+\begin{sol}
+If $\vect{z} + \vect{v} = \vect{v}$ for all $\vect{v}$, then $\vect{z} + \vect{v} = \vect{0} + \vect{v}$, so $\vect{z} = \vect{0}$ by cancellation.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\label{ex:6_1_11}
+Given a vector $\vect{v}$, show that its negative $-\vect{v}$ is uniquely determined by the property in axiom A5.
+\end{ex}
+
+\begin{ex}
+\label{ex:6_1_12}
+\begin{enumerate}[label={\alph*.}]
+\item Prove (2) of Theorem~\ref{thm:017797}. [\textit{Hint}: Axiom S2.]
+
+\item Prove that $(-a)\vect{v} = -(a\vect{v})$ in Theorem~\ref{thm:017797} by first computing $(-a)\vect{v} + a\vect{v}$. Then do it using (4) of Theorem~\ref{thm:017797} and axiom S4.
+
+\item Prove that $a(-\vect{v}) = -(a\vect{v})$ in Theorem~\ref{thm:017797} in two ways, as in part (b).
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(-a)\vect{v} + a\vect{v} = (-a + a)\vect{v} = 0\vect{v} = \vect{0}$ by Theorem~\ref{thm:017797}. Because also $-(a\vect{v}) + a\vect{v} = \vect{0}$ (by the definition of $-(a\vect{v})$ in axiom A5), this means that $(-a)\vect{v} = -(a\vect{v})$ by cancellation. Alternatively, use Theorem~\ref{thm:017797}(4) to give $(-a)\vect{v} = [(-1)a]\vect{v} = (-1)(a\vect{v}) = -(a\vect{v})$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\label{ex:6_1_13}
+Let $\vect{v}, \vect{v}_{1}, \dots, \vect{v}_{n}$ denote vectors in a vector space $V$ and let $a, a_{1}, \dots, a_{n}$ denote numbers. Use induction on $n$ to prove each of the following.
+
+\begin{enumerate}[label={\alph*.}]
+\item $a(\vect{v}_{1} + \vect{v}_{2} + \dots + \vect{v}_{n}) = a\vect{v}_{1} + a\vect{v}_{2} + \dots + a\vect{v}_{n}$
+
+\item $(a_{1} + a_{2} + \dots + a_{n})\vect{v} = a_{1}\vect{v} + a_{2}\vect{v} + \dots + a_{n}\vect{v}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The case $n = 1$ is clear, and $n = 2$ is axiom S3. If $n > 2$, then $(a_{1} + a_{2} + \dots + a_{n})\vect{v} = [a_{1} + (a_{2} + \dots + a_{n})]\vect{v} = a_{1}\vect{v} + (a_{2} + \dots + a_{n})\vect{v} = a_{1}\vect{v} + (a_{2}\vect{v} + \dots + a_{n}\vect{v})$ using the induction hypothesis; so it holds for all $n$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\label{ex:6_1_14}
+Verify axioms A2---A5 and S2---S5 for the space $\vectspace{F}[a, b]$ of functions on $[a, b]$ (Example~\ref{exa:017760}).
+\end{ex}
+
+\begin{ex}
+Prove each of the following for vectors $\vect{u}$ and $\vect{v}$ and scalars $a$ and $b$.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $a\vect{v} = \vect{0}$, then $a = 0$ or $\vect{v} = \vect{0}$.
+
+\item If $a\vect{v} = b\vect{v}$ and $\vect{v} \neq \vect{0}$, then $a = b$.
+
+\item If $a\vect{v} = a\vect{w}$ and $a \neq 0$, then $\vect{v} = \vect{w}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{2}
+\item  If $a\vect{v} = a\vect{w}$, then $\vect{v} = 1\vect{v} = (a^{-1}a)\vect{v} = a^{-1}(a\vect{v}) = a^{-1}(a\vect{w}) = (a^{-1}a)\vect{w} = 1\vect{w} = \vect{w}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+By calculating $(1 + 1)(\vect{v} + \vect{w})$ in two ways (using axioms S2 and S3), show that axiom A2 follows from the other axioms.
+\end{ex}
+
+\begin{ex}\label{ex:ex6_1_17}
+Let $V$ be a vector space, and define $V^{n}$ to be the set of all $n$-tuples $(\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n})$ of $n$ vectors $\vect{v}_{i}$, each belonging to $V$. Define addition and scalar multiplication in $V^{n}$ as follows:
+\begin{gather*}
+(\vect{u}_1, \vect{u}_2, \dots, \vect{u}_n) + (\vect{v}_1, \vect{v}_2, \dots, \vect{v}_n) \\
+\quad = (\vect{u}_1 + \vect{v}_1, \vect{u}_2 + \vect{v}_2, \dots, \vect{u}_n + \vect{v}_n) \\
+a(\vect{v}_1, \vect{v}_2, \dots, \vect{v}_n) = (a\vect{v}_1, a\vect{v}_2, \dots, a\vect{v}_n)
+\end{gather*}
+
+Show that $V^{n}$ is a vector space.
+\end{ex}
+
+\begin{ex}\label{ex:6_1_18}
+Let $V^{n}$ be the vector space of $n$-tuples from the preceding exercise, written as columns. If $A$ is an $m \times n$ matrix, and $X$ is in $V^{n}$, define $AX$ in $V^{m}$ by matrix multiplication. More precisely, if
+\begin{equation*}
+A = \leftB a_{ij} \rightB \mbox{ and } X = 
+\leftB \begin{array}{c}
+\vect{v}_1 \\
+\vdots \\
+\vect{v}_n
+\end{array} \rightB, \mbox{ let } AX = 
+\leftB \begin{array}{c}
+\vect{u}_1 \\
+\vdots \\
+\vect{u}_n
+\end{array} \rightB
+\end{equation*}
+where $\vect{u}_{i} = a_{i1}\vect{v}_{1} + a_{i2}\vect{v}_{2} + \dots + a_{in}\vect{v}_{n}$ for each $i$. \newline Prove that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $B(AX) = (BA)X$
+
+\item $(A + A_{1})X = AX + A_{1}X$
+
+\item $A(X + X_{1}) = AX + AX_{1}$
+
+\item $(kA)X = k(AX) = A(kX)$ if $k$ is any number
+
+\item $IX = X$ if $I$ is the $n \times n$ identity matrix
+
+\item Let $E$ be an elementary matrix obtained by performing a row operation on the rows of $I_{n}$ (see Section~\ref{sec:2_5}). Show that $EX$ is the column resulting from performing that same row operation on the vectors (call them rows) of $X$. [\textit{Hint}: Lemma~\ref{lem:005213}.]
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

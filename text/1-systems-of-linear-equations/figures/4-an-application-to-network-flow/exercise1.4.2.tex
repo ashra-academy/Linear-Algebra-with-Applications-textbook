@@ -1,0 +1,19 @@
+\begin{tikzpicture}[scale=0.8]
+\node[above,font=\small] at (0,2) {$A$};
+\node[above right,font=\small] at (1,3) {$B$};
+\node[below right,font=\small] at (3,2) {$C$};
+\node[right,font=\small] at (2,0) {$D$};
+\draw[dkgreenvect,thick,decoration={markings, mark= at position 0.65 with {\arrow{latex}};,},postaction={decorate}] (0,2)--(1,3) node[above=0.1, font=\small, text=black, pos=0.4]{$f_1$};
+\draw[dkgreenvect,->-,thick] (1,3)--(2,0) node[right, font=\small, text=black, midway]{$f_2$};
+\draw[dkgreenvect,->-,thick] (1,3)--(3,2) node[above, font=\small, text=black, midway]{$f_3$};
+\draw[dkgreenvect,->-,thick] (0,2)--(2,0) node[left, font=\small, text=black, midway]{$f_4$};
+\draw[dkgreenvect,->-,thick] (2,0)--(3,2) node[right, font=\small, text=black, midway]{$f_5$};
+\draw[dkgreenvect,->-,thick] (-0.5,2)--(0,2) node[above left, font=\small, text=black, midway]{$55$};
+\draw[dkgreenvect,-latex,thick] (1,3)--(1,3.5) node[above left, font=\small, text=black, midway]{$20$};
+\draw[dkgreenvect,-latex,thick] (3,2)--(3.5,2) node[above, font=\small, text=black, midway]{$15$};
+\draw[dkgreenvect,-latex,thick] (2,0)--(2,-0.5) node[below right, font=\small, text=black, midway]{$20$};
+\fill[black] (0,2) circle (2pt);
+\fill[black] (1,3) circle (2pt);
+\fill[black] (3,2) circle (2pt);
+\fill[black] (2,0) circle (2pt);
+\end{tikzpicture}

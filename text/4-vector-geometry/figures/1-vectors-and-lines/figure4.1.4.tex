@@ -1,0 +1,51 @@
+\begin{tikzpicture}[scale=0.9]
+%set up of axis environment
+\begin{axis}[view/h=120,
+disabledatascaling, anchor=origin,
+width=5cm, 
+height=5cm, 
+xlabel={$x$}, 
+ylabel={$y$},
+zlabel={$z$},
+axis lines=center,
+axis on top,
+xtick=\empty,
+ytick=\empty,
+ztick=\empty,
+xticklabels=\empty, 
+yticklabels=\empty, 
+zticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=north,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis z label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode = individual,
+samples=100, 
+xmin=-0.2, 
+xmax=1, 
+ymin=-0.2, 
+ymax=1,
+zmin=-0.2,
+zmax=1]
+
+\coordinate (ptA) at (0, -0.4, 0.2);
+\coordinate (ptB) at (0, 0.7, 0.9);
+
+\draw [dkgreenvect, thick, -latex] (ptA)--(ptB) node[text=black, below, pos=0.7] {\footnotesize $\longvect{AB}$};
+\fill (ptA) circle (2pt);
+\fill (ptB) circle (2pt);
+
+\node at (0, 0.1, -0.15) {\footnotesize $O$};
+\node [left] at (ptA) {\footnotesize $A$};
+\node [right] at (ptB) {\footnotesize $B$};
+
+\end{axis}
+\end{tikzpicture}

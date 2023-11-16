@@ -1,0 +1,52 @@
+\begin{tikzpicture}
+\begin{axis}[disabledatascaling, 
+	clip mode=individual, 
+    width=5cm, 
+    height=3.5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick=\empty, 
+    ytick=\empty, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-5:5, 
+    samples=100, 
+    xmin=-1.5, 
+    xmax=1.5, 
+    ymin=-0.25, 
+    ymax=1.5]
+\coordinate(ptX) at (1,0.4);
+\coordinate(ptY) at (0.4,0.65);
+\coordinate(ptXY) at (1.4,1.05);
+\coordinate(ptRX) at (-0.5641,0.91754);
+\coordinate(ptRY) at (-0.659,0.292);
+\coordinate(ptRXY) at (-1.2231,1.20954);
+\draw[thick,-latex] (0.35,0.14) arc [start angle=45,end angle=108,radius=0.5] node [above, text=black,font=\scriptsize,pos=-0.1]{$\theta$};
+\draw[dkgreenvect,thick,-latex] (0,0)--(ptX);
+\draw[dkgreenvect,thick,-latex] (0,0)--(ptY);
+\draw[dkbluevect,thick,dashed] (ptX)--(ptXY);
+\draw[dkbluevect,thick,dashed] (ptY)--(ptXY);
+\draw[dkgreenvect,thick,-latex] (0,0)--(ptRX);
+\draw[dkgreenvect,thick,-latex] (0,0)--(ptRY);
+\draw[dkbluevect,thick,dashed] (ptRX)--(ptRXY);
+\draw[dkbluevect,thick,dashed] (ptRY)--(ptRXY);
+\fill[black] (0,0) circle (2pt);
+\fill[black] (ptX) circle (2pt) node[font=\footnotesize,text=black,right]{$\vect{x}$};
+\fill[black] (ptY) circle (2pt) node[font=\footnotesize,text=black,above]{$\vect{y}$};
+\fill[black] (ptXY) circle (2pt) node[font=\footnotesize,text=black,above]{$\vect{x}+\vect{y}$};
+\fill[black] (ptRX) circle (2pt) node[font=\footnotesize,text=black,above=0.01]{$R_{\theta}(\vect{x})$};
+\fill[black] (ptRY) circle (2pt) node[font=\footnotesize,text=black,left]{$R_{\theta}(\vect{y})$};
+\fill[black] (ptRXY) circle (2pt);
+\node[font=\footnotesize,text=black,above left] at (-1, 1.209654){$R_{\theta}(\vect{x}+\vect{y})$};
+\node[below left,font=\footnotesize] at (0,0){$\vect{0}$};
+\end{axis} 
+\end{tikzpicture}

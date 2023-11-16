@@ -1,0 +1,8 @@
+\begin{tikzpicture}
+[scale=1.3]
+\draw[dkgreenvect, -latex, thick] (0, 0)--(2, 0) node[below, text=black, midway] {\small $\vect{v}$};
+\draw[dkgreenvect, -latex, thick] (0, 0)-- +(60:2cm) node[left, text=black, midway] {\small $\vect{u}$};
+\draw[dkgreenvect, -latex, thick] (2, 0)-- +(120:2cm) node[right, text=black, pos=0.8] {\small $\vect{u} - \vect{v}$};
+\draw[dkbluevect, thick] (2, 0)-- ++(60:2cm) node (sum){} -- ++(-2, 0);
+\draw[dkgreenvect, -latex, thick] (0, 0)--(sum.center) node[right=0.1, text=black, pos=0.55] {\small $\vect{u} + \vect{v}$};
+\end{tikzpicture}

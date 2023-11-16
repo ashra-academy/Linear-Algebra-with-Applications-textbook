@@ -1,0 +1,15 @@
+\noindent Given a matrix $A$, the effect of a sequence of row-operations on $A$ is to produce $UA$ where $U$ is invertible. Under this ``row-equivalence'' operation the best that can be achieved is the reduced row-echelon form for $A$. If column operations are also allowed, the result is $UAV$ where both $U$ and $V$ are invertible, and the best outcome under this ``equivalence'' operation is called the Smith canonical form of $A$ (Theorem \ref{thm:005369}). There are other kinds of operations on a matrix and, in many cases, there is a ``canonical'' best possible result.
+
+If $A$ is square, the most important operation of this sort is arguably ``similarity'' wherein $A$ is carried to $U^{-1}AU$ where $U$ is invertible. In this case we say that matrices $A$ and $B$ are \textit{similar}, and write $A \sim B$, when $B = U^{-1}AU$ for some invertible matrix $U$. Under similarity the canonical matrices, called \textit{Jordan canonical matrices}\index{Jordan canonical matrices}, are block triangular with upper triangular ``Jordan'' blocks on the main diagonal. In this short chapter we are going to define these Jordan blocks and prove that every matrix is similar to a Jordan canonical matrix.
+
+Here is the key to the method. Let $T : V \to V$ be an operator on an $n$-dimensional vector space $V$, and suppose that we can find an ordered basis $B$ of $B$ so that the matrix $M_B(T)$ is as simple as possible. Then, if $B_0$ is \textit{any} ordered basis of $V$, the matrices $M_B(T)$ and $M_{B_0}(T)$ are similar; that is,
+\begin{equation*}
+M_B(T) = P^{-1} M_{B_0}(T)P \quad \mbox{for some invertible matrix } P
+\end{equation*}
+Moreover, $P=P_{B_0 \leftarrow B}$ is easily computed from the bases $B$ and $D$ (Theorem \ref{thm:028802}). This, combined with the invariant subspaces and direct sums studied in Section \ref{sec:9_3}, enables us to calculate the Jordan canonical form of any square matrix $A$. Along the way we derive an explicit construction of an invertible matrix $P$ such that $P^{-1}AP$ is block triangular. 
+
+This technique is important in many ways. For example, if we want to diagonalize an $n \times n$ matrix $A$, let $T_A : \RR^n \to \RR^n$ be the operator given by $T_A(\vect{x}) = A\vect{x}$ or all $\vect{x}$ in $\RR^n$, and look for a basis $B$ of $\RR^n$ such that $M_B(T_A)$ is diagonal. If $B_0 = E$ is the standard basis of $\RR^n$, then $M_E(T_A)=A$, so 
+\begin{equation*}
+P^{-1}AP = P^{-1}M_E(T_A)P = M_B(T_A)
+\end{equation*}
+and we have diagonalized $A$. Thus the ``algebraic'' problem of finding an invertible matrix $P$ such that $P^{-1}AP$ is diagonal is converted into the ``geometric'' problem of finding a basis $B$ such that $M_B(T_A)$ is diagonal. This change of perspective is one of the most important techniques in linear algebra.\index{basis!geometric problem of finding}

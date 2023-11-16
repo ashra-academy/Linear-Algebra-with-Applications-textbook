@@ -1,0 +1,64 @@
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    xtick=\empty,
+    ytick=\empty,
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=--3:6, 
+    samples=100, 
+    xmin=-3, 
+    xmax=6, 
+    ymin=-2, 
+    ymax=7]
+\coordinate (negB) at (-2, 4);
+\coordinate (ptQ) at (0, 4);
+\coordinate (ptX) at (4, 2);
+\coordinate (ptP) at (4, 0);
+%0qR triangle
+\draw[dkgreenvect,thick,-latex](0,0)--(negB);
+\draw[dkgreenvect,thick,-](0,0)--(ptQ);
+\node[right, font=\scriptsize, text=black] at (-0.2, 2){$a$};
+\draw[dkgreenvect,thick,-](negB)--(ptQ);
+\node[below, font=\scriptsize, text=black] at (-0.8, 4.2){$b$};
+%0px triangle
+\draw[dkgreenvect,thick,-latex](0,0)--(ptX);
+\draw[dkgreenvect,thick,-](0,0)--(ptP);
+\node[above, font=\scriptsize, text=black] at (2.2, -0.2){$a$};
+\draw[dkgreenvect,thick,-](ptP)--(ptX) ;
+\node[right, font=\scriptsize, text=black] at (4-0.2, 1){$b$};
+\draw[dkbluevect,thick,-](-0.2, 0.4)--(0.2,0.6)--(0.4, 0.2);
+%points
+\fill (negB) circle (2pt);
+\fill (ptQ) circle (2pt);
+\node[right, font=\footnotesize] at (ptQ){$\vect{q}$};
+\fill (ptX) circle (2pt);
+\node[below left, font=\footnotesize] at (0,0){$\vect{0}$};
+\fill (ptP) circle (2pt);
+\node[below, font=\footnotesize] at (ptP){$\vect{p}$};
+\end{axis}
+
+\node[above, font=\scriptsize] at (1.1, 2.3)
+{$R_{\frac{\pi}{2}}(\vect{x}) = \leftB \begin{array}{r}
+	-b \\
+	a
+\end{array}\rightB$};
+\node[right, font=\scriptsize] at (2.7, 1.6)
+{$\vect{x} = \leftB \begin{array}{l}
+	a \\
+	b
+\end{array}\rightB $};
+\end{tikzpicture}

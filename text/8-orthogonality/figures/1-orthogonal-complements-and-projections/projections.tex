@@ -1,0 +1,26 @@
+\begin{tikzpicture}[scale=0.9]
+\coordinate (pt0) at (0, 0);
+\coordinate (ptX) at (2, 1);
+\coordinate (ptP) at (2, 0);
+
+%plane
+\draw [dkbluevect, thick, fill=ltgreenvect!50!white] (-1, 0)-- ++(1.5, 0.75) -- ++(3, -0.75) -- ++(-1.5, -0.75) -- cycle;
+
+%green lines
+\draw [dkgreenvect, thick, -latex] (pt0)--(ptX) node[text=black, above, pos=0.6] {\footnotesize $\vect{x}$};
+\draw [dkgreenvect, thick, -latex] (pt0)--(ptP) node[text=black, below, midway] {\footnotesize $\vect{p}$};
+\draw [dkgreenvect, thick, -latex] (ptP)--(ptX) node[text=black, right, pos=0.6] {\footnotesize $\vect{x} - \vect{p}$};
+\def \angleWidth {0.25}
+\draw [dkbluevect, thick] ($(ptP) - (\angleWidth, 0)$) -- ++(0, \angleWidth) -- ++ (\angleWidth, 0);
+
+%points
+\fill (pt0) circle (2pt);
+\fill (ptP) circle (2pt);
+\fill (ptX) circle (2pt);
+
+%extra labels
+\node [left] at (pt0) {\footnotesize $\vect{0}$};
+\node at (0.5, -0.75) {\footnotesize $U$};
+\draw [dkbluevect, thick] (0.5, -0.5) arc [start angle=180, end angle=140, radius=0.4];
+
+\end{tikzpicture}

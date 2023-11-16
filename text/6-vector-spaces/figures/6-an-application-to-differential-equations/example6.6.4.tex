@@ -1,0 +1,10 @@
+
+\begin{tikzpicture}
+\draw[decoration={aspect=0.3, segment length=3mm, amplitude=3mm,coil},decorate] (0,2)--(0,0);
+\fill[pattern color=dkgreenvect, pattern= north east lines](-1,2) rectangle (1,2.2);
+\draw[dkgreenvect, thick](-1,2)--(1,2);
+\filldraw[draw=dkbluevect,fill=ltbluevect](-0.25,0) rectangle (0.25,-0.5);
+\draw[dkgreenvect, thick](0.5,0)--(1,0);
+\draw[dkgreenvect, thick, -latex](0.75,0)--(0.75,-1.5) node[right, text=black] at (0.75,-1.1) {\footnotesize $d(t)$}; 
+\end{tikzpicture}
+

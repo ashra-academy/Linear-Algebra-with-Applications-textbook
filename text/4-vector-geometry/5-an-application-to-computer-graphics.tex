@@ -1,0 +1,409 @@
+\section{An Application to Computer Graphics}
+\label{sec:4_5}
+
+Computer graphics deals with images 
+displayed on a computer screen, and so arises in a variety of 
+applications, ranging from word processors, to \textit{Star Wars} 
+animations, to video games, to wire-frame images of an airplane.  These 
+images consist of a number of points on the screen, together with 
+instructions on how to fill in areas bounded by lines and curves. Often 
+curves are approximated by a set of short straight-line segments, so 
+that the curve is specified by a series of points on the screen at the 
+end of these segments. Matrix transformations are important here because
+ matrix images of straight line segments are again line segments.\footnote{If $\vect{v}_{0}$ and $\vect{v}_{1}$ are vectors, the vector from $\vect{v}_{0}$ to $\vect{v}_{1}$ is $\vect{d} = \vect{v}_{1} - \vect{v}_{0}$. So a vector $\vect{v}$ lies on the line segment between $\vect{v}_{0}$ and $\vect{v}_{1}$ if and only if $\vect{v} = \vect{v}_{0} + t\vect{d}$ for some number $t$ in the range $0 \leq t \leq 1$. Thus the image of this segment is the set of vectors $A\vect{v} = A\vect{v}_{0} + tA \vect{d}$ with $0 \leq t \leq 1$, that is the image is the segment between $A\vect{v}_{0}$ and $A\vect{v}_{1}$.} Note that a colour image requires that three images are sent, one to 
+each of the red, green, and blue phosphorus dots on the screen, in 
+varying intensities.\index{computer graphics}\index{linear transformations!in computer graphics}\index{vector geometry!computer graphics}
+
+\newpage
+\begin{wrapfigure}[34]{l}{4cm} 
+\centering
+\input{4-vector-geometry/figures/5-an-application-to-computer-graphics/figure4.5.1}
+\caption{\label{fig:013289}}
+\vspace{1em}
+\input{4-vector-geometry/figures/5-an-application-to-computer-graphics/figure4.5.2}
+\caption{\label{fig:013290}}
+\vspace{1em}
+\input{4-vector-geometry/figures/5-an-application-to-computer-graphics/figure4.5.3}
+\caption{\label{fig:013296}}
+\vspace{1em}
+\input{4-vector-geometry/figures/5-an-application-to-computer-graphics/figure4.5.4}
+\caption{\label{fig:013297}}
+\vspace{1em}
+\input{4-vector-geometry/figures/5-an-application-to-computer-graphics/figure4.5.5}
+\caption{\label{fig:013303}}
+\end{wrapfigure}
+
+Consider displaying the letter $A$. In reality, it is depicted on the screen, as in Figure~\ref{fig:013289},
+ by specifying the coordinates of the 11 corners and filling in the 
+interior.
+
+ For simplicity, we will disregard the thickness of the letter,
+ so we require only five coordinates as in Figure~\ref{fig:013290}. 
+
+This simplified letter can then be stored as a data matrix
+\begin{align*}
+\mbox{\textit{Vertex}} & 
+\ \ \ \ \ \ \ \begin{array}{rrrrr}
+1 & 2 & 3 & 4 & 5
+\end{array} \\
+D &= \leftB
+\begin{array}{rrrrr}
+0 & 6 & 5 & 1 & 3\\
+0 & 0 & 3 & 3 & 9
+\end{array}
+\rightB
+\end{align*}
+where the columns are the coordinates of the vertices in order. Then if we want to transform the letter by a $2 \times 2$ matrix $A$, we left-multiply this data matrix by $A$ (the effect is to multiply each column by $A$ and so transform each vertex).
+
+For example, we can slant the letter to the right by multiplying by an $x$-shear matrix $A = \leftB
+\begin{array}{ll}
+1 & 0.2\\
+0 & 1\\
+\end{array}
+\rightB$
+ ---see Section~\ref{sec:2_2}. The result is the letter with data matrix
+\begin{equation*}
+A = \leftB
+\begin{array}{ll}
+1 & 0.2\\
+0 & 1
+\end{array}
+\rightB \leftB
+\begin{array}{rrrrr}
+0 & 6 & 5 & 1 & 3\\
+0 & 0 & 3 & 3 & 9
+\end{array}
+\rightB = 
+ \leftB
+\begin{array}{lllll}
+0 & 6 & 5.6 & 1.6 & 4.8\\
+0 & 0 & 3 & 3 & 9
+\end{array}
+\rightB
+\end{equation*}
+which is shown in Figure~\ref{fig:013296}.
+
+ If we want to make this slanted matrix narrower, we can now apply an $x$-scale matrix $B = \leftB
+\begin{array}{ll}
+	0.8 & 0\\
+	0 & 1
+\end{array}
+\rightB$ that shrinks the $x$-coordinate by $0.8$. The result is the composite transformation
+\begin{align*}
+BAD &= \leftB
+\begin{array}{ll}
+0.8 & 0\\
+0 & 1
+\end{array}
+\rightB \leftB
+\begin{array}{ll}
+1 & 0.2\\
+0 & 1
+\end{array}
+\rightB \leftB
+\begin{array}{rrrrr}
+0 & 6 & 5 & 1 & 3\\
+0 & 0 & 3 & 3 & 9
+\end{array}
+\rightB \\ &= 
+\leftB
+\begin{array}{lllll}
+0 & 4.8 & 4.48 & 1.28 & 3.84\\
+0 & 0 & 3 & 3 & 9
+\end{array}
+\rightB
+\end{align*}
+which is drawn in Figure~\ref{fig:013297}.
+
+On the other hand, we can rotate the letter about the origin through $\frac{\pi}{6}$ (or $30^\circ$) by multiplying by the matrix  $R_{\frac{\pi}{2}} = \leftB
+\def\arraystretch{1.5}\begin{array}{rr}
+\cos(\frac{\pi}{6}) & -\sin(\frac{\pi}{6})\\
+\sin(\frac{\pi}{6}) & \cos(\frac{\pi}{6})
+\end{array}
+\rightB = \leftB
+\begin{array}{ll}
+0.866 & -0.5\\
+0.5 & 0.866
+\end{array}
+\rightB$.
+This gives
+\begin{align*}
+R_{\frac{\pi}{2}} &= \leftB
+\begin{array}{ll}
+0.866 & -0.5\\
+0.5 & 0.866
+\end{array}
+\rightB \leftB
+\begin{array}{rrrrr}
+0 & 6 & 5 & 1 & 3\\
+0 & 0 & 3 & 3 & 9
+\end{array}
+\rightB \\ &=
+\leftB
+\begin{array}{lllrr}
+0 & 5.196 & 2.83 & -0.634 & -1.902\\
+0 & 3 & 5.098 & 3.098 & 9.294
+\end{array}
+\rightB
+\end{align*}
+and is plotted in Figure~\ref{fig:013303}.
+
+This poses a problem: How do we rotate 
+at a point other than the origin? It turns out that we can do this when 
+we have solved another more basic problem. It is clearly important to be
+ able to translate a screen image by a fixed vector $\vect{w}$, that is apply the transformation $T_{w} : \RR^2 \to \RR^2$ given by $T_{w}(\vect{v}) = \vect{v} + \vect{w}$ for all $\vect{v}$ in $\RR^2$. The problem is that these translations are not matrix transformations $\RR^2 \to \RR^2$ because they do not carry $\vect{0}$ to $\vect{0}$ (unless $\vect{w} = \vect{0}$). However, there is a clever way around this.
+
+
+The idea is to represent a point $\vect{v} = \leftB
+\begin{array}{r}
+x\\
+y
+\end{array}
+\rightB$
+ as a $3 \times 1$ column $\leftB
+ \begin{array}{r}
+ x\\
+ y\\
+ 1
+ \end{array}
+ \rightB$, called the \textbf{homogeneous coordinates}\index{homogeneous coordinates} of $\vect{v}$. Then translation by $\vect{w} = \leftB
+ \begin{array}{r}
+ p\\
+ q
+ \end{array}
+ \rightB$ can be achieved by multiplying by a $3 \times 3$ matrix:
+\begin{equation*}
+\leftB
+\begin{array}{rrr}
+1 & 0 & p\\
+0 & 1 & q\\
+0 & 0 & 1
+\end{array}
+\rightB \leftB
+\begin{array}{r}
+x\\
+y\\
+1
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{c}
+x + p\\
+y + q\\
+1
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{c}
+T_{\vect{w}}(\vect{v})\\
+1
+\end{array}
+\rightB
+\end{equation*}
+Thus, by using homogeneous coordinates we can implement the translation $T_{w}$ in the top two coordinates. On the other hand, the matrix transformation induced by $A = \leftB
+\begin{array}{rr}
+a & b\\
+c & d
+\end{array}
+\rightB$ is also given by a $3 \times 3$ matrix:
+\begin{equation*}
+\leftB
+\begin{array}{rrr}
+a & b & 0\\
+c & d & 0\\
+0 & 0 & 1
+\end{array}
+\rightB \leftB
+\begin{array}{r}
+x\\
+y\\
+1
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{c}
+ax + by\\
+cx + dy\\
+1
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{c}
+A\vect{v}\\
+1
+\end{array}
+\rightB
+\end{equation*}
+So everything can be accomplished at the expense of using $3 \times 3$ matrices and homogeneous coordinates.
+
+
+\begin{example}{}{013322}
+Rotate the letter $A$ in Figure~\ref{fig:013290} through $\frac{\pi}{6}$ about the point $\leftB
+\begin{array}{c}
+4\\
+5
+\end{array}
+\rightB$.
+
+
+\begin{solution}
+Using homogeneous coordinates for the vertices of the letter results in a data matrix with three rows:
+\begin{equation*}
+K_{d} =  \leftB
+\begin{array}{rrrrr}
+0 & 6 & 5 & 1 & 3\\
+0 & 0 & 3 & 3 & 9 \\
+1 & 1 & 1 & 1 & 1
+\end{array}
+\rightB
+\end{equation*}
+
+\begin{wrapfigure}[6]{l}{5cm} 
+\vspace*{-5em}
+\centering
+\input{4-vector-geometry/figures/5-an-application-to-computer-graphics/figure4.5.6}
+\caption{\label{fig:013335}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+If we write $\vect{w} = \leftB
+\begin{array}{c}
+4\\
+5
+\end{array}
+\rightB$, the idea is to use a composite of transformations: First translate the letter by $-\vect{w}$ so that the point $\vect{w}$ moves to the origin, then rotate this translated letter, and then translate it by $\vect{w}$ back to its original position. The matrix arithmetic is as follows (remember the order of composition!):
+\begin{align*}
+& \leftB
+\begin{array}{rrr}
+1 & 0 & 4\\
+0 & 1 & 5\\
+0 & 0 & 1
+\end{array}
+\rightB
+\leftB
+\begin{array}{lrr}
+0.866 & -0.5 & 0\\
+0.5 & 0.866 & 0\\
+0 & 0 & 1
+\end{array}
+\rightB
+\leftB
+\begin{array}{rrr}
+1 & 0 & -4\\
+0 & 1 & -5\\
+0 & 0 & 1
+\end{array}
+\rightB
+\leftB
+\begin{array}{rrrrr}
+0 & 6 & 5 & 1 & 3\\
+0 & 0 & 3 & 3 & 9 \\
+1 & 1 & 1 & 1 & 1
+\end{array}
+\rightB \\
+&= \leftB
+\begin{array}{lllll}
+3.036 & 8.232 & 5.866 & 2.402 & 1.134\\
+-1.33 & 1.67 & 3.768 & 1.768 & 7.964 \\
+1 & 1 & 1 & 1 & 1
+\end{array}
+\rightB
+\end{align*}
+This is plotted in Figure~\ref{fig:013335}.
+
+\end{solution}
+\end{example}
+
+This discussion merely touches the 
+surface of computer graphics, and the reader is referred to specialized 
+books on the subject. Realistic graphic rendering requires an enormous 
+number of matrix calculations. In fact, matrix multiplication algorithms
+ are now embedded in microchip circuits, and can perform over 100 
+million matrix multiplications per second. This is particularly 
+important in the field of three-dimensional graphics where the 
+homogeneous coordinates have four components and $4 \times 4$ matrices are 
+required.
+
+
+\section*{Exercises for \ref{sec:4_5}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:4_5}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Consider the letter $A$ described in Figure~\ref{fig:013290}. Find the data matrix for the letter obtained by:
+
+\vspace{-1em}
+\begin{enumerate}[label={\alph*.}]
+\item Rotating the letter through $\frac{\pi}{4}$ about the origin.
+
+\item Rotating the letter through $\frac{\pi}{4}$
+ about the point $\leftB
+ \begin{array}{c}
+ 1\\
+ 2
+ \end{array}
+ \rightB$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item \hspace{1em} \\
+\hspace*{-2em}${\footnotesize\frac{1}{2}\leftB
+\begin{array}{ccccc}
+\sqrt{2} + 2 & 7\sqrt{2} + 2 & 3\sqrt{2} + 2 & -\sqrt{2} + 2 & -5\sqrt{2} + 2\\
+-3\sqrt{2} + 4 & 3\sqrt{2} + 4 & 5\sqrt{2} + 4 & \sqrt{2} + 4 & 9\sqrt{2} + 4 \\
+2 & 2 & 2 & 2 & 2
+\end{array}
+\rightB}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the matrix for turning the letter $A$ in Figure~\ref{fig:013290} upside-down in place.
+\end{ex}
+
+\begin{ex}
+Find the $3 \times 3$ matrix for reflecting in the line $y = mx + b$. Use $\leftB
+\begin{array}{c}
+1\\
+m
+\end{array}
+\rightB$ as direction vector for the line.
+\end{ex}
+
+\begin{ex}
+Find the $3 \times 3$ matrix for rotating through the angle $\theta$ about the point $P(a, b)$.
+\end{ex}
+
+\begin{ex}
+Find the reflection of the point $P$ in the line $y = 1 + 2x$ in $\RR^2$ if:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $P = P(1, 1)$
+
+\item $P = P(1, 4)$
+
+\item What about $P = P(1, 3)$? Explain. [\textit{Hint}: Example~\ref{exa:013322} and Section \ref{sec:4_4}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $P(\frac{9}{5}, \frac{18}{5})$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+\end{multicols}

@@ -1,0 +1,46 @@
+\begin{tikzpicture}[scale=0.9]
+\coordinate (ptA) at (0, 0);
+\coordinate (ptB) at (0, 1);
+\coordinate (ptN) at (0, 2);
+\coordinate (ptP1) at (0.5, -0.25);
+\coordinate (ptP2) at (1, 1.5);
+\coordinate (ptP2Perp) at (1, 0.5);
+\coordinate (ptPlaneLeft) at (-2, 0.5);
+
+\draw[color=dkbluevect, fill=ltbluevect, thick] (ptPlaneLeft)-- ++(2.5, -1.25) -- ++(2, 1) -- ++(-2.5, 1.25)--cycle;
+
+%blue lines
+\draw[dkbluevect, thick, -latex] (ptA)--(ptN);
+\draw[dkbluevect, thick] (ptPlaneLeft)+(-0.5, +0.75)-- (2, -1); %m = -1/2
+\draw[dkbluevect, thick] (ptP2)+(0.5, 0.25)-- ++(-3, -1.5); %line through P2 and B, m = 1/2
+\draw[dkbluevect, thick] (ptP2Perp)--(ptP2);
+
+%right angles
+{
+\def \angleWidth {0.2}
+\def \rightAngleX {0.179} %x change for right angles BAP1 and P2_A
+\draw[dkbluevect, thick] (ptA)++(0, \angleWidth)-- ++(\rightAngleX, -{\rightAngleX / 2}) -- ++(0, -\angleWidth); %BAP1
+\draw[dkbluevect, thick] (ptP2Perp)++(0, \angleWidth)-- ++(-\rightAngleX, {-\rightAngleX / 2}) -- ++(0, -\angleWidth); %AP2
+\def \rightAnglePP {0.111} %m for p1 to point under p2 = 1.5.
+
+\draw[dkbluevect, thick] (ptP2Perp)++(0, \angleWidth)-- ++( -\rightAnglePP, -\rightAnglePP * 1.5) -- ++(0, -\angleWidth); %P1P2
+}
+
+%dashed lines
+\draw[dkbluevect, thick, dashed] (ptA)--(ptP2Perp)
+	(ptP1)--(ptP2Perp);
+
+%u line
+\draw[dkgreenvect, thick, -latex] (ptP1)--(ptP2) node[left, text=black, midway] {\footnotesize $\vect{u}$};
+
+\fill (ptA) circle (2pt);
+\fill (ptB) circle (2pt);
+\fill (ptP1) circle (2pt);
+\fill (ptP2) circle (2pt);
+
+\node[above] at (ptP2) {\footnotesize $P_2$};
+\node[right] at (ptN) {\footnotesize $\vect{n}$};
+\path (ptB)-- ++(-0.2, 0.1) node {\footnotesize $B$};
+\path (ptA)-- ++(-0.2, -0.1) node {\footnotesize $A$};
+\node[below] at (ptP1) {\footnotesize $P_1$};
+\end{tikzpicture}

@@ -1,0 +1,557 @@
+\section{Block Triangular Form}
+\label{sec:11_1}\index{block triangular form}\index{canonical forms!block triangular form}
+
+We have shown (Theorem~\ref{thm:024503}) that any $n \times n$ matrix $A$ with every eigenvalue real is orthogonally similar to an upper triangular matrix $U$. The following theorem shows that $U$ can be chosen in a special way.
+
+
+\begin{theorem}{Block Triangulation Theorem}{032952}
+Let $A$ be an $n \times n$ matrix with every eigenvalue real and let
+\begin{equation*}
+c_A(x) = (x - \lambda_1)^{m_1}(x - \lambda_2)^{m_2} \cdots (x - \lambda_k)^{m_k}
+\end{equation*}
+where $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$ are the distinct eigenvalues of $A$. Then an invertible matrix $P$ exists such that
+\begin{equation*}
+P^{-1}AP = \leftB \begin{array}{ccccc}
+U_1 & 0 & 0 & \cdots & 0 \\
+0 & U_2 & 0 & \cdots & 0 \\
+0 & 0 & U_3 & \cdots & 0 \\ 
+\vdots & \vdots & \vdots &  & \vdots \\
+0 & 0 & 0 & \cdots & U_k
+\end{array} \rightB
+\end{equation*}
+where, for each $i$, $U_{i}$ is an $m_{i} \times m_{i}$ upper triangular matrix with every entry on the main diagonal equal to $\lambda_{i}$.\index{block triangulation theorem}
+\end{theorem}
+
+\noindent The proof is given at the end of this section. For now, we focus on a method for \textit{finding} the matrix $P$. The key concept is as follows.
+
+
+\begin{definition}{Generalized Eigenspaces}{032966}
+If $A$ is as in Theorem~\ref{thm:032952}, the \textbf{generalized eigenspace}\index{generalized eigenspace}\index{eigenspace} $G_{\lambda_i}(A)$ is defined by
+\begin{equation*}
+G_{\lambda_i}(A) = \func{null}[(\lambda_{i}I - A)^{m_i}]
+\end{equation*}
+where $m_{i}$ is the multiplicity of $\lambda_{i}$.
+\end{definition}
+
+\noindent Observe that the eigenspace $E_{\lambda_i}(A) = \func{null}(\lambda_{i}I - A)$ is a subspace of $G_{\lambda_i}(A)$. We need three technical results.
+
+
+\begin{lemma}{}{032980}
+Using the notation of Theorem~\ref{thm:032952}, we have $\func{dim}[G_{\lambda_i}(A)] = m_{i}$.
+\end{lemma}
+
+\begin{proof}
+Write $A_{i} = (\lambda_{i}I - A)^{m_i}$ for convenience and let $P$ be as in Theorem~\ref{thm:032952}. The spaces \newline $G_{\lambda_i}(A) = \func{null}(A_{i})$ and $\func{null}(P^{-1}A_{i}P)$ are isomorphic via $\vect{x} \leftrightarrow P^{-1}\vect{x}$, so we show $\func{dim}[\func{null}(P^{-1}A_{i}P)] = m_{i}$. Now $P^{-1}A_{i}P = (\lambda_{i}I - P^{-1}AP)^{m_i}$. If we use the block form in Theorem~\ref{thm:032952}, this becomes
+\begin{align*}
+P^{-1}A_{i}P &= \leftB \begin{array}{cccc}
+\lambda_{i}I - U_1 & 0 & \cdots & 0 \\
+0 & \lambda_{i}I - U_2 & \cdots & 0 \\
+\vdots & \vdots &  & \vdots \\
+0 & 0 & \cdots & \lambda_{i}I - U_k
+\end{array} \rightB^{m_i} \\
+&= \leftB \begin{array}{cccc}
+(\lambda_{i}I - U_1)^{m_i} & 0 & \cdots & 0 \\
+0 & (\lambda_{i}I - U_2)^{m_i} & \cdots & 0 \\
+\vdots & \vdots &  & \vdots \\
+0 & 0 & \cdots & (\lambda_{i}I - U_k)^{m_i}
+\end{array} \rightB
+\end{align*}
+The matrix $(\lambda_{i}I - U_{j})^{m_i}$ is invertible if $j \neq i$ and zero if $j = i$ (because then $U_{i}$ is an $m_{i} \times m_{i}$ upper triangular matrix with each entry on the main diagonal equal to $\lambda_{i}$). It follows that $m_{i} = \func{dim}[\func{null}(P^{-1}A_{i}P)]$, as required.
+\end{proof}
+
+\begin{lemma}{}{033020}
+If $P$ is as in Theorem~\ref{thm:032952}, denote the columns of $P$ as follows:
+\begin{equation*}
+\vect{p}_{11}, \vect{p}_{12}, \dots, \vect{p}_{1m_1}; \quad \vect{p}_{21}, \vect{p}_{22}, \dots, \vect{p}_{2m_2}; \quad \dots; \quad \vect{p}_{k1}, \vect{p}_{k2}, \dots, \vect{p}_{km_k}
+\end{equation*}
+Then $\{\vect{p}_{i1}, \vect{p}_{i2}, \dots, \vect{p}_{im_i}\}$ is a basis of $G_{\lambda_i}(A)$.
+\end{lemma}
+
+\begin{proof}
+It suffices by Lemma~\ref{lem:032980} to show that each $\vect{p}_{ij}$ is \textit{in} $G_{\lambda_i}(A)$. Write the matrix in Theorem~\ref{thm:032952} as $P^{-1}AP = \diag(U_{1}, U_{2}, \dots, U_{k})$. Then
+\begin{equation*}
+AP = P \diag(U_1, U_2, \dots, U_k)
+\end{equation*}
+Comparing columns gives, successively:
+\begin{alignat*}{2}
+A\vect{p}_{11} &= \lambda_{1}\vect{p}_{11}, & \quad\quad \mbox{so } (\lambda_{1}I - A)\vect{p}_{11} &= \vect{0} \\
+A\vect{p}_{12} &= u\vect{p}_{11} + \lambda_{1}\vect{p}_{12}, & \quad\quad \mbox{so } (\lambda_{1}I - A)^2\vect{p}_{12} &= \vect{0} \\
+A\vect{p}_{13} &= w\vect{p}_{11} + v\vect{p}_{12} + \lambda_{1}\vect{p}_{13} & \quad\quad \mbox{so } (\lambda_{1}I - A)^3\vect{p}_{13} &= \vect{0} \\
+& \quad \vdots & \vdots &
+\end{alignat*}
+where $u$, $v$, $w$ are in $\RR$. In general, $(\lambda_{1}I - A)^{j}\vect{p}_{1j} = \vect{0}$ for $j = 1, 2, \dots, m_{1}$, so $\vect{p}_{1j}$ is in $G_{\lambda_i}(A)$. Similarly, $\vect{p}_{ij}$ is in $G_{\lambda_i}(A)$ for each $i$ and $j$.
+\end{proof}
+
+\begin{lemma}{}{033057}
+If $B_{i}$ is any basis of $G_{\lambda_i}(A)$, then $B = B_{1} \cup B_{2} \cup \cdots \cup B_{k}$ is a basis of $\RR^n$.
+\end{lemma}
+
+\begin{proof}
+It suffices by Lemma~\ref{lem:032980} to show that $B$ is independent. If a linear combination from $B$ vanishes, let $\vect{x}_{i}$ be the sum of the terms from $B_{i}$. Then $\vect{x}_{1} + \cdots + \vect{x}_{k} = \vect{0}$. But $\vect{x}_{i} = \sum_{j} r_{ij}\vect{p}_{ij}$ by Lemma~\ref{lem:033020}, so $\sum_{i,j} r_{ij}\vect{p}_{ij} = \vect{0}$. Hence each $\vect{x}_{i} = \vect{0}$, so each coefficient in $\vect{x}_{i}$ is zero.
+\end{proof}
+
+Lemma~\ref{lem:033020} suggests an algorithm for finding the matrix $P$ in Theorem~\ref{thm:032952}. Observe that there is an ascending chain of subspaces leading from $E_{\lambda_i}(A)$ to $G_{\lambda_i}(A)$:
+\begin{equation*}
+E_{\lambda_i}(A) = \func{null}[(\lambda_{i}I - A)] \subseteq \func{null}[(\lambda_{i}I - A)^2] \subseteq \cdots \subseteq \func{null}[(\lambda_{i}I - A)^{m_{i}}] = G_{\lambda_i}(A)
+\end{equation*}
+We construct a basis for $G_{\lambda_i}(A)$ by climbing up this chain.
+
+
+\begin{theorem*}{Triangulation Algorithm}{033092}
+Suppose $A$ has characteristic polynomial
+\begin{equation*}
+c_{A}(x) = (x - \lambda_1)^{m_1}(x - \lambda_2)^{m_2} \cdots (x - \lambda_k)^{m_k}
+\end{equation*}
+\begin{enumerate}
+\item Choose a basis of $\func{null}[(\lambda_{1}I - A)]$; enlarge it by adding vectors (possibly none) to a basis of $\func{null}[(\lambda_{1}I - A)^{2}]$; enlarge that to a basis of $\func{null}[(\lambda_{1}I - A)^{3}]$, and so on. Continue to obtain an ordered basis $\{\vect{p}_{11}, \vect{p}_{12}, \dots, \vect{p}_{1m_1}\}$ of $G_{\lambda_1}(A)$.
+
+\item As in {\normalfont (1)} choose a basis $\{\vect{p}_{i1}, \vect{p}_{i2}, \dots, \vect{p}_{im_i}\}$ of $G_{\lambda_i}(A)$ for each $i$.
+
+\item Let $P = \leftB \begin{array}{cccc}\vect{p}_{11} \vect{p}_{12} \cdots \vect{p}_{1m_1}; & \vect{p}_{21} \vect{p}_{22} \cdots \vect{p}_{2m_2}; & \cdots; & \vect{p}_{k1} \vect{p}_{k2} \cdots \vect{p}_{km_k}
+\end{array} \rightB$ be the matrix with these basis vectors (in order) as columns.
+\end{enumerate}
+
+Then $P^{-1}AP = \diag(U_{1}, U_{2}, \dots, U_{k})$ as in Theorem~\ref{thm:032952}.\index{triangulation algorithm}
+\end{theorem*}
+
+\begin{proof}
+Lemma~\ref{lem:033057} guarantees that $B = \{\vect{p}_{11}, \dots, \vect{p}_{km_1}\}$ is a basis of $\RR^n$, and Theorem~\ref{thm:028841} shows that $P^{-1}AP = M_{B}(T_{A})$. Now $G_{\lambda_i}(A)$ is $T_{A}$-invariant for each $i$ because
+\begin{equation*}
+(\lambda_{i}I - A)^{m_i}\vect{x} = \vect{0} \quad \mbox{implies} \quad (\lambda_{i}I - A)^{m_i}(A\vect{x}) = A(\lambda_{i}I - A)^{m_i}\vect{x} = \vect{0}
+\end{equation*}
+By Theorem~\ref{thm:029723} (and induction), we have
+\begin{equation*}
+P^{-1}AP = M_B(T_A) = \diag(U_1, U_2, \dots, U_k)
+\end{equation*}
+where $U_{i}$ is the matrix of the restriction of $T_{A}$ to $G_{\lambda_i}(A)$, and it remains to show that $U_{i}$ has the desired upper triangular form. Given $s$, let $\vect{p}_{ij}$ be a basis vector in $\func{null}[(\lambda_{i}I - A)^{s+1}]$. Then $(\lambda_{i}I - A)\vect{p}_{ij}$ is in $\func{null}[(\lambda_{i}I - A)^{s}]$, and therefore is a linear combination of the basis vectors $\vect{p}_{it}$ coming \textit{before} $\vect{p}_{ij}$. Hence
+\begin{equation*}
+T_A(\vect{p}_{ij}) = A\vect{p}_{ij} = \lambda_{i}\vect{p}_{ij} - (\lambda_{i}I - A)\vect{p}_{ij}
+\end{equation*}
+shows that the column of $U_{i}$ corresponding to $\vect{p}_{ij}$ has $\lambda_{i}$ on the main diagonal and zeros below the main diagonal. This is what we wanted.
+\end{proof}
+
+\begin{example}{}{033179}
+If $A = \leftB \begin{array}{rrrr}
+2 & 0 & 0 & 1 \\
+0 & 2 & 0 & -1 \\
+-1 & 1 & 2 & 0 \\
+0 & 0 & 0 & 2
+\end{array} \rightB$, find $P$ such that $P^{-1}AP$ is block triangular.
+
+
+\begin{solution}
+$c_{A}(x) = \func{det}[xI - A] = (x - 2)^{4}$, so $\lambda_{1} = 2$ is the only eigenvalue and we are in the case $k = 1$ of Theorem~\ref{thm:032952}. Compute:
+\begin{equation*}
+(2I - A) = \leftB \begin{array}{rrrr}
+0 & 0 & 0 & -1 \\
+0 & 0 & 0 & 1 \\
+1 & -1 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{array} \rightB \quad 
+(2I - A)^2 = \leftB \begin{array}{rrrr}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & -2 \\
+0 & 0 & 0 & 0
+\end{array} \rightB \quad
+(2I - A)^3 = 0
+\end{equation*}
+By gaussian elimination find a basis $\{\vect{p}_{11}, \vect{p}_{12}\}$ of $\func{null}(2I - A)$; then extend in any way to a basis $\{\vect{p}_{11}, \vect{p}_{12}, \vect{p}_{13}\}$ of $\func{null}[(2I - A)^{2}]$; and finally get a basis $\{\vect{p}_{11}, \vect{p}_{12}, \vect{p}_{13}, \vect{p}_{14}\}$ of $\func{null}[(2I - A)^{3}] = \RR^4$. One choice is
+\begin{equation*}
+\vect{p}_{11} = \leftB \begin{array}{r}
+1 \\
+1 \\
+0 \\
+0
+\end{array} \rightB \quad
+\vect{p}_{12} = \leftB \begin{array}{r}
+0 \\
+0 \\
+1 \\
+0
+\end{array} \rightB \quad
+\vect{p}_{13} = \leftB \begin{array}{r}
+0 \\
+1 \\
+0 \\
+0
+\end{array} \rightB \quad
+\vect{p}_{14} = \leftB \begin{array}{r}
+0 \\
+0 \\
+0 \\
+1
+\end{array} \rightB \quad
+\end{equation*}
+Hence $P = \leftB \begin{array}{cccc}
+\vect{p}_{11} & \vect{p}_{12} & \vect{p}_{13} & \vect{p}_{14}
+\end{array} \rightB = \leftB \begin{array}{rrrr}
+1 & 0 & 0 & 0 \\
+1 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{array} \rightB$
+ gives $P^{-1}AP = \leftB \begin{array}{rrrr}
+ 2 & 0 & 0 & 1 \\
+ 0 & 2 & 1 & 0 \\
+ 0 & 0 & 2 & -2 \\
+ 0 & 0 & 0 & 2
+ \end{array} \rightB$
+\end{solution}
+\end{example}
+
+\begin{example}{}{033208}
+If $A = \leftB \begin{array}{rrrr}
+2 & 0 & 1 & 1 \\
+3 & 5 & 4 & 1 \\
+-4 & -3 & -3 & -1 \\
+1 & 0 & 1 & 2
+\end{array} \rightB$, find $P$ such that $P^{-1}AP$ is block triangular.
+
+
+\begin{solution}
+  The eigenvalues are $\lambda_{1} = 1$ and $\lambda_{2} = 2$ because
+\begin{align*}
+c_A(x) &= \left| \begin{array}{cccc}
+x - 2 & 0 & -1 & -1 \\
+-3 & x - 5 & -4 & -1 \\
+\mathbin{\phantom{-}}4 & 3 & x + 3 & \mathbin{\phantom{-}}1 \\
+-1 & 0 & -1 & x - 2
+\end{array} \right| = \left| \begin{array}{cccc}
+x - 1 & 0 & \mathbin{\phantom{-}}0 & -x + 1 \\
+-3 & x - 5 & -4 & -1 \\
+\mathbin{\phantom{-}}4 & 3 & x + 3 & \mathbin{\phantom{-}}1 \\
+-1 & 0 & -1 & x - 2
+\end{array} \right| \\
+&= \left| \begin{array}{cccc}
+x - 1 & 0 & \mathbin{\phantom{-}}0 & \mathbin{\phantom{-}}0 \\
+-3 & x - 5 & -4 & -4 \\
+\mathbin{\phantom{-}}4 & 3 & x + 3 & \mathbin{\phantom{-}}5 \\
+-1 & 0 & -1 & x - 3
+\end{array} \right| = (x - 1) \left| \begin{array}{ccc}
+x - 5 & -4 & -4 \\
+3 & x + 3 & \mathbin{\phantom{-}}5 \\
+0 & -1 & x - 3
+\end{array} \right| \\
+&= (x - 1) \left| \begin{array}{ccc}
+x - 5 & -4 & \mathbin{\phantom{-}}0 \\
+3 & x + 3 & -x + 2 \\
+0 & -1 & \mathbin{\phantom{-}}x - 2
+\end{array} \right| = (x - 1) \left| \begin{array}{ccc}
+x - 5 & -4 & 0 \\
+3 & x + 2 & 0 \\
+0 & -1 & x - 2
+\end{array} \right| \\
+&= (x - 1)(x - 2) \left| \begin{array}{cc}
+x - 5 & -4 \\
+3 & x + 2
+\end{array} \right| = (x - 1)^2(x - 2)^2
+\end{align*}
+By solving equations, we find $\func{null}(I - A) = \func{span}\{\vect{p}_{11}\}$ and $\func{null}(I - A)^{2} = \func{span}\{\vect{p}_{11}, \vect{p}_{12}\}$ where
+\begin{equation*}
+\vect{p}_{11} = \leftB \begin{array}{r}
+1 \\
+1 \\
+-2 \\
+1
+\end{array} \rightB \quad 
+\vect{p}_{12} = \leftB \begin{array}{r}
+0 \\
+3 \\
+-4 \\
+1
+\end{array} \rightB
+\end{equation*}
+Since $\lambda_{1} = 1$ has multiplicity $2$ as a root of $c_{A}(x)$, $\func{dim }G_{\lambda_1}(A) = 2$ by Lemma~\ref{lem:032980}. Since $\vect{p}_{11}$ and $\vect{p}_{12}$ both lie in $G_{\lambda_1}(A)$, we have $G_{\lambda_1}(A) = \func{span}\{\vect{p}_{11}, \vect{p}_{12}\}$. Turning to $\lambda_{2} = 2$, we find that $\func{null}(2I - A) = \func{span}\{\vect{p}_{21}\}$ and $\func{null}[(2I - A)^{2}] = \func{span}\{\vect{p}_{21}, \vect{p}_{22}\}$ where
+\begin{equation*}
+\vect{p}_{21} = \leftB \begin{array}{r}
+1 \\
+0 \\
+-1 \\
+1
+\end{array} \rightB \quad \mbox{and} \quad
+\vect{p}_{22} = \leftB \begin{array}{r}
+0 \\
+-4 \\
+3 \\
+0
+\end{array} \rightB
+\end{equation*}
+Again, $\func{dim }G_{\lambda_2}(A) = 2$ as $\lambda_{2}$ has multiplicity $2$, so $G_{\lambda_2}(A) = \func{span}\{\vect{p}_{21}, \vect{p}_{22}\}$.
+Hence $P = \leftB \begin{array}{rrrr}
+1 & 0 & 1 & 0 \\
+1 & 3 & 0 & -4 \\
+-2 & -4 & -1 & 3 \\
+1 & 1 & 1 & 0
+\end{array} \rightB$
+ gives $P^{-1}AP = \leftB \begin{array}{rrrr}
+ 1 & -3 & 0 & 0 \\
+ 0 & 1 & 0 & 0 \\
+ 0 & 0 & 2 & 3 \\
+ 0 & 0 & 0 & 2
+ \end{array} \rightB$.
+\end{solution}
+\end{example}
+
+If $p(x)$ is a polynomial and $A$ is an $n \times n$ matrix, then $p(A)$ is also an $n \times n$ matrix if we interpret $A^{0} = I_{n}$. For example, if $p(x) = x^{2} - 2x + 3$, then $p(A) = A^{2} - 2A + 3I$. Theorem~\ref{thm:032952} provides another proof of the Cayley-Hamilton theorem (see also Theorem~\ref{thm:025927}). As before, let $c_{A}(x)$ denote the characteristic polynomial of $A$.
+
+\begin{theorem}{Cayley-Hamilton Theorem}{033262}
+If $A$ is a square matrix with every eigenvalue real, then $c_{A}(A) = 0$.\index{Cayley-Hamilton theorem}
+\end{theorem}
+
+\begin{proof}
+As in Theorem~\ref{thm:032952}, write $c_A(x) = (x - \lambda_1)^{m_1} \cdots (x - \lambda_k)^{m_k} = \Pi_{i=1}^{k}(x - \lambda_i)^{m_i}$, and write 
+\begin{equation*}
+P^{-1}AP = D = \diag(U_{1}, \dots, U_{k})
+\end{equation*}
+ Hence
+\begin{equation*}
+c_A(U_i) = \Pi_{i=1}^{k}(U_i - \lambda_{i}I_{m_i})^{m_i} = 0 \mbox{ for each } i
+\end{equation*}
+because the factor $(U_i - \lambda_{i}I_{m_i})^{m_i} = 0$. In fact $U_i - \lambda_{i}I_{m_i}$ is $m_{i} \times m_{i}$ and has zeros on the main diagonal. But then
+\begin{align*}
+P^{-1}c_{A}(A)P = c_{A}(D) &= c_A[\diag(U_1, \dots, U_k)] \\
+&= \diag[c_A(U_1), \dots, c_A(U_k)] \\
+&= 0
+\end{align*}
+It follows that $c_{A}(A) = 0$.
+\end{proof}
+
+\begin{example}{}{033287}
+If $A = \leftB \begin{array}{rr}
+1 & 3 \\
+-1 & 2
+\end{array} \rightB$, then $c_A(x) = \func{det}\leftB \begin{array}{cc}
+x - 1 & -3 \\
+1 & x - 2
+\end{array} \rightB = x^2 - 3x + 5$. Then $c_A(A) = A^2 - 3A + 5I_2 = \leftB \begin{array}{rr}
+-2 & 9 \\
+-3 & 1
+\end{array} \rightB - \leftB \begin{array}{rr}
+3 & 9 \\
+-3 & 6
+\end{array} \rightB + \leftB \begin{array}{rr}
+5 & 0 \\
+0 & 5
+\end{array} \rightB = \leftB \begin{array}{rr}
+0 & 0 \\
+0 & 0
+\end{array} \rightB$.
+\end{example}
+
+Theorem~\ref{thm:032952} will be refined even further in the next section.
+
+\subsection*{Proof of Theorem \ref{thm:032952}}
+
+The proof of Theorem~\ref{thm:032952} requires the following simple fact about bases, the proof of which we leave to the reader.
+
+\begin{lemma}{}{033297}
+If $\{\vect{v}_1, \vect{v}_2, \dots, \vect{v}_n\}$ is a basis of a vector space $V$, so also is $\{\vect{v}_1 + s\vect{v}_2, \vect{v}_2, \dots, \vect{v}_n\}$ for any scalar $s$.
+\end{lemma}
+
+\begin{proof}[Proof of Theorem \ref{thm:032952}]
+Let $A$ be as in Theorem~\ref{thm:032952}, and let $T = T_{A} : \RR^n \to \RR^n$ be the matrix transformation induced by $A$. For convenience, call a matrix a $\lambda$-$m$-ut matrix if it is an $m \times m$ upper triangular matrix and every diagonal entry equals $\lambda$. Then we must find a basis $B$ of $\RR^n$ such that $M_{B}(T) = \diag(U_{1}, U_{2}, \dots, U_{k})$ where $U_{i}$ is a $\lambda_{i}$-$m_{i}$-ut matrix for each $i$. We proceed by induction on $n$. If $n = 1$, take $B = \{\vect{v}\}$ where $\vect{v}$ is any eigenvector of $T$.
+
+
+If $n > 1$, let $\vect{v}_{1}$ be a $\lambda_{1}$-eigenvector of $T$, and let $B_{0} = \{\vect{v}_{1}, \vect{w}_{1}, \dots, \vect{w}_{n-1}\}$ be any basis of $\RR^n$ containing $\vect{v}_{1}$. Then (see Lemma~\ref{lem:016161})
+\begin{equation*}
+M_{B_0}(T) = \leftB \begin{array}{cc}
+\lambda_1 & X \\
+0 & A_1
+\end{array} \rightB
+\end{equation*}
+in block form where $A_{1}$ is $(n - 1) \times (n - 1)$. Moreover, $A$ and $M_{B0}(T)$ are similar, so
+\begin{equation*}
+c_A(x) = c_{M_{B_0}(T)}(x) = (x - \lambda_1)c_{A_1}(x)
+\end{equation*}
+Hence $c_{A_1}(x) = (x - \lambda_1)^{m_{1}-1} (x - \lambda_2)^{m_2} \cdots (x - \lambda_k)^{m_k}$
+ so (by induction) let
+\begin{equation*}
+Q^{-1}A_{1}Q = \diag(Z_1,U_2,\dots,U_k)
+\end{equation*}
+where $Z_{1}$ is a $\lambda_{1}$-$(m_{1}-1)$-ut matrix and $U_{i}$ is a $\lambda_{i}$-$m_{i}$-ut matrix for each $i > 1$.
+
+
+If $P = \leftB \begin{array}{cc}
+1 & 0 \\
+0 & Q
+\end{array} \rightB$, then $P^{-1}MB_0(T) = \leftB \begin{array}{cc}
+\lambda_1 & XQ \\
+0 & Q^{-1}A_1Q
+\end{array} \rightB = A^\prime$, say. Hence $A^\prime \sim M_{B_0}(T) \sim A$ so by Theorem~\ref{thm:028841}(2) there is a basis $B$ of $\RR^n$ such that $M_{B_1}(T_A) = A^\prime$, that is $M_{B_1}(T) = A^\prime$. Hence $M_{B_1}(T)$ takes the block form
+\begin{equation}\label{eq:thm1proof11_1}
+M_{B_1}(T) = \leftB \begin{array}{cc}
+\lambda_1 & XQ \\
+0 & \diag(Z_1, U_2, \dots, U_k)
+\end{array} \rightB = \leftB \begin{array}{cc|ccc}
+\lambda_1 & X_1 & \multicolumn{3}{c}{Y}\\
+0 & Z_1 & 0 & 0 & 0 \\
+\hline
+& & U_2 & \cdots & 0 \\
+\multicolumn{2}{c|}{0} & \vdots & & \vdots \\
+& & 0 & \cdots & U_k
+\end{array} \rightB
+\end{equation}
+If we write $U_1 = \leftB \begin{array}{cc}
+\lambda_1 & X_1 \\
+0 & Z_1
+\end{array} \rightB$, the basis $B_{1}$ fulfills our needs except that the row matrix $Y$ may not be zero.
+
+
+We remedy this defect as follows. Observe that the first vector in the basis $B_{1}$ is a $\lambda_{1}$ eigenvector of $T$, which we continue to denote as $\vect{v}_{1}$. The idea is to add suitable scalar multiples of $\vect{v}_{1}$ to the other vectors in $B_{1}$. This results in a new basis by Lemma~\ref{lem:033297}, and the multiples can be chosen so that the new matrix of $T$ is the same as (\ref{eq:thm1proof11_1}) except that $Y = 0$. Let $\{\vect{w}_{1}, \dots, \vect{w}_{m_{2}}\}$ be the vectors in $B_{1}$ corresponding to $\lambda_{2}$ (giving rise to $U_{2}$ in (\ref{eq:thm1proof11_1})). Write
+\begin{equation*}
+U_2 = \leftB \begin{array}{ccccc}
+\lambda_2 & u_{12} & u_{13} & \cdots & u_{1_{m_2}} \\
+0 & \lambda_2 & u_{23} & \cdots & u_{2_{m_2}} \\
+0 & 0 & \lambda_2 & \cdots & u_{3_{m_2}} \\
+\vdots & \vdots & \vdots &  & \vdots \\
+0 & 0 & 0 & \cdots & \lambda_2
+\end{array} \rightB \quad \mbox{and} \quad
+Y = \leftB \begin{array}{cccc}
+y_1 & y_2 & \cdots & y_{m_2}
+\end{array} \rightB
+\end{equation*}
+We first replace $\vect{w}_{1}$ by $\vect{w}_{1}^\prime = \vect{w}_{1} + s\vect{v}_{1}$ where $s$ is to be determined. Then (\ref{eq:thm1proof11_1}) gives
+\begin{align*}
+T(\vect{w}_{1}^\prime) &= T(\vect{w}_{1}) + sT(\vect{v}_{1}) \\
+&= (y_1\vect{v}_1 + \lambda_2\vect{w}_{1}) + s\lambda_1\vect{v}_1 \\
+&= y_1\vect{v}_1 + \lambda_2(\vect{w}_{1}^\prime - s\vect{v}_1) + s\lambda_1\vect{v}_1 \\
+&= \lambda_2\vect{w}_{1}^\prime + [(y_1 - s(\lambda_{2} - \lambda_{1})]\vect{v}_1
+\end{align*}
+Because $\lambda_{2} \neq \lambda_{1}$ we can choose $s$ such that $T(\vect{w}_{1}^\prime) = \lambda_2\vect{w}_{1}^\prime$. Similarly, let $\vect{w}_2^\prime = \vect{w}_{2} + t\vect{v}_{1}$ where $t$ is to be chosen. Then, as before,
+\begin{align*}
+T(\vect{w}_{2}^\prime) &= T(\vect{w}_2) + tT(\vect{v}_1) \\
+&= (y_2\vect{v}_1 + u_{12}\vect{w}_1 + \lambda_2\vect{w}_2) + t\lambda_1\vect{v}_1 \\
+&= u_{12}\vect{w}_{1}^\prime + \lambda_2\vect{w}_{2}^\prime + [(y_2 - u_{12}s) - t(\lambda_2 - \lambda_1)]\vect{v}_1
+\end{align*}
+Again, $t$ can be chosen so that $T(\vect{w}_{2}^\prime) = u_{12}\vect{w}_{1}^\prime + \lambda_2\vect{w}_{2}^\prime$. Continue in this way to eliminate $y_1, \dots, y_{m_2}$. This procedure also works for $\lambda_{3}, \lambda_{4}, \dots$ and so produces a new basis $B$ such that $M_{B}(T)$ is as in (\ref{eq:thm1proof11_1}) but with $Y = 0$.
+\end{proof}
+
+\section*{Exercises for \ref{sec:11_1}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:11_1}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case, find a matrix $P$ such that $P^{-1}AP$ is in block triangular form as in Theorem~\ref{thm:032952}.
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rrr}
+2 & 3 & 2 \\
+-1 & -1 & -1 \\
+1 & 2 & 2
+\end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+-5 & 3 & 1 \\
+-4 & 2 & 1 \\
+-4 & 3 & 0
+\end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+0 & 1 & 1 \\
+2 & 3 & 6 \\
+-1 & -1 & -2
+\end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+-3 & -1 & 0 \\
+4 & -1 & 3 \\
+4 & -2 & 4
+\end{array} \rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+-1 & -1 & -1 & 0 \\
+3 & 2 & 3 & -1 \\
+2 & 1 & 3 & -1 \\
+2 & 1 & 4 & -2
+\end{array} \rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+-3 & 6 & 3 & 2 \\
+-2 & 3 & 2 & 2 \\
+-1 & 3 & 0 & 1 \\
+-1 & 1 & 2 & 0
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $c_A(x) = (x + 1)^3$; \\ $P = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+1 & -3 & 1
+\end{array} \rightB$; \\ $P^{-1}AP = \leftB \begin{array}{rrr}
+-1 & 0 & 1 \\
+0 & -1 & 0 \\
+0 & 0 & -1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $c_A(x) = (x - 1)^2(x + 2)$; \\ $P = \leftB \begin{array}{rrr}
+-1 & 0 & -1 \\
+4 & 1 & 1 \\
+4 & 2 & 1
+\end{array} \rightB$; \\ $P^{-1}AP = \leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & -2
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item $c_A(x) = (x + 1)^2(x - 1)^2$; \\ $P = \leftB \begin{array}{rrrr}
+1 & 1 & 5 & 1 \\
+0 & 0 & 2 & -1 \\
+0 & 1 & 2 & 0 \\
+1 & 0 & 1 & 1
+\end{array} \rightB$; \\ $P^{-1}AP = \leftB \begin{array}{rrrr}
+-1 & 1 & 0 & 0 \\
+0 & -1 & 1 & 0 \\
+0 & 0 & 1 & -2 \\
+0 & 0 & 0 & 1
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the following conditions are equivalent for a linear operator $T$ on a finite dimensional space $V$.
+
+
+\begin{enumerate}
+\item $M_{B}(T)$ is upper triangular for some ordered basis $B$ of $E$.
+
+\item A basis $\{\vect{b}_{1}, \dots, \vect{b}_{n}\}$ of $V$ exists such that, for each $i$, $T(\vect{b}_{i})$ is a linear combination of $\vect{b}_{1}, \dots, \vect{b}_{i}$.
+
+\item There exist $T$-invariant subspaces 
+\begin{equation*}
+V_1 \subseteq V_2 \subseteq \cdots \subseteq V_n = V
+\end{equation*}
+such that $\func{dim }V_{i} = i$ for each $i$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $A$ is an $n \times n$ invertible matrix, show that $A^{-1} = r_{0}I + r_{1}A + \cdots + r_{n-1}A^{n-1}$ for some scalars $r_{0}, r_{1}, \dots, r_{n-1}$. [\textit{Hint}: Cayley-Hamilton theorem.]
+\end{ex}
+
+\begin{ex}\label{ex:ex11_1_4}
+If $T : V \to V$ is a linear operator where $V$ is finite dimensional, show that $c_{T}(T) = 0$. \newline [\textit{Hint}: Exercise~\ref{ex:9_1_26}.]
+
+\begin{sol}
+If $B$ is any ordered basis of $V$, write $A = M_{B}(T)$. Then $c_{T}(x) = c_{A}(x) = a_{0} + a_{1}x + \cdots + a_{n}x^{n}$ for scalars $a_{i}$ in $\RR$. Since $M_{B}$ is linear and $M_{B}(T^{k}) = M_{B}(T)^{k}$, we have $M_{B}[c_{T}(T)] = M_{V}[a_{0} + a_{1}T + \cdots + a_{n}T^{n}] = a_{0}I + a_{1}A + \cdots + a_{n}A^{n} = c_{A}(A) = 0$ by the Cayley-Hamilton theorem. Hence $c_{T}(T) = 0$ because $M_{B}$ is one-to-one.
+\end{sol}
+\end{ex}
+
+\columnbreak
+
+\begin{ex}
+Define $T : \vectspace{P} \to \vectspace{P}$ by $T[p(x)] = xp(x)$. Show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T$ is linear and $f(T)[p(x)] = f(x)p(x)$ for all polynomials $f(x)$.
+
+\item Conclude that $f(T) \neq 0$ for all nonzero polynomials $f(x)$. [See Exercise~\ref{ex:ex11_1_4}.]
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

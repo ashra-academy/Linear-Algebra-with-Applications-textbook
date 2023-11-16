@@ -1,0 +1,26 @@
+
+\begin{tikzpicture}[scale=0.75]
+%First image
+\draw (0,0) [dkgreenvect,thick] ellipse (0.95cm and 1.55cm);
+\draw (3,0) [dkgreenvect,thick] ellipse (1.55cm and 0.95cm);
+\draw (0,0) [dkgreenvect,thick] ellipse (0.58cm and 0.68cm);
+\node[font=\footnotesize,text=black](kerT) at (0,0) {$\func{ker }T$};
+\draw[dkgreenvect,->-,thick](0.05,0.68)--(2.98,0.04);
+\draw[dkgreenvect,->-,thick](0.05,-0.68)--(2.98,-0.04);
+\draw[-latex, dkgreenvect, thick](0.7,1.05)..controls (0.9,1.15) and (1.55,1.15)..(2.15,0.8) node[above,midway,font=\footnotesize,text=black]{$T$};
+\node[font=\footnotesize,text=black] at (0,-1.15) {$V$};
+\node[font=\footnotesize,text=black] at (3.5,0) {$W$};
+\draw[dkgreenvect,thick] (3,0) circle (1.5pt) node[below,font=\footnotesize,text=black]{$\vect{0}$};
+
+%Second image
+\draw (0,-4) [dkgreenvect,thick] ellipse (0.95cm and 1.55cm);
+\draw (3,-4) [dkgreenvect,thick] ellipse (1.55cm and 0.95cm);
+\draw (2.75,-4) [dkgreenvect,thick] ellipse (0.58cm and 0.68cm);
+\node[font=\footnotesize,text=black](imT) at (2.75,-4) {$\func{im }T$};
+\node[font=\footnotesize,text=black] at (0,-4) {$V$};
+\node[font=\footnotesize,text=black] at (3.95,-4) {$W$};
+\draw[dkgreenvect,-latex,thick](0.95,-4)--(1.48,-4) node[above,midway,font=\footnotesize,text=black]{$T$};
+\draw[dkgreenvect,->-,thick](0.11,-2.46)--(2.85,-3.33);
+\draw[dkgreenvect,->-,thick](0.11,-5.54)--(2.85,-4.67);
+\end{tikzpicture}
+

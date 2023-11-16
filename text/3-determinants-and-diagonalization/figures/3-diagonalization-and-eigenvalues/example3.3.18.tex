@@ -1,0 +1,37 @@
+
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+width=5cm, 
+height=5cm, 
+font=\footnotesize,
+xlabel={$x$}, 
+ylabel={$y$}, 
+axis lines=middle, 
+xtick={1}, 
+ytick={1}, 
+xticklabels={1}, 
+yticklabels={1}, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+domain=-1:1.5, 
+samples=100, 
+xmin=-1, 
+xmax=1.5, 
+ymin=-1, 
+ymax=1.5]
+\draw [dkgreenvect, thick] plot [smooth] coordinates {(0.76,1.8) (1,1) (1.001,0.42) (0.81,-0.18) (1/2,-1/2) (0.21,-0.58) (-0.06,-0.48) (-1/4,-1/4) (-0.26,-0.03) (-1/8,1/8) (1/16,1/16) (1/32,-1/32) (0,0)};
+\fill[black] (1,1) circle (1.5pt) node[right](v_0){$\vect{v}_0$};
+\fill[black] (1/2,-1/2) circle (1.5pt) node[below right](v_1){$\vect{v}_1$};
+\fill[black] (-1/4,-1/4) circle (1.5pt) node[below left](v_2){$\vect{v}_2$};
+\fill[black] (-1/8,1/8) circle (1.5pt) node[above left](v_3){$\vect{v}_3$};
+\fill[black] (1/16,1/16) circle (1.5pt) node(v_4){};
+\node[below left,font=\footnotesize] at (0.07,0.07){$O$};
+\end{axis}
+\end{tikzpicture}

@@ -1,0 +1,39 @@
+
+\begin{tikzpicture}
+\begin{axis}[disabledatascaling, 
+clip mode=individual, 
+width=5cm, 
+height=4.5cm, 
+xlabel={$x$}, 
+ylabel={$y$}, 
+axis lines=middle, 
+xtick=\empty, 
+ytick=\empty, 
+xticklabels=\empty, 
+yticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+domain=0:1.35, 
+samples=100, 
+xmin=-0.25, 
+xmax=1.5, 
+ymin=-0.25, 
+ymax=1.25]
+\addplot[dkgreenvect, thick] {0.5*x};
+\draw[thick,-latex] (0.3,0) arc [start angle=0,end angle=16,radius=0.5] node [right, text=black,font=\footnotesize,pos=0.6]{$\theta$};
+\draw[dkgreenvect,thick](1,0)--(1,0.5) node[font=\footnotesize,text=black,midway, right]{$m$};
+\draw[dkgreenvect,thick](0,0)--(1,0) node[font=\footnotesize,text=black,below,midway]{$1$};
+\draw[dkbluevect,thick](0.9,0)--(0.9,0.1)--(1,0.1);
+\fill[black] (1,0.5) circle (2pt);
+\node[font=\scriptsize,text=black,above] at (1,0.58){$\leftB \begin{array}{c} 1 \\ m \end{array} \rightB$};
+\node[below left,font=\footnotesize] at (0,0){$\vect{0}$};
+\node[above,font=\footnotesize] at (0.35,0.28){$\sqrt{1+m^2}$};
+\node[font=\footnotesize] at (1.5,0.48){$y = mx$};
+\end{axis} 
+\end{tikzpicture}

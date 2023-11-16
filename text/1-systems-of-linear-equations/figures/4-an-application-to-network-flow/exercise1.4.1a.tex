@@ -1,0 +1,19 @@
+\begin{tikzpicture}[scale=0.8]
+\draw[dkgreenvect,-latex,thick] (0,2)--(0,2.5);
+\draw[dkgreenvect,->-,thick] (-2.5,0)--(-2,0);
+\draw[dkgreenvect,->-,thick] (2.5,0)--(2,0);
+\draw[dkgreenvect,-latex,thick] (0,-2)--(0,-2.5);
+\node[above right,font=\small] at (0,2) {$50$};
+\node[below,font=\small] at (-2.5,0) {$40$};
+\node[above,font=\small] at (2.5,0) {$60$};
+\node[below right,font=\small] at (0,-2) {$50$};
+\draw[dkgreenvect,->-,thick] (-2,0)--(0,2) node[above left, font=\small, text=black, midway]{$f_1$};
+\draw[dkgreenvect,->-,thick] (2,0)--(0,2) node[above right, font=\small, text=black, midway]{$f_2$};
+\draw[dkgreenvect,->-,thick] (2,0)--(-2,0) node[above, font=\small, text=black, midway]{$f_3$};
+\draw[dkgreenvect,->-,thick] (-2,0)--(0,-2) node[below left, font=\small, text=black, midway]{$f_4$};
+\draw[dkgreenvect,->-,thick] (2,0)--(0,-2) node[below right, font=\small, text=black, midway]{$f_5$};
+\fill[black] (-2,0) circle (2pt) ;
+\fill[black] (2,0) circle (2pt) ;
+\fill[black] (0,-2) circle (2pt) ;
+\fill[black] (0,2) circle (2pt) ;
+\end{tikzpicture}

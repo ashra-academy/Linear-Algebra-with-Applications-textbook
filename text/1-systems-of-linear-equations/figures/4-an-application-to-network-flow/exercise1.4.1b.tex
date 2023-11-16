@@ -1,0 +1,25 @@
+\begin{tikzpicture}[scale=0.8]
+\draw[dkgreenvect,-latex,thick] (0,1)--(0,1.5);
+\draw[dkgreenvect,->-,thick] (-2.5,0)--(-2,0);
+\draw[dkgreenvect,-latex,thick] (2,0)--(2.5,0);
+\draw[dkgreenvect,thick](0,1)--(0,0.75);
+\draw[dkgreenvect,thick,decoration={markings, mark= at position 0.75 with {\arrow{latex}};,},postaction={decorate}] (0,0)--(0,-1);
+\draw[dkgreenvect,-latex,thick] (0,-2)--(0,-2.5);
+\node[above right,font=\small] at (0,1) {$25$};
+\node[below,font=\small] at (-2.5,0) {$50$};
+\node[above, font=\small] at (0,0){$75$};
+\node[above,font=\small] at (2.5,0) {$60$};
+\node[below right,font=\small] at (0,-2) {$40$};
+\draw[dkgreenvect,->-,thick] (-2,0)--(0,1) node[above left, font=\small, text=black, midway]{$f_1$};
+\draw[dkgreenvect,->-,thick] (0,1)--(2,0) node[above right, font=\small, text=black, midway]{$f_2$};
+\draw[dkgreenvect,->-,thick] (-2,0)--(0,-1) node[above right, font=\small, text=black, midway]{$f_3$};
+\draw[dkgreenvect,->-,thick] (0,-1)--(2,0) node[above left, font=\small, text=black, midway]{$f_4$};
+\draw[dkgreenvect,->-,thick] (-2,0)--(0,-2) node[below left, font=\small, text=black, midway]{$f_5$};
+\draw[dkgreenvect,->-,thick] (0,-1)--(0,-2) node[above right, font=\small, text=black, midway]{$f_6$};
+\draw[dkgreenvect,->-,thick] (0,-2)--(2,0) node[below right, font=\small, text=black, midway]{$f_7$};
+\fill[black] (0,1) circle (2pt);
+\fill[black] (-2,0) circle (2pt);
+\fill[black] (2,0) circle (2pt);
+\fill[black] (0,-1) circle (2pt);
+\fill[black] (0,-2) circle (2pt);
+\end{tikzpicture}

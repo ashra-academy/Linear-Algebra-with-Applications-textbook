@@ -1,0 +1,52 @@
+\begin{tikzpicture}[scale=1.0]
+%set up of axis environment
+\begin{axis}[view/h=120,disabledatascaling, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$},
+    zlabel={$z$},
+    axis lines=center,
+    axis on top,
+    xtick=\empty,
+    ytick=\empty,
+    ztick=\empty,
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    zticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=north,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+   every axis z label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-5:5, 
+    samples=100, 
+    xmin=0, 
+    xmax=2, 
+    ymin=0, 
+    ymax=2,
+    zmin=0,
+    zmax=2]
+    
+    \coordinate (origin) at (0, 0, 0);
+    \coordinate (ptI) at (1, 0, 0);
+    \coordinate (ptJ) at (0, 1, 0);
+    \coordinate (ptK) at (0, 0, 1);
+\end{axis}
+
+\draw[dkgreenvect, thick, -latex] (origin)--(ptI) node [above, text=black, midway] {\small $\vect{i}$};
+\draw[dkgreenvect, thick, -latex] (origin)--(ptJ) node [above, text=black, midway] {\small $\vect{j}$};
+\draw[dkgreenvect, thick, -latex] (origin)--(ptK) node [right, text=black, midway] {\small $\vect{k}$};
+
+\fill (ptI) circle (2pt);
+\fill (ptJ) circle (2pt);
+\fill (ptK) circle (2pt);
+\node[below] at (origin) {\small $O$};
+\end{tikzpicture}

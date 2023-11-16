@@ -1,0 +1,362 @@
+\section{An Application to Correlation and Variance}
+\label{sec:5_7}
+
+\index{correlation}\index{variance}
+Suppose the heights $h_{1}, h_{2}, \dots, h_{n}$ of $n$ men are measured. Such a data set is called a \textbf{sample}\index{sample!defined} of the heights of all the men in the population under study, and various questions are often asked about such a sample: What is the average height in the sample? How much variation is there in the sample heights, and how can it be measured? What can be inferred from the sample about the heights of all men in the population? How do these heights compare to heights of men in neighbouring countries? Does the prevalence of smoking affect the height of a man?
+
+The analysis of samples\index{sample!analysis of}, and of inferences that can be drawn from them, is a subject called \textit{mathematical statistics}\index{mathematical statistics}, and an extensive body of information has been developed to answer many such questions. In this section we will describe a few ways that linear algebra can be used.
+
+It is convenient to represent a sample $\{x_{1}, x_{2}, \dots, x_{n}\}$ as a \textbf{sample vector}\footnote{We write vectors in $\RR^n$ as row matrices, for convenience.}\index{sample vector}\index{vectors!sample vector}
+$\vect{x} = 
+\leftB \begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{n}
+\end{array} \rightB$ in $\RR^n$. This being done, the dot product in $\RR^n$ provides a convenient tool to study the sample and describe some of the statistical concepts related to it. The most widely known statistic for describing a data set is the \textbf{sample mean}\index{sample mean}\index{mean!sample mean} $\overline{x}$ defined by\footnote{The mean is often called the ``average'' of the sample values $x_{i}$, but statisticians use the term ``mean''.\index{mean!''average'' of the sample values}}
+\begin{equation*}
+\overline{x} = \frac{1}{n}(x_1 + x_2 + \dots + x_n) = \frac{1}{n}\sum_{i=1}^{n} x_i
+\end{equation*}
+The mean $\overline{x}$ is ``typical'' of the sample values $x_{i}$, but may not itself be one of them. The number $x_{i} - \overline{x}$ is called the \textbf{deviation}\index{deviation} of $x_{i}$ from the mean $\overline{x}$. The deviation is positive if $x_{i} > \overline{x}$ and it is negative if $x_{i} < \overline{x}$. Moreover, the sum of these deviations is zero:
+\begin{equation}
+\label{eq:sum_of_deviations}
+\sum_{i=1}^{n} (x_i - \overline{x}) = \left(\sum_{i=1}^{n} x_i\right) - n\overline{x} = n\overline{x} - n\overline{x} = 0
+\end{equation}
+
+\begin{wrapfigure}[9]{l}{5cm} 
+\vspace*{-5em}
+\centering
+\input{5-vector-space-rn/figures/7-an-application-to-correlation-and-variance/sample}
+%\caption{\label{fig:017292}}
+\vspace{1em}
+\input{5-vector-space-rn/figures/7-an-application-to-correlation-and-variance/centredsample}
+%\caption{\label{fig:017293}}
+\end{wrapfigure}
+This is described by saying that the sample mean $\overline{x}$ is \textit{central} to the sample values $x_{i}$.
+
+If the mean $\overline{x}$ is subtracted from each data value $x_{i}$, the resulting data $x_{i} - \overline{x}$ are said to be \textbf{centred}\index{centred}. The corresponding data vector is
+\begin{equation*}
+\vect{x}_c = 
+\leftB \begin{array}{cccc}
+x_1 - \overline{x} &
+x_2 - \overline{x} &
+\cdots &
+x_n - \overline{x} 
+\end{array} \rightB
+\end{equation*}
+and (\ref{eq:sum_of_deviations}) shows that the mean $\overline{x}_c = 0$. For example, we have plotted the sample $\vect{x} =
+\leftB \begin{array}{ccccc}
+-1 & 0 & 1 & 4 & 6
+\end{array} \rightB$ in the first diagram. The mean is $\overline{x} = 2$, and the centred sample $\vect{x}_{c} = 
+\leftB \begin{array}{ccccc}
+-3 & -2 & -1 & 2 & 4
+\end{array} \rightB$ is also plotted. Thus, the effect of centring is to shift the data by an amount $\overline{x}$ (to the left if $\overline{x}$ is positive) so that the mean moves to $0$.
+
+Another question that arises about samples is how much variability there is in the sample 
+\begin{equation*}
+\vect{x} = 
+\leftB \begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{n}
+\end{array} \rightB
+\end{equation*}
+ that is, how widely are the data ``spread out'' around the sample mean $\overline{x}$. A natural measure of variability would be the sum of the deviations of the $x_{i}$ about the mean, but this sum is zero by (\ref{eq:sum_of_deviations}); these deviations cancel out. To avoid this cancellation, statisticians use the \textit{squares} $(x_{i} - \overline{x})^{2}$ of the deviations as a measure of variability. More precisely, they compute a statistic called the \textbf{sample variance}\index{sample variance} $s_x^2$ defined\footnote{Since there are $n$ sample values, it seems more natural to divide by $n$ here, rather than by $n - 1$. The reason for using $n - 1$ is that then the sample variance $s^{2}x$ provides a better estimate of the variance of the entire population from which the sample was drawn.}
+ as follows:
+\begin{equation*}
+s_x^2 = \frac{1}{n - 1}[(x_1 - \overline{x})^2 + (x_2 - \overline{x})^2 + \dots + (x_n - \overline{x})^2] = \frac{1}{n - 1}\sum_{i = 1}^{n} (x_i - \overline{x})^2
+\end{equation*}
+The sample variance will be large if there are many $x_{i}$ at a large distance from the mean $\overline{x}$, and it will be small if all the $x_{i}$ are tightly clustered about the mean. The variance is clearly nonnegative (hence the notation $s_x^2$), and the square root $s_{x}$ of the variance is called the \textbf{sample standard deviation}\index{sample standard deviation}.
+
+The sample mean and variance can be conveniently described using the dot product. Let
+\begin{equation*}
+\vect{1} = 
+\leftB \begin{array}{cccc}
+1 & 1 & \cdots & 1
+\end{array} \rightB
+\end{equation*}
+denote the row with every entry equal to $1$. If $\vect{x} = 
+\leftB \begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{n}
+\end{array} \rightB$, then $\vect{x} \dotprod \vect{1} = x_{1} + x_{2} + \dots + x_{n}$, so the sample mean is given by the formula
+\begin{equation*}
+\overline{x} = \frac{1}{n}(\vect{x} \dotprod \vect{1})
+\end{equation*}
+Moreover, remembering that $\overline{x}$ is a scalar, we have
+$\overline{x}\vect{1} = 
+\leftB \begin{array}{cccc}
+\overline{x} & \overline{x} & \cdots & \overline{x}
+\end{array} \rightB$, so the centred sample vector $\vect{x}_{c}$ is given by
+\begin{equation*}
+\vect{x}_c = \vect{x} - \overline{x}\vect{1} = 
+\leftB \begin{array}{cccc}
+x_1 - \overline{x} &
+x_2 - \overline{x} &
+\cdots &
+x_n - \overline{x} 
+\end{array} \rightB
+\end{equation*}
+Thus we obtain a formula for the sample variance:
+\begin{equation*}
+s_x^2 = \frac{1}{n - 1} \vectlength \vect{x}_c \vectlength^2 = \frac{1}{n - 1} \vectlength \vect{x} - \overline{x}\vect{1} \vectlength^2
+\end{equation*}
+Linear algebra is also useful for comparing two different samples. To illustrate how, consider two examples.\index{sample!comparison of two samples}
+
+\begin{wrapfigure}[8]{l}{5cm} 
+\centering
+\input{5-vector-space-rn/figures/7-an-application-to-correlation-and-variance/sickdayvsdrvisits}
+%\caption{\label{fig:017322}}
+\end{wrapfigure}
+
+The following table represents the number of sick days at work per year and the yearly number of visits to a physician for 10 individuals.
+\begin{equation*}
+\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	\textbf{\mbox{Individual}} 		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+	\textbf{\mbox{Doctor visits}}	& 2 & 6 & 8 & 1 & 5 &10 & 3 & 9 & 7 &  4 \\
+	\textbf{\mbox{Sick days}}		& 2 & 4 & 8 & 3 & 5 & 9 & 4 & 7 & 7 &  2 \\ \hline
+\end{array}
+\end{equation*}
+The data are plotted in the \textbf{scatter diagram}\index{scatter diagram} where it is evident that, roughly speaking, the more visits to the doctor the more sick days. This is an example of a \textit{positive correlation}\index{positive correlation} between sick days and doctor visits.
+
+\begin{wrapfigure}[8]{l}{5cm} 
+\centering
+\input{5-vector-space-rn/figures/7-an-application-to-correlation-and-variance/sickdayvsvitc}
+%\caption{\label{fig:017322}}
+\end{wrapfigure}
+
+Now consider the following table representing the daily doses of vitamin C and the number of sick days.
+\begin{equation*}
+\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	\textbf{\mbox{Individual}} 		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+	\textbf{\mbox{Vitamin C}}		& 1 & 5 & 7 & 0 & 4 & 9 & 2 & 8 & 6 &  3 \\
+	\textbf{\mbox{Sick days}}		& 5 & 2 & 2 & 6 & 2 & 1 & 4 & 3 & 2 &  5 \\ \hline
+\end{array}
+\end{equation*}
+The scatter diagram is plotted as shown and it appears that the more vitamin C taken, the fewer sick days. In this case there is a \textit{negative correlation}\index{negative!correlation} between daily vitamin C and sick days.
+
+In both these situations, we have \textbf{paired samples}\index{paired samples}\index{sample!paired samples}, that is observations of two variables are made for ten individuals: doctor visits and sick days in the first case; daily vitamin C and sick days in the second case. The scatter diagrams point to a relationship between these variables, and there is a way to use the sample to compute a number, called the correlation coefficient, that measures the degree to which the variables are associated.
+
+To motivate the definition of the correlation coefficient, suppose two
+paired samples \newline$\vect{x} = 
+\leftB \begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{n}
+\end{array} \rightB$, and $\vect{y} = 
+\leftB \begin{array}{cccc}
+y_{1} & y_{2} & \cdots & y_{n}
+\end{array} \rightB$ are given and consider the centred samples
+\begin{equation*}
+\vect{x}_c = 
+\leftB \begin{array}{cccc}
+x_1 - \overline{x} &
+x_2 - \overline{x} &
+\cdots &
+x_n - \overline{x} 
+\end{array} \rightB
+\mbox{ and } \vect{y}_c = 
+\leftB \begin{array}{cccc}
+y_1 - \overline{y} &
+y_2 - \overline{y} &
+\cdots &
+y_n - \overline{y} 
+\end{array} \rightB
+\end{equation*}
+If $x_{k}$ is large among the $x_{i}$'s, then the deviation $x_{k} - \overline{x}$ will be positive; and $x_{k} - \overline{x}$ will be negative if $x_{k}$ is small among the $x_{i}$'s. The situation is similar for $\vect{y}$, and the following table displays the sign of the quantity $(x_{i} - \overline{x})(y_{k} - \overline{y})$ in all four cases:
+\begin{equation*}
+\mbox{Sign of }(x_i - \overline{x})(y_k - \overline{y}):
+\end{equation*}
+\begin{equation*}
+\begin{array}{|c|c|c|}
+	\hline
+	 & x_i \mbox{ large} & x_i \mbox{ small} \\ \hline
+	 y_i \mbox{ large} & \mbox{positive} & \mbox{negative} \\
+	 y_i \mbox{ small} & \mbox{negative} & \mbox{positive} \\ \hline
+\end{array}
+\end{equation*}
+Intuitively, if $\vect{x}$ and $\vect{y}$ are positively correlated, then two things happen:
+
+\begin{enumerate}
+\item \textit{Large values of the $x_{i}$ tend to be associated with large values of the $y_{i}$, and}
+
+\item \textit{Small values of the $x_{i}$ tend to be associated with small values of the $y_{i}$.}
+
+\end{enumerate}
+
+It follows from the table that, if $\vect{x}$ and $\vect{y}$ are positively correlated, then the dot product
+\begin{equation*}
+\vect{x}_c \dotprod \vect{y}_c = \sum_{i = 1}^{n}(x_i - \overline{x})(y_i - \overline{y})
+\end{equation*}
+is positive. Similarly $\vect{x}_{c} \dotprod \vect{y}_{c}$ is negative if $\vect{x}$ and $\vect{y}$ are negatively correlated. With this in mind, the \textbf{sample correlation coefficient}\footnote{The idea of using a single number to measure the degree of relationship between different variables was pioneered by Francis Galton\index{Galton, Francis} (1822--1911). He was studying the degree to which characteristics of an offspring relate to those of its parents. The idea was refined by Karl Pearson (1857--1936) and $r$ is often referred to as the Pearson correlation coefficient.}\index{sample correlation coefficient}\index{coefficients!sample correlation coefficient}\index{correlation coefficient!computation!with dot product}\index{correlation coefficient!sample correlation coefficient}\index{correlation coefficient!Pearson correlation coefficient}\index{Pearson correlation coefficient}\index{dot product!correlation coefficients!computation of} $r$ is defined by
+\begin{equation*}
+r = r(\vect{x}, \vect{y}) = \frac{\vect{x}_c \dotprod \vect{y}_c}{\vectlength \vect{x}_c \vectlength\ \vectlength \vect{y}_c \vectlength}
+\end{equation*}
+Bearing the situation in $\RR^3$ in mind, $r$ is the cosine of the ``angle'' between the vectors $\vect{x}_{c}$ and $\vect{y}_{c}$, and so we would expect it to lie between $-1$ and $1$. Moreover, we would expect $r$ to be near $1$ (or $-1$) if these vectors were pointing in the same (opposite) direction, that is the ``angle'' is near zero (or $\pi$).
+
+This is confirmed by Theorem~\ref{thm:017371} below, and it is also borne out in the examples above. If we compute the correlation between sick days and visits to the physician (in the first scatter diagram above) the result is $r = 0.90$ as expected. On the other hand, the correlation between daily vitamin C doses and sick days (second scatter diagram) is $r = -0.84$.
+
+However, a word of caution is in order here. We \textit{cannot} conclude from the second example that taking more vitamin C will reduce the number of sick days at work. The (negative) correlation may arise because of some third factor that is related to both variables. For  example, case it may be that less healthy people are inclined to take more vitamin C. Correlation does \textit{not} imply causation. Similarly, the correlation between sick days and visits to the doctor does not mean that having many sick days \textit{causes} more visits to the doctor. A  correlation between two variables may point to the existence of other underlying factors, but it does not necessarily mean that there is a causality relationship between the variables.
+
+Our discussion of the dot product in $\RR^n$ provides the basic properties of the correlation coefficient:
+
+\begin{theorem}{}{017371} %theorem1
+Let $\vect{x} = 
+\leftB \begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{n}
+\end{array} \rightB$ and $\vect{y} = 
+\leftB \begin{array}{cccc}
+y_{1} & y_{2} & \cdots & y_{n}
+\end{array} \rightB$ be (nonzero) paired samples, and let $r = r(\vect{x}, \vect{y})$ denote the correlation coefficient. Then:
+
+\begin{enumerate}
+\item $-1 \leq r \leq 1$.
+
+\item $r = 1$ if and only if there exist $a$ and $b > 0$ such that $y_i = a + bx_i$ for each $i$.
+
+\item $r = -1$ if and only if there exist $a$ and $b < 0$ such that $y_i = a + bx_i$ for each $i$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The Cauchy inequality (Theorem~\ref{thm:014907}) proves (1), and also shows that $r = \pm 1$ if and only if one of $\vect{x}_{c}$ and $\vect{y}_{c}$ is a scalar multiple of the other. This in turn holds if and only if $\vect{y}_{c} = b\vect{x}_{c}$ for some $b \neq 0$, and it is easy to verify that $r = 1$ when $b > 0$ and $r = -1$ when $b < 0$.\index{Cauchy inequality}
+
+Finally, $\vect{y}_{c} = b\vect{x}_{c}$ means $y_i - \overline{y} = b(x_i - \overline{x})$ for each $i$; that is, $y_{i} = a + bx_{i}$ where $a = \overline{y} - b\overline{x}$. Conversely, if $y_{i} = a + bx_{i}$, then $\overline{y} = a + b\overline{x}$ (verify), so $y_1 - \overline{y} = (a + bx_i) - (a + b\overline{x}) = b(x_1 - \overline{x})$ for each $i$. In other words, $\vect{y}_{c} = b\vect{x}_{c}$. This completes the proof.
+\end{proof}
+
+Properties (2) and (3) in Theorem~\ref{thm:017371} show that $r(\vect{x}, \vect{y}) = 1$ means that there is a linear relation with \textit{positive} slope between the paired data (so large $x$ values are paired with large $y$ values). Similarly, $r(\vect{x}, \vect{y}) = -1$ means that there is a linear relation with \textit{negative} slope between the paired data (so small $x$ values are paired with small $y$ values). This is borne out in the two scatter diagrams above.
+
+We conclude by using the dot product to derive some useful formulas for computing variances and correlation coefficients. Given samples $\vect{x} = 
+\leftB \begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{n}
+\end{array} \rightB$ and $\vect{y} = 
+\leftB \begin{array}{cccc}
+y_{1} & y_{2} & \cdots & y_{n}
+\end{array} \rightB$, the key observation is the following formula:
+\begin{equation}
+\label{eq:xy_variance_formula}
+\vect{x}_c \dotprod \vect{y}_c = \vect{x} \dotprod \vect{y} - n\overline{x} \; \overline{y}
+\end{equation}
+Indeed, remembering that $\overline{x}$ and $\overline{y}$ are scalars:
+
+\begin{align*}
+\vect{x}_c \dotprod \vect{y}_c &= (\vect{x} - \overline{x}\vect{1}) \dotprod (\vect{y} - \overline{y}\vect{1}) \\
+&= \vect{x} \dotprod \vect{y} - \vect{x} \dotprod(\overline{y}\vect{1}) - (\overline{x}\vect{1}) \dotprod \vect{y} + (\overline{x}\vect{1})(\overline{y}\vect{1}) \\
+&= \vect{x} \dotprod \vect{y} - \overline{y}(\vect{x} \dotprod \vect{1}) - \overline{x}(\vect{1} \dotprod \vect{y}) + \overline{x}\overline{y}(\vect{1} \dotprod \vect{1}) \\
+&= \vect{x} \dotprod \vect{y} - \overline{y}(n\overline{x}) - \overline{x}(n\overline{y}) + \overline{x} \; \overline{y}(n) \\
+&= \vect{x} \dotprod \vect{y} - n\overline{x} \; \overline{y}
+\end{align*}
+Taking $\vect{y} = \vect{x}$ in (\ref{eq:xy_variance_formula}) gives a formula for the variance $s_x^2 = \frac{1}{n - 1} \vectlength \vect{x}_c \vectlength^2$ of $\vect{x}$.\index{dot product!variances!computation of}
+
+\begin{theorem*}{Variance Formula}{017424}
+If $x$ is a sample vector, then $s_x^2 = \frac{1}{n - 1} \left( \vectlength \vect{x}_c \vectlength^2 - n\overline{x}^2 \right)$.\index{variance formula}
+\end{theorem*}
+
+\noindent We also get a convenient formula for the correlation coefficient, $r = r(\vect{x}, \vect{y}) = \frac{\vect{x}_c \dotprod \vect{y}_c}{\vectlength \vect{x}_c \vectlength\ \vectlength \vect{y}_c \vectlength}$. Moreover, (\ref{eq:xy_variance_formula}) and the fact that $s_x^2 = \frac{1}{n - 1} \vectlength \vect{x}_c \vectlength^2$ give:
+
+\begin{theorem*}{Correlation Formula}{017431}
+If $\vect{x}$ and $\vect{y}$ are sample vectors, then
+\begin{equation*}
+r = r(\vect{x}, \vect{y}) = \dfrac{\vect{x} \dotprod \vect{y} - n \overline{x} \; \overline{y}}{(n - 1)s_xs_y} \index{correlation formula}
+\end{equation*}
+\end{theorem*}
+
+Finally, we give a method that simplifies the computations of variances and correlations.
+
+\begin{theorem*}{Data Scaling}{017436}
+Let $\vect{x} = 
+\leftB \begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{n}
+\end{array} \rightB$ and $\vect{y} = 
+\leftB \begin{array}{cccc}
+y_{1} & y_{2} & \cdots & y_{n}
+\end{array} \rightB$ be sample vectors. Given constants $a$, $b$, $c$, and $d$, consider new samples $\vect{z} = 
+\leftB \begin{array}{cccc}
+z_{1} & z_{2} & \cdots & z_{n}
+\end{array} \rightB$ and $\vect{w} = 
+\leftB \begin{array}{cccc}
+w_{1} & w_{2} & \cdots & w_{n}
+\end{array} \rightB$ where $z_{i} = a + bx_{i}$, for each $i$ and $w_{i} = c + dy_{i}$ for each $i$. Then:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\overline{z} = a + b\overline{x}$
+
+\item $s_z^2 = b^2s_x^2$, so $s_z = |b|s_x$
+
+\item If $b$ and $d$ have the same sign, then $r(\vect{x}, \vect{y}) = r(\vect{z}, \vect{w})$.
+
+\end{enumerate}\index{data scaling}
+\end{theorem*}
+
+\noindent The verification is left as an exercise. For example, if $\vect{x} = 
+\leftB \begin{array}{cccccc}
+101 & 98 & 103 & 99 & 100 & 97
+\end{array} \rightB$, subtracting $100$ yields $\vect{z} = 
+\leftB \begin{array}{cccccc}
+1 & -2 & 3 & -1 & 0 & -3
+\end{array} \rightB$. A routine calculation shows that $\overline{z} = -\frac{1}{3}$ and $s_z^2 = \frac{14}{3}$, so $\overline{x} = 100 - \frac{1}{3} = 99.67$, and $s_z^2 = \frac{14}{3} = 4.67$.
+
+\section*{Exercises for \ref{sec:5_7}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:5_7}}
+\end{Filesave}
+
+% This is intentionally not using multicols because of the large tables
+\begin{ex}
+The following table gives IQ scores for 10 fathers and their eldest sons. 
+Calculate the means, the variances, and the correlation coefficient $r$. (The data scaling formula is useful.)
+\begin{equation*}
+\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+							&   1 &   2 &   3 &   4 &   5 &   6 &   7 &   8 &   9 &  10 \\ \hline
+\textbf{\mbox{Father's IQ}} & 140 & 131 & 120 & 115 & 110 & 106 & 100 &  95 &  91 &  86 \\ 
+\textbf{\mbox{Son's IQ}} 	& 130 & 138 & 110 &  99 & 109 & 120 & 105 &  99 & 100 &  94 \\ \hline
+\end{array}
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+The following table gives the number of years of education and the annual income (in thousands) of 10 individuals. Find the means, the variances, and the correlation coefficient. (Again the data scaling formula is useful.)
+\begin{equation*}
+\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{\mbox{Individual}} 			&  1 &  2 &  3 &  4 &  5 &  6 &  7 &  8 &  9 & 10 \\ \hline
+\textbf{\mbox{Years of education}} 	& 12 & 16 & 13 & 18 & 19 & 12 & 18 & 19 & 12 & 14 \\ 
+\textbf{\mbox{Yearly income}} 		& 31 & 48 & 35 & 28 & 55 & 40 & 39 & 60 & 32 & 35 \\
+\textbf{\mbox{(1000's)}} &&&&&&&&&& \\ \hline
+\end{array}
+\end{equation*}
+\begin{sol}
+Let $X$ denote the number of years of education, and let $Y$ denote the yearly income (in 1000's). Then $\overline{x} = 15.3$, $s_x^2 = 9.12$ and $s_{x} = 3.02$, while $\overline{y} = 40.3$, $s_y^2 = 114.23$ and $s_{y} = 10.69$. The correlation is $r(X, Y) = 0.599$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\vect{x}$ is a sample vector, and $\vect{x}_{c}$ is the centred sample, show that $\overline{x}_{c} = 0$ and the standard deviation of $\vect{x}_{c}$ is $s_{x}$.
+\end{ex}
+
+\begin{ex}
+Prove the data scaling formulas found on page \pageref{thm:017436}: (a), (b), and (c).
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Given the sample vector 
+$\vect{x} = \leftB \begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{array} \rightB$, let $\vect{z} =
+\leftB \begin{array}{c}
+z_1 \\
+z_2 \\
+\vdots \\
+z_n
+\end{array} \rightB$ where $z_{i} = a + bx_{i}$ for each $i$. By \textbf{(a)} we have $\overline{z} = a + b\overline{x}$, so 
+\begin{align*}
+s_z^2 &= \frac{1}{n - 1}\sum_{i}(z_i - \overline{z})^2 \\
+&= \frac{1}{n - 1}\sum_{i}[(a + bx_i) - (a + b\overline{x})]^2 \\
+&= \frac{1}{n - 1}\sum_{i}b^2(x_i - \overline{x})^2 \\
+&= b^2s_x^2.
+\end{align*}
+
+Now \textbf{(b)} follows because $\sqrt{b^2} = |b|$.
+\end{enumerate}
+\end{sol}
+\end{ex}

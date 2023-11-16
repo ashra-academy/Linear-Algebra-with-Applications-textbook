@@ -1,0 +1,945 @@
+\section{Similarity and Diagonalization}
+\label{sec:5_5}
+
+In Section~\ref{sec:3_3} we studied diagonalization of a square matrix $A$, and found important applications (for example to linear dynamical systems). We can now utilize the concepts of subspace, basis, and dimension to clarify the diagonalization process, reveal some new results, and prove some theorems which could not be demonstrated in Section~\ref{sec:3_3}.
+
+Before proceeding, we introduce a notion that simplifies the discussion of diagonalization, and is used throughout the book.
+
+\subsection*{Similar Matrices}
+
+\begin{definition}{Similar Matrices}{015930} %5.11
+If $A$ and $B$ are $n \times n$ matrices, we say that $A$ and $B$ are \textbf{similar}\index{similar matrices}\index{matrix!similar matrices}, and write $A \sim B$, if $B = P^{-1}AP$ for some invertible matrix $P$.\index{set of all ordered $n$-tuples ($\RR^n$)!similar matrices}
+\end{definition}
+
+\noindent Note that $A \sim B$ if and only if $B = QAQ^{-1}$ where $Q$ is invertible (write $P^{-1} = Q$). The language of similarity is used throughout linear algebra. For example, a matrix $A$ is diagonalizable if and only if it is similar to a diagonal matrix.
+
+If $A \sim B$, then necessarily $B \sim A$. To see why, suppose that $B = P^{-1}AP$. Then $A = PBP^{-1} = Q^{-1}BQ$ where $Q = P^{-1}$ is invertible. This proves the second of the following properties of similarity (the others are left as an exercise):
+\begin{align}
+\label{eq:equivalence_properties}
+& 1.\ A \sim A \textit{\mbox{ for all square matrices }} A. \nonumber \\
+& 2.\ \textit{\mbox{If }} A \sim B\textit{\mbox{, then }} B \sim A. \\
+& 3.\ \textit{\mbox{If }} A \sim B \textit{\mbox{ and }} B \sim C \textit{\mbox{, then }} A \sim C. \nonumber
+\end{align}
+These properties are often expressed by saying that the similarity relation $\sim$ is an \textbf{equivalence relation}\index{equivalence relation} on the set of $n \times n$ matrices. Here is an example showing how these properties are used.
+
+\begin{example}{}{015950}
+If $A$ is similar to $B$ and either $A$ or $B$ is diagonalizable, show that the other is also diagonalizable.
+
+\begin{solution}
+We have $A \sim B$. Suppose that $A$ is diagonalizable, say $A \sim D$ where $D$ is diagonal. Since $B \sim A$ by (2) of (\ref{eq:equivalence_properties}), we have $B \sim A$ and $A \sim D$. Hence $B \sim D$ by (3) of (\ref{eq:equivalence_properties}), so $B$ is diagonalizable too. An analogous argument works if we assume instead that $B$ is diagonalizable.
+\end{solution}
+\end{example}
+
+Similarity is compatible with inverses, transposes, and powers:
+\begin{equation*}
+\mbox{If } A \sim B\mbox{ then } \quad  A^{-1} \sim B^{-1}, \quad A^T \sim B^T,\quad \mbox{ and } \quad A^k \sim B^k\mbox{ for all integers } k \geq 1.
+\end{equation*}
+The proofs are routine matrix computations using Theorem~\ref{thm:008997}. Thus, for example, if $A$ is diagonalizable, so also are $A^{T}$, $A^{-1}$ (if it exists), and $A^{k}$ (for each $k \geq 1$). Indeed, if $A \sim D$ where $D$ is a diagonal matrix, we obtain $A^{T} \sim D^{T}$, $A^{-1} \sim D^{-1}$, and $A^{k} \sim D^{k}$, and each of the matrices $D^{T}$, $D^{-1}$, and $D^{k}$ is diagonal.
+
+We pause to introduce a simple matrix function that will be referred to later.
+
+\begin{definition}{Trace of a Matrix}{015972} %5.12 or 5.5.2
+The \textbf{trace}\index{trace}\index{square matrix ($n \times n$ matrix)!trace} $\func{tr} A$ of an $n \times n$ matrix $A$ is defined to be the sum of the main diagonal elements of $A$.
+\end{definition}
+
+\noindent In other words:
+\begin{equation*}
+\mbox{If } A = \leftB a_{ij}\rightB,\mbox{ then } \func{tr } A = a_{11} + a_{22} + \dots + a_{nn}.
+\end{equation*}
+It is evident that $\func{tr}(A + B) = \func{tr} A + \func{tr} B$ and that $\func{tr}(cA) = c \func{tr} A$ holds for all $n \times n$ matrices $A$ and $B$ and all scalars $c$. The following fact is more surprising.
+
+\begin{lemma}{}{015978}
+Let $A$ and $B$ be $n \times n$ matrices. Then $\func{tr}(AB) = \func{tr}(BA)$.
+\end{lemma}
+
+\begin{proof}
+Write $A = \leftB a_{ij} \rightB$ and $B = \leftB b_{ij} \rightB$. For each $i$, the $(i, i)$-entry $d_{i}$ of the matrix $AB$ is given as follows: $d_{i} = a_{i1}b_{1i} + a_{i2}b_{2i} + \dots + a_{in}b_{ni} = \sum_{j}a_{ij}b_{ji}$. Hence
+\begin{equation*}
+\func{tr}(AB) = d_1 + d_2 + \dots + d_n = \sum_{i}d_i = \sum_{i}\left(\sum_{j}a_{ij}b_{ji}\right)
+\end{equation*}
+Similarly we have $\func{tr}(BA) = \sum_{i}(\sum_{j}b_{ij}a_{ji})$. Since these two double sums are the same, Lemma~\ref{lem:015978} is proved.
+\end{proof}
+
+As the name indicates, similar matrices share many properties, some of which are collected in the next theorem for reference.
+
+\begin{theorem}{}{016008} %theorem1
+If $A$ and $B$ are similar $n \times n$ matrices, then $A$ and $B$ have the same determinant, rank, trace, characteristic polynomial, and eigenvalues.
+\end{theorem}
+
+\begin{proof}
+Let $B = P^{-1}AP$ for some invertible matrix $P$. Then we have
+\begin{equation*}
+\func{det} B = \func{det}(P^{-1}) \func{det} A \func{det} P = \func{det} A\mbox{ because }\func{det}(P^{-1}) = 1/ \func{det} P
+\end{equation*}
+Similarly, $\func{rank} B = \func{rank}(P^{-1}AP) = \func{rank} A$ by Corollary~\ref{cor:015519}. Next Lemma~\ref{lem:015978} gives
+\begin{equation*}
+\func{tr} (P^{-1}AP) = \func{tr}\leftB P^{-1}(AP)\rightB = \func{tr}\leftB (AP)P^{-1}\rightB = \func{tr } A
+\end{equation*}
+As to the characteristic polynomial,
+\begin{align*}
+c_B(x) = \func{det}(xI - B) &= \func{det} \{x(P^{-1}IP) - P^{-1}AP\} \\
+&= \func{det} \{ P^{-1}(xI - A)P\} \\
+&= \func{det} (xI - A) \\
+&= c_A(x)
+\end{align*}
+Finally, this shows that $A$ and $B$ have the same eigenvalues because the eigenvalues of a matrix are the roots of its characteristic polynomial.
+\end{proof}
+
+\begin{example}{}{016022}
+Sharing the five properties in Theorem~\ref{thm:016008} does not guarantee that two matrices are similar. The matrices 
+$A =
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB
+$ and $ I =
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB$ have the same determinant, rank, trace, characteristic polynomial, and eigenvalues, but they are not similar because $P^{-1}IP = I$ for any invertible matrix $P$.
+\end{example}
+
+\subsection*{Diagonalization Revisited}
+
+Recall that a square matrix $A$ is \textbf{diagonalizable}\index{diagonalizable matrix}\index{diagonalization!described} if there exists an invertible matrix $P$ such that $P^{-1}AP = D$ is a diagonal matrix, that is if $A$ is similar to a diagonal matrix $D$\index{diagonal matrices}. Unfortunately, not all matrices are diagonalizable, for example 
+$\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB$
+ (see Example~\ref{exa:009318}). Determining whether $A$ is diagonalizable is closely related to the eigenvalues and eigenvectors of $A$. Recall that a number $\lambda$ is called an \textbf{eigenvalue}\index{eigenvalues!defined}\index{diagonalization!eigenvalues} of $A$ if $A\vect{x} = \lambda\vect{x}$ for some nonzero column $\vect{x}$ in $\RR^n$, and any such nonzero vector $\vect{x}$ is called an \textbf{eigenvector}\index{eigenvector!defined} of $A$ corresponding to $\lambda$ (or simply a $\lambda$-eigenvector of $A$). The eigenvalues and eigenvectors of $A$ are closely related to the \textbf{characteristic polynomial}\index{characteristic polynomial!diagonalizable matrix} $c_{A}(x)$ of $A$, defined by
+\begin{equation*}
+c_A(x) = \func{det} (xI - A)
+\end{equation*}
+If $A$ is $n \times n$ this is a polynomial of degree $n$, and its relationship to the eigenvalues is given in the following theorem (a repeat of Theorem~\ref{thm:009033}).
+
+\begin{theorem}{}{016037} %theorem2
+Let $A$ be an $n \times n$ matrix.
+
+\begin{enumerate}
+\item The eigenvalues $\lambda$ of $A$ are the roots of the characteristic polynomial $c_{A}(x)$ of $A$.
+
+\item The $\lambda$-eigenvectors $\vect{x}$ are the nonzero solutions to the homogeneous system
+\begin{equation*}
+(\lambda I - A)\vect{x} = \vect{0}
+\end{equation*}
+of linear equations with $\lambda I - A$ as coefficient matrix.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{example}{}{016047}
+Show that the eigenvalues of a triangular matrix are the main diagonal entries.
+
+\begin{solution}
+Assume that $A$ is triangular. Then the matrix $xI - A$ is also triangular and has diagonal entries $(x - a_{11}), (x - a_{22}), \dots, (x - a_{nn})$ where $A = \leftB a_{ij}\rightB$. Hence Theorem~\ref{thm:007885} gives
+\begin{equation*}
+c_A(x) = (x - a_{11})(x - a_{22})\cdots(x - a_{nn})
+\end{equation*}
+and the result follows because the eigenvalues are the roots of $c_{A}(x)$.
+\end{solution}
+\end{example}
+
+Theorem~\ref{thm:009214} asserts (in part) that an $n \times n$ matrix $A$ is diagonalizable if and only if it has $n$ eigenvectors $\vect{x}_{1}, \dots, \vect{x}_{n}$ such that the matrix $P = 
+\leftB \begin{array}{ccc}
+\vect{x}_{1} & \cdots & \vect{x}_{n}
+\end{array} \rightB
+$ with the $\vect{x}_{i}$ as columns is invertible. This is equivalent to requiring that $\{\vect{x}_{1}, \dots, \vect{x}_{n}\}$ is a basis of $\RR^n$ consisting of eigenvectors of $A$. Hence we can restate Theorem~\ref{thm:009214} as follows:
+
+\begin{theorem}{}{016068} %theorem3
+Let $A$ be an $n \times n$ matrix.
+
+\begin{enumerate}
+\item $A$ is diagonalizable if and only if $\RR^n$ has a basis $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}\}$ consisting of eigenvectors of $A$.
+
+\item When this is the case, the matrix $P = 
+\leftB \begin{array}{cccc}
+\vect{x}_{1} & \vect{x}_{2} & \cdots & \vect{x}_{n}
+\end{array} \rightB$
+ is invertible and $P^{-1}AP = \func{diag}(\lambda_{1}, \lambda_{2}, \dots, \lambda_{n})$ where, for each $i$, $\lambda_{i}$ is the eigenvalue of $A$ corresponding to $\vect{x}_{i}$.
+
+\end{enumerate}
+\end{theorem}
+
+The next result is a basic tool for determining when a matrix is diagonalizable. It reveals an important connection between eigenvalues and linear independence: Eigenvectors corresponding to distinct eigenvalues are necessarily linearly independent.
+
+\begin{theorem}{}{016090} %theorem4
+Let $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ be eigenvectors corresponding to distinct eigenvalues $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$ of an $n \times n$ matrix $A$. Then $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$  is a linearly independent set.
+\end{theorem}
+
+\begin{proof}
+We use induction on $k$. If $k = 1$, then $\{\vect{x}_{1}\}$ is independent because $\vect{x}_{1} \neq \vect{0}$. In general, suppose the theorem is true for some $k \geq 1$. Given eigenvectors $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k+1}\}$, suppose a linear combination vanishes:
+\begin{equation}
+\label{eq:thm_proof_5_5_4_1}
+t_1\vect{x}_1 + t_2\vect{x}_2 + \dots + t_{k+1}\vect{x}_{k+1} = \vect{0}
+\end{equation}
+We must show that each $t_{i} = 0$. Left multiply (\ref{eq:thm_proof_5_5_4_1}) by $A$ and use the fact that $A\vect{x}_{i} = \lambda_{i}\vect{x}_{i}$ to get
+\begin{equation}
+\label{eq:thm_proof_5_5_4_2}
+t_1\lambda_1\vect{x}_1 + t_2\lambda_2\vect{x}_2 + \dots + t_{k+1}\lambda_{k+1}\vect{x}_{k+1} = \vect{0}
+\end{equation}
+If we multiply (\ref{eq:thm_proof_5_5_4_1}) by $\lambda_{1}$ and subtract the result from (\ref{eq:thm_proof_5_5_4_2}), the first terms cancel and we obtain
+\begin{equation*}
+t_2(\lambda_2 - \lambda_1)\vect{x}_2 + t_3(\lambda_3 - \lambda_1)\vect{x}_3 + \dots + t_{k+1}(\lambda_{k+1} - \lambda_1)\vect{x}_{k+1} = \vect{0}
+\end{equation*}
+Since $\vect{x}_{2}, \vect{x}_{3}, \dots, \vect{x}_{k+1}$
+correspond to distinct eigenvalues $\lambda_{2}, \lambda_{3}, \dots, \lambda_{k+1}$, the set $\{\vect{x}_{2}, \vect{x}_{3}, \dots, \vect{x}_{k+1}\}$ is independent by the induction hypothesis. Hence,
+\begin{equation*}
+t_2(\lambda_2 - \lambda_1) = 0, \quad t_3(\lambda_3 - \lambda_1) = 0, \quad \dots, \quad t_{k+1}(\lambda_{k+1} - \lambda_1) = 0
+\end{equation*}
+and so $t_{2} = t_{3} = \dots = t_{k+1} = 0$ because the $\lambda_{i}$ are distinct. Hence (\ref{eq:thm_proof_5_5_4_1}) becomes $t_{1}\vect{x}_{1} = \vect{0}$, which implies that $t_{1} = 0$ because $\vect{x}_{1} \neq \vect{0}$. This is what we wanted.
+\end{proof}
+
+Theorem~\ref{thm:016090} will be applied several times; we begin by using it to give a useful condition for when a matrix is diagonalizable.
+
+\begin{theorem}{}{016145}
+If $A$ is an $n \times n$ matrix with n distinct eigenvalues, then $A$ is diagonalizable.\index{diagonalization!test}
+\end{theorem}
+
+\begin{proof}
+Choose one eigenvector for each of the $n$ distinct eigenvalues. Then these eigenvectors are independent by Theorem~\ref{thm:016090}, and so are a basis of $\RR^n$ by Theorem~\ref{thm:014436}. Now use Theorem~\ref{thm:016068}.
+\end{proof}
+
+\begin{example}{}{016152}
+Show that $A = 
+\leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+1 & 2 & 3 \\
+-1 & 1 & 0 \\
+\end{array} \rightB$ is diagonalizable.
+
+\begin{solution}
+A routine computation shows that $c_{A}(x) = (x - 1)(x - 3)(x + 1)$ and so has distinct eigenvalues $1$, $3$, and $-1$. Hence Theorem~\ref{thm:016145} applies.
+\end{solution}
+\end{example}
+
+However, a matrix can have multiple eigenvalues as we saw in Section~\ref{sec:3_3}. To deal with this situation, we prove an important lemma which formalizes a technique that is basic to diagonalization, and which will be used three times below.\index{eigenvalues!multiple eigenvalues}
+
+\newpage
+\begin{lemma}{}{016161}
+Let $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ be a linearly independent set of eigenvectors of an $n \times n$ matrix $A$, extend it to a basis $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}, \dots, \vect{x}_{n}\}$ of $\RR^n$, and let
+\begin{equation*}
+P = 
+\leftB \begin{array}{cccc}
+\vect{x}_1 & \vect{x}_2 & \cdots  & \vect{x}_n
+\end{array} \rightB
+\end{equation*}
+be the (invertible) $n \times n$ matrix with the $\vect{x}_{i}$ as its columns. If $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$ are the (not necessarily distinct) eigenvalues of $A$ corresponding to $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ respectively, then $P^{-1}AP$ has block form
+\begin{equation*}
+P^{-1}AP = 
+\leftB \begin{array}{cr}
+\func{diag}(\lambda_1, \lambda_2, \dots, \lambda_k) & B \\
+0 & A_1
+\end{array} \rightB
+\end{equation*}
+where $B$ has size $k \times (n - k)$ and $A_1$ has size $(n - k) \times (n - k)$.
+\end{lemma}
+
+\begin{proof}
+If $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is the standard basis of $\RR^n$, then
+\begin{align*}
+\leftB \begin{array}{cccc}
+\vect{e}_1 & \vect{e}_2 & \dots & \vect{e}_n
+\end{array} \rightB
+= I_n = P^{-1}P 
+&= P^{-1}
+\leftB \begin{array}{cccc}
+\vect{x}_1 & \vect{x}_2 & \cdots & \vect{x}_n
+\end{array} \rightB \\
+&= 
+\leftB \begin{array}{cccc}
+P^{-1}\vect{x}_1 & P^{-1}\vect{x}_2 & \cdots & P^{-1}\vect{x}_n
+\end{array} \rightB
+\end{align*}
+Comparing columns, we have $P^{-1}\vect{x}_{i} = \vect{e}_{i}$ for each $1 \leq i \leq n$. On the other hand, observe that
+\begin{equation*}
+P^{-1}AP = P^{-1}A
+\leftB \begin{array}{cccc}
+	\vect{x}_1 & \vect{x}_2 & \cdots & \vect{x}_n
+\end{array} \rightB
+= 
+\leftB \begin{array}{cccc}
+	(P^{-1}A)\vect{x}_1 & (P^{-1}A)\vect{x}_2 & \cdots & (P^{-1}A)\vect{x}_n
+\end{array} \rightB
+\end{equation*}
+Hence, if $1 \leq i \leq k$, column $i$ of $P^{-1}AP$ is
+\begin{equation*}
+(P^{-1}A)\vect{x}_i = P^{-1}(\lambda_i\vect{x}_i) = \lambda_i(P^{-1}\vect{x}_i) = \lambda_i\vect{e}_i
+\end{equation*}
+This describes the first $k$ columns of $P^{-1}AP$, and Lemma~\ref{lem:016161} follows.
+\end{proof}
+
+\noindent Note that Lemma~\ref{lem:016161} (with $k = n$) shows that an $n \times n$ matrix $A$ is diagonalizable if $\RR^n$ has a basis of eigenvectors of $A$, as in (1) of Theorem~\ref{thm:016068}.
+
+\begin{definition}{Eigenspace of a Matrix}{016203} %5.13 
+If $\lambda$ is an eigenvalue of an $n \times n$ matrix $A$, define the \textbf{eigenspace}\index{eigenspace}\index{eigenvalues!and eigenspace}\index{subspaces!eigenspace} of $A$ corresponding to $\lambda$ by
+\begin{equation*}
+E_{\lambda}(A) = \{\vect{x}\mbox{ in } \RR^n \mid A\vect{x} = \lambda\vect{x} \}
+\end{equation*}
+\end{definition}
+
+\noindent This is a subspace of $\RR^n$ and the eigenvectors
+corresponding to $\lambda$ are just the nonzero vectors in
+$E_{\lambda}(A)$\index{eigenvector!nonzero vectors}. In fact $E_{\lambda}(A)$ is the null space of the matrix $(\lambda I - A)$:
+\begin{equation*}
+E_{\lambda}(A) = \{\vect{x} \mid (\lambda I - A)\vect{x} = \vect{0} \} = \func{null}(\lambda I - A)
+\end{equation*}
+Hence, by Theorem~\ref{thm:015561}, the basic solutions of the
+homogeneous system $(\lambda I - A)\vect{x} = \vect{0}$ given by the gaussian algorithm\index{gaussian algorithm} form a basis for $E_{\lambda}(A)$. In particular
+\begin{equation}
+\label{eq:number_of_basic_solutions}
+\func{dim } E_\lambda(A) \mbox{ is the number of basic solutions }\vect{x}\mbox{ of }
+(\lambda I - A)\vect{x} = \vect{0}
+\end{equation}
+Now recall (Definition~\ref{def:009289}) that the \textbf{multiplicity}\index{multiplicity}\index{eigenvalues!multiplicity}\footnote{This is often called the \textit{algebraic} multiplicity of $\lambda$.\index{algebraic multiplicity}}
+ of an eigenvalue $\lambda$ of $A$ is the number of times $\lambda$ occurs as a root of the characteristic polynomial $c_{A}(x)$ of $A$. In other words, the multiplicity of $\lambda$ is the largest integer $m \geq 1$ such that
+\begin{equation*}
+c_A(x) = (x - \lambda)^mg(x)
+\end{equation*}
+for some polynomial $g(x)$. Because of (\ref{eq:number_of_basic_solutions}), the assertion (without proof) in Theorem~\ref{thm:009296} can be stated as follows: A square matrix is diagonalizable if and only if the multiplicity of each eigenvalue $\lambda$ equals $\func{dim}\leftB E_{\lambda}(A)\rightB$. We are going to prove this, and the proof requires the following result which is valid for \textit{any} square matrix, diagonalizable or not.
+
+\begin{lemma}{}{016219}
+Let $\lambda$ be an eigenvalue of multiplicity $m$ of a square matrix
+$A$. Then $\func{dim}\leftB E_{\lambda}(A)\rightB \leq m$.
+\end{lemma}
+
+\begin{proof}
+Write $\func{dim}\leftB E_{\lambda}(A)\rightB = d$. It suffices to show that $c_{A}(x) = (x - \lambda)^{d}g(x)$ for some polynomial $g(x)$, because $m$ is the highest power of $(x - \lambda)$ that divides $c_{A}(x)$. To this end, let $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{d}\}$ be a basis of $E_{\lambda}(A)$. Then Lemma~\ref{lem:016161} shows that an invertible $n \times n$ matrix $P$ exists such that
+\begin{equation*}
+P^{-1}AP = 
+\leftB \begin{array}{cc}
+\lambda I_d & B \\
+0 & A_1
+\end{array} \rightB
+\end{equation*}
+in block form, where $I_{d}$ denotes the $d \times d$ identity matrix. Now write $A^\prime = P^{-1}AP$ and observe that $ c_{A^\prime}(x) = c_A(x) $ by Theorem~\ref{thm:016008}. But Theorem~\ref{thm:007890} gives
+\begin{align*}
+c_A(x) = c_{A^\prime}(x) = \func{det} (xI_n - A^\prime) &= \func{det} 
+\leftB \begin{array}{cc}
+(x - \lambda)I_d & -B \\
+0 & xI_{n-d} - A_1
+\end{array} \rightB \\
+&= \func{det} \leftB (x - \lambda)I_d\rightB \func{det} \leftB (xI_{n-d} - A_1)\rightB \\
+&= (x - \lambda)^dg(x)
+\end{align*}
+where $g(x) = cA_{1}(x)$. This is what we wanted.
+\end{proof}
+
+It is impossible to ignore the question when equality holds in Lemma~\ref{lem:016219} for each eigenvalue $\lambda$. It turns out that this characterizes the diagonalizable $n \times n$ matrices $A$ for which $c_{A}(x)$ \textbf{factors completely}\index{factor} over $\RR$. By this we mean that $c_{A}(x) = (x - \lambda_{1})(x - \lambda_{2}) \cdots (x - \lambda_{n})$, where the $\lambda_{i}$ are \textit{real} numbers (not necessarily distinct); in other words, every eigenvalue of $A$ is real. This need not happen (consider $A = 
+\leftB \begin{array}{rr}
+0 & -1 \\
+1 & 0
+\end{array} \rightB$), and we investigate the general case below.
+
+\begin{theorem}{}{016250} %theorem6
+The following are equivalent for a square matrix $A$ for which $c_{A}(x)$ factors completely.
+
+\begin{enumerate}
+\item $A$ is diagonalizable.
+
+\item $\func{dim}[E_{\lambda}(A)]$ equals the multiplicity of $\lambda$ for every eigenvalue $\lambda$ of the matrix $A$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let $A$ be $n \times n$ and let $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$ be the distinct
+eigenvalues of $A$. For each $i$, let $m_{i}$ denote the multiplicity of $\lambda_{i}$ and write $d_{i} = \func{dim}\leftB E_{\lambda_i}(A) \rightB$. Then
+\begin{equation*}
+c_A(x) = (x - \lambda_1)^{m_1}(x - \lambda_2)^{m_2}\dots (x - \lambda_k)^{m_k}
+\end{equation*}
+so $m_{1} + \dots + m_{k} = n$ because $c_{A}(x)$ has degree $n$. Moreover, $d_{i} \leq m_{i}$ for each $i$ by Lemma~\ref{lem:016219}.
+
+(1) $\Rightarrow$ (2). By (1), $\RR^n$ has a basis of $n$ eigenvectors
+of $A$, so let $t_{i}$ of them lie in $E_{\lambda_i}(A)$ for each $i$. Since the subspace spanned by these $t_{i}$ eigenvectors has dimension $t_{i}$, we have $t_{i} \leq d_{i}$ for each $i$ by Theorem~\ref{thm:014254}. Hence
+\begin{equation*}
+n = t_1 + \dots + t_k \leq d_1 + \dots + d_k \leq m_1 + \dots + m_k = n
+\end{equation*}
+It follows that $d_1 + \dots + d_k = m_1 + \dots + m_k$ so, since $d_{i} \leq m_{i}$ for each $i$, we must have $d_{i} = m_{i}$. This is (2).
+
+(2) $\Rightarrow$ (1). Let $B_{i}$ denote a basis of $E_{\lambda_i}(A)$ for each $i$, and let $B = B_{1} \cup \dots \cup B_{k}$. Since each $B_{i}$ contains $m_{i}$ vectors by (2), and since the $B_{i}$ are pairwise disjoint (the $\lambda_{i}$ are distinct), it follows that $B$ contains $n$ vectors. So it suffices to show that $B$ is linearly independent (then $B$ is a basis of $\RR^n$). Suppose a linear combination of the vectors in $B$ vanishes, and let $\vect{y}_{i}$ denote the sum of all terms that come from $B_{i}$. Then $\vect{y}_{i}$ lies in $E_{\lambda_i}(A)$, so the nonzero $\vect{y}_{i}$ are independent by Theorem~\ref{thm:016090} (as the $\lambda_{i}$ are distinct). Since the sum of the $\vect{y}_{i}$ is zero, it follows that $\vect{y}_{i} = \vect{0}$ for each $i$. Hence all coefficients of terms in $\vect{y}_{i}$ are zero (because $B_{i}$ is independent). Since this holds for each $i$, it shows that $B$ is independent.
+\end{proof}
+
+\begin{example}{}{016314}
+If $A = 
+\leftB \begin{array}{rrr}
+ 5 &  8 & 16 \\
+ 4 &  1 &  8 \\
+-4 & -4 & -11
+\end{array} \rightB$ and $B =
+\leftB \begin{array}{rrr}
+ 2 & 1 &  1 \\
+ 2 & 1 & -2 \\
+-1 & 0 & -2
+\end{array} \rightB$ show that $A$ is diagonalizable but $B$ is not.
+
+\begin{solution}
+We have $c_{A}(x) = (x + 3)^{2}(x - 1)$ so the eigenvalues are $\lambda_{1} = -3$ and $\lambda_{2} = 1$. The corresponding eigenspaces are $E_{\lambda_1}(A) = \func{span}\{\vect{x}_{1}, \vect{x}_{2}\}$ and $E_{\lambda_2}(A) = \func{span}\{\vect{x}_{3}\}$ where
+\begin{equation*}
+\vect{x}_1 = 
+\leftB \begin{array}{r}
+-1\\
+1\\
+0
+\end{array} \rightB
+, \vect{x}_2 = 
+\leftB \begin{array}{r}
+-2\\
+0\\
+1
+\end{array} \rightB
+, \vect{x}_3 = 
+\leftB \begin{array}{r}
+2\\
+1\\
+-1
+\end{array} \rightB
+\end{equation*}
+as the reader can verify. Since $\{\vect{x}_{1}, \vect{x}_{2}\}$ is independent, we have $\func{dim}(E_{\lambda_1}(A)) = 2$ which is the multiplicity of $\lambda_{1}$. Similarly, $\func{dim}(E_{\lambda_2}(A)) = 1$ equals the multiplicity of $\lambda_{2}$. Hence $A$ is diagonalizable
+by Theorem~\ref{thm:016250}, and a diagonalizing matrix is $P = 
+\leftB \begin{array}{ccc}
+\vect{x}_{1} & \vect{x}_{2} & \vect{x}_{3}
+\end{array} \rightB$.
+
+
+Turning to $B$, $c_{B}(x) = (x + 1)^{2}(x - 3)$ so the eigenvalues are $\lambda_{1} = -1$ and $\lambda_{2} = 3$. The corresponding eigenspaces are $E_{\lambda_1}(B) =\func{span}\{\vect{y}_{1}\}$ and $E_{\lambda_2}(B) = \func{span}\{\vect{y}_{2}\}$ where
+\begin{equation*}
+\vect{y}_1 = 
+\leftB \begin{array}{r}
+-1\\
+2\\
+1
+\end{array} \rightB
+, \vect{y}_2 =
+\leftB \begin{array}{r}
+5\\
+6\\
+-1
+\end{array} \rightB
+\end{equation*}
+Here $\func{dim}(E_{\lambda_1}(B)) = 1$ is \textit{smaller} than the multiplicity of $\lambda_{1}$, so the matrix $B$ is \textit{not} diagonalizable, again by Theorem~\ref{thm:016250}. The fact that $\func{dim}(E_{\lambda_1}(B)) = 1$ means that there is no possibility of finding \textit{three} linearly independent eigenvectors.
+\end{solution}
+\end{example}
+
+\subsection*{Complex Eigenvalues}
+
+All the matrices we have considered have had real eigenvalues. But this need not be the case: The matrix
+$A = 
+\leftB \begin{array}{rr}
+0 & -1 \\
+1 & 0
+\end{array} \rightB$
+ has characteristic polynomial $c_{A}(x) = x^{2} + 1$ which has no real roots. Nonetheless, this matrix is diagonalizable; the only difference is that we must use a larger set of scalars, the complex numbers. The basic properties of these numbers are outlined in Appendix~\ref{chap:appacomplexnumbers}.\index{complex eigenvalues}\index{eigenvalues!complex eigenvalues}\index{set of all ordered $n$-tuples ($\RR^n$)!complex eigenvalues}
+
+Indeed, nearly everything we have done for real matrices can be done for complex matrices. The methods are the same; the only difference is that the arithmetic is carried out with complex numbers rather than real ones. For example, the gaussian algorithm works in exactly the same way to solve systems of linear equations with complex coefficients, matrix multiplication is defined 
+the same way, and the matrix inversion algorithm works in the same way.
+
+But the complex numbers are better than the real numbers in one respect: While there are polynomials like $x^{2} + 1$ with real coefficients that have no real root, this problem does not arise with the complex numbers: \textit{Every} nonconstant polynomial with complex coefficients\index{polynomials!nonconstant polynomial with complex coefficients} has a complex root, and hence factors completely as a product of linear factors. This fact is known as the fundamental theorem of algebra\index{fundamental theorem of algebra}.\footnote{This was a famous open problem in 1799 when Gauss solved it at the age of 22 in his Ph.D. dissertation.}
+
+\begin{example}{}{016368}
+Diagonalize the matrix $A = 
+\leftB \begin{array}{rr}
+0 & -1 \\
+1 & 0
+\end{array} \rightB.$
+
+\begin{solution}
+The characteristic polynomial of $A$ is
+\begin{equation*}
+c_A(x) = \func{det} (xI - A) = x^2 + 1 = (x - i)(x + i)
+\end{equation*}
+where $i^{2} = -1$. Hence the eigenvalues are $\lambda_{1} = i$ and $\lambda_{2} = -i$, with corresponding eigenvectors $\vect{x}_1 = 
+\leftB \begin{array}{r}
+1 \\
+-i
+\end{array} \rightB$ and $\vect{x}_2 = 
+\leftB \begin{array}{r}
+1 \\
+i
+\end{array} \rightB.$
+Hence $A$ is diagonalizable by the complex version of Theorem~\ref{thm:016145}, and the complex version of Theorem~\ref{thm:016068} shows that $P = 
+\leftB \begin{array}{cc}
+	\vect{x}_1\ & \vect{x}_2
+\end{array} \rightB= 
+\leftB \begin{array}{rr}
+1 & 1 \\
+-i & i
+\end{array} \rightB$ is invertible and $P^{-1}AP = 
+\leftB \begin{array}{cc}
+\lambda_1 & 0 \\
+0 & \lambda_2
+\end{array} \rightB = \leftB \begin{array}{cc}
+i & 0 \\
+0 & -i
+\end{array} \rightB$. Of course, this can be checked directly.
+\end{solution}
+\end{example}
+
+\noindent We shall return to complex linear algebra in Section~\ref{sec:8_6}.
+
+\subsection*{Symmetric Matrices\footnote{This discussion uses complex conjugation and absolute value. These topics are discussed in Appendix~\ref{chap:appacomplexnumbers}\index{complex conjugation}\index{symmetric matrix!absolute value}\index{absolute value!symmetric matrices}.}}
+
+On the other hand, many of the applications of linear algebra involve a real matrix $A$ and, while $A$ will have complex eigenvalues by the fundamental theorem of algebra, it is always of interest to know when the eigenvalues are, in fact, real. While this can happen in a variety of ways, it turns out to hold whenever $A$ is symmetric. This important theorem will be used extensively later. Surprisingly, the theory of \textit{complex} eigenvalues can be used to prove this useful result about \textit{real} eigenvalues.\index{set of all ordered $n$-tuples ($\RR^n$)!symmetric matrix}\index{symmetric matrix!real eigenvalues}
+
+Let $\overline{z}$ denote the conjugate of a complex number $z$. If $A$ is a complex matrix, the \textbf{conjugate matrix}\index{conjugate matrix}\index{matrix!conjugate matrix} $\overline{A}$ is defined to be the matrix obtained from $A$ by conjugating every entry. Thus, if $A = \leftB z_{ij}\rightB$, then $\overline{A} = \leftB \overline{z}_{ij} \rightB$. For example,
+\begin{equation*}
+\mbox{If } A = 
+\leftB \begin{array}{cc}
+-i + 2 & 5 \\
+i & 3 + 4i
+\end{array} \rightB
+\mbox{ then }
+\overline{A} = 
+\leftB \begin{array}{cc}
+i + 2 & 5 \\
+-i & 3 - 4i
+\end{array} \rightB
+\end{equation*}
+Recall that $\overline{z + w} = \overline{z} + \overline{w}$ and $\overline{zw} = \overline{z}\ \overline{w}$ hold for all complex numbers $z$ and $w$. It follows that if $A$ and $B$ are two complex matrices, then
+\begin{equation*}
+\overline{A + B} = \overline{A} + \overline{B},\quad
+\overline{AB} = \overline{A}\ \overline{B}\quad \mbox{ and }
+\overline{\lambda A} = \overline{\lambda}\ \overline{A}
+\end{equation*}
+hold for all complex scalars $\lambda$. These facts are used in the proof of the following theorem.
+
+\begin{theorem}{}{016397} %theorem7
+Let $A$ be a symmetric real matrix. If $\lambda$ is any complex eigenvalue of $A$, then $\lambda$ is real\index{eigenvalues!real eigenvalues}.\footnotemark 
+\end{theorem}
+\footnotetext{This theorem was first proved in 1829 by the great French mathematician Augustin Louis Cauchy (1789--1857).\index{Cauchy, Augustin Louis}}
+
+\begin{proof}
+Observe that $\overline{A} = A$ because $A$ is real. If $\lambda$ is an eigenvalue of $A$, we show that $\lambda$ is real by showing that $\overline{\lambda} = \lambda$.
+ Let $\vect{x}$ be a (possibly complex) eigenvector corresponding to $\lambda$, so that $\vect{x} \neq \vect{0}$ and $A\vect{x} = \lambda\vect{x}$. Define $c = \vect{x}^T\overline{\vect{x}}$.
+
+If we write $\vect{x} = \leftB \begin{array}{c} 
+z_1 \\
+z_2 \\
+\vdots \\
+z_n 
+\end{array}\rightB$  where the $z_{i}$ are complex numbers, we have
+\begin{equation*}
+c = \vect{x}^T\overline{\vect{x}} = z_1\overline{z_1} + z_2\overline{z_2} + \dotsb + z_n\overline{z_n} = |\overline{z_1}|^2 + |\overline{z_2}|^2 + \dotsb + |\overline{z_n}|^2
+\end{equation*} 
+Thus $c$ is a real number, and $c > 0$ because at least one of the $z_{i} \neq 0$ (as $\vect{x} \neq \vect{0}$). We show that $\overline{\lambda} = \lambda$ by verifying that $\lambda c = \overline{\lambda}c$. We have
+\begin{equation*}
+\lambda c = \lambda(\vect{x}^T\overline{\vect{x}}) = (\lambda \vect{x})^T\overline{\vect{x}} = (A\vect{x})^T\overline{\vect{x}} = \vect{x}^TA^T\overline{\vect{x}}
+\end{equation*}
+At this point we use the hypothesis that $A$ is symmetric and real. This means $A^T = A = \overline{A}$ so we continue the calculation:
+\newpage
+\begin{align*}
+\lambda c = \vect{x}^TA^T\overline{\vect{x}} = \vect{x}^T(\overline{A}\ \overline{\vect{x}}) = \vect{x}^T(\overline{A\vect{x}}) &= \vect{x}^T(\overline{\lambda \vect{x}}) \\
+&= \vect{x}^T(\overline{\lambda}\ \overline{\vect{x}}) \\
+&= \overline{\lambda}\vect{x}^T\overline{\vect{x}} \\
+&= \overline{\lambda}c
+\end{align*}
+as required.
+\end{proof}
+
+\noindent The technique in the proof of Theorem~\ref{thm:016397} will be used again when we return to complex linear algebra in Section~\ref{sec:8_6}.
+
+\begin{example}{}{016421}
+Verify Theorem~\ref{thm:016397} for every real, symmetric $2 \times 2$ matrix $A$.
+
+\begin{solution}
+If $A = 
+\leftB \begin{array}{cc}
+a & b \\
+b & c
+\end{array} \rightB$ we have $c_{A}(x) = x^{2} - (a + c)x + (ac - b^{2})$, so the eigenvalues are given by $\lambda = \frac{1}{2} [(a + c) \pm \sqrt{(a + c)^2 - 4(ac - b^2)}]$. But here
+\begin{equation*}
+(a + c)^2 - 4(ac -b^2) = (a - c)^2 + 4b^2 \geq 0
+\end{equation*}
+for any choice of $a$, $b$, and $c$. Hence, the eigenvalues are real numbers.
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:5_5}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:5_5}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+By computing the trace, determinant, and rank, show that $A$ and $B$ are \textit{not} similar in each case.
+
+\begin{enumerate}[label={\alph*.}]
+\item $A = \leftB \begin{array}{rr}
+	1 & 2 \\
+	2 & 1
+\end{array} \rightB$, $B =
+\leftB \begin{array}{rr}
+	1 & 1\\
+	-1 & 1
+\end{array} \rightB$
+
+\item $A = 
+\leftB \begin{array}{rr}
+3 & 1 \\
+2 & -1
+\end{array} \rightB$, $B =
+\leftB \begin{array}{rr}
+1 & 1 \\
+2 & 1
+\end{array} \rightB$
+
+\item $A =
+\leftB \begin{array}{rr}
+2 & 1 \\
+1 & -1 
+\end{array} \rightB$, $B =
+\leftB \begin{array}{rr}
+3 & 0 \\
+1 & -1
+\end{array} \rightB$
+
+\item $A = 
+\leftB \begin{array}{rr}
+3 & 1 \\
+-1 & 2 
+\end{array} \rightB$, $B =
+\leftB \begin{array}{rr}
+2 & -1 \\
+3 & 2
+\end{array} \rightB$
+
+\item $A = 
+\leftB \begin{array}{rrr}
+2 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0
+\end{array} \rightB$, $B = 
+\leftB \begin{array}{rrr}
+ 1 & -2 & 1 \\
+-2 & 4 & -2 \\
+-3 & 6 & -3 
+\end{array} \rightB$
+
+\item $A = 
+\leftB \begin{array}{rrr}
+1 & 2 & -3 \\
+1 & -1 & 2 \\
+0 & 3 & -5
+\end{array} \rightB$, $B =
+\leftB \begin{array}{rrr}
+-2 & 1 & 3 \\
+ 6 & -3 & -9 \\
+ 0 & 0 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  traces $= 2$, ranks $= 2$, but $\func{det} A = -5$, $\func{det} B = -1$
+
+\setcounter{enumi}{3}
+\item  ranks $= 2$, determinants $= 7$, but $\func{tr} A = 5$, $\func{tr} B = 4$
+
+\setcounter{enumi}{5}
+\item  traces $= -5$, determinants $= 0$, but $\func{rank} A = 2$, $\func{rank} B = 1$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that $\leftB \begin{array}{rrrr}
+1 & 2 & -1 &  0 \\
+2 & 0 &  1 &  1 \\
+1 & 1 &  0 & -1 \\
+4 & 3 & 0 & 0
+\end{array} \rightB$ and $
+\leftB \begin{array}{rrrr}
+  1 & -1 &  3 &  0 \\
+ -1 &  0 &  1 &  1 \\
+  0 & -1 &  4 &  1 \\
+  5 & -1 & -1 & -4
+\end{array} \rightB$ are \textit{not} similar.
+\end{ex}
+
+\begin{ex}
+If $A \sim B$, show that:
+
+\begin{exenumerate}
+\exitem $A^{T} \sim B^{T}$
+\exitem $A^{-1} \sim B^{-1}$
+\exitem $rA \sim rB$ for $r$ in $\RR$
+\exitem $A^{n} \sim B^{n}$ for $n \geq 1$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $B = P^{-1}AP$, then $B^{-1} = P^{-1}A^{-1}(P^{-1})^{-1} = P^{-1}A^{-1}P$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, decide whether the matrix $A$ is diagonalizable. If so, find $P$ such that $P^{-1}AP$ is diagonal.
+
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+1 & 2 & 1 \\
+0 & 0 & 1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+3 &  0 & 6 \\
+0 & -3 & 0 \\
+5 &  0 & 2
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+ 3 &  1 &  6 \\
+ 2 &  1 &  0 \\
+-1 &  0 & -3 
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+4 & 0 & 0 \\
+0 & 2 & 2 \\
+2 & 3 & 1
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes, $ P =
+\leftB \begin{array}{rrr}
+-1 & 0 & 6 \\
+ 0 & 1 & 0 \\
+ 1 & 0 & 5
+\end{array} \rightB$, $P^{-1}AP = 
+\leftB \begin{array}{rrr}
+-3 &  0 & 0 \\
+ 0 & -3 & 0 \\
+ 0 &  0 & 8
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item  No, $c_{A}(x) = (x + 1)(x - 4)^{2}$ so $\lambda = 4$ has multiplicity 2. But $\func{dim}(E_{4}) = 1$ so Theorem~\ref{thm:016250} applies.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is invertible, show that $AB$ is similar to $BA$ for all $B$.
+\end{ex}
+
+\begin{ex}
+Show that the only matrix similar to a scalar matrix $A = rI$, $r$ in $\RR$, is $A$ itself.
+\end{ex}
+
+\begin{ex}
+Let $\lambda$ be an eigenvalue of $A$ with corresponding eigenvector $\vect{x}$. If $B = P^{-1}AP$ is similar to $A$, show that $P^{-1}\vect{x}$ is an eigenvector of $B$ corresponding to $\lambda$.
+\end{ex}
+
+\begin{ex}
+If $A \sim B$ and $A$ has any of the following properties, show that $B$ has the same property.
+
+\begin{enumerate}[label={\alph*.}]
+\item Idempotent, that is $A^{2} = A$.
+
+\item Nilpotent, that is $A^{k} = 0$ for some $k \geq 1$.
+
+\item Invertible.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $B = P^{-1}AP$ and $A^{k} = 0$, then $B^{k} = (P^{-1}AP)^{k} = P^{-1}A^{k}P = P^{-1}0P = 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ denote an $n \times n$ upper triangular matrix.
+
+\begin{enumerate}[label={\alph*.}]
+\item If all the main diagonal entries of $A$ are distinct, show that $A$ is diagonalizable.
+
+\item If all the main diagonal entries of $A$ are equal, show that $A$ is diagonalizable only if it is \textit{already} diagonal.
+
+\item Show that $\leftB \begin{array}{rrr}
+1 & 0 & 1 \\
+0 & 1 & 0 \\
+0 & 0 & 2
+\end{array} \rightB$ is diagonalizable but that $
+ \leftB \begin{array}{rrr}
+ 1 & 1 & 0 \\
+ 0 & 1 & 0 \\
+ 0 & 0 & 2
+ \end{array} \rightB$ is not diagonalizable.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The eigenvalues of $A$ are all equal (they are the diagonal elements), so if $P^{-1}AP = D$ is diagonal, then $D = \lambda I$. Hence $A = P^{-1}(\lambda I)P = \lambda I$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak 
+
+\begin{ex}
+Let $A$ be a diagonalizable $n \times n$ matrix with eigenvalues $\lambda_{1}, \lambda_{2}, \dots, \lambda_{n}$ (including multiplicities). Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\func{det} A = \lambda_{1}\lambda_{2}\cdots \lambda_{n}$
+
+\item $\func{tr} A = \lambda_{1} + \lambda_{2} + \cdots + \lambda_{n}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $A$ is similar to $D = \func{diag}(\lambda_{1}, \lambda_{2}, \dots, \lambda_{n})$ so (Theorem~\ref{thm:016008}) $\func{tr} A = \func{tr} D = \lambda_{1} + \lambda_{2} + \dots + \lambda_{n}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given a polynomial $p(x) = r_{0} + r_{1}x + \dots + r_{n}x^{n}$ and a square matrix $A$, the matrix $p(A) = r_{0}I + r_{1}A + \dots  + r_{n}A^{n}$ is called the \textbf{evaluation}\index{evaluation} of $p(x)$ at $A$. Let $B = P^{-1}AP$. Show that $p(B) = P^{-1}p(A)P$ for all polynomials $p(x)$.
+\end{ex}
+
+\begin{ex}
+	\label{ex:5_5_12}
+Let $P$ be an invertible $n \times n$ matrix. If $A$ is any $n \times n$ matrix, write $T_{P}(A) = P^{-1}AP$. Verify that:
+
+%\begin{enumerate}[label={\alph*.}]
+\begin{exenumerate}
+\exitem $T_{P}(I) = I$
+\exitem $T_{P}(AB) = T_{P}(A)T_{P}(B)$
+\exitem $T_{P}(A + B) = T_{P}(A) + T_{P}(B)$
+\exitem $T_{P}(rA) = rT_{P}(A)$
+\exitem* $T_{P}(A^{k}) = [T_{P}(A)]^{k}$ for $k \geq 1$
+\exitem* If $A$ is invertible, $T_{P}(A^{-1}) = [T_{P}(A)]^{-1}$.
+\exitem* If $Q$ is invertible, $T_{Q}[T_{P}(A)] = T_{PQ}(A)$.
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $T_{P}(A)T_{P}(B) = (P^{-1}AP)(P^{-1}BP) = P^{-1}(AB)P = T_{P}(AB)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that two diagonalizable matrices are similar if and only if they have the same eigenvalues with the same multiplicities.
+
+\item If $A$ is diagonalizable, show that $A \sim A^{T}$.
+
+\item Show that $A \sim A^{T}$ if 
+ $A = \leftB \begin{array}{rr}
+ 1 & 1 \\
+ 0 & 1
+ \end{array} \rightB $
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $A$ is diagonalizable, so is $A^{T}$, and they have the same eigenvalues. Use \textbf{(a)}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is $2 \times 2$ and diagonalizable, show that $C(A) = \{X \mid XA = AX\}$ has dimension $2$ or $4$. [\textit{Hint}: If $P^{-1}AP = D$, show that $X$ is in $C(A)$ if and only if $P^{-1}XP$ is in $C(D)$.]
+\end{ex}
+
+\begin{ex}
+If $A$ is diagonalizable and $p(x)$ is a polynomial such that $p(\lambda) = 0$ for all eigenvalues $\lambda$ of $A$, show that $p(A) = 0$ (see Example~\ref{exa:009262}). In particular, show $c_{A}(A) = 0$. [\textit{Remark}: $c_{A}(A) = 0$ for \textit{all} square matrices $A$---this is the Cayley-Hamilton theorem, see Theorem~\ref{thm:033262}.]
+\end{ex}
+
+\begin{ex}
+Let $A$ be $n \times n$ with $n$ distinct real eigenvalues. If $AC = CA$, show that $C$ is diagonalizable.
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{rrr}
+0 & a & b \\
+a & 0 & c \\
+b & c & 0	
+\end{array} \rightB$ and \newline $B = 
+\leftB \begin{array}{rrr}
+c & a & b \\
+a & b & c \\
+b & c & a
+\end{array} \rightB$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $x^{3} - (a^{2} + b^{2} + c^{2})x - 2abc$ has real roots by considering $A$.
+
+\item Show that $a^{2} + b^{2} + c^{2} \geq ab + ac + bc$ by considering $B$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $c_{B}(x) = [x - (a + b + c)][x^{2} - k]$ where $k = a^{2} + b^{2} + c^{2} - [ab + ac + bc]$. Use Theorem~\ref{thm:016397}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Assume the $2 \times 2$ matrix $A$ is similar to an upper triangular matrix. If $\func{tr} A = 0 = \func{tr} A^{2}$, show that $A^{2} = 0$.
+\end{ex}
+
+\begin{ex}
+Show that $A$ is similar to $A^{T}$ for all $2 \times 2$ matrices $A$. [\textit{Hint}: Let $A = \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB$. If $c = 0$ treat the cases $b = 0$ and $b \neq 0$ separately. If $c \neq 0$, reduce to the case $c = 1$ using Exercise~\ref{ex:5_5_12}(d).]
+\end{ex}
+
+\begin{ex}
+Refer to Section~\ref{sec:3_4} on linear recurrences. Assume that the sequence $x_{0}, x_{1}, x_{2}, \dots$ satisfies
+\vspace*{-1em}
+\begin{equation*}
+x_{n+k} = r_0x_n + r_1x_{n+1} + \dotsb + r_{k-1}x_{n+k-1}
+\end{equation*}
+for all $n \geq 0$. Define
+\begin{equation*}
+A = 
+\scriptsize \leftB \begin{array}{ccccc}
+0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots & & \vdots \\
+0 & 0 & 0 & \cdots & 1 \\
+r_0 & r_1 & r_2 & \cdots & r_{k-1}
+\end{array} \rightB, V_n =
+\leftB \begin{array}{cccc}
+x_n \\
+x_{n+1} \\
+\vdots \\
+x_{n+k-1}
+\end{array} \rightB.
+\end{equation*}
+Then show that:
+\vspace*{-1em}
+\begin{enumerate}[label={\alph*.}]
+\item $V_{n} = A^{n}V_{0}$ for all $n$.
+
+\item $c_{A}(x) = x^{k} - r_{k-1}x^{k-1} - \dots - r_{1}x - r_{0}$
+
+\item If $\lambda$ is an eigenvalue of $A$, the eigenspace $E_{\lambda}$ has dimension 1, and $\vect{x} = (1, \lambda, \lambda^{2}, \dots, \lambda^{k-1})^{T}$ is an eigenvector. [\textit{Hint}: Use $c_{A}(\lambda) = 0$ to show that $E_{\lambda} = \RR\vect{x}$.]
+
+\item $A$ is diagonalizable if and only if the eigenvalues of $A$ are distinct. [\textit{Hint}: See part (c) and Theorem~\ref{thm:016090}.]
+
+\item If $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$ are distinct real eigenvalues, there exist constants $t_{1}, t_{2}, \dots, t_{k}$ such that $x_n = t_1\lambda_1^n + \dots + t_k\lambda_k^n$ holds for all $n$. [\textit{Hint}: If $D$ is diagonal with $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$ as the main diagonal entries, show that $A^{n}$ = $PD^{n}P^{-1}$ has entries that are linear combinations of $\lambda_1^n, \lambda_2^n, \dots, \lambda_k^n$.]
+\end{enumerate}
+\end{ex}
+
+\begin{ex} Suppose $A$ is $2 \times 2$ and $A^2=0$. If $\func{tr} A \neq 0$ show that $A=0$.
+\end{ex}
+\end{multicols}

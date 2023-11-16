@@ -1,0 +1,50 @@
+
+\begin{tikzpicture}
+\begin{axis}[disabledatascaling, 
+	clip mode=individual, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick={-5,-4,...,5}, 
+    ytick={-5,-4,...,5}, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-5:5, 
+    samples=100, 
+    xmin=-1.5, 
+    xmax=1.5, 
+    ymin=-1.5, 
+    ymax=1.5]
+\draw[dkgreenvect,thick] (0,0) circle (1); 
+\draw[thick,-latex] (0.5,0) arc [start angle=0,end angle=45,radius=0.5] node [right, text=black,font=\footnotesize,midway]{$\theta$};
+\draw[thick](0,0)--(1,1);
+\fill[black] (1,0) circle (1.5pt);
+\fill[black] (0,1) circle (1.5pt);
+\fill[black] (-1,0) circle (1.5pt);
+\fill[black] (0,-1) circle (1.5pt);
+\fill[black] (0.707,0.707) circle (1.5pt);
+\node[below left,font=\footnotesize] at (0,0){$0$};
+\node[below right,font=\footnotesize] at (1,0){$1$};
+\node[above right,font=\footnotesize] at (0,1){$i$};
+\node[above left,font=\footnotesize] at (-1,0){$-1$};
+\node[below right,font=\footnotesize] at (0,-1){$-i$};
+\node[below left,font=\footnotesize] at (0,0){$0$};
+\draw[thick,latex-latex] (1.15,0) arc [start angle=0,end angle=45,radius=1.15];
+\node[font=\footnotesize,align=center] at (1.5,1.25){Radian \\ measure\\ of $\theta$};
+\draw[thin,-latex] (1.5,0.65)--(1.2,0.5);
+\node[font=\footnotesize,align=center] at (-1.25,1.25){Unit\\circle};
+\draw[thin,-latex] (-1.15,0.85)--(-0.85,0.65);
+\node[above,font=\footnotesize] at (0.3535,0.3535){$1$};
+\node[above,font=\footnotesize] at (0.707,0.707){$P$};
+\end{axis} 
+\end{tikzpicture}

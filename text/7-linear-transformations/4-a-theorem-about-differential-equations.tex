@@ -1,0 +1,131 @@
+\section{A Theorem about Differential Equations}
+\label{sec:7_4}
+
+Differential equations are instrumental in solving a variety of problems throughout science, social science, and engineering. In this brief section, we will see that the set of solutions of a linear differential equation (with constant coefficients) is a vector space and we will calculate its dimension. The proof is pure linear algebra, although the applications are primarily in analysis. However, a key result (Lemma~\ref{lem:022938} below) can be applied much more widely.\index{differential equations}
+
+
+We denote the derivative of a function $f : \RR \to \RR$ by $f^\prime$, and $f$ will be called \textbf{differentiable}\index{differentiable function}\index{function!differentiable function} if it can be differentiated any number of times. If $f$ is a differentiable function, the $n$th derivative $f^{(n)}$ of $f$ is the result of differentiating $n$ times. Thus $f^{(0)} = f, f^{(1)} = f^\prime, f^{(2)} = f^{(1)\prime}, \dots$, and in general $f^{(n+1)} = f^{(n)\prime}$ for each $n \geq 0$. For small values of $n$ these are often written as $f, f^\prime, f^\dprime, f^{\dprime\prime}, \dots$.
+
+
+If $a$, $b$, and $c$ are numbers, the differential equations
+\begin{equation*}
+f^\dprime - af^\prime - bf = 0 \quad \mbox{or} \quad f^{\dprime\prime} - af^\dprime - bf^\prime - cf = 0
+\end{equation*}
+are said to be of \textbf{second} \textbf{order}\index{second-order differential equation} and \textbf{third-order}\index{third-order differential equation}, respectively. In general, an equation
+\begin{equation}\label{eq:diffOrderN}
+f^{(n)} - a_{n-1}f^{(n-1)} - a_{n-2}f^{(n-2)} - \cdots - a_{2}f^{(2)} - a_{1}f^{(1)} - a_{0}f^{(0)} = 0, a_i \mbox{ in } \RR
+\end{equation}
+is called a \textbf{differential equation of order} $n$\index{differential equation of order $n$}. We want to describe all solutions of this equation. Of course a knowledge of calculus is required.
+
+
+The set $\vectspace{F}$ of all functions $\RR \to \RR$ is a vector space with operations as described in Example~\ref{exa:017760}. If $f$ and $g$ are differentiable, we have $(f + g)^\prime = f^\prime + g^\prime$ and $(af)^\prime = af^\prime$ for all $a$ in $\RR$. With this it is a routine matter to verify that the following set is a subspace of $\vectspace{F}$:
+\begin{equation*}
+\vectspace{D}_n = \{f : \RR \to \RR \mid f \mbox{ is differentiable and is a solution to (\ref{eq:diffOrderN})}\}
+\end{equation*}
+Our sole objective in this section is to prove
+
+
+\begin{theorem}{}{022833}
+The space $\vectspace{D}_{n}$ has dimension $n$.\index{dimension}
+\end{theorem}
+
+As will be clear later, the proof of Theorem~\ref{thm:022833} requires that we enlarge $\vectspace{D}_{n}$ somewhat and allow our differentiable functions to take values in the set $\mathbb{C}$  of complex numbers. To do this, we must clarify what it means for a function $f : \RR \to \mathbb{C}$  to be differentiable. For each real number $x$ write $f(x)$ in terms of its real and imaginary parts $f_{r}(x)$ and $f_{i}(x)$:
+\begin{equation*}
+f(x) = f_r(x) + if_i(x)
+\end{equation*}
+This produces new functions $f_{r} : \RR \to \RR$ and $f_{i} : \RR \to \RR$, called the \textbf{real}\index{real parts} and \textbf{imaginary parts}\index{imaginary parts} of $f$, respectively. We say that $f$ is \textbf{differentiable}\index{differentiable function}\index{function!differentiable function} if both $f_{r}$ and $f_{i}$ are differentiable (as real functions), and we define the \textbf{derivative}\index{derivative}\index{function!derivative} $f^\prime$ of $f$ by
+\begin{equation}\label{eq:7_4_1differentiable}
+f^\prime = f_{r}^\prime + if_{i}^\prime
+\end{equation}
+We refer to this frequently in what follows.\footnote{Write $|w|$ for the absolute value of any complex number $w$\index{complex number!absolute value}. As for functions $\RR \to \RR$, we say that $\lim_{t \to 0} f(t) = w$ if, for all $\epsilon > 0$ there exists $\delta > 0$ such that $|f(t) - w| < \in$ whenever $|t| < \delta$. (Note that $t$ represents a real number here.) In particular, given a real number $x$, we define the \textit{derivative}\index{function!derivative} $f^\prime$ of a function $f : \RR \to \mathbb{C}$ by $f^\prime(x) = \lim_{t \to 0}\left\lbrace\frac{1}{t}[f(x + t) - f(x)]\right\rbrace$ and we say that $f$ is \textit{differentiable} if $f^\prime(x)$ exists for all $x$ in $\RR$. Then we can \textit{prove} that $f$ is differentiable if and only if both $f_{r}$ and $f_{i}$ are differentiable, and that $f^\prime = f_{r}^\prime + if_{i}^{\prime}$ in this case.}
+
+With this, write $\vectspace{D}_{\infty}$ for the set of all differentiable complex valued functions $f : \RR \to \mathbb{C}$ . This is a \textit{complex} vector space using pointwise addition (see Example~\ref{exa:017760}), and the following scalar multiplication: For any $w$ in $\mathbb{C}$ and $f$ in $\vectspace{D}_{\infty}$, we define $wf : \RR \to \mathbb{C}$ by $(wf)(x) = wf(x)$ for all $x$ in $\RR$. We will be working in $\vectspace{D}_{\infty}$ for the rest of this section. In particular, consider the following complex subspace of $\vectspace{D}_{\infty}$:
+\begin{equation*}
+\vectspace{D}_{n}^{*} = \{f : \RR \to \mathbb{C} \mid f \mbox{ is a solution to (\ref{eq:diffOrderN})}\}
+\end{equation*}
+Clearly, $\vectspace{D}_n \subseteq \vectspace{D}_{n}^{*}$, and our interest in $\vectspace{D}_{n}^{*}$ comes from
+
+\begin{lemma}{}{022858}
+If $\func{dim}_\mathbb{C}(\vectspace{D}_{n}^{*}) = n$, then $\func{dim}_\RR(\vectspace{D}_{n}) = n$.
+\end{lemma}
+
+\begin{proof}
+Observe first that if $\func{dim}_\mathbb{C}(\vectspace{D}_{n}^{*}) = n$, then $\func{dim}_\RR(\vectspace{D}_{n}^{*}) = 2n$. [In fact, if $\{g_{1}, \dots, g_{n}\}$ is a $\mathbb{C}$-basis of $\vectspace{D}_{n}^{*}$ then $\{g_1, \dots, g_n, ig_1, \dots, ig_n\}$ is a $\RR$-basis of $\vectspace{D}_{n}^{*}$]. Now observe that the set $\vectspace{D}_{n} \times \vectspace{D}_{n}$ of all ordered pairs $(f, g)$ with $f$ and $g$ in $\vectspace{D}_{n}$ is a real vector space with componentwise operations. Define
+\begin{equation*}
+\theta : \vectspace{D}_{n}^{*} \to \vectspace{D}_{n} \times \vectspace{D}_{n} \quad \mbox{given by} \quad \theta(f) = (f_r, f_i) \mbox{ for } f \mbox{ in } \vectspace{D}_{n}^{*}
+\end{equation*}
+One verifies that $\theta$ is onto and one-to-one, and it is $\RR$-linear because $f \to f_{r}$ and $f \to f_{i}$ are both $\RR$-linear. Hence $\vectspace{D}_{n}^{*} \cong \vectspace{D}_n \times \vectspace{D}_n$ as $\RR$-spaces. Since $\func{dim}_\RR(\vectspace{D}_{n}^{*})$ is finite, it follows that $\func{dim}_{\RR}(\vectspace{D}_{n})$ is finite, and we have
+\begin{equation*}
+2 \func{dim}_\RR(\vectspace{D}_n) = \func{dim}_\RR(\vectspace{D}_n \times \vectspace{D}_n) = \func{dim}_\RR(\vectspace{D}_{n}^{*}) = 2n
+\end{equation*}
+Hence $\func{dim}_{\RR}(\vectspace{D}_{n}) = n$, as required.
+\end{proof}
+
+\noindent It follows that to prove Theorem~\ref{thm:022833} it suffices to show that $\func{dim}_{\mathbb{C}}(\vectspace{D}_{n}^{*}) = n$.
+
+There is one function that arises frequently in any discussion of differential equations. Given a complex number $w = a + ib$ (where $a$ and $b$ are real), we have $e^{w} = e^{a}(\cos b + i\sin b)$. The law of exponents, $e^{w}e^{v} = e^{w+v}$ for all $w$, $v$ in $\mathbb{C}$  is easily verified using the formulas for $\sin(b + b_{1})$ and $\cos(b + b_{1})$. If $x$ is a variable and $w = a + ib$ is a complex number, define the \textbf{exponential function}\index{exponential function}\index{function!exponential function} $e^{wx}$ by
+\begin{equation*}
+e^{wx} = e^{ax}(\cos bx + i\sin bx)
+\end{equation*}
+Hence $e^{wx}$ is differentiable because its real and imaginary parts are differentiable for all $x$. Moreover, the following can be proved using (\ref{eq:7_4_1differentiable}):
+\begin{equation*}
+(e^{wx})^\prime = we^{wx}
+\end{equation*}
+In addition, (\ref{eq:7_4_1differentiable}) gives the \textbf{product rule}\index{product rule} for differentiation:
+\begin{equation*}
+\mbox{If } f \mbox{ and } g \mbox{ are in } \vectspace{D}_\infty, \mbox{ then } (fg)^\prime = f^\prime g + fg^\prime
+\end{equation*}
+We omit the verifications.
+
+
+To prove that $\func{dim}_{\mathbb{C}}(\vectspace{D}_{n}^{*}) = n$, two preliminary results are required. Here is the first.
+
+
+\begin{lemma}{}{022913}
+Given $f$ in $\vectspace{D}_{\infty}$ and $w$ in $\mathbb{C}$, there exists $g$ in $\vectspace{D}_{\infty}$ such that $g^\prime - wg = f$.
+\end{lemma}
+
+\begin{proof}
+Define $p(x) = f(x)e^{-wx}$. Then $p$ is differentiable, whence $p_{r}$ and $p_{i}$ are both differentiable, hence continuous, and so both have antiderivatives, say $p_{r} = q_{r}^\prime$ and $p_{i} = q_{i}^\prime$. Then the function $q = q_{r} + iq_{i}$ is in $\vectspace{D}_{\infty}$, and $q^\prime = p$ by (\ref{eq:7_4_1differentiable}). Finally define $g(x) = q(x)e^{wx}$. Then 
+\begin{equation*}
+g^\prime = q^{\prime}e^{wx} + qwe^{wx} = pe^{wx} + w(qe^{wx}) = f + wg
+\end{equation*}
+ by the product rule, as required.
+\end{proof}
+
+The second preliminary result is important in its own right.
+
+
+\begin{lemma}{Kernel Lemma}{022938}
+Let $V$ be a vector space, and let $S$ and $T$ be linear operators $V \to V$. If $S$ is onto and both $\func{ker}(S)$ and $\func{ker}(T)$ are finite dimensional, then $\func{ker}(TS)$ is also finite dimensional and $\func{dim}[\func{ker}(TS)] = \func{dim}[\func{ker}(T)] + \func{dim}[\func{ker}(S)]$.\index{kernel lemma}
+\end{lemma}
+
+\begin{proof}
+Let $\{\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{m}\}$ be a basis of $\func{ker}(T)$ and let $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ be a basis of $\func{ker}(S)$. Since $S$ is onto, let $\vect{u}_{i} = S(\vect{w}_{i})$ for some $\vect{w}_{i}$ in $V$. It suffices to show that
+\begin{equation*}
+B = \{\vect{w}_1, \vect{w}_2, \dots, \vect{w}_m, \vect{v}_1, \vect{v}_2, \dots, \vect{v}_n\}
+\end{equation*}
+is a basis of $\func{ker}(TS)$. Note $B \subseteq \func{ker}(TS)$ because $TS(\vect{w}_{i}) = T(\vect{u}_{i}) = \vect{0}$ for each $i$ and $TS(\vect{v}_{j}) = T(\vect{0}) = \vect{0}$ for each $j$.
+
+
+\noindent \textit{Spanning}. If $\vect{v}$ is in $\func{ker}(TS)$, then $S(\vect{v})$ is in $\func{ker}(T)$, say $S(\vect{v}) = \sum r_i\vect{u}_i = \sum r_iS\left(\vect{w}_i\right) = S\left(\sum r_i \vect{w}_i\right)$. It follows that $\vect{v} - \sum r_i\vect{w}_i$ is in $\func{ker}(S) = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$, proving that $\vect{v}$ is in $\func{span}(B)$.
+
+
+\noindent \textit{Independence}. Let $\sum r_i\vect{w}_i + \sum t_j\vect{v}_j = \vect{0}$. Applying $S$, and noting that $S(\vect{v}_{j}) = \vect{0}$ for each $j$, yields \\ $\vect{0} = \sum r_iS(\vect{w}_i) = \sum r_i\vect{u}_i$. Hence $r_{i} = 0$ for each $i$, and so $\sum t_j\vect{v}_j = \vect{0}$. This implies that each $t_{j} = 0$, and so proves the independence of $B$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:022833}]
+By Lemma~\ref{lem:022858}, it suffices to prove that $\func{dim}_{\mathbb{C}}(\vectspace{D}_n^*) = n$. This holds for $n = 1$ because the proof of Theorem~\ref{thm:010427} goes through to show that $\vectspace{D}_1^* = \mathbb{C}e^{a_0x}$. Hence we proceed by induction on $n$. With an eye on equation (\ref{eq:diffOrderN}), consider the polynomial
+\begin{equation*}
+p(t) = t^n - a_{n-1}t^{n-1} - a_{n-2}t^{n-2} - \cdots - a_2t^2 - a_1t - a_0
+\end{equation*}
+(called the \textit{characteristic polynomial} of equation (\ref{eq:diffOrderN})). Now define a map $D : \vectspace{D}_{\infty} \to \vectspace{D}_{\infty}$ by $D(f) = f^\prime$ for all $f$ in $\vectspace{D}_{\infty}$. Then $D$ is a linear operator, whence $p(D) : \vectspace{D}_{\infty} \to \vectspace{D}_{\infty}$ is also a linear operator. Moreover, since $D^{k}(f) = f^{(k)}$ for each $k \geq 0$, equation (\ref{eq:diffOrderN}) takes the form $p(D)(f) = 0$. In other words,
+\begin{equation*}
+\vectspace{D}_n^* = \func{ker}[p(D)]
+\end{equation*}
+By the fundamental theorem of algebra,\footnote{This is the reason for allowing our solutions to (\ref{eq:diffOrderN}) to be \textit{complex} valued.} let $w$ be a complex root of $p(t)$, so that $p(t) = q(t)(t - w)$ for some complex polynomial $q(t)$ of degree $n - 1$. It follows that $p(D) = q(D)(D - w1_{\vectspace{D}_\infty})$. Moreover $D - w1_{\vectspace{D}_\infty}$ is onto by Lemma~\ref{lem:022913}, $\func{dim}_{\mathbb{C}}[\func{ker}(D - w1_{\vectspace{D}_\infty})] = 1$ by the case $n = 1$ above, and $\func{dim}_{\mathbb{C}}(\func{ker}[q(D)]) = n - 1$ by induction. Hence Lemma~\ref{lem:022938} shows that $\func{ker}[P(D)]$ is also finite dimensional and
+\begin{equation*}
+\func{dim}_\mathbb{C}(\func{ker}[p(D)]) = \func{dim}_\mathbb{C}(\func{ker}[q(D)]) + \func{dim}_\mathbb{C}(\func{ker}[D - w1_{\vectspace{D}_\infty}]) = (n -1) + 1 = n.
+\end{equation*}
+Since $\vectspace{D}_n^* = \func{ker}[p(D)]$, this completes the induction, and so proves Theorem~\ref{thm:022833}.
+\end{proof}

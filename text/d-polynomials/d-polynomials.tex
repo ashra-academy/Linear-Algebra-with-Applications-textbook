@@ -1,0 +1,164 @@
+
+Expressions like $3 - 5x$ and $1 + 3x - 2x^{2}$ are examples of polynomials. In general, a \textbf{polynomial}\index{polynomials!defined} is an expression of the form\index{polynomials!form}
+\begin{equation*}
+f(x) = a_0 + a_1x + a_2x^2 + \cdots + a_n x^n
+\end{equation*}
+where the $a_i$ are numbers, called the \textbf{coefficients}\index{polynomials!coefficients}\index{coefficients!of the polynomial} of the polynomial, and $x$ is a variable called an \textbf{indeterminate}\index{polynomials!indeterminate}\index{indeterminate}. The number $a_{0}$ is called the \textbf{constant}\index{polynomials!constant}\index{constant}\index{coefficients!constant coefficient} coefficient of the polynomial. The polynomial with every coefficient zero is called the \textbf{zero polynomial}\index{polynomials!zero polynomial}, and is denoted simply as $0$.
+
+
+If $f(x) \neq 0$, the coefficient of the highest power of $x$ appearing in $f(x)$ is called the \textbf{leading}\index{coefficients!leading coefficient}\index{polynomials!leading coefficient}\index{leading coefficient} coefficient of $f(x)$, and the highest power itself is called the \textbf{degree}\index{polynomials!degree of the polynomial}\index{degree of the polynomial} of the polynomial and is denoted $\func{deg}(f(x))$. Hence
+\begin{equation*}
+\begin{array}{ll}
+-1+5x+3x^2 & \mbox{ has constant coefficient } -1, \mbox{ leading coefficient } 3, \mbox{ and degree } 2, \\
+7  & \mbox{ has constant coefficient } 7, \mbox{ leading coefficient } 7, \mbox{ and degree } 0, \\
+6x - 3x^3 + x^4 - x^5 & \mbox{ has constant coefficient } 0, \mbox{ leading coefficient } -1, \mbox{ and degree } 5. \\
+\end{array}
+\end{equation*}
+We do not define the degree of the zero polynomial. \index{coefficients!leading coefficient}\index{leading coefficient}\index{polynomials!leading coefficient}\index{polynomials!degree of the polynomial}
+
+
+Two polynomials $f(x)$ and $g(x)$ are called \textbf{equal}\index{polynomials!equal}\index{equal!polynomials} if every coefficient of $f(x)$ is the same as the corresponding coefficient of $g(x)$. More precisely, if
+\begin{equation*}
+f(x) = a_0 + a_1x + a_2x^2 + \cdots \quad \mbox{ and } \quad g(x) = b_0 + b_1x + b_2x^2 + \cdots
+\end{equation*}
+are polynomials, then
+\begin{equation*}
+f(x) = g(x) \quad \mbox{ if and only if } \quad a_0 = b_0, a_1 = b_1, a_2 = b_2, \dots
+\end{equation*}
+In particular, this means that
+\begin{equation*}
+f(x) = 0 \mbox{ is the zero polynomial if and only if } a_0 = 0, a_1 = 0, a_2 = 0, \dots
+\end{equation*}
+This is the reason for calling $x$ an indeterminate.
+
+
+Let $f(x)$ and $g(x)$ denote nonzero polynomials of degrees $n$ and $m$ respectively, say
+\begin{equation*}
+f(x) = a_0 + a_1x + a_2x^2 + \cdots + a_nx^n \quad \mbox{ and } \quad g(x) = b_0 + b_1x + b_2x^2 + \cdots + b_mx^m
+\end{equation*}
+where $a_n \neq 0$ and $b_m \neq 0$. If these expressions are multiplied, the result is
+\begin{equation*}
+f(x)g(x) = a_0 b_0 + (a_0 b_1 + a_1 b_0)x + (a_0 b_2 + a_1 b_1 + a_2 b_0)x^2  + \cdots + a_nb_m x^{n+m}
+\end{equation*}
+Since $a_{n}$ and $b_{m}$ are nonzero numbers, their product $a_{n}b_{m} \neq 0$ and we have
+
+
+\begin{theorem}{}{035227}
+If $f(x)$ and $g(x)$ are nonzero polynomials of degrees $n$ and $m$ respectively, their product $f(x)g(x)$ is also nonzero and
+\begin{equation*}
+\func{deg}[f(x)g(x)] = n+m
+\end{equation*}
+\end{theorem}
+
+\begin{example}{}{035231}
+$ (2-x+3x^2)(3+x^2-5x^3)=6 - 3x+11x^2-11x^3+8x^4-15x^5.$ 
+\end{example}
+
+If $f(x)$ is any polynomial, the next theorem shows that $f(x) - f(a)$ is a multiple of the polynomial $x - a$. In fact we have
+
+
+\begin{theorem}{Remainder Theorem}{035236}
+If $f(x)$ is a polynomial of degree $n \geq 1$ and $a$ is any number, then there exists a polynomial $q(x)$ such that
+\begin{equation*}
+f(x) = (x-a)q(x)+f(a)
+\end{equation*}
+where $\func{deg}(q(x)) = n - 1$. \index{polynomials!remainder theorem}\index{remainder theorem}
+\end{theorem}
+
+\begin{proof}
+Write $f(x) = a_{0} + a_{1}x + a_{2}x^{2} + \dots  + a_{n}x^{n}$ where the $a_i$ are numbers, so that 
+\begin{equation*}
+f(a) = a_{0} + a_{1}a + a_{2}a^{2} + \dots  + a_{n}a^{n}
+\end{equation*}
+If these expressions are subtracted, the constant terms cancel and we obtain
+\begin{equation*}
+f(x)-f(a) = a_1(x-a)+a_2(x^2-a^2)+ \cdots + a_n (x^n-a^n).
+\end{equation*}
+Hence it suffices to show that, for each $k \geq 1$, $x^{k}- a^{k} = (x - a)p(x)$ for some polynomial $p(x)$ of degree $k - 1$. This is clear if $k = 1$. If it holds for some value $k$, the fact that
+\begin{equation*}
+x^{k+1} - a^{k+1} = (x-a)x^k + a(x^k-a^k)
+\end{equation*}
+shows that it holds for $k + 1$. Hence the proof is complete by induction.
+\end{proof}
+
+There is a systematic procedure for finding the polynomial $q(x)$ in the remainder theorem. It is illustrated below for $f(x) = x^{3} - 3x^{2} + x - 1$ and $a = 2$. The polynomial $q(x)$ is generated on the top line one term at a time as follows: First $x^{2}$ is chosen because $x^{2}(x - 2)$ has the same $x^{3}$-term as $f(x)$, and this is subtracted from $f(x)$ to leave a ``remainder'' of $-x^{2} + x - 1$. Next, the second term on top is $-x$ because $-x(x - 2)$ has the same $x^{2}$-term, and this is subtracted to leave $-x - 1$. Finally, the third term on top is $-1$, and the process ends with a ``remainder'' of $-3$.
+\begin{equation*}
+\arraycolsep=1pt
+\def\arraystretch{1.2}
+\begin{array}{rr @{\hskip\arraycolsep}c@{\hskip\arraycolsep} rrrrrr}
+ & & & & x^2 & - & x & - & 1 \\
+\cline{2-9} 
+x-2 & \Big) & x^3 & - & 3x^2 & + & x & - & 1 \\
+& & x^3 & - & 2x^2 & & & & \\
+\cline{3-9}
+& & &  & -x^2 & + & x & - & 1 \\
+& & &  & -x^2 & + & 2x &  &  \\
+\cline{4-9}
+& & & & &  & -x& - & 1 \\
+& & & & &  & -x& + & 2 \\
+\cline{6-9}
+& & & & & & & - & 3 
+\end{array}
+\end{equation*}
+Hence $x^{3} - 3x^{2} + x - 1 = (x - 2)(x^{2} - x - 1) + (-3)$. The final remainder is $-3 = f(2)$ as is easily verified. This procedure is called the \textbf{division algorithm}\index{polynomials!division algorithm}\index{division algorithm}.\footnote{This procedure can be used to divide $f(x)$ by any nonzero polynomial $d(x)$ in place of $x - a$; the remainder then is a polynomial that is either zero or of degree less than the degree of $d(x)$.}
+
+
+
+A real number $a$ is called a \textbf{root} of the polynomial $f(x)$ if 
+\begin{equation*}
+f(a) = 0
+\end{equation*}
+Hence for example, $1$ is a root of $f(x) = 2 - x + 3x^{2} - 4x^{3}$, but $-1$ is not a root because $f(-1) = 10 \neq 0$. If $f(x)$ is a multiple of $x - a$, we say that $x - a$ is a \textbf{factor}\index{factor} of $f(x)$. Hence the remainder theorem shows immediately that if $a$ is root of $f(x)$, then $x - a$ is factor of $f(x)$. But the converse is also true: If $x - a$ is a factor of $f(x)$, say $f(x) = (x - a) q(x)$, then $f(a) = (a - a)q(a) = 0$. This proves the
+
+\begin{theorem}{Factor Theorem}{035282}
+If $f(x)$ is a polynomial and $a$ is a number, then $x - a$ is a factor of $f(x)$ if and only if $a$ is a root of $f(x)$.\index{factor theorem}\index{polynomials!factor theorem}
+\end{theorem}
+
+\begin{example}{}{035287}
+If $f(x) = x^{3} - 2x^{2} - 6x + 4$, then $f(-2) = 0$, so $x - (-2) = x + 2$ is a factor of $f(x)$. In fact, the division algorithm gives $f(x) = (x + 2)(x^{2} - 4x + 2)$.
+\end{example}
+
+Consider the polynomial $f(x) = x^{3} - 3x + 2$. Then $1$ is clearly a root of $f(x)$, and the division algorithm gives $f(x) = (x - 1)(x^{2} + x - 2)$. But $1$ is also a root of $x^{2} + x - 2$; in fact, $x^{2} + x - 2 = (x - 1)(x + 2)$. Hence
+\begin{equation*}
+f(x) = (x-1)^2(x+2)
+\end{equation*}
+and we say that the root $1$ has \textbf{multiplicity}\index{multiplicity} $2$.
+
+
+Note that non-zero constant polynomials $f(x) = b \neq 0$ have \textit{no} roots. However, there do exist nonconstant polynomials with no roots\index{polynomials!with no root}. For example, if $g(x) = x^{2} + 1$, then $g(a) = a^{2} + 1 \geq 1$ for every real number $a$, so $a$ is not a root. However the \textit{complex} number $i$ is a root of $g(x)$; we return to this below.
+
+
+Now suppose that $f(x)$ is any nonzero polynomial. We claim that it can be factored in the following form:
+\begin{equation*}
+f(x) = (x-a_1)(x-a_2) \cdots (x-a_m)g(x)
+\end{equation*}
+where $a_{1}, a_{2}, \dots, a_{m}$ are the roots of $f(x)$ and $g(x)$ has no root (where the $a_i$ may have repetitions, and may not appear at all if $f(x)$ has no real root).
+
+
+By the above calculation $f(x) = x^{3} - 3x + 2 = (x - 1)^2(x + 2)$ has roots $1$ and $-2$, with $1$ of multiplicity two (and $g(x) = 1$). Counting the root $-2$ once, we say that $f(x)$
+ has three roots counting multiplicities. The next theorem shows that no
+ polynomial can have more roots than its degree even if multiplicities 
+are counted.
+
+
+\begin{theorem}{}{035311}
+If $f(x)$ is a nonzero polynomial of degree $n$, then $f(x)$ has at most $n$ roots counting multiplicities.
+\end{theorem}
+
+\begin{proof}
+If $n = 0$, then $f(x)$ is a constant and has no roots. So the theorem is true if $n = 0$. (It also holds for $n = 1$ because, if $f(x) = a + bx$ where $b \neq 0$, then the only root is $-\frac{a}{b}$.) In general, suppose inductively that the theorem holds for some value of $n \geq 0$, and let $f(x)$ have degree $n + 1$. We must show that $f(x)$ has at most $n + 1$ roots counting multiplicities. This is certainly true if $f(x)$ has no root. On the other hand, if $a$ is a root of $f(x)$, the factor theorem shows that $f(x) = (x - a) q(x)$ for some polynomial $q(x)$, and $q(x)$ has degree $n$ by Theorem~\ref{thm:035227}. By induction, $q(x)$ has at most $n$ roots. But if $b$ is any root of $f(x)$, then
+\begin{equation*}
+(b-a)q(b)=f(b)=0
+\end{equation*}
+so either $b = a$ or $b$ is a root of $q(x)$. It follows that $f(x)$ has at most $n$ roots. This completes the induction and so proves Theorem~\ref{thm:035311}.
+\end{proof}
+
+As we have seen, a polynomial may have \textit{no} root, for example $f(x) = x^{2} + 1$. Of course $f(x)$ has complex roots\index{polynomials!complex roots} $i$ and $-i$, where $i$ is the complex number such that $i^{2} = -1$. But Theorem~\ref{thm:035311}
+ even holds for complex roots: the number of complex roots (counting 
+multiplicities) cannot exceed the degree of the polynomial. Moreover, 
+the fundamental theorem of algebra asserts that the only nonzero 
+polynomials with no complex root\index{polynomials!with no root} are the non-zero constant polynomials. 
+This is discussed more in Appendix \ref{chap:appacomplexnumbers}, Theorems \ref{thm:034196} and \ref{thm:034210}.
+
+
+

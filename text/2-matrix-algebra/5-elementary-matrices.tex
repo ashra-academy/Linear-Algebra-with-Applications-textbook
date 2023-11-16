@@ -1,0 +1,1173 @@
+\section{Elementary Matrices}
+\label{sec:2_5}
+
+It is now clear that elementary row operations are important in linear algebra: They are essential in solving linear systems (using the gaussian algorithm) and in inverting a matrix (using the matrix inversion algorithm). It turns out that they can be performed by left multiplying by certain invertible matrices. These matrices are the subject of this section.
+
+\begin{definition}{Elementary Matrices}{005200}
+An $n \times n$ matrix $E$ is called an \textbf{elementary matrix}\index{elementary matrix!defined}\index{matrix!elementary matrix}\index{square matrix ($n \times n$ matrix)!elementary matrix} if it can be obtained from the identity matrix $I_{n}$ by a single elementary row operation (called the operation \textbf{corresponding} to $E$)\index{elementary matrix!operating corresponding to}\index{elementary row operations!corresponding}\index{matrix algebra!elementary matrix}. We say that $E$ is of type I, II, or III if the operation is of that type (see Definition \ref{def:000795}).
+\end{definition}
+
+Hence
+\begin{equation*}
+E_{1} = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB, \quad E_{2} = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 9
+\end{array} \rightB, \quad \mbox{ and } \quad E_{3} = \leftB \begin{array}{rr}
+1 & 5 \\
+0 & 1
+\end{array} \rightB
+\end{equation*}
+are elementary of types I, II, and III, respectively, obtained from the $2 \times 2$ identity matrix by interchanging rows 1 and 2, multiplying row 2 by
+ $9$, and adding $5$ times row 2 to row 1.
+
+Suppose now that the matrix $A = \leftB \begin{array}{ccc}
+a & b & c \\
+p & q & r
+\end{array} \rightB$
+ is left multiplied by the above elementary matrices $E_{1}$, $E_{2}$, and $E_{3}$. The results are:
+\begin{align*}
+E_{1}A &= \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB \leftB \begin{array}{rrr}
+a & b & c \\
+p & q & r
+\end{array} \rightB = \leftB \begin{array}{rrr}
+p & q & r \\
+a & b & c
+\end{array} \rightB \\
+E_{2}A &= \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 9
+\end{array} \rightB \leftB \begin{array}{rrr}
+a & b & c \\
+p & q & r
+\end{array} \rightB = \leftB \begin{array}{ccc}
+a & b & c \\
+9p & 9q & 9r
+\end{array} \rightB \\
+E_{3}A &= \leftB \begin{array}{rr}
+1 & 5 \\
+0 & 1
+\end{array} \rightB \leftB \begin{array}{ccc}
+a & b & c \\
+p & q & r
+\end{array} \rightB = \leftB \begin{array}{ccc}
+a + 5p & b + 5q & c + 5r \\
+p & q & r
+\end{array} \rightB
+\end{align*}
+In each case, left multiplying $A$ by the elementary matrix has the \textit{same} effect as doing the corresponding row operation to $A$. This works in general.
+
+\begin{lemma}{\footnotemark}{005213}
+If an elementary row operation is performed on an $m \times n$ matrix $A$, the result is $EA$ where $E$ is the elementary matrix obtained by performing the same operation on the $m \times m$ identity matrix.\index{$m \times n$ matrix!elementary row operation}
+\end{lemma} 
+\footnotetext{A \textit{lemma}\index{lemma} is an auxiliary theorem used in the proof of other theorems.\index{auxiliary theorem}}
+
+\begin{proof}
+We prove it for operations of type III; the proofs for types I and II are left as exercises. Let $E$ be the elementary matrix corresponding to the operation that adds $k$ times row $p$ to row $q \neq p$. The proof depends on the fact that each row of $EA$ is equal to the corresponding row of $E$ times $A$. Let $K_{1}, K_{2}, \dots, K_{m}$ denote the rows of $I_{m}$. Then row $i$ of $E$ is $K_{i}$ if $i \neq q$, while row $q$ of $E$ is $K_{q} + kK_{p}$. Hence:
+\begin{alignat*}{3}
+& \mbox{If } i \neq q \mbox{ then row } i \mbox{ of } EA =&&K_{i}A  &&= (\mbox{row } i \mbox{ of } A). \\
+& \mbox{Row } q \mbox{ of } EA  =  (K_{q} + kK_{p})A  && = && K_{q}A + k(K_{p}A) \\
+&		 && = && (\mbox{row } q \mbox{ of } A) \mbox{ plus } k\ (\mbox{row } p \mbox{ of } A).
+\end{alignat*}
+Thus $EA$ is the result of adding $k$ times row $p$ of $A$ to row $q$, as required.
+\end{proof}
+
+The effect of an elementary row operation can be reversed by another such operation (called its inverse) which is also elementary of the same type (see the discussion following (Example~\ref{exa:000809}). It follows that each elementary matrix $E$ is invertible. In fact, if a row operation on $I$ produces $E$, then the inverse operation carries $E$ back to $I$\index{elementary row operations!inverses}\index{inverses!elementary row operations}. If $F$ is the elementary matrix corresponding to the inverse operation, this means $FE = I$ (by Lemma~\ref{lem:005213}). Thus $F = E^{-1}$ and we have proved
+
+\begin{lemma}{}{005237}
+Every elementary matrix $E$ is invertible, and $E^{-1}$ is also a elementary matrix (of the same type). Moreover, $E^{-1}$ corresponds to the inverse of the row operation that produces $E$.
+\end{lemma}
+
+\noindent The following table gives the inverse of each type of elementary row operation:\index{elementary matrix!and inverses}\index{inverses!and elementary matrices}
+
+\begin{table}[H]
+	\centering
+	\begin{tabu}{|c|c|c|}
+	\hline
+	\textbf{Type} & \textbf{Operation} & \textbf{Inverse Operation} \\ \hline
+	I & Interchange rows $p$ and $q$ & Interchange rows $p$ and $q$ \\
+	II & Multiply row $p$ by $k \neq 0$ & Multiply row $p$ by $1/k$, $k \neq 0$ \\
+	III & Add $k$ times row $p$ to row $q \neq p$ & Subtract $k$ times row $p$ from row $q$, $q \neq p$ \\ \hline
+	\end{tabu}
+\end{table}
+\noindent Note that elementary matrices of type I are self-inverse.\index{elementary matrix!self-inverse}
+
+\begin{example}{}{005264}
+Find the inverse of each of the elementary matrices
+\begin{equation*}
+E_{1} = \leftB \begin{array}{rrr}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{array} \rightB, \quad
+E_{2} = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 9
+\end{array} \rightB, \quad \mbox{and} \quad
+E_{3} = \leftB \begin{array}{rrr}
+1 & 0 & 5 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB.
+\end{equation*}
+\begin{solution}
+  $E_{1}$, $E_{2}$, and $E_{3}$ are of type I, II, and III respectively, so the table gives
+\begin{equation*}
+E_{1}^{-1} = \leftB \begin{array}{rrr}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{array} \rightB = E_{1}, \quad
+E_{2}^{-1} = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & \frac{1}{9}
+\end{array} \rightB, \quad \mbox{and} \quad
+E_{3}^{-1} = \leftB \begin{array}{rrr}
+1 & 0 & -5 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB.
+\end{equation*}
+\end{solution}
+\end{example}
+
+\subsection*{Inverses and Elementary Matrices}
+
+Suppose that an $m \times n$ matrix $A$ is carried to a matrix $B$ (written $A \to B$) by a series of $k$ elementary row operations. Let $E_{1}, E_{2}, \dots, E_{k}$ denote the corresponding elementary matrices. By Lemma~\ref{lem:005213}, the reduction becomes
+\begin{equation*}
+A \rightarrow E_{1}A \rightarrow E_{2}E_{1}A \rightarrow E_{3}E_{2}E_{1}A \rightarrow \cdots \rightarrow E_{k}E_{k-1} \cdots E_{2}E_{1}A = B
+\end{equation*}
+In other words,
+\begin{equation*}
+A \rightarrow UA = B \quad \mbox{ where } U = E_{k}E_{k-1} \cdots E_{2}E_{1}
+\end{equation*}\index{invertible matrix!product of elementary matrix}
+\noindent The matrix $U = E_{k}E_{k-1} \cdots E_{2}E_{1}$ is invertible, being a product of invertible matrices by Lemma~\ref{lem:005237}. Moreover, $U$ can be computed without finding the $E_{i}$ as follows: If the above series of operations carrying $A \to B$ is performed on $I_{m}$ in place of $A$, the result is $I_{m} \to UI_{m} = U$. Hence this series of operations carries the block matrix $\leftB \begin{array}{cc}
+A & I_{m}
+\end{array} \rightB \to \leftB \begin{array}{cc}
+B & U
+\end{array} \rightB$. This, together with the above discussion, proves
+
+\begin{theorem}{}{005294}
+Suppose $A$ is $m \times n$ and $A \to B$ by elementary row operations.
+
+\begin{enumerate}
+\item $B = UA$ where $U$ is an $m \times m$ invertible matrix.
+
+\item $U$ can be computed by $\leftB \begin{array}{cc}
+A & I_{m}
+\end{array} \rightB \to \leftB \begin{array}{cc}
+B & U
+\end{array} \rightB$ using the operations carrying $A \to B$.
+
+\item $U = E_{k}E_{k-1} \cdots E_{2}E_{1}$ where $E_{1}, E_{2}, \dots, E_{k}$ are the elementary matrices corresponding (in order) to the elementary row operations carrying $A$ to $B$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{example}{}{005312}
+If $A = \leftB \begin{array}{rrr}
+2 & 3 & 1 \\
+1 & 2 & 1
+\end{array} \rightB$, express the reduced row-echelon form $R$ of $A$ as $R = UA$ where $U$ is invertible.
+
+\begin{solution}
+  Reduce the double matrix $\leftB \begin{array}{cc}
+  A & I
+  \end{array} \rightB \rightarrow \leftB \begin{array}{cc}
+  R & U
+  \end{array} \rightB$ as follows:
+\begin{align*}
+\leftB \begin{array}{cc}
+A & I
+\end{array} \rightB = \leftB \begin{array}{rrr|rr}
+2 & 3 & 1 & 1 & 0 \\
+1 & 2 & 1 & 0 & 1
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{rrr|rr}
+1 & 2 & 1 & 0 & 1 \\
+2 & 3 & 1 & 1 & 0
+\end{array} \rightB &\rightarrow
+\leftB \begin{array}{rrr|rr}
+1 & 2 & 1 & 0 & 1 \\
+0 & -1 & -1 & 1 & -2
+\end{array} \rightB \\
+&\rightarrow
+\leftB \begin{array}{rrr|rr}
+1 & 0 & -1 & 2 & -3 \\
+0 & 1 & 1 & -1 & 2
+\end{array} \rightB
+\end{align*}
+Hence $R = \leftB \begin{array}{rrr}
+1 & 0 & -1 \\
+0 & 1 & 1
+\end{array} \rightB$
+ and $U = \leftB \begin{array}{rr}
+ 	2 & -3 \\
+ 	-1 & 2
+ \end{array} \rightB$.
+\end{solution}
+\end{example}
+
+Now suppose that $A$ is invertible. We know that $A \to I$ by Theorem~\ref{thm:004553}, so taking $B = I$ in Theorem~\ref{thm:005294} gives $\leftB \begin{array}{cc}
+A & I
+\end{array} \rightB \rightarrow \leftB \begin{array}{cc}
+I & U
+\end{array} \rightB$ where $I = UA$. Thus $U = A^{-1}$, so we have $\leftB \begin{array}{cc}
+A & I
+\end{array} \rightB \rightarrow \leftB \begin{array}{cc}
+I & A^{-1}
+\end{array} \rightB$. This is the matrix inversion algorithm\index{matrix inversion algorithm} in Section~\ref{sec:2_4}. However, more is true: Theorem~\ref{thm:005294} gives $A^{-1} = U = E_{k}E_{k-1} \cdots E_{2}E_{1}$ where $E_{1}, E_{2}, \dots, E_{k}$ are the elementary matrices corresponding (in order) to the row operations carrying $A \to I$. Hence
+\begin{equation}
+A = \left(A^{-1}\right)^{-1} = \left(E_{k}E_{k-1} \cdots E_{2}E_{1}\right)^{-1} = E_{1}^{-1}E_{2}^{-1} \cdots E_{k-1}^{-1}E_{k}^{-1}
+\end{equation}
+By Lemma~\ref{lem:005237}, this shows that every invertible matrix $A$ is a product of elementary matrices. Since elementary matrices are invertible (again by Lemma~\ref{lem:005237}), this proves the following important characterization of invertible matrices.
+
+\begin{theorem}{}{005336}
+A square matrix is invertible if and only if it is a product of elementary matrices.
+\end{theorem}
+
+It follows from Theorem \ref{thm:005294} that $A \to B$ by row operations if and only if $B = UA$ for some invertible matrix $U$. In this case we say that $A$ and $B$ are \textbf{row-equivalent}. (See Exercise~\ref{ex:ex2_5_17}.)
+
+\begin{example}{}{005340}
+Express $A = \leftB \begin{array}{rr}
+-2 & 3 \\
+1 & 0
+\end{array} \rightB$
+ as a product of elementary matrices.
+
+\begin{solution}
+  Using Lemma~\ref{lem:005213}, the reduction of $A \to I$ is as follows:
+\begin{equation*}
+A = \leftB \begin{array}{rr}
+-2 & 3 \\
+1 & 0
+\end{array} \rightB \rightarrow 
+E_{1}A = \leftB \begin{array}{rr}
+1 & 0 \\
+-2 & 3
+\end{array} \rightB \rightarrow
+E_{2}E_{1}A = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 3
+\end{array} \rightB \rightarrow
+E_{3}E_{2}E_{1}A = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+\end{equation*}
+where the corresponding elementary matrices are
+\begin{equation*}
+E_{1} = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB, \quad
+E_{2} = \leftB \begin{array}{rr}
+1 & 0 \\
+2 & 1
+\end{array} \rightB, \quad
+E_{3} = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & \frac{1}{3}
+\end{array} \rightB
+\end{equation*}
+Hence $(E_{3}\ E_{2}\ E_{1})A = I$, so:
+\begin{equation*}
+A = \left(E_{3}E_{2}E_{1}\right)^{-1} = E_{1}^{-1}E_{2}^{-1}E_{3}^{-1} = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+-2 & 1
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 3
+\end{array} \rightB
+\end{equation*}
+\end{solution}
+\end{example}
+
+\subsection*{Smith Normal Form}
+
+Let $A$ be an $m \times n$ matrix of $\func{rank }r$, and let $R$ be the reduced row-echelon form of $A$. Theorem~\ref{thm:005294} shows that $R = UA$ where $U$ is invertible, and that $U$ can be found from $\leftB \begin{array}{cc}
+A & I_{m}
+\end{array} \rightB \rightarrow \leftB \begin{array}{cc}
+R & U
+\end{array} \rightB$.
+
+The matrix $R$ has $r$ leading ones (since $\func{rank }A = r$) so, as $R$ is reduced, the $n \times m$ matrix $R^{T}$ contains each row of $I_{r}$ in the first $r$ columns. Thus row operations will carry $R^{T} \rightarrow \leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB_{n \times m}$. Hence Theorem~\ref{thm:005294} (again) shows that $\leftB \begin{array}{cc}
+ I_{r} & 0 \\
+ 0 & 0
+ \end{array} \rightB_{n \times m} = U_{1}R^{T}$
+ where $U_{1}$ is an $n \times n$ invertible matrix. Writing $V = U_{1}^{T}$, we obtain
+\begin{equation*}
+UAV = RV = RU_{1}^{T} = \left(U_{1}R^{T}\right)^{T} = \left( \leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB_{n \times m} \right)^{T} = \leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB_{m \times n}
+\end{equation*}
+Moreover, the matrix $U_{1} = V^{T}$ can be computed by $\leftB \begin{array}{cc}
+R^{T} & I_{n}
+\end{array} \rightB \rightarrow \leftB \leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB_{n \times m} V^{T} \rightB$.
+ This proves
+
+\begin{theorem}{}{005369}
+Let $A$ be an $m \times n$ matrix of $\func{rank }r$. There exist invertible matrices $U$ and $V$ of size $m \times m$ and $n \times n$, respectively, such that
+\begin{equation*}
+UAV = \leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB_{m \times n}
+\end{equation*}
+Moreover, if $R$ is the reduced row-echelon form of $A$, then:
+
+\begin{enumerate}
+\item $U$ can be computed by $\leftB \begin{array}{cc}
+A & I_{m}
+\end{array} \rightB \rightarrow \leftB \begin{array}{cc}
+R & U
+\end{array} \rightB$;
+
+\item $V$ can be computed by $\leftB \begin{array}{cc}
+R^{T} & I_{n}
+\end{array} \rightB \rightarrow \leftB \leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB_{n \times m} V^{T} \rightB$.
+
+\end{enumerate}
+\end{theorem}
+
+If $A$ is an $m \times n$ matrix of $\func{rank }r$, the matrix 
+$\leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB$
+ is called the \textbf{Smith normal form}\index{Smith normal form}\index{columns!Smith normal form}\index{elementary matrix!Smith normal form}\index{rows!Smith normal form}\footnote{Named after Henry John Stephen Smith (1826--83).} of $A$. Whereas the reduced row-echelon form of $A$ is the ``nicest'' matrix to which $A$ can be carried by row operations, the Smith canonical form is the ``nicest'' matrix to which $A$ can be carried by \textit{row and column} operations. This is because doing row operations to $R^{T}$ amounts to doing \textit{column} operations to $R$ and then transposing.
+
+\begin{example}{}{005384}
+Given $A = \leftB \begin{array}{rrrr}
+1 & -1 & 1 & 2 \\
+2 & -2 & 1 & -1 \\
+-1 & 1 & 0 & 3
+\end{array} \rightB$, find invertible matrices $U$ and $V$ such that $UAV = \leftB \begin{array}{cc}
+ I_{r} & 0 \\
+ 0 & 0
+ \end{array} \rightB$, where $r = \func{rank }A$.
+
+\begin{solution}
+  The matrix $U$ and the reduced row-echelon form $R$ of $A$ are computed by the row reduction 
+  $\leftB \begin{array}{cc}
+  A & I_{3}
+  \end{array} \rightB \rightarrow \leftB \begin{array}{cc}
+  R & U
+  \end{array} \rightB$:
+\begin{equation*}
+\leftB \begin{array}{rrrr|rrr}
+1 & -1 & 1 & 2 & 1 & 0 & 0 \\
+2 & -2 & 1 & -1 & 0 & 1 & 0 \\
+-1 & 1 & 0 & 3 & 0 & 0 & 1
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{rrrr|rrr}
+1 & -1 & 0 & -3 & -1 & 1 & 0 \\
+0 & 0 & 1 & 5 & 2 & -1 & 0 \\
+0 & 0 & 0 & 0 & -1 & 1 & 1
+\end{array} \rightB
+\end{equation*}
+Hence
+\begin{equation*}
+R = \leftB \begin{array}{rrrr}
+1 & -1 & 0 & -3 \\
+0 & 0 & 1 & 5 \\
+0 & 0 & 0 & 0
+\end{array} \rightB \quad \mbox{ and } \quad
+U = \leftB \begin{array}{rrr}
+-1 & 1 & 0 \\
+2 & -1 & 0 \\
+-1 & 1 & 1
+\end{array} \rightB
+\end{equation*}
+In particular, $r = \func{rank }R = 2$. Now row-reduce $\leftB \begin{array}{cc}
+R^{T} & I_{4}
+\end{array} \rightB \rightarrow \leftB \begin{array}{cc}
+\leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB & V^{T}
+\end{array} \rightB$:
+\begin{equation*}
+\leftB \begin{array}{rrr|rrrr}
+1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+-1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+-3 & 5 & 0 & 0 & 0 & 0 & 1
+\end{array} \rightB \rightarrow 
+\leftB \begin{array}{rrr|rrrr}
+1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 & 1 & 0 & 0 \\
+0 & 0 & 0 & 3 & 0 & -5 & 1
+\end{array} \rightB
+\end{equation*}
+whence
+\begin{equation*}
+V^{T} = \leftB \begin{array}{rrrr}
+1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+1 & 1 & 0 & 0 \\
+3 & 0 & -5 & -1
+\end{array} \rightB \quad \mbox { so } \quad
+V = \leftB \begin{array}{rrrr}
+1 & 0 & 1 & 3 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & -5 \\
+0 & 0 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+Then $UAV = \leftB \begin{array}{cc}
+I_{2} & 0 \\
+0 & 0
+\end{array} \rightB$
+ as is easily verified.
+\end{solution}
+\end{example}
+
+\subsection*{Uniqueness of the Reduced Row-echelon Form}
+
+In this short subsection, Theorem~\ref{thm:005294} is used to prove the following important theorem.\index{elementary matrix!uniqueness of reduced row-echelon form}\index{matrix!reduced row-echelon matrix}\index{matrix form!reduced row-echelon form}\index{reduced row-echelon form}
+
+\begin{theorem}{}{005405}
+If a matrix $A$ is carried to reduced row-echelon matrices $R$ and $S$ by row operations, then $R = S$.
+\end{theorem}
+
+\begin{proof}
+Observe first that $UR = S$ for some invertible matrix $U$ (by Theorem~\ref{thm:005294} there exist invertible matrices $P$ and $Q$ such that $R = PA$ and $S = QA$; take $U = QP^{-1}$). We show that $R = S$ by induction on the number $m$ of rows of $R$ and $S$. The case $m = 1$ is left to the reader. If $R_{j}$ and $S_{j}$ denote column $j$ in $R$ and $S$ respectively, the fact that $UR = S$ gives
+\begin{equation} \label{eq:urs}
+UR_{j} = S_{j} \quad \mbox{ for each } j
+\end{equation}
+Since $U$ is invertible, this shows that $R$ and $S$ have the same zero columns. Hence, by passing to the matrices obtained by deleting the zero columns from $R$ and $S$, we may assume that $R$ and $S$ have no zero columns.
+
+But then the first column of $R$ and $S$ is the first column of $I_{m}$ because $R$ and $S$ are row-echelon, so (\ref{eq:urs}) shows that the first column of $U$ is column 1 of $I_{m}$. Now write $U$, $R$, and $S$ in block form as follows.
+\begin{equation*}
+U = \leftB \begin{array}{cc}
+1 & X \\
+0 & V
+\end{array} \rightB, \quad
+R = \leftB \begin{array}{cc}
+1 & Y \\
+0 & R^\prime
+\end{array} \rightB, \quad \mbox{ and } \quad
+S = \leftB \begin{array}{cc}
+1 & Z \\
+0 & S^\prime
+\end{array} \rightB
+\end{equation*}
+Since $UR = S$, block multiplication gives $VR^\prime = S^\prime$ so, since $V$ is invertible ($U$ is invertible) and both $R^\prime$ and $S^\prime$ are reduced row-echelon, we obtain $R^\prime = S^\prime$ by induction. Hence $R$ and $S$ have the same number (say $r$) of leading $1$s, and so both have $m$--$r$ zero rows.
+
+In fact, $R$ and $S$ have leading ones in the same columns, say $r$ of them. Applying (\ref{eq:urs}) to these columns shows that the first $r$ columns of $U$ are the first $r$ columns of $I_{m}$. Hence we can write $U$, $R$, and $S$ in block form as follows:
+\begin{equation*}
+U = \leftB \begin{array}{cc}
+I_{r} & M \\
+0 & W
+\end{array} \rightB, \quad
+R = \leftB \begin{array}{cc}
+R_{1} & R_{2} \\
+0 & 0
+\end{array} \rightB, \quad \mbox{ and } \quad
+S = \leftB \begin{array}{cc}
+S_{1} & S_{2} \\
+0 & 0
+\end{array} \rightB
+\end{equation*}
+where $R_{1}$ and $S_{1}$ are $r \times r$. Then using $UR=S$ block multiplication gives $R_{1} = S_{1}$ and $R_{2} = S_{2}$; that is, $S = R$. This completes the proof.
+\end{proof}
+
+\section*{Exercises for \ref{sec:2_5}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:2_5}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+For each of the following elementary matrices, describe the corresponding elementary row operation and write the inverse.
+\begin{exenumerate}
+\exitem $E = \leftB \begin{array}{rrr}
+1 & 0 & 3 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$
+\exitem $E = \leftB \begin{array}{rrr}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0
+\end{array} \rightB$
+\exitem $E = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & \frac{1}{2} & 0 \\
+0 & 0 & 1
+\end{array} \rightB$
+\exitem $E = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+-2 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$
+\exitem $E = \leftB \begin{array}{rrr}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$
+\exitem $E = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 5
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Interchange rows 1 and 3 of $I$. $E^{-1} = E$.
+
+\setcounter{enumi}{3}
+\item Add $(-2)$ times row 1 of $I$ to row 2. $E^{-1} = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item Multiply row 3 of $I$ by $5$. $E^{-1} = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & \frac{1}{5}
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak 
+\begin{ex}
+In each case find an elementary matrix $E$ such that $B = EA$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $A = \leftB \begin{array}{rr}
+2 & 1 \\
+3 & -1
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rr}
+2 & 1 \\
+1 & -2
+\end{array} \rightB$
+
+\item $A = \leftB \begin{array}{rr}
+-1 & 2 \\
+0 & 1
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rr}
+1 & -2 \\
+0 & 1
+\end{array} \rightB$
+
+\item $A = \leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 2
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rr}
+-1 & 2 \\
+1 & 1
+\end{array} \rightB$
+
+\item $A = \leftB \begin{array}{rr}
+4 & 1 \\
+3 & 2
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rr}
+1 & -1 \\
+3 & 2
+\end{array} \rightB$
+
+\item $A = \leftB \begin{array}{rr}
+-1 & 1 \\
+1 & -1
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rr}
+-1 & 1 \\
+-1 & 1
+\end{array} \rightB$
+
+\item $A = \leftB \begin{array}{rr}
+2 & 1 \\
+-1 & 3
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rr}
+-1 & 3 \\
+2 & 1
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\leftB \begin{array}{rr}
+-1 & 0 \\
+0 & 1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $\leftB \begin{array}{rr}
+1 & -1 \\
+0 & 1
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item $\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{rr}
+1 & 2 \\
+-1 & 1
+\end{array} \rightB$
+ and \\ $C = \leftB \begin{array}{rr}
+ -1 & 1 \\
+ 2 & 1
+ \end{array} \rightB$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Find elementary matrices $E_{1}$ and $E_{2}$ such that $C = E_{2}E_{1}A$.
+
+\item Show that there is \textit{no} elementary matrix $E$ such that $C = EA$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item The only possibilities for $E$ are $\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$, $ 
+\leftB \begin{array}{rr}
+k & 0 \\
+0 & 1
+\end{array} \rightB$, $ 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & k
+\end{array} \rightB$, $ 
+\leftB \begin{array}{rr}
+1 & k \\
+0 & 1
+\end{array} \rightB$, and $\leftB \begin{array}{rr}
+ 1 & 0 \\
+ k & 1
+ \end{array} \rightB$. In each case, $EA$ has a row different from $C$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $E$ is elementary, show that $A$ and $EA$ differ in at most two rows.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Is $I$ an elementary matrix? Explain.
+
+\item Is $0$ an elementary matrix? Explain.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No, $0$ is not invertible.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case find an invertible matrix $U$ such that $UA = R$ is in reduced row-echelon form, and express $U$ as a product of elementary matrices.
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rrr}
+1 & -1 & 2 \\
+-2 & 1 & 0
+\end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+1 & 2 & 1 \\
+5 & 12 & -1
+\end{array} \rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+1 & 2 & -1 & 0 \\
+3 & 1 & 1 & 2 \\
+1 & -3 & 3 & 2
+\end{array} \rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+2 & 1 & -1 & 0 \\
+3 & -1 & 2 & 1 \\
+1 & -2 & 3 & 1
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\leftB \begin{array}{rr}
+1 & -2 \\
+0 & 1
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+0 & \frac{1}{2}
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+-5 & 1
+\end{array} \rightB$ \\ $A = \leftB \begin{array}{rrr}
+1 & 0 & 7 \\
+0 & 1 & -3
+\end{array} \rightB$. Alternatively, \\ $\leftB \begin{array}{rr}
+1 & 0 \\
+0 & \frac{1}{2}
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & -1 \\
+0 & 1
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+-5 & 1
+\end{array} \rightB$ \\ $A = \leftB \begin{array}{rrr}
+1 & 0 & 7 \\
+0 & 1 & -3
+\end{array} \rightB$.
+
+\setcounter{enumi}{3}
+\item $\leftB \begin{array}{rrr}
+1 & 2 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & \frac{1}{5} & 0 \\
+0 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & -1 & 1
+\end{array} \rightB$ \\ $\leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+-2 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+-3 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$
+
+$\leftB \begin{array}{rrr}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0
+\end{array} \rightB A = \leftB \def\arraystretch{1.5}\begin{array}{rrrr}
+1 & 0 & \frac{1}{5} & \frac{1}{5} \\
+0 & 1 & -\frac{7}{5} & -\frac{2}{5} \\
+0 & 0 & 0 & 0
+\end{array} \rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case find an invertible matrix $U$ such that $UA = B$, and express $U$ as a product of elementary matrices.
+\begin{enumerate}[label={\alph*.}]
+\item $A = \leftB \begin{array}{rrr}
+2 & 1 & 3 \\
+-1 & 1 & 2
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rrr}
+1 & -1 & -2 \\
+3 & 0 & 1
+\end{array} \rightB$
+
+\item $A = \leftB \begin{array}{rrr}
+2 & -1 & 0 \\
+1 & 1 & 1
+\end{array} \rightB$, 
+$B = \leftB \begin{array}{rrr}
+3 & 0 & 1 \\
+2 & -1 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $U = \leftB \begin{array}{rr}
+1 & 1 \\
+1 & 0
+\end{array} \rightB = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+In each case factor $A$ as a product of elementary matrices.
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rr}
+1 & 1 \\
+2 & 1
+\end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rr}
+2 & 3 \\
+1 & 2
+\end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+1 & 0 & 2 \\
+0 & 1 & 1 \\
+2 & 1 & 6
+\end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+1 & 0 & -3 \\
+0 & 1 & 4 \\
+-2 & 2 & 15
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $A = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+2 & 1
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB$ \\ $\leftB \begin{array}{rr}
+1 & 2 \\
+0 & 1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $A = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+-2 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 2 & 1
+\end{array} \rightB$ \\ $\leftB \begin{array}{rrr}
+1 & 0 & -3 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 4 \\
+0 & 0 & 1
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:ex2_5_9}
+Let $E$ be an elementary matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $E^{T}$ is also elementary of the same type.
+
+\item Show that $E^{T} = E$ if $E$ is of type I or II.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Show that every matrix $A$ can be factored as $A = UR$ where $U$ is invertible and $R$ is in reduced row-echelon form.
+
+\begin{sol}
+$UA = R$ by Theorem~\ref{thm:005294}, so $A = U^{-1}R$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A = \leftB \begin{array}{rr}
+1 & 2 \\
+1 & -3
+\end{array} \rightB$
+ and \\ $B = \leftB \begin{array}{rr}
+ 5 & 2 \\
+ -5 & -3
+ \end{array} \rightB$
+ find an elementary matrix $F$ such that $AF = B$.
+
+
+[\textit{Hint}: See Exercise~\ref{ex:ex2_5_9}.]
+\end{ex}
+
+\begin{ex}
+In each case find invertible $U$ and $V$ such that $UAV = \leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB$, where $r = \func{rank }A$.
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rrr}
+1 & 1 & -1 \\
+-2 & -2 & 4
+\end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rr}
+3 & 2 \\
+2 & 1
+\end{array} \rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+1 & -1 & 2 & 1 \\
+2 & -1 & 0 & 3 \\
+0 & 1 & -4 & 1
+\end{array} \rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+1 & 1 & 0 & -1 \\
+3 & 2 & 1 & 1 \\
+1 & 0 & 1 & 3
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $U = A^{-1}$, $V = I^{2}$; $\func{rank }A = 2$
+
+\setcounter{enumi}{3}
+\item $U = \leftB \begin{array}{rrr}
+-2 & 1 & 0 \\
+3 & -1 & 0 \\
+2 & -1 & 1
+\end{array} \rightB$, \\ $V = \leftB \begin{array}{rrrr}
+1 & 0 & -1 & -3 \\
+0 & 1 & 1 & 4 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array} \rightB$; $\func{rank }A = 2$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Prove Lemma~\ref{lem:005213} for elementary matrices of:
+\begin{exenumerate}
+\exitem type I;
+\exitem type II.
+\end{exenumerate}
+\end{ex}
+
+\begin{ex}
+While trying to invert $A$, $\leftB \begin{array}{cc}
+A & I
+\end{array} \rightB$ is carried to $\leftB \begin{array}{cc}
+P & Q
+\end{array} \rightB$ by row operations. Show that $P = QA$.
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ are $n \times n$ matrices and $AB$ is a product of elementary matrices, show that the same is true of $A$.
+\end{ex}
+
+\begin{ex}
+If $U$ is invertible, show that the reduced row-echelon form of a matrix $\leftB \begin{array}{cc}
+U & A
+\end{array} \rightB$ is $\leftB \begin{array}{cc}
+I & U^{-1}A
+\end{array} \rightB$.
+
+\begin{sol}
+Write $U^{-1} = E_{k}E_{k-1} \cdots E_{2}E_{1}$, $E_{i}$ elementary. Then $\leftB \begin{array}{cc}
+I & U^{-1}A
+\end{array} \rightB = \leftB \begin{array}{cc}
+U^{-1}U & U^{-1}A
+\end{array} \rightB$ \\
+$ = U^{-1} \leftB \begin{array}{cc}
+U & A
+\end{array} \rightB = E_{k}E_{k-1} \cdots E_{2}E_{1} \leftB \begin{array}{cc}
+U & A
+\end{array} \rightB$. So $\leftB \begin{array}{cc}
+U & A
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{cc}
+I & U^{-1}A
+\end{array} \rightB$ by row operations \\ (Lemma~\ref{lem:005213}).
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex2_5_17}
+Two matrices $A$ and $B$ are called \textbf{row-equivalent}\index{row-equivalent matrices}\index{matrix!row-equivalent} (written $A \overset{r}{\sim} B$) if there is a sequence of elementary row operations carrying $A$ to $B$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A \overset{r}{\sim} B$ if and only if $A = UB$ for some invertible matrix $U$.
+
+\item Show that:
+
+\begin{enumerate}[label={\roman*.}]
+\item $A \overset{r}{\sim} A$ for all matrices $A$.
+
+\item If $A \overset{r}{\sim} B$, then $B \overset{r}{\sim} A$
+
+
+\item If $A \overset{r}{\sim} B$ and $B \overset{r}{\sim} C$, then $A \overset{r}{\sim} C$.
+
+\end{enumerate}
+\item Show that, if $A$ and $B$ are both row-equivalent to some third matrix, then $A \overset{r}{\sim} B$.
+
+\item Show that $\leftB \begin{array}{rrrr}
+1 & -1 & 3 & 2 \\
+0 & 1 & 4 & 1 \\
+1 & 0 & 8 & 6
+\end{array} \rightB$
+ and \\ $\leftB \begin{array}{rrrr}
+ 1 & -1 & 4 & 5 \\
+ -2 & 1 & -11 & -8 \\
+ -1 & 2 & 2 & 2
+ \end{array} \rightB$
+ are row-equivalent. [\textit{Hint}: Consider (c) and Theorem~\ref{thm:001017}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item (i) $A \overset{r}{\sim} A$ because $A = IA$. (ii) If $A \overset{r}{\sim} B$, then $A = UB$, $U$ invertible, so $B = U^{-1}A$. Thus $B \overset{r}{\sim} A$. (iii) If $A \overset{r}{\sim} B$ and $B \overset{r}{\sim} C$, then $A = UB$ and $B = VC$, $U$ and $V$ invertible. Hence $A = U(VC) = (UV)C$, so $A \overset{r}{\sim} C$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $U$ and $V$ are invertible $n \times n$ matrices, show that $U \overset{r}{\sim} V$. (See Exercise~\ref{ex:ex2_5_17}.)
+\end{ex}
+
+\begin{ex}
+(See Exercise~\ref{ex:ex2_5_17}.) Find all matrices that are row-equivalent to:
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rrr}
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+0 & 0 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & 2 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $B \overset{r}{\sim} A$,
+ let $B = UA$, $U$ invertible. If $U = \leftB \begin{array}{rr}
+ d & b \\
+ -b & d
+ \end{array} \rightB$, $B = UA = \leftB \begin{array}{ccc}
+ 0 & 0 & b \\
+ 0 & 0 & d
+ \end{array} \rightB$
+ where $b$ and $d$ are not both zero (as $U$ is invertible). Every such matrix $B$ arises in this way: Use $U = \leftB \begin{array}{rr}
+ a & b \\
+ -b & a
+ \end{array} \rightB$--it is invertible by Example~\ref{exa:003540}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be $m \times n$ and $n \times m$ matrices, respectively. If $m > n$, show that $AB$ is not invertible. [\textit{Hint}: Use Theorem~\ref{thm:001473} to find $\vect{x} \neq \vect{0}$ with $B\vect{x} = \vect{0}$.]
+\end{ex}
+
+\begin{ex}
+Define an \textit{elementary column operation} on a matrix to be one of the following: (I) Interchange two columns. (II) Multiply a column by a nonzero scalar. (III) Add a multiple of a column to another column. Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item If an elementary column operation is done to an $m \times n$ matrix $A$, the result is $AF$, where $F$ is an $n \times n$ elementary matrix.
+
+\item Given any $m \times n$ matrix $A$, there exist $m \times m$ elementary matrices $E_{1}, \dots, E_{k}$ and $n \times n$ elementary matrices $F_{1}, \dots, F_{p}$ such that, in block form,
+\begin{equation*}
+E_{k} \cdots E_{1}AF_{1} \cdots F_{p} = \leftB \begin{array}{cc}
+I_{r} & 0 \\
+0 & 0
+\end{array} \rightB
+\end{equation*}
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Suppose $B$ is obtained from $A$ by:
+
+\begin{enumerate}[label={\alph*.}]
+\item interchanging rows $i$ and $j$;
+
+\item multiplying row $i$ by $k \neq 0$;
+
+\item adding $k$ times row $i$ to row $j\ (i \neq j)$.
+
+\end{enumerate}
+
+In each case describe how to obtain $B^{-1}$ from $A^{-1}$. [\textit{Hint}: See part (a) of the preceding exercise.]
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Multiply column $i$ by $1/k$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Two $m \times n$ matrices $A$ and $B$ are called \textbf{equivalent}\index{equivalent!matrices}\index{matrix!equivalent matrices} (written $A \overset{e}{\sim} B$) if there exist invertible matrices $U$ and $V$ (sizes $m \times m$ and $n \times n$) such that $A = UBV$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Prove the following the properties of equivalence.
+
+\begin{enumerate}[label={\roman*.}]
+\item $A \overset{e}{\sim} A$ for all $m \times n$ matrices $A$.
+
+\item If $A \overset{e}{\sim} B$, then $B \overset{e}{\sim} A$.
+
+\item If $A \overset{e}{\sim} B$ and $B \overset{e}{\sim} C$, then $A \overset{e}{\sim} C$.
+
+\end{enumerate}
+\item Prove that two $m \times n$ matrices are equivalent if they have the same $\func{rank}$. [\textit{Hint}: Use part (a) and Theorem~\ref{thm:005369}.]
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

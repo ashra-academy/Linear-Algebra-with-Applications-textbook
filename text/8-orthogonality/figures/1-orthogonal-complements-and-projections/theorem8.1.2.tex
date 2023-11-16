@@ -1,0 +1,52 @@
+\begin{tikzpicture}[scale=0.9]
+\draw[dkbluevect, fill=ltgreenvect!50!white, thick] (-1.75, 0.75)-- ++(3, 0)-- ++(1.5, -1.5)-- ++(-3, 0)--cycle;
+
+\def \vectLength {1.5}
+\def \angleFF {40};
+\coordinate (ptX3) at (40:\vectLength / cos 40);
+\coordinate (ptF2) at (\vectLength, 0);
+\coordinate (ptF1) at (-\angleFF: 1);
+
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptX3);
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptF2);
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptF1);
+
+\draw [dkbluevect, thick] ($ (0, 0) + (0.3, 0)$)-- ++(-\angleFF: 0.2) -- ++(-0.3, 0);
+
+\node[left] at (0, 0) {\footnotesize $\vect{0}$};
+\node[right] at (ptX3) {\footnotesize $\vect{x}_3$};
+\node[right] at (ptF2) {\footnotesize $\vect{f}_2$};
+\node at ($(ptF1) + (0.2, 0.1)$) {\footnotesize $\vect{f}_1$};
+
+\node at (2, -1) {\scriptsize $\func{span} \{\vect{f}_1, \vect{f}_2\}$};
+\draw[dkbluevect, thick, -latex] (0.5, -1) -- ++(0, -2) node[right, text=black, midway] {\scriptsize Gram-Schmidt};
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=0.9]
+\draw[dkbluevect, fill=ltgreenvect!50!white, thick] (-1.75, 0.75)-- ++(3, 0)-- ++(1.5, -1.5)-- ++(-3, 0)--cycle;
+
+\def \vectLength {1.5}
+\def \angleFTwoFOne {40};
+\def \angleFThreeFTwo {70};
+\coordinate (ptF3) at (\angleFThreeFTwo:\vectLength / cos 40);
+\coordinate (ptF2) at (\vectLength, 0);
+\coordinate (ptF1) at (-\angleFTwoFOne: 1);
+
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptF3);
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptF2);
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptF1);
+
+%right angles
+\def \angleWidth {0.2}
+\draw [dkbluevect, thick] ($ (0, 0) + (\angleWidth + 0.1, 0)$)-- ++(-\angleFTwoFOne: \angleWidth) -- ++(-\angleWidth - 0.1, 0);
+\draw [dkbluevect, thick] (-\angleFTwoFOne: \angleWidth) -- ++(\angleFThreeFTwo:\angleWidth) -- (\angleFThreeFTwo:\angleWidth);
+\draw [dkbluevect, thick] (\angleFThreeFTwo:\angleWidth) -- ++(\angleWidth + 0.1, 0) -- (\angleWidth + 0.1, 0);
+
+\node[left] at (0, 0) {\footnotesize $\vect{0}$};
+\node[right] at (ptF3) {\footnotesize $\vect{f}_3$};
+\node[right] at (ptF2) {\footnotesize $\vect{f}_2$};
+\node at ($(ptF1) + (0.2, 0.1)$) {\footnotesize $\vect{f}_1$};
+
+\node at (2, -1) {\scriptsize $\func{span} \{\vect{f}_1, \vect{f}_2\}$};
+\end{tikzpicture}
+

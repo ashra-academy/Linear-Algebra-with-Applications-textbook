@@ -1,0 +1,52 @@
+\begin{tikzpicture}[scale=0.9]
+\coordinate(ptO) at (0, 0);
+\coordinate(ptV) at (1, 2);
+\coordinate(ptW) at (1.5, 0.5);
+
+%blue lines
+\draw[dkbluevect, thick, name path=line1] (0.25, 0.5)-- ++(ptW);
+\draw[dkbluevect, thick] (0.5, 1.0)-- ++(ptW);
+\draw[dkbluevect, thick] (0.75, 1.5)-- ++(ptW);
+\draw[dkbluevect, thick] (ptV)-- ++(ptW)--(ptW);
+
+%green lines
+\draw[dkgreenvect, thick, -latex] (ptO)--(ptV) node[left, text=black, pos=0.7] {\small $\vect{v}$};
+\draw[dkgreenvect, thick, -latex] (ptO)--(ptW) node[below, text=black] {\small $\vect{w}$};
+% u line
+\path[name path=lineVW] (ptV)--(ptW);
+\path[name intersections={of=line1 and lineVW, by=ptU}];
+\draw[dkgreenvect, thick, -latex] (ptO)--(ptU.center) node[above, text=black, pos=0.8] {\small $\vect{u}$};
+
+%points
+\fill (ptO) circle (2pt);
+\fill (ptV) circle (2pt);
+\fill (ptW) circle (2pt);
+\node[left] at (ptO) {\small $O$};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\coordinate(ptO) at (0, 0);
+\coordinate(ptTv) at (2, -1);
+\coordinate(ptTw) at (1.5, 2);
+
+%blue lines
+\draw[dkbluevect, thick, name path=line1] (0.5, -0.25)-- ++(ptTw);
+\draw[dkbluevect, thick] (1, -0.5)-- ++(ptTw);
+\draw[dkbluevect, thick] (1.5, -0.75)-- ++(ptTw);
+\draw[dkbluevect, thick] (ptTv)-- ++(ptTw)--(ptTw);
+
+%green lines
+\draw[dkgreenvect, thick, -latex] (ptO)--(ptTv) node[right, text=black] {\footnotesize $T(\vect{v})$};
+\draw[dkgreenvect, thick, -latex] (ptO)--(ptTw) node[left, text=black] {\footnotesize $T(\vect{w})$};
+%T(u) line
+\path[name path=lineTVTW] (ptTv)--(ptTw);
+\path[name intersections={of=line1 and lineTVTW, by=ptTu}];
+\draw[dkgreenvect, thick, -latex] (ptO)--(ptTu.center);
+\path(ptTu) -- ++(0, -0.5) node {\footnotesize $T(\vect{u})$};
+
+%points
+\fill (ptO) circle (2pt);
+\fill (ptTv) circle (2pt);
+\fill (ptTw) circle (2pt);
+\node[left] at (ptO) {\footnotesize $O$};
+\end{tikzpicture}

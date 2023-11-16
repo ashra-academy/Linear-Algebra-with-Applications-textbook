@@ -1,0 +1,622 @@
+\section{Orthogonal Complements and Projections}
+\label{sec:8_1}
+
+If $\{\vect{v}_{1}, \dots , \vect{v}_{m}\}$ is linearly independent in a general vector space, and if $\vect{v}_{m+1}$ is not in $\func{span}\{\vect{v}_{1}, \dots , \vect{v}_{m}\}$, then $\{\vect{v}_{1}, \dots , \vect{v}_{m}, \vect{v}_{m+1}\}$ is independent (Lemma~\ref{lem:019357}). Here is the analog for \textit{orthogonal} sets in $\RR^n$.\index{orthogonal sets}\index{orthogonality!orthogonal sets}
+
+
+\begin{lemma}{Orthogonal Lemma}{023597}
+Let $\{\vect{f}_{1}, \vect{f}_{2}, \dots , \vect{f}_{m}\}$ be an orthogonal set in $\RR^n$. Given $\vect{x}$ in $\RR^n$, write
+\begin{equation*}
+\vect{f}_{m+1} = \vect{x} - \frac{\vect{x} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} - \frac{\vect{x} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\vect{f}_{2} - \dots - \frac{\vect{x} \dotprod \vect{f}_{m}}{\vectlength \vect{f}_{m} \vectlength^2}\vect{f}_{m}
+\end{equation*}\index{orthogonal lemma}
+Then:
+
+\begin{enumerate}
+\item $\vect{f}_{m+1} \dotprod \vect{f}_{k} = 0$ for $k = 1, 2, \dots , m$.
+
+\item If $\vect{x}$ is not in $\func{span}\{\vect{f}_{1}, \dots , \vect{f}_{m}\}$, then $\vect{f}_{m+1} \neq \vect{0}$ and $\{\vect{f}_{1}, \dots , \vect{f}_{m}, \vect{f}_{m+1}\}$ is an orthogonal set.
+
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For convenience, write $t_{i} = (\vect{x} \dotprod \vect{f}_{i}) / \vectlength\vect{f}_{i}\vectlength^{2}$ for each $i$. Given $1 \leq k \leq m$:
+\begin{align*}
+\vect{f}_{m+1} \dotprod \vect{f}_{k} 
+&= (\vect{x} - t_{1}\vect{f}_{1} - \dots -t_{k}\vect{f}_{k} - \dots -t_{m}\vect{f}_{m}) \dotprod \vect{f}_{k} \\
+&= \vect{x} \dotprod \vect{f}_{k} - t_{1}(\vect{f}_{1} \dotprod \vect{f}_{k}) - \dots -t_{k}(\vect{f}_{k} \dotprod \vect{f}_{k}) - \dots -t_{m}(\vect{f}_{m} \dotprod \vect{f}_{k}) \\
+&= \vect{x} \dotprod \vect{f}_{k} - t_{k} \vectlength \vect{f}_{k} \vectlength^2 \\
+&= 0 
+\end{align*}
+This proves (1), and (2) follows because $\vect{f}_{m + 1} \neq \vect{0}$ if $\vect{x}$ is not in $\func{span}\{\vect{f}_{1}, \dots , \vect{f}_{m}\}$.
+\end{proof}
+
+The orthogonal lemma has three important consequences for $\RR^n$. The first is an extension for orthogonal sets of the fundamental fact that any independent set is part of a basis (Theorem~\ref{thm:019430}).\index{basis!independent set}
+
+
+\begin{theorem}{}{023635}
+Let $U$ be a subspace of $\RR^n$.
+
+
+\begin{enumerate}
+\item Every orthogonal subset $\{\vect{f}_{1}, \dots , \vect{f}_{m}\}$ in $U$ is a subset of an orthogonal basis of $U$.
+
+\item $U$ has an orthogonal basis.
+
+\end{enumerate}\index{basis!orthogonal basis}\index{orthogonal basis}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item If $\func{span}\{\vect{f}_{1}, \dots , \vect{f}_{m}\} = U$, it is \textit{already} a basis. Otherwise, there exists $\vect{x}$ in $U$ outside $\func{span}\{\vect{f}_{1}, \dots , \vect{f}_{m}\}$. If $\vect{f}_{m+1}$ is as given in the orthogonal lemma, then $\vect{f}_{m+1}$ is in $U$ and $\{\vect{f}_{1}, \dots , \vect{f}_{m}, \vect{f}_{m+1}\}$ is orthogonal. If $\func{span}\{\vect{f}_{1}, \dots, \vect{f}_{m}, \vect{f}_{m+1}\} = U$, we are done. Otherwise, the process continues to create larger and larger orthogonal subsets of $U$. They are all independent by Theorem~\ref{thm:015056}, so we have a basis when we reach a subset containing dim $U$ vectors.
+
+\item If $U = \{\vect{0}\}$, the empty basis is orthogonal. Otherwise, if $\vect{f} \neq \vect{0}$ is in $U$, then $\{\vect{f}\}$ is orthogonal, so (2) follows from (1).
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+We can improve upon (2) of Theorem~\ref{thm:023635}. In fact, the second consequence of the orthogonal lemma is a procedure by which \textit{any} basis $\{\vect{x}_{1}, \dots , \vect{x}_{m}\}$ of a subspace $U$ of $\RR^n$ can be systematically modified to yield an orthogonal basis $\{\vect{f}_{1}, \dots , \vect{f}_{m}\}$ of $U$. The $\vect{f}_{i}$ are constructed one at a time from the $\vect{x}_{i}$.
+
+To start the process, take $\vect{f}_{1} = \vect{x}_{1}$. Then $\vect{x}_{2}$ is not in $\func{span}\{\vect{f}_{1}\}$ because $\{\vect{x}_{1}, \vect{x}_{2}\}$ is independent, so take
+\begin{equation*}
+\vect{f}_{2} = \vect{x}_{2} - \frac{\vect{x}_{2} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1}
+\end{equation*}
+Thus $\{\vect{f}_{1}, \vect{f}_{2}\}$ is orthogonal by Lemma \ref{lem:023597}. Moreover, $\func{span}\{\vect{f}_{1}, \vect{f}_{2}\} = \func{span}\{\vect{x}_{1}, \vect{x}_{2}\}$ (verify), so $\vect{x}_{3}$ is not in $\func{span}\{\vect{f}_{1}, \vect{f}_{2}\}$. Hence $\{\vect{f}_{1}, \vect{f}_{2}, \vect{f}_{3}\}$ is orthogonal where
+\begin{equation*}
+\vect{f}_{3} = \vect{x}_{3} - \frac{\vect{x}_{3} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} - \frac{\vect{x}_{3} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\vect{f}_{2}
+\end{equation*}
+Again, $\func{span}\{\vect{f}_{1}, \vect{f}_{2}, \vect{f}_{3}\} = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \vect{x}_{3}\}$, so $\vect{x}_{4}$ is not in $\func{span}\{\vect{f}_{1}, \vect{f}_{2}, \vect{f}_{3}\}$ and the process continues. At the $m$th iteration we construct an orthogonal set $\{\vect{f}_{1}, \dots , \vect{f}_{m}\}$ such that
+\begin{equation*}
+\func{span}\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\} = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{m}\} = U
+\end{equation*}
+Hence $\{\vect{f}_{1}, \vect{f}_{2}, \dots , \vect{f}_{m}\}$ is the desired orthogonal basis of $U$. The procedure can be summarized as follows.
+
+\newpage 
+\begin{wrapfigure}[4]{l}{5cm} 
+\vspace*{5em}
+\centering
+\input{8-orthogonality/figures/1-orthogonal-complements-and-projections/theorem8.1.2}
+%\caption{\label{fig:023740}}
+\end{wrapfigure}
+\hfill
+\begin{theorem}{Gram-Schmidt Orthogonalization Algorithm\footnotemark}{023713}
+If $\{\vect{x}_{1}, \vect{x}_{2}, \dots , \vect{x}_{m}\}$ is any basis of a subspace $U$ of $\RR^n$, construct $\vect{f}_{1}, \vect{f}_{2}, \dots , \vect{f}_{m}$ in $U$ successively as follows:
+\begin{equation*}
+\begin{array}{ccl}
+\vect{f}_{1} &=& \vect{x}_{1} \\
+\vect{f}_{2} &=& \vect{x}_{2} - \frac{\vect{x}_{2} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} \\
+\vect{f}_{3} &=& \vect{x}_{3} - \frac{\vect{x}_{3} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} - \frac{\vect{x}_{3} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\vect{f}_{2} \\
+\vdots &&\\
+\vect{f}_{k} &=& \vect{x}_{k} - \frac{\vect{x}_{k} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} - \frac{\vect{x}_{k} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\vect{f}_{2} - \dots -\frac{\vect{x}_{k} \dotprod \vect{f}_{k-1}}{\vectlength \vect{f}_{k-1} \vectlength^2}\vect{f}_{k-1}
+\end{array}
+\end{equation*}
+for each $k = 2, 3, \dots , m$. Then
+\begin{enumerate}
+\item $\{\vect{f}_{1}, \vect{f}_{2}, \dots , \vect{f}_{m}\}$ is an orthogonal basis of $U$.
+
+\item $\func{span}\{\vect{f}_{1}, \vect{f}_{2}, \dots , \vect{f}_{k}\} = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots , \vect{x}_{k}\}$ for each $k = 1, 2, \dots , m$.
+
+\end{enumerate}\index{Gram-Schmidt orthogonalization algorithm}\index{orthogonality!Gram-Schmidt orthogonalization algorithm}
+\end{theorem}
+\footnotetext{Erhardt
+ Schmidt\index{Schmidt, Erhardt} (1876--1959) was a German mathematician who studied under the 
+great David Hilbert\index{Hilbert, David} and later developed the theory of Hilbert spaces\index{theory of Hilbert spaces}\index{Hilbert spaces}. He
+ first described the present algorithm in 1907. J\"{o}rgen Pederson Gram 
+(1850--1916)\index{Gram, J\"{o}rgen Pederson}  was a Danish actuary.}
+
+
+The process (for $k = 3$) is depicted in the diagrams. Of course, the algorithm converts any basis of $\RR^n$ itself into an orthogonal basis.
+
+
+\begin{example}{}{023743}
+Find an orthogonal basis of the row space of $A = \leftB 
+\begin{array}{rrrr}
+1 & 1 & -1 & -1\\
+3 & 2 & 0 & 1\\
+1 & 0 & 1 & 0
+\end{array} \rightB$.
+
+
+\begin{solution}
+  Let $\vect{x}_{1}$, $\vect{x}_{2}$, $\vect{x}_{3}$ denote the rows of $A$ and observe that $\{\vect{x}_{1}, \vect{x}_{2}, \vect{x}_{3}\}$ is linearly independent. Take $\vect{f}_{1} = \vect{x}_{1}$. The algorithm gives
+\begin{align*}
+\vect{f}_{2} &= \vect{x}_{2} - \frac{\vect{x}_{2} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} = (3, 2, 0, 1) - \frac{4}{4}(1, 1, -1, -1) = (2, 1, 1, 2) \\
+\vect{f}_{3} &= \vect{x}_{3} - \frac{\vect{x}_{3} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} - \frac{\vect{x}_{3} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\vect{f}_{2} = \vect{x}_{3} - \frac{0}{4}\vect{f}_{1} - \frac{3}{10}\vect{f}_{2} = \frac{1}{10}(4, -3, 7, -6)
+\end{align*}
+
+Hence $\{(1, 1, -1, -1), (2, 1, 1, 2), \frac{1}{10}(4, -3, 7, -6)\}$ is the orthogonal basis provided by the algorithm. In 
+hand calculations it may be convenient to eliminate fractions (see the Remark below), so $\{(1, 1, -1, -1), (2, 1, 1, 2), (4, -3, 7, -6)\}$ is also an orthogonal basis for row $A$.
+\end{solution}
+\end{example}
+
+\newpage
+
+\vspace{1em}
+\noindent{\sl\textbf{Remark}}
+
+\noindent Observe that the vector $\frac{\vect{x} \dotprod \vect{f}_{i}}{\vectlength \vect{f}_{i} \vectlength^2}\vect{f}_{i}$
+ is unchanged if a nonzero scalar multiple of $\vect{f}_{i}$ is used in place of $\vect{f}_{i}$. Hence, if a newly constructed $\vect{f}_{i}$ is multiplied by a nonzero scalar at some stage of the Gram-Schmidt algorithm, the subsequent $\vect{f}$s will be unchanged. This is useful in actual calculations.
+
+
+\subsection*{Projections}
+
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{8-orthogonality/figures/1-orthogonal-complements-and-projections/projections}
+%\caption{\label{fig:023772}}
+\end{wrapfigure}\index{projections}
+
+Suppose a point $\vect{x}$ and a plane $U$ through the origin in $\RR^3$ are given, and we want to find the point $\vect{p}$ in the plane that is closest to $\vect{x}$. Our geometric intuition assures us that such a point $\vect{p}$ exists. In fact (see the diagram), $\vect{p}$ must be chosen in such a way that $\vect{x} - \vect{p}$ is \textit{perpendicular} to the plane.
+
+Now we make two observations: first, the plane $U$ is a \textit{subspace of} $\RR^3$ (because $U$ contains the origin); and second, that the condition that $\vect{x} - \vect{p}$ is perpendicular to the plane $U$ means that $\vect{x} - \vect{p}$ is \textit{orthogonal} to every vector in $U$. In these terms the whole discussion makes sense in $\RR^n$. Furthermore, the orthogonal lemma provides exactly what is needed to find $\vect{p}$ in this more general setting.
+
+\begin{definition}{Orthogonal Complement of a Subspace of $\RR^n$}{023776}
+If $U$ is a subspace of $\RR^n$, define the \textbf{orthogonal complement}\index{orthogonal complement}\index{orthogonality!orthogonal complement} $U^\perp$ of $U$ (pronounced ``$U$-perp'') by
+\begin{equation*}
+U^\perp = \{\vect{x} \mbox{ in } \RR^n \mid \vect{x} \dotprod \vect{y} = 0 \mbox{ for all } \vect{y} \mbox{ in } U\}
+\end{equation*}
+\end{definition}
+
+The following lemma collects some 
+useful properties of the orthogonal complement; the proof of (1) and (2)
+ is left as Exercise \ref{ex:8_1_6}.
+
+
+\begin{lemma}{}{023783}
+Let $U$ be a subspace of $\RR^n$.
+\begin{enumerate}
+\item $U^\perp$ is a subspace of $\RR^n$.
+
+\item $\{\vect{0}\}^\perp = \RR^n$ and $(\RR^n)^\perp = \{\vect{0}\}$.
+
+\item If $U = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$, then $U^\perp = \{\vect{x} \mbox{ in } \RR^n \mid \vect{x} \dotprod \vect{x}_{i} = 0 \mbox{ for } i = 1, 2, \dots, k\}$.
+
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\vspace{-1em}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item Let $U = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$; we must show that $U^\perp = \{\vect{x} \mid \vect{x} \dotprod \vect{x}_{i} = 0 \mbox{ for each } i\}$. If $\vect{x}$ is in $U^\perp$ then $\vect{x} \dotprod \vect{x}_{i} = 0$ for all $i$ because each $\vect{x}_{i}$ is in $U$. Conversely, suppose that $\vect{x} \dotprod \vect{x}_{i} = 0$ for all $i$; we must show that $\vect{x}$ is in $U^\perp$, that is, $\vect{x} \dotprod \vect{y} = 0$ for each $\vect{y}$ in $U$. Write $\vect{y} = r_{1}\vect{x}_{1} + r_{2}\vect{x}_{2} + \dots  + r_{k}\vect{x}_{k}$, where each $r_{i}$ is in $\RR$. Then, using Theorem~\ref{thm:014833}, 
+\begin{equation*}
+\vect{x} \dotprod \vect{y} = r_{1}(\vect{x} \dotprod \vect{x}_{1}) + r_{2}(\vect{x} \dotprod \vect{x}_{2})+ \dots +r_{k}(\vect{x} \dotprod \vect{x}_{k}) = r_{1}0 + r_{2}0 + \dots + r_{k}0 = 0
+\end{equation*}
+ as required.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\begin{example}{}{023829}
+Find $U^\perp$ if $U = \func{span}\{(1, -1, 2, 0), (1, 0, -2, 3)\}$ in $\RR^4$.
+
+\begin{solution}
+  By Lemma~\ref{lem:023783}, $\vect{x} = (x, y, z, w)$ is in $U^\perp$ if and only if it is orthogonal to both $(1, -1, 2, 0)$ and $(1, 0, -2, 3)$; that is,
+\begin{equation*}\def\arraycolsep{1.5pt}
+\begin{array}{rrrrrrrr}
+x & - & y & + & 2z & & & =0\\
+x & & & - & 2z & +& 3w & =0
+\end{array}
+\end{equation*} 
+Gaussian elimination gives $U^\perp = \func{span}\{(2, 4, 1, 0), (3, 3, 0, -1)\}$.
+\end{solution}
+\end{example}
+
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{8-orthogonality/figures/1-orthogonal-complements-and-projections/projections2}
+%\caption{\label{fig:023841}}
+\end{wrapfigure}
+
+Now consider vectors $\vect{x}$ and $\vect{d} \neq \vect{0}$ in $\RR^3$. The projection $\vect{p} = \proj{\vect{d}}{\vect{x}}$ of $\vect{x}$ on $\vect{d}$ was defined in Section~\ref{sec:4_2} as in the diagram.
+
+The following formula for $\vect{p}$ was derived in Theorem~\ref{thm:011958}
+\begin{equation*} 
+\vect{p} = \proj{\vect{d}}{\vect{x}} = \left(\frac{\vect{x} \dotprod \vect{d}}{\vectlength\vect{d}\vectlength^2} \right)\vect{d}
+\end{equation*}
+where it is shown that $\vect{x} - \vect{p}$ is orthogonal to $\vect{d}$. Now observe that the line $U = \RR\vect{d} = \{t\vect{d} \mid t \in \RR\}$ is a subspace of $\RR^3$, that $\{\vect{d}\}$ is an orthogonal basis of $U$, and that $\vect{p} \in U$ and $\vect{x} - \vect{p} \in U^\perp$ (by Theorem~\ref{thm:011958}).
+
+
+In this form, this makes sense for any vector $\vect{x}$ in $\RR^n$ and any subspace $U$ of $\RR^n$, so we generalize it as follows. If $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ is an orthogonal basis of $U$, we define the projection $\vect{p}$ of $\vect{x}$ on $U$ by the formula
+\begin{equation} \label{projPofXonUeq}
+\vect{p} = \left(\frac{\vect{x} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\right)\vect{f}_{1} + \left(\frac{\vect{x} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\right)\vect{f}_{2}+ \dots +\left(\frac{\vect{x} \dotprod \vect{f}_{m}}{\vectlength \vect{f}_{m} \vectlength^2}\right)\vect{f}_{m}
+\end{equation}
+Then $\vect{p} \in U$ and (by the orthogonal lemma) $\vect{x} - \vect{p} \in U^\perp$, so it looks like we have a generalization of Theorem~\ref{thm:011958}. 
+
+
+However there is a potential problem: the formula (\ref{projPofXonUeq}) for $\vect{p}$ must be shown to be independent of the choice of the orthogonal basis $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$. To verify this, suppose that $\{\vect{f}_1^\prime, \vect{f}_2^\prime, \dots, \vect{f}_m^\prime \}$  is another orthogonal basis of $U$, and write
+\begin{equation*}
+\vect{p}^{\prime} = \left(\frac{\vect{x} \dotprod \vect{f}^{\prime}_{1}}{\vectlength \vect{f}^{\prime}_{1} \vectlength^2}\right)\vect{f}^{\prime}_{1} + \left(\frac{\vect{x} \dotprod \vect{f}^{\prime}_{2}}{\vectlength \vect{f}^{\prime}_{2} \vectlength^2}\right)\vect{f}^{\prime}_{2} + \dots +\left(\frac{\vect{x} \dotprod \vect{f}^{\prime}_{m}}{\vectlength \vect{f}^{\prime}_{m} \vectlength^2}\right)\vect{f}^{\prime}_{m}
+\end{equation*}
+As before, $\vect{p}^{\prime} \in U$ and $\vect{x} - \vect{p}^{\prime} \in U^\perp$, and we must show that $\vect{p}^{\prime} = \vect{p}$. To see this, write the vector $\vect{p} - \vect{p}^\prime$ as follows:
+\begin{equation*}
+\vect{p} - \vect{p}^{\prime} = (\vect{x} - \vect{p}^{\prime}) - (\vect{x} - \vect{p})
+\end{equation*}
+This vector is in $U$ (because $\vect{p}$ and $\vect{p}^\prime$ are in $U$) and it is in $U^\perp$ (because $\vect{x} - \vect{p}^\prime$ and $\vect{x} - \vect{p}$ are in $U^\perp$), and so it must be zero (it is orthogonal to itself!). This means $\vect{p}^\prime = \vect{p}$ as desired.
+
+Hence, the vector $\vect{p}$ in equation (\ref{projPofXonUeq}) depends only on $\vect{x}$ and the subspace $U$, and \textit{not} on the choice of orthogonal basis $\{\vect{f}_{1}, \dots, \vect{f}_{m}\}$ of $U$ used to compute it. Thus, we are entitled to make the following definition:
+
+
+\begin{definition}{Projection onto a Subspace of $\RR^n$}{023874}
+Let $U$ be a subspace of $\RR^n$ with orthogonal basis $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$. If $\vect{x}$ is in $\RR^n$, the vector
+\begin{equation*}
+{\normalfont \proj{U}{\vect{x}} =\frac{\vect{x} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} + \frac{\vect{x} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\vect{f}_{2}+ \dots +\frac{\vect{x} \dotprod \vect{f}_{m}}{\vectlength \vect{f}_{m} \vectlength^2}\vect{f}_{m}}
+\end{equation*}
+is called the \textbf{orthogonal projection}\index{projection!orthogonal projection}\index{orthogonality!orthogonal projection}\index{orthogonal projection} of $\vect{x}$ on $U$. For the zero subspace $U = \{\vect{0}\}$, we define
+\begin{equation*}
+{\normalfont \proj{\{\vect{0}\}}{\vect{x}} = \vect{0}}
+\end{equation*}
+\end{definition}
+
+\noindent The preceding discussion proves (1) of the following theorem.
+
+\begin{theorem}{Projection Theorem}{023885}
+If $U$ is a subspace of $\RR^n$ and $\vect{x}$ is in $\RR^n$, write $\vect{p} = \proj{U}{\vect{x}}$. Then:
+
+\begin{enumerate}
+\item $\vect{p}$ is in $U$ and $\vect{x} - \vect{p}$ is in $U^\perp$.
+
+\item $\vect{p}$ is the vector in $U$ closest to $\vect{x}$ in the sense that
+\begin{equation*}
+\vectlength \vect{x} - \vect{p} \vectlength < \vectlength \vect{x} - \vect{y} \vectlength \quad \mbox{ for all }\vect{y} \in U, \vect{y} \neq \vect{p}
+\end{equation*}
+\end{enumerate}\index{projection theorem}\index{subspaces!projection}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item This is proved in the preceding discussion (it is clear if $U = \{\vect{0}\}$).
+
+\item Write $\vect{x} - \vect{y} = (\vect{x} - \vect{p}) + (\vect{p} - \vect{y})$. Then $\vect{p} - \vect{y}$ is in $U$ and so is orthogonal to $\vect{x} - \vect{p}$ by (1). Hence, the Pythagorean theorem gives
+\begin{equation*}
+\vectlength \vect{x} - \vect{y} \vectlength^2 = \vectlength \vect{x} - \vect{p} \vectlength^2 +\vectlength \vect{p} - \vect{y} \vectlength^2  > \vectlength \vect{x} - \vect{p} \vectlength^2
+\end{equation*}
+because $\vect{p} - \vect{y} \neq \vect{0}$. This gives (2).
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\begin{example}{}{023908}
+Let $U = \func{span}\{\vect{x}_{1}, \vect{x}_{2}\}$ in $\RR^4$ where $\vect{x}_{1} = (1, 1, 0, 1)$ and $\vect{x}_{2} = (0, 1, 1, 2)$. If $\vect{x} = (3, -1, 0, 2)$, find the vector in $U$ closest to $\vect{x}$ and express $\vect{x}$ as the sum of a vector in $U$ and a vector orthogonal to $U$.
+
+\begin{solution}
+  $\{\vect{x}_{1}, \vect{x}_{2}\}$ is independent but not orthogonal. The Gram-Schmidt process gives an orthogonal basis $\{\vect{f}_{1}, \vect{f}_{2}\}$ of $U$ where $\vect{f}_{1} = \vect{x}_{1} = (1, 1, 0, 1)$ and
+\begin{equation*}
+\vect{f}_{2} =\vect{x}_{2} - \frac{\vect{x}_{2} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} = \vect{x}_{2} - \frac{3}{3}\vect{f}_{1} = (-1, 0, 1, 1)
+\end{equation*}
+Hence, we can compute the projection using $\{\vect{f}_{1}, \vect{f}_{2}\}$:
+\begin{equation*}
+\vect{p} = \proj{U}{\vect{x}} =\frac{\vect{x} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} + \frac{\vect{x} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\vect{f}_{2} = \frac{4}{3}\vect{f}_{1} + \frac{-1}{3}\vect{f}_{2} = \frac{1}{3}\leftB \begin{array}{rrrr}
+5 & 4 & -1 & 3
+\end{array}\rightB
+\end{equation*}
+Thus, $\vect{p}$ is the vector in $U$ closest to $\vect{x}$, and $\vect{x} - \vect{p} = \frac{1}{3}(4, -7, 1, 3)$ is orthogonal to every vector in $U$. (This can be verified by checking that it is orthogonal to the generators $\vect{x}_{1}$ and $\vect{x}_{2}$ of $U$.) The required decomposition of $\vect{x}$ is thus
+\begin{equation*}
+\vect{x} = \vect{p} + (\vect{x} - \vect{p}) = \frac{1}{3}(5, 4, -1, 3) + \frac{1}{3}(4, -7, 1, 3)
+\end{equation*}
+\end{solution}
+\end{example}
+
+\begin{example}{}{023934}
+Find the point in the plane with equation $2x + y - z = 0$ that is closest to the point $(2, -1, -3)$.
+
+
+\begin{solution}
+  We write $\RR^3$ as rows. The plane is the subspace $U$ whose points $(x, y, z)$ satisfy $z = 2x + y$. Hence
+\begin{equation*}
+U = \{(s, t, 2s + t) \mid s,t \mbox{ in }\RR\} = \func{span}\{(0, 1, 1),(1, 0, 2)\}
+\end{equation*}
+The Gram-Schmidt process produces an orthogonal basis $\{\vect{f}_{1}, \vect{f}_{2}\}$ of $U$ where $\vect{f}_{1} = (0, 1, 1)$ and $\vect{f}_{2} = (1, -1, 1)$. Hence, the vector in $U$ closest to $\vect{x} = (2, -1, -3)$ is
+\begin{equation*}
+\proj{U}{\vect{x}} =\frac{\vect{x} \dotprod \vect{f}_{1}}{\vectlength \vect{f}_{1} \vectlength^2}\vect{f}_{1} + \frac{\vect{x} \dotprod \vect{f}_{2}}{\vectlength \vect{f}_{2} \vectlength^2}\vect{f}_{2} = -2\vect{f}_{1} + 0\vect{f}_{2} = (0, -2, -2)
+\end{equation*}
+Thus, the point in $U$ closest to $(2, -1, -3)$ is $(0, -2, -2)$.
+\end{solution}
+\end{example}
+
+The next theorem shows that projection on a subspace of $\RR^n$ is actually a linear operator $\RR^n \to \RR^n$.\index{linear operator!projection}
+
+
+\begin{theorem}{}{023953}
+Let $U$ be a fixed subspace of $\RR^n$. If we define $T : \RR^n \to \RR^n$ by 
+\begin{equation*}
+T(\vect{x}) = \proj{U}{\vect{x}} \quad \mbox{ for all }\vect{x}\mbox{ in }\RR^n
+\end{equation*}
+\begin{enumerate}
+\item $T$ is a linear operator.
+
+\item $\func{im}T = U$ and $\func{ker}T = U^\perp$.
+
+\item $\func{dim}U + \func{dim}U^\perp = n$.
+
+\end{enumerate}\index{linear operator!projection}\index{set of all ordered $n$-tuples ($\RR^n$)!projection on}
+\end{theorem}
+
+\begin{proof}
+If $U = \{\vect{0}\}$, then $U^\perp = \RR^n$, and so $T(\vect{x}) = \proj{\{\vect{0}\}}{\vect{x}} = \vect{0}$ for all $\vect{x}$. Thus $T = 0$ is the zero (linear) operator, so (1), (2), and (3) hold. Hence assume that $U \neq \{\vect{0}\}$.
+
+\begin{enumerate}
+\item If $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ is an orthonormal basis of $U$, then
+\begin{equation} \label{orthonormalUeq}
+T(\vect{x}) = (\vect{x} \dotprod \vect{f}_{1})\vect{f}_{1} + (\vect{x} \dotprod \vect{f}_{2})\vect{f}_{2} + \dots + (\vect{x} \dotprod \vect{f}_{m})\vect{f}_{m} \quad \mbox{ for all }\vect{x} \mbox{ in } \RR^n
+\end{equation}
+by the definition of the projection. Thus $T$ is linear because
+\begin{equation*}
+(\vect{x} + \vect{y}) \dotprod \vect{f}_{i} = \vect{x} \dotprod \vect{f}_{i} + \vect{y} \dotprod \vect{f}_{i} \quad \mbox{ and } \quad (r\vect{x}) \dotprod \vect{f}_{i} = r(\vect{x} \dotprod \vect{f}_{i}) \quad \mbox{ for each } i
+\end{equation*}
+\item We have $\func{im }T \subseteq U$ by (\ref{orthonormalUeq}) because each $\vect{f}_{i}$ is in $U$. But if $\vect{x}$ is in $U$, then $\vect{x} = T(\vect{x})$ by (\ref{orthonormalUeq}) and the expansion theorem applied to the space $U$. This shows that $U \subseteq \func{im }T$, so $\func{im }T = U$.
+
+
+Now suppose that $\vect{x}$ is in $U^\perp$. Then $\vect{x} \dotprod \vect{f}_{i} = 0$ for each $i$ (again because each $\vect{f}_{i}$ is in $U$) so $\vect{x}$ is in $\func{ker}T$ by (\ref{orthonormalUeq}). Hence $U^\perp \subseteq \func{ker} T$. On the other hand, Theorem~\ref{thm:023885} shows that $\vect{x} - T(\vect{x})$ is in $U^\perp$ for all $\vect{x}$ in $\RR^n$, and it follows that $\func{ker}T \subseteq U^\perp$. Hence $\func{ker}T = U^\perp$, proving (2).
+
+\item This follows from (1), (2), and the dimension theorem (Theorem~\ref{thm:021499}).
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\section*{Exercises for \ref{sec:8_1}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:8_1}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case, use the Gram-Schmidt algorithm to convert the given basis $B$ of $V$ into an orthogonal basis.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \RR^2$, $B = \{(1, -1), (2, 1)\}$
+
+\item $V = \RR^2$, $B = \{(2, 1), (1, 2)\}$
+
+\item $V = \RR^3$, $B = \{(1, -1, 1), (1, 0, 1), (1, 1, 2)\}$
+
+\item $V = \RR^3$, $B = \{(0, 1, 1), (1, 1, 1), (1, -2, 2)\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{(2,1),\frac{3}{5}(-1,2)\}$
+
+\setcounter{enumi}{3}
+\item  $\{(0,1,1),(1,0,0),(0,-2,2)\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, write $\vect{x}$ as the sum of a vector in $U$ and a vector in $U^\perp$.
+
+
+\begin{enumerate}[label={\alph*.}, leftmargin=1em]
+\item $\vect{x} = (1, 5, 7)$, $U = \func{span}\{(1, -2, 3), (-1, 1, 1)\}$
+
+\item $\vect{x} = (2, 1, 6)$, $U = \func{span}\{(3, -1, 2), (2, 0, -3)\}$
+
+\item $\vect{x} = (3, 1, 5, 9)$, \\ $U = \func{span}\{(1, 0, 1, 1), (0, 1, -1, 1), (-2, 0, 1, 1)\}$
+
+\item $\vect{x} = (2, 0, 1, 6)$, \\ \hspace*{-1em}$U = \func{span}\{(1, 1, 1, 1), (1, 1, -1, -1), (1, -1, 1, -1)\}$
+
+\item $\vect{x} = (a, b, c, d)$, \\ $U = \func{span}\{(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0)\}$
+
+\item $\vect{x} = (a, b, c, d)$, \\ $U = \func{span}\{(1, -1, 2, 0), (-1, 1, 1, 1)\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+	
+\setcounter{enumi}{1}
+\item $\vect{x} = \frac{1}{182}(271,-221,1030)  + \frac{1}{182}(93,403,62)$
+
+\setcounter{enumi}{3}
+\item $\vect{x}= \frac{1}{4}(1, 7, 11, 17) + \frac{1}{4}(7, -7, -7, 7)$
+
+\setcounter{enumi}{5}
+\item $\vect{x} = \frac{1}{12}(5a - 5b + c - 3d, -5a + 5b - c + 3d, a - b + 11c + 3d, -3a + 3b + 3c + 3d) + \frac{1}{12}(7a + 5b - c + 3d, 5a + 7b + c - 3d, -a + b + c -3d, 3a - 3b - 3c + 9d)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\vect{x} = (1, -2, 1, 6)$ in $\RR^4$, and let $U = \func{span}\{(2, 1, 3, -4), (1, 2, 0, 1)\}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Compute $\proj{U}{\vect{x}}$.
+
+\item Show that $\{(1, 0, 2, -3), (4, 7, 1, 2)\}$ is another orthogonal basis of $U$.
+
+\item Use the basis in part (b) to compute $\proj{U}{\vect{x}}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\item  $\frac{1}{10}(-9,3,-21,33) = \frac{3}{10}(-3,1,-7,11)$
+
+\setcounter{enumi}{2}
+\item  $\frac{1}{70}(-63,21,-147,231) = \frac{3}{10}(-3,1,-7,11)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, use the Gram-Schmidt algorithm to find an orthogonal basis of the subspace $U$, and find the vector in $U$ closest to $\vect{x}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $U = \func{span}\{(1, 1, 1), (0, 1, 1)\}$, $\vect{x} = (-1, 2, 1)$
+
+\item $U = \func{span}\{(1, -1, 0), (-1, 0, 1)\}$, $\vect{x} = (2, 1, 0)$
+
+\item $U = \func{span}\{(1, 0, 1, 0), (1, 1, 1, 0), (1, 1, 0, 0)\}$, $\vect{x} = (2, 0, -1, 3)$
+
+\item $U = \func{span}\{(1, -1, 0, 1), (1, 1, 0, 0), (1, 1, 0, 1)\}$, $\vect{x} = (2, 0, 3, 1)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{(1, -1, 0), \frac{1}{2}(-1, -1, 2)\}$; $\proj{U}{\vect{x}} = (1, 0, -1)$
+
+\setcounter{enumi}{3}
+\item $\{(1, -1, 0, 1), (1, 1, 0, 0), \frac{1}{3}(-1, 1, 0, 2)\}$; $\proj{U}{\vect{x}} = (2, 0, 0, 1)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$, $\vect{v}_{i}$ in $\RR^n$, and let $A$ be the $k \times n$ matrix with the $\vect{v}_{i}$ as rows.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $U^\perp = \{\vect{x} \mid  \vect{x} \mbox{ in } \RR^n, A\vect{x}^{T} = \vect{0}\}$.
+
+\item Use part (a) to find $U^\perp$ if \\ $U = \func{span}\{(1, -1, 2, 1), (1, 0, -1, 1)\}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $U^\perp = \func{span}\{(1, 3, 1, 0), (-1, 0, 0, 1)\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:8_1_6}
+\begin{enumerate}[label={\alph*.}]
+\item Prove part 1 of Lemma~\ref{lem:023783}.
+
+\item Prove part 2 of Lemma~\ref{lem:023783}.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex} \label{ex:8_1_7}
+Let $U$ be a subspace of $\RR^n$. If $\vect{x}$ in $\RR^n$ can be written in any way at all as $\vect{x} = \vect{p} + \vect{q}$ with $\vect{p}$ in $U$ and $\vect{q}$ in $U^\perp$, show that necessarily $\vect{p} = \proj{U}{\vect{x}}$.
+\end{ex}
+
+\begin{ex}
+Let $U$ be a subspace of $\RR^n$ and let $\vect{x}$ be a vector in $\RR^n$. Using Exercise \ref{ex:8_1_7}, or otherwise, show that $\vect{x}$ is in $U$ if and only if $\vect{x} = \proj{U}{\vect{x}}$.
+
+\begin{sol}
+Write $\vect{p} = \proj{U}{\vect{x}}$. Then $\vect{p}$ is in $U$ by definition. If $\vect{x}$ is $U$, then $\vect{x} - \vect{p}$ is in $U$. But $\vect{x} - \vect{p}$ is also in $U^\perp$ by Theorem~\ref{thm:023885}, so $\vect{x} - \vect{p}$ is in $U \cap U^\perp = \{\vect{0}\}$. Thus $\vect{x} = \vect{p}$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U$ be a subspace of $\RR^n$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $U^\perp = \RR^n$ if and only if $U = \{\vect{0}\}$.
+
+\item Show that $U^\perp = \{\vect{0}\}$ if and only if $U = \RR^n$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $U$ is a subspace of $\RR^n$, show that $\proj{U}{\vect{x}} = \vect{x}$ for all $\vect{x}$ in $U$.
+
+\begin{sol}
+Let $\{\vect{f}_{1}, \vect{f}_{2}, \dots , \vect{f}_{m}\}$ be an orthonormal basis of $U$. If $\vect{x}$ is in $U$ the expansion theorem gives $\vect{x} = (\vect{x} \dotprod \vect{f}_{1})\vect{f}_{1} + (\vect{x} \dotprod \vect{f}_{2})\vect{f}_{2} + \dots  + (\vect{x} \dotprod \vect{f}_{m})\vect{f}_{m} = \proj{U}{\vect{x}}$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $U$ is a subspace of $\RR^n$, show that $\vect{x} = \proj{U}{\vect{x}} + \proj{U^\perp}{\vect{x}}$ for all $\vect{x}$ in $\RR^n$.
+\end{ex}
+
+\begin{ex}
+If $\{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ is an orthogonal basis of $\RR^n$ and $U = \func{span}\{\vect{f}_{1}, \dots, \vect{f}_{m}\}$, show that \\ $U^\perp = \func{span}\{\vect{f}_{m + 1}, \dots, \vect{f}_{n}\}$.
+\end{ex}
+
+\begin{ex}\label{ex:8_1_13}
+If $U$ is a subspace of $\RR^n$, show that $U^{\perp \perp} = U$. [\textit{Hint}: Show that $U \subseteq U^{\perp \perp}$, then use Theorem~\ref{thm:023953} (3) twice.]
+\end{ex}
+
+\begin{ex}
+If $U$ is a subspace of $\RR^n$, show how to find an $n \times n$ matrix $A$ such that $U = \{\vect{x} \mid A\vect{x} = \vect{0}\}$. [\textit{Hint}: Exercise~\ref{ex:8_1_13}.]
+
+\begin{sol}
+Let $\{\vect{y}_{1}, \vect{y}_{2}, \dots, \vect{y}_{m}\}$ be a basis of $U^\perp$, and let $A$ be the $n \times n$ matrix with rows $\vect{y}^T_1, \vect{y}^T_2, \dots, \vect{y}^T_m, 0, \dots, 0$. Then $A\vect{x} = \vect{0}$ if and only if $\vect{y}_{i} \dotprod \vect{x} = 0$ for each $i = 1, 2, \dots, m$; if and only if $\vect{x}$ is in $U^{\perp \perp} = U$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Write $\RR^n$ as rows. If $A$ is an $n \times n$ matrix, write its null space as $\func{null }A = \{\vect{x} \mbox{ in } \RR^n \mid A\vect{x}^{T} = \vect{0}\}$. Show that:
+
+\begin{exenumerate}
+\exitem $\func{null }A = (\func{row }A)^\perp$;
+\exitem $\func{null }A^{T} = (\func{col }A)^\perp$.
+\end{exenumerate}
+\end{ex}
+
+\begin{ex}
+If $U$ and $W$ are subspaces, show that $(U + W)^\perp = U^\perp \cap W^\perp$. [See Exercise \ref{ex:5_1_22}.]
+\end{ex}
+
+\begin{ex}\label{ex:8_1_17}
+Think of $\RR^n$ as consisting of rows.
+
+\begin{enumerate}[label={\alph*.}]
+\item Let $E$ be an $n \times n$ matrix, and let \\ $U = \{\vect{x} E \mid \vect{x} \mbox{ in } \RR^n\}$. Show that the following are equivalent.
+
+
+\begin{enumerate}[label={\roman*.}]
+\item $E^{2} = E = E^{T}$ ($E$ is a \textbf{projection matrix}\index{projection matrix}).
+
+\item $(\vect{x} - \vect{x}E) \dotprod (\vect{y}E) = 0$ for all $\vect{x}$ and $\vect{y}$ in $\RR^n$.
+
+\item $\proj{U}{\vect{x}} = \vect{x}E$ for all $\vect{x}$ in $\RR^n$.
+
+
+[\textit{Hint}: For (ii) implies (iii): Write $\vect{x} = \vect{x}E + (\vect{x} - \vect{x}E)$ and use the uniqueness argument preceding the definition of $\proj{U}{\vect{x}}$. For (iii) implies (ii): $\vect{x} - \vect{x}E$ is in $U^\perp$ for all $\vect{x}$ in $\RR^n$.]
+
+\end{enumerate}
+\item If $E$ is a projection matrix, show that $I - E$ is also a projection matrix.
+
+\item If $EF = 0 = FE$ and $E$ and $F$ are projection matrices, show that $E + F$ is also a projection matrix.
+
+\item If $A$ is $m \times n$ and $AA^{T}$ is invertible, show that $E = A^{T}(AA^{T})^{-1}A$ is a projection matrix.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{3}
+\item  $E^T = A^T[(AA^T)^-1]^T(A^T)^T  = A^T[(AA^T)^T]^{-1}A = A^T[AA^T]^{-1}A = E$
+
+$E^2 = A^T(AA^T)^{-1}AA^T(AA^T)^{-1}A   = A^T(AA^T)^{-1}A = E$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be an $n \times n$ matrix of rank $r$. Show that there is an invertible $n \times n$ matrix $U$ such that $UA$ is a row-echelon matrix with the property that the first $r$ rows are orthogonal. [\textit{Hint}: Let $R$ be the row-echelon form of $A$, and use the Gram-Schmidt process on the nonzero rows of $R$ from the bottom up. Use Lemma~\ref{cor:004537}.]
+\end{ex}
+
+\begin{ex}
+Let $A$ be an $(n - 1) \times n$ matrix with rows $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n-1}$ and let $A_{i}$ denote the \\ $(n - 1) \times (n - 1)$ matrix obtained from $A$ by deleting column $i$. Define the vector $\vect{y}$ in $\RR^n$ by \begin{equation*}
+\vect{y} = \leftB \def\arraycolsep{1.5pt} \begin{array}{ccccc} \func{det}A_{1} & -\func{det}A_{2} & \func{det}A_{3} & \cdots & (-1)^{n+1} \func{det}A_{n} \end{array}\rightB
+\end{equation*} Show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{x}_{i} \dotprod \vect{y} = 0$ for all $i = 1, 2, \dots , n - 1$. [\textit{Hint}: Write $B_{i} = \leftB \begin{array}{c}
+x_{i} \\
+A
+\end{array} \rightB$ and show that $\func{det}B_{i} = 0$.]
+
+\item $\vect{y} \neq \vect{0}$ if and only if $\{\vect{x}_{1}, \vect{x}_{2}, \dots , \vect{x}_{n-1}\}$ is linearly independent. [\textit{Hint}: If some $\func{det}A_{i} \neq 0$, the rows of $A_{i}$ are linearly independent. Conversely, if the $\vect{x}_{i}$ are independent, consider $A = UR$ where $R$ is in reduced row-echelon form.]
+
+\item If $\{\vect{x}_{1}, \vect{x}_{2}, \dots , \vect{x}_{n-1}\}$ is linearly independent, use Theorem~\ref{thm:023885}(3) to show that all solutions to the system of $n - 1$ homogeneous equations
+\begin{equation*}
+A\vect{x}^T = \vect{0}
+\end{equation*}
+are given by $t\vect{y}$, $t$ a parameter.
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

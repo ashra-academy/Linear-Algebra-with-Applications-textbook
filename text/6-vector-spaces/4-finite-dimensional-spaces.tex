@@ -1,0 +1,670 @@
+\section{Finite Dimensional Spaces}
+\label{sec:6_4}
+
+Up to this point, we have had no guarantee that an arbitrary vector space \textit{has} a basis---and hence no guarantee that one can speak \textit{at all} of the dimension of $V$. However, Theorem~\ref{thm:019430}
+ will show that any space that is spanned by a finite set of vectors has
+ a (finite) basis: The proof requires the following basic lemma, of 
+interest in itself, that gives a way to enlarge a given independent set 
+of vectors.\index{vector spaces!finite dimensional spaces}
+
+
+\begin{lemma}{Independent Lemma}{019357}
+Let $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ be an independent set of vectors in a vector space $V$. If $\vect{u} \in V$ but\footnotemark \ $\vect{u} \notin \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$, then $\{\vect{u}, \vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ is also independent.\index{independent}\index{independent lemma}\index{linear independence!independent}\index{linearly independent}
+\end{lemma}
+\footnotetext{If $X$ is a set, we write $a \in X$ to indicate that $a$ is an element of the set $X$. If $a$ is not an element of $X$, we write $a \notin X$.}
+
+\begin{proof}
+Let $t\vect{u} + t_{1}\vect{v}_{1} + t_{2}\vect{v}_{2} + \dots + t_{k}\vect{v}_{k} = \vect{0}$; we must show that all the coefficients are zero. First, $t = 0$ because, otherwise, $\vect{u} = - \frac{t_1}{t}\vect{v}_1 - \frac{t_2}{t}\vect{v}_2 - \dots - \frac{t_k}{t}\vect{v}_k$ is in $\func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$, contrary to our assumption. Hence $t = 0$. But then $t_{1}\vect{v}_{1} + t_{2}\vect{v}_{2} + \dots + t_{k}\vect{v}_{k} = \vect{0}$ so the rest of the $t_{i}$ are zero by the independence of $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$. This is what we wanted.
+\end{proof}
+
+\begin{wrapfigure}[8]{l}{8cm}
+  \vspace*{-2em}
+	\centering
+	\input{6-vector-spaces/figures/4-finite-dimensional-spaces/lemma6.4.1}
+\end{wrapfigure}
+
+\noindent Note that the converse of Lemma~\ref{lem:019357} is also true: if $\{\vect{u}, \vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ is independent, then $\vect{u}$ is not in $\func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$.
+
+As an illustration, suppose that $\{\vect{v}_{1}, \vect{v}_{2}\}$ is independent in $\RR^3$. Then $\vect{v}_{1}$ and $\vect{v}_{2}$ are not parallel, so $\func{span}\{\vect{v}_{1}, \vect{v}_{2}\}$ is a plane through the origin (shaded in the diagram). By Lemma~\ref{lem:019357}, $\vect{u}$ is not in this plane if and only if $\{\vect{u}, \vect{v}_{1}, \vect{v}_{2}\}$ is independent.
+
+\begin{definition}{Finite Dimensional and Infinite Dimensional Vector Spaces}{019411}
+A vector space $V$ is called \textbf{finite dimensional}\index{finite dimensional spaces} if it is spanned by a finite set of vectors. Otherwise, $V$ is called \textbf{infinite  dimensional}\index{infinite dimensional}\index{vector spaces!infinite dimensional}.
+\end{definition}
+
+Thus the zero vector space $\{\vect{0}\}$ is finite dimensional because $\{\vect{0}\}$ is a spanning set.
+
+\begin{lemma}{}{019415}
+Let $V$ be a finite dimensional vector space. If $U$ is any subspace of $V$, then any independent subset of $U$ can be enlarged to a finite basis of $U$.
+\end{lemma}
+
+\begin{proof}
+Suppose that $I$ is an independent subset of $U$. If $\func{span} I = U$ then $I$ is already a basis of $U$. If $\func{span} I \neq U$, choose $\vect{u}_{1} \in U$ such that $\vect{u}_{1} \notin \func{span} I$. Hence the set $I \cup \{\vect{u}_{1}\}$ is independent by Lemma~\ref{lem:019357}. If $\func{span}(I \cup \{\vect{u}_{1}\}) = U$ we are done; otherwise choose $\vect{u}_{2} \in U$ such that $\vect{u}_{2} \notin \func{span}(I \cup \{\vect{u}_{1}\})$. Hence $I \cup \{\vect{u}_{1}, \vect{u}_{2}\}$ is independent, and the process continues. We claim that a basis of $U$ will be reached eventually. Indeed, if no basis of $U$ is ever reached, the process creates arbitrarily large independent sets in $V$. But this is impossible by the fundamental theorem because $V$ is finite dimensional and so is spanned by a finite set of vectors.
+\end{proof}
+
+\begin{theorem}{}{019430}
+Let $V$ be a finite dimensional vector space spanned by m vectors.
+
+\begin{enumerate}
+\item $V$ has a finite basis, and $\func{dim} V \leq m$.
+
+\item Every independent set of vectors in $V$ can be enlarged to a basis of $V$ by adding vectors from any fixed basis of $V$.
+
+\item If $U$ is a subspace of $V$, then
+
+\begin{enumerate}[label={\alph*.}]
+\item $U$ is finite dimensional and $\func{dim} U \leq \func{dim} V$.
+
+\item If $\func{dim} U = \func{dim} V$ then $U=V$. 
+
+\end{enumerate}
+\end{enumerate}
+\end{theorem}
+
+\newpage
+\begin{proof}
+\begin{enumerate}
+\item  If $V = \{\vect{0}\}$, then $V$ has an empty basis and $\func{dim} V = 0 \leq m$. Otherwise, let $\vect{v} \neq \vect{0}$ be a vector in $V$. Then $\{\vect{v}\}$ is independent, so (1) follows from Lemma~\ref{lem:019415} with $U = V$.
+
+\item  We refine the proof of Lemma~\ref{lem:019415}. Fix a basis $B$ of $V$ and let $I$ be an independent subset of $V$. If $\func{span} I = V$ then $I$ is already a basis of $V$. If $\func{span} I \neq V$, then $B$ is not contained in $I$ (because $B$ spans $V$). Hence choose $\vect{b}_{1} \in B$ such that $\vect{b}_{1} \notin \func{span} I$. Hence the set $I \cup \{\vect{b}_{1}\}$ is independent by Lemma~\ref{lem:019357}. If $\func{span}(I \cup \{\vect{b}_{1}\}) = V$ we are done; otherwise a similar argument shows that $(I \cup \{\vect{b}_{1}, \vect{b}_{2}\})$ is independent for some $\vect{b}_{2} \in B$. Continue this process. As in the proof of Lemma~\ref{lem:019415}, a basis of $V$ will be reached eventually.
+
+\item
+\begin{enumerate} [label={\alph*.}]
+	\item This is clear if $U = \{\vect{0}\}$. Otherwise, let $\vect{u} \neq \vect{0}$ in $U$. Then $\{\vect{u}\}$ can be enlarged to a finite basis $B$ of $U$ by Lemma~\ref{lem:019415}, proving that $U$ is finite dimensional. But $B$ is independent in $V$, so $\func{dim} U \leq \func{dim} V$ by the fundamental theorem.
+
+	\item  This is clear if $U = \{\vect{0}\}$ because $V$ \textit{has} a basis; otherwise, it follows from (2).
+\end{enumerate}
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\noindent Theorem~\ref{thm:019430} shows that a vector space $V$ is finite dimensional if and only if it has a finite basis (possibly empty), and that every subspace of a finite dimensional space is again finite dimensional.
+
+\begin{example}{}{019464}
+Enlarge the independent set 
+$D = \left\{
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & 0
+\end{array} \rightB, \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 1
+\end{array} \rightB, \leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1
+\end{array} \rightB
+\right\}$ to a basis of $\vectspace{M}_{22}$.
+
+\begin{solution}
+The standard basis of $\vectspace{M}_{22}$ is 
+$\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0  
+\end{array} \rightB, \leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB, \leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB, \leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB
+\right\}$, so including one of these in $D$ will produce a basis by Theorem~\ref{thm:019430}. In fact including \textit{any} of these matrices in $D$ produces an independent set (verify), and hence a basis by Theorem~\ref{thm:019633}. Of course these vectors are not the only possibilities, for example, including $\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB$ works as well.
+\end{solution}
+\end{example}
+
+\begin{example}{}{019475}
+Find a basis of $\vectspace{P}_{3}$ containing the independent set $\{1 + x, 1 + x^{2}\}$.
+
+\begin{solution}
+The standard basis of $\vectspace{P}_{3}$ is $\{1, x, x^{2}, x^{3}\}$, so including two of these vectors will do. If we use $1$ and $x^{3}$, the result is $\{1, 1 + x, 1 + x^{2}, x^{3}\}$. This is independent because the polynomials have distinct degrees (Example~\ref{exa:018606}), and so is a basis by Theorem~\ref{thm:019430}. Of course, including $\{1, x\}$ or $\{1, x^{2}\}$ would \textit{not} work!
+\end{solution}
+\end{example}
+
+\begin{example}{}{019490}
+Show that the space $\vectspace{P}$ of all polynomials is infinite dimensional.
+
+\begin{solution}
+For each $n \geq 1$, $\vectspace{P}$ has a subspace $\vectspace{P}_{n}$ of dimension $n + 1$. Suppose $\vectspace{P}$ is finite dimensional, say $\func{dim} \vectspace{P} = m$. Then $\func{dim} \vectspace{P}_{n} \leq \func{dim} \vectspace{P}$ by Theorem~\ref{thm:019430}, that is $n + 1 \leq m$. This is impossible since $n$ is arbitrary, so $\vectspace{P}$ must be infinite dimensional.
+\end{solution}
+\end{example}
+
+The next example illustrates how (2) of Theorem~\ref{thm:019430} can be used.
+
+\begin{example}{}{019499}
+If $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{k}$ are independent columns in $\RR^n$, show that they are the first $k$ columns in some invertible $n \times n$ matrix.
+
+\begin{solution}
+By Theorem~\ref{thm:019430}, expand $\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{k}\}$ to a basis $\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{k}, \vect{c}_{k+1}, \dots, \vect{c}_{n}\}$ of $\RR^n$. Then the matrix $A = 
+\leftB \begin{array}{ccccccc}
+\vect{c}_{1} & \vect{c}_{2} & \dots & \vect{c}_{k} & \vect{c}_{k+1} & \dots & \vect{c}_{n} 
+\end{array} \rightB$
+with this basis as its columns is an $n \times n$ matrix and it is invertible by Theorem~\ref{thm:014205}.
+\end{solution}
+\end{example}
+
+\begin{theorem}{}{019525}
+Let $U$ and $W$ be subspaces of the finite dimensional space $V$.
+
+\begin{enumerate}
+\item If $U \subseteq W$, then $\func{dim} U \leq \func{dim} W$.
+
+\item If $U \subseteq W$ and $\func{dim} U = \func{dim} W$, then $U = W$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Since $W$ is finite dimensional, (1) follows by taking $V = W$ in part (3) of Theorem~\ref{thm:019430}. Now assume $\func{dim} U = \func{dim} W = n$, and let $B$ be a basis of $U$. Then $B$ is an independent set in $W$. If $U \neq W$, then $\func{span} B \neq W$, so $B$ can be extended to an independent set of $n + 1$ vectors in $W$ by Lemma~\ref{lem:019357}. This contradicts the fundamental theorem (Theorem~\ref{thm:018746}) because $W$ is spanned by $\func{dim} W = n$ vectors. Hence $U = W$, proving (2).
+\end{proof}
+
+Theorem~\ref{thm:019525} is very useful. This was illustrated in Example~\ref{exa:014418} for $\RR^2$ and $\RR^3$; here is another example.
+
+\begin{example}{}{019539}
+If $a$ is a number, let $W$ denote the subspace of all polynomials in $\vectspace{P}_{n}$ that have $a$ as a root:
+\begin{equation*}
+W = \{p(x) \mid p(x) \in \vectspace{P}_n \mbox{ and } p(a) = 0 \}
+\end{equation*}
+Show that $\{(x - a), (x - a)^{2}, \dots, (x - a)^{n}\}$ is a basis of $W$.
+
+\begin{solution}
+Observe first that $(x - a), (x - a)^2, \dots, (x - a)^n$ are members of $W$, and that they are independent because they have distinct degrees (Example \ref{exa:018606}). Write
+\begin{equation*}
+U = \func{span}\{(x - a), (x - a)^2, \dots, (x - a)^n \}
+\end{equation*}
+Then we have $U \subseteq W \subseteq \vectspace{P}_{n}$, $\func{dim} U = n$, and $\func{dim} \vectspace{P}_{n} = n + 1$. Hence $n \leq \func{dim} W \leq n + 1$ by Theorem~\ref{thm:019525}. Since $\func{dim} W$ is an integer, we must have $\func{dim} W = n$ or $\func{dim} W = n + 1$. But then $W = U$ or $W = \vectspace{P}_{n}$, again by Theorem~\ref{thm:019525}. Because $W \neq \vectspace{P}_{n}$, it follows that $W = U$, as required.
+\end{solution}
+\end{example}
+
+A set of vectors is called \textbf{dependent}\index{linear independence!dependent}\index{linearly dependent} if it is \textit{not} independent, that is if some nontrivial linear combination vanishes. The next result is a convenient test for dependence.
+
+\begin{lemma}{Dependent Lemma}{019559}
+A set $D = \{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ of vectors in a vector space V is dependent if and only if some vector in $D$ is a linear combination of the others.\index{dependent lemma}\index{dependent}
+\end{lemma}
+
+\begin{proof}
+Let $\vect{v}_{2}$ (say) be a linear combination of the rest: $\vect{v}_{2} = s_{1}\vect{v}_{1} + s_{3}\vect{v}_{3} + \dots + s_{k}\vect{v}_{k}$. Then 
+\begin{equation*}
+s_{1}\vect{v}_{1} + (-1)\vect{v}_{2} + s_{3}\vect{v}_{3} + \dots + s_{k}\vect{v}_{k} = \vect{0}
+\end{equation*}
+ is a nontrivial linear combination that vanishes, so $D$ is dependent. Conversely, if $D$ is dependent, let $t_{1}\vect{v}_{1} + t_{2}\vect{v}_{2} + \dots + t_{k}\vect{v}_{k} = \vect{0}$ where some coefficient is nonzero. If (say) $t_{2} \neq 0$, then $\vect{v}_2 = - \frac{t_1}{t_2}\vect{v}_1 - \frac{t_3}{t_2}\vect{v}_3 - \dots - \frac{t_k}{t_2}\vect{v}_k$ is a linear combination of the others.
+\end{proof}
+
+Lemma~\ref{lem:019357} gives a way to enlarge independent sets to a basis; by contrast, Lemma~\ref{lem:019559} shows that spanning sets can be cut down to a basis.
+
+\begin{theorem}{}{019593}
+Let $V$ be a finite dimensional vector space. Any spanning set for $V$ can be cut down (by deleting vectors) to a basis of $V$.
+\end{theorem}
+
+\begin{proof}
+Since $V$ is finite dimensional, it has a finite spanning set $S$. Among all spanning sets contained in $S$, choose $S_{0}$ containing the smallest number of vectors. It suffices to show that $S_{0}$ is independent (then $S_{0}$ is a basis, proving the theorem). Suppose, on the contrary, that $S_{0}$ is not independent. Then, by Lemma~\ref{lem:019559}, some vector $\vect{u} \in S_{0}$ is a linear combination of the set $S_{1} = S_{0} \setminus \{\vect{u}\}$ of vectors in $S_{0}$ other than $\vect{u}$. It follows that $\func{span} S_{0} = \func{span} S_{1}$, that is, $V = \func{span} S_{1}$. But $S_{1}$ has fewer elements than $S_{0}$ so this contradicts the choice of $S_{0}$. Hence $S_{0}$ is independent after all.
+\end{proof}
+
+\noindent Note that, with Theorem~\ref{thm:019430}, Theorem~\ref{thm:019593} completes the promised proof of Theorem~\ref{thm:014407} for the case $V = \RR^n$.
+
+\begin{example}{}{019616}
+Find a basis of $\vectspace{P}_{3}$ in the spanning set $S = \{1, x + x^{2}, 2x - 3x^{2}, 1 + 3x - 2x^{2}, x^{3}\}$.
+
+\begin{solution}
+Since $\func{dim} \vectspace{P}_{3} = 4$, we must eliminate one polynomial from $S$. It cannot be $x^{3}$ because the span of the rest of $S$ is contained in $\vectspace{P}_{2}$. But eliminating $1 + 3x - 2x^{2}$ does leave a basis (verify). Note that $1 + 3x - 2x^{2}$ is the sum of the first three polynomials in $S$.
+\end{solution}
+\end{example}
+
+\noindent Theorems \ref{thm:019430} and \ref{thm:019593} have other useful consequences.
+
+\begin{theorem}{}{019633}
+Let $V$ be a vector space with $\func{dim} V = n$, and suppose $S$ is a set of exactly $n$ vectors in $V$. Then $S$ is independent if and only if $S$ spans $V$.
+\end{theorem}
+
+\begin{proof}
+Assume first that $S$ is independent. By Theorem~\ref{thm:019430}, $S$ is contained in a basis $B$ of $V$. Hence $|S| = n = |B|$ so, since $S \subseteq B$, it follows that $S = B$. In particular $S$ spans $V$.
+
+Conversely, assume that $S$ spans $V$, so $S$ contains a basis $B$ by Theorem~\ref{thm:019593}. Again $|S| = n = |B|$ so, since $S \supseteq B$, it follows that $S = B$. Hence $S$ is independent.
+\end{proof}
+
+\noindent One of independence or spanning is often easier to establish than the other when showing that a set of vectors is a basis. For example if $V = \RR^n$ it is easy to check whether a subset $S$ of $\RR^n$ is orthogonal (hence independent) but checking spanning can be tedious. Here are three more examples.
+
+\begin{example}{}{019643}
+Consider the set $S = \{p_{0}(x), p_{1}(x), \dots, p_{n}(x)\}$ of polynomials in $\vectspace{P}_{n}$. If $\func{deg} p_{k}(x) = k$ for each $k$, show that $S$ is a basis of $\vectspace{P}_{n}$.
+
+\begin{solution}
+The set $S$ is independent---the degrees are distinct---see Example~\ref{exa:018606}. Hence $S$ is a basis of $\vectspace{P}_{n}$ by Theorem~\ref{thm:019633} because $\func{dim} \vectspace{P}_{n} = n + 1$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{019657}
+Let $V$ denote the space of all symmetric $2 \times 2$ matrices. Find a basis of $V$ consisting of invertible matrices.
+
+\begin{solution}
+We know that $\func{dim} V = 3$ (Example~\ref{exa:018930}), so what is needed is a set of three invertible, symmetric matrices that (using Theorem~\ref{thm:019633}) is either independent or spans $V$. The set 
+$\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB, \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB, \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB
+\right\}$ is independent (verify) and so is a basis of the required type.
+\end{solution}
+\end{example}
+
+\begin{example}{}{019664}
+Let $A$ be any $n \times n$ matrix. Show that there exist $n^{2} + 1$ scalars $a_{0}, a_{1}, a_{2}, \dots, a_{n^{2}}$ not all zero, such that
+\begin{equation*}
+a_0I + a_1A +a_2A^2 + \dots + a_{n^2}A^{n^2} = 0
+\end{equation*}
+where $I$ denotes the $n \times n$ identity matrix.
+
+\begin{solution}
+The space $\vectspace{M}_{nn}$ of all $n \times n$ matrices has dimension $n^{2}$ by Example~\ref{exa:018880}. Hence the $n^{2} + 1$ matrices $I, A, A^{2}, \dots, A^{n^{2}}$ cannot be independent by Theorem~\ref{thm:019633}, so a nontrivial linear combination vanishes. This is the desired conclusion.
+\end{solution}
+\end{example}
+
+\noindent The result in Example~\ref{exa:019664} can be written as $f(A) = 0$ where $f(x) = a_{0} + a_{1}x + a_{2}x^{2} + \dots + a_{n^{2}}x^{n^{2}}$. In other words, $A$ satisfies a nonzero polynomial $f(x)$ of degree at most $n^{2}$. In fact we know that $A$ satisfies a nonzero polynomial of degree $n$ (this is the Cayley-Hamilton theorem---see Theorem~\ref{thm:025927}), but the brevity of the solution in Example~\ref{exa:019616} is an indication of the power of these methods.
+
+If $U$ and $W$ are subspaces of a vector space $V$, there are two related subspaces that are of interest, their \textbf{sum}\index{subspaces!sum} $U + W$ and their \textbf{intersection}\index{intersection}\index{subspaces!intersection} $U \cap W$, defined by
+\begin{align*}
+U + W &= \{\vect{u} + \vect{w} \mid \vect{u} \in U \mbox{ and } \vect{w} \in W \} \\
+U \cap W &= \{\vect{v} \in V \mid \vect{v} \in U \mbox{ and } \vect{v} \in W \}
+\end{align*}
+It is routine to verify that these are indeed subspaces of $V$, that $U \cap W$ is contained in both $U$ and $W$, and that $U + W$ contains both $U$ and $W$. We conclude this section with a useful fact about the dimensions of these spaces. The proof is a good illustration of how the theorems in this section are used.\index{sum!subspaces}\index{sum!subspaces of a vector space}\index{vector spaces!subspaces}
+
+\begin{theorem}{}{019692}
+Suppose that $U$ and $W$ are finite dimensional subspaces of a vector space $V$. Then $U + W$ is finite dimensional and
+\begin{equation*}
+\func{dim}(U + W) = \func{dim } U + \func{dim } W - \func{dim}(U \cap W).
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+Since $U \cap W \subseteq U$, it has a finite basis, say $\{\vect{x}_{1}, \dots, \vect{x}_{d}\}$. Extend it to a basis $\{\vect{x}_{1}, \dots, \vect{x}_{d}, \vect{u}_{1}, \dots, \vect{u}_{m}\}$ of $U$ by Theorem~\ref{thm:019430}. Similarly extend $\{\vect{x}_{1}, \dots, \vect{x}_{d}\}$ to a basis $\{\vect{x}_{1}, \dots, \vect{x}_{d}, \vect{w}_{1}, \dots, \vect{w}_{p}\}$ of $W$. Then
+\begin{equation*}
+U + W = \func{span}\{\vect{x}_1, \dots, \vect{x}_d, \vect{u}_1, \dots, \vect{u}_m, \vect{w}_1, \dots, \vect{w}_p \}
+\end{equation*}
+as the reader can verify, so $U + W$ is finite dimensional. For the rest, it suffices to show that \\$\{\vect{x}_{1}, \dots, \vect{x}_{d}, \vect{u}_{1}, \dots, \vect{u}_{m}, \vect{w}_{1}, \dots, \vect{w}_{p}\}$ is independent (verify). Suppose that
+\begin{equation}
+\label{eq:thm6_4_5proof}
+r_1\vect{x}_1 + \dots + r_d\vect{x}_d + 
+s_1\vect{u}_1 + \dots + s_m\vect{u}_m + 
+t_1\vect{w}_1 + \dots + t_p\vect{w}_p = \vect{0}
+\end{equation}
+where the $r_{i}$, $s_{j}$, and $t_{k}$ are scalars. Then
+\begin{equation*}
+r_1\vect{x}_1 + \dots + r_d\vect{x}_d + 
+s_1\vect{u}_1 + \dots + s_m\vect{u}_m =
+-(t_1\vect{w}_1 + \dots + t_p\vect{w}_p) 
+\end{equation*}
+is in $U$ (left side) and also in $W$ (right side), and so is in $U \cap W$. Hence $(t_{1}\vect{w}_{1} + \dots + t_{p}\vect{w}_{p})$ is a linear combination of $\{\vect{x}_{1}, \dots, \vect{x}_{d}\}$, so $t_{1} = \dots = t_{p} = 0$, because $\{\vect{x}_{1}, \dots, \vect{x}_{d}, \vect{w}_{1}, \dots, \vect{w}_{p}\}$ is independent. Similarly, $s_{1} = \dots = s_{m} = 0$, so (\ref{eq:thm6_4_5proof}) becomes $r_{1}\vect{x}_{1} + \dots + r_{d}\vect{x}_{d} = \vect{0}$. It follows that $r_{1} = \dots = r_{d} = 0$, as required.
+\end{proof}
+
+Theorem~\ref{thm:019692} is particularly interesting if $U \cap W = \{\vect{0}\}$. Then there are \textit{no} vectors $\vect{x}_{i}$ in the above proof, and the argument shows that if $\{\vect{u}_{1}, \dots, \vect{u}_{m}\}$ and $\{\vect{w}_{1}, \dots, \vect{w}_{p}\}$ are bases of $U$ and $W$ respectively, then $\{\vect{u}_{1}, \dots, \vect{u}_{m}, \vect{w}_{1}, \dots, \vect{w}_{p}\}$ is a basis of $U$ + $W$. In this case $U + W$ is said to be a \textbf{direct sum}\index{direct sum}\index{sum!direct sum} (written $U \oplus W$); we return to this in Chapter~\ref{chap:9}.
+
+\section*{Exercises for \ref{sec:6_4}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:6_4}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case, find a basis for $V$ that includes the vector $\vect{v}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \RR^3$, $\vect{v} = (1, -1, 1)$
+
+\item $V = \RR^3$, $\vect{v} = (0, 1, 1)$
+
+\item $V = \vectspace{M}_{22}$, $\vect{v} =
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & 1
+\end{array} \rightB$
+
+\item $V = \vectspace{P}_{2}$, $\vect{v} = x^{2} - x + 1$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{(0, 1, 1), (1, 0, 0), (0, 1, 0)\}$
+
+\setcounter{enumi}{3}
+\item  $\{x^{2} - x + 1, 1, x\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a basis for $V$ among the given vectors.
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \RR^3$, \newline $\{(1, 1, -1), (2, 0, 1), (-1, 1, -2), (1, 2, 1)\}$
+
+\item $V = \vectspace{P}_{2}$, $\{x^{2} + 3, x + 2, x^{2} - 2x -1, x^{2} + x\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Any three except $\{x^{2} + 3, x + 2, x^{2} - 2x - 1\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a basis of $V$ containing $\vect{v}$ and $\vect{w}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \RR^4$, $\vect{v} = (1, -1, 1, -1)$, $\vect{w} = (0, 1, 0, 1)$
+
+\item $V = \RR^4$, $\vect{v} = (0, 0, 1, 1)$, $\vect{w} = (1, 1, 1, 1)$
+
+\item $V = \vectspace{M}_{22}$, $\vect{v} = 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB$, $\vect{w} = 
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$
+
+\item $V = \vectspace{P}_{3}$, $\vect{v} = x^{2} + 1$, $\vect{w} = x^{2} + x$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Add $(0, 1, 0, 0)$ and $(0, 0, 1, 0)$.
+
+\setcounter{enumi}{3}
+\item  Add $1$ and $x^{3}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $z$ is not a real number, show that $\{z, z^{2}\}$ is a basis of the real vector space $\mathbb{C}$ of all complex numbers.
+
+\item If $z$ is neither real nor pure imaginary, show that $\{z, \overline{z} \}$ is a basis of $\mathbb{C}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $z = a + bi$, then $a \neq 0$ and $b \neq 0$. If $rz + s\overline{z} = 0$,  then $(r + s)a = 0$ and $(r - s)b = 0$. This means that $r + s = 0 = r - s$, so $r = s = 0$. Thus $\{z, \overline{z} \}$ is independent; it is a basis because $\func{dim} \mathbb{C} = 2$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case use Theorem~\ref{thm:019633} to decide if $S$ is a basis of $V$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \vectspace{M}_{22}$; \\
+\hspace*{-2em}$S =
+\left\{
+\leftB \begin{array}{rr}
+	1 & 1 \\
+	1 & 1  
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+	0 & 1 \\
+	1 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+	0 & 0 \\
+	1 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+	0 & 0 \\
+	0 & 1
+\end{array} \rightB
+\right\}$
+
+\item $V = \vectspace{P}_{3}$; $S = \{2x^{2}, 1 + x, 3, 1 + x + x^{2} + x^{3}\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The polynomials in $S$ have distinct degrees.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Find a basis of $\vectspace{M}_{22}$ consisting of matrices with the property that $A^{2} = A$.
+
+\item Find a basis of $\vectspace{P}_{3}$ consisting of polynomials whose coefficients sum to $4$. What if they sum to $0$?
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{4, 4x, 4x^{2}, 4x^{3}\}$ is one such basis of $\vectspace{P}_{3}$. However, there is \textit{no} basis of $\vectspace{P}_{3}$ consisting of polynomials that have the property that their coefficients sum to zero. For if such a basis exists, then every polynomial in $\vectspace{P}_{3}$ would have this property (because sums and scalar multiples of such polynomials have the same property).
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\{\vect{u}, \vect{v}, \vect{w}\}$ is a basis of $V$, determine which of the following are bases.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{\vect{u} + \vect{v}, \vect{u} + \vect{w}, \vect{v} + \vect{w}\}$
+
+\item $\{2\vect{u} + \vect{v} + 3\vect{w}, 3\vect{u} + \vect{v} - \vect{w}, \vect{u} - 4\vect{w}\}$
+
+\item $\{\vect{u}, \vect{u} + \vect{v} + \vect{w}\}$
+
+\item $\{\vect{u}, \vect{u} + \vect{w}, \vect{u} - \vect{w}, \vect{v} + \vect{w}\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Not a basis.
+
+\setcounter{enumi}{3}
+\item  Not a basis.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Can two vectors span $\RR^3$? Can they be linearly independent? Explain.
+
+\item Can four vectors span $\RR^3$? Can they be linearly independent? Explain.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes; no.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that any nonzero vector in a finite dimensional vector space is part of a basis.
+\end{ex}
+
+\begin{ex}
+If $A$ is a square matrix, show that $\func{det} A = 0$ if and only if some row is a linear combination of the others.
+
+\begin{sol}
+$\func{det} A = 0$ if and only if $A$ is not invertible; if and only if the rows of $A$ are dependent (Theorem~\ref{thm:014205}); if and only if some row is a linear combination of the others (Lemma~\ref{lem:019415}).
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $D$, $I$, and $X$ denote finite, nonempty sets of vectors in a vector space $V$. Assume that $D$ is dependent and $I$ is independent. In each case answer yes or no, and defend your answer.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $X \supseteq D$, must $X$ be dependent?
+
+\item If $X \subseteq D$, must $X$ be dependent?
+
+\item If $X \supseteq I$, must $X$ be independent?
+
+\item If $X \subseteq I$, must $X$ be independent?
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No. $\{(0, 1), (1, 0)\} \subseteq \{(0, 1), (1, 0), (1, 1)\}$.
+
+\setcounter{enumi}{3}
+\item  Yes. See Exercise~\ref{ex:6_3_15}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $U$ and $W$ are subspaces of $V$ and $\func{dim} U = 2$, show that either $U \subseteq W$ or $\func{dim}(U \cap W) \leq 1$.
+\end{ex}
+
+\begin{ex}
+Let $A$ be a nonzero $2 \times 2$ matrix and write $U = \{X \mbox{ in } \vectspace{M}_{22} \mid XA = AX\}$. Show that $\func{dim} U \geq 2$. [\textit{Hint}: $I$ and $A$ are in $U$.]
+\end{ex}
+
+\begin{ex}
+If $U \subseteq \RR^2$ is a subspace, show that $U = \{\vect{0}\}$, $U = \RR^2$, or $U$ is a line through the origin.
+\end{ex}
+
+\begin{ex}
+Given $\vect{v}_{1}, \vect{v}_{2}, \vect{v}_{3}, \dots, \vect{v}_{k}$, and $\vect{v}$, let $U = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ and $W = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}, \vect{v}\}$. Show that either $\func{dim} W = \func{dim} U$ or $\func{dim} W = 1 + \func{dim} U$.
+
+\begin{sol}
+If $\vect{v} \in U$ then $W = U$; if $\vect{v} \notin U$ then $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}, \vect{v}\}$ is a basis of $W$ by the independent lemma.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Suppose $U$ is a subspace of $\vectspace{P}_{1}$, \newline $U \neq \{0\}$, and $U \neq \vectspace{P}_{1}$. Show that either $U = \RR$ or $U = \RR(a + x)$ for some $a$ in $\RR$.
+\end{ex}
+
+\begin{ex}
+Let $U$ be a subspace of $V$ and assume $\func{dim} V = 4$ and $\func{dim} U = 2$. Does every basis of $V$ result from adding (two) vectors to some basis of $U$? Defend your answer.
+\end{ex}
+
+\begin{ex}
+Let $U$ and $W$ be subspaces of a vector space $V$.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\func{dim} V = 3$, $\func{dim} U = \func{dim} W = 2$, and $U \neq W$, show that $\func{dim}(U \cap W) = 1$.
+
+\item Interpret (a.) geometrically if $V = \RR^3$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Two distinct planes through the origin ($U$ and $W$) meet in a line through the origin $(U \cap W)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U \subseteq W$ be subspaces of $V$ with $\func{dim} U = k$ and $\func{dim} W = m$, where $k < m$. If $k < l < m$, show that a subspace $X$ exists where $U \subseteq X \subseteq W$ and $\func{dim} X = l$.
+\end{ex}
+
+\begin{ex}
+Let $B = \{\vect{v}_{1}, \dots, \vect{v}_{n}\}$ be a \textit{maximal} independent set in a vector space $V$. That is, no set of more than $n$ vectors $S$ is independent. Show that $B$ is a basis of $V$.
+\end{ex}
+
+\begin{ex}
+Let $B = \{\vect{v}_{1}, \dots, \vect{v}_{n}\}$ be a \textit{minimal} spanning set for a vector space $V$. That is, $V$ cannot be spanned by fewer than $n$ vectors. Show that $B$ is a basis of $V$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Let $p(x)$ and $q(x)$ lie in $\vectspace{P}_{1}$ and suppose that $p(1) \neq 0$, $q(2) \neq 0$, and $p(2) = 0 = q(1)$. Show that $\{p(x), q(x)\}$ is a basis of $\vectspace{P}_{1}$. [\textit{Hint}: If $rp(x) + sq(x) = 0$, evaluate at $x = 1$, $x = 2$.]
+
+\item Let $B = \{p_{0}(x), p_{1}(x), \dots, p_{n}(x)\}$ be a set of polynomials in $\vectspace{P}_{n}$. Assume that there exist numbers $a_{0}, a_{1}, \dots, a_{n}$ such that $p_{i}(a_{i}) \neq 0$ for each $i$ but $p_{i}(a_{j}) = 0$ if $i$ is different from $j$. Show that $B$ is a basis of $\vectspace{P}_{n}$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $V$ be the set of all infinite sequences $(a_{0}, a_{1}, a_{2}, \dots)$ of real numbers. Define addition and scalar multiplication by 
+\begin{equation*}
+(a_{0}, a_{1}, \dots) + (b_{0}, b_{1}, \dots) = (a_{0} + b_{0}, a_{1} + b_{1}, \dots)
+\end{equation*}
+and 
+\begin{equation*}
+r(a_{0}, a_{1}, \dots) = (ra_{0}, {ra}_{1}, \dots)
+\end{equation*}
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $V$ is a vector space.
+
+\item Show that $V$ is not finite dimensional.
+
+\item {[For those with some calculus.]} Show that the set of convergent sequences (that is, $\displaystyle \lim_{n \to \infty} a_{n}$ exists) is a subspace, also of infinite dimension.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The set $\{(1, 0, 0, 0, \dots), (0, 1, 0, 0, 0, \dots),$ \\$(0, 0, 1, 0, 0, \dots), \dots\}$ contains independent subsets of arbitrary size.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be an $n \times n$ matrix of rank $r$. If $U = \{X \mbox{ in } \vectspace{M}_{nn} \mid AX = 0\}$, show that $\func{dim} U = n(n - r)$. [\textit{Hint}: Exercise~\ref{ex:6_3_34}.]
+\end{ex}
+
+\begin{ex}
+Let $U$ and $W$ be subspaces of $V$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $U + W$ is a subspace of $V$ containing both $U$ and $W$.
+
+\item Show that $\func{span}\{\vect{u}, \vect{w}\} = \RR\vect{u} + \RR\vect{w}$ for any vectors $\vect{u}$ and $\vect{w}$.
+
+\item Show that 
+\begin{align*}
+& \func{span}\{\vect{u}_{1}, \dots, \vect{u}_{m}, \vect{w}_{1}, \dots, \vect{w}_{n}\} \\ &= \func{span}\{\vect{u}_{1}, \dots, \vect{u}_{m}\} + \func{span}\{\vect{w}_{1}, \dots, \vect{w}_{n}\}
+\end{align*} for any vectors $\vect{u}_{i}$ in $U$ and $\vect{w}_{j}$ in $W$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\RR\vect{u} + \RR\vect{w} = \{r\vect{u} + s\vect{w} \mid r, s \mbox{ in } \RR\} = \func{span}\{\vect{u}, \vect{w}\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ are $m \times n$ matrices, show that $\func{rank}(A + B) \leq \func{rank}A + \func{rank}B$. [\textit{Hint}: If $U$ and $V$ are the column spaces of $A$ and $B$, respectively, show that the column space of $A + B$ is contained in $U + V$ and that $\func{dim}(U + V) \leq  \func{dim} U + \func{dim} V$. (See Theorem~\ref{thm:019692}.)]
+\end{ex}
+\end{multicols}

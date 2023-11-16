@@ -1,0 +1,27 @@
+
+\begin{tikzpicture}[scale=0.75]
+%arrows
+\draw[dkgreenvect,-latex,thick] (0.43,0.5)--(2.9,1.75) node[above=1, left=0.2,font=\footnotesize,text=black,midway]{$p_{1j}$};
+\draw[dkgreenvect,-latex,thick] (0.65,0)--(2.85,0) node[above=-0.1,font=\footnotesize,text=black,midway]{$p_{2j}$};
+\draw[dkgreenvect,-latex,thick] (0.44,-0.5)--(2.98,-2.35) node[below, left=0.05,font=\footnotesize,text=black,midway]{$p_{nj}$};
+%states
+\draw (0,0) [dkbluevect,thick] circle (0.65cm);
+\draw (3.5,0) [dkbluevect,thick] circle (0.65cm);
+\draw (3.5,2) [dkbluevect,thick] circle (0.65cm);
+\draw (3.5,-2.75) [dkbluevect,thick] circle (0.65cm);
+\node[text=black,font=\footnotesize,align=center] at (0,0) {state\\$j$};
+\node[text=black,font=\footnotesize,align=center] at (3.5,2) {state\\$1$};
+\node[text=black,font=\footnotesize,align=center] at (3.5,0) {state\\$2$};
+\node[text=black,font=\footnotesize,align=center] at (3.5,-2.75) {state\\$n$};
+%present state
+\draw (-0.9,3) [dkbluevect,thick] rectangle ++(1.8cm,1.2cm);
+\node[text=black,font=\footnotesize,align=center] at (0,3.6) {Present\\State};
+%next state45
+\draw (2.85,3) [dkbluevect,thick] rectangle ++(1.3cm,1.2cm);
+\node[text=black,font=\footnotesize,align=center] at (3.5,3.6) {Next\\State};
+%dots
+\fill[black] (3.5,-1) circle (2.25pt);
+\fill[black] (3.5,-1.4) circle (2.25pt);
+\fill[black] (3.5,-1.8) circle (2.25pt);
+\end{tikzpicture}
+

@@ -1,0 +1,70 @@
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[view/h=120,
+disabledatascaling, anchor=origin,
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$},
+    zlabel={$z$},
+    axis lines=center,
+    axis on top,
+    xtick=\empty,
+    ytick=\empty,
+    ztick=\empty,
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    zticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=north,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+   every axis z label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+	clip mode = individual,
+    samples=100, 
+    xmin=0, 
+    xmax=5, 
+    ymin=0, 
+    ymax=5,
+    zmin=0,
+    zmax=5]
+    
+\def \xCoord {3}
+\def \yCoord {4}
+\coordinate (ptP) at (\xCoord, \yCoord, 5.5);
+\coordinate (ptQ) at (\xCoord, \yCoord, 0);
+\coordinate (ptR) at (\xCoord, 0, 0);
+\def \angleWidth {0.5}
+
+%lines
+\draw [dkgreenvect, thick, -latex] (0, 0, 0)--(ptP) node [pos=0.4, text=black, above] {\scriptsize $\vect{v}$};
+\draw [dkbluevect, thick] (ptQ)--(ptP) node [pos=0.6, text=black, right] {\scriptsize $z$};
+\draw [dkbluevect, thick] (ptR) -- (ptQ) node [pos=0.4, text=black, below] {\scriptsize $y$}
+	-- (0, \yCoord, 0)
+	(0, 0, 0) -- (ptQ) node [pos=0.6, text=black, above] {\scriptsize $h$};
+
+%right angles
+\draw [dkbluevect, thick] ($(ptR) + (-\angleWidth, 0, 0)$)-- ++(0, \angleWidth, 0) -- ++(\angleWidth, 0, 0);
+\draw [dkbluevect, thick] ($(ptQ) + (0, 0, \angleWidth)$)-- ++(0, -\angleWidth * \yCoord / 5.5, \angleWidth*0.75) 
+	-- ++ (0, 0, -\angleWidth);
+
+\fill (ptP) circle (2pt);
+\fill (ptR) circle (2pt);
+
+%other labels
+\node [left] at (0, 0.1, 0.1) {\scriptsize $O$};
+\node [right] at (ptP) {\scriptsize $P$};
+\node [below] at (ptQ) {\scriptsize $Q$};
+\node [above] at (ptR) {\scriptsize $R$};
+\node [below] at (ptR) {\scriptsize $i$};
+\node at (\xCoord/2, 0.4, 0) {\scriptsize $x$};
+
+\end{axis}
+\end{tikzpicture}

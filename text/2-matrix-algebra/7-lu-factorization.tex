@@ -1,0 +1,972 @@
+\section[LU-Factorization]{LU-Factorization\footnotemark}
+\label{sec:2_7}
+
+\footnotetext{This section is not used later and so may be omitted with no loss of continuity.}
+
+The solution to a system $A\vect{x} = \vect{b}$ of linear equations can be solved quickly if $A$ can be factored as $A = LU$ where $L$ and $U$ are of a particularly nice form. In this section we show that gaussian elimination can be used to find such factorizations.\index{gaussian elimination!LU-factorization}
+
+\subsection*{Triangular Matrices}
+
+As for square matrices, if $A = \leftB a_{ij} \rightB$ is an $m \times n$ matrix, the elements $a_{11}, a_{22}, a_{33}, \dots$ form the \textbf{main diagonal}\index{main diagonal} of $A$. Then $A$ is called \textbf{upper triangular}\index{upper triangular matrix}\index{matrix!upper triangular matrix} if every entry below and to the left of the main diagonal is zero. Every row-echelon matrix is upper triangular, as are the matrices\index{matrix!triangular matrices}
+\begin{equation*}
+\leftB \begin{array}{rrrr}
+1 & -1 & 0 & 3 \\
+0 & 2 & 1 & 1 \\
+0 & 0 & -3 & 0
+\end{array} \rightB \quad \leftB \begin{array}{rrrrr}
+0 & 2 & 1 & 0 & 5 \\
+0 & 0 & 0 & 3 & 1 \\
+0 & 0 & 1 & 0 & 1
+\end{array} \rightB \quad \leftB \begin{array}{rrr}
+1 & 1 & 1 \\
+0 & -1 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+\end{array} \rightB
+\end{equation*}
+By analogy, a matrix $A$ is called \textbf{lower triangular}\index{lower triangular matrix}\index{matrix!lower triangular matrix} if its transpose is upper triangular, that is if each entry above and to the right of the main diagonal is zero. A matrix is called \textbf{triangular}\index{triangular matrices} if it is upper or lower triangular.
+
+\begin{example}{}{006519}
+Solve the system
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rrrrrrrrrrr}
+x_{1} & + & 2x_{2} & - & 3x_{3} & - & x_{4} & + & 5x_{5} & = & 3 \\
+ & & & & 5x_{3} & + & x_{4} & + & x_{5} & = & 8 \\
+ & & & & & & & & 2x_{5} & = & 6 \\
+\end{array}
+\end{equation*}
+where the coefficient matrix is upper triangular.
+
+\begin{solution}
+  As in gaussian elimination, let the ``non-leading'' variables be parameters: $x_{2} = s$ and $x_{4} = t$. Then solve for $x_{5}$, $x_{3}$, and $x_{1}$ in that order as follows. The last equation gives
+\begin{equation*}
+x_{5} = \frac{6}{2} = 3
+\end{equation*}
+Substitution into the second last equation gives
+\begin{equation*}
+x_{3} = 1 - \frac{1}{5}t
+\end{equation*}
+Finally, substitution of both $x_{5}$ and $x_{3}$ into the first equation gives
+\begin{equation*}
+x_{1} = -9 -2s + \frac{2}{5}t
+\end{equation*}
+\end{solution}
+\end{example}
+
+The method used in Example~\ref{exa:006519} is called \textbf{back substitution}\index{back substitution} because later variables are substituted into earlier equations. It works because the coefficient matrix is upper triangular. Similarly, if the coefficient matrix is lower triangular the system can be solved by \textbf{forward substitution}\index{forward substitution} where earlier variables are substituted into later equations. As observed in Section~\ref{sec:1_2}, these procedures are more numerically efficient than gaussian elimination.
+
+Now consider a system $A\vect{x} = \vect{b}$ where $A$ can be factored as $A = LU$ where $L$ is lower triangular and $U$ is upper triangular. Then the system $A\vect{x} = \vect{b}$ can be solved in two stages as follows:
+
+\begin{enumerate}
+\item \textit{First solve} $L\vect{y} = \vect{b}$ \textit{for} $\vect{y}$ \textit{by forward substitution}.
+
+\item \textit{Then solve} $U\vect{x} = \vect{y}$ \textit{for} $\vect{x}$ \textit{by back substitution}.
+
+\end{enumerate}
+Then $\vect{x}$ is a solution to $A\vect{x} = \vect{b}$ because $A\vect{x} = LU\vect{x} = L\vect{y} = \vect{b}$. Moreover, every solution $\vect{x}$ arises this way (take $\vect{y} = U\vect{x}$). Furthermore the method adapts easily for use in a computer.
+
+This focuses attention on efficiently obtaining such factorizations $A = LU$. The following result will be needed; the proof is straightforward and is left as Exercises \ref{ex:ex2_7_7} and \ref{ex:ex2_7_8}. 
+
+\begin{lemma}{}{006547}
+Let $A$ and $B$ denote matrices.
+
+\begin{enumerate}
+\item If $A$ and $B$ are both lower (upper) triangular, the same is true of $AB$.
+
+\item If $A$ is $n \times n$ and lower (upper) triangular, then A is invertible if and only if every main diagonal entry is nonzero. In this case $A^{-1}$ is also lower (upper) triangular.
+
+\end{enumerate}
+\end{lemma}
+
+\subsection*{LU-Factorization}
+
+Let $A$ be an $m \times n$ matrix. Then $A$ can be carried to a row-echelon matrix $U$ (that is, upper triangular). As in Section~\ref{sec:2_5}, the reduction is
+\begin{equation*}
+A \rightarrow E_{1}A \rightarrow E_{2}E_{1}A \rightarrow E_{3}E_{2}E_{1}A \rightarrow \cdots \rightarrow E_{k}E_{k-1} \cdots E_{2}E_{1}A = U
+\end{equation*}
+where $E_{1}, E_{2}, \dots, E_{k}$ are elementary matrices corresponding to the row operations used\index{elementary matrix!LU-factorization}. Hence
+\begin{equation*}
+A = LU
+\end{equation*}
+where $L = \left(E_{k}E_{k-1} \cdots E_{2}E_{1}\right)^{-1} = E_{1}^{-1}E_{2}^{-1} \cdots E_{k-1}^{-1}E_{k}^{-1}$. If we do not insist that $U$ is reduced then, except for row interchanges, none of these row operations involve adding a row to a row \textit{above} it. Thus, if no row interchanges are used, all the $E_{i}$ are \textit{lower} triangular, and so $L$ is lower triangular (and invertible) by Lemma~\ref{lem:006547}. This proves the following theorem. For convenience, let us say that $A$ can be \textbf{lower reduced}\index{lower reduced} if it can be carried to row-echelon form using no row interchanges.
+
+
+\newpage 
+\begin{theorem}{}{006566}
+If $A$ can be lower reduced to a row-echelon matrix $U$, then
+\begin{equation*}
+A = LU
+\end{equation*}
+where $L$ is lower triangular and invertible and $U$ is upper triangular and row-echelon.
+\end{theorem}
+
+\begin{definition}{LU-factorization}{006570}
+A factorization $A = LU$ as in Theorem~\ref{thm:006566} is called an \textbf{LU-factorization}\index{LU-factorization} of $A$.
+\end{definition}
+
+Such a factorization may not exist (Exercise~\ref{ex:ex2_7_4}) because $A$ cannot be carried to row-echelon form using no row interchange. A procedure for dealing with this situation will be outlined later. However, if an LU-factorization $A = LU$ does exist, then the gaussian algorithm gives $U$ and also leads to a procedure for finding $L$. Example~\ref{exa:006575} provides an illustration. For convenience, the first nonzero column from the left in a matrix $A$ is called the \textbf{leading column}\index{leading column}\index{columns!leading column} of $A$.
+
+\begin{example}{}{006575}
+Find an LU-factorization of $A = \leftB \begin{array}{rrrrr}
+0 & 2 & -6 & -2 & 4 \\
+0 & -1 & 3 & 3 & 2 \\
+0 & -1 & 3 & 7 & 10
+\end{array} \rightB$.
+
+\begin{solution}
+  We lower reduce $A$ to row-echelon form as follows:
+\begin{table}[H]
+\begin{equation*}
+A = \leftB \begin{array}{rrrrr}
+0 & \tn{reduce1A}{2} & -6 & -2 & 4 \\
+0 & -1 & 3 & 3 & 2 \\
+0 & \tn{reduce1B}{-1} & 3 & 7 & 10
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{rrrrr}
+0 & 1 & -3 & -1 & 2 \\
+0 & 0 & 0 & \tn{reduce2A}{2} & 4 \\
+0 & 0 & 0 & \tn{reduce2B}{6} & 12
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{rrrrr}
+0 & 1 & -3 & -1 & 2 \\
+0 & 0 & 0 & 1 & 2 \\
+0 & 0 & 0 & 0 & 0
+\end{array} \rightB = U
+\end{equation*}
+\end{table}
+\begin{tikzpicture}[remember picture, overlay]
+\draw[color=blue!30!gray,rounded corners]([xshift=-12pt, yshift=5pt]reduce1A.north west) rectangle ([xshift=5pt, yshift=-5pt]reduce1B.south east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-8pt, yshift=5pt]reduce2A.north west) rectangle ([xshift=5pt, yshift=-5pt]reduce2B.south east);
+\end{tikzpicture}
+The circled columns are determined as follows: The first is the leading column of $A$, and is used (by lower reduction) to create the first leading $1$ and create zeros below it. This completes the work on row 1, and we repeat the procedure on the matrix consisting of the remaining rows. Thus the second circled column is the leading column of this smaller matrix, which we use to create the second leading $1$ and the zeros below it. As the remaining row is zero here, we are finished. Then $A = LU$ where
+\begin{equation*}
+L = \leftB \begin{array}{rrr}
+2 & 0 & 0 \\
+-1 & 2 & 0 \\
+-1 & 6 & 1
+\end{array} \rightB
+\end{equation*}
+This matrix $L$ is obtained from $I_{3}$ by replacing the bottom of the first two columns by the circled columns in the reduction. Note that the $\func{rank }$of $A$ is $2$ here, and this is the number of circled columns.
+\end{solution}
+\end{example}
+
+The calculation in Example~\ref{exa:006575} works in general. There is no need to calculate the elementary matrices $E_{i}$, and the method is suitable for use in a computer because the circled columns can be stored in memory as they are created. The procedure can be formally stated as follows:
+
+\begin{theorem*}{LU-Algorithm}{006589}
+Let $A$ be an $m \times n$ matrix of $\func{rank }r$, and suppose that $A$ can be lower reduced to a row-echelon matrix $U$. Then $A = LU$ where the lower triangular, invertible matrix $L$ is constructed as follows:\index{LU-algorithm}\index{matrix algebra!LU-factorization}
+
+\begin{enumerate}
+\item If $A = 0$, take $L = I_{m}$ and $U = 0$.
+
+\item If $A \neq 0$, write $A_{1} = A$ and let $\vect{c}_{1}$ be the leading column of $A_{1}$. Use $\vect{c}_{1}$ to create the first leading $1$ and create zeros below it (using lower reduction). When this is completed, let $A_{2}$ denote the matrix consisting of rows 2 to $m$ of the matrix just created.
+
+\item If $A_{2} \neq 0$, let $\vect{c}_{2}$ be the leading column of $A_{2}$ and repeat Step 2 on $A_{2}$ to create $A_{3}$.
+
+\item Continue in this way until $U$ is reached, where all rows below the last leading $1$ consist of zeros. This will happen after $r$ steps.
+
+\item Create $L$ by placing $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{r}$ at the bottom of the first $r$ columns of $I_{m}$.
+
+\end{enumerate}
+\end{theorem*}
+
+\noindent A proof of the LU-algorithm is given at the end of this section.
+
+LU-factorization is particularly important if, as often happens in business and industry, a series of equations $A\vect{x} = B_{1}, A\vect{x} = B_{2}, \dots, A\vect{x} = B_{k}$, must be solved, each with the same coefficient matrix $A$. It is very efficient to solve the first system by gaussian elimination, simultaneously creating an LU-factorization of $A$, and then using the factorization to solve the remaining systems by forward and back substitution.
+
+\begin{example}{}{006623}
+Find an LU-factorization for $A = \leftB \begin{array}{rrrrr}
+5 & -5 & 10 & 0 & 5 \\
+-3 & 3 & 2 & 2 & 1 \\
+-2 & 2 & 0 & -1 & 0 \\
+1 & -1 & 10 & 2 & 5
+\end{array} \rightB$.
+
+\begin{solution}
+  The reduction to row-echelon form is
+\begin{table}[H]
+\begin{align*}
+\leftB \begin{array}{rrrrr}
+\tn{exa3a}{5} & -5 & 10 & 0 & 5 \\
+-3 & 3 & 2 & 2 & 1 \\
+-2 & 2 & 0 & -1 & 0 \\
+\tn{exa3b}{1} & -1 & 10 & 2 & 5
+\end{array} \rightB &\rightarrow 
+\leftB \begin{array}{rrrrr}
+1 & -1 & 2 & 0 & 1 \\
+0 & 0 & \tn{exa3c}{8} & 2 & 4 \\
+0 & 0 & 4 & -1 & 2 \\
+0 & 0 & \tn{exa3d}{8} & 2 & 4
+\end{array} \rightB \\
+&\rightarrow \leftB \def\arraystretch{1.5}\begin{array}{rrrrr}
+1 & -1 & 2 & 0 & 1 \\
+0 & 0 & 1 & \frac{1}{4} & \frac{1}{2} \\
+0 & 0 & 0 & \tn{exa3e}{-2} & 0 \\
+0 & 0 & 0 & \tn{exa3f}{0} & 0
+\end{array} \rightB \\
+&\rightarrow \leftB \def\arraystretch{1.5}\begin{array}{rrrrr}
+1 & -1 & 2 & 0 & 1 \\
+0 & 0 & 1 & \frac{1}{4} & \frac{1}{2} \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0
+\end{array} \rightB = U
+\end{align*}
+\end{table}
+\begin{tikzpicture}[remember picture, overlay]
+\draw[color=blue!30!gray,rounded corners]([xshift=-12pt, yshift=5pt]exa3a.north west) rectangle ([xshift=5pt, yshift=-5pt]exa3b.south east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-7pt, yshift=5pt]exa3c.north west) rectangle ([xshift=5pt, yshift=-5pt]exa3d.south east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-4pt, yshift=5pt]exa3e.north west) rectangle ([xshift=5pt, yshift=-5pt]exa3f.south east);
+\end{tikzpicture}
+
+\vspace{-2em}
+If $U$ denotes this row-echelon matrix, then $A = LU$, where
+\begin{equation*} L =
+\leftB \begin{array}{rrrrr}
+5 & 0 & 0 & 0 \\
+-3 & 8 & 0 & 0 \\
+-2 & 4 & -2 & 0 \\
+1 & 8 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+\end{solution}
+\end{example}
+
+The next example deals with a case where no row of zeros is present in $U$ (in fact, $A$ is invertible).
+
+\begin{example}{}{006634}
+Find an LU-factorization for $A = \leftB \begin{array}{rrr}
+2 & 4 & 2 \\
+1 & 1 & 2 \\
+-1 & 0 & 2
+\end{array} \rightB$.
+
+\begin{solution}
+  The reduction to row-echelon form is
+\begin{table}[H]
+\begin{equation*}
+\leftB \begin{array}{rrr}
+\tn{exa4a}{2} & 4 & 2 \\
+1 & 1 & 2 \\
+\tn{exa4b}{-1} & 0 & 2
+\end{array} \rightB \rightarrow 
+\leftB \begin{array}{rrr}
+1 & 2 & 1 \\
+0 & \tn{exa4c}{-1} & 1 \\
+0 & \tn{exa4d}{2} & 3
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{rrr}
+1 & 2 & 1 \\
+0 & 1 & -1 \\
+0 & 0 & \tn{exa4e}{5}
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{rrr}
+1 & 2 & 1 \\
+0 & 1 & -1 \\
+0 & 0 & 1
+\end{array} \rightB = U
+\end{equation*}
+\end{table}
+\begin{tikzpicture}[remember picture, overlay]
+\draw[color=blue!30!gray,rounded corners]([xshift=-12pt, yshift=5pt]exa4a.north west) rectangle ([xshift=5pt, yshift=-5pt]exa4b.south east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-4pt, yshift=5pt]exa4c.north west) rectangle ([xshift=5pt, yshift=-5pt]exa4d.south east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-4pt, yshift=5pt]exa4e.north west) rectangle ([xshift=4pt, yshift=-5pt]exa4e.south east);
+\end{tikzpicture}
+
+Hence $A = LU$ where $L = \leftB \begin{array}{rrr}
+2 & 0 & 0 \\
+1 & -1 & 0 \\
+-1 & 2 & 5
+\end{array} \rightB$.
+\end{solution}
+\end{example}
+
+There are matrices (for example $\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$) that have no LU-factorization and so require at least one row interchange when being carried to row-echelon form via the gaussian algorithm. However, it turns out that, if all the row interchanges encountered in the algorithm are carried out first, the resulting matrix requires no interchanges and so has an LU-factorization. Here is the precise result.
+
+\begin{theorem}{}{006646}
+Suppose an $m \times n$ matrix $A$ is carried to a row-echelon matrix $U$ via the gaussian algorithm. Let $P_{1}, P_{2}, \dots, P_{s}$ be the elementary matrices corresponding (in order) to the row interchanges used, and write $P = P_{s} \cdots P_{2}P_{1}$. (If no interchanges are used take $P = I_{m}$.) Then:
+
+\begin{enumerate}
+\item $PA$ is the matrix obtained from $A$ by doing these interchanges (in order) to $A$.
+
+\item $PA$ has an LU-factorization.
+
+\end{enumerate}
+\end{theorem}
+
+\noindent The proof is given at the end of this section.
+
+A matrix $P$ that is the product of elementary matrices corresponding to row interchanges is called a \textbf{permutation matrix}\index{permutation matrix}\index{matrix!permutation matrix}\index{elementary matrix!permutation matrix}. Such a matrix is obtained from the identity matrix by arranging the rows in a different order, so it has exactly one $1$ in each row and each column, and has zeros elsewhere. We regard the identity matrix\index{identity matrix} as a permutation matrix. The elementary permutation matrices are those obtained from $I$ by a single row interchange, and every permutation matrix is a product of elementary ones.
+
+\begin{example}{}{006663}
+If $A = \leftB \begin{array}{rrrr}
+0 & 0 & -1 & 2 \\
+-1 & -1 & 1 & 2 \\
+2 & 1 & -3 & 6 \\
+0 & 1 & -1 & 4
+\end{array} \rightB$, find a permutation matrix $P$ such that $PA$ has an LU-factorization, and then find the factorization.
+
+\begin{solution}
+  Apply the gaussian algorithm to $A$:
+\begin{align*}
+A \xrightarrow{*} \leftB \begin{array}{rrrr}
+-1 & -1 & 1 & 2 \\
+0 & 0 & -1 & 2 \\
+2 & 1 & -3 & 6 \\
+0 & 1 & -1 & 4
+\end{array} \rightB &\rightarrow \leftB \begin{array}{rrrr}
+1 & 1 & -1 & -2 \\
+0 & 0 & -1 & 2 \\
+0 & -1 & -1 & 10 \\
+0 & 1 & -1 & 4
+\end{array} \rightB \xrightarrow{*} \leftB \begin{array}{rrrr}
+1 & 1 & -1 & -2 \\
+0 & -1 & -1 & 10 \\
+0 & 0 & -1 & 2 \\
+0 & 1 & -1 & 4
+\end{array} \rightB \\
+&\rightarrow \leftB \begin{array}{rrrr}
+1 & 1 & -1 & -2 \\
+0 & 1 & 1 & -10 \\
+0 & 0 & -1 & 2 \\
+0 & 0 & -2 & 14
+\end{array} \rightB \rightarrow \leftB \begin{array}{rrrr}
+1 & 1 & -1 & -2 \\
+0 & 1 & 1 & -10 \\
+0 & 0 & 1 & -2 \\
+0 & 0 & 0 & 10
+\end{array} \rightB
+\end{align*}
+
+Two row interchanges were needed (marked with $*$), first rows 1 and 2 and then rows 2 and 3. Hence, as in Theorem~\ref{thm:006646},
+\begin{equation*}
+P = \leftB \begin{array}{rrrr}
+1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{rrrr}
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array} \rightB = \leftB \begin{array}{rrrr}
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+If we do these interchanges (in order) to $A$, the result is $PA$. Now apply the LU-algorithm to $PA$:
+\begin{table}[H]
+\begin{align*}
+PA = \leftB \begin{array}{rrrr}
+\tn{exa5a}{-1} & -1 & 1 & 2 \\
+2 & 1 & -3 & 6 \\
+0 & 0 & -1 & 2 \\
+\tn{exa5b}{0} & 1 & -1 & 4
+\end{array} \rightB &\rightarrow
+\leftB \begin{array}{rrrr}
+1 & 1 & -1 & -2 \\
+0 & \tn{exa5c}{-1} & -1 & 10 \\
+0 & 0 & -1 & 2 \\
+0 & \tn{exa5d}{1} & -1 & 4
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{rrrr}
+1 & 1 & -1 & -2 \\
+0 & 1 & 1 & -10 \\
+0 & 0 & \tn{exa5e}{-1} & 2 \\
+0 & 0 & \tn{exa5f}{-2} & 14
+\end{array} \rightB \\
+&\rightarrow \leftB \begin{array}{rrrr}
+1 & 1 & -1 & -2 \\
+0 & 1 & 1 & -10 \\
+0 & 0 & 1 & -2 \\
+0 & 0 & 0 & \tn{exa5g}{10}
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{rrrr}
+1 & 1 & -1 & -2 \\
+0 & 1 & 1 & -10 \\
+0 & 0 & 1 & -2 \\
+0 & 0 & 0 & 1
+\end{array} \rightB = U
+\end{align*}
+\end{table}
+\begin{tikzpicture}[remember picture, overlay]
+\draw[color=blue!30!gray,rounded corners]([xshift=-4pt, yshift=5pt]exa5a.north west) rectangle ([xshift=5pt, yshift=-5pt]exa5b.south east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-4pt, yshift=5pt]exa5c.north west) rectangle ([xshift=5pt, yshift=-5pt]exa5d.south east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-4pt, yshift=5pt]exa5e.north west) rectangle ([xshift=4pt, yshift=-5pt]exa5f.south east);
+\draw[color=blue!30!gray,rounded corners]([xshift=-4pt, yshift=5pt]exa5g.north west) rectangle ([xshift=4pt, yshift=-5pt]exa5g.south east);
+\end{tikzpicture}
+
+Hence, $PA = LU$, where $L = \leftB \begin{array}{rrrr}
+ -1 & 0 & 0 & 0 \\
+ 2 & -1 & 0 & 0 \\
+ 0 & 0 & -1 & 0 \\
+ 0 & 1 & -2 & 10
+ \end{array} \rightB$ and $U = \leftB \begin{array}{rrrr}
+1 & 1 & -1 & -2 \\
+0 & 1 & 1 & -10 \\
+0 & 0 & 1 & -2 \\
+0 & 0 & 0 & 1
+\end{array} \rightB$.
+\end{solution}
+\end{example}
+
+
+Theorem~\ref{thm:006646} provides an important general factorization theorem for matrices. If $A$ is any $m \times n$ matrix, it asserts that there exists a permutation matrix $P$ and an LU-factorization $PA = LU$. Moreover, it shows that either $P = I$ or $P = P_{s} \cdots P_{2}P_{1}$, where $P_{1}, P_{2}, \dots, P_{s}$ are the elementary permutation matrices arising in the reduction of $A$ to row-echelon form. Now observe that $P_{i}^{-1} = P_{i}$ for each $i$ (they are elementary row interchanges). Thus, $P^{-1} = P_{1}P_{2} \cdots P_{s}$, so the matrix $A$ can be factored as
+\begin{equation*}
+A = P^{-1}LU
+\end{equation*}
+where $P^{-1}$ is a permutation matrix, $L$ is lower triangular and invertible, and $U$ is a row-echelon matrix. This is called a \textbf{PLU-factorization}\index{PLU-factorization} of $A$.
+
+The LU-factorization in Theorem~\ref{thm:006566} is not unique. For example,
+\begin{equation*}
+\leftB \begin{array}{rr}
+1 & 0 \\
+3 & 2
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & -2 & 3 \\
+0 & 0 & 0
+\end{array} \rightB = \leftB \begin{array}{rr}
+1 & 0 \\
+3 & 1
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & -2 & 3 \\
+0 & 0 & 0
+\end{array} \rightB
+\end{equation*}
+However, it is necessary here that the row-echelon matrix has a row of zeros. Recall that the $\func{rank}$ of a matrix $A$ is the number of nonzero rows in any row-echelon matrix $U$ to which $A$ can be carried by row operations. Thus, if $A$ is $m \times n$, the matrix $U$ has no row of zeros if and only if $A$ has $\func{rank }m$.
+
+\begin{theorem}{}{006697}
+Let $A$ be an $m \times n$ matrix that has an LU-factorization
+\begin{equation*}
+A = LU
+\end{equation*}
+If $A$ has $\func{rank }m$ (that is, $U$ has no row of zeros), then $L$ and $U$ are uniquely determined by $A$.
+\end{theorem}
+
+\begin{proof}
+Suppose $A = MV$ is another LU-factorization of $A$, so $M$ is lower triangular and invertible and $V$ is row-echelon. Hence $LU = MV$, and we must show that $L = M$ and $U = V$. We write $N = M^{-1}L$. Then $N$ is lower triangular and invertible (Lemma~\ref{lem:006547}) and $NU = V$, so it suffices to prove that $N = I$. If $N$ is $m \times m$, we use induction on $m$. The case $m = 1$ is left to the reader. If $m > 1$, observe first that column 1 of $V$ is $N$ times column 1 of $U$. Thus if either column is zero, so is the other ($N$ is invertible). Hence, we can assume (by deleting zero columns) that the $(1, 1)$-entry is $1$ in both $U$ and $V$.
+
+Now we write $N = \leftB \begin{array}{cc}
+a & 0 \\
+X & N_{1}
+\end{array} \rightB, U = \leftB \begin{array}{cc}
+1 & Y \\
+0 & U_{1}
+\end{array} \rightB$,
+ and $V = \leftB \begin{array}{cc}
+ 1 & Z \\
+ 0 & V_{1}
+ \end{array} \rightB$
+ in block form. Then $NU = V$ becomes $\leftB \begin{array}{cc}
+a & aY \\
+X & XY + N_{1}U_{1}
+\end{array} \rightB = \leftB \begin{array}{cc}
+1 & Z \\
+0 & V_{1}
+\end{array} \rightB$.
+ Hence $a = 1$, $Y = Z$, $X = 0$, and $N_{1}U_{1} = V_{1}$. But $N_{1}U_{1} = V_{1}$ implies $N_{1} = I$ by induction, whence $N = I$.
+\end{proof}
+
+If $A$ is an $m \times m$ invertible matrix, then $A$ has $\func{rank }m$ by Theorem~\ref{thm:004553}. Hence, we get the following important special case of Theorem~\ref{thm:006697}.
+
+\begin{corollary}{}{006719}
+If an invertible matrix $A$ has an LU-factorization $A = LU$, then $L$ and $U$ are uniquely determined by $A$.\index{invertible matrix!LU-factorization}
+\end{corollary}
+
+\noindent Of course, in this case $U$ is an upper triangular matrix with $1$s along the main diagonal.
+
+\subsection*{Proofs of Theorems}
+
+\begin{proof}[Proof of the LU-Algorithm]\index{LU-algorithm}
+If $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{r}$ are columns of lengths $m, m - 1, \dots, m - r + 1$, respectively, write $L^{(m)}(\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{r})$ for the lower triangular $m \times m$ matrix obtained from $I_{m}$ by placing $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{r}$ at the bottom of the first $r$ columns of $I_{m}$.
+
+Proceed by induction on $n$. If $A = 0$ or $n = 1$, it is left to the reader. If $n > 1$, let $\vect{c}_{1}$ denote the leading column of $A$ and let $\vect{k}_{1}$ denote the first column of the $m \times m$ identity matrix. There exist elementary matrices $E_{1}, \dots, E_{k}$ such that, in block form,
+\begin{equation*}
+(E_{k} \cdots E_{2}E_{1})A = \leftB \begin{array}{c|c|c}
+\multirow{2}{*}{$0$} & \multirow{2}{*}{$\vect{k}_1$} & X_1 \\\cline{3-3}
+& & A_1
+\end{array}\rightB \quad \mbox{ where } (E_{k} \cdots E_{2}E_{1})\vect{c}_{1} = \vect{k}_{1}
+\end{equation*}
+Moreover, each $E_{j}$ can be taken to be lower triangular (by assumption). Write
+\begin{equation*}
+G = (E_{k} \cdots E_{2}E_{1})^{-1} = E_{1}^{-1}E_{2}^{-1} \cdots E_{k}^{-1}
+\end{equation*}
+Then $G$ is lower triangular, and $G\vect{k}_{1} = \vect{c}_{1}$. Also, each $E_{j}$ (and so each $E_{j}^{-1}$) is the result of either multiplying row 1 of $I_{m}$ by a constant or adding a multiple of row 1 to another row. Hence,
+\begin{equation*}
+G = (E_{1}^{-1}E_{2}^{-1} \cdots E_{k}^{-1})I_{m} = \leftB \begin{array}{c|c}
+\multirow{2}{*}{$\vect{c}_{1}$} & 0 \\\cline{2-2}
+& I_{m-1}
+\end{array}\rightB
+\end{equation*}
+in block form. Now, by induction, let $A_{1} = L_{1}U_{1}$ be an LU-factorization of $A_{1}$, where $L_{1} = L^{(m-1)} \leftB \vect{c}_{2}, \dots, \vect{c}_{r} \rightB$ and $U_{1}$ is row-echelon. Then block multiplication gives
+\begin{equation*}
+G^{-1}A = \leftB \begin{array}{c|c|c}
+\multirow{2}{*}{$0$} & \multirow{2}{*}{$\vect{k}_1$} & X_1 \\\cline{3-3}
+& & L_{1}U_{1}
+\end{array}\rightB = \leftB \begin{array}{c|c}
+1 & 0 \\
+\hline
+0 & L_{1}
+\end{array} \rightB \leftB \begin{array}{c|c|c}
+0 & 1 & X_{1} \\
+\hline
+0 & 0 & U_{1}
+\end{array} \rightB
+\end{equation*}
+Hence $A = LU$, where $U = \leftB \begin{array}{c|c|c}
+0 & 1 & X_{1} \\
+\hline
+0 & 0 & U_{1}
+\end{array} \rightB$
+ is row-echelon and
+\begin{equation*}
+L = \leftB \begin{array}{c|c}
+\multirow{2}{*}{$\vect{c}_{1}$} & 0 \\\cline{2-2}
+& I_{m-1}
+\end{array}\rightB \leftB \begin{array}{c|c}
+1 & 0 \\
+\hline
+0 & L_{1}
+\end{array} \rightB = \leftB \begin{array}{c|c}
+\multirow{2}{*}{$\vect{c}_{1}$} & 0 \\\cline{2-2}
+& L
+\end{array}\rightB = L^{(m)} \leftB \vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{r} \rightB
+\end{equation*}
+This completes the proof.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:006646}]
+Let $A$ be a nonzero $m \times n$ matrix and let $\vect{k}_{j}$ denote column $j$ of $I_{m}$. There is a permutation matrix $P_{1}$ (where either $P_{1}$ is elementary or $P_{1} = I_{m}$) such that the first nonzero column $\vect{c}_{1}$ of $P_{1}A$ has a nonzero entry on top. Hence, as in the LU-algorithm,
+\begin{equation*}
+L^{(m)} \leftB \vect{c}_{1} \rightB^{-1} \cdot P_{1} \cdot A = \leftB \begin{array}{c|c|c}
+0 & 1 & X_{1} \\
+\hline
+0 & 0 & A_{1}
+\end{array} \rightB
+\end{equation*}
+in block form. Then let $P_{2}$ be a permutation matrix (either elementary or $I_{m}$) such that
+\begin{equation*}
+P_{2} \cdot L^{(m)} \leftB \vect{c}_{1} \rightB^{-1} \cdot P_{1} \cdot A = \leftB \begin{array}{c|c|c}
+0 & 1 & X_{1} \\
+\hline
+0 & 0 & A_{1}^\prime
+\end{array} \rightB
+\end{equation*}
+and the first nonzero column $\vect{c}_{2}$ of $A^\prime_{1}$ has a nonzero entry on top. Thus,
+\begin{equation*}
+L^{(m)} \leftB \vect{k}_{1}, \vect{c}_{2} \rightB^{-1} \cdot P_{2} \cdot L^{(m)} \leftB \vect{c}_{1} \rightB^{-1} \cdot P_{1} \cdot A = \leftB \begin{array}{c|c|c}
+0 & 1 & X_{1} \\
+\hline
+0 & 0 & \begin{array}{c|c|c}
+0 & 1 & X_{2} \\
+\hline
+0 & 0 & A_{2}
+\end{array}
+\end{array} \rightB
+\end{equation*}
+in block form. Continue to obtain elementary permutation matrices $P_{1}, P_{2}, \dots, P_{r}$ and columns $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{r}$ of lengths $m, m - 1, \dots$, such that
+\begin{equation*}
+(L_{r}P_{r}L_{r-1}P_{r-1} \cdots L_{2}P_{2}L_{1}P_{1})A = U
+\end{equation*}
+where $U$ is a row-echelon matrix and $L_{j} = L^{(m)} \leftB \vect{k}_{1}, \dots, \vect{k}_{j-1}, \vect{c}_{j} \rightB^{-1}$ for each $j$, where the notation means the first $j - 1$ columns are those of $I_{m}$. It is not hard to verify that each $L_{j}$ has the form $L_{j} = L^{(m)} \leftB \vect{k}_{1}, \dots, \vect{k}_{j-1}, \vect{c}^\prime_{j} \rightB$ where $\vect{c}^\prime_{j}$ is a column of length $m - j + 1$. We now claim that each permutation matrix $P_{k}$ can be ``moved past'' each matrix $L_{j}$ to the right of it, in the sense that
+\begin{equation*}
+P_{k}L_{j} = L_{j}^\prime P_{k}
+\end{equation*}
+where $L^\prime_{j} = L^{(m)} \leftB \vect{k}_{1}, \dots, \vect{k}_{j-1}, \vect{c}^\dprime_{j} \rightB$ for some column $\vect{c}^\dprime_{j}$ of length $m - j + 1$. Given that this is true, we obtain a factorization of the form
+\begin{equation*}
+(L_{r}L_{r-1}^\prime \cdots L_{2}^\prime L_{1}^\prime)(P_{r}P_{r-1} \cdots P_{2}P_{1})A = U
+\end{equation*}
+If we write $P = P_{r}P_{r-1} \cdots P_{2}P_{1}$, this shows that $PA$ has an LU-factorization because $L_{r}L^\prime_{r-1} \cdots L^\prime_{2}L^\prime_{1}$ is lower triangular and invertible. All that remains is to prove the following rather technical result.
+\end{proof}
+
+\begin{lemma}{}{006829}
+Let $P_{k}$ result from interchanging row $k$ of $I_{m}$ with a row below it. If $j < k$, let $c_{j}$ be a column of length $m - j + 1$. Then there is another column $\vect{c}_{j}^\prime$ of length $m - j + 1$ such that
+\begin{equation*}
+P_{k} \cdot L^{(m)} \leftB \vect{k}_{1}, \dots, \vect{k}_{j-1}, \vect{c}_{j} \rightB = L^{(m)} \leftB \vect{k}_{1}, \dots, \vect{k}_{j-1}, \vect{c}_{j}^\prime \rightB \cdot P_{k}
+\end{equation*}
+\end{lemma}
+
+\noindent The proof is left as Exercise~\ref{ex:ex2_7_11}. 
+
+\section*{Exercises for \ref{sec:2_7}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:2_7}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Find an LU-factorization of the following matrices.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\leftB \begin{array}{rrrrr}
+2 & 6 & -2 & 0 & 2 \\
+3 & 9 & -3 & 3 & 1 \\
+-1 & -3 & 1 & -3 & 1
+\end{array} \rightB$
+
+\item $\leftB \begin{array}{rrr}
+2 & 4 & 2 \\
+1 & -1 & 3 \\
+-1 & 7 & -7
+\end{array} \rightB$
+
+\item $\leftB \begin{array}{rrrrr}
+2 & 6 & -2 & 0 & 2 \\
+1 & 5 & -1 & 2 & 5 \\
+3 & 7 & -3 & -2 & 5 \\
+-1 & -1 & 1 & 2 & 3 
+\end{array} \rightB$
+
+\item $\leftB \begin{array}{rrrrr}
+-1 & -3 & 1 & 0 & -1 \\
+1 & 4 & 1 & 1 & 1 \\
+1 & 2 & -3 & -1 & 1 \\
+0 & -2 & -4 & -2 & 0 
+\end{array} \rightB$
+
+\item $\leftB \begin{array}{rrrrrr}
+2 & 2 & 4 & 6 & 0 & 2 \\
+1 & -1 & 2 & 1 & 3 & 1 \\
+-2 & 2 & -4 & -1 & 1 & 6 \\
+0 & 2 & 0 & 3 & 4 & 8 \\
+-2 & 4 & -4 & 1 & -2 & 6 
+\end{array} \rightB$
+
+\item $\leftB \begin{array}{rrrrr}
+2 & 2 & -2 & 4 & 2 \\
+1 & -1 & 0 & 2 & 1 \\
+3 & 1 & -2 & 6 & 3 \\
+1 & 3 & -2 & 2 & 1 
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\leftB \begin{array}{rrr}
+2 & 0 & 0 \\
+1 & -3 & 0 \\
+-1 & 9 & 1
+\end{array} \rightB \leftB \def\arraystretch{1.5}\begin{array}{rrr}
+1 & 2 & 1 \\
+0 & 1 & -\frac{2}{3} \\
+0 & 0 & 0
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $\leftB \begin{array}{rrrr}
+-1 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 \\
+1 & -1 & 1 & 0 \\
+0 & -2 & 0 & 1
+\end{array} \rightB \leftB \begin{array}{rrrrr}
+1 & 3 & -1 & 0 & 1 \\
+0 & 1 & 2 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item $\leftB \begin{array}{rrrr}
+2 & 0 & 0 & 0 \\
+1 & -2 & 0 & 0 \\
+3 & -2 & 1 & 0 \\
+0 & 2 & 0 & 1
+\end{array} \rightB \leftB \def\arraystretch{1.5}\begin{array}{rrrrr}
+1 & 1 & -1 & 2 & 1 \\
+0 & 1 & -\frac{1}{2} & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Find a permutation matrix $P$ and an LU-factorization of $PA$ if $A$ is:
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rrr}
+0 & 0 & 2 \\
+0 & -1 & 4 \\
+3 & 5 & 1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+0 & -1 & 2 \\
+0 & 0 & 4 \\
+-1 & 2 & 1
+\end{array} \rightB$
+\exitem* $\leftB \begin{array}{rrrrr}
+0 & -1 & 2 & 1 & 3\\
+-1 & 1 & 3 & 1 & 4 \\
+1 & -1 & -3 & 6 & 2 \\
+2 & -2 & -4 & 1 & 0
+\end{array} \rightB$
+\exitem* $\leftB \begin{array}{rrrr}
+-1 & -2 & 3 & 0 \\
+2 & 4 & -6 & 5 \\
+1 & 1 & -1 & 3 \\
+2 & 5 & -10 & 1
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol} 
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $P = \leftB \begin{array}{rrr}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{array} \rightB$ \\ $PA = \leftB \begin{array}{rrr}
+-1 & 2 & 1 \\
+0 & -1 & 2 \\
+0 & 0 & 4
+\end{array} \rightB$ \\ ${} = \leftB \begin{array}{rrr}
+-1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & 4
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & -2 & -1 \\
+0 & 1 & 2 \\
+0 & 0 & 1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $P = \leftB \begin{array}{rrrr}
+1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 1 & 0 & 0
+\end{array} \rightB$ \\ $PA = \leftB \begin{array}{rrrr}
+-1 & -2 & 3 & 0 \\
+1 & 1 & -1 & 3 \\
+2 & 5 & -10 & 1 \\
+2 & 4 & -6 & 5
+\end{array} \rightB$ \\ ${} = \leftB \begin{array}{rrrr}
+-1 & 0 & 0 & 0 \\
+1 & -1 & 0 & 0 \\
+2 & 1 & -2 & 0 \\
+2 & 0 & 0 & 5
+\end{array} \rightB \leftB \begin{array}{rrrr}
+1 & 2 & -3 & 0 \\
+0 & 1 & -2 & -3 \\
+0 & 0 & 1 & -2 \\
+0 & 0 & 0 & 1
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case use the given LU-decomposition of $A$ to solve the system $A\vect{x} = \vect{b}$ by finding $\vect{y}$ such that $L\vect{y} = \vect{b}$, and then $\vect{x}$ such that $U\vect{x} = \vect{y}$:
+
+\begin{enumerate}[leftmargin=1em,label={\alph*.}]
+\item $A = \leftB \begin{array}{rrr}
+2 & 0 & 0 \\
+0 & -1 & 0 \\
+1 & 1 & 3
+\end{array} \rightB \leftB \begin{array}{rrrr}
+1 & 0 & 0 & 1\\
+0 & 0 & 1 & 2 \\
+0 & 0 & 0 & 1
+\end{array} \rightB$; \\ $\vect{b} = \leftB \begin{array}{r}
+1 \\
+-1 \\
+2
+\end{array} \rightB$
+
+\item $A = \leftB \begin{array}{rrr}
+2 & 0 & 0 \\
+1 & 3 & 0 \\
+-1 & 2 & 1
+\end{array} \rightB \leftB \begin{array}{rrrr}
+1 & 1 & 0 & -1\\
+0 & 1 & 0 & 1 \\
+0 & 0 & 0 & 0
+\end{array} \rightB$; \\ $ \vect{b} = \leftB \begin{array}{r}
+-2 \\
+-1 \\
+1
+\end{array} \rightB$
+
+\item {\footnotesize $A = \leftB \begin{array}{rrrr}
+-2 & 0 & 0 & 0 \\
+1 & -1 & 0 & 0 \\
+-1 & 0 & 2 & 0 \\
+0 & 1 & 0 & 2
+\end{array} \rightB \leftB \def\arraystretch{1.5}\begin{array}{rrrr}
+1 & -1 & 2 & 1 \\
+0 & 1 & 1 & -4 \\
+0 & 0 & 1 & -\frac{1}{2} \\
+0 & 0 & 0 & 1
+\end{array} \rightB$; \\ $\vect{b} = \leftB \begin{array}{r}
+1 \\
+-1 \\
+2 \\
+0
+\end{array} \rightB$}
+
+\item {\footnotesize $A = \leftB \begin{array}{rrrr}
+2 & 0 & 0 & 0 \\
+1 & -1 & 0 & 0 \\
+-1 & 1 & 2 & 0 \\
+3 & 0 & 1 & -1
+\end{array} \rightB \leftB \begin{array}{rrrr}
+1 & -1 & 0 & 1 \\
+0 & 1 & -2 & -1 \\
+0 & 0 & 1 & 1 \\
+0 & 0 & 0 & 0
+\end{array} \rightB$; \\ $\vect{b} = \leftB \begin{array}{r}
+4 \\
+-6 \\
+4 \\
+5
+\end{array} \rightB$}
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\vect{y} = \leftB \begin{array}{r}
+-1 \\
+0 \\
+0
+\end{array} \rightB \vect{x} = \leftB \begin{array}{c}
+-1 + 2t \\
+-t \\
+s \\
+t
+\end{array} \rightB s$
+ and $t$ arbitrary
+
+\setcounter{enumi}{3}
+\item $\vect{y} = \leftB \begin{array}{r}
+2 \\
+8 \\
+-1 \\
+0
+\end{array} \rightB \vect{x} = \leftB \begin{array}{c}
+8 - 2t \\
+6 - t \\
+-1 - t \\
+t
+\end{array} \rightB t$
+ arbitrary
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex2_7_4}
+Show that $\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB = LU$
+ is impossible where $L$ is lower triangular and $U$ is upper triangular.
+\end{ex}
+
+\begin{ex}
+Show that we can accomplish any row interchange by using only row operations of other types.
+
+\begin{sol}
+$\leftB \begin{array}{c}
+R_{1} \\
+R_{2}
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{c}
+R_{1} + R_{2} \\
+R_{2}
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{c}
+R_{1} + R_{2} \\
+-R_{1}
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{c}
+R_{2} \\
+-R_{1}
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{c}
+R_{2} \\
+R_{1}
+\end{array} \rightB$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Let $L$ and $L_{1}$ be invertible lower triangular matrices, and let $U$ and $U_{1}$ be invertible upper triangular matrices. Show that $LU = L_{1}U_{1}$ if and only if there exists an invertible diagonal matrix $D$ such that $L_{1} = LD$ and $U_{1} = D^{-1}U$. [\textit{Hint}: Scrutinize $L^{-1}L_{1} = UU_{1}^{-1}$.]
+
+\item Use part (a) to prove Theorem~\ref{thm:006697} in the case that $A$ is invertible.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Let $A = LU = L_{1}U_{1}$ be LU-factorizations of the invertible matrix $A$. Then $U$ and $U_{1}$ have no row of zeros and so (being row-echelon) are upper triangular with $1$'s on the main diagonal. Thus, using \textbf{(a.)}, the diagonal matrix $D = UU_{1}^{-1}$ has $1$'s on the main diagonal. Thus $D = I$, $U = U_{1}$, and $L = L_{1}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex2_7_7}
+Prove Lemma~\ref{lem:006547}(1). [\textit{Hint}: Use block multiplication and induction.]
+
+\begin{sol}
+If $A = \leftB \begin{array}{cc}
+a & 0 \\
+X & A_{1}
+\end{array} \rightB$
+ and $B = \leftB \begin{array}{cc}
+ b & 0 \\
+ Y & B_{1}
+ \end{array} \rightB$
+ in block form, then $AB = \leftB \begin{array}{cc}
+ ab & 0 \\
+ Xb + A_{1}Y & A_{1}B_{1}
+ \end{array} \rightB$,
+ and $A_{1}B_{1}$ is lower triangular by induction.
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex2_7_8}
+Prove Lemma~\ref{lem:006547}(2). [\textit{Hint}: Use block multiplication and induction.]
+\end{ex}
+
+\begin{ex}
+A triangular matrix is called \textbf{unit triangular}\index{unit triangular} if it is square and every main diagonal element is a $1$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ can be carried by the gaussian algorithm to row-echelon form using no row interchanges, show that $A = LU$ where $L$ is unit lower triangular and $U$ is upper triangular.
+
+\item Show that the factorization in (a.) is unique.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Let $A = LU = L_{1}U_{1}$ be two such factorizations. Then $UU_{1}^{-1} = L^{-1}L_{1}$; write this matrix as $D = UU_{1}^{-1} = L^{-1}L_{1}$. Then $D$ is lower triangular (apply Lemma~\ref{lem:006547} to $D = L^{-1}L_{1}$); and $D$ is also upper triangular (consider $UU_{1}^{-1}$). Hence $D$ is diagonal, and so $D = I$ because $L^{-1}$ and $L_{1}$ are unit triangular. Since $A = LU$; this completes the proof.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+	Let $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{r}$ be columns of lengths $m, m - 1, \dots, m - r + 1$. If $\vect{k}_{j}$ denotes column $j$ of $I_{m}$, show that $L^{(m)} \leftB \vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{r} \rightB =$ $L^{(m)} \leftB \vect{c}_{1} \rightB L^{(m)} \leftB \vect{k}_{1}, \vect{c}_{2} \rightB L^{(m)} \leftB \vect{k}_{1}, \vect{k}_{2}, \vect{c}_{3} \rightB \cdots$ \\ $L^{(m)} \leftB \vect{k}_{1}, \vect{k}_{2}, \dots, \vect{k}_{r-1}, \vect{c}_{r} \rightB$. The notation is as in the proof of Theorem~\ref{thm:006646}. [\textit{Hint}: Use induction on $m$ and block multiplication.]
+\end{ex}
+
+\begin{ex}\label{ex:ex2_7_11}
+Prove Lemma~\ref{lem:006829}. [\textit{Hint}: $P_{k}^{-1} = P_{k}$. Write $P_{k} = \leftB \begin{array}{cc}
+I_{k} & 0 \\
+0 & P_{0}
+\end{array} \rightB$
+ in block form where $P_{0}$ is an $(m - k) \times (m - k)$ permutation matrix.]
+\end{ex}
+\end{multicols}

@@ -1,0 +1,62 @@
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[view/h=120,
+disabledatascaling, anchor=origin,
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$},
+    zlabel={$z$},
+    axis lines=center,
+    axis on top,
+    xtick=\empty,
+    ytick=\empty,
+    ztick=\empty,
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    zticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=north,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+   every axis z label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+	clip mode = individual,
+    samples=100, 
+    xmin=0, 
+    xmax=5, 
+    ymin=0, 
+    ymax=5,
+    zmin=0,
+    zmax=5]
+    
+\def \xCoord {2.5}
+\def \yCoord {3}
+\coordinate (ptP) at (\xCoord, \yCoord, 5);
+\coordinate (ptP0) at (\xCoord, \yCoord, 0);
+
+\draw [dkgreenvect, thick, -latex] (0, 0, 0)--(ptP) node [midway] (ptMidV) {};
+\draw [dkbluevect, thick] (ptP)--(ptP0);
+\draw [dkbluevect, thick, dashed] (\xCoord, 0, 0) -- (ptP0) -- (0, \yCoord, 0);
+
+\fill (ptP) circle (2pt);
+
+%labels
+\node [left] at (0, 0, 0) {\scriptsize $O$};
+\node [right] at (ptP) {\scriptsize $P(x, y, z)$};
+\node [below right] at (ptP0) {\scriptsize $P_0(x, y, 0)$};
+\draw [dkbluevect, thick] (ptMidV.center) to [bend right] ++(0, 1.5, 0) node [right, text=black]
+{\scriptsize $\vect{v} = \leftB\begin{array}{c}
+	x \\
+	y \\
+	z
+	\end{array}\rightB$};
+
+\end{axis}
+\end{tikzpicture}

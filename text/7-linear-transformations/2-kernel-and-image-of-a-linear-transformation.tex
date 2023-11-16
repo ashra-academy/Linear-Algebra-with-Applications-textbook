@@ -1,0 +1,832 @@
+\section{Kernel and Image of a Linear Transformation}
+\label{sec:7_2}
+
+This section is devoted to two important subspaces associated with a linear transformation $T : V \to W$.
+
+
+\begin{definition}{Kernel and Image of a Linear Transformation}{021312}
+The \textbf{kernel}\index{kernel}\index{linear transformations!kernel}\index{subspaces!kernel} of $T$ (denoted $\func{ker }T$) and the \textbf{image}\index{image!of linear transformations}\index{linear transformations!image}\index{subspaces!image} of $T$ (denoted $\func{im }T$ or $T(V)$) are defined by
+\begin{align*}
+\func{ker }T &= \{\vect{v} \mbox{ in } V \mid T(\vect{v}) = \vect{0}\} \\
+\func{im }T &= \{T(\vect{v}) \mid \vect{v} \mbox{ in } V\} = T(V)
+\end{align*} 
+\end{definition}
+
+\begin{wrapfigure}[6]{l}{5cm}
+	\centering
+	\input{7-linear-transformations/figures/2-kernel-and-image-of-a-linear-transformation/example7.2.1}
+\end{wrapfigure}
+
+\noindent The kernel of $T$ is often called the \textbf{nullspace}\index{nullspace}\index{linear transformations!nullspace} of $T$ because it consists of all vectors $\vect{v}$ in $V$ satisfying the \textit{condition} that $T(\vect{v}) = \vect{0}$. The image of $T$ is often called the \textbf{range}\index{range}\index{linear transformations!range} of $T$ and consists of all vectors $\vect{w}$ in $W$ of the \textit{form} $\vect{w} = T(\vect{v})$ for some $\vect{v}$ in $V$. These subspaces are depicted in the diagrams.
+
+\vspace*{-1em}
+\hfill
+\begin{example}{}{021319}
+Let $T_{A} : \RR^n \to \RR^m$ be the linear transformation induced by the $m \times n$ matrix $A$, that is $T_{A}(\vect{x}) = A\vect{x}$ for all columns $\vect{x}$ in $\RR^n$. Then
+\begin{align*}
+&\func{ker }T_{A} = \{\vect{x} \mid A\vect{x} = \vect{0}\} = \func{null }A \quad \mbox{ and } \\
+&\func{im }T_{A} = \{A\vect{x} \mid \vect{x} \mbox{ in } \RR^n\} = \func{im }A
+\end{align*}
+\end{example}
+
+Hence the following theorem extends Example~\ref{exa:013498}.
+
+\newpage
+\begin{theorem}{}{021329}
+Let $T : V \to W$ be a linear transformation.
+
+
+\begin{enumerate}
+\item $\func{ker }T$ is a subspace of $V$.
+
+\item $\func{im }T$ is a subspace of $W$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The fact that $T(\vect{0}) = \vect{0}$ shows that $\func{ker }T$ and $\func{im }T$ contain the zero vector of $V$ and $W$ respectively.
+
+
+\begin{enumerate}
+\item If $\vect{v}$ and $\vect{v}_{1}$ lie in $\func{ker }T$, then $T(\vect{v}) = \vect{0} = T(\vect{v}_{1})$, so
+\begin{align*}
+T(\vect{v} + \vect{v}_1) &= T(\vect{v}) + T(\vect{v}_1) = \vect{0} + \vect{0} = \vect{0} \\
+T(r\vect{v}) &= rT(\vect{v}) = r\vect{0} = \vect{0} \quad \mbox{ for all } r \mbox{ in } \RR
+\end{align*}
+
+Hence $\vect{v} + \vect{v}_{1}$ and $r\vect{v}$ lie in $\func{ker }T$ (they satisfy the required condition), so $\func{ker }T$ is a subspace of $V$ by the subspace test (Theorem~\ref{thm:018065}).
+
+\item If $\vect{w}$ and $\vect{w}_{1}$ lie in $\func{im }T$, write $\vect{w} = T(\vect{v})$ and $\vect{w}_{1} = T(\vect{v}_{1})$ where $\vect{v}, \vect{v}_{1} \in V$. Then
+\begin{align*}
+\vect{w} + \vect{w}_1 &= T(\vect{v}) + T(\vect{v}_1) = T(\vect{v} + \vect{v}_1) \\
+r\vect{w} &= rT(\vect{v}) = T(r\vect{v}) \quad \mbox{ for all } r \mbox{ in } \RR
+\end{align*}
+Hence $\vect{w} + \vect{w}_{1}$ and $r\vect{w}$ both lie in $\func{im }T$ (they have the required form), so $\func{im }T$ is a subspace of $W$.
+\end{enumerate}
+\vspace*{-1em}\end{proof}
+
+\noindent Given a linear transformation $T : V \to W$:
+\begin{quotation}
+
+$\func{dim}(\func{ker }T)$ is called the $\func{\textbf{nullity}}$\index{nullity}\index{linear transformations!nullity} of $T$ and denoted as $\func{nullity}(T)$
+
+
+$\func{dim}(\func{im }T)$ is called the $\func{\textbf{rank}}$\index{rank!linear transformation}\index{linear transformations!rank} of $T$ and denoted as $\func{rank}(T)$
+
+\end{quotation}
+The $\func{rank}$ of a matrix $A$ was defined earlier to be the dimension of $\func{col }A$, the column space of $A$. The two usages of the word $\func{\textit{rank}}$ are consistent in the following sense. Recall the definition of $T_{A}$ in Example~\ref{exa:021319}.\index{rank!matrix}
+
+
+\begin{example}{}{021363}
+Given an $m \times n$ matrix $A$, show that $\func{im }T_{A} = \func{col }A$, so $\func{rank }T_{A} = \func{rank }A$.
+
+
+\begin{solution}
+  Write $A = \leftB \begin{array}{ccc}
+\vect{c}_{1} & \cdots & \vect{c}_{n}
+\end{array} \rightB$ in terms of its columns. Then
+\begin{equation*}
+\func{im }T_{A} = \{A\vect{x} \mid \vect{x} \mbox{ in } \RR^n\} = \{x_1\vect{c}_1 + \cdots + x_n\vect{c}_n \mid x_i \mbox{ in } \RR \}
+\end{equation*}
+using Definition~\ref{def:002668}. Hence $\func{im }T_{A}$ is the column space of $A$; the rest follows.
+\end{solution}
+\end{example}
+
+Often, a useful way to study a subspace of a vector space is to exhibit it as the kernel or image of a linear transformation. Here is an example.
+
+
+\begin{example}{}{021376}
+Define a transformation $P : \vectspace{M}_{nn} \to \vectspace{M}_{nn}$ by $P(A) = A - A^{T}$ for all $A$ in $\vectspace{M}_{nn}$. Show that $P$ is linear and that:
+\begin{enumerate}[label={\alph*.}]
+\item $\func{ker }P$ consists of all symmetric matrices.
+
+\item $\func{im }P$ consists of all skew-symmetric matrices.
+
+\end{enumerate}
+
+\begin{solution}
+  The verification that $P$ is linear is left to the reader. To prove part (a), note that a matrix $A$ lies in $\func{ker }P$ just when $0 = P(A) = A - A^{T}$, and this occurs if and only if $A = A^{T}$---that is, $A$ is symmetric. Turning to part (b), the space $\func{im }P$ consists of all matrices $P(A)$, $A$ in $\vectspace{M}_{nn}$. Every such matrix is skew-symmetric because
+\begin{equation*}
+P(A)^T = (A - A^T)^T = A^T - A = -P(A)
+\end{equation*}
+On the other hand, if $S$ is skew-symmetric (that is, $S^{T} = -S$), then $S$ lies in $\func{im }P$. In fact,
+\begin{equation*}
+P\leftB \frac{1}{2}S\rightB = \frac{1}{2}S - \leftB \frac{1}{2}S\rightB^T = \frac{1}{2}(S - S^T) = \frac{1}{2}(S + S) = S
+\end{equation*}
+\end{solution}
+\end{example}
+
+\subsection*{One-to-One and Onto Transformations}
+
+
+\begin{definition}{One-to-one and Onto Linear Transformations}{021400}
+Let $T : V \to W$ be a linear transformation.
+
+
+\begin{enumerate}
+\item $T$ is said to be \textbf{onto}\index{onto transformations}\index{linear transformations!onto transformations} if $\func{im }T = W$.
+
+\item $T$ is said to be \textbf{one-to-one}\index{one-to-one transformations}\index{linear transformations!one-to-one transformations} if $T(\vect{v}) = T(\vect{v}_{1})$ implies $\vect{v} = \vect{v}_{1}$.
+
+\end{enumerate}
+\end{definition}
+
+A vector $\vect{w}$ in $W$ is said to be \textbf{hit}\index{hit}\index{linear transformations!hit} by $T$ if $\vect{w} = T(\vect{v})$ for some $\vect{v}$ in $V$. Then $T$ is onto if every vector in $W$ is hit at least once, and $T$ is one-to-one if no element of $W$ gets hit twice. Clearly the onto transformations $T$ are those for which $\func{im }T = W$ is as large a subspace of $W$ as possible. By contrast, Theorem~\ref{thm:021411} shows that the one-to-one transformations $T$ are the ones with $\func{ker }T$ as \textit{small} a subspace of $V$ as possible.
+
+
+\begin{theorem}{}{021411}
+If $T : V \to W$ is a linear transformation, then $T$ is one-to-one if and only if $\func{ker }T = \{\vect{0}\}$.
+\end{theorem}
+
+\begin{proof}
+If $T$ is one-to-one, let $\vect{v}$ be any vector in $\func{ker }T$. Then $T(\vect{v}) = \vect{0}$, so $T(\vect{v}) = T(\vect{0})$. Hence $\vect{v} = \vect{0}$ because $T$ is one-to-one. Hence $\func{ker }T = \{\vect{0}\}$.
+
+
+Conversely, assume that $\func{ker }T = \{\vect{0}\}$ and let $T(\vect{v}) = T(\vect{v}_{1})$ with $\vect{v}$ and $\vect{v}_{1}$ in $V$. Then \newline $T(\vect{v} - \vect{v}_{1}) = T(\vect{v}) - T(\vect{v}_{1}) = \vect{0}$, so $\vect{v} - \vect{v}_{1}$ lies in $\func{ker }T = \{\vect{0}\}$. This means that $\vect{v} - \vect{v}_{1} = \vect{0}$, so $\vect{v} = \vect{v}_{1}$, proving that $T$ is one-to-one.
+\end{proof}
+
+\begin{example}{}{021425}
+The identity transformation $1_{V} : V \to V$ is both one-to-one and onto for any vector space $V$.
+\end{example}
+
+\begin{example}{}{021429}
+Consider the linear transformations
+\begin{align*}
+S& : \RR^3 \to \RR^2 \quad \mbox{given by } S(x, y, z) = (x + y, x - y) \\
+T& : \RR^2 \to \RR^3 \quad \mbox{given by } T(x, y) = (x + y, x - y, x) 
+\end{align*}
+
+Show that $T$ is one-to-one but not onto, whereas $S$ is onto but not one-to-one.
+
+
+\begin{solution}
+  The verification that they are linear is omitted. $T$ is one-to-one because
+\begin{equation*}
+\func{ker }T = \{(x, y) \mid x + y = x - y = x = 0\} = \{(0, 0)\}
+\end{equation*}
+However, it is not onto. For example $(0, 0, 1)$ does not lie in $\func{im }T$ because if $(0, 0, 1) = (x + y, x - y, x)$ for some $x$ and $y$, then $x + y = 0 = x - y$ and $x = 1$, an impossibility. Turning to $S$, it is not one-to-one by Theorem~\ref{thm:021411} because $(0, 0, 1)$ lies in $\func{ker }S$. But every element $(s, t)$ in $\RR^2$ lies in $\func{im }S$ because $(s, t) = (x + y, x - y) = S(x, y, z)$ for some $x$, $y$, and $z$ (in fact, $x = \frac{1}{2}(s + t)$, $y = \frac{1}{2}(s - t)$, and $z = 0$). Hence $S$ is onto.
+\end{solution}
+\end{example}
+
+\begin{example}{}{021440}
+Let $U$ be an invertible $m \times m$ matrix and define
+\begin{equation*}
+T : \vectspace{M}_{mn} \to \vectspace{M}_{mn} \quad \mbox{by} \quad T(X) = UX \mbox{ for all } X \mbox{ in } \vectspace{M}_{mn}
+\end{equation*}
+Show that $T$ is a linear transformation that is both one-to-one and onto.
+
+
+\begin{solution}
+  The verification that $T$ is linear is left to the reader. To see that $T$ is one-to-one, let $T(X) = 0$. Then $UX = 0$, so left-multiplication by $U^{-1}$ gives $X = 0$. Hence $\func{ker }T = \{\vect{0}\}$, so $T$ is one-to-one. Finally, if $Y$ is any member of $\vectspace{M}_{mn}$, then $U^{-1}Y$ lies in $\vectspace{M}_{mn}$ too, and $T(U^{-1}Y) = U(U^{-1}Y) = Y$. This shows that $T$ is onto.
+\end{solution}
+\end{example}
+
+The linear transformations $\RR^n \to \RR^m$ all have the form $T_{A}$ for some $m \times n$ matrix $A$ (Theorem~\ref{thm:005789}). The next theorem gives conditions under which they are onto or one-to-one. Note the connection with Theorem~\ref{thm:015672} and Theorem~\ref{thm:015711}.
+
+\newpage
+\begin{theorem}{}{021458}
+Let $A$ be an $m \times n$ matrix, and let $T_{A} : \RR^n \to \RR^m$ be the linear transformation induced by $A$, that is $T_{A}(\vect{x}) = A\vect{x}$ for all columns $\vect{x}$ in $\RR^n$.
+
+\begin{enumerate}
+\item $T_{A}$ is onto if and only if $\func{rank }A = m$.
+
+\item $T_{A}$ is one-to-one if and only if $\func{rank }A = n$.
+
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item We have that $\func{im }T_{A}$ is the column space of $A$ (see Example~\ref{exa:021363}), so $T_{A}$ is onto if and only if the column space of $A$ is $\RR^m$. Because the $\func{rank }$ of $A$ is the dimension of the column space, this holds if and only if $\func{rank }A = m$.
+
+\item $\func{ker }T_{A} = \{\vect{x} \mbox{ in } \RR^n \mid A\vect{x} = \vect{0}\}$, so (using Theorem~\ref{thm:021411}) $T_{A}$ is one-to-one if and only if $A\vect{x} = \vect{0}$ implies $\vect{x} = \vect{0}$. This is equivalent to $\func{rank }A = n$ by Theorem~\ref{thm:015672}.
+
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\vspace{-1em}
+\subsection*{The Dimension Theorem}
+
+Let $A$ denote an $m \times n$ matrix of $\func{rank }r$ and let $T_{A} : \RR^n \to \RR^m$ denote the corresponding matrix transformation given by $T_{A}(\vect{x}) = A\vect{x}$ for all columns $\vect{x}$ in $\RR^n$. It follows from Example~\ref{exa:021319} and Example~\ref{exa:021363} that $\func{im }T_{A} = \func{col }A$, so $\func{dim}(\func{im }T_{A}) = \func{dim}(\func{col }A) = r$. On the other hand Theorem~\ref{thm:015561} shows that $\func{dim}(\func{ker }T_{A}) = \func{dim}(\func{null }A) = n - r$. Combining these we see that
+\begin{equation*}
+\func{dim}(\func{im} T_A) + \func{dim}(\func{ker }T_A) = n \quad \mbox{for every } m \times n \mbox{ matrix } A
+\end{equation*}
+The main result of this section is a deep generalization of this observation.
+
+
+\begin{theorem}{Dimension Theorem}{021499}
+Let $T : V \to W$ be any linear transformation and assume that $\func{ker }T$ and $\func{im }T$ are both finite dimensional. Then $V$ is also finite dimensional and
+\begin{equation*}
+\func{dim }V = \func{dim}(\func{ker }T) + \func{dim}(\func{im }T)
+\end{equation*}
+In other words, $\func{dim }V = \func{nullity}(T) + \func{rank}(T)$.\index{dimension theorem}\index{linear transformations!dimension theorem}
+\end{theorem}
+
+\begin{proof}
+Every vector in $\func{im }T = T(V)$ has the form $T(\vect{v})$ for some $\vect{v}$ in $V$. Hence let $\{T(\vect{e}_{1}), T(\vect{e}_{2}), \dots, T(\vect{e}_{r})\}$ be a basis of $\func{im }T$, where the $\vect{e}_{i}$ lie in $V$. Let $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{k}\}$ be any basis of $\func{ker }T$. Then $\func{dim}(\func{im }T) = r$ and $\func{dim}(\func{ker }T) = k$, so it suffices to show that $B = \{\vect{e}_{1}, \dots, \vect{e}_{r}, \vect{f}_{1}, \dots, \vect{f}_{k}\}$ is a basis of $V$.
+
+\begin{enumerate}
+\item $B$ \textit{spans} $V$. If $\vect{v}$ lies in $V$, then $T(\vect{v})$ lies in $\func{im }V$, so
+\begin{equation*}
+T(\vect{v}) = t_{1}T(\vect{e}_1) + t_{2}T(\vect{e}_2) + \cdots + t_{r}T(\vect{e}_r) \quad t_i \mbox{ in } \RR
+\end{equation*}
+This implies that $\vect{v} - t_{1}\vect{e}_{1} - t_{2}\vect{e}_{2} - \cdots - t_{r}\vect{e}_{r}$ lies in $\func{ker }T$ and so is a linear combination of $\vect{f}_{1}, \dots, \vect{f}_{k}$. Hence $\vect{v}$ is a linear combination of the vectors in $B$.
+
+\item $B$ is \textit{linearly independent}. Suppose that $t_{i}$ and $s_{j}$ in $\RR$ satisfy
+\begin{equation}\label{eq:dimthmproof}
+t_{1}\vect{e}_{1} + \cdots + t_{r}\vect{e}_r + s_{1}\vect{f}_1 + \cdots + s_{k}\vect{f}_k = \vect{0}
+\end{equation}
+Applying $T$ gives $t_{1}T(\vect{e}_{1}) + \cdots + t_{r}T(\vect{e}_{r}) = \vect{0}$ (because $T(\vect{f}_{i}) = \vect{0}$ for each $i$). Hence the independence of $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{r})\}$ yields $t_{1} = \cdots = t_{r} = 0$. But then (\ref{eq:dimthmproof}) becomes
+\begin{equation*}
+s_{1}\vect{f}_1 + \cdots + s_{k}\vect{f}_k = \vect{0}
+\end{equation*}
+so $s_{1} = \cdots = s_{k} = 0$ by the independence of $\{\vect{f}_{1}, \dots, \vect{f}_{k}\}$. This proves that $B$ is linearly independent.
+\end{enumerate}
+\vspace*{-1em}\end{proof}
+
+\noindent Note that the vector space $V$ is not assumed to be finite dimensional in Theorem~\ref{thm:021499}. In fact, verifying that $\func{ker }T$ and $\func{im }T$ are both finite dimensional is often an important way to \textit{prove} that $V$ is finite dimensional.
+
+
+Note further that $r + k = n$ in the proof so, after relabelling, we end up with a basis
+\begin{equation*}
+B = \{\vect{e}_1, \ \vect{e}_2, \ \dots, \ \vect{e}_r, \ \vect{e}_{r+1}, \ \dots, \ \vect{e}_n \}
+\end{equation*}
+of $V$ with the property that $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ is a basis of $\func{ker }T$ and $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{r})\}$ is a basis of $\func{im }T$. In fact, if $V$ is known in advance to be finite dimensional, then \textit{any} basis $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ of $\func{ker }T$ can be extended to a basis $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{r}, \vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ of $V$ by Theorem~\ref{thm:019430}. Moreover, it turns out that, no matter how this is done, the vectors $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{r})\}$ will be a basis of $\func{im }T$. This result is useful, and we record it for reference. The proof is much like that of Theorem~\ref{thm:021499} and is left as Exercise~\ref{ex:ex7_2_26}.
+
+
+\begin{theorem}{}{021572}
+Let $T : V \to W$ be a linear transformation, and let $\{\vect{e}_{1}, \dots, \vect{e}_{r}, \vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ be a basis of $V$ such that $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ is a basis of $\func{ker }T$. Then $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{r})\}$ is a basis of $\func{im }T$, and hence $r = \func{rank }T$.
+\end{theorem}
+
+The dimension theorem is one of the most useful results in all of linear algebra. It shows that if either $\func{dim}(\func{ker }T)$ or $\func{dim}(\func{im }T)$ can be found, then the other is automatically known. In many cases it is easier to compute one than the other, so the theorem is a real asset. The rest of this section is devoted to illustrations of this fact. The next example uses the dimension theorem to give a different proof of the first part of Theorem~\ref{thm:015561}.
+
+
+\begin{example}{}{021586}
+Let $A$ be an $m \times n$ matrix of $\func{rank }r$. Show that the space $\func{null }A$ of all solutions of the system $A\vect{x} = \vect{0}$ of $m$ homogeneous equations in $n$ variables has dimension $n - r$.
+
+
+\begin{solution}
+  The space in question is just $\func{ker }T_{A}$, where $T_{A} : \RR^n \to \RR^m$ is defined by $T_{A}(\vect{x}) = A\vect{x}$ for all columns $\vect{x}$ in $\RR^n$. But $\func{dim}(\func{im }T_{A}) = \func{rank }T_{A} = \func{rank }A = r$ by Example~\ref{exa:021363}, so $\func{dim}(\func{ker }T_{A}) = n - r$ by the dimension theorem.
+\end{solution}
+\end{example}
+
+\begin{example}{}{021601}
+If $T : V \to W$ is a linear transformation where $V$ is finite dimensional, then
+\begin{equation*}
+\func{dim}(\func{ker }T) \leq \func{dim }V \quad \mbox{and} \quad \func{dim}(\func{im }T) \leq \func{dim }V
+\end{equation*}
+Indeed, $\func{dim }V = \func{dim}(\func{ker }T) + \func{dim}(\func{im }T)$ by Theorem~\ref{thm:021499}. Of course, the first inequality also follows because $\func{ker }T$ is a subspace of $V$.
+\end{example}
+
+\begin{example}{}{021606}
+Let $D : \vectspace{P}_{n} \to \vectspace{P}_{n-1}$ be the differentiation map defined by $D\left[p(x)\right] = p^\prime(x)$. Compute $\func{ker }D$ and hence conclude that $D$ is onto.
+
+
+\begin{solution}
+  Because $p^\prime(x) = 0$ means $p(x)$ is constant, we have $\func{dim}(\func{ker }D) = 1$. Since $\func{dim }\vectspace{P}_{n} = n + 1$, the dimension theorem gives
+\begin{equation*}
+\func{dim}(\func{im }D) = (n + 1) - \func{dim}(\func{ker }D) = n = \func{dim}(\vectspace{P}_{n-1})
+\end{equation*}
+This implies that $\func{im }D = \vectspace{P}_{n-1}$, so $D$ is onto.
+\end{solution}
+\end{example}
+
+Of course it is not difficult to verify directly that each polynomial $q(x)$ in $\vectspace{P}_{n-1}$ is the derivative of some polynomial in $\vectspace{P}_{n}$ (simply integrate $q(x)$!), so the dimension theorem is not needed in this case. However, in some situations it is difficult to see directly that a linear transformation is onto, and the method used in Example~\ref{exa:021606} may be by far the easiest way to prove it. Here is another illustration.
+
+
+\begin{example}{}{021624}
+Given $a$ in $\RR$, the evaluation map $E_{a} : \vectspace{P}_{n} \to \RR$ is given by $E_{a}\left[p(x)\right] = p(a)$. Show that $E_{a}$ is linear and onto, and hence conclude that $\{(x - a), (x - a)^{2}, \dots, (x - a)^{n}\}$ is a basis of $\func{ker }E_{a}$, the subspace of all polynomials $p(x)$ for which $p(a) = 0$.
+
+
+\begin{solution}
+  $E_{a}$ is linear by Example~\ref{exa:020790}; the verification that it is onto is left to the reader. Hence $\func{dim}(\func{im }E_{a}) = \func{dim}(\RR) = 1$, so $\func{dim}(\func{ker }E_{a}) = (n + 1) - 1 = n$ by the dimension theorem. Now each of the $n$ polynomials $(x - a), (x - a)^{2}, \dots, (x - a)^{n}$ clearly lies in $\func{ker }E_{a}$, and they are linearly independent (they have distinct degrees). Hence they are a basis because $\func{dim}(\func{ker }E_{a}) = n$.
+\end{solution}
+\end{example}
+
+\noindent We conclude by applying the dimension theorem to the $\func{rank}$ of a matrix.
+
+
+\begin{example}{}{021645}
+If $A$ is any $m \times n$ matrix, show that $\func{rank }A = \func{rank }A^{T}A = \func{rank }AA^{T}$.
+
+
+\begin{solution}
+  It suffices to show that $\func{rank }A = \func{rank }A^{T}A$ (the rest follows by replacing $A$ with $A^{T}$). Write $B = A^{T}A$, and consider the associated matrix transformations
+\begin{equation*}
+T_A : \RR^n \to \RR^m \quad \mbox{and} \quad T_B : \RR^n \to \RR^n
+\end{equation*}
+The dimension theorem and Example~\ref{exa:021363} give
+\begin{align*}
+\func{rank }A &= \func{rank }T_A = \func{dim}(\func{im }T_A) = n - \func{dim}(\func{ker }T_A) \\
+\func{rank }B &= \func{rank }T_B = \func{dim}(\func{im }T_B) = n - \func{dim}(\func{ker }T_B)
+\end{align*}
+
+so it suffices to show that $\func{ker }T_{A} = \func{ker }T_{B}$. Now $A\vect{x} = \vect{0}$ implies that $B\vect{x} = A^{T}A\vect{x} = \vect{0}$, so $\func{ker }T_{A}$ is contained in $\func{ker }T_{B}$. On the other hand, if $B\vect{x} = \vect{0}$, then $A^{T}A\vect{x} = \vect{0}$, so
+\begin{equation*}
+\vectlength A\vect{x} \vectlength^2 = (A\vect{x})^T(A\vect{x}) = \vect{x}^{T}A^{T}A\vect{x} = \vect{x}^T\vect{0} = 0
+\end{equation*}
+This implies that $A\vect{x} = \vect{0}$, so $\func{ker }T_{B}$ is contained in $\func{ker }T_{A}$.
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:7_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:7_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+For each matrix $A$, find a basis for the kernel and image of $T_{A}$, and find the $\func{rank}$ and $\func{nullity}$ of $T_{A}$.
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rrrr}
+	1 & 2 & -1 & 1 \\
+	3 & 1 & 0 & 2 \\
+	1 & -3 & 2 & 0
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+2 & 1 & -1 & 3 \\
+1 & 0 & 3 & 1 \\
+1 & 1 & -4 & 2
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & 2 & -1 \\
+3 & 1 & 2 \\
+4 & -1 & 5 \\
+0 & 2 & -2
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+2 & 1 & 0 \\
+1 & -1 & 3 \\
+1 & 2 & -3 \\
+0 & 3 & -6
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item \hspace{1em} \\
+\hspace*{-2em}$\left\lbrace \leftB \begin{array}{r}
+-3 \\
+7 \\
+1 \\
+0
+\end{array} \rightB, \leftB \begin{array}{r}
+1 \\
+1 \\
+0 \\
+-1
+\end{array} \rightB \right\rbrace$; 
+$\left\lbrace \leftB \begin{array}{r}
+	1 \\
+	0 \\
+	1 
+\end{array} \rightB, \leftB \begin{array}{r}
+	0 \\
+	1 \\
+	-1
+\end{array} \rightB \right\rbrace$; $2$, $2$
+
+\setcounter{enumi}{3}
+\item $\left\lbrace \leftB \begin{array}{r}
+-1 \\
+2 \\
+1 
+\end{array} \rightB \right\rbrace$; 
+$\left\lbrace \leftB \begin{array}{r}
+1 \\
+0 \\
+1 \\
+1 
+\end{array} \rightB, \leftB \begin{array}{r}
+0 \\
+1 \\
+-1 \\
+-2
+\end{array} \rightB \right\rbrace$; $2$, $1$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, (i) find a basis of $\func{ker }T$, and (ii) find a basis of $\func{im }T$. You may assume that $T$ is linear.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \vectspace{P}_{2} \to \RR^2$; $T(a + bx + cx^{2}) = (a, b)$
+
+\item $T : \vectspace{P}_{2} \to \RR^2$; $T(p(x)) = (p(0), p(1))$
+
+\item $T : \RR^3 \to \RR^3$; $T(x, y, z) = (x + y, x + y, 0)$
+
+\item $T : \RR^3 \to \RR^4$; $T(x, y, z) = (x, x, y, y)$
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$; $T\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+a + b & b + c \\
+c + d & d + a
+\end{array} \rightB$
+
+\item $T : \vectspace{M}_{22} \to \RR$; $T\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = a + d$
+
+\item $T : \vectspace{P}_{n} \to \RR$; $T(r_{0} + r_{1}x + \cdots + r_{n}x^{n}) = r_{n}$
+
+\item $T : \RR^n \to \RR$; $T(r_{1}, r_{2}, \dots, r_{n}) = r_{1} + r_{2} + \cdots + r_{n}$
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$; $T(X) = XA - AX$, where \\ $A = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$
+
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$; $T(X) = XA$, where $A = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\{x^{2} - x\}$; $\{(1, 0), (0, 1)\}$
+
+\setcounter{enumi}{3}
+\item  $\{(0, 0, 1)\}$; $\{(1, 1, 0, 0), (0, 0, 1, 1)\}$
+
+\setcounter{enumi}{5}
+\item $\left\lbrace \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB, \leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB, \leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB \right\rbrace$; $\{1\}$
+
+\setcounter{enumi}{7}
+\item $\{(1, 0, 0, \dots, 0, -1), (0, 1, 0, \dots, 0, -1),$ \\ $\dots, (0, 0, 0, \dots, 1, -1)\}$; $\{1\}$
+
+\setcounter{enumi}{9}
+\item $\left\lbrace \leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB, \leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB \right\rbrace$; \\ $\left\lbrace \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB, \leftB \begin{array}{rr}
+0 & 0 \\
+1 & 1
+\end{array} \rightB \right\rbrace$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $P : V \to \RR$ and $Q : V \to \RR$ be linear transformations, where $V$ is a vector space. Define $T : V \to \RR^2$ by $T(\vect{v}) = (P(\vect{v}), Q(\vect{v}))$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T$ is a linear transformation.
+
+\item Show that $\func{ker }T = \func{ker }P \cap \func{ker }Q$, the set of vectors in both $\func{ker }P$ and $\func{ker }Q$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $T(\vect{v}) = \vect{0} = (0, 0)$ if and only if $P(\vect{v}) = 0$ and $Q(\vect{v}) = 0$; that is, if and only if $\vect{v}$ is in $\func{ker }P \cap \func{ker }Q$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a basis \\ $B = \{\vect{e}_{1}, \dots, \vect{e}_{r}, \vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ of $V$ such that $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ is a basis of $\func{ker }T$, and verify Theorem~\ref{thm:021572}.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^3 \to \RR^4$; $T(x, y, z) = (x - y + 2z, x + y - z, 2x + z, 2y - 3z)$
+
+\item $T : \RR^3 \to \RR^4$; $T(x, y, z) = (x + y + z, 2x - y + 3z, z - 3y, 3x + 4z)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\func{ker }T = \func{span}\{(-4, 1, 3)\}$; $B = \{(1, 0, 0), (0, 1, 0), (-4, 1, 3)\}$, $\func{im }T = \func{span}\{(1, 2, 0, 3), (1, -1, -3, 0)\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that every matrix $X$ in $\vectspace{M}_{nn}$ has the form $X = A^{T} - 2A$ for some matrix $A$ in $\vectspace{M}_{nn}$. [\textit{Hint}: The dimension theorem.]
+\end{ex}
+
+\begin{ex}
+In each case either prove the statement or give an example in which it is false. Throughout, let $T : V \to W$ be a linear transformation where $V$ and $W$ are finite dimensional.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $V = W$, then $\func{ker }T \subseteq \func{im }T$.
+
+\item If $\func{dim }V = 5$, $\func{dim }W = 3$, and $\func{dim}(\func{ker }T) = 2$, then $T$ is onto.
+
+\item If $\func{dim }V = 5$ and $\func{dim }W = 4$, then $\func{ker }T \neq \{\vect{0}\}$.
+
+\item If $\func{ker }T = V$, then $W = \{\vect{0}\}$.
+
+\item If $W = \{\vect{0}\}$, then $\func{ker }T = V$.
+
+\item If $W = V$, and $\func{im }T \subseteq \func{ker }T$, then $T = 0$.
+
+\item If $\{\vect{e}_{1}, \vect{e}_{2}, \vect{e}_{3}\}$ is a basis of $V$ and \\ $T(\vect{e}_{1}) = \vect{0} = T(\vect{e}_{2})$, then $\func{dim}(\func{im }T) \leq 1$.
+
+\item If $\func{dim}(\func{ker }T) \leq \func{dim }W$, then $\func{dim }W \geq \frac{1}{2} \func{dim }V$.
+
+\item If $T$ is one-to-one, then $\func{dim }V \leq \func{dim }W$.
+
+\item If $\func{dim }V \leq \func{dim }W$, then $T$ is one-to-one.
+
+\item If $T$ is onto, then $\func{dim }V \geq \func{dim }W$.
+
+\item If $\func{dim }V \geq \func{dim }W$, then $T$ is onto.
+
+\item If $\{T(\vect{v}_{1}), \dots, T(\vect{v}_{k})\}$ is independent, then $\{\vect{v}_{1}, \dots, \vect{v}_{k}\}$ is independent.
+
+\item If $\{\vect{v}_{1}, \dots, \vect{v}_{k}\}$ spans $V$, then $\{T(\vect{v}_{1}), \dots, T(\vect{v}_{k})\}$ spans $W$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes. $\func{dim}(\func{im }T) = 5 - \func{dim}(\func{ker }T) = 3$, so $\func{im }T = W$ as $\func{dim }W = 3$.
+
+\setcounter{enumi}{3}
+\item  No. $T = 0: \RR^2 \to \RR^2$
+
+\setcounter{enumi}{5}
+\item  No. $T : \RR^2 \to \RR^2$, $T(x, y) = (y, 0)$. Then $\func{ker }T = \func{im }T$
+
+\setcounter{enumi}{7}
+\item  Yes. $\func{dim }V = \func{dim}(\func{ker }T) + \func{dim}(\func{im }T) \leq \func{dim }W + \func{dim }W = 2 \func{dim }W$
+
+\setcounter{enumi}{9}
+\item  No. Consider $T : \RR^2 \to \RR^2$ with $T(x, y) = (y, 0)$.
+
+\setcounter{enumi}{11}
+\item  No. Same example as \textbf{(j)}.
+
+\setcounter{enumi}{13}
+\item  No. Define $T : \RR^2 \to \RR^2$ by $T(x, y) = (x, 0)$. If $\vect{v}_{1} = (1, 0)$ and $\vect{v}_{2} = (0, 1)$, then $\RR^2 = \func{span}\{\vect{v}_{1}, \vect{v}_{2}\}$ but $\RR^2 \neq \func{span}\{T(\vect{v}_{1}), T(\vect{v}_{2})\}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that linear independence is preserved by one-to-one transformations and that spanning sets are preserved by onto transformations. More precisely, if $T : V \to W$ is a linear transformation, show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $T$ is one-to-one and $\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$ is independent in $V$, then $\{T(\vect{v}_{1}), \dots, T(\vect{v}_{n})\}$ is independent in $W$.
+
+\item If $T$ is onto and $V = \func{span}\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$, then $W = \func{span}\{T(\vect{v}_{1}), \dots, T(\vect{v}_{n})\}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Given $\vect{w}$ in $W$, let $\vect{w} = T(\vect{v})$, $\vect{v}$ in $V$, and write $\vect{v} = r_{1}\vect{v}_{1} + \cdots + r_{n}\vect{v}_{n}$. Then $\vect{w} = T(\vect{v}) = r_{1}T(\vect{v}_{1}) + \cdots + r_{n}T(\vect{v}_{n})$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given $\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$ in a vector space $V$, define $T : \RR^n \to V$ by $T(r_{1}, \dots, r_{n}) = r_{1}\vect{v}_{1} + \cdots + r_{n}\vect{v}_{n}$. Show that $T$ is linear, and that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T$ is one-to-one if and only if $\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$ is independent.
+
+\item $T$ is onto if and only if $V = \func{span}\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\func{im }T = \left\lbrace \sum_{i} r_i\vect{v}_i \mid r_i \mbox{ in } \RR \right\rbrace = \func{span}\{\vect{v}_i\}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear transformation where $V$ is finite dimensional. Show that exactly one of (i) and (ii) holds: (i) $T(\vect{v}) = \vect{0}$ for some $\vect{v} \neq \vect{0}$ in $V$; (ii) $T(\vect{x}) = \vect{v}$ has a solution $\vect{x}$ in $V$ for every $\vect{v}$ in $V$.
+\end{ex}
+
+\begin{ex}
+Let $T : \vectspace{M}_{nn} \to \RR$ denote the trace map: $T(A) = \func{tr }A$ for all $A$ in $\vectspace{M}_{nn}$. Show that \\ $\func{dim}(\func{ker }T) = n^{2} - 1$.
+
+\begin{sol}
+$T$ is linear and onto. Hence $1 = \func{dim }\RR = \func{dim}(\func{im }T) = \func{dim}(\vectspace{M}_{nn}) - \func{dim}(\func{ker }T) = n^{2} - \func{dim}(\func{ker }T)$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the following are equivalent for a linear transformation $T : V \to W$.
+\begin{exenumerate}
+\exitem[1.] $\func{ker }T = V$
+\exitem[2.] $\func{im }T = \{\vect{0}\}$
+\exitem[3.] $T = 0$
+\end{exenumerate}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be $m \times n$ and $k \times n$ matrices, respectively. Assume that $A\vect{x} = \vect{0}$ implies $B\vect{x} = \vect{0}$ for every $n$-column $\vect{x}$. Show that $\func{rank }A \geq \func{rank }B$. \newline [\textit{Hint}: Theorem~\ref{thm:021499}.]
+
+\begin{sol}
+The condition means $\func{ker }(T_{A}) \subseteq \func{ker}(T_{B})$, so $\func{dim}\left[\func{ker}(T_{A})\right] \leq \func{dim}\left[\func{ker}(T_{B})\right]$. Then Theorem~\ref{thm:021499} gives $\func{dim}\left[\func{im}(T_{A})\right] \geq \func{dim}\left[\func{im}(T_{B})\right]$; that is, $\func{rank }A \geq \func{rank }B$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be an $m \times n$ matrix of $\func{rank }r$. Thinking of $\RR^n$ as rows, define $V = \{\vect{x}$ in $\RR^m \mid \vect{x}A = \vect{0}\}$. Show that $\func{dim }V = m - r$.
+\end{ex}
+
+\begin{ex}
+Consider \begin{equation*}
+V = \left\lbrace \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB \, \middle| \, a + c = b + d \right\rbrace
+\end{equation*}
+
+\begin{enumerate}[label={\alph*.}]
+\item Consider $S : \vectspace{M}_{22} \to \RR$
+ with $S\leftB \begin{array}{rr}
+ a & b \\
+ c & d
+ \end{array} \rightB = a + c - b - d$. Show that $S$ is linear and onto and that $V$ is a subspace of $\vectspace{M}_{22}$. Compute $\func{dim }V$.
+
+\item Consider $T : V \to \RR$
+ with $T\leftB \begin{array}{rr}
+ a & b \\
+ c & d
+ \end{array} \rightB = a + c$. Show that $T$ is linear and onto, and use this information to compute $\func{dim}(\func{ker }T)$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Define $T : \vectspace{P}_{n} \to \RR$ by $T\left[p(x)\right] =$ the sum of all the coefficients of $p(x)$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Use the dimension theorem to show that $\func{dim}(\func{ker }T) = n$.
+
+\item Conclude that $\{x - 1, x^{2} - 1, \dots, x^{n} - 1\}$ is a basis of $\func{ker }T$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $B = \{x - 1, \dots, x^{n} - 1\}$ is independent (distinct degrees) and contained in $\func{ker }T$. Hence $B$ is a basis of $\func{ker }T$ by \textbf{(a)}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Use the dimension theorem to prove Theorem~\ref{thm:001473}: If $A$ is an $m \times n$ matrix with $m < n$, the system $A\vect{x} = \vect{0}$ of $m$ homogeneous equations in $n$ variables always has a nontrivial solution.
+\end{ex}
+
+\begin{ex}
+Let $B$ be an $n \times n$ matrix, and consider the subspaces $U = \{A \mid A \mbox{ in } \vectspace{M}_{mn}, AB = 0\}$ and $V = \{AB \mid A \mbox{ in } \vectspace{M}_{mn}\}$. Show that $\func{dim }U + \func{dim }V = mn$.
+\end{ex}
+
+\begin{ex}
+Let $U$ and $V$ denote, respectively, the spaces of even and odd polynomials in $\vectspace{P}_{n}$. Show that $\func{dim }U + \func{dim }V = n + 1$. [\textit{Hint}: Consider $T : \vectspace{P}_{n} \to \vectspace{P}_{n}$ where $T\left[p(x)\right] = p(x) - p(-x)$.]
+\end{ex}
+
+\begin{ex}
+Show that every polynomial $f(x)$ in $\vectspace{P}_{n-1}$ can be written as $f(x) = p(x + 1) - p(x)$ for some polynomial $p(x)$ in $\vectspace{P}_{n}$. [\textit{Hint}: Define $T : \vectspace{P}_{n} \to \vectspace{P}_{n-1}$ by $T\left[p(x)\right] = p(x + 1) - p(x)$.]
+\end{ex}
+
+\begin{ex}
+Let $U$ and $V$ denote the spaces of symmetric and skew-symmetric $n \times n$ matrices. Show that $\func{dim }U + \func{dim }V = n^{2}$.
+
+\begin{sol}
+Define $T : \vectspace{M}_{nn} \to \vectspace{M}_{nn}$ by $T(A) = A - A^{T}$ for all $A$ in $\vectspace{M}_{nn}$. Then $\func{ker }T = U$ and $\func{im }T = V$ by Example~\ref{exa:021376}, so the dimension theorem gives $n^{2} = \func{dim }\vectspace{M}_{nn} = \func{dim}(U) + \func{dim}(V)$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Assume that $B$ in $\vectspace{M}_{nn}$ satisfies $B^{k} = 0$ for some $k \geq 1$. Show that every matrix in $\vectspace{M}_{nn}$ has the form $BA - A$ for some $A$ in $\vectspace{M}_{nn}$. [\textit{Hint}: Show that $T : \vectspace{M}_{nn} \to \vectspace{M}_{nn}$ is linear and one-to-one where \\ $T(A) = BA - A$ for each $A$.]
+\end{ex}
+
+\begin{ex}
+Fix a column $\vect{y} \neq \vect{0}$ in $\RR^n$ and let \\ $U = \{A$ in $\vectspace{M}_{nn} \mid A\vect{y} = \vect{0}\}$. Show that $\func{dim }U = n(n - 1)$.
+
+\begin{sol}
+Define $T : \vectspace{M}_{nn} \to \RR^n$ by $T(A) = A\vect{y}$ for all $A$ in $\vectspace{M}_{nn}$. Then $T$ is linear with $\func{ker }T = U$, so it is enough to show that $T$ is onto (then $\func{dim }U = n^{2} - \func{dim}(\func{im }T) = n^{2} - n$). We have $T(0) = \vect{0}$. Let $\vect{y} = \leftB \begin{array}{cccc}
+y_{1} & y_{2} & \cdots & y_{n}
+\end{array} \rightB^{T} \neq \vect{0}$ in $\RR^n$. If $y_{k} \neq \vect{0}$ let $\vect{c}_{k} = y_{k}^{-1}\vect{y}$, and let $\vect{c}_{j} = \vect{0}$ if $j \neq k$. If $A = \leftB \begin{array}{cccc}
+\vect{c}_{1} & \vect{c}_{2} & \cdots & \vect{c}_{n}
+\end{array} \rightB$, then $T(A) = A\vect{y} = y_{1}\vect{c}_{1} + \cdots + y_{k}\vect{c}_{k} + \cdots + y_{n}\vect{c}_{n} = \vect{y}$. This shows that $T$ is onto, as required.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $B$ in $\vectspace{M}_{mn}$ has $\func{rank }r$, let $U = \{A$ in $\vectspace{M}_{nn} \mid BA = 0\}$ and $W = \{BA \mid A$ in $\vectspace{M}_{nn}\}$. Show that $\func{dim }U = n(n - r)$ and $\func{dim }W = nr$. [\textit{Hint}: Show that $U$ consists of all matrices $A$ whose columns are in the $\func{null}$ space of $B$. Use Example~\ref{exa:021586}.]
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear transformation where $\func{dim }V = n$. If $\func{ker }T \cap \func{im }T = \{\vect{0}\}$, show that every vector $\vect{v}$ in $V$ can be written $\vect{v} = \vect{u} + \vect{w}$ for some $\vect{u}$ in $\func{ker }T$ and $\vect{w}$ in $\func{im }T$. [\textit{Hint}: Choose bases $B \subseteq \func{ker }T$ and $D \subseteq \func{im }T$, and use Exercise~\ref{ex:ex6_3_33}.]
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Let $T : \RR^n \to \RR^n$ be a linear operator of $\func{rank }1$, where $\RR^n$ is written as rows. Show that there exist numbers $a_{1}, a_{2}, \dots, a_{n}$ and $b_{1}, b_{2}, \dots, b_{n}$ such that $T(X) = XA$ for all rows $X$ in $\RR^n$, where
+\begin{equation*}
+A = \leftB \begin{array}{cccc}
+a_{1}b_{1} & a_{1}b_{2} & \cdots & a_{1}b_{n} \\
+a_{2}b_{1} & a_{2}b_{2} & \cdots  & a_{2}b_{n} \\
+\vdots & \vdots &  & \vdots \\
+a_{n}b_{1} & a_{n}b_{2} & \cdots & a_{n}b_{n}
+\end{array} \rightB
+\end{equation*}
+[\textit{Hint}: $\func{im }T = \RR\vect{w}$ for $\vect{w} = (b_{1}, \dots, b_{n})$ in $\RR^n$.]
+\end{ex}
+
+\begin{ex}\label{ex:ex7_2_26}
+Prove Theorem~\ref{thm:021572}.
+\end{ex}
+
+\begin{ex}
+Let $T : V \to \RR$ be a nonzero linear transformation, where $\func{dim }V = n$. Show that there is a basis $\{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ of $V$ so that $T(r_{1}\vect{e}_{1} + r_{2}\vect{e}_{2} + \cdots + r_{n}\vect{e}_{n}) = r_{1}$.
+\end{ex}
+
+\begin{ex}
+Let $f \neq 0$ be a fixed polynomial of degree $m \geq 1$. If $p$ is any polynomial, recall that \\ $(p \circ f)(x) = p\left[f(x)\right]$. Define $T_{f} : P_{n} \to P_{n+m}$ by \\ $T_{f}(p) = p \circ f$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T_{f}$ is linear.
+
+\item Show that $T_{f}$ is one-to-one.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $U$ be a subspace of a finite dimensional vector space $V$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $U = \func{ker }T$ for some linear operator $T : V \to V$.
+
+\item Show that $U = \func{im }S$ for some linear operator \\$S : V \to V$. [\textit{Hint}: Theorem~\ref{thm:019430} and Theorem~\ref{thm:020916}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  By Lemma~\ref{lem:019415}, let $\{\vect{u}_{1}, \dots, \vect{u}_{m}, \dots,  \vect{u}_{n}\}$ be a basis of $V$ where $\{\vect{u}_{1}, \dots, \vect{u}_{m}\}$ is a basis of $U$. By Theorem~\ref{thm:020916} there is a linear transformation $S : V \to V$ such that $S(\vect{u}_{i}) = \vect{u}_{i}$ for $1 \leq i \leq m$, and $S(\vect{u}_{i}) = \vect{0}$ if $i > m$. Because each $\vect{u}_{i}$ is in $\func{im }S$, $U \subseteq \func{im }S$. But if $S(\vect{v})$ is in $\func{im }S$, write $\vect{v} = r_{1}\vect{u}_{1} + \cdots + r_{m}\vect{u}_{m} + \cdots + r_{n}\vect{u}_{n}$. Then $S(\vect{v}) = r_{1}S(\vect{u}_{1}) + \cdots + r_{m}S(\vect{u}_{m}) = r_{1}\vect{u}_{1} + \cdots + r_{m}\vect{u}_{m}$ is in $U$. So $\func{im }S \subseteq U$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $V$ and $W$ be finite dimensional vector spaces.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{dim }W \leq \func{dim }V$ if and only if there exists an onto linear transformation $T : V \to W$. [\textit{Hint}: Theorem~\ref{thm:019430} and Theorem~\ref{thm:020916}.]
+
+\item Show that $\func{dim }W \geq \func{dim }V$ if and only if there exists a one-to-one linear transformation $T : V \to W$. [\textit{Hint}: Theorem~\ref{thm:019430} and Theorem~\ref{thm:020916}.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be $n \times n$ matrices, and assume that $AXB=0$, $X \in \vectspace{M}_{nn}$, implies $X=0$. Show that $A$ and $B$ are both invertible. [Hint: Dimension Theorem.] 
+\end{ex}
+\end{multicols}

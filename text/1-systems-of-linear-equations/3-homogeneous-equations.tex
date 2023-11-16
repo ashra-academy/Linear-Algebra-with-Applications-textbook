@@ -1,0 +1,930 @@
+\section{Homogeneous Equations}
+\label{sec:1_3}
+
+A system of equations in the variables $x_1, x_2, \dots, x_n$ is called \textbf{homogeneous} \index{homogeneous equations!defined}\index{system of linear equations!homogeneous equations} if all the constant terms are zero---that is, if each equation of the system has the form
+\begin{equation*}
+a_1x_1 + a_2x_2 + \dots + a_nx_n = 0
+\end{equation*}
+Clearly $x_1 = 0, x_2 = 0, \dots, x_n = 0$ is a solution to such a system; it is called the \textbf{trivial solution}\index{trivial solution}\index{homogeneous equations!trivial solution}\index{solution!trivial solution}\index{system of linear equations!trivial solution}. Any solution in which at least one variable has a nonzero value is called a \textbf{nontrivial solution}\index{nontrivial solution}\index{homogeneous equations!nontrivial solution}\index{solution!nontrivial solution}\index{system of linear equations!nontrivial solution}.
+ Our chief goal in this section is to give a useful condition for a homogeneous system to have nontrivial solutions. The following example is instructive.
+
+\begin{example}{}{001449}
+Show that the following homogeneous system has nontrivial solutions.
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrlrlrcr}
+	 x_1 & - & x_2 & + & 2x_3 & -  & x_4 & = & 0 \\
+	2x_1 & + &2x_2 &   &      & + & x_4 & = & 0 \\
+	3x_1 & + & x_2 & + & 2x_3 & - & x_4 & = & 0   
+\end{array}
+\end{equation*}
+\begin{solution}
+The reduction of the augmented matrix to reduced row-echelon form is outlined below.
+\begin{equation*}
+\leftB \begin{array}{rrrr|r}
+	1 & -1 & 2 & -1 & 0 \\
+	2 & 2 & 0 &  1 & 0 \\
+	3 & 1 & 2 &  -1 & 0
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrr|r}
+	1 & -1 & 2 & -1 & 0 \\
+	0 & 4 & -4 & 3 & 0 \\
+	0 & 4 & -4 & 2 & 0
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrr|r}
+	1 & 0 & 1 & 0 & 0 \\
+	0 & 1 & -1 & 0 & 0 \\
+	0 & 0 & 0 & 1 & 0
+\end{array} \rightB
+\end{equation*}
+The leading variables are $x_1$, $x_2$, and $x_4$, so $x_3$ is assigned as a parameter---say $x_3 = t$. Then the general solution is $x_1 = -t$, $x_2 = t$, $x_3 = t$, $x_4 = 0$. Hence, taking $t = 1$ (say), we get a nontrivial solution: $x_1 = -1$, $x_2 = 1$, $x_3 = 1$, $x_4 = 0$.
+\end{solution}
+\end{example}
+
+\noindent The existence of a nontrivial solution in Example~\ref{exa:001449} is ensured by the presence of a parameter in the solution. This is due to the fact that there is a \textit{nonleading} variable\index{nonleading variable} ($x_3$ in this case). But there \textit{must} be a nonleading variable here because there are four variables and only three equations (and hence at \textit{most} three leading variables). This discussion generalizes to a proof of the following fundamental theorem.
+
+\begin{theorem}{}{001473}
+If a homogeneous system of linear equations has more variables than equations, then it has a nontrivial solution (in fact, infinitely many).
+\end{theorem}
+
+\begin{proof}
+Suppose there are $m$ equations in $n$ variables where $n > m$, and let $R$ denote the reduced row-echelon form of the augmented matrix. If there are $r$ leading variables, there are $n - r$ nonleading variables, and so $n - r$ parameters. Hence, it suffices to show that $r < n$. But $r \leq m$ because $R$ has $r$ leading 1s and $m$ rows, and $m < n$ by hypothesis. So $r \leq m < n$, which gives $r < n$.
+\end{proof}
+
+Note that the converse of Theorem~\ref{thm:001473} is not true: if a homogeneous system has nontrivial solutions, it need not have more variables than equations (the system $x_1 + x_2 = 0$, $2x_1 + 2x_2 = 0$ has nontrivial solutions but $m = 2 = n$.)
+
+Theorem~\ref{thm:001473} is very useful in applications. The next example provides an illustration from geometry.
+
+\begin{example}{}{001485}
+We call the graph of an equation $ax^2 + bxy + cy^2 + dx + ey + f = 0$ a \textbf{conic}\index{conic graph}\index{graphs!conic}\index{linear equation!conic graph} if the numbers $a$, $b$, and $c$ are not all zero. Show that there is at least one conic through any five points in the plane that are not all on a line.
+
+\begin{solution}
+Let the coordinates of the five points be $(p_1, q_1)$, $(p_2, q_2)$, $(p_3, q_3)$, $(p_4, q_4)$, and $(p_5, q_5)$. The graph of $ax^2 + bxy + cy^2 + dx + ey + f = 0$ passes through $(p_i, q_i)$ if
+\begin{equation*}
+ap_i^2 + bp_iq_i + cq_i^2 + dp_i + eq_i + f = 0
+\end{equation*}
+This gives five equations, one for each $i$, linear in the six variables $a$, $b$, $c$, $d$, $e$, and $f$. Hence, there is a nontrivial solution by Theorem~\ref{thm:001473}. If $a = b = c = 0$, the five points all lie on the line with equation $dx + ey + f = 0$, contrary to assumption. Hence, one of $a$, $b$, $c$ is nonzero.
+\end{solution}
+\end{example}
+
+\subsection*{Linear Combinations and Basic Solutions}
+\index{homogeneous equations!linear combinations}
+
+As for rows, two columns are regarded as \textbf{equal}\index{columns!equal}\index{equal!columns} if they have the same number of entries and corresponding entries are the same. Let $\vect{x}$ and $\vect{y}$ be columns with the same number of entries. As for elementary row operations, their \textbf{sum}\index{elementary row operations!sum}\index{sum!elementary row operations} $\vect{x} + \vect{y}$ is obtained by adding corresponding entries and, if $k$ is a number, the \textbf{scalar product}\index{scalar product!elementary row operations}\index{elementary row operations!scalar product} $k\vect{x}$ is defined by multiplying each entry of $\vect{x}$ by $k$. More precisely:
+\begin{equation*}
+\mbox{If } \vect{x} = 
+\leftB \begin{array}{c}
+	x_1 \\
+	x_2 \\
+	\vdots \\
+	x_n
+\end{array} \rightB
+\mbox{and } \vect{y} =
+\leftB \begin{array}{c}
+	y_1 \\
+	y_2 \\
+	\vdots \\
+	y_n
+\end{array} \rightB
+\mbox{then } \vect{x} + \vect{y} =
+\leftB \begin{array}{c}
+	x_1 + y_1 \\
+	x_2 + y_2 \\
+	\vdots \\
+	x_n + y_n
+\end{array} \rightB
+\mbox{and } k\vect{x} =
+\leftB \begin{array}{c}
+	kx_1 \\
+	kx_2 \\
+	\vdots \\
+	kx_n
+\end{array} \rightB.
+\end{equation*}
+A sum of scalar multiples\index{scalar multiples}\index{sum!of scalar multiples} of several columns is called a \textbf{linear combination}\index{linear combinations!defined}\index{linear combinations!homogeneous equations} of these columns. For example, $s\vect{x} + t\vect{y}$ is a linear combination of $\vect{x}$ and $\vect{y}$ for any choice of numbers $s$ and $t$.
+
+\begin{example}{}{001514}
+If $\vect{x} = 
+\leftB \begin{array}{r}
+3 \\
+-2 \\
+\end{array} \rightB$ and $\vect{y} = \leftB \begin{array}{r}
+-1 \\
+1 \\
+\end{array} \rightB$
+ then $ 2\vect{x} + 5\vect{y} =
+\leftB \begin{array}{r}
+6 \\
+-4 \\
+\end{array} \rightB
++ 
+\leftB \begin{array}{r}
+-5 \\
+5 \\
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+1 \\
+1 \\
+\end{array} \rightB$.
+\end{example}
+
+\begin{example}{}{001517}
+Let $ \vect{x} = 
+\leftB \begin{array}{r}
+	1 \\
+	0 \\
+	1
+\end{array} \rightB, \vect{y} = 
+\leftB \begin{array}{r}
+	2 \\
+	1 \\
+	0
+\end{array} \rightB$
+and $\vect{z} = 
+\leftB \begin{array}{r}
+	3 \\
+	1 \\
+	1
+\end{array} \rightB$.  If $\vect{v} = 
+\leftB \begin{array}{r}
+	0 \\
+	-1 \\
+	2
+\end{array} \rightB$
+ and $\vect{w} = 
+\leftB \begin{array}{r}
+	1 \\
+	1 \\
+	1
+\end{array} \rightB$,
+determine whether $\vect{v}$ and $\vect{w}$ are linear combinations of $\vect{x}$, $\vect{y}$ and $\vect{z}$.
+
+\begin{solution}
+For $\vect{v}$, we must determine whether numbers $r$, $s$, and $t$ exist such that $\vect{v} = r\vect{x} + s\vect{y} + t\vect{z}$, that is, whether
+\begin{equation*}
+\leftB \begin{array}{r}
+	0 \\
+	-1 \\
+	2
+\end{array} \rightB
+= r
+\leftB \begin{array}{r}
+	1 \\
+	0 \\
+	1
+\end{array} \rightB
++ s
+\leftB \begin{array}{r}
+	2 \\
+	1 \\
+	0
+\end{array} \rightB
++ t
+\leftB \begin{array}{r}
+	3 \\
+	1 \\
+	1
+\end{array} \rightB
+=
+\leftB \begin{array}{c}
+	r + 2s + 3t \\
+	s + t \\
+	r + t
+\end{array} \rightB
+\end{equation*}
+Equating corresponding entries gives a system of linear equations $r + 2s + 3t = 0$, $s + t = -1$, and $r + t = 2$ for $r$, $s$, and $t$. By gaussian elimination, the solution is $r = 2 - k$, $s = -1 - k$, and $t = k$ where $k$ is a parameter. Taking $k = 0$, we see that $\vect{v} = 2\vect{x} - \vect{y}$ is a linear combination of $\vect{x}$, $\vect{y}$, and $\vect{z}$.
+
+Turning to $\vect{w}$, we again look for $r$, $s$, and $t$ such that $\vect{w} = r\vect{x} + s\vect{y} + t\vect{z}$; that is,
+\begin{equation*}
+\leftB \begin{array}{r}
+	1 \\
+	1 \\
+	1
+\end{array} \rightB
+= r
+\leftB \begin{array}{r}
+	1 \\
+	0 \\
+	1
+\end{array} \rightB
++ s
+\leftB \begin{array}{r}
+	2 \\
+	1 \\
+	0
+\end{array} \rightB
++ t
+\leftB \begin{array}{r}
+	3 \\
+	1 \\
+	1
+\end{array} \rightB
+=
+\leftB \begin{array}{c}
+	r + 2s + 3t \\
+	s + t \\
+	r + t
+\end{array} \rightB
+\end{equation*}
+leading to equations $r + 2s + 3t = 1$, $s + t = 1$, and $r + t = 1$ for real numbers $r$, $s$, and $t$. But this time there is \textit{no} solution as the reader can verify, so $\vect{w}$ is \textit{not} a linear combination of $\vect{x}$, $\vect{y}$, and $\vect{z}$.
+\end{solution}
+\end{example}
+
+Our interest in linear combinations comes from the fact that they provide one of the best ways to describe the general solution of a homogeneous system of linear equations. When 
+solving such a system with $n$ variables $x_1, x_2, \dots, x_n$, write the variables as a column\footnote{The reason for using columns will be apparent later.} matrix: $\vect{x} = \leftB
+ \begin{array}{c}
+	x_1 \\
+ 	x_2 \\
+ 	\vdots \\
+ 	x_n
+\end{array} \rightB$. The trivial solution is denoted $\vect{0} = 
+\leftB \begin{array}{c}
+0 \\
+0 \\
+\vdots \\
+0
+\end{array} \rightB$. As an illustration, the general solution in
+Example~\ref{exa:001449} is $x_1 = -t$, $x_2 = t$, $ x_3 = t$, and $x_4 = 0$, where $t$ is a parameter, and we would now express this by
+saying that the general solution is $\vect{x} = \leftB \begin{array}{r}
+	-t \\
+	t \\
+	t \\
+	0
+\end{array} \rightB$, where $t$ is arbitrary.\index{homogeneous equations!general solution}
+
+Now let $\vect{x}$ and $\vect{y}$ be two solutions to a homogeneous system with $n$ variables. Then any linear combination $s\vect{x} + t\vect{y}$ of these solutions turns out to be again a solution to the system. More generally:
+\begin{equation}\label{eq:homogeneousstatement}
+\mbox{ \textit{Any linear combination of solutions to a homogeneous system is again a solution.}}
+\end{equation}
+
+In fact, suppose that a typical equation in the system is $a_1x_1 + a_2x_2 + \dots + a_nx_n = 0$, and suppose that \newline $\vect{x} = 
+\leftB \begin{array}{c}
+	x_1 \\
+	x_2 \\
+	\vdots \\
+	x_n
+\end{array} \rightB$, $ \vect{y} = 
+\leftB \begin{array}{c}
+	y_1 \\
+	y_2 \\
+	\vdots \\
+	y_n
+\end{array} \rightB$ are solutions. Then $a_1x_1 + a_2x_2 + \dots + a_nx_n = 0$ and
+$a_1y_1 + a_2y_2 + \dots + a_ny_n = 0$.
+Hence $s\vect{x} + t\vect{y} =
+	\leftB \begin{array}{c}
+		sx_1 + ty_1 \\
+		sx_2 + ty_2 \\
+		\vdots \\
+		sx_n + ty_n
+	\end{array} \rightB$ is also a solution because
+\begin{align*}
+a_1(sx_1 + ty_1) &+ a_2(sx_2 + ty_2) + \dots + a_n(sx_n + ty_n) \\
+ &= [a_1(sx_1) + a_2(sx_2) + \dots + a_n(sx_n)] + [a_1(ty_1) + a_2(ty_2) + \dots + a_n(ty_n)] \\
+ &= s(a_1x_1 + a_2x_2 + \dots + a_nx_n) + t(a_1y_1 + a_2y_2 + \dots + a_ny_n) \\
+ &= s(0) + t(0)\\
+ &= 0
+\end{align*}
+A similar argument shows that Statement \ref{eq:homogeneousstatement} is true for linear combinations of more than two solutions.
+
+The remarkable thing is that \textit{every} solution to a homogeneous system is a linear combination of certain particular solutions and, in fact, these solutions are easily computed using the gaussian algorithm. Here is an example.
+
+\begin{example}{}{001560}
+Solve the homogeneous system with coefficient matrix
+\begin{equation*}
+A = 
+\leftB \begin{array}{rrrr}
+ 	 1 & -2 & 3 & -2 \\
+	-3 & 6 & 1 & 0 \\
+	-2 & 4 & 4 & -2 \\
+\end{array} \rightB
+\end{equation*}
+\begin{solution}
+  The reduction of the augmented matrix to reduced form is
+\begin{equation*}
+\leftB \begin{array}{rrrr|r}
+	1 & -2 & 3 & -2 & 0 \\
+	-3 & 6 & 1 &  0 & 0 \\
+	-2 & 4 & 4 & -2 & 0 \\
+\end{array} \rightB
+\rightarrow
+\def\arraystretch{1.5}
+\leftB \begin{array}{rrrr|r}
+	1 & -2 & 0 & -\frac{1}{5} & 0 \\
+	0 & 0 & 1 & -\frac{3}{5} & 0 \\
+	0 & 0 & 0 & 0 & 0 \\
+\end{array} \rightB
+\end{equation*}
+so the solutions are $x_1 = 2s + \frac{1}{5}t$, $x_2 = s$, $x_3 = \frac{3}{5}t$, and $x_4 = t$ by gaussian elimination. Hence we can write the general solution $\vect{x}$ in the matrix form
+\begin{equation*}
+	\vect{x} =
+	\leftB \begin{array}{r}
+		x_1 \\
+		x_2 \\
+		x_3 \\
+		x_4
+	\end{array} \rightB
+	=
+	\leftB \begin{array}{c}
+		2s + \frac{1}{5}t \\
+		s \\
+		\frac{3}{5}t \\
+		t
+	\end{array} \rightB
+	= s
+	\leftB \begin{array}{r}
+		2 \\
+		1 \\
+		0 \\
+		0
+	\end{array} \rightB
+	+ t
+	\leftB \begin{array}{r}
+		\frac{1}{5} \\
+		0 \\
+		\frac{3}{5} \\
+		1 
+	\end{array} \rightB
+	= s\vect{x}_1 + t\vect{x}_2.
+\end{equation*}
+Here $\vect{x}_1 =
+\leftB \begin{array}{r}
+	2 \\
+	1 \\
+	0 \\
+	0
+\end{array} \rightB$ and $\vect{x}_2 =
+\leftB \begin{array}{r}
+	\frac{1}{5} \\
+ 	0 \\
+ 	\frac{3}{5} \\
+ 	1 
+\end{array} \rightB$ are particular solutions determined by the gaussian algorithm.
+\end{solution}
+\end{example}
+
+\noindent The solutions $\vect{x}_1$ and $\vect{x}_2$ in Example~\ref{exa:001560} are denoted as follows:
+
+\begin{definition}{Basic Solutions}{001576}
+The gaussian algorithm systematically produces solutions to any homogeneous linear system, called \textbf{basic solutions}\index{basic solutions}\index{homogeneous equations!basic solutions}\index{solution!basic solutions}, one for every parameter.
+\end{definition}
+
+\noindent Moreover, the algorithm gives a routine way to express \textit{every} solution as a linear combination of basic solutions as in Example~\ref{exa:001560}, where the general solution $\vect{x}$ becomes
+\begin{equation*}
+\vect{x} = s
+\leftB \begin{array}{r}
+	2 \\
+	1 \\
+	0 \\
+	0
+\end{array} \rightB
++ t
+\leftB \begin{array}{r}
+	\frac{1}{5} \\
+	0 \\
+	\frac{3}{5} \\
+	1 
+\end{array} \rightB
+= s
+\leftB \begin{array}{r}
+	2 \\
+	1 \\
+	0 \\
+	0
+\end{array} \rightB
++ \frac{1}{5}t
+\leftB \begin{array}{r}
+	1 \\
+	0 \\
+	3 \\
+	5
+\end{array} \rightB
+\end{equation*}
+Hence by introducing a new parameter $r = t/5$ we can multiply the original basic solution $\vect{x}_2$ by 5 and so eliminate fractions. For this reason:
+
+\begin{quotation}
+\noindent\textbf{Convention:} \\  \noindent\textit{Any nonzero scalar multiple of a basic solution will still be called a basic solution.}
+\end{quotation}\index{basic solutions}\index{linear combinations!of solutions to homogeneous system}\index{nonzero scalar multiple of a basic solution}\index{solution!basic solutions}
+
+In the same way, the gaussian algorithm produces basic solutions to \textit{every} homogeneous system, one for each parameter (there are \textit{no} basic solutions if the system has only the trivial solution). Moreover every solution is given by the algorithm as a linear combination of 
+these basic solutions (as in Example~\ref{exa:001560}). If $A$ has rank $r$, Theorem~\ref{thm:001133} shows that there are exactly $n-r$ parameters, and so $n-r$ basic solutions. This proves:
+
+\begin{theorem}{}{001586}
+Let $A$ be an $m \times n$ matrix of rank $r$, and consider the homogeneous system in $n$ variables with $A$ as coefficient matrix. Then:
+
+\begin{enumerate}
+\item The system has exactly $n-r$ basic solutions, one for each parameter.
+
+\item Every solution is a linear combination of these basic solutions.
+
+\end{enumerate}
+\end{theorem}\index{homogeneous system}
+
+\begin{example}{}{001594}
+Find basic solutions of the homogeneous system with coefficient matrix $A$, and express every solution as a linear combination of the basic solutions, where
+\begin{equation*}
+A = \leftB \begin{array}{rrrrr}
+	 1 & -3 &  0 & 2 &  2 \\
+	-2 &  6 &  1 & 2 & -5 \\
+	 3 & -9 & -1 & 0 & 7 \\
+	-3 &  9 &  2 & 6 & -8 
+\end{array} \rightB
+\end{equation*}
+\begin{solution}
+  The reduction of the augmented matrix to reduced row-echelon form is
+\begin{equation*}
+\leftB \begin{array}{rrrrr|r}
+	 1 & -3 &  0 & 2 &  2 & 0 \\
+	-2 &  6 &  1 & 2 & -5 & 0 \\
+	 3 & -9 & -1 & 0 &  7 & 0 \\
+	-3 &  9 &  2 & 6 & -8 & 0
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrrr|r}
+	1 & -3 &  0 & 2 &  2 & 0 \\
+	0 &  0 &  1 & 6 & -1 & 0 \\
+	0 &  0 &  0 & 0 &  0 & 0 \\
+	0 &  0 &  0 & 0 &  0 & 0 \\
+\end{array} \rightB
+\end{equation*}
+so the general solution is $x_1 = 3r - 2s - 2t$, $x_2 = r$, $x_3 = -6s + t$, $x_4 = s$, and $x_5 = t$ where $r$, $s$, and $t$ are parameters. In matrix form this is
+\begin{equation*}
+\vect{x} = 
+\leftB \begin{array}{r}
+	x_1 \\
+	x_2 \\
+	x_3 \\
+	x_4 \\
+	x_5
+\end{array} \rightB
+=
+\leftB \begin{array}{c}
+	3r - 2s - 2t \\
+	r \\
+	-6s + t \\
+	s \\
+	t
+\end{array} \rightB
+= r
+\leftB \begin{array}{r}
+	3 \\
+	1 \\
+	0 \\
+	0 \\
+	0
+\end{array} \rightB
++ s
+\leftB \begin{array}{r}
+	-2 \\
+	0 \\
+	-6 \\
+	1 \\
+	0
+\end{array} \rightB
++ t
+\leftB \begin{array}{r}
+	-2 \\
+	0 \\
+	1 \\
+	0 \\
+	1
+\end{array} \rightB
+\end{equation*}
+Hence basic solutions are 
+\begin{equation*}
+\vect{x}_1 =
+\leftB \begin{array}{r}
+	3 \\
+	1 \\
+	0 \\
+	0 \\
+	0
+\end{array} \rightB, \
+ \vect{x}_2 =
+\leftB \begin{array}{r}
+	-2 \\
+	0 \\
+	-6 \\
+	1 \\
+	0
+\end{array} \rightB,\
+\vect{x}_3 =
+\leftB \begin{array}{r}
+	-2 \\
+	0 \\
+	1 \\
+	0 \\
+	1
+\end{array} \rightB
+\end{equation*}
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:1_3}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:1_3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Consider the following statements about a system of linear equations with augmented matrix $A$. In each case either prove the statement or give an example for which it is false.
+
+\begin{enumerate}[label={\alph*.}]
+\item If the system is homogeneous, every solution is trivial.
+
+\item If the system has a nontrivial solution, it cannot be homogeneous.
+
+\item If there exists a trivial solution, the system is homogeneous.
+
+\item If the system is consistent, it must be homogeneous.
+\end{enumerate}
+
+\noindent\textit{Now assume that the system is homogeneous.}
+
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{4}
+\item If there exists a nontrivial solution, there is no trivial solution.
+
+\item If there exists a solution, there are infinitely many solutions.
+
+\item If there exist nontrivial solutions, the row-echelon form of $A$ has a row of zeros.
+
+\item If the row-echelon form of $A$ has a row of zeros, there exist nontrivial solutions.
+
+\item If a row operation is applied to the system, the new system is also homogeneous.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  False. 
+$A = 
+\leftB \begin{array}{rrr|r}
+	1 & 0 & 1 & 0 \\
+	0 & 1 & 1 & 0	
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item  False. 
+$A =
+\leftB \begin{array}{rrr|r}
+	1 & 0 & 1 & 1 \\
+	0 & 1 & 1 & 0	
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item  False. 
+$A =
+\leftB \begin{array}{rr|r}
+	1 & 0 & 0 \\
+	0 & 1 & 0	
+\end{array} \rightB$
+
+\setcounter{enumi}{7}
+\item  False. 
+$A =
+\leftB \begin{array}{rr|r}
+	1 & 0 & 0 \\
+	0 & 1 & 0 \\
+	0 & 0 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each of the following, find all values of $a$ for which the system has nontrivial solutions, and determine all solutions in each case.
+
+\begin{exenumerate}
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	 x & - & 2y & + &  z & = & 0 \\
+	 x & + & ay & - & 3z & = & 0 \\
+	-x & + & 6y & - & 5z & = & 0 \\
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	x & + & 2y & + &  z & = & 0 \\
+	x & + & 3y & + & 6z & = & 0 \\
+	2x & + & 3y & + & az & = & 0 \\
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	x & + &  y & - &  z & = & 0 \\
+	  &   & ay & - &  z & = & 0 \\
+	 x & + &  y & + & az & = & 0 \\
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	ax & + &  y & + &  z & = & 0 \\
+	x & + &  y & - &  z & = & 0 \\
+	 x & + &  y & + & az & = & 0 \\
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $a = -3$, $x = 9t$, $y = -5t$, $z = t$
+
+\setcounter{enumi}{3}
+\item  $a = 1$, $x = -t$, $y = t$, $z = 0$; or $a = -1$, $x = t$, $y = 0$, $z = t$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\vect{x} = 
+\leftB \begin{array}{r}
+	2 \\
+	1 \\
+	-1
+\end{array} \rightB$, $\vect{y} = 
+\leftB \begin{array}{r}
+	1 \\
+	0 \\
+	1
+\end{array} \rightB$, and \\ $\vect{z} = 
+\leftB \begin{array}{r}
+	1 \\
+	1 \\
+	-2
+\end{array} \rightB$. In each case, either write $\vect{v}$ as a linear combination of $\vect{x}$, $\vect{y}$, and $\vect{z}$, or show that it is not such a linear combination.
+
+\begin{exenumerate}
+\exitem 
+$\vect{v} = 
+\leftB \begin{array}{r}
+	0 \\
+	1 \\
+	-3	
+\end{array} \rightB$
+\exitem 
+$\vect{v} = 
+\leftB \begin{array}{r}
+	4 \\
+	3 \\
+	-4
+\end{array} \rightB$
+\exitem 
+$\vect{v} = 
+\leftB \begin{array}{r}
+	3 \\
+	1 \\
+	0
+\end{array} \rightB$
+\exitem 
+$\vect{v} = 
+\leftB \begin{array}{r}
+	3 \\
+	0 \\
+	3
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Not a linear combination.
+
+\setcounter{enumi}{3}
+\item  $\vect{v} = \vect{x} + 2\vect{y} - \vect{z}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, either express $\vect{y}$ as a linear combination of $\vect{a}_1$, $\vect{a}_2$, and $\vect{a}_3$, or show that it is not such a linear combination. Here:
+\begin{equation*}
+\vect{a}_1 =
+\leftB \begin{array}{r}
+	-1 \\
+	3 \\
+	0 \\
+	1
+\end{array} \rightB, \
+\vect{a}_2 =
+\leftB \begin{array}{r}
+	3 \\
+	1 \\
+	2 \\
+	0
+\end{array} \rightB,
+\mbox{ and } \vect{a}_3 =
+\leftB \begin{array}{r}
+	1 \\
+	1 \\
+	1 \\
+	1
+\end{array} \rightB
+\end{equation*}
+
+\begin{exenumerate}
+\exitem 
+$\vect{y} =
+\leftB \begin{array}{r}
+	1 \\
+	2 \\
+	4 \\
+	0
+\end{array} \rightB$
+\exitem 
+$\vect{y} =
+\leftB \begin{array}{r}
+	-1 \\
+	9 \\
+	2 \\
+	6
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\vect{y} = 2\vect{a}_1 - \vect{a}_2 + 4\vect{a}_3$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+For each of the following homogeneous systems, find a set of basic solutions and express the general solution as a linear combination of these basic solutions.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrlrlrcr}
+	 x_1 & + & 2x_2 & - &  x_3 & + & 2x_4 & + &  x_5 & = & 0 \\
+	 x_1 & + & 2x_2 & + & 2x_3 &   &      & + &  x_5 & = & 0 \\
+	2x_1 & + & 4x_2 & - & 2x_3 & + & 3x_4 & + &  x_5 & = & 0
+\end{array}$
+
+\item 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrlrlrcr}
+	 x_1 & + & 2x_2 & - &  x_3 & + &  x_4 & + &  x_5 & = & 0 \\
+	-x_1 & - & 2x_2 & + & 2x_3 &   &      & + &  x_5 & = & 0 \\
+	-x_1 & - & 2x_2 & + & 3x_3 & + &  x_4 & + & 3x_5 & = & 0
+\end{array}$
+
+\item 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrlrlrcr}
+	 x_1 & + &  x_2 & - &  x_3 & + & 2x_4 & + &  x_5 & = & 0 \\
+	 x_1 & + & 2x_2 & - &  x_3 & + &  x_4 & + &  x_5 & = & 0 \\
+	2x_1 & + & 3x_2 & - &  x_3 & + & 2x_4 & + &  x_5 & = & 0 \\
+	4x_1 & + & 5x_2 & - & 2x_3 & + & 5x_4 & + & 2x_5 & = & 0
+\end{array}$
+
+\item 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrlrlrcr}
+	 x_1 & + &  x_2 & - & 2x_3 & - & 2x_4 & + & 2x_5 & = & 0 \\
+	2x_1 & + & 2x_2 & - & 4x_3 & - & 4x_4 & + &  x_5 & = & 0 \\
+	 x_1 & - &  x_2 & + & 2x_3 & + & 4x_4 & + &  x_5 & = & 0 \\
+	-2x_1 & - & 4x_2 & + & 8x_3 & + &10x_4 & + &  x_5 & = & 0
+\end{array}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$r \leftB \begin{array}{r}
+	-2 \\
+	1 \\
+	0 \\
+	0 \\
+	0
+\end{array} \rightB
++ s
+\leftB \begin{array}{r}
+	-2 \\
+	0 \\
+	-1 \\
+	1 \\
+	0
+\end{array} \rightB
++ t
+\leftB \begin{array}{r}
+	-3 \\
+	0 \\
+	-2 \\
+	0 \\
+	1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item 
+$s \leftB \begin{array}{r}
+	0 \\
+	2 \\
+	1 \\
+	0 \\
+	0
+\end{array} \rightB
++ t
+\leftB \begin{array}{r}
+	-1 \\
+	3 \\
+	0 \\
+	1 \\
+	0
+\end{array} \rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} %1.3.6
+\begin{enumerate}[label={\alph*.}]
+\item Does Theorem~\ref{thm:001473} imply that the system 
+$\left \{
+\arraycolsep=1pt
+\begin{array}{rcl}
+	-z + 3y & = & 0 \\
+	2x - 6y & = & 0
+\end{array}
+\right.$ has nontrivial solutions? Explain.
+
+\item Show that the converse to Theorem~\ref{thm:001473} is not true. That is, show that the existence of nontrivial solutions does \textit{not} imply that there are more variables than equations.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The system in (a) has nontrivial solutions.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} %1.3.7
+In each case determine how many solutions (and how many parameters) are possible for a homogeneous system of four linear equations in six variables with augmented matrix $A$. Assume that $A$ has nonzero entries. Give all possibilities.
+
+\begin{exenumerate}
+\exitem Rank $A = 2$.
+\exitem Rank $A = 1$.
+\exitem* $A$ has a row of zeros.
+\exitem* The row-echelon form of $A$ has a row of zeros.
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  By Theorem~\ref{thm:001133}, there are $n - r = 6 - 1 = 5$ parameters and thus infinitely many solutions.
+
+\setcounter{enumi}{3}
+\item  If $R$ is the row-echelon form of $A$, then $R$ has a row of zeros and 4 rows in all. Hence $R$ has $r = \func{rank } A = 1$, $2$, or $3$. Thus there are $n - r = 6 - r = 5$, $4$, or $3$ parameters and thus infinitely many solutions.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\begin{ex}
+The graph of an equation $ax + by + cz = 0$ is a plane through the origin (provided that not all of $a$, $b$, and $c$ are zero). Use Theorem~\ref{thm:001473} to show that two planes through the origin have a point in common other than the origin $(0, 0, 0)$.
+\end{ex}
+
+\begin{ex} %1.3.9
+\begin{enumerate}[label={\alph*.}]
+\item Show that there is a line through any pair of points in the plane. [\textit{Hint}: Every line has equation $ax + by + c = 0$, where $a$, $b$, and $c$ are not all zero.]
+
+\item Generalize and show that there is a plane $ax + by + cz + d = 0$ through any three points in space.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  That the graph of $ax + by + cz = d$ contains three points leads to 3 linear equations homogeneous in variables $a$, $b$, $c$, and $d$. Apply Theorem~\ref{thm:001473}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} %1.3.10
+The graph of 
+\begin{equation*}
+a(x^2 + y^2) + bx + cy + d = 0
+\end{equation*}
+ is a circle if $a \neq 0$. Show that there is a circle through any three points in the plane that are not all on a line.
+\end{ex}
+
+\begin{ex} %1.3.11
+Consider a homogeneous system of linear equations in $n$ variables, and suppose that the augmented matrix has rank $r$. Show that the system has nontrivial solutions if and only if $n > r$.
+
+\begin{sol}
+There are $n - r$ parameters (Theorem~\ref{thm:001133}), so there are nontrivial solutions if and only if $n - r > 0$.
+\end{sol}
+\end{ex}
+
+\begin{ex} %1.3.12
+If a consistent (possibly nonhomogeneous) system of linear equations has more variables than equations, prove that it has more than one solution.
+\end{ex}
+\end{multicols}

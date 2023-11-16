@@ -1,0 +1,11 @@
+\begin{tikzpicture}
+\coordinate (leftEllipse) at (0, 0);
+\coordinate (rightEllipse) at (2.6, 0);
+\draw (leftEllipse) [dkgreenvect,thick] ellipse (0.8cm and 1.3cm);
+\draw (rightEllipse) [dkgreenvect,thick] ellipse (0.8cm and 1.3cm);
+\node (x) at (leftEllipse) {\small $\vect{x}$};
+\node (tx) at (rightEllipse) {\small $T(\vect{x})$}; 
+\draw[-latex, dkgreenvect, thick] (x)..controls (1.0, 0.5) and (1.6, 0.4)..(tx) node[above, midway, text=black]{\small $T$};
+\node at (0, -1) {\small $\RR^n$};
+\node at (2.6, -1) {\small $\RR^m$};
+\end{tikzpicture}

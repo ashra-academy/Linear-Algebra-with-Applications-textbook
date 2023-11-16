@@ -1,0 +1,41 @@
+
+\begin{tikzpicture}
+\begin{axis}[disabledatascaling, 
+	clip mode=individual, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick={-5,-4,...,5}, 
+    ytick={-5,-4,...,5}, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-5:5, 
+    samples=100, 
+    xmin=-1.5, 
+    xmax=1.5, 
+    ymin=-1.5, 
+    ymax=1.5]
+\draw (0,0) circle (1); 
+\draw[-latex] (0.5,0) arc [start angle=0,end angle=120,radius=0.5] node [right, text=black,font=\footnotesize,midway]{$\frac{2\pi}{3}$};
+\draw[dkgreenvect,thick](0,0)--(-0.5,0.866);
+\draw[-latex] (0.25,0) arc [start angle=0,end angle=240,radius=0.25] node [left, text=black,font=\footnotesize,pos=0.95]{$\frac{4\pi}{3}$};
+\draw[dkgreenvect,thick](0,0)--(-0.5,-0.866);
+\fill[black] (1,0) circle (1.5pt);
+\fill[black] (-0.5,0.866) circle (1.5pt);
+\fill[black] (-0.5,-0.866) circle (1.5pt);
+\node[below right,font=\footnotesize] at (0,0){$0$};
+\node[below right,font=\footnotesize] at (1,0){$1$};
+\node[above left,font=\footnotesize] at (-0.5,0.866){$-\frac{1}{2}+\frac{\sqrt{3}}{2}i$};
+\node[below left,font=\footnotesize] at (-0.5,-0.866){$-\frac{1}{2}-\frac{\sqrt{3}}{2}i$};
+\end{axis} 
+\end{tikzpicture}

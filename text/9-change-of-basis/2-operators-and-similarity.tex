@@ -1,0 +1,577 @@
+\section{Operators and Similarity}
+\label{sec:9_2}
+
+While the study of linear transformations from one vector space to another is important, the central problem of linear algebra is to understand the structure of a linear transformation $T : V \to V$ from a space $V$ to itself. Such transformations are called \textbf{linear operators}\index{linear operator!defined}. If $T : V \to V$ is a linear operator where $\func{dim}(V) = n$, it is possible to choose bases $B$ and $D$ of $V$ such that the matrix $M_{DB}(T)$ has a very simple form: $M_{DB}(T) = \leftB \begin{array}{cc} I_r & 0 \\ 0 & 0 \end{array} \rightB$ where $r = \func{rank }T$ (see Example~\ref{exa:028178}). Consequently, only the $\func{rank}$ of $T$ is revealed by determining the simplest matrices $M_{DB}(T)$ of $T$ where the bases $B$ and $D$ can be chosen arbitrarily. But if we insist that $B = D$ and look for bases $B$ such that $M_{BB}(T)$ is as simple as possible, we learn a great deal about the operator $T$. We begin this task in this section.
+
+
+\subsection*{The B-matrix of an Operator}
+
+
+\begin{definition}{Matrix $M_{DB}(T)$ of $T : V \to W$ for basis $B$}{028619}
+If $T : V \to V$ is an operator on a vector space $V$, and if $B$ is an ordered basis of $V$, define $M_{B}(T) = M_{BB}(T)$ and call this the $\bm{B}$-\textbf{matrix}\index{$B$-matrix} of $T$.\index{$B$-matrix}\index{linear operator!$B$-matrix}
+\end{definition}
+
+Recall that if $T : \RR^n \to \RR^n$ is a linear operator and $E = \{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is the standard basis of $\RR^n$, then $C_{E}(\vect{x}) = \vect{x}$ for every $\vect{x} \in \RR^n$, so $M_{E}(T) = \leftB T(\vect{e}_{1}), T(\vect{e}_{2}), \dots, T(\vect{e}_{n})\rightB$ is the matrix obtained in Theorem~\ref{thm:005789}. Hence $M_{E}(T)$ will be called the \textbf{standard matrix}\index{standard matrix}\index{matrix!standard matrix}\index{linear operator!standard matrix} of the operator $T$.
+
+For reference the following theorem collects some results from Theorem~\ref{thm:027955}, Theorem~\ref{thm:028067}, and Theorem~\ref{thm:028086}, specialized for operators. As before, $C_{B}(\vect{v})$ denoted the coordinate vector of $\vect{v}$ with respect to the basis $B$.
+
+
+\begin{theorem}{}{028640}
+Let $T : V \to V$ be an operator where $\func{dim }V = n$, and let $B$ be an ordered basis of $V$.
+
+
+\begin{enumerate}
+\item $C_{B}(T(\vect{v})) = M_{B}(T)C_{B}(\vect{v})$ for all $\vect{v}$ in $V$.
+
+\item If $S : V \to V$ is another operator on $V$, then $M_{B}(ST) = M_{B}(S)M_{B}(T)$.
+
+\item $T$ is an isomorphism if and only if $M_{B}(T)$ is invertible. In this case $M_{D}(T)$ is invertible for every ordered basis $D$ of $V$.
+
+\item If $T$ is an isomorphism, then $M_{B}(T^{-1}) = [M_{B}(T)]^{-1}$.
+
+\item If $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$, then $M_B(T) = \leftB \begin{array}{cccc} C_B[T(\vect{b}_1)] & C_B[T(\vect{b}_2)] & \cdots & C_B[T(\vect{b}_n)] \end{array} \rightB$.
+
+\end{enumerate}
+\end{theorem}
+
+For a fixed operator $T$ on a vector space $V$, we are going to study how the matrix $M_{B}(T)$ changes when the basis $B$ changes. This turns out to be closely related to how the coordinates $C_{B}(\vect{v})$ change for a vector $\vect{v}$ in $V$. If $B$ and $D$ are two ordered bases of $V$, and if we take $T = 1_{V}$ in Theorem~\ref{thm:027955}, we obtain
+\begin{equation*}
+C_D(\vect{v}) = M_{DB}(1_V)C_B(\vect{v}) \quad \mbox{ for all } \vect{v} \mbox{ in } V
+\end{equation*}
+\begin{definition}{Change Matrix $P_{D \gets B}$ for bases $B$ and $D$}{028675}
+With this in mind, define the \textbf{change matrix}\index{change matrix}\index{linear operator!change matrix}\index{matrix!change matrix} $P_{D \gets B}$ by
+\begin{equation*}
+P_{D \gets B} = M_{DB}(1_V) \quad \mbox{ for any ordered bases } B \mbox{ and } D \mbox{ of } V
+\end{equation*}
+\end{definition}
+
+\newpage
+\noindent This proves equation \ref{eqn:thm_9_2_2_b} in the following theorem:
+
+\begin{theorem}{}{028683}
+Let $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ and $D$ denote ordered bases of a vector space $V$. Then the change matrix $P_{D \gets B}$ is given in terms of its columns by
+\begin{equation}\label{eqn:thm_9_2_2_a}
+P_{D \gets B} = \leftB \begin{array}{cccc} C_D(\vect{b}_1) & C_D(\vect{b}_2) & \cdots & C_D(\vect{b}_n) \end{array} \rightB
+\end{equation}
+and has the property that
+\begin{equation}\label{eqn:thm_9_2_2_b}
+C_D(\vect{v}) = P_{D \gets B}C_B(\vect{v}) \mbox{ for all } \vect{v} \mbox{ in } V
+\end{equation}
+Moreover, if $E$ is another ordered basis of $V$, we have
+\begin{enumerate}
+\item $P_{B \gets B} = I_{n}$
+
+\item $P_{D \gets B}$ is invertible and $(P_{D \gets B})^{-1} = P_{B \gets D}$
+
+\item $P_{E \gets D}P_{D \gets B} = P_{E \gets B}$
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The formula \ref{eqn:thm_9_2_2_b} is derived above, and \ref{eqn:thm_9_2_2_a} is immediate from the definition of $P_{D \gets B}$ and the formula for $M_{DB}(T)$ in Theorem~\ref{thm:027955}.
+\begin{enumerate}
+\item $P_{B \gets B} = M_{BB}(1_{V}) = I_{n}$ as is easily verified.
+
+\item This follows from (1) and (3).
+
+\item Let $V \stackrel{T}{\to} W \stackrel{S}{\to} U$ be operators, and let $B$, $D$, and $E$ be ordered bases of $V$, $W$, and $U$ respectively. We have $M_{EB}(ST) = M_{ED}(S)M_{DB}(T)$ by Theorem~\ref{thm:028067}. Now (3) is the result of specializing \\ $V = W = U$ and $T = S = 1_{V}$.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\noindent Property (3) in Theorem~\ref{thm:028683} explains the notation $\vectspace{P}_{D \gets B}$.
+
+\begin{example}{}{028754}
+In $\vectspace{P}_{2}$ find $P_{D \gets B}$ if $B = \{1, x, x^{2}\}$ and $D = \{1, (1 - x), (1 - x)^{2}\}$. Then use this to express $p = p(x) = a + bx + cx^{2}$ as a polynomial in powers of $(1 - x)$.
+
+
+\begin{solution}
+  To compute the change matrix $P_{D \gets B}$, express $1, x, x^{2}$ in the basis $D$:
+\begin{align*}
+1 & = 1 + 0(1 - x) + 0(1 - x)^2 \\
+x & = 1 - 1(1 - x) + 0(1 - x)^2 \\
+x^2 & = 1 - 2(1 - x) + 1(1 - x)^2
+\end{align*}
+Hence $P_{D \gets B} = \leftB C_D(1), C_D(x), C_D(x)^2 \rightB = \leftB \begin{array}{rrr} 1 & 1 & 1 \\ 0 & -1 & -2 \\ 0 & 0 & 1 \end{array} \rightB$. We have $C_B(p) = \leftB \begin{array}{c} a \\ b \\ c \end{array} \rightB$, so
+\begin{equation*}
+C_D(p) = P_{D \gets B}C_B(p) = \leftB \begin{array}{rrr} 1 & 1 & 1 \\ 0 & -1 & -2 \\ 0 & 0 & 1 \end{array} \rightB \leftB \begin{array}{c} a \\ b \\ c \end{array} \rightB = \leftB \begin{array}{c} a + b + c \\ -b - 2c \\ c \end{array} \rightB
+\end{equation*}
+Hence $p(x) = (a + b + c) - (b + 2c)(1 - x) + c(1 - x)^{2}$ by Definition~\ref{def:027894}.\footnotemark
+\end{solution}
+\end{example}
+\footnotetext{This also follows from Taylor's theorem\index{Taylor's theorem} (Corollary \ref{cor:020039} of Theorem~\ref{thm:019992} with $a = 1$).}
+
+Now let $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ and $B_{0}$ be two ordered bases of a vector space $V$. An operator $T : V \to V$ has different matrices $M_{B}[T]$ and $M_{B_0}[T]$ with respect to $B$ and $B_{0}$. We can now determine how these matrices are related. Theorem~\ref{thm:028683} asserts that
+\begin{equation*}
+C_{B_0}(\vect{v}) = P_{B_0 \gets B}C_B(\vect{v}) \mbox{ for all } \vect{v} \mbox{ in } V
+\end{equation*}
+On the other hand, Theorem~\ref{thm:028640} gives
+\begin{equation*}
+C_B[T(\vect{v})] = M_B(T)C_B(\vect{v}) \mbox{ for all } \vect{v} \mbox{ in } V
+\end{equation*}
+Combining these (and writing $P = P_{B_{0} \gets B}$ for convenience) gives
+\begin{align*}
+PM_B(T)C_B(\vect{v}) & = PC_B[T(\vect{v})] \\
+& = C_{B_0}[T(\vect{v})] \\
+& = M_{B_0}(T)C_{B_0}(\vect{v}) \\
+& = M_{B_0}(T)PC_B(\vect{v})
+\end{align*}
+This holds for all $\vect{v}$ in $V$. Because $C_{B}(\vect{b}_{j})$ is the $j$th column of the identity matrix, it follows that
+\begin{align*}
+PM_B(T) = M_{B_0}(T)P
+\end{align*}
+Moreover $P$ is invertible (in fact, $P^{-1} = P_{B \gets B_0}$ by Theorem~\ref{thm:028683}), so this gives
+\begin{equation*}
+M_B(T) = P^{-1}M_{B_0}(T)P
+\end{equation*}
+This asserts that $M_{B_0}(T)$ and $M_{B}(T)$ are similar matrices, and proves Theorem~\ref{thm:028802}.
+
+
+\begin{theorem}{Similarity Theorem}{028802}
+Let $B_{0}$ and $B$ be two ordered bases of a finite dimensional vector space $V$. If $T : V \to V$ is any linear operator, the matrices $M_{B}(T)$ and $M_{B_0}(T)$ of $T$ with respect to these bases are similar. More precisely,
+\begin{equation*}
+M_B(T) = P^{-1}M_{B_0}(T)P
+\end{equation*}
+where $P = P_{B_0 \gets B}$ is the change matrix from $B$ to $B_{0}$.
+\end{theorem}
+
+\begin{example}{}{028812}
+Let $T : \RR^3 \to \RR^3$ be defined by $T(a, b, c) = (2a - b, b + c, c - 3a)$. If $B_{0}$ denotes the standard basis of $\RR^3$ and $B = \{(1, 1, 0), (1, 0, 1), (0, 1, 0)\}$, find an invertible matrix $P$ such that $P^{-1}M_{B_0}(T)P = M_B(T)$.
+
+
+\begin{solution}
+ We have
+\begin{gather*}
+M_{B_0}(T) = \leftB \begin{array}{ccc} C_{B_0}(2, 0, -3) & C_{B_0}(-1, 1, 0) & C_{B_0}(0, 1, 1) \end{array} \rightB = \leftB \begin{array}{rrr} 2 & -1 & 0 \\ 0 & 1 & 1 \\ -3 & 0 & 1 \end{array} \rightB \\
+M_{B}(T) = \leftB \begin{array}{ccc} C_{B}(1, 1, -3) & C_{B}(2, 1, -2) & C_{B}(-1, 1, 0) \end{array} \rightB = \leftB \begin{array}{rrr} 4 & 4 & -1 \\ -3 & -2 & 0 \\ -3 & -3 & 2 \end{array} \rightB \\
+P = P_{B_0 \gets B} = \leftB \begin{array}{ccc} C_{B_0}(1, 1, 0) & C_{B_0}(1, 0, 1) & C_{B_0}(0, 1, 0) \end{array} \rightB = \leftB \begin{array}{rrr} 1 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{array} \rightB
+\end{gather*}
+The reader can verify that $P^{-1}M_{B_0}(T)P = M_B(T)$; equivalently that $M_{B_0}(T)P = PM_B(T)$.
+\end{solution}
+\end{example}
+
+A square matrix is diagonalizable if and only if it is similar to a diagonal matrix\index{diagonal matrices}\index{matrix!diagonal matrices}\index{diagonalizable matrix}\index{square matrix ($n \times n$ matrix)!diagonalizable matrix}. Theorem~\ref{thm:028802} comes into this as follows: Suppose an $n \times n$ matrix $A = M_{B_0}(T)$ is the matrix of some operator $T : V \to V$ with respect to an ordered basis $B_{0}$. If another ordered basis $B$ of $V$ can be found such that $M_{B}(T) = D$ is diagonal, then Theorem~\ref{thm:028802} shows how to find an invertible $P$ such that $P^{-1}AP = D$. In other words, the ``algebraic'' problem of finding $P$ such that $P^{-1}AP$ is diagonal comes down to the ``geometric'' problem of finding a basis $B$ such that $M_{B}(T)$ is diagonal. This shift of emphasis is one of the most important techniques in linear algebra.\index{basis!geometric problem of finding}
+
+
+Each $n \times n$ matrix $A$ can be easily realized as the matrix of an operator\index{square matrix ($n \times n$ matrix)!matrix of an operator}. In fact, (Example~\ref{exa:028025}),
+\begin{equation*}
+M_E(T_A) = A
+\end{equation*}
+where $T_{A} : \RR^n \to \RR^n$ is the matrix operator given by $T_{A}(\vect{x}) = A\vect{x}$, and $E$ is the standard basis of $\RR^n$. The first part of the next theorem gives the converse of Theorem~\ref{thm:028802}: Any pair of similar matrices can be realized as the matrices of the same linear operator with respect to different bases. This is part 1 of the following theorem.\index{linear operator!properties of matrices}
+
+
+\begin{theorem}{}{028841}
+Let $A$ be an $n \times n$ matrix and let $E$ be the standard basis of $\RR^n$.
+
+
+\begin{enumerate}
+\item Let $A^{\prime}$ be similar to $A$, say $A^{\prime} = P^{-1}AP$, and let $B$ be the ordered basis of $\RR^n$ consisting of the columns of $P$ in order. Then $T_{A} : \RR^n \to \RR^n$ is linear and
+\begin{equation*}
+M_E(T_A) = A \quad \mbox{ and } \quad M_B(T_A) = A^{\prime}
+\end{equation*}
+\item If $B$ is any ordered basis of $\RR^n$, let $P$ be the (invertible) matrix whose columns are the vectors in $B$ in order. Then
+\begin{equation*}
+M_B(T_A) = P^{-1}AP
+\end{equation*}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item We have $M_{E}(T_{A}) = A$ by Example~\ref{exa:028025}. Write $P = \leftB \begin{array}{ccc} \vect{b}_{1} & \cdots & \vect{b}_{n} \end{array} \rightB$ in terms of its columns so $B = \{\vect{b}_{1}, \dots, \vect{b}_{n}\}$ is a basis of $\RR^n$. Since $E$ is the standard basis,
+\begin{equation*}
+P_{E \gets B} = \leftB \begin{array}{ccc} C_E(\vect{b}_1) & \cdots & C_E(\vect{b}_n) \end{array} \rightB = \leftB \begin{array}{ccc} \vect{b}_1 & \cdots & \vect{b}_n \end{array} \rightB = P
+\end{equation*}
+Hence Theorem~\ref{thm:028802} (with $B_{0} = E$) gives $M_{B}(T_{A}) = P^{-1}M_{E}(T_{A})P = P^{-1}AP = A^{\prime}$.
+
+\item Here $P$ and $B$ are as above, so again $P_{E \gets B} = P$ and $M_{B}(T_{A}) = P^{-1}AP$.
+
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\begin{example}{}{028887}
+Given $A = \leftB \begin{array}{rr} 10 & 6 \\ -18 & -11 \end{array} \rightB$, $P = \leftB \begin{array}{rr} 2 & -1 \\ -3 & 2 \end{array} \rightB$, and $D = \leftB \begin{array}{rr} 1 & 0 \\ 0 & -2 \end{array} \rightB$, verify that $P^{-1}AP = D$ and use this fact to find a basis $B$ of $\RR^2$ such that $M_{B}(T_{A}) = D$.
+
+
+\begin{solution}
+$P^{-1}AP = D$ holds if $AP = PD$; this verification is left to the reader. Let $B$ consist of the columns of $P$ in order, that is $B = \left\{ \leftB \begin{array}{r} 2 \\ -3 \end{array} \rightB, \leftB \begin{array}{r} -1 \\ 2 \end{array} \rightB \right\}$. Then Theorem \ref{thm:028841} gives $M_{B}(T_{A}) = P^{-1}AP = D$. More explicitly,
+\begin{equation*}
+M_B(T_A) = \leftB C_B \left( T_A  \leftB \begin{array}{r} 2 \\ -3 \end{array} \rightB \right) \quad C_B \left( T_A \leftB \begin{array}{r} -1 \\ 2 \end{array} \rightB \right) \rightB = \leftB C_B \leftB \begin{array}{r} 2 \\ -3 \end{array} \rightB \quad C_B \leftB \begin{array}{r} 2 \\ -4 \end{array} \rightB \rightB = \leftB \begin{array}{rr} 1 & 0 \\ 0 & -2 \end{array} \rightB = D
+\end{equation*}
+\end{solution}
+\end{example}
+
+Let $A$ be an $n \times n$ matrix. As in Example~\ref{exa:028887}, Theorem~\ref{thm:028841} provides a new way to find an invertible matrix $P$ such that $P^{-1}AP$ is diagonal. The idea is to find a basis $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ of $\RR^n$ such that $M_{B}(T_{A}) = D$ is diagonal and take $P = \leftB \begin{array}{cccc} \vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{n} \end{array} \rightB$ to be the matrix with the $\vect{b}_{j}$ as columns. Then, by Theorem \ref{thm:028841},
+\begin{equation*}
+P^{-1}AP = M_B(T_A) = D
+\end{equation*}
+As mentioned above, this converts the algebraic problem of diagonalizing $A$ into the geometric problem of finding the basis $B$. This new point of view is very powerful and will be explored in the next two sections.\index{basis!geometric problem of finding}
+
+
+Theorem~\ref{thm:028841} enables facts about matrices to be deduced from the corresponding properties of operators. Here is an example.
+
+
+\begin{example}{}{028921}
+\begin{enumerate}
+\item If $T : V \to V$ is an operator where $V$ is finite dimensional, show that $TST = T$ for some invertible operator $S : V \to V$.
+
+\item If $A$ is an $n \times n$ matrix, show that $AUA = A$ for some invertible matrix $U$.
+
+\end{enumerate}
+
+\begin{solution}
+\begin{enumerate}
+\item Let $B = \{\vect{b}_{1}, \dots, \vect{b}_{r}, \vect{b}_{r+1}, \dots, \vect{b}_{n}\}$ be a basis of $V$ chosen so that $\func{ker }T = \func{span}\{\vect{b}_{r+1}, \dots, \vect{b}_{n}\}$. Then $\{T(\vect{b}_{1}), \dots, T(\vect{b}_{r})\}$ is independent (Theorem~\ref{thm:021572}), so complete it to a basis $\{T(\vect{b}_{1}), \dots, T(\vect{b}_{r}), \vect{f}_{r+1}, \dots, \vect{f}_{n}\}$ of $V$.
+
+
+By Theorem~\ref{thm:020916}, define $S : V \to V$ by
+\begin{align*}
+S[T(\vect{b}_i)] & = \vect{b}_i \quad \mbox{ for } 1 \leq i \leq r \\
+S(\vect{f}_j) & = \vect{b}_j \quad \mbox{ for } r < j \leq n
+\end{align*}
+Then $S$ is an isomorphism by Theorem \ref{thm:022044}, and $TST = T$ because these operators agree on the basis $B$. In fact,
+\begin{gather*}
+(TST)(\vect{b}_i) = T[ST(\vect{b}_i)] = T(\vect{b}_i) \mbox{ if } 1 \leq i \leq r \mbox{, and} \\
+(TST)(\vect{b}_j) = TS[T(\vect{b}_j)] = TS(\vect{0}) = \vect{0} = T(\vect{b}_j) \mbox{ for } r < j \leq n
+\end{gather*}
+
+\item Given $A$, let $T = T_{A} : \RR^n \to \RR^n$. By (1) let $TST = T$ where $S : \RR^n \to \RR^n$ is an isomorphism. If $E$ is the standard basis of $\RR^n$, then $A = M_{E}(T)$ by Theorem \ref{thm:028841}. If $U = M_{E}(S)$ then, by Theorem \ref{thm:028640}, $U$ is invertible and
+\begin{equation*}
+AUA = M_E(T)M_E(S)M_E(T) = M_E(TST) = M_E(T) = A
+\end{equation*}
+as required.
+
+\end{enumerate}
+\end{solution}
+\end{example}
+
+\noindent The reader will appreciate the power of these methods if he/she tries to find $U$ directly in part 2 of Example~\ref{exa:028921}, even if $A$ is $2 \times 2$.
+
+
+A property of $n \times n$ matrices is called a \textbf{similarity invariant}\index{similarity invariant}\index{characteristic polynomial!similarity invariant}\index{determinants!similarity invariant}\index{rank!similarity invariant}\index{square matrix ($n \times n$ matrix)!similarity invariant} if, whenever a given $n \times n$ matrix $A$ has the property, every matrix similar to $A$ also has the property. Theorem~\ref{thm:016008} shows that $\func{rank}$, determinant, trace, and characteristic polynomial are all similarity invariants.
+
+
+To illustrate how such similarity invariants are related to linear operators, consider the case of $\func{rank}$. If $T : V \to V$ is a linear operator, the matrices of $T$ with respect to various bases of $V$ all have the same $\func{rank}$ (being similar), so it is natural to regard the common $\func{rank}$ of all these matrices as a property of $T$ itself and not of the particular matrix used to describe $T$. Hence the $\func{rank}$ of $T$ could be \textit{defined} to be the $\func{rank}$ of $A$, where $A$ is \textit{any} matrix of $T$. This would be unambiguous because $\func{rank}$ is a similarity invariant. Of course, this is unnecessary in the case of $\func{rank}$ because $\func{rank }T$ was defined earlier to be the dimension of $\func{im }T$, and this was \textit{proved} to equal the $\func{rank}$ of every matrix representing $T$ (Theorem~\ref{thm:028139}). This definition of $\func{rank }T$ is said to be \textit{intrinsic} because it makes no reference to the matrices representing $T$. However, the technique serves to identify an intrinsic property of $T$ with \textit{every} similarity invariant, and some of these properties are not so easily defined directly.\index{basis!linear operators!and choice of basis}\index{linear operator!choice of basis}
+
+
+In particular, if $T : V \to V$ is a linear operator on a finite dimensional space $V$, define the \textbf{determinant}\index{determinants!defined} of $T$ (denoted $\func{det }T$) by
+\begin{equation*}
+\func{det } T = \func{det } M_B(T), \quad B \mbox{ any basis of } V
+\end{equation*}
+This is independent of the choice of basis $B$ because, if $D$ is any other basis of $V$, the matrices $M_{B}(T)$ and $M_{D}(T)$ are similar and so have the same determinant. In the same way, the \textbf{trace}\index{trace} of $T$ (denoted $\func{tr }T$) can be defined by
+\begin{equation*}
+\func{tr } T = \func{tr } M_B(T), \quad  B \mbox{ any basis of } V
+\end{equation*}
+This is unambiguous for the same reason.
+
+
+Theorems about matrices can often be translated to theorems about linear operators. Here is an example.
+
+
+\begin{example}{}{028977}
+Let $S$ and $T$ denote linear operators on the finite dimensional space $V$. Show that
+\begin{equation*}
+\func{det }(ST) = \func{det } S \func{det } T
+\end{equation*}
+\vspace*{-2em}\begin{solution}
+  Choose a basis $B$ of $V$ and use Theorem~\ref{thm:028640}.
+\begin{align*}
+\func{det }(ST) = \func{det } M_B(ST) & = \func{det } [M_B(S)M_B(T)] \\
+& = \func{det } [M_B(S)] \func{det } [M_B(T)] = \func{det } S \func{det } T
+\end{align*}
+\end{solution}
+\end{example}
+
+Recall next that the characteristic polynomial of a matrix is another similarity invariant: If $A$ and $A^{\prime}$ are similar matrices, then $c_{A}(x) = c_{A^{\prime}}(x)$ (Theorem~\ref{thm:016008}). As discussed above, the discovery of a similarity invariant means the discovery of a property of linear operators. In this case, if $T : V \to V$ is a linear operator on the finite dimensional space $V$, define the \textbf{characteristic polynomial}\index{characteristic polynomial!similarity invariant} of $T$ by
+\begin{equation*}
+c_T(x) = c_A(x) \mbox{ where } A = M_B(T) \mbox{, } B \mbox{ any basis of } V
+\end{equation*}
+In other words, the characteristic polynomial of an operator $T$ is the characteristic polynomial of \textit{any} matrix representing $T$. This is unambiguous because any two such matrices are similar by Theorem~\ref{thm:028802}.
+
+
+\begin{example}{}{028991}
+Compute the characteristic polynomial $c_{T}(x)$ of the operator $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$ given by $T(a + bx + cx^{2}) = (b + c) + (a + c)x + (a + b)x^{2}$.
+
+
+\begin{solution}
+  If $B = \{1, x, x^{2}\}$, the corresponding matrix of $T$ is
+\begin{equation*}
+M_B(T) = \leftB \begin{array}{ccc} C_B[T(1)] & C_B[T(x)] & C_B[T(x^2)] \end{array} \rightB = \leftB \begin{array}{rrr} 0 & 1 & 1 \\ 1 & 0 & 1 \\ 1 & 1 & 0 \end{array} \rightB
+\end{equation*}
+Hence $c_{T}(x) = \func{det}[xI - M_{B}(T)] = x^{3} - 3x - 2 = (x + 1)^{2}(x - 2)$.
+\end{solution}
+\end{example}
+
+In Section~\ref{sec:4_4} we computed the matrix of various projections, reflections, and rotations in $\RR^3$. However, the methods available then were not adequate to find the matrix of a rotation about a line through the origin. We conclude this section with an example of how Theorem~\ref{thm:028802} can be used to compute such a matrix.
+
+
+\begin{example}{}{029011}
+Let $L$ be the line in $\RR^3$ through the origin with (unit) direction vector $\vect{d} = \frac{1}{3}\leftB \begin{array}{ccc} 2 & 1 & 2 \end{array} \rightB^T$. Compute the matrix of the rotation about $L$ through an angle $\theta$ measured counterclockwise when viewed in the direction of $\vect{d}$.\index{rotations!about a line through the origin}
+
+\newpage
+\begin{wrapfigure}[14]{l}{5cm}
+	\centering
+	\input{9-change-of-basis/figures/2-operators-and-similarity/example9.2.7a}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+\begin{solution}
+  Let $R : \RR^3 \to \RR^3$ be the rotation. The idea is to first find a basis $B_{0}$ for which the matrix of $M_{B_0}(R)$ of $R$ is easy to compute, and then use Theorem~\ref{thm:028802} to compute the ``standard'' matrix $M_{E}(R)$ with respect to the standard basis $E = \{\vect{e}_{1}, \vect{e}_{2}, \vect{e}_{3}\}$ of $\RR^3$.
+
+
+To construct the basis $B_{0}$, let $K$ denote the plane through the origin with $\vect{d}$ as normal, shaded in the diagram. Then the vectors $\vect{f} = \frac{1}{3}\leftB \begin{array}{ccc} -2 & 2 & 1 \end{array} \rightB^T$ and $\vect{g} = \frac{1}{3}\leftB \begin{array}{ccc} 1 & 2 & -2 \end{array} \rightB^T$ are both in $K$ (they are orthogonal to $\vect{d}$) and are independent (they are orthogonal to each other).
+
+Hence $B_{0} = \{\vect{d}, \vect{f}, \vect{g}\}$ is an orthonormal basis of $\RR^3$, and the effect of $R$ on $B_{0}$ is easy to determine. In fact $R(\vect{d}) = \vect{d}$ and (as in Theorem~\ref{thm:006021}) the second diagram gives
+\begin{equation*}
+R(\vect{f}) = \cos \theta \vect{f} + \sin \theta \vect{g} \quad \mbox{ and } \quad R(\vect{g}) = -\sin \theta \vect{f} + \cos \theta \vect{g}
+\end{equation*}
+
+\begin{wrapfigure}[7]{l}{5cm}
+	\centering
+	\input{9-change-of-basis/figures/2-operators-and-similarity/example9.2.7b}
+\end{wrapfigure}
+
+because $\vectlength\vect{f}\vectlength = 1 = \vectlength\vect{g}\vectlength$. Hence
+\begin{equation*}
+M_{B_0}(R) = \leftB \begin{array}{ccc} C_{B_0}(\vect{d}) & C_{B_0}(\vect{f}) & C_{B_0}(\vect{g}) \end{array} \rightB = \leftB \begin{array}{ccc} 1 & 0 & 0 \\ 0 & \cos \theta & -\sin \theta \\ 0 & \sin \theta & \cos \theta \end{array} \rightB
+\end{equation*}
+Now Theorem~\ref{thm:028802} (with $B = E$) asserts that $M_E(R) = P^{-1}M_{B_0}(R)P$ where
+\begin{equation*}
+P = P_{B_0 \gets E} = \leftB \begin{array}{ccc} C_{B_0}(\vect{e}_1) & C_{B_0}(\vect{e}_2) & C_{B_0}(\vect{e}_3) \end{array} \rightB = \frac{1}{3} \leftB \begin{array}{rrr} 2 & 1 & 2 \\ -2 & 2 & 1 \\ 1 & 2 & -2 \end{array} \rightB
+\end{equation*}
+using the expansion theorem (Theorem~\ref{thm:015082}). Since $P^{-1} = P^{T}$ ($P$ is orthogonal), the matrix of $R$ with respect to $E$ is
+\begin{align*}
+M_E(R) & = P^TM_{B_0}(R)P \\
+& = \frac{1}{9} \leftB \begin{array}{ccc} 5 \cos \theta + 4 & 6 \sin \theta - 2 \cos \theta + 2 & 4 - 3 \sin \theta - 4 \cos \theta \\ 2 - 6 \sin \theta - 2 \cos \theta & 8 \cos \theta + 1 & 6 \sin \theta - 2 \cos \theta + 2 \\ 3 \sin \theta - 4 \cos \theta + 4 & 2 - 6 \sin \theta - 2 \cos \theta & 5 \cos \theta + 4 \end{array} \rightB
+\end{align*}
+As a check one verifies that this is the identity matrix when $\theta = 0$, as it should.
+\end{solution}
+\end{example}
+\vspace{-1em}
+Note that in Example~\ref{exa:029011} not much motivation was given to the choices of the (orthonormal) vectors $\vect{f}$ and $\vect{g}$ in the basis $B_{0}$, which is the key to the solution. However, if we begin with \textit{any} basis containing $\vect{d}$ the Gram-Schmidt algorithm will produce an orthogonal basis containing $\vect{d}$, and the other two vectors will automatically be in $L^{\perp} = K$.\index{Gram-Schmidt orthogonalization algorithm}\index{orthogonality!Gram-Schmidt orthogonalization algorithm}
+
+
+\section*{Exercises for \ref{sec:9_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:9_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case find $P_{D \gets B}$, where $B$ and $D$ are ordered bases of $V$. Then verify that \\ $C_{D}(\vect{v}) = P_{D \gets B}C_{B}(\vect{v})$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \RR^2$, $B = \{(0, -1), (2, 1)\}$,\\  $D = \{(0, 1), (1, 1)\}$, $\vect{v} = (3, -5)$
+
+
+\item $V = \vectspace{P}_2$, $B = \{x, 1 + x, x^2\}$, $D = \{2, x + 3, x^2 - 1\}$, $\vect{v} = 1 + x + x^2$
+
+
+\item $V = \vectspace{M}_{22}$, \\ \hspace*{-2em}$B = \left\{ \leftB \begin{array}{rr} 1 & 0 \\ 0 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 1 \\ 0 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 0 \\ 0 & 1 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 0 \\ 1 & 0 \end{array} \rightB \right\}$, \\
+\hspace*{-2em}$D = \left\{ \leftB \begin{array}{rr} 1 & 1 \\ 0 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 1 & 0 \\ 1 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 1 & 0 \\ 0 & 1 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 1 \\ 1 & 0 \end{array} \rightB \right\}$, $\vect{v} = \leftB \begin{array}{rr} 3 & -1 \\ 1 & 4 \end{array} \rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\frac{1}{2} \leftB \begin{array}{rrr} -3 & -2 & 1 \\ 2 & 2 & 0 \\ 0 & 0 & 2 \end{array} \rightB$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In $\RR^3$ find $P_{D \gets B}$, where \\ $B = \{(1, 0, 0), (1, 1, 0), (1, 1, 1)\}$ and \\ $D = \{(1, 0, 1), (1, 0, -1), (0, 1, 0)\}$. If $\vect{v} = (a, b, c)$, show that $C_D(\vect{v}) = \frac{1}{2} \leftB \begin{array}{c} a + c \\ a - c \\ 2b \end{array} \rightB$ and $C_B(\vect{v}) = \leftB \begin{array}{c} a - b \\ b - c \\ c \end{array} \rightB$, and verify that $C_{D}(\vect{v}) = P_{D \gets B}C_{B}(\vect{v})$.
+\end{ex}
+
+\begin{ex}
+In $\vectspace{P}_{3}$ find $P_{D \gets B}$ if $B = \{1, x, x^{2}, x^{3}\}$ and $D = \{1, (1 - x), (1 - x)^{2}, (1 - x)^{3}\}$. Then express $p = a + bx + cx^{2} + dx^{3}$ as a polynomial in powers of $(1 - x)$.
+\end{ex}
+
+\begin{ex}
+In each case verify that $P_{D \gets B}$ is the inverse of $P_{B \gets D}$ and that $P_{E \gets D}P_{D \gets B} = P_{E \gets B}$, where $B$, $D$, and $E$ are ordered bases of $V$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \RR^3$, $B = \{(1, 1, 1), (1, -2, 1), (1, 0, -1)\}$, $D =$ standard basis, \\ $E = \{(1, 1, 1), (1, -1, 0), (-1, 0, 1)\}$
+
+
+\item $V = \vectspace{P}_2$, $B = \{1, x, x^2\}$, $D = \{1 + x + x^2,\\  1 - x, -1 + x^2\}$, $E = \{x^2, x, 1\}$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $P_{B \gets D} = \leftB \begin{array}{rrr} 1 & 1 & -1 \\ 1 & -1 & 0 \\ 1 & 0 & 1 \end{array} \rightB$, $P_{D \gets B} = \frac{1}{3} \leftB \begin{array}{rrr} 1 & 1 & 1 \\ 1 & -2 & 1 \\ -1 & -1 & 2 \end{array} \rightB$, $P_{E \gets D} = \leftB \begin{array}{rrr} 1 & 0 & 1 \\ 1 & -1 & 0 \\ 1 & 1 & -1 \end{array} \rightB$, $P_{E \gets B} = \leftB \begin{array}{rrr} 0 & 0 & 1 \\ 0 & 1 & 0 \\ 1 & 0 & 0 \end{array} \rightB$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Use property (2) of Theorem~\ref{thm:028683}, with $D$ the standard basis of $\RR^n$, to find the inverse of:
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rrr} 1 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 1 \end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rrr} 1 & 2 & 1 \\ 2 & 3 & 0 \\ -1 & 0 & 2 \end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $A = P_{D \gets B}$, where \\ $B = \{(1, 2, -1), (2, 3, 0), (1, 0, 2)\}$.
+Hence $A^{-1} = P_{B \gets D} = \leftB \begin{array}{rrr} 6 & -4 & -3 \\ -4 & 3 & 2 \\ 3 & -2 & -1 \end{array} \rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find $P_{D \gets B}$ if $B = \{\vect{b}_{1}, \vect{b}_{2}, \vect{b}_{3}, \vect{b}_{4}\}$ and $D = \{\vect{b}_{2}, \vect{b}_{3}, \vect{b}_{1}, \vect{b}_{4}\}$. Change matrices arising when the bases differ only in the \textit{order} of the vectors are called \textbf{permutation matrices}\index{permutation matrix}\index{matrix!permutation matrix}.
+\end{ex}
+
+\begin{ex}
+In each case, find $P = P_{B_0 \gets B}$ and verify that $P^{-1}M_{B_0}(T)P = M_B(T)$ for the given operator $T$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^3 \to \RR^3$, $T(a, b, c) = (2a - b, b + c, c - 3a)$; $B_{0} = \{(1, 1, 0), (1, 0, 1), (0, 1, 0)\}$ and $B$ is the standard basis.
+
+\item $T : \vectspace{P}_2 \to \vectspace{P}_2$, \\ $T(a + bx + cx^2) = (a + b) + (b + c)x + (c + a)x^2$; \\ $B_0 = \{1, x, x^2\}$ and $B = \{1 - x^2, 1 + x, 2x + x^2\}$
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$, \\ $T\leftB \begin{array}{cc} a & b \\ c & d \end{array} \rightB = \leftB \begin{array}{cc} a + d & b + c \\ a + c & b + d \end{array} \rightB$; \\ \hspace*{-2em}$B_0 = \left\{ \leftB \begin{array}{rr} 1 & 0 \\ 0 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 1 \\ 0 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 0 \\ 1 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 0 \\ 0 & 1 \end{array} \rightB \right\}$, and \\ \hspace*{-2em}$B = \left\{ \leftB \begin{array}{rr} 1 & 1 \\ 0 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 0 \\ 1 & 1 \end{array} \rightB, \leftB \begin{array}{rr} 1 & 0 \\ 0 & 1 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 1 \\ 1 & 1 \end{array} \rightB \right\}$
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $P = \leftB \begin{array}{rrr} 1 & 1 & 0 \\ 0 & 1 & 2 \\ -1 & 0 & 1 \end{array} \rightB$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, verify that $P^{-1}AP = D$ and find a basis $B$ of $\RR^2$ such that $M_{B}(T_{A}) = D$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A = \leftB \begin{array}{rr} 11 & -6 \\ 12 & -6 \end{array} \rightB$ $P = \leftB \begin{array}{rr} 2 & 3 \\ 3 & 4 \end{array} \rightB$ $D = \leftB \begin{array}{rr} 2 & 0 \\ 0 & 3 \end{array} \rightB$
+
+
+\item $A = \leftB \begin{array}{rr} 29 & -12 \\ 70 & -29 \end{array} \rightB$ $P = \leftB \begin{array}{rr} 3 & 2 \\ 7 & 5 \end{array} \rightB$ $D = \leftB \begin{array}{rr} 1 & 0 \\ 0 & -1 \end{array} \rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $B = \left\{ \leftB \begin{array}{c} 3 \\ 7 \end{array} \rightB, \leftB \begin{array}{c} 2 \\ 5 \end{array} \rightB \right\}$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, compute the characteristic polynomial $c_{T}(x)$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^2 \to \RR^2$, $T(a, b) = (a - b, 2b - a)$
+
+\item $T : \RR^2 \to \RR^2$, $T(a, b) = (3a + 5b, 2a + 3b)$
+
+\item $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$, \\ $T(a + bx + cx^{2}) \\ \hspace*{1em}= (a - 2c) + (2a + b + c)x + (c - a)x^{2}$
+
+\item $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$, \\ $T(a + bx + cx^{2}) \\ \hspace*{1em}= (a + b - 2c) + (a - 2b + c)x + (b - 2a)x^{2}$
+
+\item $T : \RR^3 \to \RR^3$, $T(a, b, c) = (b, c, a)$
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$, $T \leftB \begin{array}{cc} a & b \\ c & d \end{array} \rightB = \leftB \begin{array}{cc} a - c & b - d \\ a - c & b - d \end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $c_{T}(x) = x^{2} - 6x - 1$
+
+\setcounter{enumi}{3}
+\item $c_{T}(x) = x^{3} + x^{2} - 8x - 3$
+
+\setcounter{enumi}{5}
+\item $c_{T}(x) = x^{4}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $V$ is finite dimensional, show that a linear operator $T$ on $V$ has an inverse if and only if $\func{det }T \neq 0$.
+\end{ex}
+
+\begin{ex}
+Let $S$ and $T$ be linear operators on $V$ where $V$ is finite dimensional.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{tr}(ST) = \func{tr}(TS)$. [\textit{Hint}: Lemma~\ref{lem:015978}.]
+
+\item {[See Exercise \ref{ex:ex9_1_19}.]} For $a$ in $\RR$, show that $\func{tr}(S + T) = \func{tr }S + \func{tr }T$, and $\func{tr}(aT) = a \func{tr}(T)$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ are $n \times n$ matrices, show that they have the same $\func{null}$ space if and only if $A = UB$ for some invertible matrix $U$. [\textit{Hint}: Exercise \ref{ex:ex7_3_28}.]
+
+\begin{sol}
+Define $T_{A} : \RR^n \to \RR^n$ by $T_{A}(\vect{x}) = A\vect{x}$ for all $\vect{x}$ in $\RR^n$. If $\func{null }A = \func{null }B$, then $\func{ker}(T_{A}) = \func{null }A = \func{null }B = \func{ker}(T_{B})$ so, by Exercise \ref{ex:ex7_3_28}, $T_{A} = ST_{B}$ for some isomorphism $S : \RR^n \to \RR^n$. If $B_{0}$ is the standard basis of $\RR^n$, we have $A = M_{B_0}(T_{A}) = M_{B_0}(ST_{B}) = M_{B_0}(S)M_{B_0}(T_{B}) = UB$ where $U = M_{B_0}(S)$ is invertible by Theorem~\ref{thm:028640}. Conversely, if $A = UB$ with $U$ invertible, then $A\vect{x} = \vect{0}$ if and only $B\vect{x} = \vect{0}$, so $\func{null }A = \func{null }B$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ are $n \times n$ matrices, show that they have the same column space if and only if $A = BU$ for some invertible matrix $U$. [\textit{Hint}: Exercise \ref{ex:ex7_3_28}.]
+\end{ex}
+
+\begin{ex}
+Let $E = \{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ be the standard ordered basis of $\RR^n$, written as columns. If \\ $D = \{\vect{d}_{1}, \dots, \vect{d}_{n}\}$ is any ordered basis, show that \\ $P_{E \gets D} = \leftB \begin{array}{ccc} \vect{d}_{1} & \cdots & \vect{d}_{n} \end{array} \rightB$.
+\end{ex}
+
+\begin{ex}
+Let $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ be any ordered basis of $\RR^n$, written as columns. If $Q = \leftB \begin{array}{cccc} \vect{b}_{1} & \vect{b}_{2} & \cdots & \vect{b}_{n} \end{array} \rightB$ is the matrix with the $\vect{b}_{i}$ as columns, show that $QC_{B}(\vect{v}) = \vect{v}$ for all $\vect{v}$ in $\RR^n$.
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Given a complex number $w$, define $T_{w} : \mathbb{C} \to \mathbb{C}$  by $T_{w}(z) = wz$ for all $z$ in $\mathbb{C}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T_{w}$ is a linear operator for each $w$ in $\mathbb{C}$, viewing $\mathbb{C}$ as a real vector space.
+
+\item If $B$ is any ordered basis of $\mathbb{C}$, define $S : \mathbb{C}  \to \vectspace{M}_{22}$ by $S(w) = M_{B}(T_{w})$ for all $w$ in $\mathbb{C}$. Show that $S$ is a one-to-one linear transformation with the additional property that $S(wv) = S(w)S(v)$ holds for all $w$ and $v$ in $\mathbb{C}$.
+
+\item Taking $B = \{1, i\}$ show that \\ $S(a + bi) = \leftB \begin{array}{rr} a & -b \\ b & a \end{array} \rightB$ for all complex numbers $a + bi$. This is called the \textbf{regular representation}\index{regular representation}\index{square matrix ($n \times n$ matrix)!regular representation of complex numbers} of the complex numbers as $2 \times 2$ matrices. If $\theta$ is any angle, describe $S(e^{i\theta})$ geometrically. Show that $S(\overline{w}) = S(w)^T$ for all $w$ in $\mathbb{C}$; that is, that conjugation corresponds to transposition.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Showing $S(w + v) = S(w) + S(v)$ means $M_{B}(T_{w+v}) = M_{B}(T_{w}) + M_{B}(T_{v})$. If $B = \{b_{1}, b_{2}\}$, then column $j$ of $M_{B}(T_{w+v})$ is $C_{B}[(w + v)b_{j}] = C_{B}(wb_{j} + vb_{j}) = C_{B}(wb_{j}) + C_{B}(vb_{j})$ because $C_{B}$ is linear. This is column $j$ of $M_{B}(T_{w}) + M_{B}(T_{v})$. Similarly $M_{B}(T_{aw}) = aM_{B}(T_{w})$; so $S(aw) = aS(w)$. Finally $T_{w}T_{v} = T_{wv}$ so $S(wv) = M_{B}(T_{w}T_{v}) = M_{B}(T_{w})M_{B}(T_{v}) = S(w)S(v)$ by Theorem \ref{thm:028640}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ and\\ $D = \{\vect{d}_{1}, \vect{d}_{2}, \dots, \vect{d}_{n}\}$ be two ordered bases of a vector space $V$. Prove that $C_{D}(\vect{v}) = P_{D \gets B}C_{B}(\vect{v})$ holds for all $\vect{v}$ in $V$ as follows: Express each $\vect{b}_{j}$ in the form $\vect{b}_j = p_{1j}\vect{d}_1 + p_{2j}\vect{d}_2 + \cdots + p_{nj}\vect{d}_n$ and write $P = \leftB p_{ij} \rightB$. Show that $P = \leftB \begin{array}{cccc} C_D(\vect{b}_1) & C_D(\vect{b}_1) & \cdots & C_D(\vect{b}_1) \end{array} \rightB$ and that $C_{D}(\vect{v}) = PC_{B}(\vect{v})$ for all $\vect{v}$ in $B$.
+\end{ex}
+
+\begin{ex}
+Find the standard matrix of the rotation $R$ about the line through the origin with direction vector $\vect{d} = \leftB \begin{array}{ccc} 2 & 3 & 6 \end{array} \rightB^{T}$. [\textit{Hint}: Consider $\vect{f} = \leftB \begin{array}{ccc} 6 & 2 & -3 \end{array} \rightB^{T}$ and $\vect{g} = \leftB \begin{array}{ccc} 3 & -6 & 2 \end{array} \rightB^{T}$.]
+\end{ex}
+\end{multicols}

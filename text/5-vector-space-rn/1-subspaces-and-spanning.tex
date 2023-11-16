@@ -1,0 +1,615 @@
+\section{Subspaces and Spanning}
+\label{sec:5_1}
+
+In Section~\ref{sec:2_2} we introduced the set $\RR^n$ of all $n$-tuples\index{$n$-tuples} (called \textit{vectors}), and began our investigation of the matrix transformations $\RR^n \to \RR^m$ given by matrix multiplication by an $m \times n$ matrix. Particular attention was paid to the euclidean plane $\RR^2$ where certain simple geometric transformations were seen to be matrix transformations. Then in Section~\ref{sec:2_6} we introduced linear transformations, showed that they are all matrix 
+transformations, and found the matrices of rotations and reflections in $\RR^2$. We returned to this in Section~\ref{sec:4_4} where we showed that projections, reflections, and rotations of $\RR^2$ and $\RR^3$ were all linear, and where we related areas and volumes to determinants.
+
+In this chapter we investigate $\RR^n$ in full generality, and introduce some of the most important concepts and methods in linear algebra. The $n$-tuples in $\RR^n$ will continue to be denoted $\vect{x}$, $\vect{y}$, and so on, and will be written as rows or columns depending on the context.
+
+\subsection*{Subspaces of $\RR^n$ }
+
+\begin{definition}{Subspace of $\RR^n$}{013442}
+A set\footnotemark $U$ of vectors in $\RR^n$ is called a \textbf{subspace}\index{subspaces!defined} of $\RR^n$ if it satisfies the following properties:\index{set of all ordered $n$-tuples ($\RR^n$)!subspaces}
+
+\begin{itemize}
+\item[S1.] The zero vector $\vect{0} \in U$.\index{vectors!zero vector}\index{zero vector}
+
+\item[S2.] If $\vect{x} \in U$ and $\vect{y} \in U$, then $\vect{x} + \vect{y} \in U$.
+
+\item[S3.] If $\vect{x} \in U$, then $a\vect{x} \in U$ for every real number $a$.
+
+\end{itemize}
+\end{definition}
+\footnotetext{We use the language of sets. Informally, a \textbf{set}\index{set} $X$ is a collection of objects, called the \textbf{elements}\index{elements of the set} of the set. The fact that $x$ is an element of $X$ is denoted $x \in X$. Two sets $X$ and $Y$ are called equal (written $X = Y$)\index{equal!sets} if they have the same elements. If every element of $X$ is in the set $Y$, we say that $X$ is a \textbf{subset}\index{subset} of $Y$, and write $X \subseteq Y$. Hence $X \subseteq Y$ and $Y \subseteq X$ both hold if and only if $X = Y$.}
+
+\noindent We say that the subset $U$ is \textbf{closed under addition}\index{closed under addition}\index{addition!closed under addition}\index{subspaces!closed under addition} if S2 holds, and that $U$ is \textbf{closed under scalar multiplication}\index{closed under scalar multiplication}\index{scalar multiplication!closed under scalar multiplication}\index{subspaces!closed under scalar multiplication} if S3 holds.
+
+Clearly $\RR^n$ is a subspace of itself, and this chapter is about these subspaces and their properties. The set $U = \{\vect{0}\}$,
+consisting of only the zero vector, is also a subspace because
+$\vect{0} + \vect{0} = \vect{0}$ and $a\vect{0} = \vect{0}$ for each
+$a$ in $\RR$; it is called the \textbf{zero subspace}\index{zero subspace}\index{subspaces!zero subspace}. Any subspace of $\RR^n$ other than \{$\vect{0}$\} or
+$\RR^n$ is called a \textbf{proper}\index{proper subspace}\index{subspaces!proper subspace} subspace.
+
+\begin{wrapfigure}[4]{l}{5cm} 
+	\centering
+	\vspace*{-2em}
+	\input{5-vector-space-rn/figures/1-subspaces-and-spanning/definition5.1plane}
+	%\caption{\label{fig:013465}}
+\end{wrapfigure}
+
+We saw in Section~\ref{sec:4_2} that every plane $M$ through the origin in $\RR^3$
+ has equation $ax + by + cz = 0$ where $a$, $b$, and $c$ are not all zero. Here  $\vect{n} = 
+ \leftB \begin{array}{r}
+ a \\
+ b \\
+ c
+ \end{array} \rightB $ 
+ is a normal for the plane and
+\begin{equation*}
+	M = \{ \vect{v} \mbox{ in } \RR^3 \mid \vect{n} \dotprod \vect{v} = 0 \}
+\end{equation*}
+where 
+$\vect{v} = 
+\leftB \begin{array}{r}
+x \\
+y \\
+z
+\end{array} \rightB$
+ and $\vect{n} \dotprod \vect{v}$ denotes the dot product introduced in Section~\ref{sec:2_2} (see the diagram).\footnote{We are using set notation here\index{set notation}. In general \{$q \mid p$\} means the set of all objects $q$ with property $p$.}
+ Then $M$ is a subspace of $\RR^3$. Indeed we show that $M$ satisfies S1, S2, and S3 as follows:
+
+\begin{itemize}
+\item[\textit{S1.}]  $\vect{0} \in M$ \textit{because} $\vect{n} \dotprod \vect{0} = 0$\textit{;}
+
+\item[\textit{S2.}] \textit{If} $\vect{v} \in M$ \textit{and} $\vect{v}_{1} \in M$ \textit{, then} $\vect{n} \dotprod (\vect{v} + \vect{v}_{1}) = \vect{n} \dotprod \vect{v} + \vect{n} \dotprod \vect{v}_{1} = 0 + 0 = 0$ \textit{, so} $\vect{v} + \vect{v}_{1} \in M$\textit{;}
+
+\item[\textit{S3.}] \textit{If} $\vect{v} \in M$ \textit{, then} $\vect{n} \dotprod (a\vect{v}) = a(\vect{n} \dotprod \vect{v}) = a(0) = 0$ \textit{, so } $a\vect{v} \in M$\textit{.}
+
+\end{itemize}
+
+\noindent This proves the first part of
+
+\begin{example}{}{013478}
+\begin{wrapfigure}[5]{l}{5cm}
+\centering
+\input{5-vector-space-rn/figures/1-subspaces-and-spanning/example5.1.1}
+%\caption{\label{fig:013486}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+Planes\index{planes} and lines through the origin in $\RR^3$ are all subspaces of $\RR^3$.\index{subspaces!planes and lines through the origin}
+
+\begin{solution}
+We dealt with planes above. If $L$ is a line through the origin with direction vector $\vect{d}$, then $L = \{t\vect{d} \mid t \in \RR\}$ (see the diagram). We leave it as an exercise to verify that $L$ satisfies S1, S2, and S3.\index{line!through the origin}
+\vspace{4em}
+\end{solution}
+\end{example}
+
+\noindent Example~\ref{exa:013478} shows that lines through the origin in $\RR^2$ are subspaces; in fact, they are the \textit{only} proper subspaces of $\RR^2$ (Exercise \ref{ex:5_1_24}). Indeed, we shall see in Example~\ref{exa:014470} that lines and planes through the origin in $\RR^3$ are the only proper subspaces of $\RR^3$. Thus the geometry of lines and planes through the origin is captured by the subspace concept. (Note that \textit{every} line or plane is just a translation of one of these.)
+
+Subspaces can also be used to describe important features of an $m \times n$ matrix $A$. The \textbf{null space}\index{null space} of $A$, denoted $\func{null} A$, and the \textbf{image space}\index{image space} of $A$, denoted $\func{im} A$, are defined by\index{subspaces!$m \times n$ matrix}
+\begin{equation*}
+\func{null } A = \{ \vect{x} \in \RR^n \mid A\vect{x} = \vect{0}\} \quad \mbox{ and } \quad \func{im } A = \{A\vect{x} \mid \vect{x} \in \RR^n\}
+\end{equation*}
+In the language of Chapter~\ref{chap:2}, $\func{null} A$ consists of all solutions $\vect{x}$ in $\RR^n$ of the homogeneous system $A\vect{x} = \vect{0}$, and $\func{im} A$ is the set of all vectors $\vect{y}$ in $\RR^m$ such that $A\vect{x} = \vect{y}$ \textit{has} a solution $\vect{x}$. Note that $\vect{x}$ is in $\func{null} A$ if it satisfies the \textit{condition} $A\vect{x} = \vect{0}$, while $\func{im} A$ consists of vectors of the \textit{form} $A\vect{x}$ for some $\vect{x}$ in $\RR^n$. These two ways to describe subsets occur frequently.
+
+\begin{example}{}{013498}
+If $A$ is an $m \times n$ matrix, then:\index{$m \times n$ matrix!subspaces}
+
+\begin{enumerate}
+\item $\func{null} A$ is a subspace of $\RR^n$.
+
+\item $\func{im} A$ is a subspace of $\RR^m$.
+
+\end{enumerate}
+
+\begin{solution}
+\begin{enumerate}
+\item The zero vector $\vect{0} \in \RR^n$ lies in $\func{null} A$ because $A\vect{0} = \vect{0}$.\footnotemark \;  If $\vect{x}$ and $\vect{x}_{1}$ are in $\func{null} A$, then $\vect{x} + \vect{x}_{1}$ and $a\vect{x}$ are in $\func{null} A$ because they satisfy the required condition:
+\begin{equation*}
+A(\vect{x} + \vect{x}_1) = A\vect{x} + A\vect{x}_1 = \vect{0} + \vect{0} = \vect{0} \quad \mbox{and} \quad A(a\vect{x}) = a(A\vect{x}) = a\vect{0} = \vect{0}
+\end{equation*}
+Hence $\func{null} A$ satisfies S1, S2, and S3, and so is a subspace of $\RR^n$.
+
+\item The zero vector $\vect{0} \in \RR^m$ lies in $\func{im} A$ because $\vect{0} = A\vect{0}$. Suppose that $\vect{y}$ and $\vect{y}_{1}$ are in $\func{im} A$, say $\vect{y} = A\vect{x}$ and $\vect{y}_{1} = A\vect{x}_{1}$ where $\vect{x}$ and $\vect{x}_{1}$ are in $\RR^n$. Then
+\begin{equation*}
+\vect{y} + \vect{y}_1 = A\vect{x} + A\vect{x}_1 = A(\vect{x} + \vect{x}_1) \quad \mbox{and} \quad a\vect{y} = a(A\vect{x}) = A(a\vect{x})
+\end{equation*}
+show that $\vect{y} + \vect{y}_{1}$ and $a\vect{y}$ are both in $\func{im} A$ (they have the required form). Hence $\func{im} A$ is a subspace of $\RR^m$.
+
+\end{enumerate}
+\end{solution}
+\end{example}
+\footnotetext{We are using $\vect{0}$ to represent the zero vector in both $\RR^m$ and $\RR^n$. This abuse of notation is common and causes no confusion once everybody knows what is going on.}
+
+There are other important subspaces associated with a matrix $A$ that clarify basic properties of $A$. If $A$ is an $n \times n$ matrix and $\lambda$ is any number, let
+\begin{equation*}
+E_\lambda(A) = \{\vect{x} \in \RR^n \mid A\vect{x} = \lambda\vect{x} \}
+\end{equation*}
+A vector $\vect{x}$ is in $E_\lambda(A)$ if and only if $(\lambda I - A)\vect{x} = \vect{0}$, so Example~\ref{exa:013498} gives:
+
+\begin{example}{}{013534}
+$E_\lambda(A) = \func{null}(\lambda I- A)$ is a subspace of $\RR^n$ for each $n \times n$ matrix $A$ and number $\lambda$.
+\end{example}
+
+\noindent $E_\lambda(A)$ is called the \textbf{eigenspace}\index{eigenspace} of $A$ corresponding to $\lambda$. The reason for the name is that, in the terminology of Section~\ref{sec:3_3}, $\lambda$ is an \textbf{eigenvalue} of $A$ if $E_\lambda(A) \neq \{\vect{0}\}$. In this case the nonzero vectors in  $E_\lambda(A)$ are called the \textbf{eigenvectors}\index{eigenvector!nonzero vectors} of $A$ corresponding to $\lambda$.\index{eigenvalues!and eigenspace}
+
+The reader should not get the impression that \textit{every} subset of $\RR^n$ is a subspace. For example:
+\begin{align*}
+U_1 &= \left \{
+\leftB \begin{array}{l}
+x \\
+y
+\end{array} \rightB \,
+\middle| \, x \geq 0 \right\} 
+\mbox{ satisfies S1 and S2, but not S3;} \\
+U_2 &= \left \{
+\leftB \begin{array}{l}
+x \\
+y
+\end{array} \rightB  \,
+\middle| \, x^2 = y^2 \right\} 
+\mbox{ satisfies S1 and S3, but not S2;}
+\end{align*}
+Hence neither $U_{1}$ nor $U_{2}$ is a subspace of $\RR^2$. (However, see Exercise \ref{ex:5_1_20}.)
+
+\subsection*{Spanning Sets}
+
+Let $\vect{v}$ and $\vect{w}$ be two nonzero, nonparallel vectors in $\RR^3$ with their tails at the origin. The plane $M$ through the origin containing these vectors is described in Section~\ref{sec:4_2} by saying that $\vect{n} = \vect{v} \times \vect{w}$ is a \textit{normal} for $M$, and that $M$ consists of all vectors $\vect{p}$ such that $\vect{n} \dotprod \vect{p} = 0$.\footnote{The vector $\vect{n} = \vect{v} \times \vect{w}$ is nonzero because $\vect{v}$ and $\vect{w}$ are not parallel.}
+ While this is a very useful way to look at planes, there is another approach that is at least as useful in $\RR^3$ and, more importantly, works for all subspaces of $\RR^n$ for any $n \geq 1$.\index{set of all ordered $n$-tuples ($\RR^n$)!spanning sets}\index{spanning sets}\index{subspaces!spanning sets}
+
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{5-vector-space-rn/figures/1-subspaces-and-spanning/spanning-sets}
+%\caption{\label{fig:013558}}
+\end{wrapfigure}
+
+The idea is as follows: Observe that, by the diagram, a vector $\vect{p}$ is in $M$ if and only if it has the form
+\begin{equation*}
+\vect{p} = a\vect{v} + b\vect{w}
+\end{equation*}
+for certain real numbers $a$ and $b$ (we say that $\vect{p}$ is a \textit{linear combination}\index{linear combinations!spanning sets} of $\vect{v}$ and $\vect{w}$).
+Hence we can describe $M$ as
+\begin{equation*}
+M = \{a\vect{x} + b\vect{w} \mid  a, b \in \RR \}.\footnote{In particular, this implies that any vector $\vect{p}$ orthogonal to $\vect{v} \times \vect{w}$ must be a linear combination $\vect{p} = a\vect{v} + b\vect{w}$ of $\vect{v}$ and $\vect{w}$ for some $a$ and $b$. Can you prove this directly?}
+\end{equation*}
+and we say that $\{\vect{v}, \vect{w}\}$ is a \textit{spanning set} for $M$. It is this notion of a spanning set that provides a way to describe all subspaces of $\RR^n$.
+
+As in Section~\ref{sec:1_3}, given vectors $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ in $\RR^n$, a vector of the form
+\begin{equation*}
+t_1\vect{x}_1 + t_2\vect{x}_2 + \dots + t_k\vect{x}_k \quad \mbox{where the } t_i \mbox{ are scalars}
+\end{equation*}
+is called a \textbf{linear combination} of the $\vect{x}_{i}$, and $t_{i}$ is called the \textbf{coefficient}\index{coefficients!linear combination} of $\vect{x}_{i}$ in the linear combination.
+
+\begin{definition}{Linear Combinations and Span in $\RR^n$}{013571}
+The set of all such linear combinations is called the \textbf{span}\index{span} of the $\vect{x}_{i}$ and is denoted
+\begin{equation*}
+\func{span}\{\vect{x}_1, \vect{x}_2, \dots, \vect{x}_k\} = \{t_1\vect{x}_1 + t_2\vect{x}_2 + \dots + t_k\vect{x}_k \mid t_i \mbox{ in } \RR\}
+\end{equation*}
+If $V = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$, we say that $V$ is \textbf{spanned} by the vectors $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$, and that the vectors $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ \textbf{span} the space $V$.
+\end{definition}
+
+\noindent Here are two examples:
+\begin{equation*}
+\func{span}\{ \vect{x} \} = \{t\vect{x} \mid t \in \RR\}
+\end{equation*}
+which we write as $\func{span}\{\vect{x}\} = \RR \vect{x}$ for simplicity.
+\begin{equation*}
+\func{span}\{\vect{x}, \vect{y}\} = \{r\vect{x} + s\vect{y} \mid  r, s \in \RR \}
+\end{equation*}
+In particular, the above discussion shows that, if $\vect{v}$ and $\vect{w}$ are two nonzero, nonparallel vectors in $\RR^3$, then
+\begin{equation*}
+M = \func{span}\{\vect{v}, \vect{w} \}
+\end{equation*}
+is the plane in $\RR^3$ containing $\vect{v}$ and $\vect{w}$. Moreover, if $\vect{d}$ is any nonzero vector in $\RR^3$ (or $\RR^2$), then
+\begin{equation*}
+L = \func{span} \{\vect{v}\} = \{t\vect{d} \mid t \in \RR\} = \RR\vect{d}
+\end{equation*}
+is the line with direction vector $\vect{d}$. Hence lines and planes can both be described in terms of spanning sets.
+
+\begin{example}{}{013596}
+Let $\vect{x} = (2, -1, 2, 1)$ and $\vect{y} = (3, 4, -1, 1)$ in $\RR^4$. Determine whether $\vect{p} = (0, -11, 8, 1)$ or $\vect{q} = (2, 3, 1, 2)$ are in $U = \func{span}\{\vect{x}, \vect{y}\}$.
+
+\begin{solution}
+The vector $\vect{p}$ is in $U$ if and only if $\vect{p} = s\vect{x} + t\vect{y}$ for scalars $s$ and $t$. Equating components gives equations
+\begin{equation*}
+2s + 3t = 0, \quad -s + 4t = -11, \quad 2s - t = 8, \quad \mbox{and} \quad s + t = 1
+\end{equation*}
+This linear system has solution $s = 3$ and $t = -2$, so $\vect{p}$ is in $U$. On the other hand, asking that $\vect{q} = s\vect{x} + t\vect{y}$ leads to equations
+\begin{equation*}
+2s + 3t = 2, \quad -s +4t = 3, \quad 2s -t = 1, \quad \mbox{and} \quad s + t = 2
+\end{equation*}
+and this system has \textit{no} solution. So $\vect{q}$ does \textit{not} lie in $U$.
+\end{solution}
+\end{example}
+
+\vspace*{-1em}
+\begin{theorem}{Span Theorem}{013606}
+Let $U = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ in $\RR^n$. Then:
+
+\begin{enumerate}
+\item $U$ is a subspace of $\RR^n$ containing each $\vect{x}_{i}$.
+
+\item If $W$ is a subspace of $\RR^n$ and each $\vect{x}_{i} \in W$, then $U \subseteq W$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\vspace*{-0.5em}
+\begin{enumerate}
+\item The zero vector $\vect{0}$ is in $U$ because $\vect{0} = 0\vect{x}_{1} + 0\vect{x}_{2} + \dots + 0\vect{x}_{k}$ is a linear combination of the $\vect{x}_{i}$. If $\vect{x} = t_{1}\vect{x}_{1} + t_{2}\vect{x}_{2} + \dots + t_{k}\vect{x}_{k}$ and $\vect{y} = s_{1}\vect{x}_{1} + s_{2}\vect{x}_{2} + \dots + s_{k}\vect{x}_{k}$ are in $U$, then $\vect{x} + \vect{y}$ and $a\vect{x}$ are in $U$ because
+\vspace*{-0.5em}
+\begin{eqnarray*}
+\vect{x} + \vect{y} &=& (t_1 + s_1)\vect{x}_1 + (t_2 + s_2)\vect{x}_2 + \dots + (t_k + s_k)\vect{x}_k, \mbox{ and} \\
+a\vect{x} &=& (at_1)\vect{x}_1 + (at_2)\vect{x}_2 + \dots + (at_k)\vect{x}_k
+\end{eqnarray*}
+Finally each $\vect{x}_i$ is in $U$ (for example, $\vect{x}_2 = 0\vect{x}_1 + 1\vect{x}_2 + \dots + 0\vect{x}_k$) so S1, S2, and S3 are satisfied for $U$, proving (1).
+
+\item Let $\vect{x} = t_{1}\vect{x}_{1} + t_{2}\vect{x}_{2} + \dots + t_{k}\vect{x}_{k}$ where the $t_{i}$ are scalars and each $\vect{x}_{i} \in W$. Then each $t_{i}\vect{x}_{i} \in W$ because $W$ satisfies S3. But then $\vect{x} \in W$ because $W$ satisfies S2 (verify). This proves (2).
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+Condition (2) in Theorem~\ref{thm:013606} can be expressed by saying that $\func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is the \textit{smallest} subspace of $\RR^n$ that contains each $\vect{x}_{i}$. This is useful for showing that two subspaces $U$ and $W$ are equal, since this amounts to showing that both $U \subseteq W$ and $W \subseteq U$. Here is an example of how it is used.
+
+\begin{example}{}{013667}
+If $\vect{x}$ and $\vect{y}$ are in $\RR^n$, show that $\func{span}\{\vect{x}, \vect{y}\} = \func{span}\{\vect{x} + \vect{y}, \vect{x} - \vect{y}\}$.
+
+\begin{solution}
+Since both $\vect{x} + \vect{y}$ and $\vect{x} - \vect{y}$ are in $\func{span}\{\vect{x}, \vect{y}\}$, Theorem~\ref{thm:013606} gives
+\begin{equation*}
+\func{span}\{\vect{x} + \vect{y}, \vect{x} - \vect{y} \} \subseteq \func{span}\{\vect{x}, \vect{y}\}
+\end{equation*}
+But $\vect{x} = \frac{1}{2}(\vect{x} + \vect{y}) + \frac{1}{2}(\vect{x} - \vect{y})$ and $\vect{y} = \frac{1}{2}(\vect{x} + \vect{y}) - \frac{1}{2}(\vect{x} - \vect{y})$ are both in $\func{span}\{\vect{x} + \vect{y}, \vect{x} - \vect{y}\}$, so
+\begin{equation*}
+\func{span}\{\vect{x}, \vect{y}\} \subseteq \func{span}\{\vect{x} + \vect{y}, \vect{x} - \vect{y} \}
+\end{equation*}
+again by Theorem~\ref{thm:013606}. Thus $\func{span}\{\vect{x}, \vect{y}\} = \func{span}\{\vect{x} + \vect{y}, \vect{x} - \vect{y}\}$, as desired.
+\end{solution}
+\end{example}
+
+It turns out that many important subspaces are best described by giving a spanning set. Here are three examples, beginning with an important spanning set for $\RR^n$ itself. Column $j$ of the $n \times n$ identity matrix $I_{n}$ is denoted $\vect{e}_{j}$ and called the $j$th \textbf{coordinate vector}\index{coordinate vectors}\index{vectors!coordinate vectors} in $\RR^n$, and the set $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is called the \textbf{standard basis}\index{standard basis} of $\RR^n$. If 
+$ \vect{x} = 
+	\leftB \begin{array}{r}
+	x_1 \\
+	x_2 \\
+	\vdots \\
+	x_n
+	\end{array} \rightB $
+ is any vector in $\RR^n$, then $\vect{x} = x_{1}\vect{e}_{1} + x_{2}\vect{e}_{2} + \dots + x_{n}\vect{e}_{n}$, as the reader can verify. This proves:
+
+\begin{example}{}{013694}
+$\RR^n = \func{span}\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ where $\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}$ are the columns of $I_{n}$.
+\end{example}
+
+If $A$ is an $m \times n$ matrix $A$, the next two examples show that it is a routine matter to find spanning sets for $\func{null} A$ and $\func{im} A$.
+
+\begin{example}{}{013706}
+Given an $m \times n$ matrix $A$, let $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ denote the basic solutions to the system $A\vect{x} = \vect{0}$ given by the gaussian algorithm. Then
+\begin{equation*}
+\func{null } A = \func{span}\{\vect{x}_1, \vect{x}_2, \dots, \vect{x}_k\}
+\end{equation*}
+\begin{solution}
+If $\vect{x} \in \func{null} A$, then $A\vect{x} = \vect{0}$ so Theorem~\ref{thm:001586} shows that $\vect{x}$ is a linear combination of the basic solutions; that is, $\func{null} A \subseteq \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$. On the other hand, if $\vect{x}$ is in $\func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$, then $\vect{x} = t_{1}\vect{x}_{1} + t_{2}\vect{x}_{2} + \dots + t_{k}\vect{x}_{k}$ for scalars $t_{i}$, so
+\begin{equation*}
+A\vect{x} = t_1A\vect{x}_1 + t_2A\vect{x}_2 + \dots +  t_kA\vect{x}_k = t_1\vect{0} + t_2\vect{0} + \dots + t_k\vect{0} = \vect{0}
+\end{equation*}
+This shows that $\vect{x} \in \func{null} A$, and hence that $\func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\} \subseteq \func{null} A$. Thus we have equality.
+\end{solution}
+\end{example}
+
+\begin{example}{}{013734}
+Let $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}$ denote the columns of the $m \times n$ matrix $A$. Then
+\begin{equation*}
+\func{im } A = \func{span}\{\vect{c}_1, \vect{c}_2, \dots, \vect{c}_n\}
+\end{equation*}
+\begin{solution}
+If $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is the standard basis of $\RR^n$, observe that
+\begin{equation*}
+\leftB \begin{array}{cccc}
+A\vect{e}_1 & A\vect{e}_2 & \cdots & A\vect{e}_n
+\end{array}\rightB = A \leftB \begin{array}{cccc}
+\vect{e}_1 & \vect{e}_2 & \cdots & \vect{e}_n \end{array}\rightB = AI_n = A = \leftB \begin{array}{cccc}
+\vect{c}_1 & \vect{c}_2 & \cdots  \vect{c}_n \end{array}\rightB.
+\end{equation*}
+Hence $\vect{c}_{i} = A\vect{e}_{i}$ is in $\func{im} A$ for each $i$, so $\func{span}\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\} \subseteq \func{ im} A$.
+
+Conversely, let $\vect{y}$ be in $\func{im} A$, say $\vect{y} = A\vect{x}$ for some $\vect{x}$ in $\RR^n$. If
+$\vect{x} = 
+\leftB \begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{array} \rightB
+$, then Definition~\ref{def:002668} gives
+\begin{equation*}
+\vect{y} = A\vect{x} = x_1\vect{c}_1 + x_2\vect{c}_2 + \dots + x_n\vect{c}_n \mbox{ is in } \func{span} \{\vect{c}_1, \vect{c}_2, \ \dots, \vect{c}_n\}
+\end{equation*}
+This shows that $\func{im} A \subseteq \func{span}\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\}$, and the result follows.
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:5_1}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:5_1}}
+\end{Filesave}
+
+\begin{multicols}{2}
+{\small \noindent We often write vectors in $\RR^n$ as rows.}
+
+\begin{ex}
+In each case determine whether $U$ is a subspace of $\RR^3$. Support your answer.
+
+\begin{enumerate}[label={\alph*.}]
+\item $U = \{(1, s, t) \mid s \mbox{ and }t \mbox{ in }\RR\}$.
+
+\item $U = \{(0, s, t) \mid s \mbox{ and } t \mbox{ in } \RR\}$.
+
+\item $U = \{(r, s, t) \mid r, s,\mbox{ and } t \mbox{ in } \RR, \\
+ -r + 3s + 2t = 0\}$.
+
+\item $U = \{(r, 3s, r - 2) \mid r \mbox{ and } s \mbox{ in } \RR\}$.
+
+\item $U = \{(r, 0, s) \mid r^{2} + s^{2} = 0, r \mbox{ and } s \mbox{ in } \RR\}$.
+
+\item $U = \{(2r, -s^{2}, t) \mid r,  s, \mbox{ and } t \mbox{ in } \RR\}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes
+
+\setcounter{enumi}{3}
+\item  No
+
+\setcounter{enumi}{5}
+\item  No.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case determine if $\vect{x}$ lies in $U = \func{span}\{\vect{y}, \vect{z}\}$. If $\vect{x}$ is in $U$, write it as a linear combination of $\vect{y}$ and $\vect{z}$; if $\vect{x}$ is not in $U$, show why not.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{x} = (2, -1, 0, 1)$, $\vect{y} = (1, 0, 0, 1)$, and \\$\vect{z} = (0, 1, 0, 1)$.
+
+\item $\vect{x} = (1, 2, 15, 11)$, $\vect{y} = (2, -1, 0, 2)$, and \\$\vect{z} = (1, -1, -3, 1)$.
+
+\item $\vect{x} = (8, 3, -13, 20)$, $\vect{y} = (2, 1, -3, 5)$, and $\vect{z} = (-1, 0, 2, -3)$.
+
+\item $\vect{x} = (2, 5, 8, 3)$, $\vect{y} = (2, -1, 0, 5)$, and \\$\vect{z} = (-1, 2, 2, -3)$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No
+
+\setcounter{enumi}{3}
+\item  Yes, $\vect{x} = 3\vect{y} + 4\vect{z}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case determine if the given vectors span $\RR^4$. Support your answer.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{(1, 1, 1, 1), (0, 1, 1, 1), (0, 0, 1, 1), (0, 0, 0, 1)\}$.
+
+\item $\{(1, 3, -5, 0), (-2, 1, 0, 0), (0, 2, 1, -1),\\ (1, -4, 5, 0)\}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Is it possible that $\{(1, 2, 0), (2, 0, 3)\}$ can span the subspace $U = \{(r, s, 0) \mid r \mbox{ and } s \mbox{ in } \RR\}$? Defend your answer.
+\end{ex}
+
+\begin{ex}
+Give a spanning set for the zero subspace $\{\vect{0}\}$ of $\RR^n$.
+\end{ex}
+
+\begin{ex}
+Is $\RR^2$ a subspace of $\RR^3$? Defend your answer.
+\end{ex}
+
+\begin{ex}
+If $U = \func{span}\{\vect{x}, \vect{y}, \vect{z}\}$ in $\RR^n$, show that $U = \func{span}\{\vect{x} + t\vect{z}, \vect{y}, \vect{z}\}$ for every $t$ in $\RR$.
+\end{ex}
+
+\begin{ex}
+If $U = \func{span}\{\vect{x}, \vect{y}, \vect{z}\}$ in $\RR^n$, show that $U = \func{span}\{\vect{x} + \vect{y}, \vect{y} + \vect{z}, \vect{z} + \vect{x}\}$.
+\end{ex}
+
+\begin{ex}
+If $a \neq 0$ is a scalar, show that $\func{span}\{a\vect{x}\} = \func{span}\{\vect{x}\}$ for every vector $\vect{x}$ in $\RR^n$.
+\end{ex}
+
+\begin{ex}
+If $a_{1}, a_{2}, \dots, a_{k}$ are nonzero scalars, show that $\func{span}\{a_{1}\vect{x}_{1}, a_{2}\vect{x}_{2}, \dots, a_{k}\vect{x}_{k}\} = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ for any vectors $\vect{x}_{i}$ in $\RR^n$.
+
+\begin{sol}
+$\func{span}\{a_{1}\vect{x}_{1}, a_{2}\vect{x}_{2}, \dots, a_{k}\vect{x}_{k}\} \subseteq \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ by Theorem~\ref{thm:013606} because, for each $i$, $a_{i}\vect{x}_{i}$ is in $\func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$. Similarly, the fact that $\vect{x}_{i} = a_{i}^{-1}(a_{i}\vect{x}_{i})$ is in $\func{span}\{a_{1}\vect{x}_{1}, a_{2}\vect{x}_{2}, \dots, a_{k}\vect{x}_{k}\}$ for each $i$ shows that $\func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\} \subseteq \func{span}\{a_{1}\vect{x}_{1}, a_{2}\vect{x}_{2}, \dots, a_{k}\vect{x}_{k}\}$, again by Theorem~\ref{thm:013606}.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\vect{x} \neq \vect{0}$ in $\RR^n$, determine all subspaces of $\func{span}\{\vect{x}\}$.
+\end{ex}
+
+\begin{ex}
+Suppose that $U = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ where each $\vect{x}_{i}$ is in $\RR ^n$. If $A$ is an $m \times n$ matrix and $A\vect{x}_{i} = \vect{0}$ for each $i$, show that $A\vect{y} = \vect{0}$ for every vector $\vect{y}$ in $U$.
+
+\begin{sol}
+If $\vect{y} = r_{1}\vect{x}_{1} + \dots + r_{k}\vect{x}_{k}$ then $A\vect{y} = r_{1}(A\vect{x}_{1}) + \dots + r_{k}(A\vect{x}_{k}) = 0$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is an $m \times n$ matrix, show that, for each invertible $m \times m$ matrix $U$, $\func{null}(A) = \func{null}(UA)$.
+\end{ex}
+
+\begin{ex}
+If $A$ is an $m \times n$ matrix, show that, for each invertible $n \times n$ matrix $V$, $\func{im}(A) = \func{im}(AV)$.
+\end{ex}
+
+\begin{ex}
+Let $U$ be a subspace of $\RR^n$, and let $\vect{x}$ be a vector in $\RR^n$.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $a\vect{x}$ is in $U$ where $a \neq 0$ is a number, show that $\vect{x}$ is in $U$.
+
+\item If $\vect{y}$ and $\vect{x} + \vect{y}$ are in $U$ where $\vect{y}$ is a vector in $\RR^n$, show that $\vect{x}$ is in $U$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\vect{x} = (\vect{x} + \vect{y}) - \vect{y} = (\vect{x} + \vect{y}) + (-\vect{y})$ is in $U$ because $U$ is a subspace and both $\vect{x} + \vect{y}$ and $-\vect{y} = (-1)\vect{y}$ are in $U$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case either show that the statement is true or give an example showing that it is false.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $U \neq \RR^n$ is a subspace of $\RR^n$ and $\vect{x} + \vect{y}$ is in $U$, then $\vect{x}$ and $\vect{y}$ are both in $U$.
+
+\item If $U$ is a subspace of $\RR^n$ and $r\vect{x}$ is in $U$ for all $r$ in $\RR$, then $\vect{x}$ is in $U$.
+
+\item If $U$ is a subspace of $\RR^n$ and $\vect{x}$ is in $U$, then $-\vect{x}$ is also in $U$.
+
+\item If $\vect{x}$ is in $U$ and $U = \func{span}\{\vect{y}, \vect{z}\}$, then $U = \func{span}\{\vect{x}, \vect{y}, \vect{z}\}$.
+
+\item The empty set of vectors in $\RR^n$ is a subspace of $\RR^n$.
+
+\item 
+$\leftB \begin{array}{r}
+0 \\
+1
+\end{array} \rightB$ is in $\func{span}
+\left\{
+\leftB \begin{array}{r}
+1 \\
+0
+\end{array} \rightB,\
+\leftB \begin{array}{r}
+2 \\
+0
+\end{array} \rightB
+\right\}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  True. $\vect{x} = 1\vect{x}$ is in $U$.
+
+\setcounter{enumi}{3}
+\item  True. Always $\func{span}\{\vect{y}, \vect{z}\} \subseteq \func{span}\{\vect{x}, \vect{y}, \vect{z}\}$ by Theorem~\ref{thm:013606}. Since $\vect{x}$ is in $\func{span}\{\vect{x}, \vect{y}\}$ we have $\func{span}\{\vect{x}, \vect{y}, \vect{z}\}  \subseteq \func{span}\{\vect{y}, \vect{z}\}$, again by Theorem~\ref{thm:013606}.
+
+\setcounter{enumi}{5}
+\item  False. $a 
+\leftB \begin{array}{r}
+1 \\
+0
+\end{array} \rightB
++ b
+\leftB \begin{array}{r}
+2 \\
+0
+\end{array} \rightB
+= 
+\leftB \begin{array}{c}
+a + 2b \\
+0
+\end{array} \rightB
+$ cannot equal $
+\leftB \begin{array}{r}
+0 \\
+1
+\end{array} \rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ and $B$ are $m \times n$ matrices, show that \\$U = \{\vect{x}$ in $\RR^n$ | $A\vect{x} = B\vect{x}\}$ is a subspace of $\RR^n$.
+
+\item What if $A$ is $m \times n$, $B$ is $k \times n$, and $m \neq k$?
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Suppose that $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ are vectors in $\RR^n$. If $\vect{y} = a_{1}\vect{x}_{1} + a_{2}\vect{x}_{2} + \dots + a_{k}\vect{x}_{k}$ where $a_{1} \neq 0$, show that $\func{span}\{\vect{x}_{1}\, \vect{x}_{2}, \dots, \vect{x}_{k}\} = \func{span}\{\vect{y}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$.
+\end{ex}
+
+\begin{ex}
+If $U \neq \{\vect{0}\}$ is a subspace of $\RR$, show that $U = \RR$.
+\end{ex}
+
+\begin{ex}\label{ex:5_1_20}
+Let $U$ be a nonempty subset of $\RR^n$. Show that $U$ is a subspace if and only if S2 and S3 hold.
+
+\begin{sol}
+If $U$ is a subspace, then S2 and S3 certainly hold. Conversely, assume that S2 and S3 hold for $U$. Since $U$ is nonempty, choose $\vect{x}$ in $U$. Then $\vect{0} = 0\vect{x}$ is in $U$ by S3, so S1 also holds. This means that $U$ is a subspace.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $S$ and $T$ are nonempty sets of vectors in $\RR^n$, and if $S \subseteq T$, show that $\func{span}\{S\} \subseteq \func{span}\{T\}$.
+\end{ex}
+
+\begin{ex}\label{ex:5_1_22}
+Let $U$ and $W$ be subspaces of $\RR^n$. Define their \textbf{intersection}\index{intersection}\index{subspaces!intersection} $U \cap W$ and their \textbf{sum}\index{sum!subspaces}\index{subspaces!sum} $U + W$ as follows:
+
+$U \cap W = \{\vect{x} \in \RR^n \mid \vect{x}\mbox{ belongs to both } U \mbox{ and } W\}$. 
+
+$U + W = \{\vect{x} \in \RR^n \mid \vect{x}\mbox{ is a sum of a vector in } U \\ \mbox{ and a vector in } W\}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $U \cap W$ is a subspace of $\RR^n$.
+
+\item Show that $U + W$ is a subspace of $\RR^n$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The zero vector $\vect{0}$ is in $U + W$ because $\vect{0} = \vect{0} + \vect{0}$. Let $\vect{p}$ and $\vect{q}$ be vectors in $U + W$, say $\vect{p} = \vect{x}_{1} + \vect{y}_{1}$ and $\vect{q} = \vect{x}_{2} + \vect{y}_{2}$ where $\vect{x}_{1}$ and $\vect{x}_{2}$ are in $U$, and $\vect{y}_{1}$ and $\vect{y}_{2}$ are in $W$. Then $\vect{p} + \vect{q} = (\vect{x}_{1} + \vect{x}_{2}) + (\vect{y}_{1} + \vect{y}_{2})$ is in $U + W$ because $\vect{x}_{1} + \vect{x}_{2}$ is in $U$ and $\vect{y}_{1} + \vect{y}_{2}$ is in $W$. Similarly, $a(\vect{p} + \vect{q}) = a\vect{p} + a\vect{q}$ is in $U + W$ for any scalar $a$ because $a\vect{p}$ is in $U$ and $a\vect{q}$ is in $W$. Hence $U + W$ is indeed a subspace of $\RR^n$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $P$ denote an invertible $n \times n$ matrix. If $\lambda$ is a number, show that 
+\begin{equation*}
+E_{\lambda}(PAP^{-1}) = \{P\vect{x} \mid \vect{x} \mbox{ is in } E_{\lambda}(A)\}
+\end{equation*}
+for each $n \times n$ matrix $A$.
+\end{ex}
+
+\begin{ex}\label{ex:5_1_24}
+Show that every proper subspace $U$ of $\RR^2$ is a line through the origin. [\textit{Hint}: If $\vect{d}$ is a nonzero vector in $U$, let $L = \RR \vect{d} = \{r\vect{d} \mid r \mbox{ in }\RR\}$ denote the line with direction vector $\vect{d}$. If $\vect{u}$ is in $U$ but not in $L$, argue geometrically that every vector $\vect{v}$ in $\RR^2$ is a linear combination of $\vect{u}$ and $\vect{d}$.]
+\end{ex}
+\end{multicols}

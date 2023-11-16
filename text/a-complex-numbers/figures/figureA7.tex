@@ -1,0 +1,42 @@
+
+\begin{tikzpicture}
+\begin{axis}[disabledatascaling, 
+	clip mode=individual, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick=\empty, 
+    ytick=\empty, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-5:5, 
+    samples=100, 
+    xmin=-0.25, 
+    xmax=3, 
+    ymin=-2.1, 
+    ymax=2.5]
+\draw[dkgreenvect,thick](0,0)--(1,1.73);
+\draw[-latex] (0.5,0) arc [start angle=0,end angle=60,radius=0.5] node [right, text=black,font=\scriptsize,pos=0.8]{$\frac{\pi}{3}$};
+\draw[dkgreenvect,thick](0,0)--(1,-1);
+\draw[-latex] (0.75,0) arc [start angle=0,end angle=-45,radius=0.75] node [right, text=black,font=\scriptsize,midway]{$-\frac{\pi}{4}$};
+\draw[dkgreenvect,thick](0,0)--(2.73,0.73);
+\draw[-latex] (2,0) arc [start angle=0,end angle=15,radius=2] node [right, text=black,font=\scriptsize,midway]{$\frac{\pi}{12}$};
+\fill[dkgreenvect] (1,1.73) circle (1.5pt);
+\fill[dkgreenvect] (1,-1) circle (1.5pt);
+\fill[dkgreenvect] (2.73,0.73) circle (1.5pt);
+\node[below left,font=\scriptsize] at (0,0){$0$};
+\node[above,font=\scriptsize] at (1,1.73){$1+\sqrt{3}i$};
+\node[below,font=\scriptsize] at (1,-1){$1-i$};
+\node[above,font=\scriptsize] at (2.5,0.73){$(1-i)(1+\sqrt{3}i)$};
+\end{axis} 
+\end{tikzpicture}

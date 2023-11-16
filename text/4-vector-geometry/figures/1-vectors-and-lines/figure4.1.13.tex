@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+[scale=0.9]
+\coordinate (origin) at (0, 0);
+\coordinate (ptP0) at (0.5, 2);
+\coordinate (ptP) at (3.5, 2);
+
+\draw[dkgreenvect, -latex, thick](origin)--(ptP0) node[left, text=black, midway]{\small $\vect{p}_0$};
+\draw[dkgreenvect, -latex, thick](ptP0)--(ptP) node[below, text=black, midway]{\small $P_{0}P$};
+\draw[dkgreenvect, -latex, thick](origin)--(ptP) node[below, text=black, midway]{\small $\vect{p}$};
+\draw[dkbluevect, thick](0, 1.9)--(4, 2.7);
+\draw[dkgreenvect, -latex, thick](ptP0)--(2, 2.3) node[above, text=black, midway]{\small $\vect{d}$};
+
+\fill[black, thick] (origin) circle (2pt) ;
+\fill[black, thick] (ptP0) circle (2pt) ;
+\fill[black, thick] (ptP) circle (2pt) ;
+\node[below right] at (origin) {\small Origin};
+\node[above] at (ptP0) {\small $P_0$};
+\node[right] at (ptP) {\small $P$};
+\end{tikzpicture}

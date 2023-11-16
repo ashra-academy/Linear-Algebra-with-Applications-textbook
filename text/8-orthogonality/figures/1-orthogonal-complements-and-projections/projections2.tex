@@ -1,0 +1,21 @@
+\begin{tikzpicture}[scale=0.9, rotate=30]
+\coordinate(pt0) at (0, 0);
+\coordinate(ptX) at (2, 1.5);
+\coordinate(ptP) at (2, 0);
+\coordinate(ptD) at (3, 0);
+
+%lines
+\draw[dkbluevect, thick] ($(ptP) + (0.2, 0)$) -- ++(0, 0.2)-- ++(-0.2, 0);
+\draw[dkbluevect, thick] (-0.5, 0)--(4, 0);
+\draw[dkgreenvect, thick, -latex] (pt0)--(ptP);
+\draw[dkgreenvect, thick, -latex] (ptP)--(ptD);
+\draw[dkbluevect, thick, dashed] (ptP)--(ptX);
+\draw[dkgreenvect, thick, -latex] (pt0)--(ptX) node [above=0.2, text=black, pos=0.3] {\footnotesize $\vect{x}$};
+
+%labels
+\node[below] at (pt0) {\footnotesize $\vect{0}$};
+\node[below=0.1] at (ptP) {\footnotesize $\vect{p}$};
+\node[below] at (ptD) {\footnotesize $\vect{d}$};
+\draw [dkbluevect, thick] (3.8, 0) arc [start angle=0, end angle=30, radius=0.5] node (lineU) {};
+\node at ($(lineU) + (-0.2, 0.1)$)  {\footnotesize $U$};
+\end{tikzpicture}

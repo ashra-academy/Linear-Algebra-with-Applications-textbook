@@ -1,0 +1,60 @@
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+axis on top=true,
+width=5cm, 
+height=5cm, 
+xlabel={$x_1$}, 
+ylabel={$x_2$}, 
+axis lines=middle, 
+xtick={\empty},
+ytick={\empty}, 
+xticklabels={\empty},
+yticklabels={\empty},
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode=individual,
+samples=100, 
+xmin=-0.5, 
+xmax=8, 
+ymin=-0.5, 
+ymax=8]
+
+%area
+\coordinate (pt) at (4, 3);
+\coordinate (xInt) at (5.65, 0); %x intercept
+\coordinate (yInt) at (0, 6.692); %y intercept
+\def \extendTopX {4.75}
+\draw [dkbluevect, thick] (pt)--(\extendTopX, {(8700 - 1200 * \extendTopX) / 1300});
+\def \extendRightX {3.5}
+\draw [dkbluevect, thick] (pt)--(\extendRightX, {(11300 - 2000 * \extendRightX) / 1100});
+\filldraw [ltbluevect] (0, 0)--(yInt)--(pt)--(xInt)--cycle;
+\draw[dkbluevect, thick] (yInt)--(pt)--(xInt);
+
+%p lines
+%70x + 50y = 430 => 50y = -70x + 430 => y = (-70x + 430)/50
+\addplot[dkgreenvect, thick, domain=1.5:5.0] {(-70 * \x + 430)/50};
+\addplot[dkgreenvect, thick, domain=2.0:5.5] {(-70 * \x + 500)/50};
+\addplot[dkgreenvect, thick, domain=2.5:6.0] {(-70 * \x + 570)/50};
+
+%labels
+\node [rotate=-55] at (2.5, 5.7) {\scriptsize $p = 430$};
+\node [rotate=-55] at (3.5, 5.7) {\scriptsize $p = 500$};
+\node [rotate=-55] at (4.5, 5.7) {\scriptsize $p = 570$};
+\node at (-0.5, -0.5) {\footnotesize $O$};
+\node at ($(pt) + (-1.2, -0.2)$) {\footnotesize $(4, 3)$};
+\coordinate (equation1Label) at (4, -1.5);
+\draw [dkbluevect, thick] (5, 1.18) to [bend right] ($(equation1Label) + (0, 0.75)$);
+\node at (equation1Label) {\footnotesize $2000x_1 + 1100x_2 = 11300$};
+\coordinate (equation2Label) at (5, 8.5);
+\draw [dkbluevect, thick] (0.5, 6.23) to [bend left] ($(equation2Label) + (-3.5, -0.5)$);
+\node at (equation2Label) {\footnotesize $1200x_1 + 1300x_2 = 8700$};
+
+\end{axis}
+\end{tikzpicture}

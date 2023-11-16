@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+\coordinate (ptP) at (-0.1, 2);
+\coordinate (ptQ) at (3, 1);
+\coordinate (ptR) at (0, 0);
+
+\draw[dkgreenvect, thick] (ptP)--(ptQ)--(ptR)--cycle;
+\draw[dkbluevect, thick, dashed] (ptP)-- ++(ptQ)--(ptQ);
+
+\fill (ptP) circle (2pt);
+\fill (ptQ) circle (2pt);
+\fill (ptR) circle (2pt);
+
+\node[left] at (ptP){\small $P$};
+\node[right] at (ptQ){\small $Q$};
+\node[left] at (ptR){\small $R$};
+\end{tikzpicture}

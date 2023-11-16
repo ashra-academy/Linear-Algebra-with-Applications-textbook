@@ -1,0 +1,914 @@
+\section{An Application to Linear Codes over Finite Fields}
+\label{sec:8_7}
+
+For centuries mankind has been using codes to transmit messages. In many cases, for example transmitting financial, medical, or military information, the message is disguised in such a way that it cannot be understood by an intruder who intercepts it, but can be easily ``decoded'' by the intended receiver. This subject is called \textit{cryptography}\index{cryptography} and, while intriguing, is not our focus here. Instead, we investigate methods for detecting and correcting errors in the transmission of the message.\index{code!use of}
+
+The stunning photos of the planet Saturn sent by the space probe are a very good example of how successful these methods can be. These messages are subject to ``noise''\index{noise} such as solar interference which causes errors in the message. The signal is received on Earth with errors that must be detected and corrected before the high-quality pictures can be printed. This is done using error-correcting codes\index{code!error-correcting codes}\index{error-correcting codes}. To see how, we first discuss a system of adding and multiplying integers while ignoring multiples of a fixed integer.
+
+\subsection*{Modular Arithmetic}
+\index{modular arithmetic}
+
+We work in the set $\mathbb{Z} = \{ 0, \pm 1, \pm 2, \pm 3, \dots \}$ of \textbf{integers}\index{integers}, that is the set of whole numbers. Everyone is familiar with the process of ``long division'' from arithmetic. For example, we can divide an integer $a$ by $5$ and leave a remainder ``modulo $5$'' in the set $\{0, 1, 2, 3, 4\}$. As an illustration
+\begin{equation*}
+19 = 3 \cdot 5 + 4 
+\end{equation*}
+so the remainder of $19$ modulo $5$ is $4$. Similarly, the remainder of $137$ modulo $5$ is $2$ because we have $137 = 27 \cdot 5 + 2$. This works even for negative integers: For example,
+\begin{equation*}
+-17 = (-4) \cdot 5 + 3
+\end{equation*}
+so the remainder of $-17$ modulo $5$ is $3$.
+
+This process is called the \textbf{division algorithm}\index{division algorithm}. More formally, let $n \geq 2$ denote an integer. Then every integer $a$ can be written uniquely in the form
+\begin{equation*}
+a = qn + r \quad \mbox{ where } q \mbox{ and } r \mbox{ are integers and } 0 \le r \le n - 1
+\end{equation*}
+Here $q$ is called the \textbf{quotient}\index{quotient} of $a$ \textbf{modulo}\index{modulo} $n$, and $r$ is called the \textbf{remainder}\index{remainder} of $a$ \textbf{modulo} $n$. We refer to $n$ as the \textbf{modulus}\index{modulus}. Thus, if $n = 6$, the fact that $134 = 22 \cdot 6 + 2$ means that $134$ has quotient $22$ and remainder $2$ modulo $6$.
+
+Our interest here is in the set of \textit{all} possible remainders modulo $n$. This set is denoted
+\begin{equation*}
+\mathbb{Z}_{n} = \{0, 1, 2, 3, \dots, n-1\}
+\end{equation*}
+and is called the set of \textbf{integers modulo}\index{integers modulo} $n$. Thus every integer is uniquely represented in $\mathbb{Z}_n$ by its remainder modulo $n$.
+
+We are going to show how to do arithmetic in $\mathbb{Z}_n$ by adding and multiplying modulo $n$. That is, we add or multiply two numbers in $\mathbb{Z}_n$ by calculating the usual sum or product in $\mathbb{Z}$  and taking the remainder modulo $n$. It is proved in books on abstract algebra that the usual laws of arithmetic hold in $\mathbb{Z}_n$ for any modulus $n \geq 2$. This seems remarkable until we remember that these laws are true for ordinary addition and multiplication and all we are doing is reducing modulo $n$.
+
+To illustrate, consider the case $n = 6$, so that $\mathbb{Z}_6 = \{0, 1, 2, 3, 4, 5\}$. Then $2 + 5 = 1$ in $\mathbb{Z}_6$ because $7$ leaves a remainder of $1$ when divided by $6$. Similarly, $2 \cdot 5 = 4$ in $\mathbb{Z}_6$, while $3 + 5 = 2$, and $3 + 3 = 0$. In this way we can fill in the addition and multiplication tables for $\mathbb{Z}_6$; the result is:
+
+\begin{center}
+	Tables for $\mathbb{Z}_{6}$
+\end{center}
+\begin{equation*}
+	\begin{array}{c|cccccc}
+	+ & 0 & 1 & 2 & 3 & 4 & 5 \\ \hline
+	0 & 0 & 1 & 2 & 3 & 4 & 5 \\
+	1 & 1 & 2 & 3 & 4 & 5 & 0 \\
+	2 & 2 & 3 & 4 & 5 & 0 & 1 \\
+	3 & 3 & 4 & 5 & 0 & 1 & 2 \\
+	4 & 4 & 5 & 0 & 1 & 2 & 3 \\
+	5 & 5 & 0 & 1 & 2 & 3 & 4
+	\end{array} \quad \quad \begin{array}{c|cccccc}
+	\times & 0 & 1 & 2 & 3 & 4 & 5 \\ \hline
+	0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	1 & 0 & 1 & 2 & 3 & 4 & 5 \\
+	2 & 0 & 2 & 4 & 0 & 2 & 4 \\
+	3 & 0 & 3 & 0 & 3 & 0 & 3 \\
+	4 & 0 & 4 & 2 & 0 & 4 & 2 \\
+	5 & 0 & 5 & 4 & 3 & 2 & 1
+	\end{array}
+\end{equation*}
+Calculations in $\mathbb{Z}_6$ are carried out much as in $\mathbb{Z}$ . As an illustration, consider the familiar ``distributive law''  $a(b+c)=ab+ac$ from ordinary arithmetic. This holds for all $a$, $b$, and $c$ in $\mathbb{Z}_6$; we verify a particular case:
+\begin{equation*}
+3(5+4) = 3 \cdot 5 + 3 \cdot 4 \quad \mbox{ in } \mathbb{Z}_{6}
+\end{equation*}
+In fact, the left side is $3(5 + 4) = 3 \cdot 3 = 3$, and the right side is $(3 \cdot 5) + (3 \cdot 4) = 3 + 0 = 3$ too. Hence doing arithmetic in $\mathbb{Z}_6$ is familiar. However, there are differences. For example, $3 \cdot 4 = 0$ in $\mathbb{Z}_6$, in contrast to the fact that $a \cdot b = 0$ in $\mathbb{Z}$ can only happen when either $a = 0$ or $b = 0$. Similarly, $3^{2} = 3$ in $\mathbb{Z}_6$, unlike $\mathbb{Z}$.
+
+Note that we will make statements like $-30 = 19$ in $\mathbb{Z}_7$; it means that $-30$ and $19$ leave the same remainder $5$ when divided by $7$, and so are equal in $\mathbb{Z}_7$ because they both equal $5$. In general, if $n \geq 2$ is any modulus, the operative fact is that
+\begin{equation*}
+a = b \mbox{ in } \mathbb{Z}_{n} \quad \mbox{ if and only if } \quad a - b \mbox{ is a multiple of } n
+\end{equation*}
+In this case we say that $a$ and $b$ are \textbf{equal modulo}\index{equal modulo} $n$, and write $a = b (\func{mod} n)$.
+
+Arithmetic in $\mathbb{Z}_n$ is, in a sense, simpler than that for the integers. For example, consider negatives. Given the element $8$ in $\mathbb{Z}_{17}$, what is $-8$? The answer lies in the observation that $8 + 9 = 0$ in $\mathbb{Z}_{17}$, so $-8 = 9$ (and $-9 = 8$). In the same way, finding negatives is not difficult in $\mathbb{Z}_n$ for any modulus $n$.
+
+\subsection*{Finite Fields}
+\index{finite fields}\index{orthogonality!finite fields}
+
+In our study of linear algebra so far the scalars have been real (possibly complex) numbers\index{complex number!scalars}\index{scalar}. The set $\RR$ of real numbers has the property that it is closed under addition and multiplication, that the usual laws of arithmetic hold, and that every nonzero real number has an inverse in $\RR$. Such a system is called a \textbf{field}\index{field}. Hence the real numbers $\RR$ form a field, as does the set $\mathbb{C}$  of complex numbers. Another example is the set $\mathbb{Q}$  of all rational numbers (fractions)\index{fractions!field}; however the set $\mathbb{Z}$  of integers is \textit{not} a field---for example, $2$ has no inverse \textit{in} the set $\mathbb{Z}$  because $2 \cdot x = 1$ has no solution $x$ in $\mathbb{Z}$ .\index{inverses!finite fields}\index{real numbers}
+
+Our motivation for isolating the concept of a field is that nearly everything we have done remains valid if the scalars are restricted to some field: The gaussian algorithm can be used to solve systems of linear equations with coefficients in the field; a square matrix with entries from the field is invertible if and only if its determinant is nonzero; the matrix inversion algorithm works in the same way; and so on. The reason is that the field has all the properties used in the proofs of these results for the field $\RR$, so all the theorems remain valid.\index{gaussian algorithm}
+
+It turns out that there are \textit{finite} fields---that is, finite sets\index{finite sets} that satisfy the usual laws of arithmetic and in which every nonzero element $a$ has an \textbf{inverse}, that is an element $b$ in the field such that $ab = 1$. If $n \geq 2$ is an integer, the modular system $\mathbb{Z}_n$ certainly satisfies the basic laws of arithmetic, but it need not be a field. For example we have $2 \cdot 3 = 0$ in $\mathbb{Z}_6$ so $3$ has no inverse in $\mathbb{Z}_6$ (if $3a = 1$ then $2 = 2 \cdot 1 = 2(3a) = 0a = 0$ in $\mathbb{Z}_6$, a contradiction). The problem is that $6 = 2 \cdot 3$ can be properly factored in $\mathbb{Z}$.
+
+An integer $p \geq 2$ is called a \textbf{prime}\index{prime} if $p$ \textit{cannot} be factored as $p = ab$ where $a$ and $b$ are positive integers and neither $a$ nor $b$ equals $1$. Thus the first few primes are $2, 3, 5, 7, 11, 13, 17, \dots$. If $n \geq 2$ is not a prime and $n = ab$ where $2 \leq a$, $b \leq n - 1$, then $ab = 0$ in $\mathbb{Z}_n$ and it follows (as above in the case $n = 6$) that $b$ cannot have an inverse in $\mathbb{Z}_n$, and hence that $\mathbb{Z}_n$ is not a field. In other words, if $\mathbb{Z}_n$ is a field, then $n$ must be a prime. Surprisingly, the converse is true:
+
+\begin{theorem}{}{026280}
+If $p$ is a prime, then $\mathbb{Z}_p$ is a field using addition and multiplication modulo $p$.
+\end{theorem}
+
+\noindent The proof can be found in books on abstract algebra.\footnote{See, for example, W. Keith Nicholson, \textit{Introduction to Abstract Algebra}, 4th ed., (New York: Wiley, 2012).\index{\textit{Introduction to Abstract Algebra} (Nicholson)}\index{Nicholson, W. Keith}}
+ If $p$ is a prime, the field $\mathbb{Z}_p$ is called the \textbf{field of integers modulo} $p$.\index{field of integers modulo}
+
+For example, consider the case $n = 5$. Then $\mathbb{Z}_5 = \{0, 1, 2, 3, 4\}$ and the addition and multiplication tables are:
+\begin{equation*}
+\begin{array}{c|ccccc}
++ & 0 & 1 & 2 & 3 & 4 \\ \hline
+0 & 0 & 1 & 2 & 3 & 4  \\
+1 & 1 & 2 & 3 & 4 & 0  \\
+2 & 2 & 3 & 4 & 0 & 1  \\
+3 & 3 & 4 & 0 & 1 & 2  \\
+4 & 4 & 0 & 1 & 2 & 3  
+\end{array} \quad \quad  \begin{array}{c|ccccc}
+\times & 0 & 1 & 2 & 3 & 4 \\ \hline
+0 & 0 & 0 & 0 & 0 & 0  \\
+1 & 0 & 1 & 2 & 3 & 4  \\
+2 & 0 & 2 & 4 & 1 & 3  \\
+3 & 0 & 3 & 1 & 4 & 2  \\
+4 & 0 & 4 & 3 & 2 & 1 
+\end{array}
+\end{equation*}
+Hence $1$ and $4$ are self-inverse in $\mathbb{Z}_5$, and $2$ and $3$ are inverses of each other, so $\mathbb{Z}_5$ is indeed a field. Here is another important example.
+
+\begin{example}{}{026292}
+If $p = 2$, then $\mathbb{Z}_2 = \{0, 1\}$ is a field with addition and multiplication modulo $2$ given by the tables
+\begin{equation*}
+\begin{array}{c|cc}
++ & 0 & 1 \\ \hline
+0 & 0 & 1 \\
+1 & 1 & 0
+\end{array} \quad \mbox{ and } \quad
+\begin{array}{c|cc}
+\times & 0 & 1 \\ \hline
+0 & 0 & 0 \\
+1 & 0 & 1
+\end{array}
+\end{equation*}
+This is binary arithmetic, the basic algebra of computers.
+\end{example}
+
+While it is routine to find negatives of elements of $\mathbb{Z}_p$, it is a bit more difficult to find inverses in $\mathbb{Z}_p$. For example, how does one find $14^{-1}$ in $\mathbb{Z}_{17}$? Since we want $14^{-1} \cdot 14 = 1$ in $\mathbb{Z}_{17}$, we are looking for an integer $a$ with the property that $a \cdot 14 = 1$ modulo $17$. Of course we can try all possibilities in $\mathbb{Z}_{17}$ (there are only $17$ of them!), and the result is $a = 11$ (verify). However this method is of little use for large primes $p$, and it is a comfort to know that there is a systematic procedure (called the \textbf{euclidean algorithm}\index{euclidean algorithm}) for finding inverses in $\mathbb{Z}_p$ for any prime $p$. Furthermore, this algorithm is easy to program for a computer. To illustrate the method, let us once again find the inverse of $14$ in $\mathbb{Z}_{17}$.
+
+\begin{example}{}{026308}
+Find the inverse of $14$ in $\mathbb{Z}_{17}$.
+
+\begin{solution}
+ The idea is to first divide $p = 17$ by $14$: 
+\begin{equation*}
+17 = 1 \cdot 14 + 3
+\end{equation*}
+Now divide (the previous divisor) $14$ by the new remainder $3$ to get
+\begin{equation*}
+14 = 4 \cdot 3 + 2
+\end{equation*}
+and then divide (the previous divisor) $3$ by the new remainder $2$ to get
+\begin{equation*}
+3 = 1 \cdot 2 + 1
+\end{equation*}
+It is a theorem of number theory that, because $17$ is a prime, this procedure will \textit{always} lead to a remainder of $1$. At this point we eliminate remainders in these equations from the bottom up:
+
+\begin{align*}
+1 &= 3 - 1 \cdot 2 &\mbox{since } 3 &= 1 \cdot 2 + 1 \\
+  &= 3 - 1 \cdot (14 - 4 \cdot 3) = 5 \cdot 3 - 1 \cdot 14 &\mbox{since } 2 &= 14 - 4 \cdot 3 \\
+  &= 5 \cdot (17 - 1 \cdot 14) - 1 \cdot 14 = 5 \cdot 17 - 6 \cdot 14 &\mbox{since } 3 &= 17 - 1 \cdot 14
+\end{align*}
+
+Hence $(-6) \cdot 14 = 1$ in $\mathbb{Z}_{17}$, that is, $11 \cdot 14 = 1$. So $14^{-1} = 11$ in $\mathbb{Z}_{17}$.
+\end{solution}
+\end{example}
+
+As mentioned above, nearly everything we have done with matrices over the field of real numbers can be done in the same way for matrices with entries from $\mathbb{Z}_p$. We illustrate this with one example. Again the reader is referred to books on abstract algebra.
+
+\begin{example}{}{026324}
+Determine if the matrix $A = \leftB \begin{array}{rr}
+1 & 4 \\
+6 & 5 
+\end{array}\rightB$ from $\mathbb{Z}_7$ is invertible and, if so, find its inverse.
+
+\begin{solution}
+  Working in $\mathbb{Z}_7$ we have $\func{det} A = 1 \cdot 5 - 6 \cdot 4 = 5 - 3 = 2 \neq 0$ in $\mathbb{Z}_7$, so $A$ is invertible. Hence Example~\ref{exa:004261} gives $A^{-1} = 2^{-1}\leftB \begin{array}{rr}
+  5 & -4 \\
+  -6 & 1 
+  \end{array}\rightB$.
+Note that $2^{-1} = 4$ in $\mathbb{Z}_{7}$ (because $2 \cdot 4 = 1$ in $\mathbb{Z}_{7}$). Note also that $-4 = 3$ and $-6 = 1$ in $\mathbb{Z}_7$, so finally $A^{-1} = 4\leftB \begin{array}{rr}
+5 & 3 \\
+1 & 1 
+\end{array}\rightB = \leftB \begin{array}{rr}
+6 & 5 \\
+4 & 4 
+\end{array}\rightB$. The reader can verify that indeed $\leftB \begin{array}{rr}
+1 & 4 \\
+6 & 5
+\end{array}\rightB \leftB \begin{array}{rr}
+6 & 5 \\
+4 & 4 
+\end{array}\rightB = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1 
+\end{array}\rightB$ in $\mathbb{Z}_{7}$.
+\end{solution}
+\end{example}
+
+While we shall not use them, there are finite fields other than $\mathbb{Z}_p$ for the various primes $p$. Surprisingly, for every prime $p$ and every integer $n \geq 1$, there \textit{exists} a field with exactly $p^{n}$ elements, and this field is \textit{unique.}\footnote{See, for example, W. K. Nicholson, \textit{Introduction to Abstract Algebra}, 4th ed., (New York: Wiley, 2012).}
+ It is called the \textbf{Galois field}\index{Galois field} of order $p^{n}$, and is denoted $GF(p^{n})$.
+
+\subsection*{Error Correcting Codes}
+\index{code!error-correcting codes}
+
+Coding theory is concerned with the transmission of information over a \textit{channel}\index{channel} that is affected by \textit{noise}. The noise causes errors, so the aim of the theory is to find ways to detect such errors and correct at least some of them. General coding theory originated with the work of Claude Shannon\index{Shannon, Claude} (1916--2001) who showed that information can be transmitted at near optimal rates with arbitrarily small chance of error.\index{coding theory}
+
+Let $F$ denote a finite field and, if $n \geq 1$, let
+\begin{equation*}
+F^{n} \mbox{ denote the }F\mbox{-vector space of } 1 \times n \mbox{ row matrices over } F 
+\end{equation*}
+with the usual componentwise addition and scalar multiplication. In this context, the rows in $F^{n}$ are called \textbf{words}\index{words} (or $n$-\textbf{words}\index{$n$-words}) and, as the name implies, will be written as $\leftB a\ b\ c\ d \rightB = abcd$. The individual components of a word are called its \textbf{digits}\index{digits}. A nonempty subset $C$ of $F^{n}$ is called a \textbf{code}\index{code!defined}\index{code!$n$-code} (or an $n$-\textbf{code}), and the elements in $C$ are called \textbf{code words}\index{code words}. If $F = \mathbb{Z}_2$, these are called \textbf{binary}\index{binary codes}\index{code!binary codes} codes.
+
+If a code word $\vect{w}$ is transmitted and an error occurs, the resulting word $\vect{v}$ is decoded as the code word ``closest'' to $\vect{v}$ in $F^{n}$. To make sense of what ``closest'' means, we need a distance function on $F^{n}$ analogous to that in $\RR^n$ (see Theorem~\ref{thm:014954}). The usual definition in $\RR^n$ does not work in this situation. For example, if $\vect{w} = 1111$ in $(\mathbb{Z}_2)^4$ then the square of the distance of $\vect{w}$ from $\vect{0}$ is 
+\begin{equation*}
+(1 - 0)^{2} + (1 - 0)^{2} + (1 - 0)^{2} + (1 - 0)^{2} = 0
+\end{equation*}
+even though $\vect{w} \neq \vect{0}$.
+
+However there is a satisfactory notion of distance in $F^{n}$ due to Richard Hamming\index{Hamming, Richard} (1915--1998). Given a word $\vect{w} = a_{1}a_{2}\cdots a_{n}$ in $F^{n}$, we first define the \textbf{Hamming weight}\index{Hamming weight} $wt(\vect{w})$ to be the number of nonzero digits in $\vect{w}$:
+\begin{equation*}
+wt(\vect{w}) = wt(a_{1}a_{2} \cdots a_{n}) = |\{i \mid a_{i} \neq 0\}|
+\end{equation*}
+Clearly, $0 \leq wt(\vect{w}) \leq n$ for every word $\vect{w}$ in $F^{n}$. Given another word $\vect{v} = b_{1}b_{2} \cdots b_{n}$ in $F^{n}$, the \textbf{Hamming distance}\index{Hamming distance} $d(\vect{v}, \vect{w})$ between $\vect{v}$ and $\vect{w}$ is defined by
+\begin{equation*}
+d(\vect{v}, \vect{w}) = wt(\vect{v} - \vect{w}) = |\{i \mid b_{i} \neq a_{i}\}|
+\end{equation*}
+In other words, $d(\vect{v}, \vect{w})$ is the number of places at which the digits of $\vect{v}$ and $\vect{w}$ differ. The next result justifies using the term \textit{distance} for this function $d$.
+
+\begin{theorem}{}{026377}
+Let $\vect{u}$, $\vect{v}$, and $\vect{w}$ denote words in $F^{n}$. Then:
+
+\begin{enumerate}
+\item $d(\vect{v}, \vect{w}) \geq 0$.
+
+\item $d(\vect{v}, \vect{w}) = 0$ if and only if $\vect{v} = \vect{w}$.
+
+\item $d(\vect{v}, \vect{w}) = d(\vect{w}, \vect{v})$.
+
+\item $d(\vect{v}, \vect{w}) \leq d(\vect{v}, \vect{u}) + d(\vect{u}, \vect{w})$
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) and (3) are clear, and (2) follows because $wt(\vect{v}) = 0$ if and only if $\vect{v} = \vect{0}$. To prove (4), write $\vect{x} = \vect{v} - \vect{u}$ and $\vect{y} = \vect{u} - \vect{w}$. Then (4) reads $wt(\vect{x} + \vect{y}) \leq wt(\vect{x}) + wt(\vect{y})$. If $\vect{x} = a_{1}a_{2} \cdots a_{n}$ and $\vect{y} = b_{1}b_{2} \cdots b_{n}$, this follows because $a_{i} + b_{i} \neq 0$ implies that either $a_{i} \neq 0$ or $b_{i} \neq 0$.
+\end{proof}
+
+Given a word $\vect{w}$ in $F^{n}$ and a real number $r > 0$, define the \textbf{ball}\index{ball} $B_{r}(\vect{w})$ of radius $r$ (or simply the $r$-\textbf{ball}\index{$r$-ball}) about $\vect{w}$ as follows:
+\begin{equation*}
+B_{r}(\vect{w}) = \{\vect{x} \in F^n \mid d(\vect{w}, \vect{x}) \le r \}
+\end{equation*}
+Using this we can describe one of the most useful decoding methods.
+
+\begin{theorem*}{Nearest Neighbour Decoding}{neighbourdecoding}
+Let $C$ be an $n$-code, and suppose a word $\vect{v}$ is transmitted and $\vect{w}$ is received. Then $\vect{w}$ is decoded as the code word in $C$ closest to it. (If there is a tie, choose arbitrarily.)\index{code!nearest neighbour decoding}\index{nearest neighbour decoding}
+\end{theorem*}
+
+Using this method, we can describe how to construct a code $C$ that can detect (or correct) $t$ errors. Suppose a code word $\vect{c}$ is transmitted and a word $\vect{w}$ is received with $s$ errors where $1 \leq s \leq t$. Then $s$ is the number of places at which the $\vect{c}$- and $\vect{w}$-digits differ, that is, $s = d(\vect{c}, \vect{w})$. Hence $B_{t}(\vect{c})$ consists of all possible received words where at most $t$ errors have occurred.
+
+Assume first that $C$ has the property that no code word lies in the $t$-ball of another code word. Because $\vect{w}$ is in $B_{t}(\vect{c})$ and $\vect{w} \neq \vect{c}$, this means that $\vect{w}$ is not a code word and the error has been detected. If we strengthen the assumption on $C$ to require that the $t$-balls about code words are pairwise disjoint, then $\vect{w}$ belongs to a unique ball (the one about $\vect{c}$), and so $\vect{w}$ will be correctly decoded as $\vect{c}$.\index{code words}
+
+To describe when this happens, let $C$ be an $n$-code. The \textbf{minimum distance}\index{code!minimum distance}\index{minimum distance} $d$ of $C$ is defined to be the smallest distance between two distinct code words in $C$; that is,
+\begin{equation*}
+d = \func{min} \{d(\vect{v}, \vect{w}) \mid \vect{v} \mbox{ and } \vect{w} \mbox{ in } C; \vect{v} \neq \vect{w} \}
+\end{equation*}
+
+\begin{theorem}{}{026416}
+Let $C$ be an $n$-code with minimum distance $d$. Assume that nearest neighbour decoding is used. Then:
+
+\begin{enumerate}
+\item If $t < d$, then $C$ can detect $t$ errors.\footnotemark
+
+\item If $2t < d$, then $C$ can correct $t$ errors.
+
+\end{enumerate}
+\end{theorem}
+\footnotetext{We say that $C$ detects (corrects) $t$ errors if $C$ can detect (or correct) $t$ or \textit{fewer} errors.}
+
+\begin{proof}
+\vspace{-1em}
+\begin{enumerate}
+\item Let $\vect{c}$ be a code word in $C$. If $\vect{w} \in B_{t}(\vect{c})$, then $d(\vect{w}, \vect{c}) \leq t < d$ by hypothesis. Thus the $t$-ball $B_{t}(\vect{c})$ contains no other code word, so $C$ can detect $t$ errors by the preceding discussion.
+
+\item If $2t < d$, it suffices (again by the preceding discussion) to show that the $t$-balls about distinct code words are pairwise disjoint. But if $\vect{c} \neq \vect{c}^{\prime}$ are code words in $C$ and $\vect{w}$ is in $B_{t}(\vect{c}^{\prime}) \cap B_{t}(\vect{c})$, then Theorem~\ref{thm:026377} gives
+\begin{equation*}
+d(\vect{c}, \vect{c}^\prime) \le d(\vect{c}, \vect{w}) + d(\vect{w}, \vect{c}^\prime) \le t + t = 2t < d
+\end{equation*}
+by hypothesis, contradicting the minimality of $d$.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\begin{example}{}{026436}
+If $F = \mathbb{Z}_3 = \{0, 1, 2\}$, the 6-code $\{111111, 111222, 222111\}$ has minimum distance $3$ and so can detect $2$ errors and correct $1$ error.
+\end{example}
+
+Let $\vect{c}$ be any word in $F^{n}$. A word $\vect{w}$ satisfies $d(\vect{w}, \vect{c}) = r$ if and only if $\vect{w}$ and $\vect{c}$ differ in exactly $r$ digits. If $|F| = q$, there are exactly $\binom{n}{r}(q - 1)^r$ such words where $\binom{n}{r}$ is the binomial coefficient. Indeed, choose the $r$ places where they differ in $\binom{n}{r}$ ways, and then fill those places in $\vect{w}$ in $(q - 1)^{r}$ ways. It follows that the number of words in the $t$-ball about $\vect{c}$ is
+\begin{equation*}
+|B_{t}(\vect{c})| = \textstyle \binom{n}{0} + \binom{n}{1}(q - 1) + \binom{n}{2}(q - 1)^2 + \dots + \binom{n}{t}(q - 1)^t = \sum_{i = 0}^{t} \binom{n}{i}(q - 1)^i
+\end{equation*}
+This leads to a useful bound on the size of error-correcting codes.
+
+\begin{theorem}{Hamming Bound}{026447}
+Let $C$ be an $n$-code over a field $F$ that can correct $t$ errors using nearest neighbour decoding. If $|F| = q$, then
+\begin{equation*}
+|C| \le \frac{q^n}{\sum_{i = 0}^{t} \binom{n}{i}(q - 1)^i}
+\end{equation*}\index{Hamming bound}
+\end{theorem}
+
+\begin{proof}
+Write $k = \sum_{i = 0}^{t} \binom{n}{i}(q - 1)^i$. The $t$-balls centred at distinct code words each contain $k$ words, and there are $|C|$ of them. Moreover they are pairwise disjoint because the code corrects $t$ errors (see the discussion preceding Theorem~\ref{thm:026416}). Hence they contain $k \cdot |C|$ distinct words, and so $k \cdot |C| \leq |F^{n}| = q^{n}$, proving the theorem.
+\end{proof}
+
+A code is called \textbf{perfect}\index{code!perfect}\index{perfect code} if there is equality in the Hamming bound; equivalently, if every word in $F^{n}$ lies in exactly one $t$-ball about a code word. For example, if $F = \mathbb{Z}_2$, $n = 3$, and $t = 1$, then $q = 2$ and $\binom{3}{0} + \binom{3}{1} = 4$, so the Hamming bound is $\frac{2^3}{4} = 2$. The 3-code $C = \{000, 111\}$ has minimum distance $3$ and so can correct $1$ error by Theorem~\ref{thm:026416}. Hence $C$ is perfect.
+
+\subsection*{Linear Codes}
+\index{code!linear codes}\index{linear codes}
+
+Up to this point we have been regarding \textit{any} nonempty subset of the $F$-vector space $F^{n}$ as a code. However many important codes are actually subspaces. A subspace $C \subseteq F^n$ of dimension $k \geq 1$ over $F$ is called an $(n, k)$\textbf{-linear code}, or simply an $(n, k)$\textbf{-code}\index{code!$(n,k)$-code}. We do not regard the zero subspace (that is, $k = 0$) as a code.
+
+\begin{example}{}{026469}
+If $F = \mathbb{Z}_2$ and $n \geq 2$, the $n$-\textbf{parity}-\textbf{check code}\index{$n$-parity-check code}\index{code!parity-check code}\index{parity-check code} is
+constructed as follows: An extra digit is added to each word in $F^{n-1}$ to make the number of $1$s in the resulting word even (we say such words have \textbf{even parity}\index{even parity}). The resulting $(n, n - 1)$-code is linear because the sum of two words of even parity again has even parity.
+\end{example}
+
+Many of the properties of general codes take a simpler form for linear codes. The following result gives a much easier way to find the minimal distance of a linear code, and sharpens the results in Theorem~\ref{thm:026416}.
+
+\begin{theorem}{}{026475}
+Let $C$ be an $(n, k)$-code with minimum distance $d$ over a finite field $F$, and use nearest neighbour decoding.
+
+\begin{enumerate}
+\item $d = \func{min} \{ wt(\vect{w}) \mid \vect{0} \neq \vect{w} \in C\}.$
+
+\item $C$ can detect $t \geq 1$ errors if and only if $t < d$.
+
+\item $C$ can correct $t \geq 1$ errors if and only if $2t < d$.
+
+\item If $C$ can correct $t \geq 1$ errors and $|F| = q$, then
+\begin{equation*}
+\textstyle \binom{n}{0} + \binom{n}{1}(q - 1) + \binom{n}{2}(q - 1)^2 + \dots + \binom{n}{t}(q - 1)^t \le q^{n-k}
+\end{equation*}
+\end{enumerate}
+\vspace*{0.25em}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item Write $d^{\prime} = \func{min}\{wt(\vect{w}) \mid \vect{0} \neq \vect{w} \mbox{ in } C\}$. If $\vect{v} \neq \vect{w}$ are words in $C$, then $d(\vect{v}, \vect{w}) = wt(\vect{v} - \vect{w}) \geq d^{\prime}$ because $\vect{v} - \vect{w}$ is in the subspace $C$. Hence $d \geq d^{\prime}$. Conversely, given $\vect{w} \neq \vect{0}$ in $C$ then, since $\vect{0}$ is in $C$, we have $wt(\vect{w}) = d(\vect{w}, \vect{0}) \geq d$ by the definition of $d$. Hence $d^{\prime} \geq d$ and (1) is proved.
+
+\item Assume that $C$ can detect $t$ errors. Given $\vect{w} \neq \vect{0}$ in $C$, the $t$-ball $B_{t}(\vect{w})$ about $\vect{w}$ contains no other code word (see the discussion preceding Theorem~\ref{thm:026416}). In particular, it does not contain the code word $\vect{0}$, so $t < d(\vect{w}, \vect{0}) = wt(\vect{w})$. Hence $t < d$ by (1). The converse is part of Theorem~\ref{thm:026416}.
+
+\item We require a result of interest in itself.
+
+\textit{Claim}. Suppose $\vect{c}$ in $C$ has $wt(\vect{c}) \leq 2t$. Then $B_{t}(\vect{0}) \cap B_{t}(\vect{c})$ is nonempty.
+
+\textit{Proof}. If $wt(\vect{c}) \leq t$, then $\vect{c}$ itself is in $B_{t}(\vect{0}) \cap B_{t}(\vect{c})$. So assume $t < wt(\vect{c}) \leq 2t$. Then $\vect{c}$ has more than $t$ nonzero digits, so we can form a new word $\vect{w}$ by changing exactly $t$ of these nonzero digits to zero. Then $d(\vect{w}, \vect{c}) = t$, so $\vect{w}$ is in $B_{t}(\vect{c})$. But $wt(\vect{w}) = wt(\vect{c}) - t \leq t$, so $\vect{w}$ is also in $B_{t}(\vect{0})$. Hence $\vect{w}$ is in $B_{t}(\vect{0}) \cap B_{t}(\vect{c})$, proving the Claim.
+
+If $C$ corrects $t$ errors, the $t$-balls about code words are pairwise disjoint (see the discussion preceding Theorem~\ref{thm:026416}). Hence the claim shows that $wt(\vect{c}) > 2t$ for all $\vect{c} \neq \vect{0}$ in $C$, from which $d > 2t$ by (1). The other inequality comes from Theorem~\ref{thm:026416}.
+
+\item We have $|C| = q^{k}$ because $\func{dim}_{F} C = k$, so this assertion restates Theorem~\ref{thm:026447}.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\begin{example}{}{026513}
+If $F = \mathbb{Z}_2$, then
+\begin{equation*}
+C = \{0000000, \ 0101010, \ 1010101, \ 1110000, \ 1011010, \ 0100101, \ 0001111, \ 1111111\}
+\end{equation*}
+is a $(7, 3)$-code; in fact $C = \func{span}\{0101010, 1010101, 1110000\}$. The minimum distance for $C$ is $3$, the minimum weight of a nonzero word in $C$.
+\end{example}
+
+\subsection*{Matrix Generators}
+\index{code!matrix generators}\index{matrix generators}
+
+Given a linear $n$-code $C$ over a finite field $F$, the way encoding works in practice is as follows. A message stream is blocked off into segments of length $k \leq n$ called \textbf{messages}\index{messages}. Each message $\vect{u}$ in $F^{k}$ is encoded as a code word, the code word is transmitted, the receiver decodes the received word as the nearest code word, and then re-creates the original message. A fast and convenient method is needed to encode the incoming messages, to decode the received word after transmission (with or without error), and finally to retrieve messages from code words. All this can be achieved for any linear code using matrix multiplication.
+
+Let $G$ denote a $k \times n$ matrix over a finite field $F$, and encode each message $\vect{u}$ in $F^{k}$ as the word $\vect{u}G$ in $F^{n}$ using matrix multiplication (thinking of words as rows). This amounts to saying that the set of code words\index{code words} is the subspace $C = \{\vect{u}G \mid \vect{u} \mbox{ in } F^{k}\}$ of $F^{n}$. This subspace need not have dimension $k$ for every $k \times n$ matrix $G$. But, if $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{k}\}$ is the standard basis of $F^{k}$, then $\vect{e}_{i}G$ is row $i$ of $G$ for each $I$ and $\{\vect{e}_{1}G, \vect{e}_{2}G, \dots, \vect{e}_{k}G\}$ spans $C$. Hence $\func{dim} C = k$ if and only if the rows of $G$ are independent in $F^{n}$, and these matrices turn out to be exactly the ones we need. For reference, we state their main properties in Lemma~\ref{lem:026536} below (see Theorem~\ref{thm:015711}).
+
+\begin{lemma}{}{026536}
+The following are equivalent for a $k \times n$ matrix $G$ over a finite field $F$:
+
+\begin{enumerate}
+\item $\func{rank} G = k$.
+
+\item The columns of $G$ span $F^{k}$.
+
+\item The rows of $G$ are independent in $F^{n}$.
+
+\item The system $GX = B$ is consistent for every column $B$ in $\RR^k$.
+
+\item $GK = I_{k}$ for some $n \times k$ matrix $K$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) $\Rightarrow$ (2). This is because $\func{dim}(\func{col} G) = k$ by (1).
+
+
+\noindent (2) $\Rightarrow$ (4). $G
+\leftB \begin{array}{ccc}
+x_{1} & \cdots & x_{n}
+\end{array} \rightB^{T} = x_{1}\vect{c}_{1} + \cdots + x_{n}\vect{c}_{n}$ where $\vect{c}_{j}$ is column $j$ of $G$.
+
+
+\noindent (4) $\Rightarrow$ (5). $G
+\leftB \begin{array}{ccc}
+\vect{k}_{1} & \cdots & \vect{k}_{k}
+\end{array} \rightB = 
+\leftB \begin{array}{ccc}
+G\vect{k}_{1} & \cdots & G\vect{k}_{k}
+\end{array} \rightB$ for columns $\vect{k}_{j}$.
+
+
+\noindent (5) $\Rightarrow$ (3). If $a_{1}R_{1} + \cdots + a_{k}R_{k} = 0$ where $R_{i}$ is row $i$ of $G$, then $\leftB \begin{array}{ccc}
+a_{1} & \cdots & a_{k}
+\end{array} \rightB G = 0$, so by (5),
+$\leftB \begin{array}{ccc}
+a_{1} & \cdots & a_{k}
+\end{array} \rightB = 0$. Hence each $a_{i} = 0$, proving (3).
+
+
+\noindent (3) $\Rightarrow$ (1). $\func{rank} G = \func{dim}(\func{row} G) = k$ by (3).
+\end{proof}
+
+\noindent Note that Theorem~\ref{thm:015711} asserts that, over the real field $\RR$, the properties in Lemma~\ref{lem:026536} hold if and only if $GG^{T}$ is invertible. But this need not be true in general. For example, if $F = \mathbb{Z}_2$ and $G = \leftB \begin{array}{rrrr}
+1 & 0 & 1 & 0 \\
+0 & 1 & 0 & 1 
+\end{array}\rightB,$ then $GG^{T} = 0$. The reason is that the dot product $\vect{w} \cdot \vect{w}$ can be zero for $\vect{w}$ in $F^{n}$ even if $\vect{w} \neq \vect{0}$. However, even though $GG^{T}$ is not invertible, we do have $GK = I_{2}$ for some $4 \times 2$ matrix $K$ over $F$ as Lemma~\ref{lem:026536} asserts (in fact, $K = \leftB \begin{array}{rrrr}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 
+\end{array}\rightB^T$ is one such matrix).
+
+Let $C \subseteq F^n$ be an $(n, k)$-code over a finite field $F$. If $\{\vect{w}_{1}, \dots, \vect{w}_{k}\}$ is a basis of $C$, let $G = \leftB \begin{array}{c}
+\vect{w}_{1}\\
+\vdots \\
+\vect{w}_{k}
+\end{array}\rightB$ be the $k \times n$ matrix with the $\vect{w}_{i}$ as its rows. Let $\{\vect{e}_{1}, \dots, \vect{e}_{k}\}$ is the standard basis of $F^{k}$ regarded as rows. Then $\vect{w}_{i} = \vect{e}_{i}G$ for each $i$, so $C = \func{span}\{\vect{w}_{1}, \dots, \vect{w}_{k}\} = \func{span}\{\vect{e}_{1}G, \dots, \vect{e}_{k}G\}$. It follows (verify) that
+\begin{equation*}
+C =  \{\vect{u}G \mid \vect{u} \mbox{ in } F^k \}
+\end{equation*}
+Because of this, the $k \times n$ matrix $G$ is called a \textbf{generator}\index{generator} of the code $C$, and $G$ has rank $k$ by Lemma~\ref{lem:026536} because its rows $\vect{w}_{i}$ are independent.
+
+In fact, every linear code $C$ in $F^{n}$ has a generator of a simple, convenient form. If $G$ is a generator matrix for $C$, let $R$ be the reduced row-echelon form of $G$. We claim that $C$ is also generated by $R$. Since $G \to R$ by row operations, Theorem~\ref{thm:005294} shows that these same row operations $\leftB \begin{array}{cc}
+G & I_k
+\end{array} \rightB \to 
+\leftB \begin{array}{cc}
+R & W
+\end{array} \rightB$, performed on 
+$\leftB \begin{array}{cc}
+G & I_k
+\end{array} \rightB$, produce an invertible $k \times k$ matrix $W$ such that $R = WG$. Then $C = \{\vect{u}R \mid \vect{u} \mbox{ in } F^{k}\}$. [In fact, if $\vect{u}$ is in $F^{k}$, then $\vect{u}G = \vect{u}_{1}R$ where $\vect{u}_{1} = \vect{u}W^{-1}$ is in $F^{k}$, and $\vect{u}R = \vect{u}_{2}G$ where $\vect{u}_{2} = \vect{u}W$ is in $F^{k}$]. Thus $R$ is a generator of $C$, so we may assume that $G$ is in reduced row-echelon form.
+
+In that case, $G$ has no row of zeros (since $\func{rank} G = k$) and so contains all the columns of $I_{k}$. Hence a series of \textit{column} interchanges will carry $G$ to the block form $G^{\prime\prime} = \leftB\begin{array}{cc}
+I_{k} & A 
+\end{array}\rightB$ for some $k \times (n - k)$ matrix $A$. Hence the code $C^{\prime\prime} = \{\vect{u}G^{\prime\prime} \mid \vect{u} \mbox{ in } F^k\}$ is essentially the same as $C$; the code words in $C^{\prime\prime}$ are obtained from those in $C$ by a series of column interchanges. Hence if $C$ is a linear $(n, k)$-code, we may (and shall) assume that the generator matrix $G$ has the form
+\begin{equation*}
+G = \leftB\begin{array}{cc}
+I_{k} & A 
+\end{array}\rightB \quad \mbox{ for some } \quad k \times (n - k) \mbox{ matrix } A
+\end{equation*}
+Such a matrix is called a \textbf{standard generator}\index{standard generator}\index{matrix!standard generator}, or a \textbf{systematic generator}\index{systematic generator}\index{matrix!systemic generator}, for the code $C$. In this case, if $\vect{u}$ is a message word in $F^{k}$, the first $k$ digits of the encoded word $\vect{u}G$ are just the first $k$ digits of $\vect{u}$, so retrieval of $\vect{u}$ from $\vect{u}G$ is very simple indeed. The last $n - k$ digits of $\vect{u}G$ are called \textbf{parity digits}\index{parity digits}.
+
+\subsection*{Parity-Check Matrices}
+\index{code!parity-check matrices}\index{matrix!parity-check matrices}\index{parity-check matrices}
+
+We begin with an important theorem about matrices over a finite field.\index{matrix!over finite field}
+
+\begin{theorem}{}{026632}
+Let $F$ be a finite field, let $G$ be a $k \times n$ matrix of rank $k$, let $H$ be an $(n - k) \times n$ matrix of rank $n - k$, and let $C = \{\vect{u}G \mid \vect{u} \mbox{ in } F^{k}\}$ and $D = \{\vect{v}H \mid \vect{V} \mbox{ in } F^{n-k}\}$ be the codes they generate. Then the following conditions are equivalent:
+
+\begin{enumerate}
+\item $GH^{T} = 0$.
+
+\item $HG^{T} = 0$.
+
+\item $C = \{\vect{w} \mbox{ in } F^{n} \mid \vect{w}H^{T} = \vect{0}\}$.
+
+\item $D = \{\vect{w} \mbox{ in } F^{n} \mid \vect{w}G^{T} = \vect{0}\}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+First, (1) $\Leftrightarrow$ (2) holds because $HG^{T}$ and $GH^{T}$ are transposes of each other.
+
+(1) $\Rightarrow$ (3) Consider the linear transformation $T : F^{n} \to F^{n-k}$ defined by $T(\vect{w}) = \vect{w}H^{T}$ for all $\vect{w}$ in $F^{n}$. To prove (3) we must show that $C = \func{ker} T$. We have $C \subseteq \func{ker} T$ by (1) because $T(\vect{u}G) = \vect{u}GH^{T} = \vect{0}$ for all $\vect{u}$ in $F^{k}$. Since $\func{dim} C = \func{rank} G = k$, it is enough (by Theorem~\ref{thm:019525}) to show $\func{dim}(\func{ker} T) = k$. However the dimension theorem (Theorem~\ref{thm:021499}) shows that $\func{dim}(\func{ker} T) = n - \func{dim}(\func{im} T)$, so it is enough to show that $\func{dim}(\func{im} T) = n - k$. But if $R_{1}, \dots, R_{n}$ are the rows of $H^{T}$, then block multiplication gives
+\begin{equation*}
+\func{im} T = \{ \vect{w}H^T \mid \vect{w} \mbox{ in } \RR^n \} = \func{span}\{R_{1}, \dots, R_{n} \} = \func{row}(H^T)
+\end{equation*}
+Hence $\func{dim}(\func{im} T) = \func{rank} (H^{T}) = \func{rank} H = n - k$, as required. This proves (3).
+
+(3) $\Rightarrow$ (1) If $\vect{u}$ is in $F^{k}$, then $\vect{u}G$ is in $C$ so, by (3), $\vect{u}(GH^{T}) = (\vect{u}G)H^{T} = \vect{0}$. Since $\vect{u}$ is arbitrary in $F^{k}$, it follows that $GH^{T} = 0$.
+
+(2) $\Leftrightarrow$ (4) The proof is analogous to (1) $\Leftrightarrow$ (3).
+\end{proof}
+
+\noindent The relationship between the codes $C$ and $D$ in Theorem~\ref{thm:026632} will be characterized in another way in the next subsection.
+
+\noindent If $C$ is an $(n, k)$-code, an $(n - k) \times n$ matrix $H$ is called a \textbf{parity-check matrix} for $C$ if $C = \{\vect{w} \mid \vect{w}H^{T} = \vect{0}\}$ as in Theorem~\ref{thm:026632}. Such matrices are easy to find for a given code $C$. If $G = 
+\leftB \begin{array}{cc}
+I_k & A
+\end{array} \rightB$ is a standard generator for $C$ where $A$ is $k \times (n - k)$, the $(n - k) \times n$ matrix
+\begin{equation*}
+H = \leftB\begin{array}{cc}
+-A^T & I_{n-k}
+\end{array}\rightB
+\end{equation*}
+is a parity-check matrix for $C$. Indeed, $\func{rank} H = n - k$ because the rows of $H$ are independent (due to the presence of $I_{n - k}$), and
+\begin{equation*}
+GH^T = \leftB\begin{array}{cc}
+I_{k} & A
+\end{array}\rightB\leftB\begin{array}{c}
+-A \\ 
+I_{n-k}
+\end{array}\rightB = -A + A = 0
+\end{equation*}
+by block multiplication. Hence $H$ is a parity-check matrix for $C$ and we have $C = \{\vect{w} \mbox{ in } F^{n} \mid \vect{w}H^{T} = \vect{0}\}$. Since $\vect{w}H^{T}$ and $H\vect{w}^{T}$ are transposes of each other, this shows that $C$ can be characterized as follows:
+\begin{equation*}
+C = \{\vect{w} \mbox{ in } F^n \mid H \vect{w}^T = \vect{0} \}
+\end{equation*}
+by Theorem~\ref{thm:026632}.
+
+This is useful in decoding. The reason is that decoding\index{decoding}\index{code!decoding} is done as follows: If a code word $\vect{c}$ is transmitted and $\vect{v}$ is received, then $\vect{z} = \vect{v} - \vect{c}$ is called the \textbf{error}\index{error}. Since $H\vect{c}^{T} = \vect{0}$, we have $H\vect{z}^{T} = H\vect{v}^{T}$ and this word
+\begin{equation*}
+\vect{s} = H\vect{z}^T = H\vect{v}^T
+\end{equation*}
+is called the \textbf{syndrome}\index{syndrome}. The receiver knows $\vect{v}$ and $\vect{s} = H\vect{v}^{T}$, and wants to recover $\vect{c}$. Since $\vect{c} = \vect{v} - \vect{z}$, it is enough to find $\vect{z}$. But the possibilities for $\vect{z}$ are the solutions of the linear system
+\begin{equation*}
+H\vect{z}^T = \vect{s}
+\end{equation*}
+where $\vect{s}$ is known. Now recall that Theorem~\ref{thm:002849} shows that these solutions have the form $\vect{z} = \vect{x} + \vect{s}$ where $\vect{x}$ is any solution of the homogeneous system $H\vect{x}^{T} = \vect{0}$, that is, $\vect{x}$ is any word in $C$ (by Lemma~\ref{lem:026536}). In other words, the errors $\vect{z}$ are the elements of the set
+\begin{equation*}
+C + \vect{s} = \{\vect{c} + \vect{s} \mid \vect{c} \mbox{ in } C\}
+\end{equation*}
+
+The set $C + \vect{s}$ is called a \textbf{coset}\index{coset} of $C$. Let $|F| = q$. Since $|C + \vect{s}| = |C| = q^{n - k}$ the search for $\vect{z}$ is reduced from $q^{n}$ possibilities in $F^{n}$ to $q^{n - k}$ possibilities in $C + \vect{s}$. This is called \textbf{syndrome decoding}\index{syndrome decoding}\index{code!syndrome decoding},  and various methods for improving efficiency and accuracy have been devised. The reader is referred to books on coding for more details.\footnote{For an elementary introduction, see V. Pless\index{Pless, V.}, \textit{Introduction to the Theory of Error-Correcting Codes}, 3rd ed., (New York: Wiley, 1998)\index{\textit{Introduction to the Theory of Error-Correcting Codes} (Pless)}.}% For a more detailed treatment, see A. A. Bruen and M. A. Forcinito, \textit{Cryptography, Information Theory, and Error-Correction}, (New York: Wiley, 2005)\index{\textit{Cryptography, Information Theory, and Error-Correction} (Bruen and Forcinito)}.}
+
+\subsection*{Orthogonal Codes}
+\index{code!orthogonal codes}\index{orthogonal codes}\index{orthogonality!orthogonal codes}
+
+Let $F$ be a finite field. Given two words $\vect{v} = a_{1} a_{2} \cdots a_{n}$ and $\vect{w} = b_{1} b_{2} \cdots b_{n}$ in $F^{n}$, the dot product $\vect{v} \cdot \vect{w}$ is defined (as in $\RR^n$) by
+\begin{equation*}
+\vect{v} \dotprod \vect{w} = a_{1}b_{1} + a_{2}b_{2} + \dots + a_{n}b_{n}
+\end{equation*}
+Note that $\vect{v} \cdot \vect{w}$ is an element of $F$, and it can be computed as a matrix product: $\vect{v}\cdot\vect{w} = \vect{v}\vect{w}^{T}$.
+
+If $C \subseteq F^{n}$ is an $(n, k)$-code, the \textbf{orthogonal complement}\index{orthogonality!orthogonal complement}\index{orthogonal complement} $C^{\perp}$ is defined as in $\RR^n$:
+\begin{equation*}
+C^\perp = \{\vect{v} \mbox{ in } F^n \mid \vect{v} \dotprod \vect{c} = 0 \mbox{ for all } \vect{c} \mbox{ in } C \}
+\end{equation*}
+This is easily seen to be a subspace of $F^{n}$, and it turns out to be an $(n, n - k)$-code. This follows when $F = \RR$ because we showed (in the projection theorem) that $n = \func{dim} U^{\perp} + \func{dim} U$ for any subspace $U$ of $\RR^n$. However the proofs break down for a finite field $F$ because the dot product in $F^{n}$ has the property that $\vect{w} \cdot \vect{w} = 0$ can happen even if $\vect{w} \neq \vect{0}$. Nonetheless, the result remains valid.
+
+\begin{theorem}{}{026725}
+Let $C$ be an $(n, k)$-code over a finite field $F$, let $G = \leftB \begin{array}{cc}
+I_k & A
+\end{array} \rightB$ be a standard generator for $C$ where $A$ is $k \times (n -
+k)$, and write $H = \leftB \begin{array}{cc}
+-A^{T} & I_{n - k}
+\end{array} \rightB$ for the parity-check matrix. Then:
+
+\begin{enumerate}
+\item $H$ is a generator of $C^{\perp}$.
+
+\item $\func{dim}(C^{\perp}) = n - k = \func{rank} H$.
+
+\item $C^{\perp\perp} = C$ and $\func{dim}(C^{\perp}) + \func{dim} C = n$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+As in Theorem~\ref{thm:026632}, let $D = \{\vect{v}H \mid \vect{v} \mbox{ in } F^{n - k}\}$ denote the code generated by $H$. Observe first that, for all $\vect{w}$ in $F^{n}$ and all $\vect{u}$ in $F^{k}$, we have
+\begin{equation*}
+\vect{w} \dotprod (\vect{u}G) = \vect{w}(\vect{u}G)^T= \vect{w}(G^T\vect{u}^T) = (\vect{w}G^T) \dotprod \vect{u}
+\end{equation*}
+Since $C = \{\vect{u}G \mid \vect{u} \mbox{ in } F^{k}\}$, this shows that $\vect{w}$ is in $C^{\perp}$ if and only if $(\vect{w}G^{T}) \cdot \vect{u} = 0$ for all $\vect{u}$ in $F^{k}$; if and only if\footnote{If $\vect{v} \cdot \vect{u} = 0$ for every $\vect{u}$ in $F^{k}$, then $\vect{v} = \vect{0}$---let $\vect{u}$ range over the standard basis of $F^{k}$.} $\vect{w}G^{T} = \vect{0}$; if and only if $\vect{w}$ is in $D$ (by Theorem~\ref{thm:026632}). Thus $C^{\perp} = D$ and a similar argument shows that $D^{\perp} = C$.
+
+\begin{enumerate}
+\item $H$ generates $C^{\perp}$ because $C^{\perp} = D = \{\vect{v}H \mid \vect{v} \mbox{ in } F^{n - k} \}$.
+
+\item This follows from (1) because, as we observed above, $\func{rank} H = n - k$.
+
+\item Since $C^{\perp} = D$ and $D^{\perp} = C$, we have $C^{\perp\perp} = (C^{\perp})^{\perp} = D^{\perp} = C$. Finally the second equation in (3) restates (2) because $\func{dim} C = k$.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\noindent We note in passing that, if $C$ is a subspace of $\RR^k$, we have $C + C^{\perp} = \RR^k$ by the projection theorem (Theorem~\ref{thm:023885}), and $C \cap C^{\perp} = \{\vect{0}\}$ because any vector $\vect{x}$ in $C \cap C^{\perp}$ satisfies $\vectlength\vect{x}\vectlength^{2} = \vect{x} \cdot \vect{x} = 0$. However, this fails in general. For example, if $F = \mathbb{Z}_2$ and $C = \func{span}\{1010, 0101\}$ in $F^{4}$ then $C^{\perp} = C$, so $C + C^{\perp} = C = C \cap C^{\perp}$.
+
+We conclude with one more example. If $F = \mathbb{Z}_2$, consider the standard matrix $G$ below, and the corresponding parity-check matrix $H$:
+\begin{equation*}
+G = \leftB \begin{array}{rrrrrrr}
+1 & 0 & 0 & 0 & 1 & 1 & 1\\
+0 & 1 & 0 & 0 & 1 & 1 & 0 \\
+0 & 0 & 1 & 0 & 1 & 0 & 1 \\
+0 & 0 & 0 & 1 & 0 & 1 & 1 
+\end{array}\rightB \quad \mbox{ and } \quad 
+H = \leftB \begin{array}{rrrrrrr}
+1 & 1 & 1 & 0 & 1 & 0 & 0\\
+1 & 1 & 0 & 1 & 0 & 1 & 0 \\
+1 & 0 & 1 & 1 & 0 & 0 & 1 
+\end{array}\rightB
+\end{equation*}
+The code $C = \{\vect{u}G \mid \vect{u} \mbox{ in } F^{4}\}$ generated by $G$ has dimension $k = 4$, and is called the \textbf{Hamming (7, 4)-code}\index{Hamming (7,4)-code}\index{code!Hamming (7,4)-code}. The vectors in $C$ are listed in the first table below. The dual code generated by $H$ has dimension $n - k = 3$ and is listed in the second table.
+\begin{equation*}
+	\begin{array}{rrc|c}
+	&& \vect{u} & \vect{u}G \\ \cline{3-4}
+	&& 0000 & 0000000 \\
+	&& 0001 & 0001011 \\
+	&& 0010 & 0010101 \\
+	&& 0011 & 0011110 \\
+	&& 0100 & 0100110 \\ 
+	&& 0101 & 0101101 \\
+	&& 0110 & 0110011 \\
+	C: && 0111 & 0111000 \\
+	&& 1000 & 1000111 \\
+	&& 1001 & 1001100 \\
+	&& 1010 & 1010010 \\
+	&& 1011 & 1011001 \\
+	&& 1100 & 1100001 \\
+	&& 1101 & 1101010 \\
+	&& 1110 & 1110100 \\
+	&& 1111 & 1111111 
+	\end{array} 
+        \quad \quad 
+    \begin{array}{rrc|c}
+	&& \vect{v} & \vect{v}H \\ \cline{3-4}
+	&& 000 & 0000000 \\
+	&& 001 & 1011001 \\
+	&& 010 & 1101010 \\
+	C^\perp: && 011 & 0110011 \\
+	&& 100 & 1110100 \\ 
+	&& 101 & 0101101 \\
+	&& 110 & 0011110 \\
+	&& 111 & 1000111 
+	\end{array}
+\end{equation*}
+Clearly each nonzero code word in $C$ has weight at least $3$, so $C$ has minimum distance $d = 3$. Hence $C$ can detect two errors and correct one error by Theorem~\ref{thm:026475}. The dual code has minimum distance $4$ and so can detect $3$ errors and correct $1$ error.\index{code words}
+
+
+\section*{Exercises for \ref{sec:8_7}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:8_7}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Find all $a$ in $\mathbb{Z}_{10}$ such that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $a^{2} = a$.
+
+\item $a$ has an inverse (and find the inverse).
+
+\item $a^{k} = 0$ for some $k \geq 1$.
+
+\item $a = 2^{k}$ for some $k \geq 1$.
+
+\item $a = b^{2}$ for some $b$ in $\mathbb{Z}_{10}$.
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $1^{-1} = 1$, $9^{-1} = 9$, $3^{-1} = 7$, $7^{-1} = 3$.
+
+\setcounter{enumi}{3}
+\item  $2^{1} = 2$, $2^{2} = 4$, $2^{3} = 8$, $2^{4} = 16 = 6$, $2^{5} = 12 = 2$, $2^{6} =
+  2^{2} \dots$  so $a = 2^k$ if and only if $a = 2, 4, 6, 8$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that if $3a = 0$ in $\mathbb{Z}_{10}$, then necessarily $a = 0$ in $\mathbb{Z}_{10}$.
+
+\item Show that $2a = 0$ in $\mathbb{Z}_{10}$  holds in $\mathbb{Z}_{10}$ if and only if $a = 0$ or $a = 5$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $2a = 0$ in $\mathbb{Z}_{10}$, then $2a = 10k$ for some integer $k$. Thus $a = 5k$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\begin{ex}
+Find the inverse of:
+
+\begin{exenumerate}
+\exitem $8$ in $\mathbb{Z}_{13}$;
+\exitem $11$ in $\mathbb{Z}_{19}$.
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $11^{-1} = 7$ in $\mathbb{Z}_{19}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $ab = 0$ in a field $F$, show that either $a = 0$ or $b = 0$.
+\end{ex}
+
+\begin{ex}
+Show that the entries of the last column of the multiplication table of $\mathbb{Z}_n$ are 
+\begin{equation*}
+0, n - 1, n - 2, \dots, 2, 1
+\end{equation*}
+ in that order.
+\end{ex}
+
+\begin{ex}
+In each case show that the matrix $A$ is invertible over the given field, and find $A^{-1}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $A = \leftB \begin{array}{rr}
+1 & 4 \\
+2 & 1 
+\end{array}\rightB$ over $\mathbb{Z}_5$.
+
+\item $A = \leftB \begin{array}{rr}
+5 & 6 \\
+4 & 3 
+\end{array}\rightB$ over $\mathbb{Z}_7$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\func{det} A = 15 - 24 = 1 + 4 = 5 \neq 0$ in $\mathbb{Z}_{7}$, so $A^{-1}$ exists. Since $5^{-1} = 3$ in $\mathbb{Z}_{7}$, we have
+$A^{-1} = 3\leftB \begin{array}{rr}
+3 & -6 \\
+3 & 5 
+\end{array}\rightB = 3\leftB \begin{array}{rr}
+3 & 1 \\
+3 & 5 
+\end{array}\rightB = \leftB \begin{array}{rr}
+2 & 3 \\
+2 & 1 
+\end{array}\rightB.$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Consider the linear system $\arraycolsep=1.5pt \begin{array}{rrrrrrr}
+3x & + & y & + & 4z & = & 3 \\
+4x & + & 3y & + & z & = & 1 
+\end{array}$. In each case solve the system by reducing the augmented matrix to reduced row-echelon form over the given field:
+
+\begin{exenumerate}
+\exitem $\mathbb{Z}_5$
+\exitem $\mathbb{Z}_7$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item We have $5 \cdot 3 = 1$ in $\mathbb{Z}_{7}$ so the reduction of the augmented matrix is:
+\begin{align*}
+\leftB \begin{array}{rrrr}
+3 & 1 & 4 & 3 \\
+4 & 3 & 1 & 1 
+\end{array}\rightB & \rightarrow  \leftB \begin{array}{rrrr}
+1 & 5 & 6 & 1 \\
+4 & 3 & 1 & 1 
+\end{array}\rightB \\ & \rightarrow  \leftB \begin{array}{rrrr}
+1 & 5 & 6 & 1 \\
+0 & 4 & 5 & 4 
+\end{array}\rightB \\ & \rightarrow  \leftB \begin{array}{rrrr}
+1 & 5 & 6 & 1 \\
+0 & 1 & 3 & 1 
+\end{array}\rightB \\ & \rightarrow  \leftB \begin{array}{rrrr}
+1 & 0 & 5 & 3 \\
+0 & 1 & 3 & 1 
+\end{array}\rightB.
+\end{align*}
+Hence $x = 3 + 2t$, $y = 1 + 4t$, $z = t$; $t$ in $\mathbb{Z}_{7}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\begin{ex}
+Let $K$ be a vector space over $\mathbb{Z}_2$ with basis $\{1, t\}$, so $K = \{a + bt \mid a, b, \mbox{ in } \mathbb{Z}_2\}$. It is known that $K$ becomes a field of four elements if we define $t^{2} = 1 + t$. Write down the multiplication table of $K$.
+\end{ex}
+
+\begin{ex}
+Let $K$ be a vector space over $\mathbb{Z}_3$ with basis $\{1, t\}$, so $K = \{a + bt \mid a, b, \mbox{ in } \mathbb{Z}_3\}$. It is known that $K$ becomes a field of nine elements if we define $t^{2} = -1$ in $\mathbb{Z}_3$. In each case find the inverse of the element $x$ of $K$:
+
+\begin{exenumerate}
+\exitem $x = 1 + 2t$
+\exitem $x = 1 + t$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(1 + t)^{-1} = 2 + t$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:8_7_10}
+How many errors can be detected or corrected by each of the following binary linear codes?
+
+\begin{enumerate}[label={\alph*.}]
+\item $C = \{0000000, 0011110, 0100111, 0111001, \\ \hspace*{2em} 1001011, 1010101, 1101100, 1110010\}$
+
+\item $C = \{0000000000, 0010011111, 0101100111,\\ \hspace*{2em} 0111111000, 1001110001, 1011101110,\\ \hspace*{2em} 1100010110, 1110001001\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The minimum weight of $C$ is $5$, so it detects $4$ errors and corrects $2$ errors.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If a binary linear $(n, 2)$-code corrects one error, show that $n \geq 5$. [\textit{Hint}: Hamming bound.]
+
+\item Find a $(5, 2)$-code that corrects one error.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{00000, 01110, 10011, 11101\}.$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If a binary linear $(n, 3)$-code corrects two errors, show that $n \geq 9$. [\textit{Hint}: Hamming bound.]
+
+\item If $G = \leftB \begin{array}{rrrrrrrrrr}
+1 & 0 & 0 & 1 & 1 & 1 & 1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 0 \\
+0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1
+\end{array}\rightB$, show that the binary $(10, 3)$-code generated by $G$ corrects two errors. [It can be shown that no binary $(9, 3)$-code corrects two errors.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The code is $\{0000000000, 1001111000, 0101100110,$ \\ $ 0011010111, 1100011110, 1010101111,$ \\ $ 0110110001, 1111001001\}$. This has minimum distance $5$ and so corrects $2$ errors.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that no binary linear $(4, 2)$-code can correct single errors.
+
+\item Find a binary linear $(5, 2)$-code that can correct one error.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{00000, 10110, 01101, 11011\}$ is a $(5, 2)$-code of minimal weight $3$, so it corrects single errors.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the standard generator matrix $G$ and the parity-check matrix $H$ for each of the following systematic codes:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{00000, 11111\}$ over $\mathbb{Z}_2$.
+
+\item Any systematic $(n, 1)$-code where $n \geq 2$.
+
+\item The code in Exercise \ref{ex:8_7_10}(a).
+
+\item The code in Exercise \ref{ex:8_7_10}(b).
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $G = 
+\leftB \begin{array}{cc}
+1 & \vect{u}
+\end{array} \rightB$ where $\vect{u}$ is any nonzero vector in the code. $H = \leftB \begin{array}{c}
+\vect{u} \\
+I_{n-1}
+\end{array}\rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\vect{c}$ be a word in $F^{n}$. Show that $B_{t}(\vect{c}) = \vect{c} + B_{t}(\vect{0})$, where we write 
+\begin{equation*}
+\vect{c} + B_{t}(\vect{0}) = \{\vect{c} + \vect{v} \mid \vect{v} \mbox{ in } B_{t}(\vect{0})\}
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+If a $(n, k)$-code has two standard generator matrices $G$ and $G_{1}$, show that $G = G_{1}$.
+\end{ex}
+
+\begin{ex}
+Let $C$ be a binary linear $n$-code (over $\mathbb{Z}_2$). Show that either each word in $C$ has even weight, or half the words in $C$ have even weight and half have odd weight. [\textit{Hint}: The dimension theorem.]
+\end{ex}
+\end{multicols}

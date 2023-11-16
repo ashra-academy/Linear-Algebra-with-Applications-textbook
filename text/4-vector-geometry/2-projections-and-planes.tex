@@ -1,0 +1,3281 @@
+\section{Projections and Planes}
+\label{sec:4_2}
+
+\begin{wrapfigure}[9]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/figure4.2.1}
+\caption{\label{fig:011780}}
+\end{wrapfigure}
+
+Any
+ student of geometry soon realizes that the notion of perpendicular 
+lines is fundamental. As an illustration, suppose a point $P$ and a plane are given and it is desired to find the point $Q$ that lies in the plane and is closest to $P$, as shown in Figure~\ref{fig:011780}. Clearly, what is required is to find the line through $P$ that is perpendicular to the plane and then to obtain $Q$ as the point of intersection of this line with the plane. Finding the line \textit{perpendicular}\index{line!perpendicular lines}\index{perpendicular lines} to the plane requires a way to determine when two vectors are perpendicular. This can be done using the idea of the dot product of two  vectors.\index{vector geometry!line perpendicular to plane}
+
+
+\subsection*{The Dot Product and Angles}
+
+\begin{definition}{Dot Product in $\RR^3$}{011783}
+Given vectors
+$\vect{v} = \leftB
+\begin{array}{c}
+x_{1} \\
+y_{1}\\
+z_{1} 
+\end{array} \rightB$
+ and 
+$\vect{w} = \leftB
+\begin{array}{c}
+x_{2} \\
+y_{2}\\
+z_{2} 
+\end{array} \rightB$, their \textbf{dot product}\index{product!dot product}\index{dot product!defined} $\vect{v} \dotprod \vect{w}$ is a number defined
+\begin{equation*}
+\vect{v} \dotprod \vect{w} = x_{1}x_{2} + y_{1}y_{2} + z_{1}z_{2} = \vect{v}^T\vect{w}
+\end{equation*}
+\end{definition}
+
+\noindent Because $\vect{v} \dotprod \vect{w}$ is a number, it is sometimes called the \textbf{scalar product}\index{scalar product!defined}\index{product!scalar product}\index{dot product!of two vectors} of $\vect{v}$ and $\vect{w}$.\footnote{Similarly, if 
+	$\vect{v} = \leftB
+	\begin{array}{c}
+	x_{1} \\
+	y_{1}
+	\end{array} \rightB$
+ and 
+ $\vect{w} = \leftB
+ \begin{array}{c}
+ x_{2} \\
+ y_{2} 
+ \end{array} \rightB$
+ in $\RR^2$, then $\vect{v} \dotprod \vect{w} = x_{1}x_{2} + y_{1}y_{2}$.}
+
+
+\begin{example}{}{011790}
+If 
+$\vect{v} = \leftB
+\begin{array}{r}
+2 \\
+-1 \\
+3 
+\end{array} \rightB$
+ and
+$\vect{w} = \leftB
+\begin{array}{r}
+1 \\
+4\\
+-1 
+\end{array} \rightB$, then $\vect{v} \dotprod \vect{w} = 2 \cdot 1 + (-1) \cdot 4 + 3 \cdot (-1) = -5$.
+\end{example}
+
+The next theorem lists several basic properties of the dot product.
+
+
+\begin{theorem}{}{011796}
+Let $\vect{u}$, $\vect{v}$, and $\vect{w}$ denote vectors in $\RR^3$ (or $\RR^2$).\index{dot product!basic properties}
+
+
+\begin{enumerate}
+\item $\vect{v} \dotprod \vect{w}$ is a real number.
+
+\item  $\vect{v} \dotprod \vect{w} = \vect{w} \dotprod \vect{v}$.
+
+\item  $\vect{v} \dotprod \vect{0} = 0 = \vect{0} \dotprod \vect{v}$.
+
+\item  $\vect{v} \dotprod \vect{v} = \vectlength\vect{v}\vectlength^{2}$.
+
+\item $(k\vect{v}) \dotprod \vect{w} = k(\vect{w} \dotprod \vect{v}) = \vect{v} \dotprod (k\vect{w})$ for all scalars $k$.
+
+\item $\vect{u} \dotprod (\vect{v} \pm \vect{w}) = \vect{u} \dotprod \vect{v} \pm \vect{u} \dotprod \vect{w}$
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1), (2), and (3) are easily verified, and (4) comes from Theorem~\ref{thm:010965}. The rest are properties of matrix arithmetic (because $\vect{w} \dotprod \vect{v} = \vect{v}^{T}\vect{w}$), and are left to the reader.
+\end{proof}
+
+The properties in Theorem~\ref{thm:011796} enable us to do calculations like
+\begin{equation*}
+3\vect{u} \dotprod (2\vect{v} - 3\vect{w} + 4\vect{z}) = 6(\vect{u} \dotprod \vect{v}) - 9(\vect{u} \dotprod \vect{w}) + 12(\vect{u} \dotprod \vect{z})
+\end{equation*}
+and such computations will be used without comment below. Here is an example.
+
+
+\begin{example}{}{011821}
+Verify that $\vectlength\vect{v} -3\vect{w}\vectlength^{2} = 1$ when $\vectlength\vect{v}\vectlength = 2$, $\vectlength\vect{w}\vectlength = 1$, and $\vect{v} \dotprod \vect{w} = 2$.
+
+
+\begin{solution}
+  We apply Theorem~\ref{thm:011796} several times:
+\begin{align*}
+\vectlength \vect{v} - 3\vect{w} \vectlength^2 &= (\vect{v} - 3\vect{w}) \dotprod (\vect{v} - 3\vect{w}) \\
+		&= \vect{v} \dotprod (\vect{v} - 3\vect{w}) - 3\vect{w} \dotprod (\vect{v} - 3\vect{w}) \\
+		&= \vect{v} \dotprod \vect{v} - 3(\vect{v} \dotprod \vect{w}) - 3(\vect{w} \dotprod \vect{v}) + 9(\vect{w} \dotprod \vect{w}) \\
+		&=\vectlength \vect{v} \vectlength^2 - 6(\vect{v} \dotprod \vect{w}) + 9\vectlength \vect{w} \vectlength^2 \\
+		&= 4 - 12 + 9 = 1 
+\end{align*}
+\end{solution}
+\end{example}
+
+There is an intrinsic description of the dot product of two nonzero vectors in $\RR^3$. To understand it we require the following result from trigonometry.
+
+
+\begin{theorem*}{Law of Cosines}{011831}
+If a triangle has sides $a$, $b$, and $c$, and if $\theta$ is the interior angle opposite $c$ then\index{cosine}\index{law of cosines}
+\begin{equation*}
+c^2 = a^2 + b^2 -2ab \cos\theta
+\end{equation*}
+\end{theorem*}
+
+\begin{wrapfigure}[7]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/figure4.2.2}
+\caption{\label{fig:011840}}
+\end{wrapfigure}
+
+\begin{proof} We prove it when is $\theta$ acute, that is $0 \leq \theta < \frac{\pi}{2}$; the obtuse case is similar. In Figure~\ref{fig:011840} we have $p = a \sin \theta$ and $q = a \cos \theta$. Hence Pythagoras' theorem gives
+\begin{align*}
+c^2 = p^2 + (b - q)^2 &= a^2\sin^2\theta + (b - a\cos\theta)^2 \\
+					  &= a^2(\sin^2\theta + \cos^2\theta) +b^2 - 2ab\cos\theta
+\end{align*}
+The law of cosines follows because $\sin^{2} \theta + \cos^{2} \theta = 1$ for any angle $\theta$.
+\end{proof}
+
+\newpage
+\begin{wrapfigure}[13]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/figure4.2.3}
+\caption{\label{fig:011848}}
+\end{wrapfigure}
+
+\noindent Note that the law of cosines reduces to Pythagoras' theorem if $\theta$ is a right angle (because $\cos\frac{\pi}{2} = 0$).\index{Pythagoras' theorem}
+
+Now let $\vect{v}$ and $\vect{w}$ be nonzero vectors positioned with a common tail as in Figure~\ref{fig:011848}. Then they determine a unique angle $\theta$ in the range
+\begin{equation*}
+0 \leq \theta \leq \pi
+\end{equation*}
+
+This angle $\theta$ will be called the \textbf{angle between}\index{vector geometry!angle between two vectors}\index{angles!angle between two vectors} $\vect{v}$ and $\vect{w}$. Figure~\ref{fig:011848} illustrates when $\theta$ is acute (less than $\frac{\pi}{2}$) and obtuse (greater than $\frac{\pi}{2}$). Clearly $\vect{v}$ and $\vect{w}$ are parallel if $\theta$ is either $0$ or $\pi$. Note that we do not define the angle between $\vect{v}$ and $\vect{w}$ if one of these vectors is $\vect{0}$.
+
+
+The next result gives an easy way to compute the angle between two nonzero vectors using the dot product.
+
+
+\begin{theorem}{}{011851}
+Let $\vect{v}$ and $\vect{w}$ be nonzero vectors. If $\theta$ is the angle between $\vect{v}$ and $\vect{w}$, then
+\begin{equation*}
+\vect{v} \dotprod \vect{w} = \vectlength \vect{v} \vectlength \vectlength \vect{w} \vectlength \cos\theta
+\end{equation*}
+\end{theorem}
+
+\begin{wrapfigure}[4]{l}{5cm}
+\vspace*{-2em} 
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/figure4.2.4}
+\caption{\label{fig:011860}}
+\end{wrapfigure}
+
+\begin{proof} We calculate $\vectlength\vect{v} - \vect{w}\vectlength^{2}$ in two ways. First apply the law of cosines to the triangle in Figure~\ref{fig:011860} to obtain:
+\begin{equation*}
+\vectlength \vect{v} - \vect{w} \vectlength^2 = \vectlength \vect{v} \vectlength^2 + \vectlength \vect{w} \vectlength^2 - 2\vectlength \vect{v} \vectlength \vectlength \vect{w} \vectlength \cos\theta
+\end{equation*}
+
+\vspace{1em}
+\noindent On the other hand, we use Theorem~\ref{thm:011796}:
+\begin{align*}
+\vectlength \vect{v} - \vect{w} \vectlength^2 &= (\vect{v} - \vect{w}) \dotprod (\vect{v} - \vect{w}) \\
+		&= \vect{v} \dotprod \vect{v} - \vect{v} \dotprod \vect{w} - \vect{w} \dotprod \vect{v} + \vect{w} \dotprod \vect{w} \\
+		&= \vectlength \vect{v} \vectlength^2 - 2(\vect{v} \dotprod \vect{w}) + \vectlength \vect{w} \vectlength^2
+\end{align*}
+Comparing these we see that $-2 \vectlength\vect{v}\vectlength\vectlength\vect{w}\vectlength \cos \theta = -2(\vect{v} \dotprod \vect{w})$, and the result follows.
+\end{proof}
+
+If $\vect{v}$ and $\vect{w}$ are nonzero vectors, Theorem~\ref{thm:011851} gives an intrinsic description of $\vect{v} \dotprod \vect{w}$ because $\vectlength\vect{v}\vectlength$, $\vectlength\vect{w}\vectlength$, and the angle $\theta$ between $\vect{v}$ and $\vect{w}$ do not depend on the choice of coordinate system. Moreover, since $\vectlength\vect{v}\vectlength$ and $\vectlength\vect{w}\vectlength$ are nonzero ($\vect{v}$ and $\vect{w}$ are nonzero vectors), it gives a formula for the cosine of the angle $\theta$:
+\begin{equation}\label{eq:costheta}
+\cos\theta = \frac{\vect{v} \dotprod \vect{w}}{\vectlength \vect{v} \vectlength \vectlength \vect{w} \vectlength}
+\end{equation}
+Since $0 \leq \theta \leq \pi$, this can be used to find $\theta$.
+
+
+\begin{example}{}{011867}
+Compute the angle between 
+$\vect{u} = \leftB
+\begin{array}{r}
+-1 \\
+1 \\
+2
+\end{array}
+\rightB$ 
+and 
+$\vect{v} = \leftB
+\begin{array}{r}
+2 \\
+1 \\
+-1
+\end{array}
+\rightB$.
+
+
+\begin{wrapfigure}[7]{l}{5cm}
+\vspace*{-2em}
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/example4.2.3}
+%\captionof{figure}{\label{fig:011878}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+\begin{solution}
+ Compute $\cos\theta = \frac{\vect{v} \dotprod \vect{w}}{\vectlength \vect{v} \vectlength \vectlength \vect{w} \vectlength} = \frac{-2 + 1 -2}{\sqrt{6}\sqrt{6}} = -\frac{1}{2}$. Now recall that $\cos\theta$ and $\sin \theta$ are defined so that ($\cos \theta$, $\sin \theta$) is the point on the unit circle determined by the angle $\theta$ (drawn counterclockwise, starting from the positive $x$ axis). In the present case, we know that $\cos \theta = -\frac{1}{2}$ and that $0 \leq \theta \leq \pi$. Because $\cos\frac{\pi}{3} = \frac{1}{2}$, it follows that $\theta = \frac{2\pi}{3}$ (see the diagram).
+\vspace{2em}
+\end{solution}
+\end{example}
+
+If $\vect{v}$ and $\vect{w}$ are nonzero, equation (\ref{eq:costheta}) shows that $\cos \theta$ has the same sign as $\vect{v} \dotprod \vect{w}$, so
+\begin{equation*}
+\begin{array}{lll}
+\vect{v} \dotprod \vect{w} > 0 & \mbox{if and only if } & \theta \mbox{ is acute } (0 \leq \theta < \frac{\pi}{2}) \\
+\vect{v} \dotprod \vect{w} < 0 & \mbox{if and only if } & \theta \mbox{ is obtuse } (\frac{\pi}{2} < \theta \leq 0) \\
+\vect{v} \dotprod \vect{w} = 0 & \mbox{if and only if } & \theta = \frac{\pi}{2}
+\end{array}
+\end{equation*}
+In this last case, the (nonzero) vectors are perpendicular. The following terminology is used in linear algebra:
+
+
+\begin{definition}{Orthogonal Vectors in $\RR^3$}{011882}
+Two vectors $\vect{v}$ and $\vect{w}$ are said to be \textbf{orthogonal}\index{orthogonal vectors}\index{vectors!orthogonal vectors} if $\vect{v} = \vect{0}$ or $\vect{w} = \vect{0}$ or the angle between them is $\frac{\pi}{2}$.
+\end{definition}
+
+\noindent Since $\vect{v} \dotprod \vect{w} = 0$ if either $\vect{v} = \vect{0}$ or $\vect{w} = \vect{0}$, we have the following theorem:
+
+
+\begin{theorem}{}{011886}
+Two vectors $\vect{v}$ and $\vect{w}$ are orthogonal if and only if $\vect{v} \dotprod \vect{w} = 0$.
+\end{theorem}
+
+\begin{example}{}{011889}
+Show that the points $P(3, -1, 1)$, $Q(4, 1, 4)$, and $R(6, 0, 4)$ are the vertices of a right triangle.
+
+
+\begin{solution}
+  The vectors along the sides of the triangle are
+\begin{equation*}
+\longvect{PQ} = \leftB
+\begin{array}{r}
+1 \\
+2 \\
+3
+\end{array}
+\rightB,\
+\longvect{PR} = \leftB
+\begin{array}{r}
+3 \\
+1 \\
+3
+\end{array}
+\rightB, \mbox{ and }
+\longvect{QR} = \leftB
+\begin{array}{r}
+2 \\
+-1 \\
+0
+\end{array}
+\rightB
+\end{equation*}
+Evidently $\longvect{PQ} \cdot \longvect{QR} = 2 - 2 + 0 = 0$, so $\longvect{PQ}$ and $\longvect{QR}$ are orthogonal vectors. This means sides $PQ$ and $QR$ are perpendicular---that is, the angle at $Q$ is a right angle.
+\end{solution}
+\end{example}
+
+Example~\ref{exa:011899} demonstrates how the dot product can be used to verify geometrical theorems involving perpendicular lines.
+
+
+\begin{example}{}{011899}
+A parallelogram with sides of equal length is called a \textbf{rhombus}\index{parallelogram!rhombus}\index{rhombus}. Show that the diagonals of a rhombus are perpendicular.
+
+\begin{wrapfigure}[6]{l}{5cm}
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/example4.2.5}
+%\captionof{figure}{\label{fig:011906}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt} 
+\begin{solution}  Let $\vect{u}$ and $\vect{v}$ denote vectors along two adjacent sides of a rhombus, as shown in the diagram. Then the diagonals are $\vect{u} - \vect{v}$ and $\vect{u} + \vect{v}$, and we compute
+\begin{align*}
+(\vect{u} - \vect{v}) \dotprod (\vect{u} + \vect{v}) &= \vect{u} \dotprod (\vect{u} + \vect{v}) - \vect{v} \dotprod (\vect{u} + \vect{v})\\
+&= \vect{u} \dotprod \vect{u} + \vect{u} \dotprod \vect{v} - \vect{v} \dotprod \vect{u} - \vect{v} \dotprod \vect{v} \\
+&= \vectlength \vect{u} \vectlength^2 - \vectlength \vect{v} \vectlength^2 \\
+&= 0
+\end{align*}
+because $\vectlength\vect{u}\vectlength = \vectlength\vect{v}\vectlength$ (it is a rhombus). Hence $\vect{u} - \vect{v}$ and $\vect{u} + \vect{v}$ are orthogonal.
+
+\end{solution}
+\end{example}
+
+\subsection*{Projections}
+
+
+In applications of vectors, it is frequently useful to write a vector as the sum of two orthogonal vectors. Here is an example.\index{projections}
+
+
+\begin{example}{}{011910}
+Suppose
+ a ten-kilogram block is placed on a flat surface inclined $30^{\circ}$  to the 
+horizontal as in the diagram. Neglecting friction, how much force is 
+required to keep the block from sliding down the surface?
+
+
+
+\begin{wrapfigure}[6]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/example4.2.6}
+%\captionof{figure}{\label{fig:011925}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+\begin{solution}  Let $\vect{w}$ denote the weight (force due to gravity) exerted on the block. Then $\vectlength\vect{w}\vectlength = 10$ kilograms and the direction of $\vect{w}$ is vertically down as in the diagram. The idea is to write $\vect{w}$ as a sum $\vect{w} = \vect{w}_{1} + \vect{w}_{2}$ where $\vect{w}_{1}$ is parallel to the inclined surface and $\vect{w}_{2}$ is perpendicular to the surface. Since there is no friction, the force required is $-\vect{w}_{1}$ because the force $\vect{w}_{2}$ has no effect parallel to the surface. As the angle between $\vect{w}$ and $\vect{w}_{2}$ is $30^{\circ}$  in the diagram, we have $\frac{\vectlength \vect{w}_{1} \vectlength}{\vectlength \vect{w} \vectlength} = \sin30^\circ = \frac{1}{2}$. Hence $\vectlength \vect{w}_{1} \vectlength = \frac{1}{2} \vectlength \vect{w} \vectlength = \frac{1}{2}10 = 5$. Thus the required force has a magnitude of $5$ kilograms weight directed up the surface.
+
+\end{solution}
+\end{example}
+
+
+\newpage
+\begin{wrapfigure}[11]{l}{5cm}
+\vspace{-1em}
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/figure4.2.5a}
+\input{4-vector-geometry/figures/2-projections-and-planes/figure4.2.5b}
+\vspace*{-1em}\caption{\label{fig:011945}}
+\end{wrapfigure}
+
+If a nonzero vector $\vect{d}$ is specified, the key idea in Example~\ref{exa:011910} is to be able to write an arbitrary vector $\vect{u}$ as a sum of two vectors,
+\begin{equation*}
+\vect{u} = \vect{u}_{1} + \vect{u}_{2}
+\end{equation*}
+where $\vect{u}_{1}$ is parallel to $\vect{d}$ and $\vect{u}_{2} = \vect{u} - \vect{u}_{1}$ is orthogonal to $\vect{d}$. Suppose that $\vect{u}$ and $\vect{d} \neq \vect{0}$ emanate from a common tail $Q$ (see Figure~\ref{fig:011945}). Let $P$ be the tip of $\vect{u}$, and let $P_{1}$ denote the foot of the perpendicular from $P$ to the line through $Q$ parallel to $\vect{d}$. 
+
+Then $\vect{u}_{1} = \longvect{QP}_{1}$ has the required properties:
+\begin{enumerate}
+\item $\vect{u}_{1}$ \textit{is parallel to} $\vect{d}$.
+
+\item $\vect{u}_{2} = \vect{u} - \vect{u}_{1}$ \textit{is orthogonal to} $\vect{d}$.
+
+\item $\vect{u} = \vect{u}_{1} + \vect{u}_{2}$.
+
+\end{enumerate}
+
+\hfill\begin{definition}{Projection in $\RR^3$}{011946}
+The vector $\vect{u}_{1} = \longvect{QP}_{1}$ in Figure~\ref{fig:011945} is called \textbf{the projection}\index{vector geometry!projections} of $\vect{u}$ on $\vect{d}$. It is denoted
+\begin{equation*}
+\vect{u}_1 = \proj{\vect{d}}{\vect{u}}
+\end{equation*}
+\end{definition}
+
+
+\noindent In Figure~\ref{fig:011945}(a) the vector $\vect{u}_{1} = \proj{\vect{d}}{\vect{u}}$ has the same direction as $\vect{d}$; however, $\vect{u}_{1}$ and $\vect{d}$ have opposite directions if the angle between $\vect{u}$ and $\vect{d}$ is greater than $\frac{\pi}{2}$ (Figure~\ref{fig:011945}(b)). Note that the projection $\vect{u}_1 = \proj{\vect{d}}{\vect{u}}$ is zero if and only if $\vect{u}$ and $\vect{d}$ are orthogonal.
+
+
+Calculating the projection of $\vect{u}$ on $\vect{d} \neq \vect{0}$ is remarkably easy.
+
+
+\begin{theorem}{}{011958}
+Let $\vect{u}$ and $\vect{d} \neq \vect{0}$ be vectors.
+
+
+\begin{enumerate}
+\item The projection of $\vect{u}$ on $\vect{d}$ is given by $\proj{\vect{d}}{\vect{u}} = \frac{\vect{u} \dotprod \vect{d}}{\vectlength \vect{d} \vectlength^2} \vect{d}$.
+
+
+\item The vector $\vect{u} - \proj{\vect{d}}{\vect{u}}$ is orthogonal to $\vect{d}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The vector $\vect{u}_{1} = \proj{\vect{d}}{\vect{u}}$ is parallel to $\vect{d}$ and so has the form $\vect{u}_{1} = t\vect{d}$ for some scalar $t$. The requirement that $\vect{u} - \vect{u}_{1}$ and $\vect{d}$ are orthogonal determines $t$. In fact, it means that $(\vect{u} - \vect{u}_{1}) \dotprod \vect{d} = 0$ by Theorem~\ref{thm:011886}. If $\vect{u}_{1} = t\vect{d}$ is substituted here, the condition is
+\begin{equation*}
+0 = (\vect{u} - t\vect{d}) \dotprod \vect{d} = \vect{u} \dotprod \vect{d} - t(\vect{d} \dotprod \vect{d}) = \vect{u} \dotprod \vect{d} - t\vectlength \vect{d} \vectlength^2
+\end{equation*}
+It follows that $t = \frac{\vect{u} \dotprod \vect{d}}{\vectlength \vect{d} \vectlength^2}$, where the assumption that $\vect{d} \neq \vect{0}$ guarantees that $\vectlength \vect{d} \vectlength^{2} \neq 0$.
+\end{proof}
+
+\begin{example}{}{011981}
+Find the projection of 
+$\vect{u} = \leftB
+\begin{array}{r}
+2 \\
+-3 \\
+1
+\end{array}
+\rightB$
+ on 
+$\vect{d} = \leftB
+\begin{array}{r}
+1\\
+-1 \\
+3
+\end{array}
+\rightB$
+ and express $\vect{u} = \vect{u}_{1} + \vect{u}_{2}$ where $\vect{u}_{1}$ is parallel to $\vect{d}$ and $\vect{u}_{2}$ is orthogonal to $\vect{d}$.
+
+
+\begin{solution}
+  The projection $\vect{u}_{1}$ of $\vect{u}$ on $\vect{d}$ is
+\begin{equation*}
+\vect{u}_{1} = \proj{\vect{d}}{\vect{u}} = \frac{\vect{u} \dotprod \vect{d}}{\vectlength \vect{d} \vectlength^2}\vect{d} = \frac{2 + 3 + 3}{1^2 + (-1)^2 + 3^2} 
+\leftB
+\begin{array}{r}
+1\\
+-1 \\
+3
+\end{array}
+\rightB
+= \frac{8}{11}\leftB
+\begin{array}{r}
+1\\
+-1 \\
+3
+\end{array}
+\rightB
+\end{equation*}
+Hence $\vect{u}_{2} = \vect{u} - \vect{u}_{1} = 
+\frac{1}{11}\leftB
+\begin{array}{r}
+14\\
+-25 \\
+-13
+\end{array}
+\rightB$, and this is orthogonal to $\vect{d}$ by Theorem~\ref{thm:011958} (alternatively, observe that $\vect{d} \dotprod \vect{u}_{2} = 0$). Since $\vect{u} = \vect{u}_{1} + \vect{u}_{2}$, we are done.
+\end{solution}
+\end{example}
+
+\begin{example}{}{012000}
+\begin{wrapfigure}[3]{l}{4cm}
+\vspace*{-1em}
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/example4.2.8}
+%\captionof{figure}{\label{fig:012005}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+Find the shortest distance (see diagram) from the point $P(1, 3, -2)$ to the line through $P_{0}(2, 0, -1)$ with direction vector $ \vect{d} = \leftB
+\begin{array}{r}
+1\\
+-1 \\
+0
+\end{array}
+\rightB$. Also find the point $Q$ that lies on the line and is closest to $P$.
+
+\begin{solution}
+Let 
+$\vect{u} = \leftB
+\begin{array}{r}
+1\\
+3 \\
+-2
+\end{array}
+\rightB
+-
+\leftB
+\begin{array}{r}
+2\\
+0 \\
+-1
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+-1\\
+3 \\
+-1
+\end{array}
+\rightB$
+ denote the vector from $P_{0}$ to $P$, and let $\vect{u}_{1}$ denote the projection of $\vect{u}$ on $\vect{d}$. Thus
+\begin{equation*}
+\vect{u}_{1} = \frac{\vect{u} \dotprod \vect{d}}{\vectlength \vect{d} \vectlength^2}\vect{d} = \frac{-1 - 3 + 0}{1^2 + (-1)^2 + 0^2}\vect{d} = -2\vect{d} = 
+\leftB
+\begin{array}{r}
+-2\\
+2 \\
+0
+\end{array}
+\rightB
+\end{equation*}
+by Theorem~\ref{thm:011958}. We see geometrically that the point $Q$ on the line is closest to $P$, so the distance is
+\begin{equation*}
+\vectlength \longvect{QP} \vectlength = \vectlength \vect{u} - \vect{u}_{1} \vectlength = \left\vectlength 
+\leftB
+\begin{array}{r}
+1\\
+1 \\
+-1
+\end{array}
+\rightB \right\vectlength
+= \sqrt{3}
+\end{equation*}
+To find the coordinates of $Q$, let $\vect{p}_{0}$ and $\vect{q}$ denote the vectors of $P_{0}$ and $Q$, respectively. Then $\vect{p}_{0} = \leftB
+\begin{array}{r}
+2\\
+0 \\
+-1
+\end{array}
+\rightB$
+ and $\vect{q} = \vect{p}_{0} + \vect{u}_{1} = \leftB
+ \begin{array}{r}
+ 0\\
+ 2 \\
+ -1
+ \end{array}
+ \rightB$. Hence $Q(0, 2, -1)$ is the required point. It can be checked that the distance from $Q$ to $P$ is $\sqrt{3}$, as expected.
+\end{solution}
+\end{example}
+
+\subsection*{Planes}
+
+
+It
+ is evident geometrically that among all planes that are perpendicular 
+to a given straight line there is exactly one containing any given 
+point. This fact can be used to give a very simple description of a 
+plane. To do this, it is necessary to introduce the following notion:\index{planes}\index{vector geometry!planes}
+
+\begin{definition}{Normal Vector in a Plane}{012024}
+A nonzero vector $\vect{n}$ is called a \textbf{normal}\index{normal} for a plane if it is orthogonal to every vector in the plane.
+\end{definition}
+
+\begin{wrapfigure}[6]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/figure4.2.6}
+\caption{\label{fig:012038}}
+\end{wrapfigure}
+
+\noindent For example, the coordinate vector $\vect{k}$ is a normal for the $x$-$y$ plane.
+
+Given a point $P_{0} = P_{0}(x_{0}, y_{0}, z_{0})$ and a nonzero vector $\vect{n}$, there is a unique plane through $P_{0}$ with normal $\vect{n}$, shaded in Figure~\ref{fig:012038}. A point $P = P(x, y, z)$ lies on this plane if and only if the vector $\longvect{P_{0}P}$ is orthogonal to $\vect{n}$---that is, if and only if $\vect{n} \dotprod \longvect{P_{0}P} = 0$. Because $\longvect{P_{0}P} = \leftB
+\begin{array}{c}
+x - x_{0}\\
+y - y_{0}\\
+z - z_{0}
+\end{array}
+\rightB$ this gives the following result:
+\vspace{1em}
+
+\begin{theorem*}{Scalar Equation of a Plane}{012039}
+The plane through $P_{0}(x_{0}, y_{0}, z_{0})$ with normal $\vect{n} = \leftB
+\begin{array}{c}
+a\\
+b\\
+c
+\end{array}
+\rightB
+\neq \vect{0}$ 
+ as a normal vector is given by
+\begin{equation*}
+a(x - x_{0}) + b(y - y_{0}) + c(z - z_{0}) = 0
+\end{equation*}
+In other words, a point $P(x, y, z)$ is on this plane if and only if $x$, $y$, and $z$ satisfy this equation.\index{scalar equation of a plane}
+\end{theorem*}
+
+\begin{example}{}{012049}
+Find an equation of the plane through $P_{0}(1, -1, 3)$ with $\vect{n} = \leftB
+\begin{array}{r}
+3\\
+-1\\
+2
+\end{array}
+\rightB$
+ as normal.
+
+
+\begin{solution}
+  Here the general scalar equation becomes
+\begin{equation*}
+3(x - 1) - (y + 1) + 2(z - 3) = 0
+\end{equation*}
+This simplifies to $3x - y + 2z = 10$.
+\end{solution}
+\end{example}
+
+If we write $d = ax_{0} + by_{0} + cz_{0}$, the scalar equation shows that every plane with normal $\vect{n} = \leftB
+\begin{array}{r}
+a\\
+b\\
+c
+\end{array}
+\rightB$
+ has a linear equation of the form
+\begin{equation} \label{eq:linerformeq} 
+ax + by + cz = d
+\end{equation}
+for some constant $d$. Conversely, the graph of this equation is a plane with $\vect{n} = \leftB
+\begin{array}{r}
+a\\
+b\\
+c
+\end{array}
+\rightB$ as a normal vector (assuming that $a$, $b$, and $c$ are not all zero).
+
+
+\begin{example}{}{012066}
+Find an equation of the plane through $P_{0}(3, -1, 2)$ that is parallel to the plane with equation $2x - 3y = 6$.
+
+
+\begin{solution}
+The plane with equation $2x -3y = 6$ has normal $\vect{n} = \leftB
+\begin{array}{r}
+2\\
+-3\\
+0
+\end{array}
+\rightB$. Because the two planes are parallel, $\vect{n}$ serves as a normal for the plane we seek, so the equation is $2x - 3y = d$ for some $d$ by Equation \ref{eq:linerformeq}. Insisting that $P_{0}(3, -1, 2)$ lies on the plane determines $d$; that is, $d = 2 \cdot 3 - 3(-1) = 9$. Hence, the equation is $2x - 3y = 9$.
+\end{solution}
+\end{example}
+
+\noindent Consider points $P_{0}(x_{0}, y_{0}, z_{0})$ and $P(x, y, z)$ with vectors $\vect{p}_{0} = \leftB
+\begin{array}{r}
+x_{0}\\
+y_{0}\\
+z_{0}
+\end{array}
+\rightB$
+and 
+$\vect{p}= \leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB$.
+Given a nonzero vector $\vect{n}$, the scalar equation of the plane through $P_{0}(x_{0}, y_{0}, z_{0})$ with normal $\vect{n} = \leftB
+\begin{array}{r}
+a\\
+b\\
+c
+\end{array}
+\rightB$ takes the vector form:
+
+
+\begin{theorem*}{Vector Equation of a Plane}{012088}
+The plane with normal $\vect{n} \neq \vect{0}$ through the point with vector $\vect{p}_{0}$ is given by
+\begin{equation*}
+\vect{n} \dotprod (\vect{p} - \vect{p}_{0}) = 0
+\end{equation*}
+In other words, the point with vector $\vect{p}$ is on the plane if and only if $\vect{p}$ satisfies this condition.\index{vector equation of a plane}
+\end{theorem*}
+
+\noindent Moreover, Equation \ref{eq:linerformeq} translates as follows:
+\begin{center}
+Every plane with normal $\vect{n}$ has vector equation $\vect{n} \dotprod \vect{p} = d$ for some number $d$.
+\end{center}
+\noindent This is useful in the second solution of Example~\ref{exa:012097}.
+
+
+\begin{example}{}{012097}
+Find the shortest distance from the point $P(2, 1, -3)$ to the plane with equation $3x - y + 4z = 1$. Also find the point $Q$ on this plane closest to $P$.
+
+\newpage
+\begin{wrapfigure}[5]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/example4.2.11}
+%\captionof{figure}{\label{fig:012112}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+ \begin{solution}[1] The plane in question has normal $\vect{n} = \leftB
+ \begin{array}{r}
+ 3\\
+ -1\\
+ 4
+ \end{array}
+ \rightB$. Choose any point $P_{0}$ on the plane---say $P_{0}(0, -1, 0)$---and let $Q(x, y, z)$ be the point on the plane closest to $P$ (see the diagram). The vector from $P_{0}$ to $P$ is $\vect{u} = \leftB
+ \begin{array}{r}
+ 2\\
+ 2\\
+ -3
+ \end{array}
+ \rightB$. Now erect $\vect{n}$ with its tail at $P_{0}$. Then $\longvect{QP} = \vect{u}_{1}$ and $\vect{u}_{1}$ is the projection of $\vect{u}$ on $\vect{n}$:
+\begin{equation*}
+\vect{u}_{1} = \frac{\vect{n} \dotprod \vect{u}}{\vectlength \vect{n} \vectlength^2}\vect{n} = \frac{-8}{26}
+\leftB
+\begin{array}{r}
+3\\
+-1 \\
+4
+\end{array}
+\rightB
+= \frac{-4}{13}
+\leftB
+\begin{array}{r}
+3\\
+-1 \\
+4
+\end{array}
+\rightB
+\end{equation*}
+Hence the distance is $\vectlength \longvect{QP} \vectlength = \vectlength \vect{u}_{1} \vectlength = \frac{4\sqrt{26}}{13}$. To calculate the point $Q$, let $\vect{q} = \leftB
+\begin{array}{r}
+x\\
+y \\
+z
+\end{array}
+\rightB$
+and 
+$\vect{p}_{0} = \leftB
+\begin{array}{r}
+0\\
+-1 \\
+0
+\end{array}
+\rightB$
+ be the vectors of $Q$ and $P_{0}$. Then
+\begin{equation*}
+\vect{q} = \vect{p}_{0} + \vect{u} - \vect{u}_{1} = 
+\leftB
+\begin{array}{r}
+0\\
+-1 \\
+0
+\end{array}
+\rightB
++
+\leftB
+\begin{array}{r}
+2\\
+2 \\
+-3
+\end{array}
+\rightB
++ \frac{4}{13}
+\leftB
+\begin{array}{r}
+3\\
+-1 \\
+4
+\end{array}
+\rightB
+=
+\leftB \def\arraystretch{1.5}
+\begin{array}{r}
+\frac{38}{13}\\
+\frac{9}{13}\\
+\frac{-23}{13}
+\end{array}
+\rightB
+\end{equation*}
+This gives the coordinates of $Q(\frac{38}{13}, \frac{9}{13}, \frac{-23}{13})$.
+\end{solution}
+
+\begin{solution}[2]
+Let $\vect{q}= \leftB
+\begin{array}{c}
+x\\
+y \\
+z
+\end{array}
+\rightB$
+and $\vect{p} = \leftB
+\begin{array}{r}
+2\\
+1 \\
+-3
+\end{array}
+\rightB$
+ be the vectors of $Q$ and $P$. Then $Q$ is on the line through $P$ with direction vector $\vect{n}$, so $\vect{q} = \vect{p} + t\vect{n}$ for some scalar $t$. In addition, $Q$ lies on the plane, so $\vect{n} \dotprod \vect{q} = 1$. This determines $t$:
+\begin{equation*}
+1 = \vect{n} \dotprod \vect{q} = \vect{n} \dotprod (\vect{p} + t\vect{n}) = \vect{n} \dotprod \vect{p} + t\vectlength \vect{n} \vectlength^2 = -7 + t(26)
+\end{equation*}
+This gives $t = \frac{8}{26} = \frac{4}{13}$, so
+\begin{equation*}
+\leftB
+\begin{array}{c}
+x\\
+y \\
+z
+\end{array}
+\rightB 
+= \vect{q} = \vect{p} + t\vect{n} = 
+\leftB
+\begin{array}{r}
+2\\
+1 \\
+-3
+\end{array}
+\rightB
++ \frac{4}{13}
+\leftB
+\begin{array}{r}
+3\\
+-1 \\
+4
+\end{array}
+\rightB
+= \frac{1}{13}
+\leftB
+\begin{array}{r}
+38\\
+9 \\
+-23
+\end{array}
+\rightB
+\end{equation*}
+as before. This determines $Q$ (in the diagram), and the reader can verify that the required distance is $\vectlength \longvect{QP} \vectlength = \frac{4}{13}\sqrt{26}$, as before.
+\end{solution}
+\end{example}
+
+\vspace*{-1em}
+\subsection*{The Cross Product}
+
+If $P$, $Q$, and $R$ are three distinct points in $\RR^3$ that are not all on some line, it is clear geometrically that there is a unique plane containing all three. The vectors $\longvect{PQ}$ and $\longvect{PR}$ both lie in this plane, so finding a normal amounts to finding a nonzero vector orthogonal to both $\longvect{PQ}$ and $\longvect{PR}$. The cross product provides a systematic way to do this.\index{cross product!and dot product}\index{dot product!and cross product}
+
+
+\begin{definition}{Cross Product}{012135}
+Given vectors $\vect{v}_{1}= \leftB
+\begin{array}{c}
+x_{1}\\
+y_{1} \\
+z_{1}
+\end{array}
+\rightB$
+ \textit{and} 
+$\vect{v}_{2}= \leftB
+\begin{array}{c}
+x_{2}\\
+y_{2} \\
+z_{2}
+\end{array}
+\rightB$, define the \textbf{cross product}\index{vector geometry!cross product}\index{cross product!defined} $\vect{v}_{1} \times \vect{v}_{2}$ by
+\begin{equation*}
+\vect{v}_{1} \times \vect{v}_{2} = \leftB
+\begin{array}{c}
+y_{1}z_{2} - z_{1}y_{2}\\
+-(x_{1}z_{2} - z_{1}x_{2}) \\
+x_{1}y_{2} - y_{1}x_{2}
+\end{array}
+\rightB
+\end{equation*}
+\end{definition}
+
+\begin{wrapfigure}[9]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/figure4.2.7}
+\caption{\label{fig:012149}}
+\end{wrapfigure}
+
+\noindent (Because it is a vector, $\vect{v}_{1} \times \vect{v}_{2}$ is often called the \textbf{vector product}\index{vector product}.) There is an easy way to remember this definition using the \textbf{coordinate vectors}\index{vectors!coordinate vectors}\index{coordinate vectors}\index{cross product!coordinate vectors}:
+\begin{equation*}
+\vect{i}= \leftB
+\begin{array}{c}
+1\\
+0 \\
+0
+\end{array}
+\rightB, \
+\vect{j}= \leftB
+\begin{array}{c}
+0\\
+1 \\
+0
+\end{array}
+\rightB,
+\mbox{ and }
+\vect{k}= \leftB
+\begin{array}{c}
+0\\
+0 \\
+1
+\end{array}
+\rightB
+\end{equation*}
+They are vectors of length $1$ pointing along the positive $x$, $y$, and $z$ axes, respectively, as in Figure~\ref{fig:012149}. The reason for the name is that any vector can be written as
+\begin{equation*}
+\leftB
+\begin{array}{c}
+x\\
+y \\
+z
+\end{array}
+\rightB
+= x\vect{i} + y\vect{j} + z\vect{k}
+\end{equation*}
+
+With this, the cross product can be described as follows:
+
+
+\begin{theorem*}{Determinant Form of the Cross Product}{012151}
+If 
+$\vect{v}_{1}= \leftB
+\begin{array}{c}
+x_{1}\\
+y_{1}\\
+z_{1}
+\end{array}
+\rightB$
+and 
+$\vect{v}_{2}= \leftB
+\begin{array}{c}
+x_{2}\\
+y_{2}\\
+z_{2}
+\end{array}
+\rightB$
+ are two vectors, then
+\begin{equation*}
+\vect{v}_{1} \times \vect{v}_{2} = \func{det}\leftB
+\begin{array}{ccc}
+\vect{i} & x_{1} & x_{2}\\
+\vect{j} & y_{1} & y_{2}\\
+\vect{k} & z_{1} & z_{2}
+\end{array}
+\rightB
+=
+\left|
+\begin{array}{cc}
+y_{1} & y_{2}\\
+z_{1} & z_{2}
+\end{array}
+\right|\vect{i}
+-
+\left|
+\begin{array}{cc}
+x_{1} & x_{2}\\
+z_{1} & z_{2}
+\end{array}
+\right|\vect{j}
++
+\left|
+\begin{array}{cc}
+x_{1} & x_{2}\\
+y_{1} & y_{2}
+\end{array}
+\right|\vect{k}
+\end{equation*}
+where the determinant is expanded along the first column.\index{cross product!determinant form}\index{determinants!cross product}
+\end{theorem*} 
+
+\begin{example}{}{012157}
+If $\vect{v} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+4
+\end{array}
+\rightB$
+and $\vect{w} = \leftB
+\begin{array}{r}
+1\\
+3\\
+7
+\end{array}
+\rightB$, then
+\begin{align*}
+\vect{v}_{1} \times \vect{v}_{2} = \func{det}\leftB
+\begin{array}{rrr}
+\vect{i} & 2 & 1\\
+\vect{j} & -1 & 3\\
+\vect{k} & 4 & 7
+\end{array}
+\rightB
+&=
+\left|
+\begin{array}{rr}
+-1 & 3\\
+4 & 7
+\end{array}
+\right|\vect{i}
+-
+\left|
+\begin{array}{rr}
+2 & 1\\
+4 & 7
+\end{array}
+\right|\vect{j}
++
+\left|
+\begin{array}{rr}
+2 & 1\\
+-1 & 3
+\end{array}
+\right|\vect{k}\\
+&= -19\vect{i} - 10\vect{j} + 7\vect{k}\\
+&= \leftB
+\begin{array}{r}
+-19\\
+-10\\
+7
+\end{array}
+\rightB
+\end{align*}
+\end{example}
+
+Observe that $\vect{v} \times \vect{w}$ is orthogonal to both $\vect{v}$ and $\vect{w}$ in Example~\ref{exa:012157}. This holds in general as can be verified directly by computing $\vect{v} \dotprod (\vect{v} \times \vect{w})$ and $\vect{w} \dotprod (\vect{v} \times \vect{w})$, and is recorded as the first part of the following theorem. It will follow from a more general result which, together with the second part, will be proved in Section~\ref{sec:4_3} where a more detailed study of the cross product will be undertaken.
+
+\begin{theorem}{}{012164}
+Let $\vect{v}$ and $\vect{w}$ be vectors in $\RR^3$.
+
+
+\begin{enumerate}
+\item $\vect{v} \times \vect{w}$ is a vector orthogonal to both $\vect{v}$ and $\vect{w}$.
+
+\item If $\vect{v}$ and $\vect{w}$ are nonzero, then $\vect{v} \times \vect{w} = \vect{0}$ if and only if $\vect{v}$ and $\vect{w}$ are parallel.
+
+\end{enumerate}
+\end{theorem}
+
+\noindent It is interesting to contrast Theorem~\ref{thm:012164}(2) with the assertion (in Theorem~\ref{thm:011886}) that
+\begin{equation*}
+\vect{v} \dotprod \vect{w} = 0 \quad \mbox{ if and only if }\vect{v}\mbox{ and }\vect{w}\mbox{ are orthogonal.}
+\end{equation*}
+\begin{example}{}{012175}
+Find the equation of the plane through $P(1, 3, -2)$, $Q(1, 1, 5)$, and $R(2, -2, 3)$.
+
+\begin{solution}
+The vectors 
+$\longvect{PQ} = \leftB
+\begin{array}{r}
+0\\
+-2\\
+7
+\end{array}
+\rightB$
+and 
+$\longvect{PR} = \leftB
+\begin{array}{r}
+1\\
+-5\\
+5
+\end{array}
+\rightB$
+lie in the plane, so
+\begin{equation*}
+\longvect{PQ} \times \longvect{PR} = \func{det}\leftB
+\begin{array}{rrr}
+\vect{i} & 0 & 1\\
+\vect{j} & -2 & -5\\
+\vect{k} & 7 & 5
+\end{array}
+\rightB
+= 25\vect{i} + 7\vect{j} + 2\vect{k}
+= \leftB
+\begin{array}{r}
+25\\
+7\\
+2
+\end{array}
+\rightB
+\end{equation*}
+is a normal for the plane (being orthogonal to both $\longvect{PQ}$ and $\longvect{PR}$). Hence the plane has equation
+\begin{equation*}
+25x + 7y + 2z = d  \quad \mbox{ for some number }d.
+\end{equation*}
+Since $P(1, 3, -2)$ lies in the plane we have $25 \cdot 1 + 7 \cdot 3 + 2(-2) = d$. Hence $d = 42$ and the equation is $25x + 7y + 2z = 42$. Incidentally, the same equation is obtained (verify) if $\longvect{QP}$ and $\longvect{QR}$, or $\longvect{RP}$ and $\longvect{RQ}$, are used as the vectors in the plane.
+\end{solution}
+\end{example}
+
+
+
+\begin{example}{}{012186}
+Find the shortest distance between the nonparallel lines\index{cross product!shortest distance between nonparallel lines}\index{line!shortest distance between nonparallel lines}
+\begin{equation*}
+\leftB
+\begin{array}{c}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+0\\
+-1
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+2\\
+0\\
+1
+\end{array}
+\rightB \quad
+\mbox{ and } \quad
+\leftB
+\begin{array}{c}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+3\\
+1\\
+0
+\end{array}
+\rightB
++s
+\leftB
+\begin{array}{r}
+1\\
+1\\
+-1
+\end{array}
+\rightB
+\end{equation*}
+Then find the points $A$ and $B$ on the lines that are closest together.
+
+
+
+\begin{solution}Direction vectors for the two lines are $\vect{d}_{1} = \leftB
+\begin{array}{r}
+2\\
+0\\
+1
+\end{array}
+\rightB$
+and 
+$\vect{d}_{2} = \leftB
+\begin{array}{r}
+1\\
+1\\
+-1
+\end{array}
+\rightB$, so
+\begin{equation*}
+\vect{n} = \vect{d}_{1} \times \vect{d}_{2} = \func{det}\leftB
+\begin{array}{rrr}
+\vect{i} & 2 & 1\\
+\vect{j} & 0 & 1\\
+\vect{k} & 1 & -1
+\end{array}
+\rightB
+= \leftB
+\begin{array}{r}
+-1\\
+3\\
+2
+\end{array}
+\rightB
+\end{equation*}
+\begin{wrapfigure}[7]{l}{5cm} 
+\vspace*{-2em}
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/example4.2.14}
+%\captionof{figure}{\label{fig:012204}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt} 
+is perpendicular to both lines. Consider the plane shaded in the diagram containing the first line with $\vect{n}$ as normal. This plane contains $P_{1}(1, 0, -1)$ and is parallel to the second line. Because $P_{2}(3, 1, 0)$ is on the second line, the distance in question is just the shortest distance between $P_{2}(3, 1, 0)$ and this plane. The vector $\vect{u}$ from $P_{1}$ to $P_{2}$ is $\vect{u} = \longvect{P_{1}P}_{2} = \leftB
+\begin{array}{r}
+2\\
+1\\
+1
+\end{array}
+\rightB$
+and so, as in Example~\ref{exa:012097}, the distance is the length of the projection of $\vect{u}$ on $\vect{n}$.
+\begin{equation*}
+\mbox{distance }= \left\vectlength \frac{\vect{u} \dotprod \vect{n}}{\vectlength \vect{n} \vectlength^2}\vect{n} \right\vectlength = \frac{|\vect{u} \dotprod \vect{n}|}{\vectlength \vect{n} \vectlength} = \frac{3}{\sqrt{14}} = \frac{3\sqrt{14}}{14}
+\end{equation*}
+
+Note that it is necessary that $\vect{n} = \vect{d}_{1} \times \vect{d}_{2}$ be nonzero for this calculation to be possible. As is shown later (Theorem~\ref{thm:012738}), this is guaranteed by the fact that $\vect{d}_{1}$ and $\vect{d}_{2}$ are \textit{not} parallel.
+
+
+The points $A$ and $B$ have coordinates $A(1 + 2t, 0, t - 1)$ and $B(3 + s, 1 + s, -s)$ for some $s$ and $t$, so $\longvect{AB} = \leftB
+\begin{array}{c}
+2 + s - 2t\\
+1 + s\\
+1 - s - t
+\end{array}
+\rightB$. This vector is orthogonal to both $\vect{d}_{1}$ and $\vect{d}_{2}$, and the conditions $\longvect{AB} \dotprod \vect{d}_{1} = 0$ and $\longvect{AB} \dotprod \vect{d}_{2} = 0$ give equations $5t - s = 5$ and $t -3s = 2$. The solution is $s = \frac{-5}{14}$
+ and $t = \frac{13}{14}$, so the points are $A(\frac{40}{14}, 0, \frac{-1}{14})$ and $B(\frac{37}{14}, \frac{9}{14}, \frac{5}{14})$. We have $\vectlength \longvect{AB} \vectlength = \frac{3\sqrt{14}}{14}$, as before.
+\end{solution}
+\end{example}
+
+
+\section*{Exercises for \ref{sec:4_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:4_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Compute $\vect{u} \dotprod \vect{v}$ where:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{u} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+3
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+-1\\
+1\\
+1
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+1\\
+2\\
+-1
+\end{array}
+\rightB$,
+$\vect{v} = \vect{u}
+$
+
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+1\\
+1\\
+-3
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+1
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+3\\
+-1\\
+5
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+6\\
+-7\\
+-5
+\end{array}
+\rightB
+$
+
+\item$\vect{u} = \leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+a\\
+b\\
+c
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+a\\
+b\\
+c
+\end{array}
+\rightB$, 
+$\vect{v} = \vect{0} $
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $6$
+
+\setcounter{enumi}{3}
+\item  $0$
+
+\setcounter{enumi}{5}
+\item  $0$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the angle between the following pairs of vectors.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{u} = \leftB
+\begin{array}{r}
+1\\
+0\\
+3
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+2\\
+0\\
+1
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+3\\
+-1\\
+0
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+-6\\
+2\\
+0
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+7\\
+-1\\
+3
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+4\\
+-1
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+2\\
+1\\
+-1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+3\\
+6\\
+3
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+1\\
+-1\\
+0
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+0\\
+1\\
+1
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+0\\
+3\\
+4
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+5\sqrt{2}\\
+-7\\
+-1
+\end{array}
+\rightB
+$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\pi$ or $180^\circ$ 
+
+\setcounter{enumi}{3}
+\item  $\frac{\pi}{3}$ or $60^\circ$
+
+\setcounter{enumi}{5}
+\item  $\frac{2\pi}{3}$ or $120^\circ$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all real numbers $x$ such that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\leftB
+\begin{array}{r}
+2\\
+-1\\
+3
+\end{array}
+\rightB$
+and 
+$\leftB
+\begin{array}{r}
+x\\
+-2\\
+1
+\end{array}
+\rightB$
+are orthogonal.
+
+\item $\leftB
+\begin{array}{r}
+2\\
+-1\\
+1
+\end{array}
+\rightB$
+and 
+$\leftB
+\begin{array}{r}
+1\\
+x\\
+2
+\end{array}
+\rightB$
+are at an angle of $\frac{\pi}{3}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $1$ or $-17$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all vectors $\vect{v} = \leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB$ orthogonal to both:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{u}_{1} = \leftB
+\begin{array}{r}
+-1\\
+-3\\
+2
+\end{array}
+\rightB$,
+$\vect{u}_{2} = \leftB
+\begin{array}{r}
+0\\
+1\\
+1
+\end{array}
+\rightB
+$
+
+\item $\vect{u}_{1} = \leftB
+\begin{array}{r}
+3\\
+-1\\
+2
+\end{array}
+\rightB$, 
+$\vect{u}_{2} = \leftB
+\begin{array}{r}
+2\\
+0\\
+1
+\end{array}
+\rightB
+$
+
+\item $\vect{u}_{1} = \leftB
+\begin{array}{r}
+2\\
+0\\
+-1
+\end{array}
+\rightB$, 
+$\vect{u}_{2} = \leftB
+\begin{array}{r}
+-4\\
+0\\
+2
+\end{array}
+\rightB
+$
+
+\item $\vect{u}_{1} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+3
+\end{array}
+\rightB$, 
+$\vect{u}_{2} = \leftB
+\begin{array}{r}
+0\\
+0\\
+0
+\end{array}
+\rightB
+$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $t \leftB
+\begin{array}{r}
+-1\\
+1\\
+2
+\end{array}
+\rightB
+$
+
+\setcounter{enumi}{3}
+\item $s \leftB
+\begin{array}{r}
+1\\
+2\\
+0
+\end{array}
+\rightB
++
+t \leftB
+\begin{array}{r}
+0\\
+3\\
+1
+\end{array}
+\rightB
+$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find two orthogonal vectors that are both orthogonal to $\vect{v} = \leftB
+\begin{array}{r}
+1\\
+2\\
+0
+\end{array}
+\rightB$.
+\end{ex}
+
+\begin{ex}
+Consider the triangle with vertices $P(2, 0, -3)$, $Q(5, -2, 1)$, and $R(7, 5, 3)$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that it is a right-angled triangle.
+
+\item Find the lengths of the three sides and verify the Pythagorean theorem.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $29 + 57 = 86$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the triangle with vertices $A(4, -7, 9)$, $B(6, 4, 4)$, and $C(7, 10, -6)$ is not a right-angled triangle.
+\end{ex}
+
+\begin{ex}
+Find the three internal angles of the triangle with vertices:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A(3, 1, -2)$, $B(3, 0, -1)$, and $C(5, 2, -1)$
+
+\item $A(3, 1, -2)$, $B(5, 2, -1)$, and $C(4, 3, -3)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $A = B = C = \frac{\pi}{3}$ or $60^\circ$ 
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the line through $P_{0}(3, 1, 4)$ and $P_{1}(2, 1, 3)$ is perpendicular to the line through $P_{2}(1, -1, 2)$ and $P_{3}(0, 5, 3)$.
+\end{ex}
+
+\begin{ex}
+In each case, compute the projection of $\vect{u}$ on $\vect{v}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{u} = \leftB
+\begin{array}{r}
+5\\
+7\\
+1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+3
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+3\\
+-2\\
+1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+4\\
+1\\
+1
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+1\\
+-1\\
+2
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+3\\
+-1\\
+1
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+3\\
+-2\\
+-1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+-6\\
+4\\
+2
+\end{array}
+\rightB
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\frac{11}{18}\vect{v}$
+
+\setcounter{enumi}{3}
+\item  $-\frac{1}{2}\vect{v}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, write $\vect{u} = \vect{u}_{1} + \vect{u}_{2}$, where $\vect{u}_{1}$ is parallel to $\vect{v}$ and $\vect{u}_{2}$ is orthogonal to $\vect{v}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{u} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+-1\\
+3
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+3\\
+1\\
+0
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+-2\\
+1\\
+4
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+0
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+3\\
+1\\
+-1
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+3\\
+-2\\
+1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+-6\\
+4\\
+-1
+\end{array}
+\rightB
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\frac{5}{21}\leftB
+\begin{array}{r}
+2\\
+-1\\
+-4
+\end{array}
+\rightB
++
+\frac{1}{21}\leftB
+\begin{array}{r}
+53\\
+26\\
+20
+\end{array}
+\rightB$
+
+\setcounter{enumi}{3}
+\item  
+$\frac{27}{53}\leftB
+\begin{array}{r}
+6\\
+-4\\
+1
+\end{array}
+\rightB
++
+\frac{1}{53}\leftB
+\begin{array}{r}
+-3\\
+2\\
+26
+\end{array}
+\rightB$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Calculate the distance from the point $P$ to the line in each case and find the point $Q$ on the line closest to $P$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $P(3,2-1) \quad $ \\ line:  $\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+1\\
+3
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+3\\
+-1\\
+-2
+\end{array}
+\rightB
+$
+
+\item $P(1,-1,3) \quad $ \\ line: $ \leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+0\\
+-1
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+3\\
+1\\
+4
+\end{array}
+\rightB
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\frac{1}{26}\sqrt{5642}$, $Q(\frac{71}{26}, \frac{15}{26}, \frac{34}{26})$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Compute $\vect{u} \times \vect{v}$ where:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{u} = \leftB
+\begin{array}{r}
+1\\
+2\\
+3
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+1\\
+2
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+3\\
+-1\\
+0
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+-6\\
+2\\
+0
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+3\\
+-2\\
+1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+1\\
+-1
+\end{array}
+\rightB
+$
+
+\item $\vect{u} = \leftB
+\begin{array}{r}
+2\\
+0\\
+-1
+\end{array}
+\rightB$, 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+4\\
+7
+\end{array}
+\rightB
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\leftB
+\begin{array}{r}
+0\\
+0\\
+0
+\end{array}
+\rightB
+$
+
+
+\setcounter{enumi}{1}
+\item 
+$\leftB
+\begin{array}{r}
+4\\
+-15\\
+8
+\end{array}
+\rightB
+$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find an equation of each of the following planes.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Passing through $A(2, 1, 3)$, $B(3, -1, 5)$, and $C(1, 2, -3)$.
+
+\item Passing through $A(1, -1, 6)$, $B(0, 0, 1)$, and $C(4, 7, -11)$.
+
+\item Passing through $P(2, -3, 5)$ and parallel to the plane with equation $3x - 2y - z = 0$.
+
+\item Passing through $P(3, 0, -1)$ and parallel to the plane with equation $2x - y + z = 3$.
+
+\item Containing $P(3, 0, -1)$ and the line
+\newline $\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+0\\
+0\\
+2
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+0\\
+1
+\end{array}
+\rightB.
+$
+\item Containing $P(2, 1, 0)$ and the line
+
+$
+\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+3\\
+-1\\
+2
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+0\\
+-1
+\end{array}
+\rightB.$
+\item Containing the lines
+
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+-1\\
+2
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB 
+$ and
+\newline $\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+0\\
+0\\
+2
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+-1\\
+0
+\end{array}
+\rightB$.
+
+\item Containing the lines $\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+3\\
+1\\
+0
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+-1\\
+3
+\end{array}
+\rightB 
+$ and
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+0\\
+-2\\
+5
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+2\\
+1\\
+-1
+\end{array}
+\rightB$.
+
+\item Each point of which is equidistant from $P(2, -1, 3)$ and $Q(1, 1, -1)$.
+
+\item Each point of which is equidistant from $P(0, 1, -1)$ and $Q(2, -1, -3)$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $-23x + 32y + 11z = 11$
+
+\setcounter{enumi}{3}
+\item  $2x - y + z = 5$
+
+\setcounter{enumi}{5}
+\item  $2x + 3y + 2z = 7$
+
+\setcounter{enumi}{7}
+\item  $2x - 7y - 3z = -1$
+
+\setcounter{enumi}{9}
+\item  $x - y - z = 3$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a vector equation of the line.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Passing through $P(3, -1, 4)$ and perpendicular to the plane $3x - 2y - z = 0$.
+
+\item Passing through $P(2, -1, 3)$ and perpendicular to the plane $2x + y = 1$.
+
+\item Passing through $P(0, 0, 0)$ and perpendicular to the lines
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+1\\
+0
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+2\\
+0\\
+-1
+\end{array}
+\rightB 
+$ and
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+1\\
+-3
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+-1\\
+5
+\end{array}
+\rightB$.
+\item Passing through $P(1, 1, -1)$, and perpendicular to the lines
+
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+0\\
+1
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+1\\
+-2
+\end{array}
+\rightB 
+$ and
+ \\$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+5\\
+5\\
+-2
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+2\\
+-3
+\end{array}
+\rightB$.
+
+\item Passing through $P(2, 1, -1)$, intersecting the line 
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+2\\
+-1
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+3\\
+0\\
+1
+\end{array}
+\rightB$, and perpendicular to that line.
+
+\item Passing through $P(1, 1, 2)$, intersecting the line 
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+1\\
+0
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB$, and perpendicular to that line.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+-1\\
+3
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+2\\
+1\\
+0
+\end{array}
+\rightB
+$
+
+\setcounter{enumi}{3}
+\item 
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+1\\
+-1
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB
+$
+
+\setcounter{enumi}{5}
+\item  
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+1\\
+2
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+4\\
+1\\
+-5
+\end{array}
+\rightB
+$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find the shortest distance from the point $P$ to the plane and find the point $Q$ on the plane closest to $P$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $P(2, 3, 0)$; plane with equation $5x + y + z = 1$.
+
+\item $P(3, 1, -1)$; plane with equation $2x + y - z = 6$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\frac{\sqrt{6}}{3}$, $Q(\frac{7}{3}, \frac{2}{3}, \frac{-2}{3})$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Does the line through $P(1, 2, -3)$ with direction vector $\vect{d} = \leftB
+\begin{array}{r}
+1\\
+2\\
+-3
+\end{array}
+\rightB$ lie in the plane $2x - y - z = 3$? Explain.
+
+\item Does the plane through $P(4, 0, 5)$, $Q(2, 2, 1)$, and $R(1, -1, 2)$ pass through the origin? Explain.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes. The equation is $5x -3y - 4z = 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that every plane containing $P(1, 2, -1)$ and $Q(2, 0, 1)$ must also contain $R(-1, 6, -5)$.
+\end{ex}
+
+\begin{ex}
+Find the equations of the line of intersection of the following planes.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $2x -3y + 2z = 5$ and $x + 2y - z = 4$.
+
+\item $3x + y -2z = 1$ and $x + y + z = 5$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(-2, 7, 0) + t(3, -5, 2)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find all points of intersection of the given plane and the line \newline$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+-2\\
+3
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+2\\
+5\\
+-1
+\end{array}
+\rightB$.
+
+\begin{exenumerate}
+\exitem $x -3y + 2z = 4$
+\exitem $2x - y - z = 5$
+\exitem $3x - y + z = 8$
+\exitem $-x -4y -3z = 6$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  None
+
+\setcounter{enumi}{3}
+\item  $P(\frac{13}{19}, \frac{-78}{19}, \frac{65}{19})$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the equation of \textit{all} planes:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Perpendicular to the line  \\
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+-1\\
+3
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+2\\
+1\\
+3
+\end{array}
+\rightB$.
+
+\item Perpendicular to the line  \\
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+0\\
+-1
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+3\\
+0\\
+2
+\end{array}
+\rightB$.
+
+\item Containing the origin.
+
+\item Containing $P(3, 2, -4)$.
+
+\item Containing $P(1, 1, -1)$ and $Q(0, 1, 1)$.
+
+\item Containing $P(2, -1, 1)$ and $Q(1, 0, 0)$.
+
+\item Containing the line \\
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+1\\
+0
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+-1\\
+0
+\end{array}
+\rightB$.
+
+\item Containing the line \\
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+3\\
+0\\
+2
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+-2\\
+-1
+\end{array}
+\rightB$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $3x + 2z = d$, $d$ arbitrary
+
+\setcounter{enumi}{3}
+\item  $a(x - 3) + b(y - 2) + c(z + 4) = 0$; $a$, $b$, and $c$ not all zero
+
+\setcounter{enumi}{5}
+\item  $ax + by + (b - a)z = a$; $a$ and $b$ not both zero
+
+\setcounter{enumi}{7}
+\item $ax + by + (a - 2b)z = 5a - 4b$; $a$ and $b$ not both zero
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If a plane contains two distinct points $P_{1}$ and $P_{2}$, show that it contains every point on the line through $P_{1}$ and $P_{2}$.
+\end{ex}
+
+\begin{ex}
+Find the shortest distance between the following pairs of parallel lines.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+-1\\
+3
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+-1\\
+4
+\end{array}
+\rightB; $ \\ $
+\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+0\\
+1
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+-1\\
+4
+\end{array}
+\rightB$
+
+\item 
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+3\\
+0\\
+2
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+3\\
+1\\
+0
+\end{array}
+\rightB; $ \\ $
+\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+-1\\
+2\\
+2
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+3\\
+1\\
+0
+\end{array}
+\rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\sqrt{10}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the shortest distance between the following pairs of nonparallel lines and find the points on the lines that are closest together.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+3\\
+0\\
+1
+\end{array}
+\rightB
++s
+\leftB
+\begin{array}{r}
+2\\
+1\\
+-3
+\end{array}
+\rightB; $ \\ $
+\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+1\\
+-1
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+0\\
+1
+\end{array}
+\rightB$
+
+\item 
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+-1\\
+0
+\end{array}
+\rightB
++s
+\leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB; $ \\ $
+\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+-1\\
+3
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+3\\
+1\\
+0
+\end{array}
+\rightB$
+
+\item 
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+3\\
+1\\
+-1
+\end{array}
+\rightB
++s
+\leftB
+\begin{array}{r}
+1\\
+1\\
+-1
+\end{array}
+\rightB; $ \\ $
+\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+2\\
+0
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+0\\
+2
+\end{array}
+\rightB$
+
+\item 
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+2\\
+3
+\end{array}
+\rightB
++s
+\leftB
+\begin{array}{r}
+2\\
+0\\
+-1
+\end{array}
+\rightB; $ \\ $
+\leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+3\\
+-1\\
+0
+\end{array}
+\rightB
++t
+\leftB
+\begin{array}{r}
+1\\
+1\\
+0
+\end{array}
+\rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\frac{\sqrt{14}}{2}$, $A(3, 1, 2)$, $B(\frac{7}{2}, -\frac{1}{2}, 3)$
+
+\setcounter{enumi}{3}
+\item  $\frac{\sqrt{6}}{6}$, $A(\frac{19}{3}, 2, \frac{1}{3})$, $B(\frac{37}{6}, \frac{13}{6}, 0)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that two lines in the plane with slopes $m_{1}$ and $m_{2}$ are perpendicular if and only if \\ $m_{1}m_{2} = -1$. [\textit{Hint}: Example~\ref{exa:011343}.]
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that, of the four diagonals of a cube, no pair is perpendicular.
+
+\item Show that each diagonal is perpendicular to the face diagonals it does not meet.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Consider the diagonal $\vect{d} = \leftB
+\begin{array}{r}
+	a\\
+	a\\
+	a
+\end{array}
+\rightB$ 
+The six face diagonals in question are $\pm\leftB
+\begin{array}{r}
+a\\
+0\\
+-a
+\end{array}
+\rightB$, 
+$\pm\leftB
+\begin{array}{r}
+0\\
+a\\
+-a
+\end{array}
+\rightB$, $
+\pm\leftB
+\begin{array}{r}
+a\\
+-a\\
+0
+\end{array}
+\rightB$. All of these are orthogonal to $\vect{d}$. The result works for the other diagonals by symmetry.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given a rectangular solid with sides of lengths $1$, $1$, and $\sqrt{2}$, find the angle between a diagonal and one of the longest sides.
+\end{ex}
+
+\begin{ex}
+Consider a rectangular solid with sides of lengths $a$, $b$, and $c$. Show that it has two orthogonal diagonals if and only if the sum of two of $a^{2}$, $b^{2}$, and $c^{2}$ equals the third.
+
+\begin{sol}
+The four diagonals are $(a, b, c)$, $(-a, b, c)$, $(a, -b, c)$ and $(a, b, -c)$ or their negatives. The dot products are $\pm(-a^{2} + b^{2} + c^{2})$, $\pm(a^{2} - b^{2} + c^{2})$, and $\pm(a^{2} + b^{2} - c^{2})$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$, $B$, and $C(2, -1, 1)$ be the vertices of a triangle where $\longvect{AB}$ is parallel to $\leftB
+\begin{array}{r}
+1\\
+-1\\
+1
+\end{array}
+\rightB$, $\longvect{AC}$ is parallel to $\leftB
+\begin{array}{r}
+2\\
+0\\
+-1
+\end{array}
+\rightB$, and angle $C = 90^\circ$ . Find the equation of the line through $B$ and $C$.
+\end{ex}
+
+\begin{ex}
+If the diagonals of a parallelogram have equal length, show that the parallelogram is a rectangle.
+\end{ex}
+
+\begin{ex}
+Given $\vect{v} = \leftB
+\begin{array}{r}
+x\\
+y\\
+z
+\end{array}
+\rightB$
+ in component form, show that the projections of $\vect{v}$ on $\vect{i}$, $\vect{j}$, and $\vect{k}$ are $x\vect{i}$, $y\vect{j}$, and $z\vect{k}$, respectively.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Can $\vect{u} \dotprod \vect{v} = -7$ if $\vectlength\vect{u}\vectlength = 3$ and $\vectlength\vect{v}\vectlength = 2$? Defend your answer.
+
+\item Find $\vect{u} \dotprod \vect{v}$ if $\vect{u} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+2
+\end{array}
+\rightB$, $\vectlength \vect{v} \vectlength = 6$, and the angle between $\vect{u}$ and $\vect{v}$ is $\frac{2\pi}{3}$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Show $(\vect{u} + \vect{v}) \dotprod (\vect{u} - \vect{v}) = \vectlength\vect{u}\vectlength^{2} - \vectlength\vect{v}\vectlength^{2}$ for any vectors $\vect{u}$ and $\vect{v}$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show $\vectlength\vect{u} + \vect{v}\vectlength^{2} + \vectlength\vect{u} - \vect{v}\vectlength^{2} = 2(\vectlength\vect{u}\vectlength^{2} + \vectlength\vect{v}\vectlength^{2})$ for any vectors $\vect{u}$ and $\vect{v}$.
+
+\item What does this say about parallelograms?
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The sum of the squares of the lengths of the diagonals equals the sum of the squares of the lengths of the four sides.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that if the diagonals of a parallelogram are perpendicular, it is necessarily a rhombus. [\textit{Hint}: Example~\ref{exa:011899}.]
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be the end points of a diameter of a circle (see the diagram). If $C$ is any point on the circle, show that $AC$ and $BC$ are perpendicular. [\textit{Hint}: Express $\longvect{AB} \dotprod (\longvect{AB} \times \longvect{AC}) = 0$ and $\longvect{BC}$ in terms of $\vect{u} = \longvect{OA}$ and $\vect{v} = \longvect{OC}$, where $O$ is the centre.]
+
+
+\begin{figure}[H]
+\centering
+\input{4-vector-geometry/figures/2-projections-and-planes/exercise4.2.36}
+%\caption{\label{fig:012573}}
+\end{figure}
+\end{ex}
+
+\begin{ex}
+Show that $\vect{u}$ and $\vect{v}$ are orthogonal, if and only if $\vectlength\vect{u} + \vect{v}\vectlength^{2} = \vectlength\vect{u}\vectlength^{2} + \vectlength\vect{v}\vectlength^{2}$.
+\end{ex}
+
+\begin{ex}
+Let $\vect{u}$, $\vect{v}$, and $\vect{w}$ be pairwise orthogonal vectors.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vectlength\vect{u} + \vect{v} + \vect{w}\vectlength^{2} = \vectlength\vect{u}\vectlength^{2} + \vectlength\vect{v}\vectlength^{2} + \vectlength\vect{w}\vectlength^{2}$.
+
+\item If $\vect{u}$, $\vect{v}$, and $\vect{w}$ are all the same length, show that they all make the same angle with $\vect{u} + \vect{v} + \vect{w}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The angle $\theta$ between $\vect{u}$ and $(\vect{u} + \vect{v} + \vect{w})$ is given by $\cos\theta = \frac{\vect{u} \dotprod (\vect{u} + \vect{v} + \vect{w})}{\vectlength \vect{u} \vectlength \vectlength \vect{u} + \vect{v} + \vect{w} \vectlength} = \frac{\vectlength \vect{u} \vectlength}{\sqrt{\vectlength \vect{u} \vectlength^2 + \vectlength \vect{v} \vectlength^2 + \vectlength \vect{w} \vectlength^2}} = \frac{1}{\sqrt{3}}$ because $\vectlength \vect{u} \vectlength = \vectlength \vect{v} \vectlength = \vectlength \vect{w} \vectlength$. Similar remarks apply to the other angles.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vect{n} = \leftB
+\begin{array}{r}
+a\\
+b
+\end{array}
+\rightB$ is orthogonal to every vector along the line $ax + by + c = 0$.
+
+\item Show that the shortest distance from $P_{0}(x_{0}, y_{0})$ to the line is $\frac{|ax_{0} + by_{0} + c|}{\sqrt{a^2 + b^2}}$.
+
+
+[\textit{Hint}: If $P_{1}$ is on the line, project $\vect{u} = \longvect{P_{1}P}_{0}$ on $\vect{n}$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Let $\vect{p}_{0}$, $\vect{p}_{1}$ be the vectors of $P_{0}$, $P_{1}$, so $\vect{u} = \vect{p}_{0} - \vect{p}_{1}$. Then $\vect{u} \cdot \vect{n} = \vect{p}_{0} \cdot \vect{n}$ -- $\vect{p}_{1} \cdot \vect{n} = (ax_{0} + by_{0}) - (ax_{1} + by_{1}) = ax_{0} + by_{0} + c$. Hence the distance is 
+\begin{equation*}
+\left\vectlength \left( \frac{\vect{u} \dotprod \vect{n}}{\vectlength \vect{n} \vectlength^2}\right)\vect{n} \right\vectlength = \frac{|\vect{u} \dotprod \vect{n}|}{\vectlength \vect{n} \vectlength}
+\end{equation*}
+ as required.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Assume $\vect{u}$ and $\vect{v}$ are nonzero vectors that are not parallel. Show that $\vect{w} = \vectlength\vect{u}\vectlength\vect{v} + \vectlength\vect{v}\vectlength\vect{u}$ is a nonzero vector that bisects the angle between $\vect{u}$ and $\vect{v}$.
+\end{ex}
+
+\begin{ex}
+Let $\alpha$, $\beta$, and $\gamma$ be the angles a vector $\vect{v} \neq \vect{0}$ makes with the positive $x$, $y$, and $z$ axes, respectively. Then $\cos \alpha$, $\cos \beta$, and $\cos \gamma$ are called the \textbf{direction cosines}\index{direction cosines} of the vector $\vect{v}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\vect{v} = \leftB
+\begin{array}{r}
+a\\
+b\\
+c
+\end{array}
+\rightB$, show that $\cos\alpha = \frac{a}{\vectlength \vect{v} \vectlength}$, $\cos\beta = \frac{b}{\vectlength \vect{v} \vectlength}$, and $\cos\gamma= \frac{c}{\vectlength \vect{v} \vectlength}$.
+
+\item Show that $\cos^{2} \alpha + \cos^2 \beta + \cos^2 \gamma = 1$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  This follows from \textbf{(a)} because $\vectlength\vect{v}\vectlength^{2} = a^{2} + b^{2} + c^{2}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\vect{v} \neq \vect{0}$ be any nonzero vector and suppose that a vector $\vect{u}$ can be written as $\vect{u} = \vect{p} + \vect{q}$, where $\vect{p}$ is parallel to $\vect{v}$ and $\vect{q}$ is orthogonal to $\vect{v}$. Show that $\vect{p}$ must equal the projection of $\vect{u}$ on $\vect{v}$. [\textit{Hint}: Argue as in the proof of Theorem~\ref{thm:011958}.]
+\end{ex}
+
+\begin{ex}
+Let $\vect{v} \neq \vect{0}$ be a nonzero vector and let $a \neq 0$ be a scalar. If $\vect{u}$ is any vector, show that the projection of $\vect{u}$ on $\vect{v}$ equals the projection of $\vect{u}$ on $a\vect{v}$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that the \textbf{Cauchy-Schwarz inequality}\index{Cauchy-Schwarz inequality} $|\vect{u} \dotprod \vect{v}| \leq \vectlength\vect{u}\vectlength\vectlength\vect{v}\vectlength$ holds for all vectors $\vect{u}$ and $\vect{v}$. [\textit{Hint}: $|\cos \theta| \leq 1$ for all angles $\theta$.]
+
+\item Show that $|\vect{u} \dotprod \vect{v}| = \vectlength\vect{u}\vectlength\vectlength\vect{v}\vectlength$ if and only if $\vect{u}$ and $\vect{v}$ are parallel.
+
+
+[\textit{Hint}: When is $\cos \theta = \pm 1$?]
+
+\item Show that $|x_{1}x_{2} + y_{1}y_{2} + z_{1}z_{2}| \\ \leq \sqrt{x_{1}^2 + y_{1}^2 + z_{1}^2}\sqrt{x_{2}^2 + y_{2}^2 + z_{2}^2}$
+
+holds for all numbers $x_{1}$, $x_{2}$, $y_{1}$, $y_{2}$, $z_{1}$, and $z_{2}$.
+
+\item Show that $|xy + yz + zx| \leq x^{2} + y^{2} + z^{2}$ for all $x$, $y$, and $z$.
+
+\item Show that $(x + y + z)^{2} \leq 3(x^{2} + y^{2} + z^{2})$ holds for all $x$, $y$, and $z$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{3}
+\item  Take $\leftB
+\begin{array}{c}
+x_{1}\\
+y_{1}\\
+z_{1}
+\end{array}
+\rightB
+= 
+\leftB
+\begin{array}{c}
+x\\
+y\\
+z
+\end{array}
+\rightB$ and $\leftB
+\begin{array}{c}
+x_{2}\\
+y_{2}\\
+z_{2}
+\end{array}
+\rightB
+= 
+\leftB
+\begin{array}{c}
+y\\
+z\\
+x
+\end{array}
+\rightB$ in (\textbf{c}).
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Prove that the \textbf{triangle inequality}\index{triangle!inequality}\index{triangle inequality} $\vectlength \vect{u} + \vect{v} \vectlength \leq \vectlength\vect{u}\vectlength + \vectlength\vect{v}\vectlength$ holds for all vectors $\vect{u}$ and $\vect{v}$. [\textit{Hint}: Consider the triangle with $\vect{u}$ and $\vect{v}$ as two sides.]
+\end{ex}
+\end{multicols}

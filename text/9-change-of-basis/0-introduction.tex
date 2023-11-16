@@ -1,0 +1,13 @@
+\noindent If $A$ is an $m \times n$ matrix, the corresponding \textbf{matrix transformation}\index{$m \times n$ matrix!matrix transformation}\index{linear transformations!$m \times n$ matrix}\index{linear transformations!as matrix transformation} $T_A : \RR^n \to \RR^m$ is defined by 
+\begin{equation*}
+T_A (\vect{x}) = A \vect{x} \quad \mbox{ for all columns } \vect{x} \mbox{ in } \RR^n
+\end{equation*}
+It was shown in Theorem \ref{thm:005789} that every linear transformation $T : \RR^n \to \RR^m$ is a matrix transformation; that is, $T = T_A$ for some $m \times n$ matrix $A$. Furthermore, the matrix $A$ is uniquely determined by $T$. In fact, $A$ is given in terms of its columns by
+\begin{equation*}
+A = \leftB \begin{array}{cccc}
+T(\vect{e}_1) & T(\vect{e}_2) & \cdots & T(\vect{e}_n) 
+\end{array}\rightB
+\end{equation*}
+where $\{\vect{e}_1, \vect{e}_2, \dots, \vect{e}_n\}$ is the standard basis of $\RR^n$. 
+
+In this chapter we show how to associate a matrix with \textit{any} linear transformation $T : V \to W$ where $V$ and $W$ are finite-dimensional vector spaces, and we describe how the matrix can be used to compute $T(\vect{v})$ for any $\vect{v}$ in $V$\index{linear transformations!association with matrix}\index{matrix!linear transformation!association with}. The matrix depends on the choice of a basis $B$\index{basis!choice of basis}\index{choice of basis} in $V$ and a basis $D$ in $W$, and is denoted $M_{DB}(T)$. The case when $W = V$ is particularly important. If $B$ and $D$ are two bases of $V$, we show that the matrices $M_{BB}(T)$ and $M_{DD}(T)$ are similar, that is $M_{DD}(T) = P^{-1}M_{BB}(T)P$ for some invertible matrix $P$. Moreover, we give an explicit method for constructing $P$ depending only on the bases $B$ and $D$. This leads to some of the most important theorems in linear algebra, as we shall see in Chapter \ref{chap:11}.

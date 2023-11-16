@@ -1,0 +1,371 @@
+\section{Computing Eigenvalues}
+\label{sec:8_5}\index{eigenvalues!computation of}\index{eigenvalues!iterative methods}\index{orthogonality!eigenvalues, computation of}
+
+In practice, the problem of finding 
+eigenvalues of a matrix is virtually never solved by finding the roots 
+of the characteristic polynomial. This is difficult for large matrices 
+and iterative methods are much better. Two such methods are described 
+briefly in this section.\index{polynomials!root}\index{root!of polynomials}
+
+
+\subsection*{The Power Method}
+\index{eigenvalues!power method}\index{power method}
+
+In Chapter~\ref{chap:3}
+ our initial rationale for diagonalizing matrices was to be able to 
+compute the powers of a square matrix, and the eigenvalues were needed 
+to do this. In this section, we are interested in efficiently computing 
+eigenvalues, and it may come as no surprise that the first method we 
+discuss uses the powers of a matrix.
+
+
+Recall that an eigenvalue $\lambda$ of an $n \times n$ matrix $A$ is called a \textbf{dominant eigenvalue}\index{dominant eigenvalue}\index{eigenvalues!dominant eigenvalue} if $\lambda$ has multiplicity $1$, and
+\begin{equation*}
+|\lambda| > |\mu| \quad \mbox{ for all eigenvalues } \mu \neq \lambda
+\end{equation*}
+Any corresponding eigenvector is called a \textbf{dominant eigenvector}\index{dominant eigenvector}\index{eigenvector!dominant eigenvector} of $A$. When such an eigenvalue exists, one technique for finding it is as follows: Let $\vect{x}_{0}$ in $\RR^n$ be a first approximation to a dominant eigenvector $\lambda$, and compute successive approximations $\vect{x}_{1}, \vect{x}_{2}, \dots$  as follows:
+\begin{equation*}
+\vect{x}_{1} = A\vect{x}_{0} \quad \vect{x}_{2} = A\vect{x}_{1} \quad \vect{x}_{3} = A\vect{x}_{2} \quad \cdots
+\end{equation*}
+In general, we define
+\begin{equation*}
+\vect{x}_{k+1} = A\vect{x}_{k} \quad \mbox{ for each } k \geq 0
+\end{equation*}
+If the first estimate $\vect{x}_{0}$ is good enough, these vectors $\vect{x}_{n}$ will approximate the dominant eigenvector $\lambda$ (see below). This technique is called the \textbf{power method}\index{power method} (because $\vect{x}_{k} = A^{k}\vect{x}_{0}$ for each $k \geq 1$). Observe that if $\vect{z}$ is any eigenvector corresponding to $\lambda$, then
+\begin{equation*}
+\frac{\vect{z} \dotprod (A\vect{z})}{\vectlength \vect{z} \vectlength^2} = \frac{\vect{z} \dotprod (\lambda\vect{z})}{\vectlength \vect{z} \vectlength^2} = \lambda
+\end{equation*}
+Because the vectors $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}, \dots$  approximate dominant eigenvectors, this suggests that we define the \textbf{Rayleigh quotients}\index{Rayleigh quotients} as follows:
+\begin{equation*}
+r_{k} = \frac{\vect{x}_{k} \dotprod \vect{x}_{k+1}}{\vectlength \vect{x}_{k} \vectlength^2} \quad \mbox{ for } k \geq 1
+\end{equation*}
+Then the numbers $r_{k}$ approximate the dominant eigenvalue $\lambda$.
+
+
+\begin{example}{}{025326}
+Use the power method to approximate a dominant eigenvector and eigenvalue of $A = \leftB \begin{array}{rr}
+1 & 1 \\
+2 & 0
+\end{array}\rightB$.
+
+
+\begin{solution}
+  The eigenvalues of $A$ are $2$ and $-1$, with eigenvectors $\leftB \begin{array}{rr}
+  1 \\
+  1 
+  \end{array}\rightB$ and $\leftB \begin{array}{rr}
+  1 \\
+  -2 
+  \end{array}\rightB$. Take $\vect{x}_{0} = \leftB \begin{array}{rr}
+  1 \\
+  0 
+  \end{array}\rightB$ as the first approximation and compute $\vect{x}_{1}, \vect{x}_{2}, \dots,$ successively, from $\vect{x}_{1} = A\vect{x}_{0}, \vect{x}_{2} = A\vect{x}_{1}, \dots$ . The result is
+\begin{equation*}
+\vect{x}_{1} = \leftB \begin{array}{rr}
+1 \\
+2 
+\end{array}\rightB, \
+\vect{x}_{2} = \leftB \begin{array}{rr}
+3 \\
+2 
+\end{array}\rightB, \
+\vect{x}_{3} = \leftB \begin{array}{rr}
+5 \\
+6 
+\end{array}\rightB, \
+\vect{x}_{4} = \leftB \begin{array}{rr}
+11 \\
+10 
+\end{array}\rightB, \
+\vect{x}_{3} = \leftB \begin{array}{rr}
+21 \\
+22 
+\end{array}\rightB, \ \dots
+\end{equation*}
+These vectors are approaching scalar multiples of the dominant eigenvector $\leftB \begin{array}{rr}
+1 \\
+1 
+\end{array}\rightB$. Moreover, the Rayleigh quotients are
+\begin{equation*}
+r_{1} = \frac{7}{5}, r_{2} = \frac{27}{13}, r_{3} = \frac{115}{61}, r_{4} = \frac{451}{221}, \dots
+\end{equation*}
+and these are approaching the dominant eigenvalue $2$.
+\end{solution}
+\end{example}
+
+To see why the power method works, let $\lambda_{1}, \lambda_{2}, \dots, \lambda_{m}$ be eigenvalues of $A$ with $\lambda_{1}$ dominant and let $\vect{y}_{1}, \vect{y}_{2}, \dots, \vect{y}_{m}$ be corresponding eigenvectors. What is required is that the first approximation $\vect{x}_{0}$ be a linear combination of these eigenvectors:\index{eigenvector!linear combination}\index{linear combinations!eigenvectors}
+\begin{equation*}
+\vect{x}_{0} = a_{1}\vect{y}_{1} + a_{2}\vect{y}_{2} + \dots + a_{m}\vect{y}_{m} \quad \mbox{ with } a_{1} \neq 0
+\end{equation*}
+If $k \geq 1$, the fact that $\vect{x}_{k} = A^{k}\vect{x}_{0}$ and $A^k\vect{y}_{i} = \lambda_{i}^k\vect{y}_{i}$ for each $i$ gives
+\begin{equation*}
+\vect{x}_{k} = a_{1}\lambda_{1}^k\vect{y}_{1} + a_{2}\lambda_{2}^k\vect{y}_{2} + \dots + a_{m}\lambda_{m}^k\vect{y}_{m} \quad \mbox{ for } k \geq 1
+\end{equation*}
+Hence
+\begin{equation*}
+\frac{1}{\lambda_{1}^k}\vect{x}_{k} = a_{1}\vect{y}_{1} + a_{2}\left(\frac{\lambda_{2}}{\lambda_{1}}\right)^k\vect{y}_{2} + \dots + a_{m}\left(\frac{\lambda_{m}}{\lambda_{1}}\right)^k\vect{y}_{m}
+\end{equation*}
+The right side approaches $a_{1}\vect{y}_{1}$ as $k$ increases because $\lambda_{1}$ is dominant $\left( \left|\frac{\lambda_{i}}{\lambda_{1}} \right| < 1 \mbox{ for each } i > 1 \right)$. Because $a_{1} \neq 0$, this means that $\vect{x}_{k}$ approximates the dominant eigenvector $a_{1}\lambda_{1}^k\vect{y}_{1}$.
+
+
+The power method requires that the first approximation $\vect{x}_{0}$ be a linear combination of eigenvectors. (In Example~\ref{exa:025326} the eigenvectors form a basis of $\RR^2$.) But even in this case the method fails if $a_{1} = 0$, where $a_{1}$ is the coefficient of the dominant eigenvector (try $\vect{x}_{0} = \leftB \begin{array}{rr}
+-1 \\
+2 
+\end{array}\rightB$ in Example~\ref{exa:025326}). In general, the rate of convergence is quite slow if any of the ratios $\left| \frac{\lambda_{i}}{\lambda_{1}} \right|$ is near $1$. Also, because the method requires repeated multiplications by $A$, it is not recommended unless these multiplications are easy to carry out (for example, if most of the entries of $A$ are zero).\index{convergence}
+
+
+\subsection*{QR-Algorithm}
+\index{orthogonality!QR-algorithm}
+
+A much better method for approximating the eigenvalues of an invertible matrix $A$ depends on the factorization (using the Gram-Schmidt algorithm) of $A$ in the form
+\begin{equation*}
+A = QR
+\end{equation*}
+where $Q$ is orthogonal and $R$ is invertible and upper triangular (see Theorem~\ref{thm:025166}). The \textbf{QR-algorithm}\index{QR-algorithm} uses this repeatedly to create a sequence of matrices $A_{1} =A, A_{2}, A_{3}, \dots,$ as follows:
+
+
+\begin{enumerate}
+\item Define $A_{1} = A$ and factor it as $A_{1} = Q_{1}R_{1}$.
+
+\item Define $A_{2} = R_{1}Q_{1}$ and factor it as $A_{2} = Q_{2}R_{2}$.
+
+\item Define $A_{3} = R_{2}Q_{2}$ and factor it as $A_{3} = Q_{3}R_{3}$. 
+\\ \hspace*{4em} $\vdots$
+
+
+\end{enumerate}
+
+\noindent In general, $A_{k}$ is factored as $A_{k} = Q_{k}R_{k}$ and we define $A_{k + 1} = R_{k}Q_{k}$. Then $A_{k + 1}$ is similar to $A_{k}$ [in fact, $A_{k+1} = R_{k}Q_{k} = (Q_{k}^{-1}A_{k})Q_{k}$], and hence each $A_{k}$ has the same eigenvalues as $A$. If the eigenvalues of $A$ are real and have distinct absolute values, the remarkable thing is that the sequence of matrices $A_{1}, A_{2}, A_{3}, \dots$ converges to an upper triangular matrix with these eigenvalues on the main diagonal. [See below for the case of complex eigenvalues.]
+
+\begin{example}{}{025425}
+If $A = \leftB \begin{array}{rr}
+1 & 1 \\
+2 & 0
+\end{array}\rightB$ as in Example~\ref{exa:025326}, use the QR-algorithm to approximate the eigenvalues.
+
+
+\begin{solution}
+  The matrices $A_{1}$, $A_{2}$, and $A_{3}$ are as follows:
+\begin{align*}
+A_{1} = & \leftB \begin{array}{rr}
+1 & 1 \\
+2 & 0
+\end{array}\rightB = Q_{1}R_{1} \quad \mbox{ where } Q_{1} = \frac{1}{\sqrt{5}}\leftB \begin{array}{rr}
+1 & 2 \\
+2 & -1
+\end{array}\rightB \mbox{ and } R_{1} =  \frac{1}{\sqrt{5}}\leftB \begin{array}{rr}
+5 & 1 \\
+0 & 2
+\end{array}\rightB \\
+A_{2} = & \frac{1}{5}\leftB \begin{array}{rr}
+7 & 9 \\
+4 & -2
+\end{array}\rightB = \leftB \begin{array}{rr}
+1.4 & -1.8 \\
+-0.8 & -0.4
+\end{array}\rightB= Q_{2}R_{2} \\
+&\mbox{ where } Q_{2} = \frac{1}{\sqrt{65}}\leftB \begin{array}{rr}
+7 & 4 \\
+4 & -7
+\end{array}\rightB \mbox{ and } R_{2} =  \frac{1}{\sqrt{65}}\leftB \begin{array}{rr}
+13 & 11 \\
+0 & 10
+\end{array}\rightB \\
+A_{3} = &\frac{1}{13}\leftB \begin{array}{rr}
+27 & -5 \\
+8 & -14
+\end{array}\rightB = \leftB \begin{array}{rr}
+2.08 & -0.38 \\
+0.62 & -1.08
+\end{array}\rightB
+\end{align*}
+This is converging to $\leftB \begin{array}{rr}
+2 & \ast \\
+0 & -1
+\end{array}\rightB$ and so is approximating the eigenvalues $2$ and $-1$ on the main diagonal.
+\end{solution}
+\end{example}
+
+It is beyond the scope of this book to 
+pursue a detailed discussion of these methods. The reader is referred to
+ J. M. Wilkinson, \textit{The Algebraic Eigenvalue Problem} (Oxford, England: Oxford University Press, 1965)\index{\textit{The Algebraic Eigenvalue Problem} (Wilkinson)} or G. W. Stewart, \textit{Introduction to Matrix Computations} (New York: Academic Press, 1973)\index{\textit{Introduction to Matrix Computations} (Stewart)}. We conclude with some remarks on the QR-algorithm.
+
+\smallskip
+\noindent\textbf{Shifting.}\index{shifting} Convergence is accelerated if, at stage $k$ of the algorithm, a number $s_{k}$ is chosen and $A_{k} - s_{k}I$ is factored in the form $Q_{k}R_{k}$ rather than $A_{k}$ itself. Then
+\begin{equation*}
+Q_{k}^{-1}A_{k}Q_{k} = Q_{k}^{-1}(Q_{k}R_{k} + s_{k}I)Q_{k} = R_{k}Q_{k} + s_{k}I
+\end{equation*}
+so we take $A_{k+1} = R_{k}Q_{k} + s_{k}I$. If the shifts $s_{k}$ are carefully chosen, convergence can be greatly improved.
+
+\smallskip
+\noindent\textbf{Preliminary Preparation.} A matrix such as
+\begin{equation*}
+\leftB \begin{array}{rrrrr}
+\ast  & \ast & \ast & \ast & \ast  \\
+\ast  & \ast & \ast & \ast & \ast  \\
+0  & \ast & \ast & \ast & \ast  \\
+0  & 0 & \ast & \ast & \ast  \\
+0  & 0 & 0 & \ast & \ast  \\
+\end{array}\rightB
+\end{equation*}
+is said to be in \textbf{upper Hessenberg}\index{upper Hessenberg form}\index{matrix form!upper Hessenberg form} form, and the QR-factorizations of such matrices are greatly simplified. Given an $n \times n$ matrix $A$, a series of orthogonal matrices $H_{1}, H_{2}, \dots, H_{m}$ (called \textbf{Householder matrices}\index{Householder matrices}\index{matrix!Householder matrices}) can be easily constructed such that
+\begin{equation*}
+B = H_{m}^T \cdots H_{1}^TAH_{1} \cdots H_{m}
+\end{equation*}
+is in upper Hessenberg form. Then the QR-algorithm can be efficiently applied to $B$ and, because $B$ is similar to $A$, it produces the eigenvalues of $A$.
+
+\smallskip
+\noindent\textbf{Complex Eigenvalues.}\index{complex eigenvalues}\index{eigenvalues!complex eigenvalues} If some of the eigenvalues of a real matrix $A$ are not real, the QR-algorithm converges to a block upper triangular matrix where the diagonal blocks are either $1 \times 1$ (the real eigenvalues) or $2 \times 2$ (each providing a pair of conjugate complex eigenvalues of $A$).
+
+\section*{Exercises for \ref{sec:8_5}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:8_5}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case, find the exact eigenvalues and determine corresponding eigenvectors. Then start with $\vect{x}_{0} = \leftB \begin{array}{rr}
+1  \\
+1
+\end{array}\rightB$ and compute $\vect{x}_{4}$ and $r_{3}$ using the power method.
+
+
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rr}
+2 & -4 \\
+-3 & 3
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rr}
+5 & 2 \\
+-3 & -2
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rr}
+1 & 2 \\
+2 & 1
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rr}
+3 & 1 \\
+1 & 0
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Eigenvalues $4$, $-1$; eigenvectors 
+$\leftB \begin{array}{rr}
+2  \\
+-1
+\end{array}\rightB$,
+$\leftB \begin{array}{rr}
+1 \\
+-3
+\end{array}\rightB$;
+$\vect{x}_{4} = \leftB \begin{array}{rr}
+409  \\
+-203
+\end{array}\rightB$;
+$r_{3} = 3.94$
+
+\setcounter{enumi}{3}
+\item Eigenvalues $\lambda_{1} = \frac{1}{2}(3 + \sqrt{13})$, $\lambda_{2} = \frac{1}{2}(3 - \sqrt{13})$;
+eigenvectors $\leftB \begin{array}{c}
+\lambda_{1}  \\
+1
+\end{array}\rightB$,
+$\leftB \begin{array}{c}
+\lambda_{2}  \\
+1
+\end{array}\rightB$;
+$\vect{x}_{4} = \leftB \begin{array}{rr}
+142  \\
+43
+\end{array}\rightB$;
+$r_{3} = 3.3027750$
+(The true value is $\lambda_{1} = 3.3027756$, to seven decimal places.)
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find the exact eigenvalues and then approximate them using the QR-algorithm.
+
+
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rr}
+1 & 1 \\
+1 & 0
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rr}
+3 & 1 \\
+1 & 0
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Eigenvalues $\lambda_{1} = \frac{1}{2}(3 + \sqrt{13}) = 3.302776$, $\lambda_{2} = \frac{1}{2}(3 - \sqrt{13}) = -0.302776$
+
+$A_{1} = \leftB \begin{array}{rr}
+3 & 1 \\
+1 & 0
+\end{array}\rightB$, $Q_{1} = \frac{1}{\sqrt{10}}\leftB \begin{array}{rr}
+3 & -1 \\
+1 & 3
+\end{array}\rightB$, $R_{1} = \frac{1}{\sqrt{10}}\leftB \begin{array}{rr}
+10 & 3 \\
+0 & -1
+\end{array}\rightB$ \\
+$A_{2} = \frac{1}{10}\leftB \begin{array}{rr}
+33 & -1 \\
+-1 & -3
+\end{array}\rightB$, \\ $Q_{2} = \frac{1}{\sqrt{1090}}\leftB \begin{array}{rr}
+33 & 1 \\
+-1 & 33
+\end{array}\rightB$, \\ $R_{2} = \frac{1}{\sqrt{1090}}\leftB \begin{array}{rr}
+109 & -3 \\
+0 & -10
+\end{array}\rightB$ \\
+$A_{3} = \frac{1}{109}\leftB \begin{array}{rr}
+360 & 1 \\
+1 & -33
+\end{array}\rightB$ \\ ${} = \leftB \begin{array}{rr}
+3.302775 & 0.009174 \\
+0.009174 & -0.302775
+\end{array}\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Apply the power method to \\ $A = \leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array}\rightB$, starting at $\vect{x}_{0} = \leftB \begin{array}{rr}
+1 \\
+1 
+\end{array}\rightB$. Does it converge? Explain.
+\end{ex}
+
+\columnbreak
+
+\begin{ex}
+If $A$ is symmetric, show that each matrix $A_{k}$ in the QR-algorithm is also symmetric. Deduce that they converge to a diagonal matrix.
+
+\begin{sol}
+Use induction on $k$. If $k = 1$, $A_{1} = A$. In general $A_{k+1} = Q_{k}^{-1}A_{k}Q_{k} = Q_{k}^{T}A_{k}Q_{k}$, so the fact that $A_{k}^{T} = A_{k}$ implies $A_{k+1}^{T} = A_{k+1}$. The eigenvalues of $A$ are all real (Theorem \ref{thm:016145}), so the $A_{k}$ converge to an upper triangular matrix $T$. But $T$ must also be symmetric (it is the limit of symmetric matrices), so it is diagonal.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Apply the QR-algorithm to \\ $A = \leftB \begin{array}{rr}
+2 & -3 \\
+1 & -2
+\end{array}\rightB$. Explain.
+\end{ex}
+
+\begin{ex}
+Given a matrix $A$, let $A_{k}$, $Q_{k}$, and $R_{k}$, $k \geq 1$, be the matrices constructed in the QR-algorithm. Show that $A_{k} = (Q_{1}Q_{2} \cdots Q_{k})(R_{k} \cdots R_{2}R_{1})$ for each $k \geq 1$ and hence that this is a QR-factorization of $A_{k}$. \newline [\textit{Hint}: Show that $Q_{k}R_{k} = R_{k-1}Q_{k-1}$ for each $k \geq 2$, and use this equality to compute $(Q_{1}Q_{2} \cdots Q_{k})(R_{k} \cdots R_{2}R_{1})$ ``from the centre out.'' Use the fact that $(AB)^{n+1} = A(BA)^{n}B$ for any square matrices $A$ and $B$.]
+\end{ex}
+\end{multicols}

@@ -1,0 +1,200 @@
+\section{Proof of the Cofactor Expansion Theorem}
+\label{sec:3_6}\index{cofactor expansion}\index{cofactor expansion theorem}\index{determinants!cofactor expansion}
+
+Recall that our definition of the term \textit{determinant}\index{determinants!defined}
+ is inductive: The determinant of any $1 \times 1$ matrix is defined first; 
+then it is used to define the determinants of $2 \times 2$ matrices. Then that 
+is used for the $3 \times 3$ case, and so on. The case of a $1 \times 1$ matrix $ \leftB a \rightB$ poses no problem. We simply define
+\begin{equation*}
+\func{det} \leftB a \rightB = a
+\end{equation*}
+as in Section~\ref{sec:3_1}. Given an $n \times n$ matrix $A$, define $A_{ij}$ to be the $(n - 1) \times (n - 1)$ matrix obtained from $A$ by deleting row $i$ and column $j$. Now assume that the determinant of any $(n - 1) \times (n - 1)$ matrix has been defined. Then the determinant of $A$ is \textit{defined} to be
+\begin{align*}
+\func{det } A & = a_{11} \func{det } A_{11} - a_{21} \func{det } A_{21} + \cdots + (-1)^{n+1} a_{n1} \func{det } A_{n1} \\
+&= \sum_{i=1}^n (-1)^{i+1} a_{i1} \func{det }A_{i1}
+\end{align*}
+where summation notation has been introduced for convenience.\footnote{Summation notation is a convenient shorthand way to write sums of similar expressions. For example $a_1 +a_2 +a_3 +a_4 = \sum_{i=1}^4 a_i$, $a_5b_5 + a_6b_6 + a_7b_7 + a_8b_8 = \sum_{k=5}^8 a_kb_k$, and $1^2 +2^2 + 3^2+ 4^2 + 5^2 = \sum_{j=1}^5 j^2$.\index{summation notation}}
+ Observe that, in the terminology of Section~\ref{sec:3_1}, this is just the cofactor expansion of det $A$ along the first column, and that $(-1)^{i+j} \func{det }A_{ij}$ is the $(i, j)$-cofactor (previously denoted as $c_{ij}(A)$).\footnote{Note that we used the expansion along \textit{row} 1 at the beginning of Section~\ref{sec:3_1}. The column 1 expansion definition is more convenient here.}
+ To illustrate the definition, consider the $2 \times 2$ matrix $A = \leftB \begin{array}{cc}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{array}\rightB$. Then the definition gives
+\begin{equation*}
+\func{det}\leftB \begin{array}{cc}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{array}\rightB = a_{11} \func{det}\leftB a_{22} \rightB - a_{21} \func{det} \leftB a_{12} \rightB = a_{11} a_{22} - a_{21} a_{12}
+\end{equation*}
+and this is the same as the definition in Section~\ref{sec:3_1}.
+
+
+Of course, the task now is to use this definition to \textit{prove} that the cofactor expansion along \textit{any} row or column yields $\func{det }A$ (this is Theorem \ref{thm:007747}). The proof proceeds by first establishing the properties of determinants stated in Theorem \ref{thm:007779} but for \textit{rows} only (see Lemma \ref{lem:010739}). This being done, the full proof of Theorem \ref{thm:007747} is not difficult. The proof of Lemma \ref{lem:010739} requires the following preliminary result.
+
+
+\begin{lemma}{}{010688}
+Let $A$, $B$, and $C$ be $n \times n$ matrices that are identical except that the $p$th row of $A$ is the sum of the $p$th rows of $B$ and $C$. Then
+\begin{equation*}
+\func{det } A = \func{det } B + \func{det } C
+\end{equation*}
+\end{lemma}
+
+\index{induction!cofactor expansion theorem}
+\begin{proof}
+We proceed by induction on $n$, the cases $n = 1$ and $n = 2$ being easily checked. Consider $a_{i1}$ and $A_{i1}$:
+
+
+Case 1: If $i \neq p$,
+\begin{equation*}
+a_{i1} = b_{i1} = c_{i1} \quad \mbox{ and } \quad \func{det } A_{i1} = \func{det } B_{i1} = \func{det } C_{i1}
+\end{equation*}
+by induction because $A_{i1}$, $B_{i1}$, $C_{i1}$ are identical except that one row of $A_{i1}$ is the sum of the corresponding rows of $B_{i1}$ and $C_{i1}$.
+
+
+Case 2: If $i = p$,
+\begin{equation*}
+a_{p1} = b_{p1} + c_{p1} \quad \mbox{ and } \quad A_{p1} = B_{p1} = C_{p1} 
+\end{equation*}
+Now write out the defining sum for $\func{det }A$, splitting off the $p$th term for special attention.
+\begin{align*}
+\func{det } A &= \sum_{i \neq p} a_{i1} (-1)^{i+1} \func{det } A_{i1} + a_{p1} (-1)^{p+1} \func{det } A_{p1} \\
+&= \sum_{i \neq p} a_{i1} (-1)^{i+1} \left[ \func{det } B_{i1} + \func{det } B_{i1} \right] + (b_{p1} + c_{p1}) (-1)^{p+1} \func{det } A_{p1}
+\end{align*}
+where $\func{det }A_{i1} = \func{det }B_{i1} + \func{det }C_{i1}$ by induction. But the terms here involving $B_{i1}$ and $b_{p1}$ add up to $\func{det }B$ because $a_{i1} = b_{i1}$ if $i \neq p$ and $A_{p1} = B_{p1}$. Similarly, the terms involving $C_{i1}$ and $c_{p1}$ add up to $\func{det }C$. Hence $\func{det }A = \func{det }B + \func{det }C$, as required.
+\end{proof}
+
+\begin{lemma}{}{010739}
+Let $A = \leftB a_{ij} \rightB$ denote an $n \times n$ matrix.
+
+
+\begin{enumerate}
+\item If $B = \leftB b_{ij} \rightB$ is formed from $A$ by multiplying a row of $A$ by a number $u$, then $\func{det }B = u \func{det }A$.
+
+\item If $A$ contains a row of zeros, then $\func{det }A = 0$.
+
+\item If $B = \leftB b_{ij} \rightB$ is formed by interchanging two rows of $A$, then $\func{det }B = -\func{det }A$.
+
+\item If $A$ contains two identical rows, then $\func{det }A = 0$.
+
+\item If $B = \leftB b_{ij} \rightB$ is formed by adding a multiple of one row of $A$ to a different row, then $\func{det }B = \func{det }A$.
+
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For later reference the defining sums for $\func{det }A$ and $\func{det }B$ are as follows:
+\begin{align}
+\func{det } A &= \sum_{i=1}^n a_{i1}(-1)^{i+1} \func{det } A_{i1} \label{eq:cofactor1} \\
+\func{det } B &= \sum_{i=1}^n b_{i1}(-1)^{i+1} \func{det } B_{i1} \label{eq:cofactor2} 
+\end{align}
+
+\textit{Property 1.} The proof is by induction on $n$, the cases $n = 1$ and $n = 2$ being easily verified. Consider the $i$th term in the sum \ref{eq:cofactor2} for $\func{det }B$ where $B$ is the result of multiplying row $p$ of $A$ by $u$.
+\begin{enumerate}[label={\alph*.}]
+\item If $i \neq p$, then $b_{i1} = a_{i1}$ and $\func{det }B_{i1} = u \func{det }A_{i1}$ by induction because $B_{i1}$ comes from $A_{i1}$ by multiplying a row by $u$.
+
+\item If $i = p$, then $b_{p1} = ua_{p1}$ and $B_{p1} = A_{p1}$.
+
+\end{enumerate}
+In either case, each term in Equation \ref{eq:cofactor2} is $u$ times the corresponding term in Equation \ref{eq:cofactor1}, so it is clear that $\func{det }B = u \func{det }A$.
+
+\textit{Property 2.} This is clear by property 1 because the row of zeros has a common factor $u = 0$.
+
+
+\textit{Property 3.} Observe first that it suffices to prove property 3 for interchanges of adjacent rows. (Rows $p$ and $q$ $(q > p)$ can be interchanged by carrying out $2(q - p) - 1$ adjacent changes, which results in an \textit{odd} number of sign changes in the determinant.) So suppose that rows $p$ and $p + 1$ of $A$ are interchanged to obtain $B$. Again consider the $i$th term in Equation \ref{eq:cofactor2}.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $i \neq p$ and $i \neq p + 1$, then $b_{i1} = a_{i1}$ and $\func{det }B_{i1} = -\func{det }A_{i1}$ by induction because $B_{i1}$ results from interchanging adjacent rows in $A_{i1}$. Hence the $i$th term in Equation \ref{eq:cofactor2} is the negative of the $i$th term in Equation \ref{eq:cofactor1}. Hence $\func{det }B = -\func{det }A$ in this case.
+
+\item If $i = p$ or $i = p + 1$, then $b_{p1} = a_{p+1,1}$ and $B_{p1} = A_{p+1,1}$, whereas $b_{p+1,1} = a_{p1}$ and $B_{p+1,1} = A_{p1}$. Hence terms $p$ and $p + 1$ in Equation \ref{eq:cofactor2} are
+\begin{equation*}
+b_{p1}(-1)^{p+1}\func{det } B_{p1} = -a_{p+1,1}(-1)^{(p+1)+1} \func{det}(A_{p+1,1})
+\end{equation*}
+\begin{equation*}
+b_{p+1,1}(-1)^{(p+1)+1}\func{det } B_{p+1,1} = -a_{p1}(-1)^{p+1} \func{det}(A_{p1})
+\end{equation*}
+\end{enumerate}
+
+This means that terms $p$ and $p + 1$ in Equation \ref{eq:cofactor2} are the same as these terms in Equation \ref{eq:cofactor1}, except that the order is reversed and the signs are changed. Thus the sum \ref{eq:cofactor2} is the negative of the sum \ref{eq:cofactor1}; that is, $\func{det }B = -\func{det }A$.
+
+
+\textit{Property 4.} If rows $p$ and $q$ in $A$ are identical, let $B$ be obtained from $A$ by interchanging these rows. Then $B = A$ so $\func{det }A = \func{det }B$. But $\func{det }B = -\func{det }A$ by property 3 so $\func{det }A = -\func{det }A$. This implies that $\func{det }A = 0$.
+
+
+\textit{Property 5}. Suppose $B$ results from adding $u$ times row $q$ of $A$ to row $p$. Then Lemma \ref{lem:010688} applies to $B$ to show that $\func{det }B = \func{det }A + \func{det }C$, where $C$ is obtained from $A$ by replacing row $p$ by $u$ times row $q$. It now follows from properties 1 and 4 that $\func{det }C = 0$ so $\func{det }B = \func{det }A$, as asserted.
+\end{proof}
+
+These facts are enough to enable us to prove Theorem \ref{thm:007747}.
+ For convenience, it is restated here in the notation of the foregoing 
+lemmas. The only difference between the notations is that the $(i, j)$-cofactor of an $n \times n$ matrix $A$ was denoted earlier by
+\begin{equation*}
+c_{ij}(A) = (-1)^{i+j} \func{det } A_{ij}
+\end{equation*}
+
+\begin{theorem}{}{010829}
+If $A = \leftB a_{ij} \rightB$ is an $n \times n$ matrix, then
+
+
+\begin{enumerate}
+\item $\func{det } A = \sum_{i=1}^n a_{ij} (-1)^{i+j} \func{det }A_{ij} \quad (\mbox{cofactor expansion along column } j).$
+
+
+\item $\func{det } A = \sum_{j=1}^n a_{ij} (-1)^{i+j} \func{det }A_{ij} \quad (\mbox{cofactor expansion along row } i).$
+
+
+\end{enumerate}
+
+Here $A_{ij}$ denotes the matrix obtained from $A$ by deleting row $i$ and column $j$.
+\end{theorem}
+
+\begin{proof}
+Lemma \ref{lem:010739} establishes the truth of Theorem \ref{thm:007779} for \textit{rows}. With this information, the arguments in Section~\ref{sec:3_2} proceed exactly as written to establish that $\func{det }A = \func{det }A^{T}$ holds for any $n \times n$ matrix $A$. Now suppose $B$ is obtained from $A$ by interchanging two columns. Then $B^{T}$ is obtained from $A^{T}$ by interchanging two rows so, by property 3 of Lemma \ref{lem:010739},
+\begin{equation*}
+\func{det } B = \func{det } B^T = -\func{det } A^T = -\func{det } A
+\end{equation*}
+Hence property 3 of Lemma \ref{lem:010739} holds for \textit{columns} too.
+
+
+This enables us to prove the cofactor expansion for columns. Given an $n \times n$ matrix $A = \leftB a_{ij} \rightB$, let $B = \leftB b_{ij} \rightB$ be obtained by moving column $j$ to the left side, using $j - 1$ interchanges of adjacent columns. Then $\func{det }B = (-1)^{j-1} \func{det }A$ and, because $B_{i1} = A_{ij}$ and $b_{i1} = a_{ij}$ for all $i$, we obtain
+\begin{align*}
+\func{det } A & = (-1)^{j-1} \func{det } B = (-1)^{j-1} \sum_{i=1}^n b_{i1}(-1)^{i+1} \func{det } B_{i1}\\
+&= \sum_{i=1}^n a_{ij} (-1)^{i+j} \func{det } A_{ij}
+\end{align*}
+This is the cofactor expansion of $\func{det }A$ along column $j$.
+
+
+Finally, to prove the row expansion, write $B = A^{T}$. Then $B_{ij} = (A_{ij}^T)$ and $b_{ij} = a_{ji}$ for all $i$ and $j$. Expanding det $B$ along column $j$ gives
+\begin{align*}
+\func{det } A &=\func{det } A^T = \func{det } B = \sum_{i=1}^n b_{ij} (-1)^{i+j} \func{det } B_{ij} \\
+&= \sum_{i=1}^n a_{ji}(-1)^{j+i} \func{det} \left[ (A_{ji}^T)\right] = \sum_{i=1}^n a_{ji} (-1)^{j+i} \func{det } A_{ji}
+\end{align*}
+This is the required expansion of $\func{det }A$ along row $j$.
+\end{proof}
+
+\vspace{-2em}
+\section*{Exercises for \ref{sec:3_6}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:3_6}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Prove Lemma \ref{lem:010688} for columns.
+\end{ex}
+
+\begin{ex}
+Verify that interchanging rows $p$ and $q$ $(q > p)$ can be accomplished using $2(q - p) - 1$ adjacent interchanges.
+
+\begin{sol}
+Consider the rows $R_{p}, R_{p+1}, \dots , R_{q-1}, R_{q}$. In $q - p$ adjacent interchanges they can be put in the order $R_{p+1}, \dots , R_{q-1}, R_{q}, R_{p}$. Then in $q - p - 1$ adjacent interchanges we can obtain the order $R_{q}, R_{p+1}, \dots , R_{q-1}, R_{p}$. This uses $2(q - p) -1$ adjacent interchanges in all.
+\end{sol}
+\end{ex}
+
+
+\columnbreak
+\begin{ex}
+If $u$ is a number and $A$ is an $n \times n$ matrix, prove that $\func{det}(uA) = u^{n} \func{det }A$ by induction on $n$, using only the definition of $\func{det }A$.
+\end{ex}
+
+\end{multicols}
+
+

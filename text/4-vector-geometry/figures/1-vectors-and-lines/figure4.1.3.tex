@@ -1,0 +1,53 @@
+\begin{tikzpicture}[scale=0.65]
+%set up of axis environment
+\begin{axis}[view/h=120,
+disabledatascaling, anchor=origin,
+width=5cm, 
+height=5cm, 
+xlabel={$x$}, 
+ylabel={$y$},
+zlabel={$z$},
+axis lines=center,
+axis on top,
+xtick=\empty,
+ytick=\empty,
+ztick=\empty,
+xticklabels=\empty, 
+yticklabels=\empty, 
+zticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=north,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis z label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode = individual,
+samples=100, 
+xmin=0, 
+xmax=1, 
+ymin=0, 
+ymax=1,
+zmin=0,
+zmax=1]
+
+\coordinate (ptP) at (0, cos 60, sin 60);
+\coordinate (ptQ) at (0, cos 30, sin 30);
+
+\draw [dkgreenvect, thick, -latex] (0, 0, 0)--(ptP) node[above, pos = 0.5, text = black] {\small $\vect{v}$};
+\draw [dkgreenvect, thick, -latex] (0, 0, 0)--(ptQ) node[below, pos = 0.6, text = black] {\small $\vect{w}$};
+
+\fill (ptP) circle (2pt);
+\fill (ptQ) circle (2pt);
+
+\node [below] at (0, 0, 0) {\small $O$};
+\node [right] at (ptP) {\small $P$};
+\node [right] at (ptQ) {\small $Q$};
+
+\end{axis}
+\end{tikzpicture}

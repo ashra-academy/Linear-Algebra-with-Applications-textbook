@@ -1,0 +1,7 @@
+\newcommand{\institution}{}
+\newcommand{\courseCode}{} 
+\newcommand{\courseName}{}
+\newcommand{\courseSession}{ }
+\newcommand{\courseSection}{ }
+
+

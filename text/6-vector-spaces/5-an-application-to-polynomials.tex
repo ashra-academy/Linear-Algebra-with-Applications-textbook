@@ -1,0 +1,336 @@
+\section{An Application to Polynomials}
+\label{sec:6_5}
+
+The vector space of all polynomials of degree at most $n$ is denoted $\vectspace{P}_{n}$\index{polynomials!vector spaces}\index{vector spaces!polynomials}, and it was established in Section~\ref{sec:6_3} that $\vectspace{P}_{n}$ has dimension $n + 1$; in fact, $\{1, x, x^{2}, \dots, x^{n}\}$ is a basis. More generally, \textit{any} $n + 1$ polynomials of distinct degrees form a basis, by Theorem~\ref{thm:019633} (they are independent by Example~\ref{exa:018606}). This proves
+
+\begin{theorem}{}{019992}
+Let $p_{0}(x), p_{1}(x), p_{2}(x), \dots, p_{n}(x)$ be polynomials in $\vectspace{P}_{n}$ of degrees $0, 1, 2, \dots, n$, respectively. Then $\{p_{0}(x), \dots, p_{n}(x)\}$ is a basis of $\vectspace{P}_{n}$.
+\end{theorem}
+
+An immediate consequence is that $\{1, (x - a), (x - a)^{2}, \dots, (x - a)^{n}\}$ is a basis of $\vectspace{P}_{n}$ for any number $a$. Hence we have the following:
+
+\begin{corollary}{}{020007}
+If $a$ is any number, every polynomial $f(x)$ of degree at most $n$ has an expansion in powers of $(x - a)$:
+\begin{equation}
+\label{eq:cor6_5_1}
+f(x) = a_0 + a_1(x - a) + a_2(x - a)^2 + \dots + a_n(x - a)^n
+\end{equation}
+\end{corollary}
+
+If $f(x)$ is evaluated at $x = a$, then equation (\ref{eq:cor6_5_1}) becomes
+\begin{equation*}
+f(x) = a_0 + a_1(a - a) + \dots + a_n(a - a)^n = a_0
+\end{equation*}
+Hence $a_{0} = f(a)$, and equation (\ref{eq:cor6_5_1}) can be written $f(x) = f(a) + (x - a)g(x)$, where $g(x)$ is a polynomial of degree $n - 1$ (this assumes that $n \geq 1$). If it happens that $f(a) = 0$, then it is clear that $f(x)$ has the form $f(x) = (x - a)g(x)$. Conversely, every such polynomial certainly satisfies $f(a) = 0$, and we obtain:
+
+\begin{corollary}{}{020015}
+Let $f(x)$ be a polynomial of degree $n \geq 1$ and let $a$ be any number. Then:
+
+\textbf{Remainder Theorem}\index{remainder theorem}
+\begin{enumerate}
+\item $f(x) = f(a) + (x - a)g(x)$ for some polynomial $g(x)$ of degree $n - 1$.
+\end{enumerate}
+
+\textbf{Factor Theorem}\index{factor theorem}
+\begin{enumerate}\setcounter{enumi}{1}
+\item $f(a) = 0$ if and only if $f(x) = (x - a)g(x)$ for some polynomial $g(x)$.
+\end{enumerate}
+\end{corollary}
+
+\noindent The polynomial $g(x)$ can be computed easily by using ``long division'' to divide $f(x)$ by $(x - a)$---see Appendix~\ref{chap:appdpolynomials}.
+
+
+All the coefficients in the expansion (\ref{eq:cor6_5_1}) of $f(x)$ in powers of $(x - a)$ can be determined in terms of the derivatives of $f(x)$.\footnote{The discussion of Taylor's theorem can be omitted with no loss of continuity.}
+ These will be familiar to students of calculus. Let $f^{(n)}(x)$ denote the $n$th derivative of the polynomial $f(x)$, and write $f^{(0)}(x) = f(x)$. Then, if
+\begin{equation*}
+f(x) = a_0 + a_1(x - a) + a_2(x - a)^2 + \dots + a_n(x - a)^n
+\end{equation*}
+it is clear that $a_{0} = f(a) = f^{(0)}(a)$. Differentiation gives
+\begin{equation*}
+f^{(1)}(x) = a_1 + 2a_2(x - a) + 3a_3(x - a)^2 + \dots + na_n(x - a)^{n - 1}
+\end{equation*}
+and substituting $x = a$ yields $a_{1} = f^{(1)}(a)$. This continues to give 
+$a_2 = \frac{f^{(2)}(a)}{2!}, a_3 = \frac{f^{(3)}(a)}{3!}, \dots, a_k = \frac{f^{(k)}(a)}{k!}$, where $k!$ is defined as $k! = k(k - 1) \cdots 2 \cdot 1$. Hence we obtain the following:
+
+\begin{corollary}{Taylor's Theorem}{020039}
+If $f(x)$ is a polynomial of degree $n$, then\index{polynomials!Taylor's theorem}\index{Taylor's theorem}
+\begin{equation*}
+f(x) = f(a) + \frac{f^{(1)}(a)}{1!}(x - a) + \frac{f^{(2)}(a)}{2!}(x - a)^2 + \dots + \frac{f^{(n)}(a)}{n!}(x - a)^n
+\end{equation*}
+\end{corollary}
+
+\begin{example}{}{020044}
+Expand $f(x) = 5x^{3} + 10x + 2$ as a polynomial in powers of $x - 1$.
+
+\begin{solution}
+The derivatives are $f^{(1)}(x) = 15x^{2} + 10$, $f^{(2)}(x) = 30x$, and $f^{(3)}(x) = 30$. Hence the Taylor expansion is
+\begin{align*}
+f(x) &= f(1) + \frac{f^{(1)}(1)}{1!}(x - 1) + \frac{f^{(2)}(1)}{2!}(x - 1)^2 + \frac{f^{(3)}(1)}{3!}(x - 1)^3 \\
+&= 17 + 25(x - 1) + 15(x - 1)^2 +5(x - 1)^3
+\end{align*}
+\end{solution}
+\end{example}
+
+Taylor's theorem is useful in that it provides a formula for the coefficients in the expansion. It is dealt with in calculus texts and will not be pursued here.
+
+Theorem~\ref{thm:019992} produces bases of $\vectspace{P}_{n}$ consisting of polynomials of distinct degrees. A different criterion is involved in the next theorem.
+
+\begin{theorem}{}{020059}
+Let $f_{0}(x), f_{1}(x), \dots, f_{n}(x)$ be nonzero polynomials in $\vectspace{P}_{n}$. Assume that numbers $a_{0}, a_{1}, \dots, a_{n}$ exist such that
+\vspace*{-0.5em}
+\begin{align*}
+ f_i(a_i) &\neq 0 \quad \mbox{ for each } i \\
+ f_i(a_j) &= 0 \quad \mbox{ if } i \neq j
+\end{align*}
+Then
+
+\begin{enumerate}
+\item $\{f_{0}(x), \dots, f_{n}(x)\}$ is a basis of $\vectspace{P}_{n}$.
+
+\item If $f(x)$ is any polynomial in $\vectspace{P}_{n}$, its expansion as a linear combination of these basis vectors is
+\begin{equation*}
+f(x) = \frac{f(a_0)}{f_0(a_0)} f_0(x) + \frac{f(a_1)}{f_1(a_1)} f_1(x) + \dots + \frac{f(a_n)}{f_n(a_n)} f_n(x)
+\end{equation*}
+\vspace*{0.05em}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item It suffices (by Theorem~\ref{thm:019633}) to show that $\{f_{0}(x), \dots, f_{n}(x)\}$ is linearly independent (because $\func{dim} \vectspace{P}_{n} = n + 1$). Suppose that
+\begin{equation*}
+r_0f_0(x) + r_1f_1(x) + \dots + r_nf_n(x) = 0, r_i \in \RR
+\end{equation*}
+Because $f_{i}(a_{0}) = 0$ for all $i > 0$, taking $x = a_{0}$ gives $r_{0}f_{0}(a_{0}) = 0$. But then $r_{0} = 0$ because $f_{0}(a_{0}) \neq 0$. The proof that $r_{i} = 0$ for $i > 0$ is analogous.
+
+\item By (1), $f(x) = r_{0}f_{0}(x) + \dots + r_{n}f_{n}(x)$ for \textit{some} numbers $r_{i}$. Once again, evaluating at $a_{0}$ gives $f(a_{0}) = r_{0}f_{0}(a_{0})$, so $r_{0} = f(a_{0}) / f_{0}(a_{0})$. Similarly, $r_{i} = f(a_{i}) / f_{i}(a_{i})$ for each $i$.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\begin{example}{}{020121}
+Show that $\{x^{2} - x, x^{2} - 2x, x^{2} - 3x + 2\}$ is a basis of $\vectspace{P}_{2}$.
+
+\begin{solution}
+Write $f_{0}(x) = x^{2} - x = x(x - 1)$, $f_{1}(x) = x^{2} - 2x = x(x - 2)$, and $f_{2}(x) = x^{2} - 3x + 2 = (x - 1)(x - 2)$. Then the conditions of Theorem~\ref{thm:020059} are satisfied with $a_{0} = 2$, $a_{1} = 1$, and $a_{2} = 0$.
+\end{solution}
+\end{example}
+
+We investigate one natural choice of the polynomials $f_{i}(x)$ in Theorem~\ref{thm:020059}. To illustrate, let $a_{0}$, $a_{1}$, and $a_{2}$ be distinct numbers and write
+\begin{equation*}
+f_0(x) = \frac{(x - a_1)(x - a_2)}{(a_0 - a_1)(a_0 - a_2)}\quad 
+f_1(x) = \frac{(x - a_0)(x - a_2)}{(a_1 - a_0)(a_1 - a_2)}\quad 
+f_2(x) = \frac{(x - a_0)(x - a_1)}{(a_2 - a_0)(a_2 - a_1)} 
+\end{equation*}
+Then $f_{0}(a_{0}) = f_{1}(a_{1}) = f_{2}(a_{2}) = 1$, and $f_{i}(a_{j}) = 0$ for $i \neq j$. Hence Theorem~\ref{thm:020059} applies, and because $f_{i}(a_{i}) = 1$ for each $i$, the formula for expanding any polynomial is simplified.
+
+In fact, this can be generalized with no extra effort. If $a_{0}, a_{1}, \dots, a_{n}$ are distinct numbers, define the \textbf{Lagrange polynomials}\index{Lagrange polynomials}\index{polynomials!Lagrange polynomials} $\delta_{0}(x), \delta_{1}(x), \dots, \delta_{n}(x)$ relative to these numbers as follows:
+\begin{equation*}
+\delta_k(x) = \frac{\prod_{i \neq k}(x - a_i)}{\prod_{i \neq k}(a_k - a_i)}\quad
+k = 0, 1, 2, \dots, n
+\end{equation*}
+Here the numerator is the product of all the terms $(x - a_{0}), (x - a_{1}), \dots, (x - a_{n})$ with $(x - a_{k})$ omitted, and a similar remark applies to the denominator. If $n = 2$, these are just the polynomials in the preceding paragraph. For another example, if $n = 3$, the polynomial $\delta_{1}(x)$ takes the form
+\begin{equation*}
+\delta_1(x) = \frac{(x - a_0)(x - a_2)(x - a_3)}{(a_1 - a_0)(a_1 - a_2)(a_1 - a_3)}
+\end{equation*}
+In the general case, it is clear that $\delta_{i}(a_{i}) = 1$ for each $i$ and that $\delta_{i}(a_{j}) = 0$ if $i \neq j$. Hence Theorem~\ref{thm:020059} specializes as Theorem~\ref{thm:020177}.
+
+\begin{theorem}{Lagrange Interpolation Expansion}{020177}
+Let $a_{0}, a_{1}, \dots, a_{n}$ be distinct numbers. The corresponding set
+\begin{equation*}
+\{\delta_0(x), \delta_1(x), \dots, \delta_n(x) \}
+\end{equation*}
+of Lagrange polynomials is a basis of $\vectspace{P}_{n}$, and any polynomial $f(x)$ in $\vectspace{P}_{n}$ has the following unique expansion as a linear combination of these polynomials.
+\begin{equation*}
+f(x) = f(a_0)\delta_0(x) + f(a_1)\delta_1(x) + \dots + f(a_n)\delta_n(x)
+\end{equation*}\index{Lagrange interpolation expansion}
+\end{theorem}
+
+\begin{example}{}{020189}
+Find the Lagrange interpolation expansion for $f(x) = x^{2} - 2x + 1$ relative to $a_{0} = -1$, $a_{1} = 0$, and $a_{2} = 1$.
+
+\begin{solution}
+The Lagrange polynomials are
+\begin{align*}
+\delta_0 & = \frac{(x - 0)(x - 1)}{(-1 - 0)(-1 - 1)} = \frac{1}{2}(x^2 - x) \\
+\delta_1 & = \frac{(x + 1)(x - 1)}{( 0 + 1)( 0 - 1)} = -(x^2 - 1) \\
+\delta_2 & = \frac{(x + 1)(x - 0)}{( 1 + 1)( 1 - 0)} = \frac{1}{2}(x^2 + x)
+\end{align*}
+
+Because $f(-1) = 4$, $f(0) = 1$, and $f(1) = 0$, the expansion is
+\begin{equation*}
+f(x) = 2(x^2 - x) - (x^2 - 1)
+\end{equation*}
+\end{solution}
+\end{example}
+
+The Lagrange interpolation expansion gives an easy proof of the following important fact.
+
+\begin{theorem}{}{020203}
+Let $f(x)$ be a polynomial in $\vectspace{P}_{n}$, and let $a_{0}, a_{1}, \dots, a_{n}$ denote distinct numbers. If $f(a_{i}) = 0$ for all $i$, then $f(x)$ is the zero polynomial (that is, all coefficients are zero).
+\end{theorem}
+
+\begin{proof}
+All the coefficients in the Lagrange expansion of $f(x)$ are zero.
+\end{proof}
+
+\section*{Exercises for \ref{sec:6_5}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:6_5}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+If polynomials $f(x)$ and $g(x)$ satisfy $f(a) = g(a)$, show that $f(x) - g(x) = (x - a)h(x)$ for some polynomial $h(x)$.
+\end{ex}
+
+\medskip
+
+\noindent
+Exercises \ref{ex:6_5_2}, \ref{ex:6_5_3}, \ref{ex:6_5_4}, and \ref{ex:6_5_5} require polynomial differentiation.
+
+\begin{ex} \label{ex:6_5_2}
+Expand each of the following as a polynomial in powers of $x - 1$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $f(x) = x^{3} - 2x^{2} + x - 1$
+
+\item $f(x) = x^{3} + x + 1$
+
+\item $f(x) = x^{4}$
+
+\item $f(x) = x^{3} - 3x^{2} + 3x$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $3 + 4(x - 1) + 3(x - 1)^{2} + (x - 1)^{3}$
+
+\setcounter{enumi}{3}
+\item  $1 + (x - 1)^{3}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:6_5_3}
+Prove Taylor's theorem for polynomials.
+\end{ex}
+
+\begin{ex} \label{ex:6_5_4}
+Use Taylor's theorem to derive the \textbf{binomial theorem}\index{binomial theorem}:
+\begin{equation*}
+(1 + x)^n = 
+\binom{n}{0}
++
+\binom{n}{1}
+x +
+\binom{n}{2}
+x^2 + \dots +
+\binom{n}{n}
+x^n
+\end{equation*}
+Here the \textbf{binomial coefficients}\index{binomial coefficients}\index{coefficients!binomial coefficients} $\binom{n}{r}$ are defined by 
+\begin{equation*}
+\binom{n}{r} = \frac{n!}{r!(n - r)!}
+\end{equation*}
+where $n! = n(n - 1) \cdots 2 \cdot 1$ if $n \geq 1$ and $0! = 1$.
+\end{ex}
+
+\begin{ex} \label{ex:6_5_5}
+Let $f(x)$ be a polynomial of degree $n$. Show that, given any polynomial $g(x)$ in $\vectspace{P}_{n}$, there exist numbers $b_{0}, b_{1}, \dots, b_{n}$ such that
+\begin{equation*}
+g(x) = b_0f(x) + b_1f^{(1)}(x) + \dots + b_nf^{(n)}(x)
+\end{equation*}
+where $f^{(k)}(x)$ denotes the $k$th derivative of $f(x)$.
+\end{ex}
+
+\begin{ex}
+Use Theorem~\ref{thm:020059} to show that the following are bases of $\vectspace{P}_{2}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{x^{2} - 2x, x^{2} + 2x, x^{2} - 4\}$
+
+\item $\{x^{2} - 3x + 2, x^{2} - 4x + 3, x^{2} - 5x + 6\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The polynomials are $(x - 1)(x - 2)$, $(x - 1)(x - 3)$, $(x - 2)(x - 3)$. Use $a_{0} = 3$, $a_{1} = 2$, and $a_{2} = 1$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the Lagrange interpolation expansion of $f(x)$ relative to $a_{0} = 1$, $a_{1} = 2$, and $a_{2} = 3$ if:
+
+\begin{exenumerate}
+\exitem $f(x) = x^{2} + 1$
+\exitem $f(x) = x^{2} + x + 1$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $f(x) = \frac{3}{2}(x - 2)(x - 3) - 7(x - 1)(x - 3) + \frac{13}{2}(x - 1)(x - 2)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $a_{0}, a_{1}, \dots, a_{n}$ be distinct numbers. If $f(x)$ and $g(x)$ in $\vectspace{P}_{n}$ satisfy $f(a_{i}) = g(a_{i})$ for all $i$, show that $f(x) = g(x)$. [\textit{Hint}: See Theorem~\ref{thm:020203}.]
+\end{ex}
+
+\begin{ex}
+Let $a_{0}, a_{1}, \dots, a_{n}$ be distinct numbers. If $f(x) \in \vectspace{P}_{n+1}$ satisfies $f(a_{i}) = 0$ for each $i = 0, 1, \dots, n$, show that $f(x) = r(x - a_{0})(x - a_{1}) \cdots (x - a_{n})$ for some $r$ in $\RR$. [\textit{Hint}: $r$ is the coefficient of $x^{n+1}$ in $f(x)$. Consider $f(x) - r(x - a_{0}) \cdots (x - a_{n})$ and use Theorem~\ref{thm:020203}.]
+\end{ex}
+
+\begin{ex} \label{ex:6_5_10}
+Let $a$ and $b$ denote distinct numbers.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\{(x - a), (x - b)\}$ is a basis of $\vectspace{P}_{1}$.
+
+\item Show that $\{(x - a)^{2}, (x - a)(x - b), (x - b)^{2}\}$ is a basis of $\vectspace{P}_{2}$.
+
+\item Show that $\{(x - a)^{n}, (x - a)^{n-1}(x - b), \\ \dots, (x - a)(x - b)^{n-1}, (x - b)^{n}\}$ is a basis of $\vectspace{P}_{n}$. [\textit{Hint}: If a linear combination vanishes, evaluate at $x = a$ and $x = b$. Then reduce to the case $n - 2$ by using the fact that if $p(x)q(x) = 0$ in $\vectspace{P}$, then either $p(x) = 0$ or $q(x) = 0$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $r(x - a)^{2} + s(x - a)(x - b) + t(x - b)^{2} = 0$, then evaluation at $x = a (x = b)$ gives $t = 0 (r = 0)$. Thus $s(x - a)(x - b) = 0$, so $s = 0$. Use Theorem~\ref{thm:019633}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $a$ and $b$ be two distinct numbers. Assume that $n \geq 2$ and let
+\begin{equation*}
+U_n = \{f(x) \mbox{ in } \vectspace{P}_n \mid f(a) = 0 = f(b) \}.
+\end{equation*}
+\begin{enumerate}[label={\alph*.}]
+\item Show that
+\begin{equation*}
+U_n = \{(x - a)(x - b)p(x) \mid p(x) \mbox{ in } \vectspace{P}_{n - 2} \}
+\end{equation*}
+\item Show that $\func{dim} U_{n} = n - 1$.
+
+[\textit{Hint}: If $p(x)q(x) = 0$ in $\vectspace{P}$, then either $p(x) = 0$, or $q(x) = 0$.]
+
+\item Show $\{(x - a)^{n-1}(x - b), (x - a)^{n-2}(x - b)^{2}, \\ \dots, (x - a)^{2}(x - b)^{n-2}, (x - a)(x - b)^{n-1}\}$ is a basis of $U_{n}$. [\textit{Hint}: Exercise \ref{ex:6_5_10}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Suppose $\{p_{0}(x), p_{1}(x), \dots, p_{n-2}(x)\}$ is a basis of $\vectspace{P}_{n-2}$. We show that $\{(x - a)(x - b)p_{0}(x), (x - a)(x - b)p_{1}(x), \dots, (x - a)(x - b)p_{n-2}(x)\}$ is a basis of $U_{n}$. It is a spanning set by part \textbf{(a)}, so assume that a linear combination vanishes with coefficients $r_{0}, r_{1}, \dots, r_{n-2}$. Then $(x - a)(x - b)[r_{0}p_{0}(x) + \dots + r_{n-2}p_{n-2}(x)] = 0$, so $r_{0}p_{0}(x) + \dots + r_{n-2}p_{n-2}(x) = 0$ by the Hint. This implies that $r_{0} = \dots = r_{n-2} = 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+\end{multicols}

@@ -1,0 +1,14 @@
+
+\begin{tikzpicture}
+\filldraw[color=dkgreenvect, fill=ltgreenvect!60!white, thick] (0,0)--(1.2,0.75)--(3,0)--(1.9,-1)--cycle;
+\draw[dkgreenvect,thick,-latex] (0.9,-0.25)--(2.2,-0.25);
+\draw[dkgreenvect,thick,-latex] (2.2,-0.25)--(2.2,1.25);
+\draw[dkgreenvect,thick, -latex] (0.9,-0.25)--(2.2,1.25) node[pos=0.75,above,font=\scriptsize, text=black]{$\vect{v}$};
+\draw[dkgreenvect](2.05,-0.25)--(2.05,-0.05)--(2.2,-0.05);
+\fill[dkgreenvect] (0.9,-0.25) circle (1.5pt) ;
+\node[right, font=\scriptsize] at (2.2,0.5){$\vect{v}-\proj{U}{\vect{v}}$};
+\node[below,font=\scriptsize] at (1.75,-0.2){$\proj{U}{\vect{v}}$};
+\node[font=\scriptsize] at (0.7,-0.2){$\vect{0}$};
+\node[left,font=\scriptsize] at (1.25,-0.75){$U$};
+\end{tikzpicture}
+

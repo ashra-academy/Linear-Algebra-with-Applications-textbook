@@ -1,0 +1,412 @@
+
+Suppose one is presented with the following sequence of equations:
+\begin{align*}
+1 &=1 \\
+1 + 3 &=4 \\
+1 + 3 + 5 &=9 \\
+1 + 3 + 5 + 7 &=16 \\
+1 + 3 + 5 + 7 + 9 &=25 
+\end{align*}
+It is clear that there is a pattern. The numbers on the right side of the equations are the squares $1^{2}$, $2^{2}$, $3^{2}$, $4^{2}$, and $5^{2}$ and, in the equation with $n^{2}$ on the right side, the left side is the sum of the first $n$ odd numbers. The odd numbers are
+\begin{align*}
+1 &= 2 \cdot 1 -1 \\
+3 &= 2 \cdot 2 -1 \\
+5 &= 2 \cdot 3 -1 \\
+7 &= 2 \cdot 4 -1 \\
+9 &= 2 \cdot 5 -1
+\end{align*}
+and from this it is clear that the $n$th odd number is $2n - 1$. Hence, at least for $n = 1$, $2$, $3$, $4$, or $5$, the following is true:
+\begin{equation}\label{eq:induction}
+1 + 3 + \cdots + (2n-1) = n^2 \tag{$S_n$}
+\end{equation}
+The question arises whether the statement \ref{eq:induction} is true for \textit{every} $n$.
+ There is no hope of separately verifying all these statements because 
+there are infinitely many of them. A more subtle approach is required.
+
+
+The idea is as follows: Suppose it is verified that the statement $S_{n+1}$ will be true whenever $S_{n}$ is true. That is, suppose we prove that, \textit{if} $S_{n}$ is true, then it necessarily follows that $S_{n+1}$ is also true. Then, if we can show that $S_{1}$ is true, it follows that $S_{2}$ is true, and from this that $S_{3}$ is true, hence that $S_{4}$
+ is true, and so on and on. This is the principle of induction. To 
+express it more compactly, it is useful to have a short way to express 
+the assertion ``If $S_{n}$ is true, then $S_{n+1}$ is true.'' As in Appendix \ref{chap:appbproofs}, we write this assertion as
+\begin{equation*}
+S_n \Rightarrow S_{n+1}
+\end{equation*}
+and read it as `` $S_{n}$ implies $S_{n+1}$.'' We can now state the principle of mathematical induction.
+
+\newpage
+\begin{theorem*}{The Principle of Mathematical Induction}{034881}
+Suppose $S_{n}$ is a statement about the natural number $n$ for each $n = 1, 2, 3, \dots$.\index{induction!mathematical induction}\index{mathematical induction}
+
+
+Suppose further that:
+
+
+\begin{enumerate}
+\item $S_{1}$ is true.
+
+\item $S_{n} \Rightarrow S_{n+1}$ for every $n \geq 1$.
+
+\end{enumerate}
+
+Then $S_{n}$ is true for every $n \geq 1$.
+\end{theorem*}
+
+\noindent This is one of the most useful 
+techniques in all of mathematics. It applies in a wide variety of 
+situations, as the following examples illustrate.
+
+
+\begin{example}{}{034897}
+Show that $1 + 2 + \dots + n = \frac{1}{2}n(n + 1)$ for $n \geq 1$.
+
+
+\begin{solution}
+  Let $S_{n}$ be the statement: $1 + 2 + \dots  + n = \frac{1}{2}n(n + 1)$ for $n \geq 1$. We apply induction.
+\begin{enumerate}
+\item $S_{1}$ is true. The statement $S_{1}$ is $1 = \frac{1}{2}1(1 + 1)$, which is true.
+
+\item $S_{n} \Rightarrow S_{n+1}$. We \textit{assume} that $S_{n}$ is true for some $n \geq 1$---that is, that
+\begin{equation*}
+1+ 2 + \cdots + n = \frac{1}{2} n(n+1)
+\end{equation*}
+\end{enumerate}
+We must prove that the statement
+\begin{equation*}
+S_{n+1} : 1 + 2 + \cdots + (n+1) = \frac{1}{2} (n+1)(n+2)
+\end{equation*}
+is also true, and we are entitled to use $S_{n}$ to do so. Now the left side of $S_{n+1}$ is the sum of the first $n + 1$ positive integers. Hence the second-to-last term is $n$, so we can write
+\begin{align*}
+1 + 2 + \cdots + (n+1) & = (1 + 2+ \cdots + n)+(n+1) \\
+&= \frac{1}{2} n(n+1) + (n+1) \quad \mbox{using } S_n \\
+& = \frac{1}{2}(n+1)(n+2)
+\end{align*}
+This shows that $S_{n+1}$ is true and so completes the induction.
+\end{solution}
+\end{example}
+
+In the verification that $S_{n} \Rightarrow S_{n+1}$, we \textit{assume} that $S_{n}$ is true and use it to deduce that $S_{n+1}$ is true. The assumption that $S_{n}$ is true is sometimes called the \textbf{induction hypothesis}\index{induction hypothesis}.
+
+
+\begin{example}{}{034928}
+If $x$ is any number such that $x \neq 1$, show that $1 + x + x^2 + \cdots + x^n = \frac{x^{n+1}-1}{x-1}$ for $n \geq 1$.
+
+
+\begin{solution}
+  Let $S_{n}$ be the statement: $1 + x + x^2 + \cdots + x^n = \frac{x^{n+1}-1}{x-1}$.
+
+
+\begin{enumerate}
+\item $S_{1}$ is true. $S_{1}$ reads $ 1+x = \frac{x^2 -1}{x-1}$, which is true because $x^{2} - 1 = (x - 1)(x + 1)$.
+
+\item $S_{n} \Rightarrow S_{n+1}$. Assume the truth of $S_{n}$ : $1 + x + x^{2} + \dots  + x^n = \frac{x^{n+1}-1}{x-1}$.
+
+\end{enumerate}
+
+We must \textit{deduce} from this the truth of $S_{n+1}$: $1 + x + x^{2} + \cdot + x^{n+1} = \frac{x^{n+2}-1}{x-1}$. Starting with the left side of $S_{n+1}$ and using the induction hypothesis, we find
+\begin{align*}
+1 +x + x^2 + \cdots + x^{n+1} & = (1 + x + x^2 + \cdots + x^n) + x^{n+1} \\
+&= \frac{x^{n+1} -1 }{x-1} + x^{n+1} \\
+&= \frac{x^{n+1} -1 + x^{n+1}(x-1)}{x-1} \\
+&= \frac{x^{n+2}-1}{x-1} 
+\end{align*}
+
+This shows that $S_{n+1}$ is true and so completes the induction.
+\end{solution}
+\end{example}
+
+Both of these examples involve formulas for a certain sum, and it is often convenient to use summation notation. For example, $ \sum_{k=1}^{n} (2k-1)$ means that in the expression $(2k - 1)$, $k$ is to be given the values $k = 1, k = 2, k = 3, \dots , k = n$, and then the resulting $n$ numbers are to be added. The same thing applies to other expressions involving $k$. For example,
+\begin{align*}
+\sum_{k=1}^{n} k^3 &=1^3 + 2^3 + \cdots + n^3 \\
+ \sum_{k=1}^{5} (3k-1) &= (3 \cdot 1 -1) + (3 \cdot 2 - 1) + (3 \cdot 3 - 1) +(3 \cdot 4 - 1) + (3 \cdot 5 - 1)
+\end{align*}
+The next example involves this notation.
+
+
+\begin{example}{}{034966}
+Show that $\sum_{k=1}^{n} (3k^2-k) = n^2(n+1)$ for each $n \geq 1$.
+
+
+\begin{solution}
+  Let $S_{n}$ be the statement: $\sum_{k=1}^{n} (3k^2-k) = n^2(n+1)$.
+
+
+\begin{enumerate}
+\item $S_{1}$ is true. $S_{1}$ reads $(3 \cdot 1^2 - 1) = 1^{2}(1 + 1)$, which is true.
+
+\item $S_{n} \Rightarrow S_{n+1}$. Assume that $S_{n}$ is true. We must prove $S_{n+1}$:
+\begin{align*}
+\sum_{k=1}^{n+1} (3k^2-k) &= \sum_{k=1}^{n}(3k^2-k) + [3(n+1)^2 - (n+1)] \\
+& = n^2(n+1)+(n+1)[3(n+1)-1] \tag{using $S_n$} \\
+& = (n+1)[n^2 + 3n+2]\\
+& = (n+1)[(n+1)(n+2)] \\
+& = (n+1)^2(n+2)
+\end{align*}
+\end{enumerate}
+
+This proves that $S_{n+1}$ is true.
+\end{solution}
+\end{example}
+
+\noindent We now turn to examples wherein induction is used to prove propositions that do not involve sums.
+
+
+\begin{example}{}{034992}
+Show that $7^n + 2$ is a multiple of $3$ for all $n \geq 1$.
+
+
+\begin{solution}
+  
+
+
+\begin{enumerate}
+\item $S_{1}$ is true: $7^1 + 2 = 9$ is a multiple of $3$.
+
+\item $S_{n} \Rightarrow S_{n+1}$. Assume that $7^n + 2$ is a multiple of $3$ for some $n \geq 1$; say, $7^n + 2 = 3m$ for some integer $m$. Then
+\begin{equation*}
+7^{n+1} +2 = 7(7^n) +2 = 7(3m-2)+2 = 21m-12 = 3(7m-4)
+\end{equation*}
+so $7^{n+1} + 2$ is also a multiple of $3$. This proves that $S_{n+1}$ is true.
+
+\end{enumerate}
+\end{solution}
+\end{example}
+
+In all the foregoing examples, we have used the principle of induction starting at $1$; that is, we have verified that $S_{1}$ is true and that $S_{n} \Rightarrow S_{n+1}$ for each $n \geq 1$, and then we have concluded that $S_{n}$ is true for every $n \geq 1$. But there is nothing special about $1$ here. If $m$ is some fixed integer and we verify that
+
+
+\begin{enumerate}
+\item $S_{m}$ is true.
+
+\item $S_{n} \Rightarrow S_{n+1}$ for every $n \geq m$.
+
+\end{enumerate}
+
+\noindent then it follows that $S_{n}$ is true for every $n \geq m$.
+ This ``extended'' induction principle is just as plausible as the 
+induction principle and can, in fact, be proved by induction. The next 
+example will illustrate it. Recall that if $n$ is a positive integer, the number $n!$ (which is read ``$n$-factorial'') is the product
+\begin{equation*}
+n! = n(n-1)(n-2)\cdots 3 \cdot 2 \cdot 1
+\end{equation*}
+of all the numbers from $n$ to $1$. Thus $2! = 2$, $3! = 6$, and so on.
+
+
+\begin{example}{}{035027}
+Show that $2^n < n!$ for all $n \geq 4$.
+
+
+\begin{solution}
+  Observe that $2^n < n!$ is actually false if $n = 1, 2, 3$.
+
+
+\begin{enumerate}
+\item $S_{4}$ is true. $2^4 = 16 < 24 = 4!$.
+
+\item $S_{n} \Rightarrow S_{n+1}$ if $n \geq 4$. Assume that $S_{n}$ is true; that is, $2^n < n!$. Then
+\begin{equation*}
+\begin{array}{rcll}
+2^{n+1} & = &2 \cdot 2^n &\\
+ & < &2 \cdot n! & \mbox{because } 2^n < n! \\
+ & < &(n+1)n! & \mbox{because } 2<n+1\\
+&= &(n+1)! &
+\end{array}
+\end{equation*}
+\end{enumerate}
+
+Hence $S_{n+1}$ is true.
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{chap:appcinduction}}
+
+\begin{Filesave}{solutions}
+\solsection{Appendix~\ref{chap:appcinduction}}
+\end{Filesave}
+
+\begin{multicols}{2}
+
+\noindent In Exercises 1--19, prove the given statement by induction for all $n \ge 1$.
+
+\begin{ex}
+$1 + 3 + 5 + 7 + \dots  + (2n - 1) = n^{2}$
+\end{ex}
+
+\begin{ex}
+$1^2 + 2^2 + \cdots + n^2 = \frac{1}{6}n(n+1)(2n+1)$
+\end{ex}
+
+\begin{ex}
+$1^{3} + 2^{3} + \dots  + n^{3} = (1 + 2 + \dots  + n)^{2}$
+\end{ex}
+
+\begin{ex}
+$1 \cdot 2 + 2 \cdot 3 + \cdots + n(n+1) \\
+= \frac{1}{3} n (n+1)(n+2)$
+\end{ex}
+
+\begin{ex}
+$1 \cdot 2^2 + 2 \cdot 3^2 + \cdots + n(n+1)^2 \\
+= \frac{1}{12} n(n+1)(n+2)(3n+5)$ 
+\end{ex}
+
+\begin{ex}
+$\frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \cdots + \frac{1}{n(n+1)} = \frac{n}{n+1}$
+
+\begin{sol}
+$\frac{n}{n+1} + \frac{1}{(n+1)(n+2)} = \frac{n(n+2)+1}{(n+1)(n+2)} = \frac{(n+1)^2}{(n+1)(n+2)} = \frac{n+1}{n+2}$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+$1^2 + 3^2 + \cdots + (2n-1)^2 = \frac{n}{3} (4n^2 -1)$
+\end{ex}
+
+\begin{ex}
+$\frac{1}{1 \cdot 2 \cdot 3} + \frac{1}{2 \cdot 3 \cdot 4} + \cdots + \frac{1}{n(n+1)(n+2)} \\
+= \frac{n(n+3)}{4(n+1)(n+2)}$
+\end{ex}
+
+\begin{ex}
+$1 + 2 + 2^{2} + \dots  + 2^{n-1} = 2^{n} - 1$
+\end{ex}
+
+\begin{ex}
+$3 + 3^3 + 3^5 + \cdots + 3^{2n-1} = \frac{3}{8} (9^n-1)$
+\end{ex}
+
+\begin{ex}
+$\frac{1}{1^2} + \frac{1}{2^2} + \cdots + \frac{1}{n^2} \leq 2 - \frac{1}{n}$
+\end{ex}
+
+\begin{ex}
+$n < 2^{n}$
+\end{ex}
+
+\begin{ex}
+For any integer $m > 0$, $m!n! < (m + n)!$
+\end{ex}
+
+\begin{ex}
+$\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \cdots + \frac{1}{\sqrt{n}} \leq 2\sqrt{n}-1$
+
+
+\begin{sol}
+$2\sqrt{n} - 1 + \frac{1}{\sqrt{n+1}} = \frac{2\sqrt{n^2+n}+1}{\sqrt{n+1}} - 1 < \frac{2(n+1)}{\sqrt{n+1}}-1 = 2\sqrt{n+1}-1$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+$\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \cdots + \frac{1}{\sqrt{n}} \geq \sqrt{n}$
+\end{ex}
+
+\begin{ex}
+$n^{3} + (n + 1)^{3} + (n + 2)^{3}$ is a multiple of $9$.
+\end{ex}
+
+\begin{ex}
+$5n + 3$ is a multiple of $4$.
+\end{ex}
+
+\begin{ex}
+$n^{3} - n$ is a multiple of $3$.
+
+\begin{sol}
+If $n^{3} -n = 3k$, then $(n + 1)^{3} - (n + 1) = 3k + 3n^{2} + 3n = 3(k + n^{2} + n)$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+$3^{2n+1} + 2^{n+2}$ is a multiple of $7$.
+\end{ex}
+
+\begin{ex}
+Let $B_{n} = 1 \cdot 1! + 2 \cdot 2! + 3 \cdot 3! + \dots  + n \cdot n$! Find a formula for $B_{n}$ and prove it.
+
+\begin{sol}
+$B_{n} = (n + 1)! - 1$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let 
+\begin{equation*}
+A_n = (1-\frac{1}{2})(1-\frac{1}{3})(1-\frac{1}{4})\cdots (1-\frac{1}{n})
+\end{equation*}
+Find a formula for $A_n$ and prove it.
+\end{ex}
+
+\begin{ex}
+Suppose $S_{n}$ is a statement about $n$ for each $n \geq 1$. Explain what must be done to prove that $S_{n}$ is true for all $n \geq 1$ if it is known that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item  $S_{n} \Rightarrow S_{n+2}$ for each $n \geq 1$.
+
+\item $S_{n} \Rightarrow S_{n+8}$ for each $n \geq 1$.
+
+\item $S_{n} \Rightarrow S_{n+1}$ for each $n \geq 10$.
+
+\item Both $S_{n}$ and $S_{n+1} \Rightarrow S_{n+2}$ for each $n \geq 1$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Verify each of $S_{1}, S_{2}, \dots, S_{8}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $S_{n}$ is a statement for each $n \geq 1$, argue that $S_{n}$ is true for all $n \geq 1$ if it is known that the following two conditions hold:
+
+
+\begin{enumerate}
+\item $S_{n} \Rightarrow S_{n-1}$ for each $n \geq 2$.
+
+\item $S_{n}$ is true for infinitely many values of $n$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Suppose a sequence $a_{1}, a_{2}, \dots$  of numbers is given that satisfies:
+
+
+\begin{enumerate}
+\item $a_{1} = 2$.
+
+\item $a_{n+1} = 2a_{n}$ for each $n \geq 1$.
+
+
+Formulate a theorem giving $a_{n}$ in terms of $n$, and prove your result by induction.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Suppose a sequence $a_{1}, a_{2}, \dots$  of numbers is given that satisfies:
+
+
+\begin{enumerate}
+\item $a_{1} = b$.
+
+\item $a_{n+1} = ca_{n} + b$ for $n = 1, 2, 3, \dots$.
+
+
+Formulate a theorem giving $a_{n}$ in terms of $n$, and prove your result by induction.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $n^{2} \leq 2^{n}$ for all $n \geq 4$.
+
+\item Show that $n^{3} \leq 2^{n}$ for all $n \geq 10$.
+
+\end{enumerate}
+\end{ex}
+
+\end{multicols}

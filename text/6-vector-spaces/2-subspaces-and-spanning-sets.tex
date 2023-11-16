@@ -1,0 +1,670 @@
+\section{Subspaces and Spanning Sets}
+\label{sec:6_2}
+
+\noindent Chapter \ref{chap:5} is essentially about the subspaces of $\RR^n$. We now extend this notion.
+
+\begin{definition}{Subspaces of a Vector Space}{018059}
+If $V$ is a vector space, a nonempty subset $U \subseteq V$ is called a \textbf{subspace}\index{subspaces!defined} of $V$ if $U$ is itself a vector space using the addition and scalar multiplication of $V$.\index{subspaces!vector spaces}\index{vector spaces!subspaces}
+\end{definition}
+
+\noindent Subspaces of $\RR^n$ (as defined in Section~\ref{sec:5_1}) are subspaces in the present sense by Example~\ref{exa:017680}. Moreover, the defining properties for a subspace of $\RR^n$ actually \textit{characterize} subspaces in general.
+
+\newpage
+\begin{theorem}{Subspace Test}{018065}%
+A subset $U$ of a vector space is a subspace of $V$ if and only if it satisfies the following three conditions:\index{subspace test}\index{subspaces!subspace test}
+
+\begin{enumerate}
+\item $\vect{0}$ lies in $U$ where $\vect{0}$ is the zero vector of $V$.
+
+\item If $\vect{u}_{1}$ and $\vect{u}_{2}$ are in $U$, then $\vect{u}_{1} + \vect{u}_{2}$ is also in $U$.
+
+\item If $\vect{u}$ is in $U$, then $a\vect{u}$ is also in $U$ for each scalar $a$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+If $U$ is a subspace of $V$, then (2) and (3) hold by axioms A1 and S1 respectively, applied to the vector space $U$. Since $U$ is nonempty (it is a vector space), choose $\vect{u}$ in $U$. Then (1) holds because $\vect{0} = 0\vect{u}$ is in $U$ by (3) and Theorem~\ref{thm:017797}.
+
+Conversely, if (1), (2), and (3) hold, then axioms A1 and S1 hold because of (2) and (3), and axioms A2, A3, S2, S3, S4, and S5 hold in $U$ because they hold in $V$. Axiom A4 holds because the zero vector $\vect{0}$ of $V$ is actually in $U$ by (1), and so serves as the zero of $U$. Finally, given $\vect{u}$ in $U$, then its negative $-\vect{u}$ in $V$ is again in $U$ by (3) because $-\vect{u} = (-1)\vect{u}$ (again using Theorem~\ref{thm:017797}). Hence $-\vect{u}$ serves as the negative of $\vect{u}$ in $U$.
+\end{proof}
+
+\noindent Note that the proof of Theorem~\ref{thm:018065} shows that if $U$ is a subspace of $V$, then $U$ and $V$ share the same zero vector, and that the negative of a vector in the space $U$ is the same as its negative in $V$.
+
+\begin{example}{}{018086}
+If $V$ is any vector space, show that $\{\vect{0}\}$ and $V$ are subspaces of $V$.
+
+\begin{solution}
+$U = V$ clearly satisfies the conditions of the subspace test. As to $U = \{\vect{0}\}$, it satisfies the conditions because $\vect{0} + \vect{0} = \vect{0}$ and $a\vect{0} = \vect{0}$ for all $a$ in $\RR$.
+\end{solution}
+\end{example}
+
+The vector space $\{\vect{0}\}$ is called the \textbf{zero subspace}\index{zero subspace}\index{subspaces!zero subspace} of $V$.
+
+\begin{example}{}{018093}
+Let $\vect{v}$ be a vector in a vector space $V$. Show that the set
+\begin{equation*}
+\RR\vect{v} = \{a\vect{v} \mid a \mbox{ in } \RR \}
+\end{equation*}
+of all scalar multiples of $\vect{v}$ is a subspace of $V$.
+
+\begin{solution}
+Because $\vect{0} = 0\vect{v}$, it is clear that $\vect{0}$ lies in $\RR\vect{v}$. Given two vectors $a\vect{v}$ and $a_{1}\vect{v}$ in $\RR\vect{v}$, their sum $a\vect{v} + a_{1}\vect{v} = (a + a_{1})\vect{v}$ is also a scalar multiple of $\vect{v}$ and so lies in $\RR\vect{v}$. Hence $\RR\vect{v}$ is closed under addition. Finally, given $a\vect{v}$, $r(a\vect{v}) = (ra)\vect{v}$ lies in $\RR\vect{v}$ for all $r \in \RR$, so $\RR\vect{v}$ is closed under scalar multiplication. Hence the subspace test applies.
+\end{solution}
+\end{example}
+
+\noindent In particular, given $\vect{d} \neq \vect{0}$ in $\RR^{3}$, $\RR\vect{d}$ is the line through the origin with direction vector $\vect{d}$.
+
+The space $\RR\vect{v}$ in Example~\ref{exa:018093} is described by giving the \textit{form} of each vector in $\RR\vect{v}$. The next example describes a subset $U$ of the space $\vectspace{M}_{nn}$ by giving a \textit{condition} that each matrix of $U$ must satisfy.
+
+\begin{example}{}{018107}
+Let $A$ be a fixed matrix in $\vectspace{M}_{nn}$. Show that $U = \{X\mbox{ in } \vectspace{M}_{nn} \mid AX = XA\}$ is a subspace of $\vectspace{M}_{nn}$.
+
+\begin{solution}
+If $0$ is the $n \times n$ zero matrix, then $A0 = 0A$, so $0$ satisfies the condition for membership in $U$. Next suppose that $X$ and $X_{1}$ lie in $U$ so that $AX = XA$ and $AX_{1} = X_{1}A$. Then
+\begin{align*}
+A(X + X_1) 	&= AX + AX_1 = XA + X_1A + (X + X_1)A \\
+A(aX) 		&= a(AX) = a(XA) = (aX)A
+\end{align*}
+for all $a$ in $\RR$, so both $X + X_{1}$ and $aX$ lie in $U$. Hence $U$ is a subspace of $\vectspace{M}_{nn}$.
+\end{solution}
+\end{example}
+
+Suppose $p(x)$ is a polynomial and $a$ is a number. Then the number $p(a)$ obtained by replacing $x$ by $a$ in the expression for $p(x)$ is called the \textbf{evaluation}\index{evaluation}\index{polynomials!evaluation} of $p(x)$ at $a$. For example, if $p(x) = 5 - 6x + 2x^{2}$, then the evaluation of $p(x)$ at $a = 2$ is $p(2) = 5 - 12 + 8 = 1$. If $p(a) = 0$, the number $a$ is called a \textbf{root}\index{root!of polynomials} of $p(x)$.
+
+\begin{example}{}{018124}
+Consider the set $U$ of all polynomials in $\vectspace{P}$ that have $3$ as a root:
+\begin{equation*}
+U = \{p(x) \in \vectspace{P} \mid p(3) = 0 \}
+\end{equation*}
+Show that $U$ is a subspace of $\vectspace{P}$.
+
+\begin{solution}
+  Clearly, the zero polynomial lies in $U$. Now let $p(x)$ and $q(x)$ lie in $U$ so $p(3) = 0$ and $q(3) = 0$. We have $(p + q)(x) = p(x) + q(x)$ for all $x$, so $(p + q)(3) = p(3) + q(3) = 0 + 0 = 0$, and $U$ is closed under addition. The verification that $U$ is closed under scalar multiplication is similar.
+\end{solution}
+\end{example}
+
+Recall that the space $\vectspace{P}_{n}$ consists of all polynomials of the form
+\begin{equation*}
+a_0 + a_1x + a_2x^2 + \dots + a_nx^n
+\end{equation*}
+where $a_{0}, a_{1}, a_{2}, \dots, a_{n}$ are real numbers, and so is closed under the addition and scalar multiplication in $\vectspace{P}$. Moreover, the zero polynomial is included in $\vectspace{P}_{n}$. Thus the subspace test gives Example~\ref{exa:018140}. 
+
+\begin{example}{}{018140}
+$\vectspace{P}_{n}$ is a subspace of $\vectspace{P}$ for each $n \geq 0$.
+\end{example}
+
+The next example involves the notion of the derivative $f^\prime$ of a function $f$. (If the reader is not familiar with calculus, this example may be omitted.) A function $f$ defined on the interval $[a, b]$ is called \textbf{differentiable}\index{differentiable function}\index{function!differentiable function} if the derivative $f^\prime(r)$ exists at every $r$ in $[a, b]$.
+
+\begin{example}{}{018145}
+Show that the subset $\vectspace{D}[a, b]$ of all \textbf{differentiable functions} on $[a, b]$ is a subspace of the vector space $\vectspace{F}[a, b]$ of all functions on $[a, b]$.
+
+\begin{solution}
+The derivative of any constant function is the constant function $0$; in particular, $0$ itself is differentiable and so lies in $\vectspace{D}[a, b]$. If $f$ and $g$ both lie in $\vect{D}[a, b]$ (so that $f^\prime$ and $g^\prime$ exist), then it is a theorem of calculus that $f + g$ and $rf$ are both differentiable for any $r \in \RR$. In fact, $(f + g)^\prime = f^\prime + g^\prime$ and $(rf)^\prime = rf^\prime$, so both lie in $\vectspace{D}[a, b]$. This shows that $\vectspace{D}[a, b]$ is a subspace of $\vectspace{F}[a, b]$.
+\end{solution}
+\end{example}
+
+\subsection*{Linear Combinations and Spanning Sets}
+\begin{definition}{Linear Combinations and Spanning}{018153}
+Let $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ be a set of vectors in a vector space $V$. As in $\RR^n$, a vector $\vect{v}$ is called a \textbf{linear  combination}\index{linear combinations!vectors} of the vectors $\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}$  if it can be expressed in the form
+
+\begin{equation*}
+\vect{v} = a_1\vect{v}_1 + a_2\vect{v}_2 + \dots + a_n\vect{v}_n
+\end{equation*}
+where $a_{1}, a_{2}, \dots, a_{n}$ are scalars, called the \textbf{coefficients}\index{coefficients!linear combination}\index{coefficients!of vectors} of $\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}$. The set of all linear combinations of these vectors is called their \textbf{span}\index{span}, and is denoted by
+\begin{equation*}
+\func{span}\{\vect{v}_1, \vect{v}_2, \dots, \vect{v}_n\} = \{ a_1\vect{v}_1 + a_2\vect{v}_2 + \dots + a_n\vect{v}_n \mid a_i \mbox{ in } \RR \}
+\end{equation*}
+\end{definition}
+
+\noindent If it happens that $V = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$, these vectors are called a \textbf{spanning set}\index{linear combinations!spanning sets}\index{spanning sets}\index{vector spaces!spanning sets} for $V$. For example, the span of two vectors $\vect{v}$ and $\vect{w}$ is the set
+\begin{equation*}
+\func{span}\{\vect{v}, \vect{w} \} = \{s\vect{v} + t\vect{w} \mid s \mbox{ and } t \mbox{ in } \RR \}
+\end{equation*}
+of all sums of scalar multiples of these vectors.
+
+\begin{example}{}{018176}
+Consider the vectors $p_{1} = 1 + x + 4x^{2}$ and $p_{2} = 1 + 5x + x^{2}$ in $\vectspace{P}_{2}$. Determine whether $p_{1}$ and $p_{2}$ lie in $\func{span}\{1 + 2x - x^{2}, 3 + 5x + 2x^{2}\}$.
+
+\begin{solution}
+For $p_{1}$, we want to determine if $s$ and $t$ exist such that
+\begin{equation*}
+p_1 = s(1 + 2x - x^2) + t(3 + 5x + 2x^2)
+\end{equation*}
+Equating coefficients of powers of $x$ (where $x^{0} = 1$) gives
+\begin{equation*}
+1 = s + 3t,\quad 1 = 2s + 5t, \quad \mbox{ and } \quad 4 = -s + 2t
+\end{equation*}
+These equations have the solution $s = -2$ and $t = 1$, so $p_{1}$ is indeed in $\func{span}\{1 + 2x - x^{2}, 3 + 5x + 2x^{2}\}$.
+
+Turning to $p_{2} = 1 + 5x + x^{2}$, we are looking for $s$ and $t$ such that 
+\begin{equation*}
+p_{2} = s(1 + 2x - x^{2}) + t(3 + 5x + 2x^{2})
+\end{equation*}
+ Again equating coefficients of powers of $x$ gives equations $1 = s + 3t$, $5 = 2s + 5t$, and $1 = -s + 2t$. But in this case there is no solution, so $p_{2}$ is \textit{not} in $\func{span}\{1 + 2x - x^{2}, 3 + 5x + 2x^{2}\}$.
+\end{solution}
+\end{example}
+
+We saw in Example~\ref{exa:013694} that $\RR^m = \func{span}\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{m}\}$ where the vectors $\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{m}$ are the columns of the $m \times m$ identity matrix. Of course $\RR^m = \vectspace{M}_{m1}$ is the set of all $m \times 1$ matrices, and there is an analogous spanning set for each space $\vectspace{M}_{mn}$. For example, each $2 \times 2$ matrix has the form
+\begin{equation*}
+\leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB
+= a \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB
++ b \leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB
++ c \leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB
++ d \leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB
+\end{equation*}
+so
+\begin{equation*}
+\vectspace{M}_{22} = \func{span}
+\left \{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB, 
+\leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB,\
+\leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB,\
+\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB
+\right \}
+\end{equation*}
+Similarly, we obtain
+
+\begin{example}{}{018224}
+$\vectspace{M}_{mn}$ is the span of the set of all $m \times n$ matrices with exactly one entry equal to $1$, and all other entries zero.
+\end{example}
+
+The fact that every polynomial in $\vectspace{P}_{n}$ has the form $a_{0} + a_{1}x + a_{2}x^{2} + \dots+ a_{n}x^{n}$ where each $a_{i}$ is in $\RR$ shows that
+
+\begin{example}{}{018237}
+$\vectspace{P}_{n} = \func{span}\{1, x, x^{2}, \dots, x^{n}\}$.
+\end{example}
+
+\noindent In Example~\ref{exa:018093} we saw that $\func{span}\{\vect{v}\} = \{a\vect{v} \mid a \mbox{ in } \RR\} = \RR\vect{v}$ is a subspace for any vector $\vect{v}$ in a vector space $V$. More generally, the span of \textit{any} set of vectors is a subspace. In fact, the proof of Theorem~\ref{thm:013606} goes through to prove:
+
+\begin{theorem}{}{018244}
+Let $U = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ in a vector space $V$. Then:
+
+\begin{enumerate}
+\item $U$ is a subspace of $V$ containing each of $\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}$.
+
+\item $U$ is the ``smallest'' subspace containing these vectors in the sense that any subspace that contains each of $\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}$ must contain $U$.
+
+\end{enumerate}
+\end{theorem}
+
+Here is how condition 2 in Theorem~\ref{thm:018244} is used. Given vectors $\vect{v}_1, \dots, \vect{v}_{k}$ in a vector space $V$ and a subspace $U \subseteq V$, then:
+\begin{equation*}
+ \func{span}\{\vect{v}_{1}, \dots, \vect{v}_{n}\} \subseteq U \Leftrightarrow \mbox{ each } \vect{v}_i \in U
+\end{equation*}
+The following examples illustrate this. 
+
+\begin{example}{}{018262}
+Show that $\vectspace{P}_{3} = \func{span}\{x^{2} + x^{3}, x, 2x^{2} + 1, 3\}$.
+
+\begin{solution}
+Write $U = \func{span}\{x^{2} + x^{3}, x, 2x^{2} + 1, 3\}$. Then $U \subseteq \vectspace{P}_{3}$, and we use the fact that $\vectspace{P}_{3} = \func{span}\{1, x, x^{2}, x^{3}\}$ to show that $\vectspace{P}_{3} \subseteq U$. In fact, $x$ and $1 = \frac{1}{3} \cdot 3$ clearly lie in $U$. But then successively,
+\begin{equation*}
+x^2 = \frac{1}{2}[(2x^2 + 1) - 1] \quad \mbox{ and } \quad x^3 = (x^2 + x^3) - x^2
+\end{equation*}
+also lie in $U$. Hence $\vectspace{P}_{3} \subseteq U$ by Theorem~\ref{thm:018244}.
+\end{solution}
+\end{example}
+
+\begin{example}{}{018282}
+Let $\vect{u}$ and $\vect{v}$ be two vectors in a vector space $V$. Show that
+\begin{equation*}
+\func{span}\{\vect{u}, \vect{v}\} = \func{span}\{\vect{u} + 2\vect{v}, \vect{u} - \vect{v} \}
+\end{equation*}
+\begin{solution}
+We have $\func{span}\{\vect{u} + 2\vect{v}, \vect{u} - \vect{v}\} \subseteq$ $\func{span}\{\vect{u}, \vect{v}\}$ by Theorem~\ref{thm:018244} because both $\vect{u} + 2\vect{v}$ and $\vect{u} - \vect{v}$ lie in $\func{span}\{\vect{u}, \vect{v}\}$. On the other hand,
+\begin{equation*}
+\vect{u} = \frac{1}{3}(\vect{u} + 2\vect{v}) + \frac{2}{3}(\vect{u} - \vect{v}) \quad \mbox{ and } \quad \vect{v} = \frac{1}{3}(\vect{u} + 2\vect{v}) - \frac{1}{3}(\vect{u} - \vect{v})
+\end{equation*}
+so $\func{span}\{\vect{u}, \vect{v}\} \subseteq$ $\func{span}\{\vect{u} + 2\vect{v}, \vect{u} - \vect{v}\}$, again by Theorem~\ref{thm:018244}.
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:6_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:6_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Which of the following are subspaces of $\vectspace{P}_{3}$? Support your answer.
+
+\begin{enumerate}[label={\alph*.}]
+\item $U = \{f(x) \mid f(x) \in \vectspace{P}_{3}, f(2) = 1\}$
+
+\item $U = \{xg(x) \mid g(x) \in \vectspace{P}_{2}\}$
+
+\item $U = \{xg(x) \mid g(x) \in \vectspace{P}_{3}\}$
+
+\item $U = \{xg(x) + (1 - x)h(x) \mid g(x) \mbox{ and } h(x) \in \vectspace{P}_{2}\}$
+
+\item $U =$ The set of all polynomials in $\vectspace{P}_{3}$ with constant term $0$
+
+\item $U = \{f(x) \mid f(x) \in \vectspace{P}_{3}, \func{deg} f(x) = 3\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes
+
+\setcounter{enumi}{3}
+\item  Yes
+
+\setcounter{enumi}{5}
+\item  No; not closed under addition or scalar multiplication, and $0$ is not in the set.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\columnbreak
+\begin{ex}
+Which of the following are subspaces of $\vectspace{M}_{22}$? Support your answer.
+
+\begin{enumerate}[label={\alph*.}]
+\item $U = \left\{
+\leftB \begin{array}{rr}
+a & b \\
+0 & c
+\end{array} \rightB
+\middle|\ a, b, \mbox{ and } c \mbox{ in } \RR \right\}$
+
+\item $U = \left\{
+\leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB
+\middle|\ a + b = c + d;\ a, b, c, d \mbox{ in } \RR \right\}$
+
+\item $U = \{A \mid A \in \vectspace{M}_{22}, A = A^{T}\}$
+
+\item $U = \{A \mid A \in \vectspace{M}_{22}, AB = 0\}$, $B$ a fixed $2 \times 2$ matrix
+
+\item $U = \{A \mid A \in \vectspace{M}_{22}, A^{2} = A\}$
+
+\item $U = \{A \mid A \in \vectspace{M}_{22}, A \mbox{ is not invertible}\}$
+
+\item $U = \{A \mid A \in \vectspace{M}_{22}, BAC = CAB\}$, $B$ and $C$ fixed $2 \times 2$ matrices
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes.
+
+\setcounter{enumi}{3}
+\item  Yes.
+
+\setcounter{enumi}{5}
+\item  No; not closed under addition.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Which of the following are subspaces of $\vectspace{F}[0, 1]$? Support your answer.
+
+\begin{enumerate}[label={\alph*.}]
+\item $U = \{f \mid f(0) = 0\}$
+
+\item $U = \{f \mid f(0) = 1\}$
+
+\item $U = \{f \mid f(0) = f(1)\}$
+
+\item $U = \{f \mid f(x) \geq 0 \mbox{ for all } x \mbox{ in } [0, 1]\}$
+
+\item $U = \{f \mid f(x) = f(y) \mbox{ for all } x \mbox{ and } y \mbox{ in } [0, 1]\}$
+
+\item $U = \{f \mid f(x + y) = f(x) + f(y) \mbox{ for all } \\ x \mbox{ and } y \mbox{ in } [0, 1]\}$
+
+\item $U = \{f \mid f \mbox{ is integrable and } \int_{0}^{1} f(x)dx = 0\}$
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No; not closed under addition.
+
+\setcounter{enumi}{3}
+\item  No; not closed under scalar multiplication.
+
+\setcounter{enumi}{5}
+\item  Yes.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be an $m \times n$ matrix. For which columns $\vect{b}$ in $\RR^m$ is $U = \{\vect{x} \mid \vect{x} \in \RR^n, A\vect{x} = \vect{b}\}$ a subspace of $\RR^n$? Support your answer.
+\end{ex}
+
+\begin{ex}
+Let $\vect{x}$ be a vector in $\RR^n$ (written as a column), and define $U = \{A\vect{x} \mid A \in \vectspace{M}_{mn}\}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $U$ is a subspace of $\RR^m$.
+
+\item Show that $U = \RR^m$ if $\vect{x} \neq \vect{0}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If entry $k$ of $\vect{x}$ is $x_{k} \neq 0$, and if $\vect{y}$ is in $\RR^n$, then $\vect{y} = A\vect{x}$ where the column of $A$ is $x_{k}^{-1}\vect{y}$, and the other columns are zero.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Write each of the following as a linear combination of $x + 1$, $x^{2} + x$, and $x^{2} + 2$.
+
+\begin{exenumerate}
+\exitem $x^{2} + 3x + 2$
+\exitem $2x^{2} - 3x + 1$
+\exitem $x^{2} + 1$
+\exitem $x$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $-3(x + 1) + 0(x^{2} + x) + 2(x^{2} + 2)$
+
+\setcounter{enumi}{3}
+\item  $\frac{2}{3}(x + 1) + \frac{1}{3}(x^{2} + x) - \frac{1}{3}(x^{2} + 2)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Determine whether $\vect{v}$ lies in $\func{span}\{\vect{u}, \vect{w}\}$ in each case.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{v} = 3x^{2} - 2x - 1$; $\vect{u} = x^{2} + 1$, $\vect{w} = x + 2$
+
+\item $\vect{v} = x$; $\vect{u} = x^{2} + 1$, $\vect{w} = x + 2$
+
+\item $\vect{v} =
+\leftB \begin{array}{rr}
+1 & 3 \\
+-1 & 1
+\end{array} \rightB$;  $\vect{u} = 
+\leftB \begin{array}{rr}
+1 & -1 \\
+2 & 1
+\end{array} \rightB$, $\vect{w} = 
+\leftB \begin{array}{rr}
+2 & 1 \\
+1 & 0
+\end{array} \rightB$
+
+\item $\vect{v} =
+\leftB \begin{array}{rr}
+1 & -4 \\
+5 & 3
+\end{array} \rightB$; $\vect{u} = 
+\leftB \begin{array}{rr}
+1 & -1 \\
+2 & 1
+\end{array} \rightB$, $\vect{w} = 
+\leftB \begin{array}{rr}
+2 & 1 \\
+1 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No.
+
+\setcounter{enumi}{3}
+\item  Yes; $\vect{v} = 3\vect{u} - \vect{w}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Which of the following functions lie in $\func{span}\{\cos^{2}x, \sin^{2} x\}$? (Work in $\vectspace{F}[0, \pi]$.)
+
+\begin{exenumerate}
+\exitem $\cos 2x$
+\exitem $1$
+\exitem $x^{2}$
+\exitem $1 + x^{2}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes; $1 = \cos^{2} x + \sin^{2} x$
+
+\setcounter{enumi}{3}
+\item  No. If $1 + x^{2} = a \cos^{2} x + b \sin^{2} x$, then taking $x = 0$ and $x = \pi$ gives $a = 1$ and $a = 1 + \pi^{2}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\RR^3$ is spanned by \\$\{(1, 0, 1), (1, 1, 0), (0, 1, 1)\}$.
+
+\item Show that $\vectspace{P}_{2}$ is spanned by $\{1 + 2x^{2}, 3x, 1 + x\}$.
+
+\item Show that $\vectspace{M}_{22}$ is spanned by \\
+\hspace*{-1em}$
+\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 &  0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rrr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB
+\right\}
+$.
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Because $\vectspace{P}_{2} = \func{span}\{1, x, x^{2}\}$, it suffices to show that $\{1, x, x^{2}\} \subseteq$
+ $\func{span}\{1 + 2x^{2}, 3x, 1 + x\}$. But $x = \frac{1}{3}(3x); 1 = (1 + x) - x$ and $x^{2} = \frac{1}{2}[(1 + 2x^{2}) - 1]$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $X$ and $Y$ are two sets of vectors in a vector space $V$, and if $X \subseteq Y$, show that \newline $\func{span} X \subseteq \func{span} Y$.
+\end{ex}
+
+\begin{ex}
+Let $\vect{u}$, $\vect{v}$, and $\vect{w}$ denote vectors in a vector space $V$. Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\func{span}\{\vect{u}, \vect{v}, \vect{w}\} = \func{span}\{\vect{u} + \vect{v}, \vect{u} + \vect{w}, \vect{v} + \vect{w}\}$
+
+\item $\func{span}\{\vect{u}, \vect{v}, \vect{w}\} = \func{span}\{\vect{u} - \vect{v}, \vect{u} + \vect{w}, \vect{w}\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\vect{u} = (\vect{u} + \vect{w}) - \vect{w}$, $\vect{v} = -(\vect{u} - \vect{v}) + (\vect{u} + \vect{w}) - \vect{w}$, and $\vect{w} = \vect{w}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that 
+\begin{equation*}
+\func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}, \vect{0}\} = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}
+\end{equation*}
+holds for any set of vectors $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$.
+\end{ex}
+
+\begin{ex}
+If $X$ and $Y$ are nonempty subsets of a vector space $V$ such that $\func{span} X = \func{span} Y = V$, must there be a vector common to both $X$ and $Y$? Justify your answer.
+\end{ex}
+
+\begin{ex}
+Is it possible that $\{(1, 2, 0), (1, 1, 1)\}$ can span the subspace $U = \{(a, b, 0) \mid a \mbox{ and } b \mbox{ in } \RR\}$?
+
+\begin{sol}
+No. 
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Describe $\func{span}\{\vect{0}\}$.
+\end{ex}
+
+\begin{ex}
+Let $\vect{v}$ denote any vector in a vector space $V$. Show that $\func{span}\{\vect{v}\} = \func{span}\{a\vect{v}\}$ for any $a \neq 0$.
+\end{ex}
+
+\begin{ex}
+Determine all subspaces of $\RR\vect{v}$ where $\vect{v} \neq \vect{0}$ in some vector space $V$.
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Suppose $V = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$. If $\vect{u} = a_{1}\vect{v}_{1} + a_{2}\vect{v}_{2} + \dots+ a_{n}\vect{v}_{n}$ where the $a_{i}$ are in $\RR$ and $a_{1} \neq 0$, show that $V = \func{span}\{\vect{u}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$.
+
+\begin{sol}
+$\vect{v}_1 = \frac{1}{a_1}\vect{u} - \frac{a_2}{a_1}\vect{v}_2 - \dots - \frac{a_n}{a_1}\vect{v}_n$, so $V \subseteq \func{span}\{\vect{u}, \vect{v}_2, \dots, \vect{v}_n \}$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\vectspace{M}_{nn} = \func{span}\{A_1, A_2, \dots, A_k\}$, show that $\vectspace{M}_{nn} = \func{span}\{A_1^T, A_2^T, \dots, A_k^T\}$.
+\end{ex}
+
+\begin{ex}
+If $\vectspace{P}_{n} = \func{span}\{p_{1}(x), p_{2}(x), \dots, p_{k}(x)\}$ and $a$ is in $\RR$, show that $p_{i}(a) \neq 0$ for some $i$.
+\end{ex}
+
+\begin{ex}
+Let $U$ be a subspace of a vector space $V$.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $a\vect{u}$ is in $U$ where $a \neq 0$, show that $\vect{u}$ is in $U$.
+
+\item If $\vect{u}$ and $\vect{u} + \vect{v}$ are in $U$, show that $\vect{v}$ is in $U$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\vect{v} = (\vect{u} + \vect{v}) - \vect{u}$ is in $U$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U$ be a nonempty subset of a vector space $V$. Show that $U$ is a subspace of $V$ if and only if $\vect{u}_{1} + a\vect{u}_{2}$ lies in $U$ for all $\vect{u}_{1}$ and $\vect{u}_{2}$ in $U$ and all $a$ in $\RR$.
+
+\begin{sol}
+Given the condition and $\vect{u} \in U$, $\vect{0} = \vect{u} + (-1)\vect{u} \in U$. The converse holds by the subspace test.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U = \{p(x) \mbox{ in } \vectspace{P} \mid p(3) = 0\}$ be the set in
+Example~\ref{exa:018124}. Use the factor theorem (see
+Section~\ref{sec:6_5}) to show that $U$ consists of multiples of $x - 3$; that is, show that $U = \{(x - 3)q(x) \mid q(x) \in \vectspace{P}\}$. Use this to show that $U$ is a subspace of $\vectspace{P}$.
+\end{ex}
+
+\begin{ex}
+Let $A_{1}, A_{2}, \dots, A_{m}$ denote $n \times n$ matrices. If $\vect{0} \neq \vect{y} \in \RR^n$ and $A_{1}\vect{y} = A_{2}\vect{y} = \dots = A_{m}\vect{y} = \vect{0}$, show that $\{A_{1}, A_{2}, \dots, A_{m}\}$ cannot $\func{span} \vectspace{M}_{nn}$.
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ and $\{\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{n}\}$ be sets of vectors in a vector space, and let
+\begin{equation*}
+X = 
+\leftB \begin{array}{c}
+\vect{v}_1 \\
+\vdots \\
+\vect{v}_n
+\end{array} \rightB
+\ Y =
+\leftB \begin{array}{c}
+\vect{u}_1 \\
+\vdots \\
+\vect{u}_n
+\end{array} \rightB
+\end{equation*}
+as in Exercise~\ref{ex:6_1_18}.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{span}\{\vect{v}_{1}, \dots, \vect{v}_{n}\} \subseteq \func{span}\{\vect{u}_{1}, \dots, \vect{u}_{n}\}$ if and only if $AY = X$ for some $n \times n$ matrix $A$.
+
+\item If $X = AY$ where $A$ is invertible, show that $\func{span}\{\vect{v}_{1}, \dots, \vect{v}_{n}\} = \func{span}\{\vect{u}_{1}, \dots, \vect{u}_{n}\}$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $U$ and $W$ are subspaces of a vector space $V$, let 
+$U \cup W = \{\vect{v} \mid \vect{v}$ is in $U$ or $\vect{v}$ is in $W\}$. Show that $U \cup W$ is a subspace if and only if $U \subseteq W$ or $W \subseteq U$.
+\end{ex}
+
+\begin{ex}
+Show that $\vectspace{P}$ cannot be spanned by a finite set of polynomials.
+\end{ex}
+\end{multicols}

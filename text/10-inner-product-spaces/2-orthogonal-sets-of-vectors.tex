@@ -1,0 +1,1098 @@
+\section{Orthogonal Sets of Vectors}
+\label{sec:10_2}
+
+The idea that two lines can be perpendicular is fundamental in geometry, and this section is devoted to introducing this notion into a general inner product space $V$. To motivate the definition, recall that two nonzero geometric vectors $\vect{x}$ and $\vect{y}$ in $\RR^n$ are perpendicular (or orthogonal) if and only if $\vect{x} \dotprod \vect{y} = 0$. In general, two vectors $\vect{v}$ and $\vect{w}$ in an inner product space $V$ are said to be \textbf{orthogonal}\index{orthogonal vectors}\index{vectors!orthogonal vectors} if
+\begin{equation*}
+\langle \vect{v}, \vect{w} \rangle = 0
+\end{equation*}
+A set $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ of vectors is called an \textbf{orthogonal set of vectors}\index{orthogonal set of vectors}\index{inner product space!orthogonal sets of vectors} if
+
+\begin{enumerate}
+\item \textit{Each} $\vect{f}_{i} \neq \vect{0}$.
+
+\item $\langle \vect{f}_{i}, \vect{f}_{j}\rangle = 0$ \textit{for all} $i \neq j$.
+\end{enumerate}
+
+\noindent If, in addition, $\vectlength\vect{f}_{i}\vectlength = 1$ for each $i$, the set
+$\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ is called an \textbf{orthonormal}\index{orthonormal set} set.
+
+\begin{example}{}{030853}
+$\{\sin x, \cos x\}$ is orthogonal in $\vectspace{C}[-\pi, \pi]$ because
+\begin{equation*}
+\int_{-\pi}^{\pi} \sin\ x\ \cos\ x\ dx = \left[ - \frac{1}{4} \cos\ 2x \right]_{-\pi}^{\pi} = 0
+\end{equation*}
+\end{example}
+
+The first result about orthogonal sets extends Pythagoras' theorem in $\RR^n$ (Theorem~\ref{thm:015037}) and the same proof works.
+
+\begin{theorem}{Pythagoras' Theorem}{030859}
+If $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ is an orthogonal set of vectors, then
+\begin{equation*}
+\vectlength \vect{f}_1 + \vect{f}_2 + \dots + \vect{f}_n \vectlength ^2 =
+\vectlength \vect{f}_1 \vectlength ^2 +
+\vectlength \vect{f}_2 \vectlength ^2 + \dots +
+\vectlength \vect{f}_n \vectlength ^2
+\end{equation*}\index{Pythagoras' theorem}
+\vspace*{-2em}
+\end{theorem}
+
+The proof of the next result is left to the reader.
+
+\begin{theorem}{}{030869}
+Let $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ be an orthogonal set of vectors.
+
+\begin{enumerate}
+\item $\{r_{1}\vect{f}_{1}, r_{2}\vect{f}_{2}, \dots, r_{n}\vect{f}_{n}\}$ is also orthogonal for any $r_{i} \neq 0$ in $\RR$.
+
+\item $\left\{
+\frac{1}{\vectlength \vect{f}_1 \vectlength} \vect{f}_1, 
+\frac{1}{\vectlength \vect{f}_2 \vectlength} \vect{f}_2, \dots,\
+\frac{1}{\vectlength \vect{f}_n \vectlength} \vect{f}_n
+\right\}$ is an orthonormal set.
+
+\end{enumerate}
+\end{theorem}
+
+\noindent As before, the process of passing from an orthogonal set to an orthonormal one is called \textbf{normalizing}\index{normalizing the orthogonal set} the orthogonal set. The proof of Theorem~\ref{thm:015056} goes through to give
+
+\begin{theorem}{}{030889}
+Every orthogonal set of vectors is linearly independent.\index{linear independence!orthogonal sets}
+\end{theorem}
+
+\begin{example}{}{030892}
+Show that $\left\{
+\leftB \begin{array}{r}
+2 \\
+-1 \\
+0
+\end{array} \rightB, \leftB \begin{array}{r}
+0 \\
+1 \\
+1
+\end{array} \rightB, \leftB \begin{array}{r}
+0 \\
+-1 \\
+2
+\end{array} \rightB
+\right\}$ is an orthogonal basis of $\RR^3$ with inner product
+\begin{equation*}
+\langle \vect{v}, \vect{w} \rangle = \vect{v}^T A\vect{w}, \mbox{ where } A =
+\leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+1 & 2 & 0 \\
+0 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+\vspace*{-2em}
+\begin{solution}
+We have
+\begin{equation*}
+\left\langle
+\leftB \begin{array}{r}
+2 \\
+-1 \\
+0
+\end{array} \rightB,
+\leftB \begin{array}{r}
+0 \\
+1 \\
+1
+\end{array} \rightB
+\right\rangle
+= 
+\leftB \begin{array}{ccc}
+2 & -1 & 0
+\end{array} \rightB
+\leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+1 & 2 & 0 \\
+0 & 0 & 1
+\end{array} \rightB
+\leftB \begin{array}{r}
+0 \\
+1 \\
+1
+\end{array} \rightB
+=
+\leftB \begin{array}{ccc}
+1 & 0 & 0
+\end{array} \rightB
+\leftB \begin{array}{r}
+0 \\
+1 \\
+1
+\end{array} \rightB
+= 0
+\end{equation*}
+and the reader can verify that the other pairs are orthogonal too. Hence the set is orthogonal, so it is linearly independent by Theorem~\ref{thm:030889}. Because $\func{dim} \RR^3 = 3$, it is a basis.
+\end{solution}
+\end{example}
+
+The proof of Theorem~\ref{thm:015082} generalizes to give the following:
+
+\begin{theorem}{Expansion Theorem}{030904}
+Let $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ be an orthogonal basis of an inner product space $V$. If $\vect{v}$ is any vector in $V$, then
+\begin{equation*}
+\vect{v} = 
+\frac{\langle \vect{v}, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 + 
+\frac{\langle \vect{v}, \vect{f}_2 \rangle}{\vectlength \vect{f}_2 \vectlength ^2} \vect{f}_2 + \dots +
+\frac{\langle \vect{v}, \vect{f}_n \rangle}{\vectlength \vect{f}_n \vectlength ^2} \vect{f}_n
+\end{equation*}
+is the expansion of $\vect{v}$ as a linear combination of the basis vectors.\index{expansion theorem}\index{orthogonality!expansion theorem}
+\end{theorem}
+
+The coefficients $\frac{\langle \vect{v}, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2}, 
+\frac{\langle \vect{v}, \vect{f}_2 \rangle}{\vectlength \vect{f}_2 \vectlength ^2}, \dots,\
+\frac{\langle \vect{v}, \vect{f}_n \rangle}{\vectlength \vect{f}_n \vectlength ^2}$
+ in the expansion theorem are sometimes called the \textbf{Fourier coefficients}\index{Fourier coefficients}\index{coefficients!Fourier coefficients} of $\vect{v}$ with respect to the orthogonal basis $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$.
+ This is in honour of the French mathematician J.B.J. Fourier (1768--1830)\index{Fourier, J.B.J.}. His original work was with a particular orthogonal set in the space $\vectspace{C}[a, b]$, about which there will be more to say in Section~\ref{sec:10_5}.
+
+\begin{example}{}{030918}
+If $a_{0}, a_{1}, \dots, a_{n}$ are distinct numbers and $p(x)$ and $q(x)$ are in $\vectspace{P}_{n}$, define
+\begin{equation*}
+\langle p(x), q(x) \rangle = p(a_0)q(a_0) + p(a_1)q(a_1) + \dots + p(a_n)q(a_n)
+\end{equation*}
+This is an inner product on $\vectspace{P}_{n}$. (Axioms P1--P4 are routinely verified, and P5 holds because $0$ is the only polynomial of degree $n$ with $n + 1$ distinct roots. See Theorem~\ref{thm:020203} or Appendix~\ref{chap:appdpolynomials}.)
+
+Recall that the \textbf{Lagrange polynomials}\index{Lagrange polynomials}\index{polynomials!Lagrange polynomials} $\delta_{0}(x), \delta_{1}(x), \dots, \delta_{n}(x)$ relative to the numbers $a_{0}, a_{1}, \dots, a_{n}$ are defined as follows (see Section~\ref{sec:6_5}):
+\begin{equation*}
+\delta_k(x) = \frac{\prod_{i \neq k}(x - a_i)}{\prod_{i \neq k}(a_k - a_i)}\quad
+k = 0, 1, 2, \dots, n
+\end{equation*}
+where $\prod_{i \neq k}(x - a_i)$ means the product of all the terms
+\begin{equation*}
+(x - a_0), (x - a_1), (x - a_2), \dots, (x - a_n)
+\end{equation*}
+except that the $k$th term is omitted. Then $\{\delta_{0}(x), \delta_{1}(x), \dots, \delta_{n}(x)\}$ is orthonormal with respect to $\langle\ , \rangle$ because $\delta_{k}(a_{i}) = 0$ if $i \neq k$ and $\delta_{k}(a_{k}) = 1$. These facts also show that $\langle p(x), \delta_{k}(x)\rangle = p(a_{k})$ so the expansion theorem gives
+\begin{equation*}
+p(x) = p(a_0)\delta_0(x) + p(a_1)\delta_1(x) + \dots + p(a_n)\delta_n(x)
+\end{equation*}
+for each $p(x)$ in $\vectspace{P}_{n}$. This is the \textbf{Lagrange interpolation expansion}\index{Lagrange interpolation expansion} of $p(x)$, Theorem~\ref{thm:020177}, which is important in numerical integration.
+\end{example}
+
+\begin{lemma}{Orthogonal Lemma}{030949}
+Let $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ be an orthogonal set of vectors in an inner product space $V$, and let $\vect{v}$ be any vector not in $\func{span}\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$. Define\index{orthogonal lemma}
+\begin{equation*}
+\vect{f}_{m + 1} = \vect{v} -
+\frac{\langle \vect{v}, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 - 
+\frac{\langle \vect{v}, \vect{f}_2 \rangle}{\vectlength \vect{f}_2 \vectlength ^2} \vect{f}_2 - \dots -
+\frac{\langle \vect{v}, \vect{f}_m \rangle}{\vectlength \vect{f}_m \vectlength ^2} \vect{f}_m
+\end{equation*}
+Then $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}, \vect{f}_{m+1}\}$ is an orthogonal set of vectors.
+\end{lemma}
+
+The proof of this result (and the next) is the same as for the dot product in $\RR^n$ (Lemma \ref{lem:023597} and Theorem~\ref{thm:023713}).
+
+\begin{theorem}{Gram-Schmidt Orthogonalization Algorithm}{030969}
+Let $V$ be an inner product space and let $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ be any basis of $V$. Define vectors $\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}$ in $V$ successively as follows:\index{Gram-Schmidt orthogonalization algorithm}\index{orthogonality!Gram-Schmidt orthogonalization algorithm}
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{ll}
+\vect{f}_1 = \vect{v}_1 & \\
+\vect{f}_2 = \vect{v}_2 &
+- \frac{\langle \vect{v}_2, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 \\
+\vect{f}_3 = \vect{v}_3 &
+- \frac{\langle \vect{v}_3, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 
+- \frac{\langle \vect{v}_3, \vect{f}_2 \rangle}{\vectlength \vect{f}_2 \vectlength ^2} \vect{f}_ 2 \\
+\vdots & \vdots \\
+\vect{f}_k = \vect{v}_k &
+- \frac{\langle \vect{v}_k, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 
+- \frac{\langle \vect{v}_k, \vect{f}_2 \rangle}{\vectlength \vect{f}_2 \vectlength ^2} \vect{f}_2
+- \dots
+- \frac{\langle \vect{v}_k, \vect{f}_{k - 1} \rangle}{\vectlength \vect{f}_{k - 1} \vectlength ^2}\vect{f}_{k - 1} \\
+\end{array}
+\end{equation*}
+for each $k = 2, 3, \dots, n$. Then
+\begin{enumerate}
+\item $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ is an orthogonal basis of $V$.\index{basis!orthogonal basis}\index{orthogonal basis}
+
+\item $\func{span}\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{k}\} = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ holds for each $k = 1, 2, \dots, n$.
+
+\end{enumerate}
+\end{theorem}
+
+\noindent The purpose of the Gram-Schmidt algorithm is to convert a basis of an inner product space into an \textit{orthogonal} basis. In particular, it shows that every finite dimensional inner product space \textit{has} an orthogonal basis.
+
+\begin{example}{}{030996}
+Consider $V = \vectspace{P}_{3}$ with the inner product $\langle p, q\rangle = \int_{-1}^{1} p(x)q(x)dx$. If the Gram-Schmidt algorithm is
+applied to the basis $\{1, x, x^{2}, x^{3}\}$, show that the result is the orthogonal basis
+\begin{equation*}
+\{1, x, \frac{1}{3}(3x^2 - 1), \frac{1}{5}(5x^3 - 3x) \}
+\end{equation*}
+\vspace*{-2em}
+\begin{solution}
+Take $\vect{f}_{1} = 1$. Then the algorithm gives
+\begin{align*}
+\vect{f}_2 &= x - \frac{\langle x, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 = x - \frac{0}{2} \vect{f}_1 = x \\
+\vect{f}_3 &= x^ 2 - \frac{\langle x^2, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 - \frac{\langle x^2, \vect{f}_2 \rangle}{\vectlength \vect{f}_2 \vectlength ^2} \vect{f}_2 \\
+&= x^2 - \frac{\frac{2}{3}}{2}1 - \frac{0}{\frac{2}{3}}x \\
+&= \frac{1}{3}(3x^2 - 1)
+\end{align*}
+The verification that $\vect{f}_4 = \frac{1}{5}(5x^3 - 3x)$ is omitted.
+\end{solution}
+\end{example}
+
+\noindent The polynomials in Example~\ref{exa:030996} are such that the leading coefficient is $1$ in each case. In other contexts (the study of differential equations, for example) it is customary to take multiples $p(x)$ of these polynomials such that $p(1) = 1$. The resulting orthogonal basis of $\vectspace{P}_{3}$ is
+\begin{equation*}
+\{1, x, \frac{1}{3}(3x^2 - 1), \frac{1}{5}(5x^3 - 3x) \}
+\end{equation*}
+and these are the first four \textbf{Legendre polynomials}\index{Legendre polynomials}\index{polynomials!Legendre polynomials}, so called to honour the French mathematician A. M. Legendre (1752--1833)\index{Legendre, A.M.}. They are important in the study of differential equations.
+
+If $V$ is an inner product space of dimension $n$, let $E = \{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ be an orthonormal basis\index{basis!orthonormal basis}\index{orthonormal basis} of $V$ (by Theorem~\ref{thm:030969}). If $\vect{v} = v_{1}\vect{f}_{1} + v_{2}\vect{f}_{2} + \dots + v_{n}\vect{f}_{n}$ and $\vect{w} = w_1\vect{f}_1 + w_2\vect{f}_2 + \dots + w_n\vect{f}_n$ are two vectors in $V$, we have $C_E(\vect{v}) = 
+\leftB \begin{array}{cccc}
+v_1 & v_2 & \cdots & v_n
+\end{array} \rightB ^T$ and $C_E(\vect{w}) = 
+\leftB \begin{array}{cccc}
+w_1 & w_2 & \cdots & w_n
+\end{array} \rightB ^T$. Hence
+\begin{equation*}
+\langle \vect{v}, \vect{w} \rangle = 
+\langle \sum_{i}v_i\vect{f}_i, \sum_{j}w_j\vect{f}_j \rangle = \sum_{i, j}v_iw_j \langle \vect{f}_i, \vect{f}_j \rangle =
+\sum_{i} v_iw_i = C_E(\vect{v}) \dotprod C_E(\vect{w})
+\end{equation*}
+This shows that the coordinate isomorphism $C_E : V \to \RR^n$ preserves inner products, and so proves
+
+\begin{corollary}{}{031032}
+If $V$ is any $n$-dimensional inner product space, then $V$ is isomorphic to $\RR^{n}$ as inner product spaces. More precisely, if $E$ is any orthonormal basis of $V$, the coordinate isomorphism
+\begin{equation*}
+C_E : V \to \RR^n \mbox{ satisfies } \langle \vect{v}, \vect{w} \rangle = C_E(\vect{v}) \dotprod C_E(\vect{w})
+\end{equation*}
+for all $\vect{v}$ and $\vect{w}$ in $V$.
+\end{corollary}
+
+The orthogonal complement of a subspace $U$ of $\RR^n$ was defined (in Chapter~\ref{chap:8}) to be the set of all vectors in $\RR^n$ that are orthogonal to every vector in $U$. This notion has a natural extension in an arbitrary inner product space. Let $U$ be a subspace of an inner product space $V$. As in $\RR^n$, the \textbf{orthogonal complement}\index{orthogonal complement} $U^{\perp}$ of $U$ in $V$ is defined by
+\begin{equation*}
+U^\perp = \{\vect{v} \mid \vect{v} \in V, \langle \vect{v}, \vect{u} \rangle = 0 \mbox{ for all } \vect{u} \in U \}
+\end{equation*}
+
+\begin{theorem}{}{031043}
+Let $U$ be a finite dimensional subspace of an inner product space $V$.
+
+\begin{enumerate}
+\item $U^{\perp}$ is a subspace of $V$ and $V = U \oplus U^{\perp}$.
+
+\item If $\func{dim} V = n$, then $\func{dim} U + \func{dim} U^{\perp} = n$.
+
+\item If $\func{dim} V = n$, then $U^{\perp\perp} = U$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item $U^{\perp}$ is a subspace by Theorem~\ref{thm:030346}. If $\vect{v}$ is in $U \cap U^{\perp}$, then $\langle \vect{v}, \vect{v} \rangle = 0$, so $\vect{v} = \vect{0}$ again by Theorem~\ref{thm:030346}. Hence $U \cap U^{\perp} = \{\vect{0}\}$, and it remains to show that $U + U^{\perp} = V$. Given $\vect{v}$ in $V$, we must show that $\vect{v}$ is in $U + U^{\perp}$, and this is clear if $\vect{v}$ is in $U$. If $\vect{v}$ is not in $U$, let $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ be an orthogonal basis of $U$. Then the orthogonal lemma shows that 
+$
+\vect{v} - \left(
+\frac{\langle \vect{v}, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 +
+\frac{\langle \vect{v}, \vect{f}_2 \rangle}{\vectlength \vect{f}_2 \vectlength ^2} \vect{f}_2 + \dots +
+\frac{\langle \vect{v}, \vect{f}_m \rangle}{\vectlength \vect{f}_m \vectlength ^2} \vect{f}_m 
+\right)$ is in $U^{\perp}$, so $\vect{v}$ is in $U + U^{\perp}$ as required.
+
+\item This follows from Theorem~\ref{thm:029686}.
+
+\item We have $\func{dim} U^{\perp\perp} = n - \func{dim} U^{\perp} = n - (n - \func{dim} U) = \func{dim} U$, using (2) twice. As $U \subseteq U^{\perp\perp}$ always holds (verify), (3) follows by Theorem~\ref{thm:019525}.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+We digress briefly and consider a subspace $U$ of an arbitrary vector space $V$. As in Section~\ref{sec:9_3}, if $W$ is any complement of $U$ in $V$, that is, $V = U \oplus W$, then each vector $\vect{v}$ in $V$ has a \textit{unique} representation as a sum $\vect{v} = \vect{u} + \vect{w}$ where $\vect{u}$ is in $U$ and $\vect{w}$ is in $W$. Hence we may define a function $T$ : $V \to V$ as follows:
+\begin{equation*}
+T(\vect{v}) = \vect{u} \quad \mbox{ where } \vect{v} = \vect{u} + \vect{w}, \ \vect{u} \mbox{ in } U, \ \vect{w} \mbox{ in } W
+\end{equation*}
+Thus, to compute $T(\vect{v})$, express $\vect{v}$ in any way at all as the sum of a vector $\vect{u}$ in $U$ and a vector in $W$; then $T(\vect{v}) = \vect{u}$.
+
+This function $T$ is a linear operator on $V$. Indeed, if $\vect{v}_{1} = \vect{u}_{1} + \vect{w}_{1}$ where $\vect{u}_{1}$ is in $U$ and $\vect{w}_{1}$ is in $W$, then $\vect{v} + \vect{v}_{1} = (\vect{u} + \vect{u}_{1}) + (\vect{w} + \vect{w}_{1})$ where $\vect{u} + \vect{u}_{1}$ is in $U$ and $\vect{w} + \vect{w}_{1}$ is in $W$, so
+\begin{equation*}
+T(\vect{v} + \vect{v}_1) = \vect{u} + \vect{u}_1 = T(\vect{v}) + T(\vect{v}_1)
+\end{equation*}
+Similarly, $T(a\vect{v}) = aT(\vect{v})$ for all $a$ in $\RR$, so $T$ is a linear operator. Furthermore, $\func{im} T = U$ and $\func{ker} T = W$ as the reader can verify, and $T$ is called the \textbf{projection on} $U$ \textbf{with kernel} $W$\index{projection on $U$ with kernel $W$}.
+
+If $U$ is a subspace of $V$, there are many projections on $U$, one for each complementary subspace $W$ with $V = U \oplus W$. If $V$ is an \textit{inner product space}, we single out one for special attention. Let $U$ be a finite dimensional subspace of an inner product space $V$.
+
+\begin{definition}{Orthogonal Projection on a Subspace}{031097}
+The projection on $U$ with kernel $U^{\perp}$ is called the \textbf{orthogonal projection}\index{orthogonal projection}\index{projection!orthogonal projection} on $U$ (or simply the \textbf{projection} on $U$) and is
+denoted $\proj{U}{} : V \to V$.
+\end{definition}
+
+\begin{theorem}{Projection Theorem}{031102}
+Let $U$ be a finite dimensional subspace of an inner product space $V$ and let $\vect{v}$ be a vector in $V$.\index{projection theorem}
+
+\begin{enumerate}
+\item $\proj{U}{} : V \to V$ is a linear operator with image $U$ and kernel $U^{\perp}$.
+
+\item $\proj{U}{\vect{v}}$ is in $U$ and $\vect{v} - \proj{U}{\vect{v}}$ is in $U^{\perp}$.
+
+\item If $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ is any orthogonal basis of $U$, then
+\begin{equation*}
+\proj{U}{\vect{v}} = 
+\frac{\langle \vect{v}, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 +
+\frac{\langle \vect{v}, \vect{f}_2 \rangle}{\vectlength \vect{f}_2 \vectlength ^2} \vect{f}_2 + \dots +
+\frac{\langle \vect{v}, \vect{f}_m \rangle}{\vectlength \vect{f}_m \vectlength ^2} \vect{f}_m
+\end{equation*}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Only (3) remains to be proved. But since $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ is an orthogonal basis of $U$ and since $\proj{U}{\vect{v}}$ is in $U$, the result follows from the expansion theorem (Theorem~\ref{thm:030904}) applied to the finite dimensional space $U$.
+\end{proof}
+
+Note that there is no requirement in Theorem~\ref{thm:031102} that $V$ is finite dimensional.
+
+\begin{example}{}{031131}
+Let $U$ be a subspace of the finite dimensional inner product space $V$. Show that $\proj{U^\perp}{\vect{v}} = \vect{v} - \proj{U}{\vect{v}}$ for all $\vect{v} \in V$.
+
+\begin{solution}
+We have $V = U^{\perp} \oplus U^{\perp\perp}$ by Theorem~\ref{thm:031043}. If we write $\vect{p} = \proj{U}{\vect{v}}$, then $\vect{v} = (\vect{v} - \vect{p}) + \vect{p}$ where $\vect{v} - \vect{p}$ is in $U^{\perp}$ and $\vect{p}$ is in $U = U^{\perp\perp}$ by Theorem~\ref{thm:031102}. Hence $\proj{U^\perp}{\vect{v}} = \vect{v} - \vect{p}$. See Exercise~\ref{ex:8_1_7}.
+\end{solution}
+\end{example}
+
+\begin{wrapfigure}[4]{l}{5cm} 
+\vspace*{-2em}
+\centering
+\input{10-inner-product-spaces/figures/2-orthogonal-sets-of-vectors/example10.2.5}
+\end{wrapfigure}
+
+The vectors $\vect{v}$, $\proj{U}{\vect{v}}$, and $\vect{v} - \proj{U}{\vect{v}}$ in Theorem~\ref{thm:031102} can be visualized geometrically as in the diagram (where $U$ is shaded and $\func{dim} U = 2$). This suggests that $\proj{U}{\vect{v}}$ is the vector in $U$ closest to $\vect{v}$. This is, in fact, the case.
+\vspace{1em}
+
+\begin{theorem}{Approximation Theorem}{031150}
+Let $U$ be a finite dimensional subspace of an inner product space $V$. If $\vect{v}$ is any vector in $V$, then $\proj{U}{\vect{v}}$ is the vector in $U$ that is closest to $\vect{v}$. Here \textbf{closest} means that
+\begin{equation*}
+\vectlength \vect{v} - \proj{U}{\vect{v}} \vectlength < \vectlength \vect{v} - \vect{u} \vectlength
+\end{equation*}
+for all $\vect{u}$ in $U$, $\vect{u} \neq \proj{U}{\vect{v}}$.\index{approximation theorem}
+\end{theorem}
+
+\begin{proof}
+Write $\vect{p} = \proj{U}{\vect{v}}$, and consider $\vect{v} - \vect{u} = (\vect{v} - \vect{p}) + (\vect{p} - \vect{u})$. Because $\vect{v} - \vect{p}$ is in $U^{\perp}$ and $\vect{p} - \vect{u}$ is in $U$, Pythagoras' theorem gives
+\begin{equation*}
+\vectlength \vect{v} - \vect{u} \vectlength ^2 = 
+\vectlength \vect{v} - \vect{p} \vectlength ^2 + 
+\vectlength \vect{p} - \vect{u} \vectlength ^2 > 
+\vectlength \vect{v} - \vect{p} \vectlength ^2
+\end{equation*}
+because $\vect{p} - \vect{u} \neq 0$. The result follows.
+\end{proof}
+
+\begin{example}{}{031164}
+Consider the space $\vectspace{C}[-1, 1]$ of real-valued continuous functions on the interval $[-1, 1]$ with inner product $\langle f, g \rangle = \int_{-1}^{1} f(x)g(x)dx $. Find the polynomial $p = p(x)$ of degree at most $2$ that best approximates the absolute-value function $f$ given by $f(x) = |x|$.
+
+\begin{solution}
+Here we want the vector $p$ in the subspace $U = \vectspace{P}_{2}$ of $\vectspace{C}[-1, 1]$ that is closest to $f$. In Example~\ref{exa:030996} the Gram-Schmidt algorithm was applied to give an orthogonal basis $\{\vect{f}_{1} = 1, \vect{f}_{2} = x, \vect{f}_{3} = 3x^{2} - 1\}$ of $\vectspace{P}_{2}$ (where, for convenience, we have changed $\vect{f}_{3}$ by a numerical factor). Hence the required polynomial is
+
+\newpage
+\begin{wrapfigure}[5]{l}{5cm} 
+\centering
+\input{10-inner-product-spaces/figures/2-orthogonal-sets-of-vectors/example10.2.6}
+\end{wrapfigure}
+\setlength{\rightskip}{0pt plus 200pt}
+\vspace*{-2em}\begin{align*}
+p &= \proj{\vectspace{P}_2}{f} \\
+&= \frac{\langle f, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} \vect{f}_1 +
+\frac{\langle f, \vect{f}_2 \rangle}{\vectlength \vect{f}_2 \vectlength ^2} \vect{f}_2 + 
+\frac{\langle f, \vect{f}_3 \rangle}{\vectlength \vect{f}_3 \vectlength ^2} \vect{f}_3 \\
+&= \frac{1}{2}\vect{f}_1 + 0\vect{f}_2 + \frac{1/2}{8/5}\vect{f}_3 \\
+&= \frac{3}{16}(5x^2 + 1)
+\end{align*}
+The graphs of $p(x)$ and $f(x)$ are given in the diagram.
+\end{solution}
+\end{example}
+
+If polynomials of degree at most $n$ are allowed in Example~\ref{exa:031164}, the polynomial in $\vectspace{P}_n$ is $\proj{\vectspace{P}_n}{f}$, and it is calculated in the same way. Because the subspaces $\vectspace{P}_n$ get larger as $n$ increases, it turns out that the approximating polynomials $\proj{\vectspace{P}_n}{f}$ get closer and closer to $f$. In fact, solving many practical problems comes down to approximating some interesting vector $\vect{v}$ (often a function) in an infinite dimensional inner product space $V$ by vectors in finite dimensional subspaces (which can be computed). If $U_{1} \subseteq U_{2}$ are finite dimensional subspaces of $V$, then
+\begin{equation*}
+\vectlength \vect{v} - \proj{U_2}{\vect{v}} \vectlength \leq
+\vectlength \vect{v} - \proj{U_1}{\vect{v}} \vectlength
+\end{equation*}
+by Theorem~\ref{thm:031150} (because $\proj{U_1}{\vect{v}}$ lies in $U_{1}$ and hence in $U_{2}$). Thus $\proj{U_2}{\vect{v}}$ is a better approximation to $\vect{v}$ than $ \proj{U_1}{\vect{v}} $. Hence a general method in approximation theory might be described as follows: Given $\vect{v}$, use it to construct a sequence of finite dimensional subspaces
+\begin{equation*}
+U_1 \subseteq U_2 \subseteq U_3 \subseteq \cdots
+\end{equation*}
+of $V$ in such a way that $\vectlength \vect{v} - \proj{U_k}{\vect{v}} \vectlength$ approaches zero as $k$ increases. Then $ \proj{U_k}{\vect{v}} $ is a suitable approximation to $\vect{v}$ if $k$ is large enough. For more information, the interested reader may wish to consult \textit{Interpolation and Approximation}\index{\textit{Interpolation and Approximation} (Davis)} by Philip J. Davis (New York: Blaisdell, 1963)\index{Davis, Philip J.}.
+
+\section*{Exercises for \ref{sec:10_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:10_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\noindent Use the dot product in $\RR^n$ unless otherwise instructed.
+
+\begin{ex}
+In each case, verify that $B$ is an orthogonal basis of $V$ with the given inner product and use the expansion theorem to express $\vect{v}$ as a linear combination of the basis vectors.
+
+\begin{enumerate}[leftmargin=1em,label={\alph*.}]
+\item $\vect{v} = 
+\leftB \begin{array}{r}
+a \\
+b
+\end{array} \rightB$, $B =
+\left\{
+\leftB \begin{array}{r}
+1 \\
+-1
+\end{array} \rightB
+,
+\leftB \begin{array}{r}
+1 \\
+0
+\end{array} \rightB
+\right\}$, $V = \RR^2$, \newline $\langle \vect{v}, \vect{w} \rangle = \vect{v}^T A \vect{w}$  where  $A = 
+\leftB \begin{array}{rr}
+2 & 2 \\
+2 & 5
+\end{array} \rightB$
+
+\item $\vect{v} = 
+\leftB \begin{array}{r}
+a \\
+b \\
+c
+\end{array} \rightB$, $B =
+\left\{
+\leftB \begin{array}{r}
+1 \\
+1 \\
+1
+\end{array} \rightB
+, 
+\leftB \begin{array}{r}
+-1 \\
+0 \\
+1
+\end{array} \rightB
+, 
+\leftB \begin{array}{r}
+1 \\
+-6 \\
+1
+\end{array} \rightB
+\right\}$, \\ $V = \RR^3$, $\langle \vect{v}, \vect{w} \rangle = \vect{v}^T A \vect{w}$  where $A = 
+\leftB \begin{array}{rrr}
+2 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 2 
+\end{array} \rightB
+$
+
+\item $ \vect{v} = a + bx + cx^2, B = \{1\, x, 2- 3x^2\}$, $V = \vectspace{P}_2$, \newline $\langle p, q \rangle = p(0)q(0) + p(1)q(1) + p(-1)q(-1) $
+
+\item $\vect{v} = 
+\leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB$
+, \\ $B = \left\{
+\leftB \begin{array}{rr}
+	1 & 0 \\
+	0 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+	1 & 0 \\
+	0 & -1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+	0 & 1 \\
+	1 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+	0 & 1 \\
+	-1 & 0
+\end{array} \rightB
+\right\}$, \\ $ V = \vectspace{M}_{22}$, $\langle X, Y \rangle = \func{tr}(XY^T)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item \hspace{1em} \\
+\hspace*{-2em}$ \frac{1}{14} \left\{(6a + 2b + 6c)
+\leftB \begin{array}{r}
+1 \\
+1 \\
+1
+\end{array} \rightB
++ (7c - 7a)
+\leftB \begin{array}{r}
+-1 \\
+0 \\
+1
+\end{array} \rightB \right.$ \\
+\hspace*{-2em}$\left. {} + (a -2b + c)
+\leftB \begin{array}{r}
+1 \\
+-6 \\
+1
+\end{array} \rightB
+\right\}$
+
+\setcounter{enumi}{3}
+\item  $\left(\frac{a + d}{2} \right)
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
++ \left(\frac{a - d}{2}\right)
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB
++ \left(\frac{b + c}{2}\right)
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB
++ \left(\frac{b - c}{2}\right)
+\leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\RR^3$ have the inner product $\langle (x, y, z), (x^\prime, y^\prime, z^\prime) \rangle = 2xx^\prime + yy^\prime + 3zz^\prime$. In each case, use the Gram-Schmidt algorithm to transform $B$ into an orthogonal basis.
+
+\begin{enumerate}[label={\alph*.}]
+\item $ B = \{(1, 1, 0), (1, 0, 1), (0, 1, 1) \} $
+
+\item $ B = \{(1, 1, 1), (1, -1, 1), (1, 1, 0) \} $
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{(1, 1, 1), (1, -5, 1), (3, 0, -2)\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\vectspace{M}_{22}$ have the inner product $\langle X, Y\rangle = \func{tr}(XY^{T})$. In each case, use the Gram-Schmidt algorithm to transform $B$ into an orthogonal basis.
+
+\begin{enumerate}[leftmargin=1em,label={\alph*.}]
+\item $B = \left\{
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 1 \\
+0 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+\right\}$
+
+\item $B = \left\{
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB
+\right\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item \hspace{1em} \\
+\hspace*{-2.5em}$
+\left\{
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & -2 \\
+3 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & -2 \\
+-2 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB
+\right\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, use the Gram-Schmidt process to convert the basis $B = \{1, x, x^{2}\}$ into an orthogonal basis of $\vectspace{P}_{2}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $ \langle p, q \rangle = p(0)q(0) + p(1)q(1) + p(2)q(2) $
+
+\item $ \langle p, q \rangle = \int_{0}^{2} p(x)q(x)dx $
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{1, x - 1, x^{2} - 2x + \frac{2}{3}\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that $\{1, x - \frac{1}{2}, x^2 - x + \frac{1}{6} \}$, is an orthogonal basis of $\vectspace{P}_{2}$ with the inner product 
+\begin{equation*}
+\langle p, q \rangle = \int_{0}^{1} p(x)q(x)dx
+\end{equation*}
+and find the corresponding orthonormal basis.
+\end{ex}
+
+\begin{ex}
+In each case find $U^{\perp}$ and compute $\func{dim} U$ and $\func{dim} U^{\perp}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $ U = \func{span}\{(1, 1, 2, 0), (3, -1, 2, 1)$, \\ $(1, -3, -2, 1) \} $ in $\RR^4$
+
+\item $ U = \func{span}\{(1, 1, 0, 0) \} $ in $\RR^4$
+
+\item $ U = \func{span}\{1, x\} $ in $ \vectspace{P}_2 $ with \\$ \langle p, q \rangle = p(0)q(0) + p(1)q(1) + p(2)q(2) $
+
+\item $ U = \func{span}\{x\} $ in $ \vectspace{P}_2 $ with $ \langle p, q \rangle = \int_{0}^{1} p(x)q(x)dx $
+
+\item $ U = \func{span} 
+\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB
+\right\}$ in $\vectspace{M}_{22}$ with $\langle X, Y \rangle = \func{tr}(XY^T)$
+
+\item 
+$ U = \func{span} 
+\left\{
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1 
+\end{array} \rightB
+\right\}$ in $\vectspace{M}_{22}$ with $\langle X, Y \rangle = \func{tr}(XY^T)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $U^{\perp} = $ \\ $\hspace*{-4em}\func{span}\{
+\leftB \begin{array}{cccc}
+1 & -1 & 0 & 0
+\end{array} \rightB, 
+\leftB \begin{array}{cccc}
+0 & 0 & 1 & 0
+\end{array} \rightB, 
+\leftB \begin{array}{cccc}
+0 & 0 & 0 & 1
+\end{array} \rightB\}$, $\func{dim} U^{\perp} = 3$, $\func{dim} U = 1$
+
+\setcounter{enumi}{3}
+\item  $U^{\perp} = \func{span}\{2 - 3x, 1 - 2x^{2}\}$, $\func{dim} U^{\perp} = 2$, $\func{dim} U = 1$
+
+\setcounter{enumi}{5}
+\item $U^\perp = \func{span} \left\{
+\leftB \begin{array}{rr}
+1 & -1 \\
+-1 & 0
+\end{array} \rightB
+\right\}$, $\func{dim} U^\perp = 1$, $\func{dim} U = 3$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\langle X, Y\rangle = \func{tr}(XY^{T})$ in $\vectspace{M}_{22}$. In each case find the matrix in $U$ closest to $A$.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$U = \func{span}
+\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & 1
+\end{array} \rightB
+\right\}$, \\ $A = \leftB \begin{array}{rr}
+1 & -1 \\
+2 & 3
+\end{array} \rightB$
+
+\item 
+$U =  \func{span}
+\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & -1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB
+\right\}$
+, \\ $A = 
+\leftB \begin{array}{rr}
+2 & 1 \\
+3 & 2
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item \hspace{1em} \\
+\hspace*{-2em}$
+U = \func{span} \left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & -1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array} \rightB
+\right\}$; \\ $\proj{U}{A} = 
+\leftB \begin{array}{rr}
+3 & 0 \\
+2 & 1
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In $\vectspace{P}_{2}$, let 
+\begin{equation*}
+\langle p(x), q(x)\rangle = p(0)q(0) + p(1)q(1) + p(2)q(2)
+\end{equation*}
+In each case find the polynomial in $U$ closest to $f(x)$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $ U = \func{span}\{1 + x, x^2 \}$, $f(x) = 1 + x^2 $
+
+\item $U = \func{span}\{1, 1 + x^2 \}$; $f(x) = x$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ U = \func{span}\{1, 5 - 3x^2 \}$; $\proj{U}{x} = \frac{3}{13} (1 + 2x^2) $
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Using the inner product given by $\langle p, q \rangle = \int_{0}^{1} p(x)q(x)dx$ on $\vectspace{P}_{2}$, write $\vect{v}$ as the sum of a vector in $U$ and a vector in $U^{\perp}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{v} = x^{2}$, $U = \func{span}\{x + 1, 9x - 5\}$
+
+\item $\vect{v} = x^{2} + 1$, $U = \func{span}\{1, 2x - 1\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $B = \{1, 2x - 1\}$ is an orthogonal basis of $U$ because 
+$\int_{0} ^ {1} (2x - 1)dx = 0$. Using it, we get $\proj{U}{(x^2 + 1)} = x + \frac{5}{6}$, so $x^2 + 1 = (x + \frac{5}{6}) + (x^2 -x + \frac{1}{6})$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\{\vect{u}, \vect{v}\}$ is orthogonal if and only if $\vectlength\vect{u} + \vect{v}\vectlength^{2} = \vectlength\vect{u}\vectlength^{2} + \vectlength\vect{v}\vectlength^{2}$.
+
+\item If $\vect{u} = \vect{v} = (1, 1)$ and $\vect{w} = (-1, 0)$, show that $\vectlength\vect{u} + \vect{v} + \vect{w}\vectlength^{2} = \vectlength\vect{u}\vectlength^{2} + \vectlength\vect{v}\vectlength^{2} + \vectlength\vect{w}\vectlength^{2}$ but $\{\vect{u}, \vect{v}, \vect{w}\}$ is \textit{not} orthogonal. Hence the converse to Pythagoras' theorem need not hold for more than two vectors.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $\vect{v}$ and $\vect{w}$ be vectors in an inner product space $V$. Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vect{v}$ is orthogonal to $\vect{w}$ if and only if \\ $\vectlength\vect{v} + \vect{w}\vectlength = \vectlength\vect{v} - \vect{w}\vectlength$.
+
+\item $\vect{v} + \vect{w}$ and $\vect{v} - \vect{w}$ are orthogonal if and only if $\vectlength\vect{v}\vectlength = \vectlength\vect{w}\vectlength$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  This follows from $\langle \vect{v} + \vect{w}, \vect{v} - \vect{w} \rangle = \vectlength\vect{v}\vectlength^{2} - \vectlength\vect{w}\vectlength^{2}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U$ and $W$ be subspaces of an $n$-dimensional inner product space $V$. Suppose $\langle\vect{u}, \vect{v}\rangle = 0$ for all $\vect{u} \in U$ and $\vect{w} \in W$ and $\func{dim} U + \func{dim} W = n$. Show that $U^{\perp} = W$.
+\end{ex}
+
+\begin{ex}
+If $U$ and $W$ are subspaces of an inner product space, show that $(U + W)^{\perp} = U^{\perp} \cap W^{\perp}$.
+\end{ex}
+
+\begin{ex}
+If $X$ is any set of vectors in an inner product space $V$, define
+\begin{equation*}
+X^{\perp} = \{\vect{v} \mid \vect{v} \mbox{ in } V, \langle\vect{v}, \vect{x}\rangle = 0 \mbox{ for all } \vect{x} \mbox{ in } X\}
+\end{equation*}
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $X^{\perp}$ is a subspace of $V$.
+
+\item If $U = \func{span}\{\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{m}\}$, show that \newline $U^{\perp} = \{\vect{u}_{1}, \dots, \vect{u}_{m}\}^{\perp}$.
+
+\item If $X \subseteq Y$, show that $Y^{\perp} \subseteq X^{\perp}$.
+
+\item Show that $X^{\perp} \cap Y^{\perp} = (X \cup Y)^{\perp}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $U^{\perp} \subseteq \{\vect{u}_{1}, \dots, \vect{u}_{m}\}^{\perp}$ because each $\vect{u}_{i}$ is in $U$. Conversely, if $\langle \vect{v}, \vect{u}_i \rangle = 0$ for each $i$, and $\vect{u} = r_{1}\vect{u}_{1} + \dots + r_{m}\vect{u}_{m}$ is any vector in $U$, then $\langle \vect{v}, \vect{u} \rangle = r_1 \langle \vect{v}, \vect{u}_1 \rangle + \dots + r_m \langle \vect{v}, \vect{u}_m \rangle = 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\func{dim} V = n$ and $\vect{w} \neq \vect{0}$ in $V$, show that
+$\func{dim} \{\vect{v} \mid \vect{v} \mbox{ in } V, \langle\vect{v}, \vect{w}\rangle = 0\} = n - 1$.
+\end{ex}
+
+\begin{ex}
+If the Gram-Schmidt process is used on an orthogonal basis $\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$ of $V$, show that $\vect{f}_{k} = \vect{v}_{k}$ holds for each $k = 1, 2, \dots, n$. That is, show that the algorithm reproduces the same basis.
+\end{ex}
+
+\begin{ex}
+If $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n-1}\}$ is orthonormal in an inner product space of dimension $n$, prove that there are exactly two vectors $\vect{f}_{n}$ such that $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n-1}, \vect{f}_{n}\}$ is an orthonormal basis.
+\end{ex}
+
+\begin{ex}
+Let $U$ be a finite dimensional subspace of an inner product space $V$, and let $\vect{v}$ be a vector in $V$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vect{v}$ lies in $U$ if and only if $\vect{v} = \proj{U}{(\vect{v})}$.
+
+\item If $V = \RR^3$, show that $(-5, 4, -3)$ lies in $\func{span}\{(3, -2, 5), (-1, 1, 1)\}$ but that $(-1, 0, 2)$ does not.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ \proj{U}{(-5, 4, -3)} = (-5, 4, -3)$; \\ $\proj{U}{(-1, 0, 2)} = \frac{1}{38}(-17, 24, 73) $
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\vect{n} \neq \vect{0}$ and $\vect{w} \neq \vect{0}$ be nonparallel vectors in $\RR^3$ (as in Chapter~\ref{chap:4}).
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $ \left\{\vect{n}, \vect{n} \times \vect{w}, \vect{w} - \frac{\vect{n} \dotprod \vect{w}}{\vectlength \vect{n} \vectlength ^2} \vect{n} \right\}$ is an orthogonal basis of $\RR^3$.
+
+\item Show that span $ \left\{\vect{n} \times \vect{w}, \vect{w} - \frac{\vect{n} \dotprod \vect{w}}{\vectlength \vect{n} \vectlength ^2} \vect{n} \right\} $ is the plane through the origin with normal $\vect{n}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The plane is $U = \{\vect{x} \mid \vect{x} \dotprod \vect{n} = 0\}$ so $\func{span} \left\{\vect{n} \times \vect{w}, \vect{w} - \frac{\vect{n} \dotprod \vect{w}}{\vectlength \vect{n} \vectlength ^2} \vect{n} \right\} \subseteq U$. This is equality because both spaces have dimension $2$ (using \textbf{(a)}).
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $E = \{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ be an orthonormal basis of $V$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\langle\vect{v}, \vect{w}\rangle = C_{E}(\vect{v}) \dotprod C_{E}(\vect{w})$ for all $\langle\vect{v}, \vect{w}\rangle$ in $V$.
+
+\item If $P = \leftB p_{ij} \rightB$ is an $n \times n$ matrix, define \newline $\vect{b}_{i} = p_{i1}\vect{f}_{1} + \dots + p_{in}\vect{f}_{n}$ for each $i$. Show that $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ is an orthonormal basis if and only if $P$ is an orthogonal matrix.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $C_{E}(\vect{b}_{i})$ is column $i$ of $P$. Since
+  $C_{E}(\vect{b}_{i}) \dotprod C_{E}(\vect{b}_{j}) = \langle \vect{b}_i, \vect{b}_j \rangle$ by \textbf{(a)}, the result follows.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ be an orthogonal basis of $V$. If $\vect{v}$ and $\vect{w}$ are in $V$, show that
+\begin{equation*}
+\langle \vect{v}, \vect{w} \rangle = 
+\frac{\langle \vect{v}, \vect{f}_1 \rangle \langle \vect{w}, \vect{f}_1 \rangle}{\vectlength \vect{f}_1 \vectlength ^2} + \dots +
+\frac{\langle \vect{v}, \vect{f}_n \rangle \langle \vect{w}, \vect{f}_n \rangle}{\vectlength \vect{f}_n \vectlength ^2}
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ be an orthonormal basis of $V$, and let $\vect{v} = v_{1}\vect{f}_{1} + \dots + v_{n}\vect{f}_{n}$ and \\ $\vect{w} = w_{1}\vect{f}_{1} + \dots + w_{n}\vect{f}_{n}$. Show that 
+\begin{equation*}
+\langle\vect{v}, \vect{w}\rangle = v_{1}w_{1} + \dots + v_{n}w_{n}
+\end{equation*}
+ and 
+\begin{equation*}
+\vectlength \vect{v} \vectlength ^2 = v_1^2 + \dots + v_n^2
+\end{equation*}
+(\textbf{Parseval's formula}\index{Parseval's formula}).
+\end{ex}
+
+\begin{ex}
+Let $\vect{v}$ be a vector in an inner product space $V$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vectlength\vect{v}\vectlength \geq \vectlength\proj{U}{\vect{v}}\vectlength$ holds for all finite dimensional subspaces $U$. [\textit{Hint}: Pythagoras' theorem.]
+
+\item If $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ is any orthogonal set in $V$, prove \textbf{Bessel's inequality}\index{Bessel's inequality}:
+\begin{equation*}
+\frac{\langle \vect{v}, \vect{f}_1 \rangle ^2}{\vectlength \vect{f}_1 \vectlength ^2} + \dots +
+\frac{\langle \vect{v}, \vect{f}_m \rangle ^2}{\vectlength \vect{f}_m \vectlength ^2}
+\leq \vectlength \vect{v} \vectlength ^2
+\end{equation*}
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $U = \func{span}\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$, then 
+$\proj{U}{\vect{v}} = \displaystyle \sum_{i = 1}^{m} \frac{\langle \vect{v}_1, \vect{f}_i \rangle}{\vectlength \vect{f}_i \vectlength ^2} \vect{f}_i$
+ by Theorem~\ref{thm:031102}. Hence
+$\vectlength \proj{U}{\vect{v}} \vectlength ^2 =
+\displaystyle \sum_{i = 1}^{m} \frac{\langle \vect{v}_1, \vect{f}_i \rangle}{\vectlength \vect{f}_i \vectlength ^2} \vect{f}_i$
+ by Pythagoras' theorem. Now use \textbf{(a)}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $B = \{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ be an orthogonal basis of an inner product space $V$. Given $\vect{v} \in V$, let $\theta_{i}$ be the angle between $\vect{v}$ and $\vect{f}_{i}$ for each $i$ (see Exercise~\ref{ex:10_1_31}). Show that 
+\begin{equation*}
+\cos^{2} \theta_{1} + \cos^{2} \theta_{2} + \dots + \cos^{2} \theta_{n} = 1
+\end{equation*}
+ [The $\cos \theta_{i}$ are called \textbf{direction cosines}\index{cosine}\index{direction cosines} for $\vect{v}$ corresponding to $B$.]
+\end{ex}
+
+
+\columnbreak
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Let $S$ denote a set of vectors in a finite dimensional inner product space $V$, and suppose that $\langle\vect{u}, \vect{v}\rangle = 0$ for all $\vect{u}$ in $S$ implies $\vect{v} = \vect{0}$. Show that $V = \func{span} S$. [\textit{Hint}: Write $U = \func{span} S$ and use Theorem~\ref{thm:031043}.]
+
+\item Let $A_{1}, A_{2}, \dots, A_{k}$ be $n \times n$ matrices. Show that the following are equivalent.
+
+\begin{enumerate}[label={\roman*.}]
+\item If $A_{i}\vect{b} = \vect{0}$ for all $i$ (where $\vect{b}$ is a column in $\RR^n$), then $\vect{b} = \vect{0}$.
+
+\item The set of all rows of the matrices $A_{i}$ spans $\RR^n$.
+
+\end{enumerate}
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $[x_{i}) = (x_{1}, x_{2}, \dots)$ denote a sequence of real numbers $x_{i}$, and let 
+\begin{equation*}
+V = \{[x_{i}) \mid \mbox{ only finitely many } x_{i} \neq 0\}
+\end{equation*} Define componentwise addition and scalar multiplication on $V$ as follows:
+
+$[x_{i}) + [y_{i}) = [x_{i} + y_{i})$, and $a[x_{i}) = [ax_{i})$ for $a$ in $\RR$.
+
+
+\noindent Given $[x_{i})$ and $[y_{i})$ in $V$, define $ \langle [x_i), [y_i) \rangle = \displaystyle \sum_{i = 0}^{\infty} x_i y_i $. (Note that this makes sense since only finitely many $x_{i}$ and $y_{i}$ are nonzero.) Finally define 
+\begin{equation*}
+U = \{[x_i) \mbox{ in } V \mid \displaystyle \sum_{i = 0}^{\infty} x_i = 0 \}
+\end{equation*}
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $V$ is a vector space and that $U$ is a subspace.
+
+\item Show that $\langle\ , \rangle$ is an inner product on $V$.
+
+\item Show that $U^{\perp} = \{\vect{0}\}$.
+
+\item Hence show that $U \oplus U^{\perp} \neq V$ and $U \neq U^{\perp\perp}$.
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

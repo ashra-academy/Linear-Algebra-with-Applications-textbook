@@ -1,0 +1,72 @@
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[view/h=120,disabledatascaling, 
+width=5cm, 
+height=5cm, 
+xlabel={$x$}, 
+ylabel={$y$},
+zlabel={$z$},
+axis lines=center,
+axis on top=false,
+xtick=\empty,
+ytick=\empty,
+ztick=\empty,
+xticklabels=\empty, 
+yticklabels=\empty, 
+zticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=north,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis z label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode=individual,
+domain=-5:5, 
+samples=100, 
+xmin=0, 
+xmax=1.5, 
+ymin=0, 
+ymax=2.9,
+zmin=0,
+zmax=2.9]
+
+\coordinate (origin) at (0, 0, 0);
+\def \angleV {-55}
+\def \angleW {25} %angle from w to y-axis
+\def \angleTv {\angleV + 140}
+\def \angleTw {\angleW + 140}
+
+\coordinate (ptW) at (0, {cos(\angleW)}, {sin(\angleW)}); %length of w = 1
+\coordinate (ptV) at (0, {2 * cos(\angleV)}, {2 * sin(\angleV)}); %length of v = 2
+\coordinate (ptVPlusW) at ($(ptW) + (ptV)$);
+
+\coordinate (ptTw) at (0, { cos(\angleTw) }, { sin(\angleTw) });
+\coordinate (ptTv) at (0, { 2 * cos(\angleTv) }, { 2 * sin(\angleTv) });
+\coordinate (ptTvPlusTw) at ($(ptTv) + (ptTw)$);
+\coordinate (ptLabelSumT) at ($ (ptTvPlusTw) + (0, -0.3, 0.25) $);
+
+%right shape
+\filldraw[color=dkbluevect, fill=ltbluevect, thick] (origin)--(ptW)--(ptVPlusW)--(ptV)--cycle;
+\draw[dkgreenvect, thick, -latex] (origin)--(ptW);
+\draw[dkgreenvect, thick, -latex] (origin)--(ptV);
+\draw[dkgreenvect, thick, -latex] (origin)--(ptVPlusW);
+\node[above] at (ptW) {\footnotesize $\vect{w}$};
+\node[right] at (ptVPlusW) {\footnotesize $\vect{v} + \vect{w}$};
+\node[left=0.05] at (ptV) {\footnotesize $\vect{v}$};
+
+%left shape
+\filldraw[color=dkbluevect, fill=ltbluevect, thick] (origin)--(ptTv)--(ptTvPlusTw)--(ptTw)--cycle;
+\draw[dkgreenvect, thick, -latex] (origin)--(ptTw);
+\draw[dkgreenvect, thick, -latex] (origin)--(ptTv);
+\draw[dkgreenvect, thick, -latex] (origin)--(ptTvPlusTw);
+\node[left] at (ptTw) {\footnotesize $T(\vect{w})$};
+\node at (ptLabelSumT) {\footnotesize $T(\vect{v} + \vect{w})$};
+\node[right] at (ptTv) {\footnotesize $T(\vect{v})$};
+\end{axis}
+\end{tikzpicture}

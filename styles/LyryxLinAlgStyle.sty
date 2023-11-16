@@ -1,0 +1,340 @@
+% % % % % % % % % % % % %
+% % % % % % % %
+% %
+% % Style for Nicholson Linear Algebra textbook
+% %
+% % % % % % % %
+% % % % % % % % % % % % %
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLOURS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+
+% New style colours for 2021A
+
+\definecolor{primarycolour}{RGB}{34,82,40}
+\definecolor{secondarycolour}{RGB}{130,199,130}
+
+\definecolor{mainchapterboxcolour}{RGB}{130,199,130}
+\definecolor{chaptertextcolour}{RGB}{34,82,40}
+\definecolor{chapternameboxcolour}{RGB}{34,82,40}
+\definecolor{sectionheadercolour}{RGB}{34,82,40}
+\definecolor{subsectioncolour}{RGB}{34,82,40}
+
+% Example, Definition, Formula & Theorem box colours
+\definecolor{theoremcolour}{RGB}{61,109,100}
+\definecolor{definitioncolour}{RGB}{115,180,198}
+\definecolor{examplecolour}{RGB}{16,45,58}
+\definecolor{solutioncolour}{RGB}{61,109,100}
+\definecolor{outcomecolour}{HTML}{E0B659}
+
+
+%Image colors
+\definecolor{ltgreenvect}{HTML}{B5C1A9}%ABB89D}
+\definecolor{dkgreenvect}{HTML}{85A465}%56713B}
+\definecolor{ltbluevect}{HTML}{B3C0D7}
+\definecolor{dkbluevect}{HTML}{4B6BA2}%59606C}
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% . . . End of Colours . . . 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Boxes and environments for Definitions, Examples, Theorems & Outcomes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Style and setup of Definition, Theorem, and Example environments
+
+% % Counters for Theorems, Examples, Definitions & Corollaries. Independent counters so that each type of environment starts at 1 in a new chapter.
+
+\newcounter{TheoremCounter}[section]
+
+\def\theTheoremCounter{\ifnum\the\value{section}=0 %
+	\thechapter.\arabic{TheoremCounter}%
+\else %
+	\thesection.\arabic{TheoremCounter}%
+\fi}
+
+\newcounter{TheoremNonCounter}[chapter]
+\def\theTheoremNonCounter{\thechapter.\arabic{TheoremNonCounter}}
+
+\newcounter{ExampleCounter}[section]
+\def\theExampleCounter{\ifnum\the\value{section}=0 %
+ 	\thechapter.\arabic{ExampleCounter}%
+ \else %
+       % \arabic{ExampleCounter}, \S \thesection%
+	\thesection.\arabic{ExampleCounter}%
+ \fi}
+
+
+\newcounter{DefinitionCounter}[chapter]
+\def\theDefinitionCounter{\thechapter.\arabic{DefinitionCounter}}
+
+\newcounter{CorollaryCounter}[section]
+\def\theCorollaryCounter{\ifnum\the\value{section}=0 %
+	\thechapter.\arabic{CorollaryCounter}%
+\else %
+	\thesection.\arabic{CorollaryCounter}%
+\fi}
+
+\newcounter{CorollaryNonCounter}[chapter]
+\def\theCorollaryNonCounter{\thechapter.\arabic{CorollaryNonCounter}}
+
+\newcounter{LemmaCounter}[section]
+\def\theLemmaCounter{\ifnum\the\value{section}=0 %
+	\thechapter.\arabic{LemmaCounter}%
+\else %
+	\thesection.\arabic{LemmaCounter}%
+\fi}
+
+\newcounter{LemmaNonCounter}[chapter]
+\def\theLemmaNonCounter{\thechapter.\arabic{LemmaNonCounter}}
+
+%%Counters to have continuous numbering
+%\newcounter{mytheorem}[chapter]
+%\def\themytheorem{\thechapter.\arabic{mytheorem}}
+
+%%Figure and Equation numbering for appendices
+\renewcommand\thefigure{\ifnum\the\value{section}=0 %
+	\thechapter.\arabic{figure}%
+\else %
+	\thesection.\arabic{figure}%
+\fi}
+
+\renewcommand\theequation{\thechapter.\arabic{equation}}
+
+
+%%
+
+
+
+\tcbset{
+	defstyle/.style={fonttitle={\bfseries\upshape%
+\makeatletter%
+\renewcommand\@makefnmark{\hbox{\@textsuperscript{\normalfont\color{white}\@thefnmark}}}%
+\makeatother%
+},separator sign none,halign=flush left,fontupper=\slshape,breakable,enhanced,colback=definitioncolour!5,colframe=definitioncolour,before={\par\bigskip\pagebreak[0]\parindent=0pt},after={\par\bigskip},top=1mm,bottom=1mm},
+	theostyle/.style={fonttitle={\bfseries\upshape%
+\makeatletter%
+\renewcommand\@makefnmark{\hbox{\@textsuperscript{\normalfont\color{white}\@thefnmark}}}%
+\makeatother%
+}, halign=flush left,fontupper=\slshape,breakable,enhanced,colback=theoremcolour!5,colframe=theoremcolour,before={\par\bigskip\pagebreak[0]\parindent=0pt},after={\par\bigskip},top=1mm,bottom=1mm},
+	theononstyle/.style={fonttitle={\bfseries\upshape%
+\makeatletter%
+\renewcommand\@makefnmark{\hbox{\@textsuperscript{\normalfont\color{white}\@thefnmark}}}%
+\makeatother%
+}, theorem name, separator sign none, fontupper=\slshape,halign=flush left,breakable,enhanced,colback=theoremcolour!5,colframe=theoremcolour,before={\par\bigskip\pagebreak[0]\parindent=0pt},after={\par\bigskip},top=1mm,bottom=1mm},
+	examstyle/.style={fonttitle={\bfseries\upshape%
+\makeatletter%
+\renewcommand\@makefnmark{\hbox{\@textsuperscript{\normalfont\color{white}\@thefnmark}}}%
+\makeatother%
+},halign=flush left,breakable,enhanced,colback=examplecolour!5,colframe=examplecolour,before={\par\bigskip\pagebreak[0]\parindent=0pt},after={\par\bigskip},top=1mm,bottom=1mm},
+}
+
+%%To have each type follow its own numbering
+\tcbmaketheorem{definition}{Definition}{defstyle}{DefinitionCounter}{def}
+\tcbmaketheorem{theorem}{Theorem}{theostyle}{TheoremCounter}{thm}
+\tcbmaketheorem{theorem*}{}{theononstyle}{TheoremNonCounter}{thm}
+\tcbmaketheorem{corollary}{Corollary}{theostyle}{CorollaryCounter}{cor}
+\tcbmaketheorem{corollary*}{Corollary}{theononstyle}{CorollaryNonCounter}{cor}
+\tcbmaketheorem{example}{Example}{examstyle}{ExampleCounter}{exa}
+\tcbmaketheorem{lemma}{Lemma}{theostyle}{LemmaCounter}{lem}
+\tcbmaketheorem{lemma*}{Lemma}{theononstyle}{LemmaNonCounter}{lem}
+
+%%To have continuous numbering
+%\tcbmaketheorem{definition}{Definition}{defstyle}{mytheorem}{def}
+%\tcbmaketheorem{theorem}{Theorem}{theostyle}{mytheorem}{thm}
+%\tcbmaketheorem{corollary}{Corollary}{theostyle}{mytheorem}{cor}
+%\tcbmaketheorem{example}{Example}{examstyle}{mytheorem}{exa}
+
+\tcbmaketheorem{proposition}{Proposition}{theostyle}{mytheorem}{prop}
+\tcbmaketheorem{procedure}{Procedure}{defstyle}{mytheorem}{proc}
+\tcbmaketheorem{observation}{Observation}{examstyle}{mytheorem}{obs}
+\tcbmaketheorem{algorithm}{Algorithm}{examstyle}{mytheorem}{algo}
+\tcbmaketheorem{notation}{Notation}{defstyle}{mytheorem}{not}
+
+
+% Outcomes
+\newtcolorbox{outcome}{fonttitle=\bfseries\upshape,fontupper=\slshape,
+	colback=white,colframe=outcomecolour,before={\par\bigskip\pagebreak[0]\parindent=0pt},after={\par\bigskip},top=1mm,bottom=1mm,title=Outcomes}
+
+% This bit of code allows the end proof symbol to be on the bottom right of the page
+\newcommand\xqed[1]{%
+	\leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill %
+	\quad\hbox{#1}}
+
+% Solution environment for Examples
+\def\solution{\par\bigskip\pagebreak[0]\noindent{\solutionfont{\bf{\underline{Solution.}}}} \ignorespaces}
+%\def\endsolution{\solutionfont{\bf\xqed{$\spadesuit$}}\par\medskip}
+%\def\endsolution{\par}
+
+
+\renewenvironment{solution}[1][\relax]
+{
+  \ifx#1\relax \par\bigskip\pagebreak[0]\noindent{\solutionfont{\bf{\underline{Solution.}}}} \ignorespaces
+  \else \par\bigskip\pagebreak[0]\noindent{\solutionfont{\bf{\underline{Solution #1.}}}} \ignorespaces
+  \fi
+}
+{\par}
+
+
+
+% Proof environment for Theorems 
+
+\renewenvironment{proof}[1][\relax]{
+  \ifx#1\relax \par\noindent{\prooffont{\bf{\underline{Proof.}}}} \ignorespaces
+  \else \par\noindent{\prooffont{\bf{\underline{#1.}}}} \ignorespaces
+  \fi
+}
+{\prooffont{\bf\xqed{$\qedsymbol$}}\par\medskip}
+
+
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Special commands and shorthand commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Shorthand commands for colours used in proof and theorem environments
+\def\prooffont#1{{{\bf{\textcolor{theoremcolour}{#1}}}}}
+\def\solutionfont#1{{{\bf{\textcolor{solutioncolour}{#1}}}}}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom and shorthand Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% MATH shortcuts that can be tweaked
+\newcommand{\opft}{\mathgroup\symoperators}
+\newcommand{\lip}{\mathop{\opft Lip}\nolimits}
+\newcommand{\Res}{\mathop{\opft Res}\nolimits}
+\newcommand{\INT}{\mathop{\opft int}\nolimits}
+\newcommand{\spt}{\mathop{\opft spt}\nolimits}
+\newcommand{\ann}{\mathop{\opft ann}\nolimits}
+\newcommand{\diam}{\mathop{\opft diam}\nolimits}
+\newcommand{\dist}{\mathop{\opft dist}\nolimits}
+
+
+%%For ``math words'' such as null, im, det, adj, dim - use \func{} within math mode. It has the same effect as mbox but keeps this word identified as its own function. Space can be added after the word as in \func{det } as needed.
+
+\providecommand{\text}[1]{\mbox{#1}}
+%\providecommand{\func}[1]{\mbox{#1}}
+\providecommand{\func}[1]{\thinspace\operatorname{#1\medspace}} 
+\providecommand{\limfunc}[1]{\mbox{#1}}
+
+% Matrix setup
+\setcounter{MaxMatrixCols}{10}
+
+% Square brackets
+\newcommand{\leftB}{\left[} 
+\newcommand{\rightB}{\right]}
+
+% Vector Notation Options
+%\newcommand{\vect}{\vec}
+\newcommand{\vect}{\textbf}
+\newcommand{\longvect}{\overrightarrow}
+
+% Vector spaces
+\newcommand{\vectspace}{\textbf}
+
+% Dot Product Notation Options
+%\newcommand{\dotprod}{\bullet}
+\newcommand{\dotprod}{\cdot}
+
+% Vector Length Notation
+\newcommand{\vectlength}{\|}
+
+% R
+\newcommand{\RR}{\mathbb{R}}
+
+% double prime
+\newcommand{\dprime}{{\prime\prime}}
+
+%diagonal matrix
+\newcommand{\diag}{\func{diag}}
+
+%projection
+%\newcommand{\proj}{\func{proj}}
+\newcommand{\proj}[2]{\func{proj}_{\!#1}\,{#2}} %\;
+
+%reduces size of all fractions to text size rather than display size
+\renewcommand{\frac}{\tfrac}
+
+%tikznode 
+\newcommand{\tn}[2]{
+	\tikz[remember picture,baseline] \node[inner sep=0pt,outer sep=0,anchor=base] (#1){$#2$};
+}
+
+%%Restoring mathcal font
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+%%Prevent footnotes breaking pages
+\interfootnotelinepenalty=10000
+
+%%New Tasks environment for exercises
+\NewTasks[counter-format={tsk[a].},after-item-skip={0pt}]{exenumerate}[\exitem](2)%
+
+%Tasks Counter hack
+\ExplSyntaxOn
+\newcommand{\ShowTaskNumber}{
+  \int_use:N \g__tasks_int
+}
+\newcommand{\SetTaskNumber}[1]{
+  \int_gset:Nn \g__tasks_int {#1}
+}
+\ExplSyntaxOff
+
+
+%%Fix for when \begin{exenumerate} comes immediately after \item in an enumerate list%%
+\newcommand{\itemfix}{\mbox{}\vspace*{-\dimexpr\baselineskip + \topsep}}
+
+%%Comma Spacing adjustment
+
+\AtBeginDocument{%
+  \newif\iflargenumcommand%
+  \mathchardef\mathcomma\mathcode`\,%
+  \mathcode`\,="8000 %
+}
+{\catcode`,=\active
+  \gdef,{\futurelet\@let@token\spacedcomma}
+}
+\def\spacedcomma{%
+  \iflargenumcommand
+  	\mathcomma
+  \else
+  	\mathcomma\ 
+  \fi%
+}
+
+\newcommand{\largenum}[1]{\largenumcommandtrue #1 \largenumcommandfalse}
+
+%%Tikz Needed for diagrams
+
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position .5 with {\arrow{latex}}},postaction={decorate}}}
+
+
+
+\newenvironment{htmlasimage}[1]{}{}
+\newcommand{\newhtmlpage}{}
+
+
+
+
+
+
+
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

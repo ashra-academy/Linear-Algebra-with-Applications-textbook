@@ -1,0 +1,1369 @@
+\section[Matrix Addition, Scalar Multiplication, and Transposition]{Matrix Addition, Scalar Multiplication, and \\ Transposition}
+\label{sec:2_1}
+
+A rectangular array of numbers is called a \textbf{matrix}\index{matrix}\index{matrix!defined} (the plural is \textbf{matrices}\index{matrices}), and the numbers are called the \textbf{entries}\index{entries of the matrix}\index{matrix!entries of the matrix} of the matrix. Matrices are usually denoted by uppercase letters: $A$, $B$, $C$, and so on. Hence,
+\begin{equation*}
+A = \leftB \begin{array}{rrr}
+1 & 2 & -1 \\
+0 & 5 & 6
+\end{array} \rightB \quad
+B = \leftB \begin{array}{rr}
+1 & -1 \\
+0 & 2
+\end{array} \rightB \quad
+C = \leftB \begin{array}{r}
+1 \\
+3 \\
+2
+\end{array} \rightB
+\end{equation*}
+are matrices. Clearly matrices come in various shapes\index{matrix!shapes} depending on the number of \textbf{rows}\index{rows!shape of matrix} and \textbf{columns}\index{columns!shape of matrix}. For example, the matrix $A$ shown has $2$ rows and $3$ columns. In general, a matrix with $m$ rows and $n$ columns is referred to as an $\bm{m} \times \bm{n}$ \textbf{\textit{matrix}}\index{$m \times n$ matrix!defined} or as having \textbf{size} $\bm{m} \times \bm{n}$\index{size $m \times n$ matrix}\index{matrix algebra!size of matrices}. Thus matrices $A$, $B$, and $C$ above have sizes $2 \times 3$, $2 \times 2$, and $3 \times 1$, respectively. A matrix of size $1 \times n$ is called a \textbf{row matrix}\index{row matrix}\index{matrix!row matrix}, whereas one of size $m \times 1$ is called a \textbf{column matrix}\index{column matrix}\index{matrix!column matrix}. Matrices of size $n \times n$ for some $n$ are called \textbf{square} matrices\index{square matrix ($n \times n$ matrix)!defined}.
+
+Each entry of a matrix is identified by the row and column in which it lies. The rows are numbered from the top down, and the columns are numbered from left to right. Then the $\bm{(i, j)}$\textbf{-entry}\index{$(i, j)$-entry}\index{matrix!$(i, j)$-entry}\index{columns!$(i, j)$-entry}\index{rows!$(i, j)$-entry} of a matrix is the number lying simultaneously in row $i$ and column $j$. For example,
+\begin{align*}
+\mbox{The } (1, 2) \mbox{-entry of } &\leftB \begin{array}{rr}
+1 & -1 \\
+0 & 1
+\end{array}\rightB \mbox{ is } -1. \\
+\mbox{The } (2, 3) \mbox{-entry of } &\leftB \begin{array}{rrr}
+1 & 2 & -1 \\
+0 & 5 & 6  
+\end{array}\rightB \mbox{ is } 6.
+\end{align*}
+
+A special notation is commonly used for the entries of a matrix. If $A$ is an $m \times n$ matrix, and if the $(i, j)$-entry of $A$ is denoted as $a_{ij}$, then $A$ is displayed as follows:\index{matrix!entries of the matrix}
+\begin{equation*}
+A = \leftB \begin{array}{ccccc}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} \\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n} \\
+\vdots & \vdots & \vdots & & \vdots \\
+a_{m1} & a_{m2} & a_{m3} & \cdots & a_{mn}
+\end{array} \rightB
+\end{equation*}
+This is usually denoted simply as $A = \leftB a_{ij} \rightB$. Thus $a_{ij}$ is the entry in row $i$ and column $j$ of $A$. For example, a $3 \times 4$ matrix in this notation is written
+\begin{equation*}
+A = \leftB \begin{array}{cccc}
+a_{11} & a_{12} & a_{13} & a_{14} \\
+a_{21} & a_{22} & a_{23} & a_{24} \\
+a_{31} & a_{32} & a_{33} & a_{34}
+\end{array} \rightB
+\end{equation*}
+It is worth pointing out a convention regarding rows and columns: \textit{Rows are mentioned before columns}. For example:\index{columns!convention}\index{rows!convention}
+
+
+\begin{itemize}
+\item \textit{If a matrix has size $m \times n$, it has $m$ rows and $n$ columns.}
+
+\item \textit{If we speak of the $(i, j)$-entry of a matrix, it lies in row $i$ and column $j$.}
+
+\item \textit{If an entry is denoted $a_{ij}$, the first subscript $i$ refers to the row and the second subscript $j$ to the column in which $a_{ij}$ lies.}
+
+\end{itemize}
+
+Two points $(x_{1}, y_{1})$ and $(x_{2}, y_{2})$ in the plane are equal if and only if\footnote{If $p$ and $q$ are statements, we say that $p$ implies $q$ if $q$ is true whenever $p$ is true. Then ``$p$ if and only if $q$''\index{``if and only if''} means that both $p$ implies $q$ and $q$ implies $p$. See Appendix~\ref{chap:appbproofs} for more on this.} they have the same coordinates, that is $x_{1} = x_{2}$ and $y_{1} = y_{2}$. Similarly, two matrices $A$ and $B$ are called \textbf{equal}\index{equal!matrices}\index{matrix!equal matrices} (written $A = B$) if and only if:
+
+\begin{enumerate}
+\item \textit{They have the same size.}
+
+\item \textit{Corresponding entries are equal.}
+
+\end{enumerate}
+
+\noindent If the entries of $A$ and $B$ are written in the form $A = \leftB a_{ij} \rightB$, $B = \leftB b_{ij} \rightB$, described earlier, then the second condition takes the following form:
+\begin{equation*}
+A = \leftB a_{ij} \rightB = \leftB b_{ij} \rightB \mbox{ means } a_{ij} = b_{ij} \mbox{ for all } i \mbox{ and } j
+\end{equation*}
+\begin{example}{}{002057}
+Given $A = \leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array}
+\rightB$, $B = \leftB \begin{array}{rrr}
+1 & 2 & -1 \\
+3 & 0 & 1
+\end{array}
+\rightB$ and 
+$C = \leftB \begin{array}{rr}
+1 & 0 \\
+-1 & 2
+\end{array}
+\rightB$
+ discuss the possibility that $A = B$, $B = C$, $A = C$.
+
+
+\begin{solution}
+  $A = B$ is impossible because $A$ and $B$ are of different sizes: $A$ is $2 \times 2$ whereas $B$ is $2 \times 3$. Similarly, $B = C$ is impossible. But $A = C$ is possible provided that corresponding entries are equal: 
+  $\leftB \begin{array}{cc}
+  a & b \\
+  c & d
+  \end{array} \rightB =
+  \leftB \begin{array}{rr}
+  1 & 0 \\
+  -1 & 2
+  \end{array} \rightB$
+ means $a = 1$, $b = 0$, $c = -1$, and $d = 2$.
+\end{solution}
+\end{example}
+
+\subsection*{Matrix Addition}
+
+
+\begin{definition}{Matrix Addition}{002068}
+If $A$ and $B$ are matrices of the same size, their \textbf{sum}\index{sum!matrices of the same size}\index{sum!matrix addition}\index{addition!matrix addition}\index{matrix addition} $A + B$ is the matrix formed by adding corresponding entries.\index{matrix algebra!matrix addition}
+\end{definition}
+
+\noindent If $A = \leftB a_{ij} \rightB$ and $B = \leftB b_{ij} \rightB$, this takes the form
+\begin{equation*}
+A + B = \leftB a_{ij} + b_{ij} \rightB
+\end{equation*}
+Note that addition is \textit{not} defined for matrices of different sizes.
+
+
+\begin{example}{}{002076}
+If $A = \leftB \begin{array}{rrr}
+2 & 1 & 3 \\
+-1 & 2 & 0
+\end{array} \rightB$
+ and $B = \leftB \begin{array}{rrr}
+ 1 & 1 & -1 \\
+ 2 & 0 & 6
+ \end{array} \rightB$,
+ compute $A + B$.
+
+\begin{solution}
+\begin{equation*}
+A + B = \leftB \begin{array}{rrr}
+2 + 1 & 1 + 1 & 3 - 1 \\
+-1 + 2 & 2 + 0 & 0 + 6
+\end{array} \rightB
+=
+\leftB \begin{array}{rrr}
+3 & 2 & 2 \\
+1 & 2 & 6
+\end{array} \rightB
+\end{equation*}
+\end{solution}
+\end{example}
+
+\begin{example}{}{002085}
+Find $a$, $b$, and $c$ if $\leftB \begin{array}{ccc}
+a & b & c
+\end{array} \rightB + \leftB 
+\begin{array}{ccc}
+c & a & b
+\end{array} \rightB 
+= \leftB \begin{array}{ccc}
+3 & 2 & -1
+\end{array} \rightB$.
+
+
+\begin{solution}
+  Add the matrices on the left side to obtain
+\begin{equation*}
+\leftB \begin{array}{ccc}
+a + c & b + a & c + b
+\end{array} \rightB
+=
+\leftB \begin{array}{rrr}
+3 & 2 & -1
+\end{array} \rightB
+\end{equation*}
+Because corresponding entries must be equal, this gives three equations: $a + c = 3$, $b + a = 2$, and $c + b = -1$. Solving these yields $a = 3$, $b = -1$, $c = 0$.
+\end{solution}
+\end{example}
+
+If $A$, $B$, and $C$ are any matrices \textit{of the same size}, then
+\begin{align}
+A + B &= B + A \tag{commutative law}\index{commutative law} \\
+A + (B + C) &= (A + B) + C \tag{associative law}\index{associative law}
+\end{align}
+In fact, if $A = \leftB a_{ij} \rightB$ and $B = \leftB b_{ij} \rightB$, then the $(i, j)$-entries of $A + B$ and $B + A$ are, respectively, $a_{ij} + b_{ij}$ and $b_{ij} + a_{ij}$. Since these are equal for all $i$ and $j$, we get
+\begin{equation*}
+A + B = \leftB \begin{array}{c}
+a_{ij} + b_{ij}
+\end{array} \rightB
+=
+\leftB \begin{array}{c}
+b_{ij} + a_{ij}
+\end{array} \rightB
+= B + A
+\end{equation*}
+The associative law is verified similarly.
+
+The $m \times n$ matrix in which every entry is zero is called the $m \times n$ \textbf{zero matrix}\index{zero matrix!described}\index{$m \times n$ matrix!zero matrix}\index{matrix!zero matrix} and is denoted as $0$ (or $0_{mn}$ if it is important to emphasize the size). Hence,
+\begin{equation*}
+0 + X = X
+\end{equation*}
+holds for all $m \times n$ matrices $X$. The \textbf{negative}\index{negative!of $m \times n$ matrix}\index{$m \times n$ matrix!negative} of an $m \times n$ matrix $A$ (written $-A$) is defined to be the $m \times n$ matrix obtained by multiplying each entry of $A$ by $-1$. If $A = \leftB a_{ij} \rightB$, this becomes $-A = \leftB -a_{ij} \rightB$. Hence,
+\begin{equation*}
+A + (-A) = 0
+\end{equation*}
+holds for all matrices $A$ where, of course, $0$ is the zero matrix of the same size as $A$.
+
+
+A closely related notion is that of subtracting matrices\index{matrix!subtracting}\index{matrix algebra!matrix subtraction}\index{subtraction!matrix}. If $A$ and $B$ are two $m \times n$ matrices, their \textbf{difference}\index{difference!$m \times n$ matrices}\index{$m \times n$ matrix!difference} $A - B$ is defined by
+\begin{equation*}
+A - B = A + (-B)
+\end{equation*}
+Note that if $A = \leftB a_{ij} \rightB$ and $B = \leftB b_{ij} \rightB$, then
+\begin{equation*}
+A - B = \leftB a_{ij} \rightB  + \leftB -b_{ij} \rightB = \leftB a_{ij} - b_{ij} \rightB
+\end{equation*}
+is the $m \times n$ matrix formed by \textit{subtracting} corresponding entries.
+
+\begin{example}{}{002116}
+Let $A = \leftB \begin{array}{rrr}
+3 & -1 & 0 \\
+1 & 2 & -4
+\end{array} \rightB$, $B = \leftB \begin{array}{rrr}
+1 & -1 & 1 \\
+-2 & 0 & 6
+\end{array} \rightB$, $C = \leftB \begin{array}{rrr}
+1 & 0 & -2 \\
+3 & 1 & 1
+\end{array} \rightB$. Compute $-A$, $A - B$, and \\$A + B - C$.
+
+
+\begin{solution}
+\begin{align*}
+-A &= \leftB \begin{array}{rrr}
+-3 & 1 & 0 \\
+-1 & -2 & 4
+\end{array} \rightB \\
+A - B &= \leftB \begin{array}{lcr}
+3 - 1 & -1 - (-1) & 0 - 1 \\
+1 - (-2) & 2 - 0 & -4 - 6
+\end{array} \rightB = \leftB \begin{array}{rrr}
+2 & 0 & -1 \\
+3 & 2 & -10
+\end{array} \rightB \\
+A + B - C &= \leftB \begin{array}{rrl}
+3 + 1 - 1 & -1 - 1 - 0 & 0 + 1 -(-2) \\
+1 - 2 - 3 & 2 + 0 - 1 & -4 + 6 -1
+\end{array} \rightB = \leftB \begin{array}{rrr}
+3 & -2 & 3 \\
+-4 & 1 & 1
+\end{array} \rightB
+\end{align*}
+\end{solution}
+\end{example}
+
+\begin{example}{}{002124} 
+Solve 
+$\leftB \begin{array}{rr}
+3 & 2 \\
+-1 & 1
+\end{array} \rightB + X = \leftB \begin{array}{rr}
+1 & 0 \\
+-1 & 2
+\end{array} \rightB$
+ where $X$ is a matrix.
+
+
+\begin{solution}
+  We solve a numerical equation $a + x = b$ by subtracting the number $a$ from both sides to obtain $x = b - a$. This also works for matrices. To solve 
+$\leftB \begin{array}{rr}
+3 & 2 \\
+-1 & 1
+\end{array} \rightB + X = \leftB \begin{array}{rr}
+1 & 0 \\
+-1 & 2
+  \end{array} \rightB$
+ simply subtract the matrix 
+ $\leftB \begin{array}{rr}
+3 & 2 \\
+-1 & 1
+ \end{array} \rightB$
+ from both sides to get
+\begin{equation*}
+X = \leftB \begin{array}{rr}
+1 & 0 \\
+-1 & 2
+\end{array} \rightB - \leftB \begin{array}{rr}
+3 & 2 \\
+-1 & 1
+\end{array} \rightB = \leftB \begin{array}{cr}
+1 - 3 & 0 - 2 \\
+-1 - (-1) & 2 - 1
+\end{array} \rightB = \leftB \begin{array}{rr}
+-2 & -2 \\
+0 & 1
+\end{array} \rightB
+\end{equation*}
+The reader should verify that this matrix $X$ does indeed satisfy the original equation.
+\end{solution}
+\end{example}
+
+The solution in Example~\ref{exa:002124} solves the single matrix equation $A + X = B$ directly via matrix subtraction: $X = B - A$. This ability to work with matrices as entities lies at the heart of matrix algebra.\index{matrix algebra!matrices as entities}
+
+It is important to note that the sizes of matrices involved in some 
+calculations are often determined by the context. For example, if
+\begin{equation*}
+A + C = \leftB \begin{array}{rrr}
+1 & 3 & -1 \\
+2 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+then $A$ and $C$ must be the same size (so that $A + C$ makes sense), and that size must be $2 \times 3$ (so that the sum is $2 \times 3$). For simplicity we shall often omit reference to such facts when they are clear from the context.
+
+
+\subsection*{Scalar Multiplication}
+
+
+In gaussian elimination, multiplying a row of a matrix by a number $k$ means multiplying \textit{every} entry of that row by $k$.\index{gaussian elimination!scalar multiple}
+
+
+\begin{definition}{Matrix Scalar Multiplication}{002141}
+More generally, if $A$ is any matrix and $k$ is any number, the \textbf{scalar multiple} $kA$ is the matrix obtained from $A$ by multiplying each entry of $A$ by $k$.\index{scalar multiples}\index{scalar multiplication!described}\index{matrix algebra!scalar multiplication}\index{multiplication!scalar multiplication}
+\end{definition}
+
+\noindent If $A = \leftB a_{ij} \rightB$, this is
+\begin{equation*}
+kA = \leftB ka_{ij} \rightB
+\end{equation*}
+Thus $1A = A$ and $(-1)A = -A$ for any matrix $A$.
+
+The term \textit{scalar}\index{scalar} arises here because the set of numbers from which the entries are drawn is usually referred to as the set of scalars. We have been using real numbers as scalars, but we could equally well have been using complex numbers.
+
+
+\begin{example}{}{002149}
+If $A = \leftB \begin{array}{rrr}
+3 & -1 & 4 \\
+2 & 0 & 6
+\end{array} \rightB$
+ and $ B = \leftB \begin{array}{rrr}
+ 1 & 2 & -1 \\
+ 0 & 3 & 2
+ \end{array} \rightB$
+ compute $5A$, $\frac{1}{2}B$, and $3A - 2B$.
+
+
+\begin{solution}
+\begin{align*}
+5A &= \leftB \begin{array}{rrr}
+15 & -5 & 20 \\
+10 & 0 & 30
+\end{array} \rightB, \quad \frac{1}{2}B = \leftB \begin{array}{rrr}
+\frac{1}{2} & 1 & -\frac{1}{2} \\
+0 & \frac{3}{2} & 1
+\end{array} \rightB \\
+3A - 2B &= \leftB \begin{array}{rrr}
+9 & -3 & 12 \\
+6 & 0 & 18
+\end{array} \rightB - \leftB \begin{array}{rrr}
+2 & 4 & -2 \\
+0 & 6 & 4
+\end{array} \rightB = \leftB \begin{array}{rrr}
+7 & -7 & 14 \\
+6 & -6 & 14
+\end{array} \rightB
+\end{align*}
+\end{solution}
+\end{example}
+
+If $A$ is any matrix, note that $kA$ is the same size as $A$ for all scalars $k$. We also have
+\begin{equation*}
+0A = 0 \quad \mbox{ and } \quad k0 = 0
+\end{equation*}
+because the zero matrix has every entry zero. In other words, $kA = 0$ if either $k = 0$ or $A = 0$. The converse of this statement is also true, as Example~\ref{exa:002159} shows.\index{zero matrix!scalar multiplication}
+
+
+\begin{example}{}{002159}
+If $kA = 0$, show that either $k = 0$ or $A = 0$.
+
+
+\begin{solution}
+  Write $A = \leftB a_{ij} \rightB$ so that $kA = 0$ means $ka_{ij} = 0$ for all $i$ and $j$. If $k = 0$, there is nothing to do. If $k \neq 0$, then $ka_{ij} = 0$ implies that $a_{ij} = 0$ for all $i$ and $j$; that is, $A = 0$.
+\end{solution}
+\end{example}
+
+For future reference, the basic properties of matrix addition and scalar multiplication are listed in Theorem~\ref{thm:002170}.
+
+
+\begin{theorem}{}{002170}
+Let $A$, $B$, and $C$ denote arbitrary $m \times n$ matrices where $m$ and $n$ are fixed. Let $k$ and $p$ denote arbitrary real numbers. Then
+
+
+\begin{enumerate}
+\item $A + B = B + A$.
+
+\item $A + (B + C) = (A + B) + C$.
+
+\item There is an $m \times n$ matrix $0$, such that $0 + A = A$ for each $A$.
+
+\item For each $A$ there is an $m \times n$ matrix, $-A$, such that $A + (-A) = 0$.
+
+\item $k(A + B) = kA + kB$.
+
+\item $(k + p)A = kA + pA$.
+
+\item $(kp)A = k(pA)$.
+
+\item $1A = A$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Properties 1--4 were given previously. To check Property 5, let $A = \leftB a_{ij} \rightB$ and $B = \leftB b_{ij} \rightB$ denote matrices of the same size. Then $A + B = \leftB a_{ij} + b_{ij} \rightB$, as before, so the $(i, j)$-entry of $k(A + B)$ is
+\begin{equation*}
+k(a_{ij} + b_{ij}) = ka_{ij} + kb_{ij}
+\end{equation*}
+But this is just the $(i, j)$-entry of $kA + kB$, and it follows that $k(A + B) = kA + kB$. The other Properties can be similarly verified; the details are left to the reader.
+\end{proof}
+
+The Properties in Theorem~\ref{thm:002170} enable us to do calculations with matrices in much the same way that 
+numerical calculations are carried out. To begin, Property 2 implies that the sum 
+\begin{equation*}
+(A + B) + C = A + (B + C)
+\end{equation*}
+ is the same no matter how it is formed and so is written as $A + B + C$. Similarly, the sum 
+\begin{equation*}
+A + B + C + D
+\end{equation*}
+ is independent of how it is formed; for example, it equals both $(A + B) + (C + D)$ and $A + \leftB B + (C + D) \rightB$. Furthermore, property 1 ensures that, for example, 
+\begin{equation*}
+B + D + A + C = A + B + C + D
+\end{equation*} In other words, the \textit{order} in which the matrices are added does not matter. A similar remark applies to sums of five (or more) matrices.
+
+
+Properties 5 and 6 in Theorem~\ref{thm:002170} are called \textbf{distributive laws}\index{distributive laws}\index{scalar multiplication!distributive laws} for scalar multiplication, and they extend to sums of more than two terms. For example,
+\begin{equation*}
+k(A + B - C) = kA + kB - kC
+\end{equation*}
+\begin{equation*}
+(k + p - m)A = kA + pA -mA
+\end{equation*}
+Similar observations hold for more than three summands. These facts, together with properties 7 and 8, enable us to simplify expressions by collecting like terms, expanding, and taking common factors in exactly the same way that algebraic expressions involving variables and real numbers are manipulated. The following example illustrates these techniques.
+
+
+\begin{example}{}{002203}
+Simplify $2(A + 3C) - 3(2C - B) - 3 \leftB 2(2A + B - 4C) - 4(A - 2C) \rightB$ where $A$, $B$, and $C$ are all matrices of the same size.
+
+
+\begin{solution}
+  The reduction proceeds as though $A$, $B$, and $C$ were variables.
+\begin{align*}
+2(A &+ 3C) - 3(2C - B) - 3 \leftB 2(2A + B - 4C) - 4(A - 2C) \rightB \\
+&= 2A + 6C - 6C + 3B - 3 \leftB 4A + 2B - 8C - 4A + 8C \rightB \\
+&= 2A + 3B - 3 \leftB 2B \rightB \\
+&= 2A - 3B
+\end{align*}
+\end{solution}
+\end{example}
+
+\subsection*{Transpose of a Matrix}
+
+Many results about a matrix $A$ involve the \textit{rows} of $A$, and the corresponding result for columns is derived in an analogous way, essentially by replacing the word \textit{row} by the word \textit{column} throughout. The following definition is made with such applications in mind.
+
+
+\begin{definition}{Transpose of a Matrix}{002213}
+If $A$ is an $m \times n$ matrix, the \textbf{transpose} of $A$, written $A^{T}$, is the $n \times m$ matrix whose rows are just the columns of $A$ in the same order.\index{transpose of a matrix}\index{transposition}\index{matrix!transpose}\index{$m \times n$ matrix!transpose}\index{matrix algebra!transpose of a matrix}\index{columns!transpose}
+\end{definition}
+
+\noindent In other words, the first row of $A^{T}$ is the first column of $A$ (that is it consists of the entries of column 1 in order). Similarly the second row of $A^{T}$ is the second column of $A$, and so on.
+
+
+\begin{example}{}{002220}
+Write down the transpose of each of the following matrices.
+\begin{equation*}
+A = \leftB \begin{array}{r}
+1 \\
+3 \\
+2
+\end{array} \rightB \quad
+B = \leftB \begin{array}{rrr}
+5 & 2 & 6
+\end{array} \rightB \quad
+C = \leftB \begin{array}{rr}
+1 & 2 \\
+3 & 4 \\
+5 & 6
+\end{array} \rightB \quad
+D = \leftB \begin{array}{rrr}
+3 & 1 & -1 \\
+1 & 3 & 2 \\
+-1 & 2 & 1
+\end{array} \rightB
+\end{equation*}
+\begin{solution}
+\begin{equation*}
+A^{T} = \leftB \begin{array}{rrr}
+1 & 3 & 2
+\end{array} \rightB,\ B^{T} = \leftB \begin{array}{r}
+5 \\
+2 \\
+6
+\end{array} \rightB,\ C^{T} = \leftB \begin{array}{rrr}
+1 & 3 & 5 \\
+2 & 4 & 6
+\end{array} \rightB, \mbox{ and } D^{T} = D.
+\end{equation*}
+\end{solution}
+\end{example}
+
+If $A = \leftB a_{ij} \rightB$ is a matrix, write $A^{T} = \leftB b_{ij} \rightB$. Then $b_{ij}$ is the $j$th element of the $i$th row of $A^{T}$ and so is the $j$th element of the $i$th \textit{column} of $A$. This means $b_{ij} = a_{ji}$, so the definition of $A^{T}$ can be stated as follows:
+\begin{equation} \label{eq:transpose}
+\mbox{If } A = \leftB a_{ij} \rightB \mbox{, then } A^{T} = \leftB a_{ji} \rightB.
+\end{equation}
+This is useful in verifying the following properties of transposition.
+
+
+\begin{theorem}{}{002240}
+Let $A$ and $B$ denote matrices of the same size, and let $k$ denote a scalar.
+
+
+\begin{enumerate}
+\item If $A$ is an $m \times n$ matrix, then $A^{T}$ is an $n \times m$ matrix.
+
+\item $(A^{T})^{T} = A$.
+
+\item $(kA)^{T} = kA^{T}$.
+
+\item $(A + B)^{T} = A^{T} + B^{T}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Property 1 is part of the definition of $A^{T}$, and Property 2 follows from (\ref{eq:transpose}). As to Property 3: If $A = \leftB a_{ij} \rightB$, then $kA = \leftB ka_{ij} \rightB$, so (\ref{eq:transpose}) gives
+\begin{equation*}
+(kA)^{T} = \leftB ka_{ji} \rightB = k \leftB a_{ji} \rightB = kA^{T}
+\end{equation*}
+Finally, if $B = \leftB b_{ij} \rightB$, then $A + B = \leftB c_{ij} \rightB$ where $c_{ij} = a_{ij} + b_{ij}$ Then (\ref{eq:transpose}) gives Property 4:
+\begin{equation*}
+(A + B)^{T} = \leftB c_{ij} \rightB^{T} = \leftB c_{ji} \rightB = \leftB a_{ji} + b_{ji} \rightB = \leftB a_{ji} \rightB + \leftB b_{ji} \rightB = A^{T} + B^{T}
+\end{equation*}
+\end{proof}
+
+\newpage
+There is another useful way to think of transposition. If $A = \leftB a_{ij} \rightB$ is an $m \times n$ matrix, the elements $a_{11}, a_{22}, a_{33}, \dots$ are called the \textbf{main diagonal}\index{main diagonal}\index{$m \times n$ matrix!main diagonal} of $A$. Hence the main diagonal extends down and to the right from the upper left corner of the matrix $A$; it is outlined in the following examples:
+\begin{equation*}
+\leftB \begin{array}{cc}
+\tn{diag1A}{a_{11}} & a_{12} \\
+a_{21} & \tn{diag1B}{a_{22}} \\
+a_{31} & a_{32}
+\end{array}\rightB
+\leftB \begin{array}{ccc}
+\tn{diag2A}{a_{11}} & a_{12} & a_{13} \\
+a_{21} & \tn{diag2B}{a_{22}} & a_{23}
+\end{array}\rightB
+\leftB \begin{array}{ccc}
+\tn{diag3A}{a_{11}} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & \tn{diag3B}{a_{33}}
+\end{array}\rightB
+\leftB \begin{array}{c}
+\tn{diag4}{a_{11}} \\
+a_{21}
+\end{array}\rightB
+\end{equation*}
+\begin{tikzpicture}[remember picture, overlay]
+%\draw[color=blue!30!gray,rounded corners]([xshift=-12pt, yshift=5pt]diag1A.north west) rectangle ([xshift=5pt, yshift=-5pt]diag1B.south east);
+%\draw[color=blue!30!gray,rounded corners]([xshift=-12pt, yshift=5pt]diag2A.north west) rectangle ([xshift=5pt, yshift=-5pt]diag2B.south east);
+%\draw[color=blue!30!gray,rounded corners]([xshift=-12pt, yshift=5pt]diag3A.north west) rectangle ([xshift=5pt, yshift=-5pt]diag3B.south east);
+%\draw[color=blue!30!gray,rounded corners]([xshift=-12pt, yshift=5pt]diag4.north west) rectangle ([xshift=5pt, yshift=-5pt]diag4.south east);
+\draw[color=blue!30!gray,rounded corners]
+	(diag1A.south west) -- (diag1A.north west)  -- (diag1A.north east) -- (diag1B.north east) --(diag1B.south east) --(diag1B.south west) -- cycle;
+\draw[color=blue!30!gray,rounded corners]
+	(diag2A.south west) -- (diag2A.north west)  -- (diag2A.north east) -- (diag2B.north east) --(diag2B.south east) --(diag2B.south west) -- cycle;
+\draw[color=blue!30!gray,rounded corners]
+	(diag3A.south west) -- (diag3A.north west)  -- (diag3A.north east) -- (diag3B.north east) --(diag3B.south east) --(diag3B.south west) -- cycle;
+\draw[color=blue!30!gray,rounded corners]
+	(diag4.south west) -- (diag4.north west)  -- (diag4.north east) --(diag4.south east) -- cycle;
+\end{tikzpicture}
+Thus forming the transpose of a matrix $A$ can be viewed as ``flipping'' $A$ about its main diagonal, or as ``rotating'' $A$ through $180^{\circ}$ about the line containing the main diagonal. This makes Property 2 in Theorem~\ref{thm:002240} transparent. 
+
+\begin{example}{}{002281}
+Solve for $A$ if $\left(2A^{T} - 3 \leftB \begin{array}{rr}
+1 & 2 \\
+-1 & 1
+\end{array} \rightB \right)^{T} = \leftB \begin{array}{rr}
+2 & 3 \\
+-1 & 2
+\end{array} \rightB$.
+
+
+\begin{solution}
+  Using Theorem~\ref{thm:002240}, the left side of the equation is
+\begin{equation*}
+\left(2A^{T} - 3 \leftB \begin{array}{rr}
+1 & 2 \\
+-1 & 1
+\end{array} \rightB\right)^{T} = 2\left(A^{T}\right)^{T} - 3 \leftB \begin{array}{rr}
+1 & 2 \\
+-1 & 1
+\end{array} \rightB^{T} = 2A - 3 \leftB \begin{array}{rr}
+1 & -1 \\
+2 & 1
+\end{array} \rightB
+\end{equation*}
+Hence the equation becomes
+\begin{equation*}
+2A  -  3 \leftB \begin{array}{rr}
+1 & -1 \\
+2 & 1
+\end{array} \rightB = \leftB \begin{array}{rr}
+2 & 3 \\
+-1 & 2
+\end{array} \rightB
+\end{equation*}
+Thus 
+$2A = \leftB \begin{array}{rr}
+2 & 3 \\
+-1 & 2
+\end{array} \rightB + 3 \leftB \begin{array}{rr}
+1 & -1 \\
+2 & 1
+\end{array} \rightB = \leftB \begin{array}{rr}
+5 & 0 \\
+5 & 5
+\end{array} \rightB$, so finally 
+$A = \frac{1}{2} \leftB \begin{array}{rr}
+5 & 0 \\
+5 & 5
+\end{array} \rightB = \frac{5}{2} \leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1
+\end{array} \rightB$.
+\end{solution}
+\end{example}
+
+\noindent Note that Example~\ref{exa:002281} can also be solved by first transposing both sides, then solving for $A^{T}$, and so obtaining $A = (A^{T})^{T}$. The reader should do this.
+
+The matrix $D = \leftB \begin{array}{rr}
+1 & 2 \\
+2 & 5 \end{array}\rightB$ in Example~\ref{exa:002220} has the property that $D = D^{T}$. Such matrices are important; a matrix $A$ is called \textbf{symmetric}\index{symmetric matrix!defined} if $A = A^{T}$. A symmetric matrix $A$ is necessarily square (if $A$ is $m \times n$, then $A^{T}$ is $n \times m$, so $A = A^{T}$ forces $n = m$). The name comes from the fact that these matrices exhibit a symmetry about the main diagonal. That is, entries that are directly across the main diagonal from each other are equal.
+
+For example, $\leftB \begin{array}{ccc}
+a & b & c \\
+b^\prime & d & e \\
+c^\prime & e^\prime & f
+\end{array} \rightB$ is symmetric when $b = b^\prime$, $c = c^\prime$, and $e = e^\prime$.
+
+\newpage
+\begin{example}{}{002305}
+If $A$ and $B$ are symmetric $n \times n$ matrices, show that $A + B$ is symmetric.
+
+
+\begin{solution}
+  We have $A^{T} = A$ and $B^{T} = B$, so, by Theorem~\ref{thm:002240}, we have $(A + B)^{T} = A^{T} + B^{T} = A + B$. Hence $A + B$ is symmetric.
+\end{solution}
+\end{example}
+
+\begin{example}{}{002316}
+Suppose a square matrix $A$ satisfies $A = 2A^{T}$. Show that necessarily $A = 0$.
+
+
+\begin{solution}
+  If we iterate the given equation, Theorem~\ref{thm:002240} gives
+\begin{equation*}
+A = 2A^{T} = 2 {\leftB 2A^{T} \rightB}^T = 2 \leftB 2(A^{T})^{T} \rightB = 4A
+\end{equation*}
+Subtracting $A$ from both sides gives $3A = 0$, so $A = \frac{1}{3}(0) = 0$.
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:2_1}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:2_1}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Find $a$, $b$, $c$, and $d$ if
+
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$
+\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = 
+\leftB \begin{array}{cc}
+c - 3d & -d \\
+2a + d & a + b
+\end{array} \rightB
+$
+
+\item 
+$
+\leftB \begin{array}{cc}
+a - b & b - c \\
+c - d & d - a
+\end{array} \rightB = 2
+\leftB \begin{array}{rr}
+1 & 1 \\
+-3 & 1
+\end{array} \rightB
+$
+
+\item 
+$
+3 \leftB \begin{array}{c}
+a \\
+b
+\end{array} \rightB + 2
+\leftB \begin{array}{rr}
+b \\
+a
+\end{array} \rightB =
+\leftB \begin{array}{rr}
+1 \\
+2
+\end{array} \rightB
+$
+
+\item 
+$
+\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = 
+\leftB \begin{array}{cc}
+b & c \\
+d & a
+\end{array} \rightB
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(a\ b\ c\ d) = (-2, -4, -6, 0) + t(1, 1, 1, 1)$, \\ $t$ arbitrary
+
+\setcounter{enumi}{3}
+\item  $a = b = c = d = t$, $t$ arbitrary
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Compute the following:
+\begin{exenumerate}
+\exitem*
+$
+\leftB \begin{array}{rrr}
+3 & 2 & 1 \\
+5 & 1 & 0
+\end{array} \rightB - 5 
+\leftB \begin{array}{rrr}
+3 & 0 & -2 \\
+1 & -1 & 2
+\end{array} \rightB
+$
+\exitem*
+$
+3 \leftB \begin{array}{r}
+3 \\
+-1
+\end{array} \rightB - 5 
+\leftB \begin{array}{r}
+6 \\
+2
+\end{array} \rightB + 7
+\leftB \begin{array}{r}
+1 \\
+-1
+\end{array} \rightB
+$
+\exitem*
+$
+\leftB \begin{array}{rr}
+-2 & 1 \\
+3 & 2
+\end{array} \rightB - 4 
+\leftB \begin{array}{rr}
+1 & -2 \\
+0 & -1
+\end{array} \rightB + 3
+\leftB \begin{array}{rr}
+2 & -3 \\
+-1 & -2
+\end{array} \rightB
+$
+\exitem*
+$
+\leftB \begin{array}{rrr}
+3 & -1 & 2
+\end{array} \rightB - 2 
+\leftB \begin{array}{rrr}
+9 & 3 & 4
+\end{array} \rightB +
+\leftB \begin{array}{rrr}
+3 & 11 & -6
+\end{array} \rightB
+$
+\exitem
+$
+\leftB \begin{array}{rrrr}
+1 & -5 & 4 & 0 \\
+2 & 1 & 0 & 6
+\end{array} \rightB^{T}
+$
+\exitem
+$
+\leftB \begin{array}{rrr}
+0 & -1 & 2 \\
+1 & 0 & -4 \\
+-2 & 4 & 0
+\end{array} \rightB^{T}
+$ 
+\exitem*
+$
+\leftB \begin{array}{rr}
+3 & -1 \\
+2 & 1
+\end{array} \rightB - 2
+\leftB \begin{array}{rr}
+1 & -2 \\
+1 & 1
+\end{array} \rightB^{T}
+$
+\exitem*
+$
+3 \leftB \begin{array}{rr}
+2 & 1 \\
+-1 & 0
+\end{array} \rightB^{T} - 2
+\leftB \begin{array}{rr}
+1 & -1 \\
+2 & 3
+\end{array} \rightB
+$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\leftB \begin{array}{r}
+-14 \\
+-20
+\end{array} \rightB$
+
+
+\setcounter{enumi}{3}
+\item  $(-12, 4, -12)$
+
+\setcounter{enumi}{5}
+\item  
+$\leftB \begin{array}{rrr}
+0 & 1 & -2 \\
+-1 & 0 & 4 \\
+2 & -4 & 0
+\end{array} \rightB$
+
+\setcounter{enumi}{7}
+\item  
+$\leftB \begin{array}{rr}
+4 & -1 \\
+-1 & -6
+\end{array} \rightB$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let 
+$A = \leftB \begin{array}{rr}
+2 & 1 \\
+0 & -1
+\end{array} \rightB$, \\ $
+B = \leftB \begin{array}{rrr}
+3 & -1 & 2 \\
+0 & 1 & 4
+\end{array} \rightB$,  $
+C = \leftB \begin{array}{rr}
+3 & -1 \\
+2 & 0
+\end{array} \rightB$, \\ $
+D = \leftB \begin{array}{rr}
+1 & 3 \\
+-1 & 0 \\
+1 & 4
+\end{array} \rightB$, and  $ 
+E = \leftB \begin{array}{rrr}
+1 & 0 & 1 \\
+0 & 1 & 0
+\end{array} \rightB$.
+
+\noindent Compute the following (where possible).
+\begin{exenumerate}
+\exitem $3A - 2B$
+\exitem $5C$
+\exitem $3E^{T}$
+\exitem $B + D$
+\exitem $4A^{T} - 3C$
+\exitem $(A + C)^{T}$
+\exitem $2B - 3E$
+\exitem $A - D$
+\exitem $(B - 2E)^{T}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\leftB \begin{array}{rr}
+15 & -5 \\
+10 & 0
+\end{array} \rightB$
+\setcounter{enumi}{3}
+\item  Impossible
+
+\setcounter{enumi}{5}
+\item  
+$\leftB \begin{array}{rr}
+5 & 2 \\
+0 & -1
+\end{array} \rightB$
+
+\setcounter{enumi}{7}
+\item  Impossible
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find $A$ if:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$
+5A - \leftB \begin{array}{rr}
+1 & 0 \\
+2 & 3
+\end{array} \rightB =
+3A - \leftB \begin{array}{rr}
+5 & 2 \\
+6 & 1
+\end{array} \rightB
+$
+
+\item $
+3A - \leftB \begin{array}{r}
+2 \\
+1
+\end{array} \rightB =
+5A - 2 \leftB \begin{array}{rr}
+3 \\
+0
+\end{array} \rightB
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\leftB \begin{array}{r}
+2 \\
+-\frac{1}{2}
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find $A$ in terms of $B$ if:
+
+
+\begin{exenumerate}
+\exitem $A + B = 3A + 2B$
+\exitem $2A - B = 5(A + 2B)$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$A = -\frac{11}{3}B$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $X$, $Y$, $A$, and $B$ are matrices of the same size, solve the following systems of equations to obtain $X$ and $Y$ in terms of $A$ and $B$.
+\begin{exenumerate}
+\exitem 
+$5X + 3Y = A \\
+2X + Y = B$
+\exitem 
+$4X + 3Y = A \\
+5X + 4Y = B$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $X = 4A - 3B$, $Y = 4B - 5A$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all matrices $X$ and $Y$ such that:
+
+\begin{exenumerate}
+\exitem $3X - 2Y = \leftB \begin{array}{rr}
+3 & - 1 
+\end{array} \rightB$
+\exitem $2X - 5Y = \leftB \begin{array}{rr}
+1 & 2
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $Y = (s, t)$, $X = \frac{1}{2}(1 + 5s, 2 + 5t)$; $s$ and $t$ arbitrary
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Simplify the following expressions where $A$, $B$, and $C$ are matrices.
+
+\begin{enumerate}[label={\alph*.}]
+\item $2 \leftB 9(A - B) + 7(2B - A) \rightB$ \\ $- 2 \leftB 3(2B + A) - 2(A + 3B) - 5(A + B) \rightB$
+
+\item $5 \leftB 3(A - B + 2C) - 2(3C - B) - A \rightB$  \\ $+ 2 \leftB 3(3A - B + C) + 2(B - 2A) - 2C \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $20A - 7B + 2C$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+\columnbreak
+\begin{ex}
+If $A$ is any $2 \times 2$ matrix, show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$A = a \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB + 
+b \leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB + 
+c \leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB + 
+d \leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB
+$
+ for some numbers $a$, $b$, $c$, and $d$.
+
+\item 
+$A = p \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB + 
+q \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB + 
+r \leftB \begin{array}{rr}
+1 & 0 \\
+1 & 0
+\end{array} \rightB + 
+s \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB
+$
+ for some numbers $p$, $q$, $r$, and $s$. 
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If 
+$A = \leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB$, then $(p, q, r, s) = \frac{1}{2}(2d, a + b - c - d, a - b + c - d, -a + b + c + d)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{rrr}
+1 & 1 & -1
+\end{array} \rightB$, \\ $B = \leftB \begin{array}{rrr}
+0 & 1 & 2
+\end{array} \rightB$, and 
+$C = \leftB \begin{array}{rrr}
+3 & 0 & 1
+\end{array} \rightB$. If \\ $rA + sB + tC = 0$ for some scalars $r$, $s$, and $t$, show that necessarily $r = s = t = 0$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $Q + A = A$ holds for every $m \times n$ matrix $A$, show that $Q = 0_{mn}$.
+
+\item If $A$ is an $m \times n$ matrix and $A + A^\prime = 0_{mn}$, show that $A^\prime = -A$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $A + A^\prime = 0$ then $-A = -A + 0 = -A + (A + A^\prime) = (-A + A) + A^\prime = 0 + A^\prime = A^\prime$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ denotes an $m \times n$ matrix, show that $A = -A$ if and only if $A = 0$.
+\end{ex}
+
+\begin{ex}
+A square matrix is called a \textbf{diagonal} matrix\index{diagonal matrices}\index{matrix!diagonal matrices} if all the entries off the main diagonal are zero. If $A$ and $B$ are diagonal matrices, show that the following matrices are also diagonal.
+\begin{exenumerate}
+\exitem $A + B$
+\exitem $A - B$
+\exitem $kA$ for any number $k$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Write $A = \diag(a_{1}, \dots, a_{n})$, where $a_{1}, \dots, a_{n}$ are the main diagonal entries. If $B = \diag(b_{1}, \dots, b_{n})$ then $kA = \diag(ka_{1}, \dots, ka_{n})$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case determine all $s$ and $t$ such that the given matrix is symmetric:
+\begin{exenumerate}
+\exitem 
+$\leftB \begin{array}{rr}
+1 & s \\
+-2 & t
+\end{array} \rightB$
+\exitem 
+$\leftB \begin{array}{cc}
+s & t \\
+st & 1
+\end{array} \rightB$
+\exitem 
+$\leftB \begin{array}{crc}
+s & 2s & st \\
+t & -1 & s \\
+t & s^{2} & s
+\end{array} \rightB$
+\exitem 
+$\leftB \begin{array}{ccc}
+2 & s & t \\
+2s & 0 & s + t \\
+3 & 3 & t
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $s = 1$ or $t = 0$
+
+\setcounter{enumi}{3}
+\item  $s = 0$, and $t = 3$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case find the matrix $A$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\left(A + 3 \leftB \begin{array}{rrr}
+1 & -1 & 0 \\
+1 & 2 & 4
+\end{array} \rightB \right)^{T} = \leftB \begin{array}{rr}
+2 & 1 \\
+0 & 5 \\
+3 & 8
+\end{array} \rightB$
+
+\item 
+$\left(3A^{T} + 2 \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 2
+\end{array} \rightB \right)^{T} = \leftB \begin{array}{rr}
+8 & 0 \\
+3 & 1
+\end{array} \rightB$
+
+\item 
+$\left(2A - 3 \leftB \begin{array}{rrr}
+1 & 2 & 0
+\end{array} \rightB \right)^{T} = 3A^{T} + \leftB \begin{array}{rrr}
+2 & 1 & -1
+\end{array} \rightB^{T}$ 
+
+\item 
+$\left(2A^{T} - 5 \leftB \begin{array}{rr}
+1 & 0 \\
+-1 & 2
+\end{array} \rightB \right)^{T} = 4A - 9 \leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\leftB \begin{array}{rr}
+2 & 0 \\
+1 & -1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item  
+$\leftB \begin{array}{rr}
+2 & 7 \\
+-\frac{9}{2} & -5
+\end{array} \rightB$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be symmetric (of the same size). Show that each of the following is symmetric.
+\begin{exenumerate}
+\exitem $(A - B)$
+\exitem $kA$ for any scalar $k$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $A = A^{T}$, so using Theorem~\ref{thm:002240}, $(kA)^{T} = kA^{T} = kA$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that $A + A^{T}$ is symmetric for \textit{any} square matrix $A$.
+\end{ex}
+
+\begin{ex}
+If $A$ is a square matrix and $A = kA^{T}$ where $k \neq \pm 1$, show that $A = 0$.
+\end{ex}
+
+\begin{ex}
+In each case either show that the statement is true or give an example showing it is false.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A + B = A + C$, then $B$ and $C$ have the same size.
+
+\item If $A + B = 0$, then $B = 0$.
+
+\item If the $(3, 1)$-entry of $A$ is $5$, then the $(1, 3)$-entry of $A^{T}$ is $-5$.
+
+\item $A$ and $A^{T}$ have the same main diagonal for every matrix $A$.
+
+\item If $B$ is symmetric and $A^{T} = 3B$, then $A = 3B$.
+
+\item If $A$ and $B$ are symmetric, then $kA + mB$ is symmetric for any scalars $k$ and $m$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  False. Take $B = -A$ for any $A \neq 0$.
+
+\setcounter{enumi}{3}
+\item True. Transposing fixes the main diagonal. 
+
+\setcounter{enumi}{5}
+\item True. $(kA + mB)^{T} = (kA)^{T} + (mB)^{T} = kA^{T} + mB^{T} = kA + mB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}\label{ex:skewsymmetric}
+A square matrix $W$ is called \textbf{skew-symmetric}\index{skew-symmetric}\index{square matrix ($n \times n$ matrix)!skew-symmetric} if $W^{T} = -W$. Let $A$ be any square matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A - A^{T}$ is skew-symmetric.
+
+\item Find a symmetric matrix $S$ and a skew-symmetric matrix $W$ such that $A = S + W$.
+
+\item Show that $S$ and $W$ in part (b) are uniquely determined by $A$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{2}
+\item  Suppose $A = S + W$, where $S = S^{T}$ and $W = -W^{T}$. Then $A^{T} = S^{T} + W^{T} = S - W$, so $A + A^{T} = 2S$ and $A - A^{T} = 2W$. Hence $S = \frac{1}{2}(A + A^{T})$ and $W = \frac{1}{2}(A - A^{T})$ are uniquely determined by $A$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $W$ is skew-symmetric (Exercise~\ref{ex:skewsymmetric}), show that the entries on the main diagonal are zero. 
+\end{ex}
+
+\begin{ex}
+Prove the following parts of Theorem~\ref{thm:002170}.
+\begin{exenumerate}
+\exitem $(k + p)A = kA + pA$
+\exitem $(kp)A = k(pA)$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $A = \leftB a_{ij} \rightB$ then $(kp)A = \leftB (kp)a_{ij} \rightB = \leftB k(pa_{ij}) \rightB = k \leftB pa_{ij} \rightB = k(pA)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A, A_{1}, A_{2}, \dots, A_{n}$ denote matrices of the same size. Use induction on $n$ to verify the following extensions of properties 5 and 6 of Theorem~\ref{thm:002170}.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $k(A_{1} + A_{2} + \dots + A_{n}) = kA_{1} + kA_{2} + \dots + kA_{n}$ for any number $k$
+
+\item $(k_{1} + k_{2} + \dots + k_{n})A = k_{1}A + k_{2}A + \dots + k_{n}A$ for any numbers $k_{1}, k_{2}, \dots, k_{n}$
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $A$ be a square matrix. If $A = pB^{T}$ and $B = qA^{T}$ for some matrix $B$ and numbers $p$ and $q$, show that either $A = 0 = B$ or $pq = 1$. \newline [\textit{Hint}: Example~\ref{exa:002159}.]
+\end{ex}
+
+\end{multicols}

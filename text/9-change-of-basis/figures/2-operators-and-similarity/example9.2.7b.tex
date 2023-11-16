@@ -1,0 +1,19 @@
+
+\begin{tikzpicture}
+\draw[dkgreenvect,-latex,thick] (0,0)--(120:2) node(A){};
+\draw[dkgreenvect,-latex,thick, name path=line1] (0,0)--(0,2);
+\path[name path=line2] (A)--+(2,0);
+\draw[dkbluevect,densely dashed,thick,name intersections={of=line1 and line2, by={Int1}}](A)--(Int1); 
+\draw[dkgreenvect,-latex,thick] (0,0)--(30:2) node(B){};
+\draw[dkgreenvect,-latex,thick,name path=line3] (0,0)--(2,0);
+\path[name path=line4] (B)--+(0,-2);
+\draw[dkbluevect,densely dashed,thick,name intersections={of=line3 and line4, by={Int2}}](B)--(Int2); 
+\draw[dkbluevect, -latex, thick] (0.75, 0) arc [start angle=0, end angle=30, radius=0.75] node[right, text=black, midway] {\scriptsize $\theta$};
+\draw[dkbluevect, -latex, thick] (0, 0.75) arc [start angle=90, end angle=120, radius=0.75] node[above, text=black, midway] {\scriptsize $\theta$};
+\node[below,font=\footnotesize] at(0,0){$\vect{0}$};
+\node[right,font=\footnotesize] at(2,0){$\vect{f}$};
+\node[right,font=\footnotesize] at(B){$R(\vect{f})$};
+\node[above,font=\footnotesize] at(0,2){$\vect{g}$};
+\node[above,font=\footnotesize] at(A){$R(\vect{g})$};
+\end{tikzpicture}
+

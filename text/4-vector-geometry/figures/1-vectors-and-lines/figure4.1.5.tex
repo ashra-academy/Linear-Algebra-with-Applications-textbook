@@ -1,0 +1,48 @@
+\begin{tikzpicture}[scale=0.8]
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+width=5cm, 
+height=5cm, 
+xlabel={$x$}, 
+ylabel={$y$}, 
+axis lines=middle,
+xtick={0,1,...,3}, 
+ytick={0,1,...,3}, 
+xticklabels=\empty, 
+yticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode = individual,
+domain=-5:5, 
+samples=100, 
+xmin=-0.25, 
+xmax=4, 
+ymin=-0.25, 
+ymax=4]
+
+\coordinate (ptA) at (3, 1);
+\coordinate (ptB) at (2, 3);
+\coordinate (ptP) at (1, 0);
+\coordinate (ptQ) at (0, 2);
+
+\draw [dkgreenvect, thick, -latex] (ptA)--(ptB);
+\draw [dkgreenvect, thick, -latex] (ptP)--(ptQ);
+
+\fill (ptA) circle (2pt);
+\fill (ptB) circle (2pt);
+\fill (ptP) circle (2pt);
+\fill (ptQ) circle (2pt);
+
+\node at (-0.2, -0.2) {\footnotesize $O$};
+\node [right] at (ptA) {\footnotesize $A(3, 1)$};
+\node [right] at (ptB) {\footnotesize $B(2, 3)$};
+\node [above right] at (ptP) {\footnotesize $P(1, 0)$};
+\node [right] at (ptQ) {\footnotesize $Q(0, 2)$};
+\end{axis}
+\end{tikzpicture}

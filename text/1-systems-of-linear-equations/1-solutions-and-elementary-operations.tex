@@ -1,0 +1,761 @@
+\section{Solutions and Elementary Operations}
+\label{sec:1_1}
+
+Practical problems in many fields of study---such as biology, business, chemistry, computer science, economics, electronics, engineering, physics and the social sciences---can often be reduced to solving a system of linear equations. Linear algebra arose from attempts to find systematic methods for solving these systems, so it is natural to begin this book by studying linear equations.\index{practical problems}
+
+If $a$, $b$, and $c$ are real numbers\index{real numbers}, the graph of an equation of the form
+\begin{equation*}
+ax + by = c
+\end{equation*}
+is a straight line (if $a$ and $b$ are not both zero), so such an equation is called a \textit{linear} equation in the variables $x$ and $y$. However, it is often convenient to write the variables as $x_1, x_2, \dots, x_n$, particularly when more than two variables are involved. An equation of the form
+\begin{equation*}
+a_1x_1 + a_2x_2 + \dots + a_nx_n = b
+\end{equation*}
+is called a \index{linear equation!defined}\textbf{linear equation} in the $n$ variables $x_1, x_2, \dots, x_n$. Here $a_1, a_2, \dots, a_n$ denote real numbers (called the \index{coefficients!in linear equation}\textbf{coefficients} of $x_1, x_2, \dots, x_n$, respectively) and $b$ is also a number (called the \index{constant term}\index{linear equation!constant term}\textbf{constant term} of the equation). A finite collection of linear equations in the variables $x_1, x_2, \dots, x_n$ is called a \index{system of linear equations!defined}\textbf{system of linear equations} in these variables. Hence,
+\begin{equation*}
+2x_1 - 3x_2 + 5x_3 = 7
+\end{equation*}
+is a linear equation; the coefficients of $x_1$, $x_2$, and $x_3$ are $2$, $-3$, and $5$, and the constant term is $7$. Note that each variable in a linear equation occurs to the first power only.
+
+Given a linear equation $a_1x_1 + a_2x_2 + \dots  + a_nx_n = b$, a sequence $s_1, s_2, \dots, s_n$ of $n$ numbers is called a \index{solution!to linear equation}\textbf{solution} to the equation if
+\begin{equation*}
+a_1s_1 + a_2s_2 + \dots + a_ns_n = b
+\end{equation*}
+that is, if the equation is satisfied when the substitutions $x_1 = s_1, x_2 = s_2, \dots, x_n = s_n$ are made. A sequence of numbers is called \index{system of linear equations!solutions}\index{solution!solution to a system}\index{solution to a system}\textbf{a solution to a system} of equations if it is a solution to every equation in the system.
+
+For example, $x = -2$, $y = 5$, $z = 0$ and $x = 0$, $y = 4$, $z = -1$ are both solutions to the system
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rrrrrrr}
+ 	 x & + & y & + &  z & = & 3\\
+	2x & + & y & + & 3z & = & 1
+\end{array}
+\end{equation*}
+A system may have no solution at all, or it may have a unique solution, or it may have an infinite family of solutions. For instance, the system $x + y = 2$, $x + y = 3$ has no solution because the sum of two numbers cannot be 2 and 3 simultaneously. A system that has no solution is called \textbf{inconsistent}\index{inconsistent system}\index{system of linear equations!inconsistent system}\index{solution!inconsistent system}; a system with at least one solution is called \textbf{consistent}\index{consistent system}\index{system of linear equations!consistent system}\index{solution!consistent system}. The system in the following example has infinitely many solutions.
+
+\begin{example}{}{000722}
+Show that, for arbitrary values of $s$ and $t$,
+\begin{align*}
+	x_1 &= t - s + 1 \\
+	x_2 &= t + s + 2 \\
+	x_3 &= s\\
+	x_4 &= t
+\end{align*}
+is a solution to the system
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rrrrrrr}
+	x_1 & - & 2x_2 & + 3x_3 & + x_4 & = & -3\\
+	2x_1 & -&  x_2 & + 3x_3 & - x_4 & = & 0
+\end{array}
+\end{equation*}
+\begin{solution}
+Simply substitute these values of $x_1$, $x_2$, $x_3$, and $x_4$ in each equation.
+\begin{align*}
+	x_1 - 2x_2 + 3x_3 + x_4 &= (t - s + 1) - 2(t + s + 2) + 3s + t = -3\\
+	2x_1 - x_2 + 3x_3 - x_4 &= 2(t - s + 1) - (t + s + 2) + 3s - t = 0
+\end{align*}
+Because both equations are satisfied, it is a solution for all choices of $s$ and $t$.
+\end{solution}
+\end{example}
+
+The quantities $s$ and $t$ in Example \ref{exa:000722} are called \index{parameters}\textbf{parameters}, and the set of solutions, described in this way, is said to be given in \index{parametric form}\index{solution!in parametric form}\textbf{parametric form} and is called the \index{general solution}\index{solution!general solution}\index{system of linear equations!general solution}\textbf{general solution} to the system. It turns out that the solutions to \textit{every} system of equations (if there \textit{are} solutions) can be given in parametric form (that is, the variables $x_1$, $x_2$, $ \dots $  are given in terms of new independent variables $s$, $t$, etc.). The following example shows how this happens in the simplest systems where only one equation is present.
+
+\begin{example}{}{000739}
+Describe all solutions to $3x - y + 2z = 6$ in parametric form.
+
+\begin{solution}
+Solving the equation for $y$ in terms of $x$ and $z$, we get $y = 3x + 2z -6$. If $s$ and $t$ are arbitrary then, setting $x = s$, $z = t$, we get solutions
+\begin{align*}
+	x &= s\\
+	y &= 3s + 2t -6 \quad s \mbox{ and } t \mbox{ arbitrary} \\
+	z &= t
+\end{align*}
+Of course we could have solved for $x$: $x = \frac{1}{3}(y -2z + 6)$. Then, if we take $y = p$, $z = q$, the solutions are represented as follows:
+\begin{equation*}
+\begin{array}{rlll}
+	x & = & \frac{1}{3} (p - 2q + 6) & \\
+	y & = & p & p \mbox{ and } q \mbox{ arbitrary}\\
+	z & = & q & 
+\end{array}
+\end{equation*}
+The same family of solutions can ``look'' quite different!
+\end{solution}
+\end{example}
+
+\begin{wrapfigure}[30]{l}{5cm}
+\centering
+\input{1-systems-of-linear-equations/figures/1-solutions-and-elementary-operations/figure1.1.1.tex}
+\caption{\label{fig:000759}}
+\end{wrapfigure}
+
+When only two variables are involved, the solutions to systems of linear equations can be described geometrically because the graph of a linear equation $ax + by = c$ is a straight line if $a$ and $b$ are not both zero. Moreover, a point $P(s, t)$ with coordinates $s$ and $t$ lies on the line if and only if $as + bt = c$---that is when $x = s$, $y = t$ is a solution to the equation. Hence the solutions to a \textit{system} of linear equations correspond to the points $P(s, t)$ that lie on \textit{all} the lines in question.\index{solution!geometric description}
+
+In particular, if the system consists of just one equation, there must be infinitely many solutions because there are infinitely many points on a line. If the system has two equations, there are three possibilities for the corresponding straight lines:
+
+\begin{enumerate}
+\item \textit{The lines intersect at a single point. Then the system has a} unique solution \textit{corresponding to that point.}\index{system of linear equations!unique solution}
+
+\item \textit{The lines are parallel (and distinct) and so do not intersect. Then the system has} no solution.\index{system of linear equations!no solution}
+
+\item \textit{The lines are identical. Then the system has} infinitely many solutions\textit{---one for each point on the (common) line.}\index{system of linear equations!infinitely many solutions}
+
+\end{enumerate}
+
+These three situations are illustrated in Figure \ref{fig:000759}. In each case the graphs of two specific lines are plotted and the corresponding equations are indicated. In the last case, the equations are $3x - y = 4$ and $-6x + 2y = -8$, which have identical graphs.
+
+With three variables, the graph of an equation $ax + by + cz = d$ can be shown to be a plane (see Section \ref{sec:4_2}) and so again provides a ``picture'' of the set of solutions. However, this graphical method has its limitations: When more than three variables are involved, no physical image of the graphs (called hyperplanes\index{hyperplanes}) is possible. It is necessary to turn to a more ``algebraic'' method of solution.
+
+Before describing the method, we introduce a concept that simplifies the computations involved. Consider the following system
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrlrlrcr}
+	3x_1 & + & 2x_2 & - &  x_3 & + &  x_4 & = & -1\\
+	2x_1 &   &      & - &  x_3 & + & 2x_4 & = & 0\\
+	3x_1 & + &  x_2 & + & 2x_3 & + & 5x_4 & = & 2
+\end{array}
+\end{equation*}
+of three equations in four variables. The array of numbers\footnote{A rectangular array of numbers is called a \textbf{matrix}\index{matrix!defined}. Matrices will be discussed in more detail in Chapter \ref{chap:2}.}
+\begin{equation*}
+\leftB \begin{array}{rrrr|r}
+3 & 2 & -1 & 1 & -1 \\
+2 & 0 & -1 & 2 & 0 \\
+3 & 1 & 2 & 5 & 2
+\end{array} \rightB
+\end{equation*}
+occurring in the system is called the \textbf{augmented matrix}\index{augmented matrix}\index{matrix!augmented matrix}\index{system of linear equations!augmented matrix} of the system. Each row of the matrix consists of the coefficients of the variables (in order) from the corresponding equation, together with the constant term. For clarity, the constants are separated by a vertical line. The augmented matrix is just a different way of describing the system of equations. The array of coefficients of the variables
+\begin{equation*}
+\leftB \begin{array}{rrrr}
+3 & 2 & -1 & 1 \\
+2 & 0 & -1 & 2 \\
+3 & 1 & 2 & 5 
+\end{array} \rightB
+\end{equation*}
+is called the \index{coefficient matrix}\index{matrix!coefficient matrix}\index{system of linear equations!coefficient matrix}\textbf{coefficient matrix} of the system and 
+$ \leftB \begin{array}{r} 
+-1 \\
+0 \\
+2
+\end{array} \rightB
+$ is called the \index{constant matrix}\index{matrix!constant matrix}\index{system of linear equations!constant matrix}\textbf{constant matrix} of the system.
+
+\subsection*{Elementary Operations}
+
+The algebraic method\index{algebraic method}\index{solution!algebraic method}\index{system of linear equations!algebraic method} for solving systems of linear equations is described as follows. Two such systems are said to be \index{equivalent!systems of linear equations}\index{system of linear equations!equivalent systems}\textbf{equivalent} if they have the same set of solutions. A system is solved by writing a series of systems, one after the other, each equivalent to the previous system. Each of these systems has the same set of solutions as the original one; the aim is to end up with a system that is easy to solve. Each system in the series is obtained from the preceding system by a simple manipulation chosen so that it does not change the set of solutions.
+
+As an illustration, we solve the system $x + 2y = -2$, $2x + y = 7$ in this manner. At each stage, the corresponding augmented matrix\index{augmented matrix}\index{matrix!augmented matrix} is displayed. The original system is
+\begin{equation*}
+\begin{array}{lcl}
+\arraycolsep=1pt
+\begin{array}{rlrcr}
+x & + & 2y & = & -2 \\
+2x & + & y & = & 7 
+\end{array}
+& \quad &
+\leftB \begin{array}{rr|r}
+1 & 2 & -2 \\
+2 & 1 & 7
+\end{array} \rightB
+\end{array}
+\end{equation*}
+First, subtract twice the first equation from the second. The resulting system is
+\begin{equation*}
+\begin{array}{lcl}
+\arraycolsep=1pt
+\begin{array}{rlrcr}
+x & + & 2y & = & -2 \\
+ & - & 3y & = & 11 
+\end{array}
+& \quad &
+\leftB \begin{array}{rr|r}
+1 & 2 & -2 \\
+0 & -3 & 11
+\end{array} \rightB
+\end{array}
+\end{equation*}
+which is equivalent to the original (see Theorem \ref{thm:000789}). At this stage we obtain $ y = -\frac{11}{3}$ by multiplying the second equation by $-\frac{1}{3}$. The result is the equivalent system
+\begin{equation*}
+\begin{array}{lcl}
+\arraycolsep=1pt
+\begin{array}{rcr}
+x + 2y & = & -2 \\
+    y & = & -\frac{11}{3}
+\end{array}
+& \quad & 
+\leftB \begin{array}{rr|r}
+1 & 2 & -2 \\
+0 & 1 & -\frac{11}{3}
+\end{array} \rightB
+\end{array}
+\end{equation*}
+Finally, we subtract twice the second equation from the first to get another equivalent system.
+\begin{equation*}
+\begin{array}{lcl}
+\def\arraystretch{1.5}
+\arraycolsep=1pt
+\begin{array}{rcr} 
+x & = & \frac{16}{3} \\
+y & = & -\frac{11}{3}
+\end{array}
+& \quad \quad &
+\def\arraystretch{1.5}
+\leftB \begin{array}{rr|r}
+1 & 0 & \frac{16}{3} \\
+0 & 1 & -\frac{11}{3}
+\end{array} \rightB
+\end{array}
+\end{equation*}
+Now \textit{this} system is easy to solve! And because it is equivalent to the original system, it provides the solution to that system.
+
+Observe that, at each stage, a certain operation is performed on the system (and thus on the augmented matrix) to produce an equivalent system.
+
+\begin{definition}{Elementary Operations}{000779}
+The following operations, called \index{elementary operations}\index{system of linear equations!elementary operations}\textbf{elementary operations}, can routinely be performed on systems of linear equations to produce equivalent systems.
+
+\begin{enumerate}[label={\Roman*.}]
+\item Interchange two equations.
+
+\item Multiply one equation by a {\normalfont nonzero} number.
+
+\item Add a multiple of one equation to a {\normalfont different} equation.
+
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}{}{000789}
+Suppose that a sequence of elementary operations is performed on a system of linear equations. Then the resulting system has the same set of solutions as the original, so the two systems are equivalent.
+\end{theorem}
+
+\noindent The proof is given at the end of this section.
+
+Elementary operations performed on a system of equations produce corresponding manipulations of the \textit{rows} of the augmented matrix. Thus, multiplying a row of a matrix by a number $k$ means multiplying \textit{every entry} of the row by $k$. Adding one row to another row means adding \textit{each entry} of that row to the corresponding entry of the other row. Subtracting two rows is done similarly. Note that we regard two rows as equal when corresponding entries are the same.
+
+In hand calculations (and in computer programs) we manipulate the rows of the augmented matrix rather than the equations. For this reason we restate these elementary operations for matrices.
+
+\begin{definition}{Elementary Row Operations}{000795}
+The following are called \index{elementary row operations!matrices}\index{matrix!elementary row operations}\index{rows!elementary row operations}\textbf{elementary row operations} on a matrix.
+
+\begin{enumerate}[label={\Roman*.}]
+\item Interchange two rows.
+
+\item Multiply one row by a {\normalfont nonzero} number.
+
+\item Add a multiple of one row to a {\normalfont different} row.
+
+\end{enumerate}
+\end{definition}
+
+In the illustration above, a series of such operations led to a matrix of the form
+\begin{equation*}
+\leftB \begin{array}{rr|r}
+	1 & 0 & * \\
+	0 & 1 & * 
+\end{array} \rightB
+\end{equation*}
+where the asterisks represent arbitrary numbers. In the case of three equations in three variables, the goal is to produce a matrix of the form
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+1 & 0 & 0 & * \\
+0 & 1 & 0 & * \\
+0 & 0 & 1 & *
+\end{array} \rightB
+\end{equation*}
+This does not always happen, as we will see in the next section. Here is an example in which it does happen.
+
+\begin{example}{}{000809}
+Find all solutions to the following system of equations.
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrlrcr}
+	3x & + & 4y & + & z & = & 1 \\
+	2x & + & 3y &   &   & = & 0 \\
+	4x & + & 3y & - & z & = & -2
+\end{array}
+\end{equation*}
+\begin{solution}
+The augmented matrix of the original system is
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+	3 & 4 & 1 & 1 \\
+	2 & 3 & 0 & 0 \\
+	4 & 3 & -1 & -2
+\end{array} \rightB
+\end{equation*}
+To create a $1$ in the upper left corner we could multiply row 1 through by $\frac{1}{3}$. However, the $1$ can be obtained without introducing fractions by subtracting row 2 from row 1. The 
+result is
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+1 & 1 & 1 & 1 \\
+2 & 3 & 0 & 0 \\
+4 & 3 & -1 & -2
+\end{array} \rightB
+\end{equation*}
+The upper left $1$ is now used to ``clean up'' the first column, that is create zeros in the other positions in that column. First subtract $2$ times row 1 from row 2 to obtain
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+1 & 1 & 1 & 1 \\
+0 & 1 & -2 & -2 \\
+4 & 3 & -1 & -2
+\end{array} \rightB
+\end{equation*}
+Next subtract $4$ times row 1 from row 3. The result is
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+1 & 1 & 1 & 1 \\
+0 & 1 & -2 & -2 \\
+0 & -1 & -5 & -6
+\end{array} \rightB
+\end{equation*}
+This completes the work on column 1. We now use the $1$ in the second position of the second row to clean up the second column by subtracting row 2 from row 1 and then adding row 2 to row 3. For convenience, both row operations are done in one step. The result is
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+1 & 0 & 3 & 3 \\
+0 & 1 & -2 & -2 \\
+0 & 0 & -7 & -8
+\end{array} \rightB
+\end{equation*}
+Note that the last two manipulations \textit{did not affect} the first column (the second row has a zero there), so our previous effort there has not been undermined. Finally we clean up the third 
+column. Begin by multiplying row 3 by $-\frac{1}{7} $ to obtain
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+1 & 0 & 3 & 3 \\
+0 & 1 & -2 &  -2 \\
+0 & 0 & 1 & \frac{8}{7}
+\end{array} \rightB
+\end{equation*}
+Now subtract $3$ times row 3 from row 1, and then add $2$ times row 3 to row 2 to get
+\begin{equation*}
+\def\arraystretch{1.5}
+\leftB \begin{array}{rrr|r}
+1 & 0 & 0 & - \frac{3}{7} \\
+0 & 1 & 0 &  \frac{2}{7} \\
+0 & 0 & 1 & \frac{8}{7}
+\end{array} \rightB
+\end{equation*}
+The corresponding equations are $x = -\frac{3}{7}$, $y = \frac{2}{7}$, and $z = \frac{8}{7}$, which give the (unique) solution.
+\end{solution}
+\end{example}
+
+Every elementary row operation can be \index{elementary row operations!reversed}\textbf{reversed}\index{reversed} by another elementary row operation of the same type (called its \index{elementary row operations!inverses}\index{inverses!elementary row operations}\textbf{inverse}). To see how, we look at types I, II, and III separately:
+
+\begin{tabu}{lX[5]}\label{itm:types}
+& \\
+\textit{Type I} & \textit{Interchanging two rows is reversed by interchanging them again.} \\
+&\\
+\textit{Type II} & \textit{Multiplying a row by a nonzero number $k$ is reversed by multiplying by $1/k$.} \\
+&\\
+\textit{Type III} & \textit{Adding $k$ times row $p$ to a different row $q$ is reversed by adding $-k$ times row $p$ to row $q$ (in the new matrix). Note that $p \neq q$ is essential here.}\\
+&\\
+\end{tabu}
+
+
+To illustrate the Type III situation, suppose there are four rows in the original matrix, denoted $R_1$, $R_2$, $R_3$, and $R_4$, and that $k$ times $R_2$ is added to $R_3$. Then the reverse operation adds $-k$ times $R_2$, to $R_3$. The following diagram illustrates the effect of doing the operation first and then the reverse:
+\begin{equation*}
+\leftB \begin{array}{c}
+	R_1 \\
+	R_2 \\
+	R_3 \\
+	R_4
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{c}
+R_1 \\
+R_2 \\
+R_3 + kR_2\\
+R_4
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{c}
+R_1 \\
+R_2 \\
+(R_3 + kR_2) - kR_2\\
+R_4
+\end{array} \rightB
+=
+\leftB \begin{array}{c}
+R_1 \\
+R_2 \\
+R_3 \\
+R_4
+\end{array} \rightB
+\end{equation*}
+The existence of inverses for elementary row operations and hence for elementary operations on a system of equations, gives:
+
+\begin{proof}[Proof of Theorem \ref{thm:000789}]
+Suppose that a system of linear equations is transformed into a new system by a sequence of elementary operations. Then every solution of the original system is automatically a solution of the new system because adding equations, or multiplying an equation by a nonzero number, always results in a valid equation. In the same way, each solution of the new system must be a solution to the original system because the original system can be obtained from the new one by another series of elementary operations (the inverses of the originals). It follows that the original and new systems have the same solutions. This proves Theorem \ref{thm:000789}.
+\end{proof}
+
+
+\section*{Exercises for \ref{sec:1_1}}
+
+\begin{Filesave}{solutions}
+\solsection{Section \ref{sec:1_1}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case verify that the following are solutions for all values of $s$ and $t$.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\arraycolsep=1pt
+\begin{array}[t]{rcl}
+	x &=& 19t - 35 \\
+	y &=& 25 - 13t \\
+	z &=& t
+\end{array}$
+
+is a solution of
+
+$\arraycolsep=1pt
+\begin{array}{rlrlrcr}
+	2x &+ & 3y & + &  z & = & 5 \\
+	5x &+ & 7y & - & 4z & = & 0
+\end{array}$
+\item 
+$\arraycolsep=1pt
+\begin{array}[t]{rcl}
+	x_1 &=& 2s + 12t + 13\\
+	x_2 &=& s \\
+	x_3 &=& -s - 3t - 3\\
+	x_4 &=& t
+\end{array}$
+
+is a solution of
+
+$\arraycolsep=1pt
+\begin{array}{rlrlrlrcr}
+	2x_1 & + & 5x_2 & + & 9x_3 & + & 3x_4 & = & -1 \\
+	 x_1 & + & 2x_2 & + & 4x_3 &   &      & = & 1
+\end{array}$
+\end{enumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $2(2s + 12t + 13) + 5s + 9(-s - 3t - 3) + 3t = -1$; $(2s + 12t + 13) + 2s + 4(-s - 3t - 3) = 1$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all solutions to the following in parametric form in two ways.
+\begin{exenumerate}
+\exitem $3x + y = 2$
+\exitem $2x + 3y = 1$
+\exitem $3x - y + 2z = 5$
+\exitem $x - 2y + 5z = 1$
+\end{exenumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x = t$, $y = \frac{1}{3}(1 - 2t)$ or $x = \frac{1}{2}(1 - 3s)$, $y = s$
+
+\setcounter{enumi}{3}
+\item  $x = 1 + 2s - 5t$, $y = s$, $z = t$ or $x = s$, $y = t$, \\ $z = \frac{1}{5}(1 - s + 2t)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Regarding $2x = 5$ as the equation \newline $2x + 0y = 5$ in two variables, find all solutions in parametric form.
+\end{ex}
+
+\begin{ex}
+Regarding $4x - 2y = 3$ as the equation $4x - 2y + 0z = 3$ in three variables, find all solutions in parametric form.
+
+\begin{sol}
+$x = \frac{1}{4}(3 + 2s)$, $y = s$, $z = t$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all solutions to the general system $ax = b$ of one equation in one variable (a) when $a = 0$ and (b) when $a \neq 0$.
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\item  No solution if $b \neq 0$. If $b = 0$, \textit{any} $x$ is a solution.
+
+\item  $ x = \frac{b}{a} $
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that a system consisting of exactly one linear equation can have no solution, one solution, or infinitely many solutions. Give examples.
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Write the augmented matrix for each of the following systems of linear equations.
+\begin{exenumerate}
+\exitem $\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	x  & - & 3y & = & 5\\
+	2x & + &  y & = & 1 
+\end{array}$
+\exitem $\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	x & + & 2y & = & 0\\
+	  &   &  y & = & 1
+\end{array}$
+\exitem $\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	x & - & y & + & z & = & 2 \\
+	  &   & x & - & z & = & 1 \\
+	  &   & y & + &2x & = & 0
+\end{array}$
+\exitem $\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	x & + & y & = & 1 \\
+	y & + & z & = & 0 \\
+	z & - & x & = & 2
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$\leftB \begin{array}{rr|r}
+	1 & 2 & 0 \\
+	0 & 1 & 1
+\end{array} \rightB$
+\setcounter{enumi}{3}
+\item $\leftB \begin{array}{rrr|r}
+	1 & 1 & 0 & 1 \\
+	0 & 1 & 1 & 0 \\
+	-1 & 0 & 1 & 2
+\end{array} \rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Write a system of linear equations that has each of the following augmented matrices.
+
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rrr|r}
+	1 & -1 & 6 & 0 \\
+	0 &  1 & 0 & 3 \\
+	2 & -1 & 0 & 1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr|r}
+ 2 & -1 & 0 & -1 \\
+-3 &  2 & 1 & 0 \\
+ 0 &  1 & 1 & 3
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ \arraycolsep=1pt \begin{array}{rlrlrcr}
+		 2x & - &  y &   &   & = & -1 \\
+		-3x & + & 2y & + & z & = & 0 \\
+		    &   &  y & + & z & = & 3
+	\end{array}$ \\
+	or \quad $ \arraycolsep=1pt\begin{array}{rlrlrcr}
+			 2x_1 & - &  x_2 &   &     & = & -1 \\
+			-3x_1 & + & 2x_2 & + & x_3 & = & 0 \\
+			      &   &  x_2 & + & x_3 & = & 3
+	\end{array}$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the solution of each of the following systems of linear equations using augmented matrices.
+
+\begin{exenumerate}
+\exitem
+$\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+  	 x & - & 3y & = & 1 \\
+	2x & - & 7y & = & 3
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	 x & + & 2y &=& 1 \\
+	3x & + & 4y &=& -1
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	2x & + & 3y &=& -1 \\
+	3x & + & 4y &=& 2
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	3x & + & 4y &=& 1 \\
+	4x & + & 5y &=& -3
+\end{array}$
+\end{exenumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x = -3$, $y = 2$
+\setcounter{enumi}{3}
+\item  $x = -17$, $y = 13$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the solution of each of the following systems of linear equations using augmented matrices.
+
+\begin{exenumerate}
+\exitem
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	 x & + & y & + & 2z & = & -1 \\
+	2x & + & y & + & 3z & = & 0 \\
+	   & - & 2y& + &  z & = & 2
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	2x & + & y & + & z & = & -1 \\
+	 x & + & 2y & + & z & = & 0 \\
+	3x &  & & - &  2z & = & 5
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ x = \frac{1}{9}$, $y = \frac{10}{9}$, $z = -\frac{7}{3}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all solutions (if any) of the following systems of linear equations.
+
+\begin{exenumerate}
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rcr}
+3x - 2y & = & 5 \\
+-12x + 8y & = & - 20
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rcr}
+3x - 2y & = & 5 \\
+-12x + 8y & = & 16
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No solution
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the system 
+\begin{equation*}  \left \{
+\arraycolsep=3.5pt 
+\begin{array}{rlrlrcr}
+	 x & + & 2y & - &  z & = & a \\
+	2x & + &  y & + & 3z & = & b \\
+	 x & - & 4y & + & 9z & = & c
+\end{array} \right. \end{equation*}
+is inconsistent unless $c = 2b - 3a$.
+\end{ex}
+
+\begin{ex}
+By examining the possible positions of lines in the plane, show that two equations in two variables can have zero, one, or infinitely many solutions.
+\end{ex}
+\end{multicols}
+
+%%Breaking out of multicol to ensure below footnote is on the same page as the exercise
+\begin{multicols}{2}
+\begin{ex}
+In each case either show that the statement is true, or give an example\footnote{Such an example is called a \textbf{counterexample}\index{counterexample}. For example, if the statement is that ``all philosophers have beards'', the existence of a non-bearded philosopher would be a counterexample proving that the statement is false. This is discussed again in Appendix \ref{chap:appbproofs}.} showing it is false.
+
+\begin{enumerate}[label={\alph*.}]
+\item If a linear system has $n$ variables and $m$ equations, then the augmented matrix has $n$ rows.
+
+\item A consistent linear system must have infinitely many solutions.
+
+\item If a row operation is done to a consistent linear system, the resulting system must be consistent.
+
+\item If a series of row operations on a linear system results in an inconsistent system, the original system is inconsistent.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  F. $x + y = 0$, $x - y = 0$ has a unique solution.
+
+\setcounter{enumi}{3}
+\item  T. Theorem \ref{thm:000789}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find a quadratic $a + bx + cx^2$ such that the graph of $y = a + bx + cx^2$ contains each of the points $(-1, 6)$, $(2, 0)$, and $(3, 2)$.
+\end{ex}
+
+\begin{ex}
+Solve the system
+$\left \{
+\arraycolsep=1pt
+\begin{array}{rlrcr}
+	3x & + & 2y & = & 5 \\
+	7x & + & 5y & = & 1 
+\end{array} \right.$ by changing variables $
+\left \{
+\arraycolsep=1pt
+\begin{array}{rcrlr}
+	x & = & 5x^\prime & - & 2y^\prime \\
+	y & = & -7x^\prime & + & 3y^\prime 
+\end{array} \right.
+$ and solving the resulting equations for $x^\prime$ and $y^\prime$.
+
+\begin{sol}
+$x^\prime = 5$, $y^\prime = 1$, so $x = 23$, $y = -32$
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Find $a$, $b$, and $c$ such that
+{\normalsize
+\begin{equation*}
+\frac{x^2 - x + 3}{(x^2 + 2)(2x - 1)} = \frac{ax + b}{x^2 + 2} + \frac{c}{2x - 1}
+\end{equation*}}
+[\textit{Hint}: Multiply through by $(x^2 + 2)(2x - 1)$ and equate coefficients of powers of $x$.]
+
+\begin{sol}
+$ a = -\frac{1}{9}$, $b = -\frac{5}{9}$, $c = \frac{11}{9}$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+A zookeeper wants to give an animal 42 mg of vitamin A and 65 mg of vitamin D per day. He has two supplements: the first contains 10\% vitamin A and 25\% vitamin D; the second contains 20\% vitamin A and 25\% vitamin D. How much of each supplement should he give the animal each day?
+\end{ex}
+
+\begin{ex}
+Workmen John and Joe earn a total of \$24.60 when John works 2 hours and Joe works 3 hours. If John works 3 hours and Joe works 2 hours, they get \$23.90. Find their hourly rates.
+
+\begin{sol}
+\$4.50, \$5.20
+\end{sol}
+\end{ex}
+
+\begin{ex}
+A biologist wants to create a diet from fish and meal containing 183 grams of protein and 93 grams of carbohydrate per day. If fish contains 70\% protein and 10\% carbohydrate, and meal contains 30\% protein and 60\% carbohydrate, how much of each food is required each day?
+\end{ex}
+\end{multicols}

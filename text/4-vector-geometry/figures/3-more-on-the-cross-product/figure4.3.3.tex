@@ -1,0 +1,21 @@
+\begin{tikzpicture}[scale=0.7]
+\coordinate (origin) (0, 0, 0);
+
+\draw[thick, ->] (origin)--(2, 0, 0) node[right] {\small $y$};
+\draw[thick, ->] (origin)--(0, -1.5, 0) node[below] {\small $z$};
+\draw[thick, ->] (origin)--(0, 0, 2) node[below left] {\small $x$};
+\node[above] (origin) {\small $O$};
+
+\node at (0.5, -2.5, 0) {\small Left-hand system};
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=0.8]
+\coordinate (origin) (0, 0, 0);
+
+\draw[thick, ->] (origin)--(2, 0, 0) node[right] {\small $y$};
+\draw[thick, ->] (origin)--(0, 1.5, 0) node[above] {\small $z$};
+\draw[thick, ->] (origin)--(0, 0, 2) node[below left] {\small $x$};
+\node[below] (origin) {\small $O$};
+
+\node at (0.5, -2, 0) {\small Right-hand system};
+\end{tikzpicture}

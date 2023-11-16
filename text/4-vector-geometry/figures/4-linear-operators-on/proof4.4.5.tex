@@ -1,0 +1,16 @@
+\begin{tikzpicture}[scale=0.9]
+\coordinate (origin) at(0, 0);
+\coordinate (ptK) at (0, 1.25);
+\coordinate (ptP1) at (3, -1);
+\coordinate (ptQ1) at (1, 0.4);
+
+\filldraw [color=dkbluevect, fill=ltbluevect, thick] (origin)--(ptQ1)-- ++(ptP1)--(ptP1)--cycle;
+\draw [dkbluevect, thick] (ptK) -- ++(ptQ1) -- ++(ptP1) -- ($(ptK) + (ptP1)$)--cycle;
+\draw [dkbluevect, thick] (ptQ1) -- +(ptK)
+	(ptP1) -- +(ptK)
+	($(ptQ1) + (ptP1)$) -- +(ptK);
+
+\draw [dkgreenvect, thick, -latex] (origin)--(ptK) node[left, text=black, pos=0.9] {\small $\vect{k}$};
+\draw [dkgreenvect, thick, -latex] (origin)--(ptP1) node[below, text=black, pos=0.8] {\small $\vect{p}_1$};
+\draw [dkgreenvect, thick, -latex] (origin)--(ptQ1) node[above, text=black, pos=0.7] {\small $\vect{q}_1$};
+\end{tikzpicture}

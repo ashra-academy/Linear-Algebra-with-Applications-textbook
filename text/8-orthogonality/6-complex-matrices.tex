@@ -1,0 +1,990 @@
+\section{Complex Matrices}
+\label{sec:8_6}
+\index{orthogonality!complex matrices}
+
+If $A$ is an $n \times n$ matrix, the characteristic polynomial $c_{A}(x)$ is a polynomial of degree $n$ and the eigenvalues of $A$ are just the roots of $c_{A}(x)$. In most of our examples these roots have been \textit{real} numbers (in fact, the examples have been carefully chosen so this will be the case!); but it need not happen, even when the characteristic polynomial has real coefficients. For example, if $A = \leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array}\rightB$ then $c_{A}(x) = x^{2} + 1$ has roots $i$ and $-i$, where $i$ is a complex number satisfying $i^{2} = -1$. Therefore, we have to deal with the possibility that the eigenvalues of a (real) square matrix might be complex numbers.
+
+In fact, nearly everything in this book would remain true if the phrase \textit{real number}\index{real numbers} were replaced by \textit{complex number}
+ wherever it occurs. Then we would deal with matrices with complex 
+entries, systems of linear equations with complex coefficients (and 
+complex solutions), determinants of complex matrices, and vector spaces 
+with scalar multiplication by any complex number allowed. Moreover, the 
+proofs of most theorems about (the real version of) these concepts 
+extend easily to the complex case. It is not our intention here to give a
+ full treatment of complex linear algebra. However, we will carry the 
+theory far enough to give another proof that the eigenvalues of a real 
+symmetric matrix $A$ are real (Theorem~\ref{thm:016397}) and to prove the spectral theorem, an extension of the principal axes theorem (Theorem~\ref{thm:024303}).\index{complex number!extension of concepts to}
+
+The set of complex numbers is denoted $\mathbb{C}$ . We will use only the most basic properties of these numbers (mainly conjugation and absolute values), and the reader can find this material in Appendix~\ref{chap:appacomplexnumbers}.
+
+If $n \geq 1$, we denote the set of all $n$-tuples of complex numbers by $\mathbb{C}^n$. As with $\RR^n$, these $n$-tuples will be written either as row or column matrices and will be referred to as \textbf{vectors}\index{vectors!complex matrices}\index{vectors!defined}. We define vector operations on $\mathbb{C}^n$ as follows:
+\begin{align*}
+(v_{1},  v_{2}, \dots, v_{n}) + (w_{1}, w_{2}, \dots, w_{n}) &= (v_{1} + w_{1}, v_{2} + w_{2}, \dots, v_{n} + w_{n}) \\
+u(v_{1}, v_{2}, \dots, v_{n}) &= (uv_{1}, uv_{2}, \dots, uv_{n}) \quad \mbox{ for } u \mbox{ in } \mathbb{C}
+\end{align*}
+With these definitions, $\mathbb{C}^n$ satisfies the axioms for a vector space (with complex scalars) given in Chapter~\ref{chap:6}. Thus we can speak of spanning sets for $\mathbb{C}^n$, of linearly independent subsets, and of bases. In all cases, the definitions are identical to the real case, except that the scalars are allowed to be complex numbers. In particular, the standard basis of $\RR^n$ remains a basis of $\mathbb{C}^n$, called the \textbf{standard basis}\index{basis!standard basis}\index{standard basis} of $\mathbb{C}^n$.
+
+A matrix $A = \leftB a_{ij} \rightB$ is called a \textbf{complex matrix}\index{complex matrix!defined} if every entry $a_{ij}$ is a complex number. The notion of conjugation for complex numbers extends to matrices as follows: Define the \textbf{conjugate}\index{complex matrix!conjugate}\index{conjugate} of $A = \leftB a_{ij} \rightB$ to be the matrix
+\begin{equation*}
+\overline{A} = \leftB \begin{array}{c} \overline{a}_{ij} \end{array}\rightB
+\end{equation*}
+obtained from $A$ by conjugating every entry. Then (using Appendix~\ref{chap:appacomplexnumbers})
+\begin{equation*}
+\overline{A + B} = \overline{A} + \overline{B} \quad \mbox{ and } \quad \overline{AB} = \overline{A} \; \overline{B}
+\end{equation*}
+holds for all (complex) matrices of appropriate size.
+
+
+\subsection*{The Standard Inner Product}
+\index{standard inner product}
+
+There is a natural generalization to $\mathbb{C}^n$ of the dot product in $\RR^n$.\index{complex matrix!standard inner product}\index{dot product!in set of all ordered $n$-tuples ($\RR^n$)}\index{product!standard inner product}\index{set of all ordered $n$-tuples ($\RR^n$)!dot product}
+
+
+\begin{definition}{Standard Inner Product in $\RR^n$}{025549}
+Given $\vect{z} = (z_{1}, z_{2}, \dots, z_{n})$ and $\vect{w} = (w_{1}, w_{2}, \dots, w_{n})$ in $\mathbb{C}^n$, define their \textbf{standard inner product}\index{complex matrix!standard inner product} $\langle \vect{z}, \vect{w} \rangle$ by
+\begin{equation*}
+\langle \vect{z}, \vect{w} \rangle = z_{1}\overline{w}_{1} + z_{2}\overline{w}_{2} + \dots + z_{n}\overline{w}_{n} = \vect{z} \dotprod \overline{\vect{w}}
+\end{equation*}
+where $\overline{w}$ is the conjugate of the complex number $w$.
+\end{definition}
+
+\noindent Clearly, if $\vect{z}$ and $\vect{w}$ actually lie in $\RR^n$, then $\langle \vect{z}, \vect{w} \rangle = \vect{z} \dotprod \vect{w}$ is the usual dot product.
+
+
+\begin{example}{}{025563}
+If $\vect{z} = (2, 1 - i, 2i, 3 - i)$ and $\vect{w} = (1 - i, -1, -i, 3 + 2i)$, then
+\begin{align*}
+\langle \vect{z}, \vect{w} \rangle &= 2(1 + i) + (1 - i)(-1) + (2i)(i) + (3 - i)(3 - 2i) = 6 -6i \\
+\langle \vect{z}, \vect{z} \rangle &= 2 \cdot 2 + (1 - i)(1 + i) + (2i)(-2i) + (3 - i)(3 + i) = 20
+\end{align*}
+\end{example}
+
+Note that $\langle \vect{z}, \vect{w} \rangle$ is a complex number in general. However, if $\vect{w} = \vect{z} = (z_{1}, z_{2}, \dots, z_{n})$, the definition gives $\langle \vect{z}, \vect{z} \rangle = |z_{1}|^{2} + \dots  + |z_{n}|^{2}$ which is a nonnegative real number, equal to $0$ if and only if $\vect{z} = \vect{0}$. This explains the conjugation in the definition of $\langle \vect{z}, \vect{w} \rangle$, and it gives (4) of the following theorem.
+
+
+\begin{theorem}{}{025575}
+Let $\vect{z}$, $\vect{z}_{1}$, $\vect{w}$, and $\vect{w}_{1}$ denote vectors in $\mathbb{C}^n$, and let $\lambda$ denote a complex number.
+\begin{enumerate}
+\item $\langle \vect{z} + \vect{z}_{1}, \vect{w}\rangle = \langle \vect{z}, \vect{w} \rangle + \langle \vect{z}_{1}, \vect{w} \rangle$ \quad and \quad 
+$\langle \vect{z}, \vect{w} + \vect{w}_{1} \rangle = \langle \vect{z}, \vect{w} \rangle + \langle \vect{z}, \vect{w}_{1} \rangle$.
+
+\item $\langle \lambda \vect{z}, \vect{w} \rangle = \lambda \langle \vect{z}, \vect{w} \rangle$ \quad and \quad $\langle \vect{z}, \lambda \vect{w} \rangle = \overline{\lambda} \langle \vect{z}, \vect{w} \rangle$.
+
+\item $\langle \vect{z}, \vect{w} \rangle = \overline{\langle \vect{w}, \vect{z} \rangle}$.
+
+\item $\langle \vect{z}, \vect{z} \rangle \geq 0$, \quad and \quad $\langle \vect{z}, \vect{z} \rangle = 0$ if and only if $\vect{z} = \vect{0}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We leave (1) and (2) to the reader (Exercise \ref{ex:8_6_10}), and (4) has already been proved. To prove (3), write $\vect{z} = (z_{1}, z_{2}, \dots, z_{n})$ and $\vect{w} = (w_{1}, w_{2}, \dots, w_{n})$. Then
+\begin{align*}
+\overline{\langle \vect{w}, \vect{z} \rangle} = (\overline{w_{1}\overline{z}_{1} + \dots + w_{n}\overline{z}_{n}}) &= \overline{w}_{1}\overline{\overline{z}}_{1} + \dots + \overline{w}_{n}\overline{\overline{z}}_{n} \\
+&= z_{1}\overline{w}_{1} + \dots + z_{n}\overline{w}_{n} = \langle \vect{z}, \vect{w} \rangle
+\end{align*}
+\end{proof}
+
+\begin{definition}{Norm and Length in $\mathbb{C}^n$}{025606}
+As for the dot product on $\RR^n$, property (4) enables us to define the \textbf{norm}\index{norm}\index{length!norm, where dot product is used} or \textbf{length}\index{length!vector}\index{vectors!length} $\vectlength\vect{z}\vectlength$ of a vector $\vect{z} = (z_{1}, z_{2}, \dots, z_{n})$ in $\mathbb{C}^n$:
+\begin{equation*}
+\vectlength \vect{z} \vectlength = \sqrt{\langle \vect{z}, \vect{z} \rangle} = \sqrt{|z_{1}|^2 + |z_{2}|^2 + \dots + |z_{n}|^2}
+\end{equation*}
+\end{definition}
+
+\noindent The only properties of the norm function we will need are the following (the proofs are left to the reader):
+
+
+\begin{theorem}{}{025616}
+If $\vect{z}$ is any vector in $\mathbb{C}^n$, then
+
+
+\begin{enumerate}
+\item $\vectlength \vect{z} \vectlength \geq 0$ and $\vectlength \vect{z} \vectlength = 0$ if and only if $\vect{z} = \vect{0}$.
+
+\item $\vectlength \lambda\vect{z} \vectlength = |\lambda| \vectlength \vect{z} \vectlength$ for all complex numbers $\lambda$.
+
+\end{enumerate}
+\end{theorem}
+
+A vector $\vect{u}$ in $\mathbb{C}^n$ is called a \textbf{unit vector}\index{vectors!unit vector}\index{unit vector} if $\vectlength\vect{u}\vectlength = 1$. Property (2) in Theorem~\ref{thm:025616} then shows that if $\vect{z} \neq \vect{0}$ is any nonzero vector in $\mathbb{C}^n$, then $\vect{u} = \frac{1}{\vectlength \vect{z} \vectlength}\vect{z}$ is a unit vector.
+
+
+\begin{example}{}{025631}
+In $\mathbb{C}^4$, find a unit vector $\vect{u}$ that is a positive real multiple of $\vect{z} = (1 - i, i, 2, 3 + 4i)$.
+
+
+\begin{solution}
+$\vectlength \vect{z} \vectlength = \sqrt{2+1+4+25} = \sqrt{32} = 4\sqrt{2}$, so take $\vect{u} = \frac{1}{4\sqrt{2}}\vect{z}$.
+\end{solution}
+\end{example}
+
+Transposition of complex matrices is defined just as in the real case, and the following notion is fundamental.
+
+
+\begin{definition}{Conjugate Transpose in $\mathbb{C}^n$}{025646}
+The \textbf{conjugate transpose}\index{complex matrix!conjugate transpose}\index{conjugate transpose} $A^{H}$ of a complex matrix $A$ is defined by
+\begin{equation*}
+A^H = (\overline{A})^T = \overline{(A^T)}
+\end{equation*}
+\end{definition}
+
+\noindent Observe that $A^{H} = A^{T}$ when $A$ is real.\footnote{Other notations for $A^{H}$ are $A^\ast$ and $A^\dagger$.}
+
+\begin{example}{}{025654}
+\begin{equation*}
+\leftB \begin{array}{ccr}
+3 & 1 - i & 2 + i \\
+2i & 5 + 2i & -i
+\end{array}\rightB^H = \leftB \begin{array}{cc}
+3 & -2i \\
+1 + i & 5 - 2i \\
+2 - i & i
+\end{array}\rightB
+\end{equation*}
+\end{example}
+
+The following properties of $A^{H}$ follow easily from the rules for transposition of real matrices and extend these rules to complex matrices. Note the conjugate in property (3).
+
+
+\begin{theorem}{}{025659}
+Let $A$ and $B$ denote complex matrices, and let $\lambda$ be a complex number.
+
+
+\begin{enumerate}
+\item $(A^{H})^{H} = A$.
+
+\item $(A + B)^{H} = A^{H} + B^{H}$.
+
+\item $(\lambda A)^H = \overline{\lambda}A^H$.
+
+\item $(AB)^{H} = B^{H}A^{H}$.
+
+\end{enumerate}
+\end{theorem}
+
+\subsection*{Hermitian and Unitary Matrices}
+
+
+If $A$ is a real symmetric matrix, it is clear that $A^{H} = A$. The complex matrices that satisfy this condition turn out to be the 
+most natural generalization of the real symmetric matrices:
+
+
+\begin{definition}{Hermitian Matrices}{025684}
+A square complex matrix $A$ is called \textbf{hermitian}\index{hermitian matrix}\footnotemark if $A^{H} = A$, equivalently if $\overline{A} = A^T$.\index{complex matrix!hermitian matrix}\index{matrix!hermitian matrix}\index{square matrix ($n \times n$ matrix)!hermitian matrix}
+\end{definition}
+\footnotetext{The
+ name hermitian honours Charles Hermite\index{Hermite, Charles} (1822--1901), a French 
+mathematician who worked primarily in analysis and is remembered as the 
+first to show that the number $e$ from calculus is transcendental---that is, $e$ is not a root of any polynomial with integer coefficients.}
+
+\noindent Hermitian matrices are easy to 
+recognize because the entries on the main diagonal must be real, and the
+ ``reflection'' of each nondiagonal entry in the main diagonal must be the
+ conjugate of that entry.
+
+
+\begin{example}{}{025690}
+$\leftB \begin{array}{ccc}
+3 & i & 2 + i \\
+-i & -2 & -7 \\
+2 - i & -7 & 1
+\end{array}\rightB$
+ is hermitian, whereas $\leftB \begin{array}{rr}
+ 1 & i \\
+ i & -2
+ \end{array}\rightB$ and $\leftB \begin{array}{rr}
+ 1 & i \\
+ -i & i
+ \end{array}\rightB$ are not.
+\end{example}
+
+The following Theorem extends Theorem~\ref{thm:024396}, and gives a very useful characterization of hermitian matrices in terms of the standard inner product in $\mathbb{C}^n$.
+
+
+\begin{theorem}{}{025697}
+An $n \times n$ complex matrix $A$ is hermitian if and only if
+\begin{equation*}
+\langle A\vect{z}, \vect{w} \rangle = \langle \vect{z}, A\vect{w} \rangle
+\end{equation*}
+for all $n$-tuples $\vect{z}$ and $\vect{w}$ in $\mathbb{C}^n$.
+\end{theorem}
+
+\begin{proof}
+If $A$ is hermitian, we have $A^T = \overline{A}$. If $\vect{z}$ and $\vect{w}$ are columns in $\mathbb{C}^n$, then $\langle \vect{z}, \vect{w} \rangle = \vect{z}^T\overline{\vect{w}}$, so
+\begin{equation*}
+\langle A\vect{z}, \vect{w} \rangle =(A\vect{z})^T\overline{\vect{w}} = \vect{z}^TA^T\overline{\vect{w}} = \vect{z}^T\overline{A}\overline{\vect{w}} = \vect{z}^T(\overline{A\vect{w}}) = \langle \vect{z}, A\vect{w} \rangle
+\end{equation*}
+To prove the converse, let $\vect{e}_{j}$ denote column $j$ of the identity matrix. If $A = \leftB a_{ij} \rightB$, the condition gives
+\begin{equation*}
+\overline{a}_{ij} = \langle \vect{e}_{i}, A\vect{e}_{j} \rangle = \langle A\vect{e}_{i}, \vect{e}_{j} \rangle = {a}_{ij}
+\end{equation*}
+Hence $\overline{A} = A^T$, so $A$ is hermitian.
+\end{proof}
+
+Let $A$ be an $n \times n$ complex matrix. As in the real case, a complex number $\lambda$ is called an \textbf{eigenvalue}\index{eigenvalues!complex matrix}\index{complex matrix!eigenvalues} of $A$ if $A\vect{x} = \lambda \vect{x}$ holds for some column $\vect{x} \neq \vect{0}$ in $\mathbb{C}^n$. In this case $\vect{x}$ is called an \textbf{eigenvector}\index{eigenvector!complex matrix}\index{complex matrix!eigenvector} of $A$ corresponding to $\lambda$. The \textbf{characteristic polynomial}\index{complex matrix!characteristic polynomial}\index{characteristic polynomial!complex matrix} $c_{A}(x)$ is defined by
+\begin{equation*}
+c_{A}(x) = \func{det}(xI - A)
+\end{equation*}
+This polynomial has complex coefficients (possibly nonreal). However, the proof of Theorem~\ref{thm:009033} goes through to show that the eigenvalues of $A$ are the roots (possibly complex) of $c_{A}(x)$.
+
+It is at this point that the advantage 
+of working with complex numbers becomes apparent\index{complex number!advantage of working with}. The real numbers\index{real numbers} are 
+incomplete in the sense that the characteristic polynomial of a real 
+matrix may fail to have all its roots real. However, this difficulty 
+does not occur for the complex numbers. The so-called fundamental 
+theorem of algebra ensures that \textit{every} polynomial of positive degree with complex coefficients has a complex root\index{polynomials!complex roots}. Hence every square complex matrix $A$ has a (complex) eigenvalue. Indeed (Appendix~\ref{chap:appacomplexnumbers}), $c_{A}(x)$ factors completely as follows:
+\begin{equation*}
+c_{A}(x) = (x -\lambda_{1})(x -\lambda_{2}) \cdots (x -\lambda_{n})
+\end{equation*}
+where $\lambda_{1}, \lambda_{2}, \dots, \lambda_{n}$ are the eigenvalues of $A$ (with possible repetitions due to multiple roots).
+
+
+The next result shows that, for 
+hermitian matrices, the eigenvalues are actually real. Because symmetric
+ real matrices are hermitian, this re-proves Theorem~\ref{thm:016397}. It also extends Theorem~\ref{thm:024407},
+ which asserts that eigenvectors of a symmetric real matrix 
+corresponding to distinct eigenvalues are actually orthogonal. In the 
+complex context, two $n$-tuples $\vect{z}$ and $\vect{w}$ in $\mathbb{C}^n$ are said to be \textbf{orthogonal}\index{eigenvector!orthogonal eigenvectors} if $\langle \vect{z}, \vect{w} \rangle = 0$.
+
+
+\begin{theorem}{}{025729}
+Let $A$ denote a hermitian matrix.
+
+\begin{enumerate}
+\item The eigenvalues of $A$ are real.
+
+\item Eigenvectors of $A$ corresponding to distinct eigenvalues are orthogonal.\index{orthogonal hermitian matrix}
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let $\lambda$ and $\mu$ be eigenvalues of $A$ with (nonzero) eigenvectors $\vect{z}$ and $\vect{w}$. Then $A\vect{z} = \lambda \vect{z}$ and $A\vect{w} = \mu \vect{w}$, so Theorem~\ref{thm:025697} gives
+\begin{equation} \label{eigenvalEq}
+\lambda \langle \vect{z}, \vect{w} \rangle = \langle \lambda \vect{z}, \vect{w} \rangle = \langle A\vect{z}, \vect{w} \rangle = \langle \vect{z}, A\vect{w} \rangle = \langle \vect{z}, \mu \vect{w} \rangle = \overline{\mu} \langle \vect{z}, \vect{w} \rangle
+\end{equation}
+If $\mu = \lambda$ and $\vect{w} = \vect{z}$, this becomes $\lambda \langle \vect{z}, \vect{z} \rangle  = \overline{\lambda} \langle \vect{z}, \vect{z} \rangle$. Because $\langle \vect{z}, \vect{z} \rangle = \vectlength\vect{z}\vectlength^{2} \neq 0$, this implies $\lambda = \overline{\lambda}$. Thus $\lambda$ is real, proving (1). Similarly, $\mu$ is real, so equation (\ref{eigenvalEq}) gives $\lambda \langle \vect{z}, \vect{w} \rangle = \mu \langle \vect{z}, \vect{w} \rangle$. If $\lambda \neq \mu$, this implies $\langle \vect{z}, \vect{w} \rangle = 0$, proving (2).
+\end{proof}
+
+The principal axes theorem\index{principal axes theorem} (Theorem~\ref{thm:024303}) asserts that every real symmetric matrix $A$ is orthogonally diagonalizable---that is $P^{T}AP$ is diagonal where $P$ is an orthogonal matrix $(P^{-1} = P^{T})$. The next theorem identifies the complex analogs of these orthogonal real matrices.
+
+\begin{definition}{Orthogonal and Orthonormal Vectors in $\mathbb{C}^n$}{025749}
+As in the real case, a set of nonzero vectors $\{\vect{z}_{1}, \vect{z}_{2}, \dots, \vect{z}_{m}\}$ in $\mathbb{C}^n$ is called \textbf{orthogonal}\index{vectors!orthogonal vectors}\index{orthogonal vectors}\index{orthogonal set of vectors} if $\langle \vect{z}_{i}, \vect{z}_{j}\rangle = 0$ whenever $i \neq j$, and it is \textbf{orthonormal}\index{orthonormal set}\index{vectors!orthonormal vector} if, in addition, $\vectlength\vect{z}_{i} \vectlength = 1$ for each $i$.
+\end{definition}
+
+\begin{theorem}{}{025759}
+The following are equivalent for an $n \times n$ complex matrix $A$.
+
+
+\begin{enumerate}
+\item $A$ is invertible and $A^{-1} = A^{H}$.
+
+\item The rows of $A$ are an orthonormal set in $\mathbb{C}^n$.
+
+\item The columns of $A$ are an orthonormal set in $\mathbb{C}^n$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+If $A = \leftB \begin{array}{cccc}
+\vect{c}_{1} & \vect{c}_{2} & \cdots & \vect{c}_{n}
+\end{array}\rightB$ is a complex matrix with $j$th column $\vect{c}_{j}$, then $A^T\overline{A} = \leftB \langle \vect{c}_{i}, \vect{c}_{j}\rangle \rightB$, as in Theorem~\ref{thm:024227}. Now (1) $\Leftrightarrow$ (2) follows, and (1) $\Leftrightarrow$ (3) is proved in the same way.
+\end{proof}
+
+\begin{definition}{Unitary Matrices}{025781}
+A square complex matrix $U$ is called \textbf{unitary}\index{unitary matrix}\index{complex matrix!unitary matrix}\index{matrix!unitary matrix}\index{square matrix ($n \times n$ matrix)!unitary matrix} if $U^{-1} = U^{H}$.
+\end{definition}
+
+\noindent Thus a real matrix is unitary if and only if it is orthogonal.
+
+
+\begin{example}{}{025787}
+The matrix $A = \leftB \begin{array}{rr}
+1 + i & 1 \\
+1 - i & i
+\end{array}\rightB$ has orthogonal columns, but the rows are not orthogonal. Normalizing the columns gives the unitary matrix $\frac{1}{2}\leftB \begin{array}{rr}
+	1 + i & \sqrt{2} \\
+	1 - i & \sqrt{2}i
+\end{array}\rightB$.
+\end{example}
+
+Given a real symmetric matrix $A$, the diagonalization algorithm in Section~\ref{sec:3_3} leads to a procedure for finding an orthogonal matrix $P$ such that $P^{T}AP$ is diagonal (see Example~\ref{exa:024374}). The following example illustrates Theorem~\ref{thm:025729} and shows that the technique works for complex matrices.
+
+
+\begin{example}{}{025794}
+Consider the hermitian matrix $A = \leftB \begin{array}{cc}
+3 & 2 + i \\
+2 - i & 7
+\end{array}\rightB$. Find the eigenvalues of $A$, find two orthonormal eigenvectors, and so find a unitary matrix $U$ such that $U^{H}AU$ is diagonal.
+
+
+\begin{solution}
+  The characteristic polynomial of $A$ is
+\begin{equation*}
+c_{A}(x) = \func{det}(xI - A) = \func{det}\leftB \begin{array}{rr}
+x - 3 & -2 - i \\
+-2 + i & x - 7
+\end{array}\rightB = (x-2)(x-8)
+\end{equation*}
+Hence the eigenvalues are $2$ and $8$ (both real as expected), and corresponding eigenvectors are $\leftB \begin{array}{cc}
+2 + i \\
+-1
+\end{array}\rightB$ and $\leftB \begin{array}{cc}
+1 \\
+2 - i
+\end{array}\rightB$ (orthogonal as expected). Each has length $\sqrt{6}$
+ so, as in the (real) diagonalization algorithm, let $U = \frac{1}{\sqrt{6}}\leftB \begin{array}{cc}
+ 2 + i & 1 \\
+ -1 & 2 - i
+ \end{array}\rightB$ be the unitary matrix with the normalized eigenvectors as columns.
+
+Then $U^HAU = \leftB \begin{array}{rr}
+2 & 0 \\
+0 & 8
+\end{array}\rightB$ is diagonal.
+\end{solution}
+\end{example}
+
+\subsection*{Unitary Diagonalization}
+\index{diagonalization!unitary diagonalization}\index{unitary diagonalization}\index{complex matrix!unitary diagonalization}
+
+An $n \times n$ complex matrix $A$ is called \textbf{unitarily diagonalizable}\index{complex matrix!unitarily diagonalizable}\index{unitarily diagonalizable} if $U^{H}AU$ is diagonal for some unitary matrix $U$. As Example~\ref{exa:025794} suggests, we are going to prove that every hermitian matrix is unitarily diagonalizable. However, with only a little extra effort, we can get a very important theorem that has this result as an easy consequence.
+
+
+A complex matrix is called \textbf{upper triangular}\index{complex matrix!upper triangular matrix}\index{matrix!upper triangular matrix}\index{upper triangular matrix} if every entry below the main diagonal is zero. We owe the following theorem to Issai Schur.\footnote{Issai
+ Schur\index{Schur, Issai} (1875--1941) was a German mathematician who did fundamental work 
+in the theory of representations of groups as matrices.}
+
+\begin{theorem}{Schur's Theorem}{025814}
+If $A$ is any $n \times n$ complex matrix, there exists a unitary matrix $U$ such that
+\begin{equation*}
+U^HAU = T
+\end{equation*}
+is upper triangular. Moreover, the entries on the main diagonal of $T$ are the eigenvalues $\lambda_{1}, \lambda_{2}, \dots, \lambda_{n}$ of $A$ (including multiplicities).\index{complex matrix!Schur's theorem}\index{Schur's theorem}
+\end{theorem}
+
+\begin{proof}
+We use induction on $n$. If $n = 1$, $A$ is already upper triangular. If $n > 1$, assume the theorem is valid for $(n - 1) \times (n - 1)$ complex matrices. Let $\lambda_{1}$ be an eigenvalue of $A$, and let $\vect{y}_{1}$ be an eigenvector with $\vectlength\vect{y}_{1}\vectlength = 1$. Then $\vect{y}_{1}$ is part of a basis of $\mathbb{C}^n$ (by the analog of Theorem~\ref{thm:019430}), so the (complex analog of the) Gram-Schmidt process provides $\vect{y}_{2}, \dots, \vect{y}_{n}$ such that $\{\vect{y}_{1}, \vect{y}_{2}, \dots, \vect{y}_{n}\}$ is an orthonormal basis of $\mathbb{C}^n$. If $U_{1} = \leftB \begin{array}{cccc}
+\vect{y}_{1} & \vect{y}_{2} & \cdots & \vect{y}_{n}
+\end{array}\rightB$ is the matrix with these vectors as its columns, then (see Lemma~\ref{lem:015527})
+\begin{equation*}
+U_{1}^HAU_{1} = \leftB \begin{array}{cc}
+\lambda_{1} & X_{1} \\
+0 & A_{1}
+\end{array}\rightB
+\end{equation*}
+in block form. Now apply induction to find a unitary $(n - 1) \times (n - 1)$ matrix $W_{1}$ such that $W_{1}^HA_{1}W_{1} = T_{1}$
+ is upper triangular. Then $U_{2} = \leftB \begin{array}{cc}
+ 1 & 0 \\
+ 0 & W_{1}
+ \end{array}\rightB$
+ is a unitary $n \times n$ matrix. Hence $U = U_{1}U_{2}$ is unitary (using Theorem~\ref{thm:025759}), and
+\begin{align*}
+U^HAU &= U_{2}^H(U_{1}^HAU_{1})U_{2} \\
+	   &= \leftB \begin{array}{cc}
+	   1 & 0 \\
+	   0 & W_{1}^H
+	   \end{array}\rightB \leftB \begin{array}{cc}
+   	   \lambda_{1} & X_{1} \\
+	   0 & A_{1}
+	   \end{array}\rightB \leftB \begin{array}{cc}
+	   1 & 0 \\
+	   0 & W_{1}
+	   \end{array}\rightB = \leftB \begin{array}{cc}
+	   \lambda_{1} & X_{1}W_{1} \\
+	   0 & T_{1}
+	   \end{array}\rightB
+\end{align*}
+is upper triangular. Finally, $A$ and $U^{H}AU = T$ have the same eigenvalues by (the complex version of) Theorem~\ref{thm:016008}, and they are the diagonal entries of $T$ because $T$ is upper triangular.
+\end{proof}
+
+The fact that similar matrices have the same traces and determinants gives the following consequence of Schur's theorem.\index{complex matrix!Schur's theorem}
+
+
+\begin{corollary}{}{025850}
+Let $A$ be an $n \times n$ complex matrix, and let $\lambda_{1}, \lambda_{2}, \dots, \lambda_{n}$ denote the eigenvalues of $A$, including multiplicities. Then
+\begin{equation*}
+\func{det }A = \lambda_1\lambda_2 \cdots \lambda_n \quad \mbox{and} \quad \func{tr }A = \lambda_1 + \lambda_2 + \cdots + \lambda_n 
+\end{equation*}
+\end{corollary}
+
+Schur's theorem asserts that every 
+complex matrix can be ``unitarily triangularized.'' However, we cannot 
+substitute ``unitarily diagonalized'' here. In fact, if $A = \leftB \begin{array}{cc}
+1 & 1 \\
+0 & 1
+\end{array}\rightB$, there is no invertible complex matrix $U$ at all such that $U^{-1}AU$ is diagonal. However, the situation is much better for hermitian matrices.
+
+
+\begin{theorem}{Spectral Theorem}{025860}
+If $A$ is hermitian, there is a unitary matrix $U$ such that $U^{H}AU$ is diagonal.\index{complex matrix!spectral theorem}\index{spectral theorem}
+\end{theorem}
+
+\begin{proof}
+By Schur's theorem, let $U^{H}AU = T$ be upper triangular where $U$ is unitary. Since $A$ is hermitian, this gives
+\begin{equation*}
+T^H = (U^HAU)^H = U^HA^HU^{HH} = U^HAU = T
+\end{equation*}
+This means that $T$ is both upper and lower triangular. Hence $T$ is actually diagonal.
+\end{proof}
+
+The principal axes theorem asserts that a real matrix $A$ is symmetric if and only if it is orthogonally diagonalizable (that is, $P^{T}AP$ is diagonal for some real orthogonal matrix $P$). Theorem~\ref{thm:025860}
+ is the complex analog of half of this result. However, the converse is 
+false for complex matrices: There exist unitarily diagonalizable 
+matrices that are not hermitian.\index{principal axes theorem}
+
+
+\begin{example}{}{025874}
+Show that the non-hermitian matrix $A = \leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array}\rightB$ is unitarily diagonalizable.
+
+
+\begin{solution}
+  The characteristic polynomial is $c_{A}(x) = x^{2} + 1$. Hence the eigenvalues are $i$ and $-i$, and it is easy to verify that $\leftB \begin{array}{r}
+  i \\
+  -1
+  \end{array}\rightB$ and $\leftB \begin{array}{r}
+  -1 \\
+  i
+  \end{array}\rightB$ are corresponding eigenvectors. Moreover, these eigenvectors are orthogonal and both have length $\sqrt{2}$, so $U = \frac{1}{\sqrt{2}}\leftB \begin{array}{rr}
+  i & -1 \\
+  -1 & i
+  \end{array}\rightB$ is a unitary matrix such that $U^HAU = \leftB \begin{array}{rr}
+  i & 0 \\
+  0 & -i
+  \end{array}\rightB$ is diagonal.
+\end{solution}
+\end{example}
+
+There is a very simple way to characterize those complex matrices that are unitarily diagonalizable. To this end, an $n \times n$ complex matrix $N$ is called \textbf{normal}\index{normal}\index{complex matrix!normal} if $NN^{H} = N^{H}N$. It is clear that every hermitian or unitary matrix is normal, as is the matrix $\leftB \begin{array}{rr}
+	0 & 1 \\
+	-1 & 0
+\end{array}\rightB$ in Example~\ref{exa:025874}. In fact we have the following result.
+
+
+\begin{theorem}{}{025890}
+An $n \times n$ complex matrix $A$ is unitarily diagonalizable if and only if $A$ is normal.
+\end{theorem}
+
+\begin{proof}
+Assume first that $U^{H}AU = D$, where $U$ is unitary and $D$ is diagonal. Then $DD^{H} = D^{H}D$ as is easily verified. Because $DD^{H} = U^{H}(AA^{H})U$ and $D^{H}D = U^{H}(A^{H}A)U$, it follows by cancellation that $AA^{H} = A^{H}A$.
+
+
+Conversely, assume $A$ is normal---that is, $AA^{H} = A^{H}A$. By Schur's theorem, let $U^{H}AU = T$, where $T$ is upper triangular and $U$ is unitary. Then $T$ is normal too:
+\begin{equation*}
+TT^H = U^H(AA^H)U = U^H(A^HA)U = T^HT
+\end{equation*}
+Hence it suffices to show that a normal $n \times n$ upper triangular matrix $T$ must be diagonal. We induct on $n$; it is clear if $n = 1$. If $n > 1$ and $T = \leftB t_{ij} \rightB$, then equating $(1, 1)$-entries in $TT^{H}$ and $T^{H}T$ gives
+\begin{equation*}
+|t_{11}|^2 + |t_{12}|^2 + \dots + |t_{1n}|^2 = |t_{11}|^2
+\end{equation*}
+This implies $t_{12} = t_{13} = \dots = t_{1n} = 0$, so $T = \leftB \begin{array}{cc}
+t_{11} & 0 \\
+0 & T_{1}
+\end{array}\rightB$ in block form. Hence $T = \leftB \begin{array}{cc}
+\overline{t}_{11} & 0 \\
+0 & T_{1}^H
+\end{array}\rightB$ so $TT^{H} = T^{H}T$ implies $T_{1}T_{1}^H = T_{1}T_{1}^H$. Thus $T_{1}$ is diagonal by induction, and the proof is complete.
+\end{proof}
+
+We conclude this section by using Schur's theorem (Theorem~\ref{thm:025814}) to prove a famous theorem about matrices. Recall that the characteristic polynomial of a square matrix $A$ is defined by $c_{A}(x) = \func{det}(xI - A)$, and that the eigenvalues of $A$ are just the roots of $c_{A}(x)$.\index{characteristic polynomial!square matrix}\index{square matrix ($n \times n$ matrix)!characteristic polynomial}
+
+
+\begin{theorem}{Cayley-Hamilton Theorem\footnotemark}{025927}
+If $A$ is an $n \times n$ complex matrix, then $c_{A}(A) = 0$; that is, $A$ is a root of its characteristic polynomial.\index{complex matrix!Cayley-Hamilton theorem}
+\end{theorem}
+\footnotetext{Named after the English mathematician Arthur Cayley (1821--1895) and William Rowan Hamilton (1805--1865), an Irish mathematician famous for his work on physical dynamics\index{physical dynamics}.}
+
+\begin{proof}
+If $p(x)$ is any polynomial with complex coefficients, then $p(P^{-1}AP) = P^{-1}p(A)P$ for any invertible complex matrix $P$. Hence, by Schur's theorem, we may assume that $A$ is upper triangular. Then the eigenvalues $\lambda_{1}, \lambda_{2}, \dots, \lambda_{n}$ of $A$ appear along the main diagonal, so 
+\begin{equation*}
+c_{A}(x) = (x - \lambda_{1})(x - \lambda_{2})(x - \lambda_{3}) \cdots (x -\lambda_{n})
+\end{equation*}
+Thus
+\begin{equation*}
+c_{A}(A) = (A - \lambda_{1}I)(A - \lambda_{2}I)(A - \lambda_{3}I) \cdots (A - \lambda_{n}I)
+\end{equation*}
+Note that each matrix $A - \lambda_{i}I$ is upper triangular. Now observe:
+\begin{enumerate}
+\item $A - \lambda_{1}I$ has zero first column because column 1 of $A$ is $(\lambda_{1}, 0, 0, \dots, 0)^{T}$.
+\item Then $(A - \lambda_{1}I)(A - \lambda_{2}I)$ has the first two columns zero because the second column of $(A - \lambda_{2}I)$ is $(b, 0, 0, \dots, 0)^{T}$ for some constant $b$.
+\item Next $(A - \lambda_{1}I)(A - \lambda_{2}I)(A - \lambda_{3}I)$ has the first three columns zero because column 3 of $(A -\lambda_{3}I)$ is $(c, d, 0, \dots, 0)^{T}$ for some constants $c$ and $d$.
+\end{enumerate}
+Continuing in this way we see that $(A - \lambda_{1}I)(A - \lambda_{2}I)(A - \lambda_{3}I) \cdots (A - \lambda_{n}I)$ has all $n$ columns zero; that is, $c_{A}(A) = 0$.
+\end{proof}
+
+\section*{Exercises for \ref{sec:8_6}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:8_6}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case, compute the norm of the complex vector.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $(1, 1 - i, -2, i)$
+
+\item $(1 - i, 1 + i, 1, -1)$
+
+\item $(2 + i, 1 - i, 2, 0, -i)$
+
+\item $(-2, -i, 1 + i, 1 - i, 2i)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\sqrt{6}$
+
+\setcounter{enumi}{3}
+\item  $\sqrt{13}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, determine whether the two vectors are orthogonal.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $(4, -3i, 2 + i)$, $(i, 2, 2 - 4i)$
+
+\item $(i, -i, 2 + i)$, $(i, i, 2 - i)$
+
+\item $(1, 1, i, i)$, $(1, i, -i, 1)$
+
+\item $(4 + 4i, 2 + i, 2i)$, $(-1 + i, 2, 3 - 2i)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Not orthogonal
+
+\setcounter{enumi}{3}
+\item  Orthogonal
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+A subset $U$ of $\mathbb{C}^n$ is called a \textbf{complex subspace}\index{subspaces!complex subspace}\index{complex subspace} of $\mathbb{C}^n$ if it contains $0$ and if, given $\vect{v}$ and $\vect{w}$ in $U$, both $\vect{v} + \vect{w}$ and $z\vect{v}$ lie in $U$ ($z$ any complex number). In each case, determine whether $U$ is a complex subspace of $\mathbb{C}^3$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $U = \{(w, \overline{w}, 0) \mid w \mbox{ in } \mathbb{C}\}$
+
+\item $U = \{(w, 2w, a) \mid w \mbox{ in } \mathbb{C}, a \mbox{ in } \RR\}$
+
+\item $U = \RR^3$
+
+\item $U = \{(v + w, v - 2w, v) \mid v, w \mbox{ in } \mathbb{C}\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Not a subspace. For example, $i(0, 0, 1) = (0, 0, i)$ is not in $U$.
+
+\setcounter{enumi}{3}
+\item  This is a subspace.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a basis over $\mathbb{C}$, and determine the dimension of the complex subspace $U$ of $\mathbb{C}^3$ (see the previous exercise).
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $U = \{(w, v + w, v - iw) \mid v, w \mbox{ in } \mathbb{C}\}$
+
+\item $U = \{(iv + w, 0, 2v - w) \mid v, w \mbox{ in } \mathbb{C}\}$
+
+\item $U = \{(u, v, w) \mid  iu - 3v + (1 - i)w = 0;\  \\ u, v, w \mbox{ in } \mathbb{C}\}$
+
+\item $U = \{(u, v, w) \mid 2u + (1 + i)v - iw = 0;\ \\ u, v, w \mbox{ in } \mathbb{C}\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Basis $\{(i, 0, 2), (1, 0, -1)\}$; dimension $2$
+
+\setcounter{enumi}{3}
+\item  Basis $\{(1, 0, -2i), (0, 1, 1 - i)\}$; dimension $2$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, determine whether the given matrix is hermitian, unitary, or normal.
+
+\begin{exenumerate}[column-sep=-15pt]
+\exitem $\leftB \begin{array}{rr}
+1 & -i \\
+i & i
+\end{array}\rightB$
+\exitem $\leftB \begin{array}{rr}
+2 & 3 \\
+-3 & 2
+\end{array}\rightB$
+\exitem $\leftB \begin{array}{rr}
+1 & i \\
+-i & 2
+\end{array}\rightB$
+\exitem $\leftB \begin{array}{rr}
+1 & -i \\
+i & -1
+\end{array}\rightB$
+\exitem $\frac{1}{\sqrt{2}} \leftB \begin{array}{rr}
+1 & -1 \\
+1 & 1
+\end{array}\rightB$
+\exitem $\leftB \begin{array}{cc}
+1 & 1 + i \\
+1 + i & i
+\end{array}\rightB$
+\exitem $\leftB \begin{array}{cc}
+1 + i & 1 \\
+-i & -1 + i
+\end{array}\rightB$
+\exitem $\frac{1}{\sqrt{2}|z|}\leftB \begin{array}{rr}
+z & z \\
+\overline{z} & -\overline{z}
+\end{array}\rightB$, $z \neq 0$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Normal only
+
+\setcounter{enumi}{3}
+\item  Hermitian (and normal), not unitary
+
+\setcounter{enumi}{5}
+\item  None
+
+\setcounter{enumi}{7}
+\item  Unitary (and normal); hermitian if and only if $z$ is real
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that a matrix $N$ is normal if and only if $\overline{N}N^T = N^T\overline{N}$.
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{cc}
+z & \overline{v} \\
+v & w
+\end{array}\rightB$
+ where $v$, $w$, and $z$ are complex numbers. Characterize in terms of $v$, $w$, and $z$ when $A$ is
+
+\begin{exenumerate}
+\exitem hermitian
+\exitem unitary
+\exitem normal.
+\end{exenumerate}
+\end{ex}
+
+\begin{ex}
+In each case, find a unitary matrix $U$ such that $U^{H}AU$ is diagonal.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A = \leftB \begin{array}{rr}
+1 & i\\
+-i & 1
+\end{array}\rightB$
+
+\item $A = \leftB \begin{array}{cc}
+4 & 3 - i \\
+3 + i & 1
+\end{array}\rightB$
+
+\item $A = \leftB \begin{array}{rr}
+a & b\\
+-b & a
+\end{array}\rightB$;  $a$, $b$, real 
+
+\item $A = \leftB \begin{array}{cc}
+2 & 1 + i\\
+1 - i & 3
+\end{array}\rightB$
+
+\item $A = \leftB \begin{array}{ccc}
+1 & 0 &  1 + i\\
+0 & 2 & 0 \\
+1 - i & 0 & 0
+\end{array}\rightB$
+
+\item $A = \leftB \begin{array}{ccc}
+1 & 0 & 0\\
+0 & 1 & 1 + i\\
+0 & 1 - i & 2
+\end{array}\rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $U = \frac{1}{\sqrt{14}}\leftB \begin{array}{cc}
+-2 & 3 - i \\
+3 + i & 2
+\end{array}\rightB$, $U^HAU = \leftB \begin{array}{rr}
+-1 & 0 \\
+0 & 6
+\end{array}\rightB$
+
+\setcounter{enumi}{3}
+\item  $U = \frac{1}{\sqrt{3}}\leftB \begin{array}{cc}
+1 + i & 1 \\
+-1 & 1 - i
+\end{array}\rightB$, $U^HAU = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 4
+\end{array}\rightB$
+
+\setcounter{enumi}{5}
+\item  $U = \frac{1}{\sqrt{3}}\leftB \begin{array}{ccc}
+\sqrt{3} & 0 & 0 \\
+0 & 1 + i & 1 \\
+0 & -1 & 1 - i
+\end{array}\rightB$, $U^HAU = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 3
+\end{array}\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that $\langle A \vect{x}, \vect{y} \rangle = \langle \vect{x}, A^{H}\vect{y}\rangle$ holds for all $n \times n$ matrices $A$ and for all $n$-tuples $\vect{x}$ and $\vect{y}$ in $\mathbb{C}^n$.
+\end{ex}
+
+\begin{ex}\label{ex:8_6_10}
+\begin{enumerate}[label={\alph*.}]
+\item Prove (1) and (2) of Theorem~\ref{thm:025575}.
+
+\item Prove Theorem~\ref{thm:025616}.
+
+\item Prove Theorem~\ref{thm:025659}.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\vectlength \lambda Z \vectlength^2 = \langle \lambda Z, \lambda Z \rangle = \lambda\overline{\lambda} \langle Z, Z \rangle = |\lambda|^2 \vectlength Z \vectlength^2$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A$ is hermitian if and only if $\overline{A} = A^T$.
+
+\item Show that the diagonal entries of any hermitian matrix are real.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If the $(k, k)$-entry of $A$ is $a_{kk}$, then the $(k, k)$-entry of $\overline{A}$ is $\overline{a}_{kk}$ so the $(k, k)$-entry of $(\overline{A})^T = A^{H}$ is $\overline{a}_{kk}$. This equals $a$, so $a_{kk}$ is real.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that every complex matrix $Z$ can be written uniquely in the form $Z = A + iB$, where $A$ and $B$ are real matrices.
+
+\item If $Z = A + iB$ as in (a), show that $Z$ is hermitian if and only if $A$ is symmetric, and $B$ is skew-symmetric (that is, $B^{T} = -B$).
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $Z$ is any complex $n \times n$ matrix, show that $ZZ^{H}$ and $Z + Z^{H}$ are hermitian.
+\end{ex}
+
+\begin{ex}
+A complex matrix $B$ is called \textbf{skew-hermitian}\index{skew-hermitian}\index{complex matrix!skew-hermitian} if $B^{H} = -B$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $Z - Z^{H}$ is skew-hermitian for any square complex matrix $Z$.
+
+\item If $B$ is skew-hermitian, show that $B^{2}$ and $iB$ are hermitian.
+
+\item If $B$ is skew-hermitian, show that the eigenvalues of $B$ are pure imaginary ($i \lambda$ for real $\lambda$).
+
+\item Show that every $n \times n$ complex matrix $Z$ can be written uniquely as $Z = A + B$, where $A$ is hermitian and $B$ is skew-hermitian.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Show that $(B^2)^H = B^HB^H = (-B)(-B) = B^2$; $(iB)^H = \overline{i}B^H = (-i)(-B) = iB$.
+
+
+\setcounter{enumi}{3}
+\item  If $Z = A + B$, as given, first show that $Z^{H} = A - B$, and hence that $A = \frac{1}{2}(Z + Z^{H})$ and $B = \frac{1}{2}(Z - Z^{H})$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U$ be a unitary matrix. Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\vectlength U\vect{x} \vectlength = \vectlength \vect{x} \vectlength$ for all columns $\vect{x}$ in $\mathbb{C}^n$.
+
+\item $|\lambda| = 1$ for every eigenvalue $\lambda$ of $U$.
+
+\end{enumerate}
+\end{ex}
+
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $Z$ is an invertible complex matrix, show that $Z^{H}$ is invertible and that $(Z^{H})^{-1} = (Z^{-1})^{H}$.
+
+\item Show that the inverse of a unitary matrix is again unitary.
+
+\item If $U$ is unitary, show that $U^{H}$ is unitary.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $U$ is unitary, $(U^{-1})^{-1} = (U^{H})^{-1} = (U^{-1})^{H}$, so $U^{-1}$ is unitary.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $Z$ be an $m \times n$ matrix such that $Z^{H}Z = I_{n}$ (for example, $Z$ is a unit column in $\mathbb{C}^n$).
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $V = ZZ^{H}$ is hermitian and satisfies \\ $V^{2} = V$.
+
+\item Show that $U = I - 2ZZ^{H}$ is both unitary and hermitian (so $U^{-1} = U^{H} = U$).
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $N$ is normal, show that $zN$ is also normal for all complex numbers $z$.
+
+\item Show that (a) fails if \textit{normal} is replaced by \textit{hermitian}.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $H = \leftB \begin{array}{rr}
+1 & i \\
+-i & 0
+\end{array}\rightB$ is hermitian but $iH = \leftB \begin{array}{rr}
+i & -1 \\
+1 & 0
+\end{array}\rightB$ is not.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that a real $2 \times 2$ normal matrix is either symmetric or has the form $\leftB \begin{array}{rr}
+a & b \\
+-b & a
+\end{array}\rightB$.
+\end{ex}
+
+\begin{ex}
+If $A$ is hermitian, show that all the coefficients of $c_{A}(x)$ are real numbers.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $A = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array}\rightB$, show that $U^{-1}AU$ is not diagonal for any invertible complex matrix $U$.
+
+\item If $A = \leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array}\rightB$, show that $U^{-1}AU$ is not upper triangular for any \textit{real} invertible matrix $U$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Let $U = \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array}\rightB$ be real and invertible, and assume that $U^{-1}AU = \leftB \begin{array}{rr}
+\lambda & \mu \\
+0 & v
+\end{array}\rightB$.
+ Then $AU = U\leftB \begin{array}{rr}
+ \lambda & \mu \\
+ 0 & v
+ \end{array}\rightB$, and first column entries are $c = a\lambda$ and $-a = c\lambda$. Hence $\lambda$ is real ($c$ and $a$ are both real and are not both $0$), and $(1 + \lambda^{2})a = 0$. Thus $a = 0$, $c = a\lambda = 0$, a contradiction.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is any $n \times n$ matrix, show that $U^{H}AU$ is lower triangular for some unitary matrix $U$.
+\end{ex}
+
+\begin{ex}
+If $A$ is a $3 \times 3$ matrix, show that $A^{2} = 0$ if and only if there exists a unitary matrix $U$ such that $U^{H}AU$ has the form $\leftB \begin{array}{rrr}
+0 & 0 & u \\
+0 & 0 & v \\
+0 & 0 & 0
+\end{array}\rightB$
+or the form $\leftB \begin{array}{rrr}
+0 & u & v \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{array}\rightB$.
+\end{ex}
+
+\begin{ex}
+If $A^{2} = A$, show that rank $A = \func{tr}A$. [\textit{Hint}: Use Schur's theorem.]
+\end{ex}
+
+\begin{ex}
+Let $A$ be any $n \times n$ complex matrix with eigenvalues $\lambda_1, \dots, \lambda_n$. Show that $A = P+N$ where $N^{n}=0$ and $P=UDU^{T}$ where $U$ is unitary and $D=\func{diag}(\lambda_1,\dots,\lambda_{n})$. [Hint: Schur's theorem]
+\end{ex}
+\end{multicols}

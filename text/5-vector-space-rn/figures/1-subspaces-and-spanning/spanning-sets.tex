@@ -1,0 +1,30 @@
+\begin{tikzpicture}[scale=0.9]
+\coordinate (origin) at (0, 0);
+\coordinate (pt0) at (1, 0);
+\coordinate (ptV) at (1.5, 0.5);
+\coordinate (ptAV) at (2.5, 1.5);
+\coordinate (ptW) at (2, -1/3);
+\coordinate (ptBW) at (2.5, -0.5);
+\coordinate (ptP) at ($(ptAV) +(ptBW) - (pt0)$);
+
+\draw[dkbluevect, thick] (origin)-- ++(2, 2) -- ++(3, -1) -- ++(-2, -2)--cycle;
+
+%green lines
+\draw[dkgreenvect, thick, -latex] (pt0)--(ptV);
+\draw[dkgreenvect, thick, -latex] (pt0)--(ptAV);
+\draw[dkgreenvect, thick, -latex] (pt0)--(ptW);
+\draw[dkgreenvect, thick, -latex] (pt0)--(ptBW);
+\draw[dkgreenvect, thick, -latex] (pt0)--(ptP);
+
+%dashed lines
+\draw[dkbluevect, thick, dashed] (ptAV)--(ptP)--(ptBW);
+
+\node [left] at (pt0) {\footnotesize $\vect{0}$};
+\node [left] at (ptV) {\footnotesize $\vect{v}$};
+\node [left] at (ptAV) {\footnotesize $a\vect{v}$};
+\node at ($ (ptW) + (-0.2, -0.15) $) {\footnotesize $\vect{w}$};
+\node [right] at (ptBW) {\footnotesize $b\vect{w}$};
+\node [right] at (ptP) {\footnotesize $\vect{p}$};
+\draw[dkbluevect, thick] (3.8, 0.1) to [bend left] ++(0.5, 0);
+\node [right] at (4.2, 0) {\footnotesize $M$};
+\end{tikzpicture}

@@ -1,0 +1,891 @@
+\section{Invariant Subspaces and Direct Sums}
+\label{sec:9_3}\index{invariant subspaces}
+
+A fundamental question in linear algebra is the following: If $T : V \to V$ is a linear operator, how can a basis $B$ of $V$ be chosen so the matrix $M_{B}(T)$ is as simple as possible? A basic technique for answering such questions will be explained in this section. If $U$ is a subspace of $V$, write its image under $T$ as
+
+\begin{equation*}
+T(U) = \{T(\vect{u}) \mid \vect{u} \mbox{ in } U\}
+\end{equation*}
+
+\newpage
+\begin{wrapfigure}[4]{l}{5cm}
+    \vspace{2em}
+ 	\centering
+	\input{9-change-of-basis/figures/3-invariant-subspaces-and-direct-sums/definition9.5}
+	%\caption{\label{fig:029302}}
+\end{wrapfigure}
+
+\vspace*{-2em}
+
+\hfill\begin{definition}{$T$-invariant Subspace}{029298}
+Let $T : V \to V$ be an operator. A subspace $U \subseteq V$ is called $\bm{T}$\textbf{-invariant}\index{$T$-invariant}\index{subspaces!invariant subspaces} if $T(U) \subseteq U$, that is, $T(\vect{u}) \in U$ for every vector $\vect{u} \in U$. Hence $T$ is a linear operator on the vector space $U$.
+\end{definition}
+
+This is illustrated in the diagram, and the fact that $T : U \to U$ is an operator on $U$ is the primary reason for our interest in $T$-invariant subspaces.
+
+%\vspace{3em}
+
+
+\begin{example}{}{029303}
+Let $T : V \to V$ be any linear operator. Then:
+
+
+\begin{enumerate}
+\item $\{\vect{0}\}$ and $V$ are $T$-invariant subspaces.
+
+\item Both $\func{ker }T$ and $\func{im }T = T(V)$ are $T$-invariant subspaces.
+
+\item If $U$ and $W$ are $T$-invariant subspaces, so are $T(U)$, $U \cap W$, and $U + W$.
+
+\end{enumerate}
+
+\begin{solution}
+  Item 1 is clear, and the rest is left as Exercises \ref{ex:ex9_3_1} and \ref{ex:ex9_3_2}.
+\end{solution}
+\end{example}
+
+\begin{example}{}{029316}
+Define $T : \RR^3 \to \RR^3$ by $T(a, b, c) = (3a + 2b, b - c, 4a + 2b - c)$. Then $U = \{(a, b, a) \mid a, b \mbox{ in } \RR\}$ is $T$-invariant because
+\begin{equation*}
+T(a, b, a) = (3a + 2b, b - a, 3a + 2b)
+\end{equation*}
+is in $U$ for all $a$ and $b$ (the first and last entries are equal).
+\end{example}
+
+If a spanning set for a subspace $U$ is known, it is easy to check whether $U$ is $T$-invariant.
+
+
+\begin{example}{}{029323}
+Let $T : V \to V$ be a linear operator, and suppose that $U = \func{span}\{\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{k}\}$ is a subspace of $V$. Show that $U$ is $T$-invariant if and only if $T(\vect{u}_{i})$ lies in $U$ for each $i = 1, 2, \dots, k$.
+
+
+\begin{solution}
+Given $\vect{u}$ in $U$, write it as $\vect{u} = r_{1}\vect{u}_{1} + \cdots + r_{k}\vect{u}_{k}$, $r_{i}$ in $\RR$. Then
+\begin{equation*}
+T(\vect{u}) = r_1T(\vect{u}_1) + \cdots + r_kT(\vect{u}_k)
+\end{equation*}
+and this lies in $U$ if each $T(\vect{u}_{i})$ lies in $U$. This shows that $U$ is $T$-invariant if each $T(\vect{u}_{i})$ lies in $U$; the converse is clear.
+\end{solution}
+\end{example}
+
+\begin{example}{}{029341}
+Define $T : \RR^2 \to \RR^2$ by $T(a, b) = (b, -a)$. Show that $\RR^2$ contains no $T$-invariant subspace except $0$ and $\RR^2$.
+
+
+\begin{solution}
+  Suppose, if possible, that $U$ is $T$-invariant, but $U \neq 0$, $U \neq \RR^2$. Then $U$ has dimension $1$ so $U = \RR\vect{x}$ where $\vect{x} \neq \vect{0}$. Now $T(\vect{x})$ lies in $U$---say $T(\vect{x}) = r\vect{x}$, $r$ in $\RR$. If we write $\vect{x} = (a, b)$, this is $(b, -a) = r(a, b)$, which gives $b = ra$ and $-a = rb$. Eliminating $b$ gives $r^{2}a = rb = -a$, so $(r^{2} + 1)a = 0$. Hence $a = 0$. Then $b = ra = 0$ too, contrary to the assumption that $\vect{x} \neq \vect{0}$. Hence no one-dimensional $T$-invariant subspace exists.
+\end{solution}
+\end{example}
+
+\begin{definition}{Restriction of an Operator}{029354}
+Let $T : V \to V$ be a linear operator. If $U$ is any $T$-invariant subspace of $V$, then
+\begin{equation*}
+T : U \to U
+\end{equation*}
+is a linear operator on the subspace $U$, called the \textbf{restriction}\index{restriction}\index{linear operator!restriction} of $T$ to $U$.
+\end{definition}
+
+\noindent This is the reason for the importance of $T$-invariant subspaces and is the first step toward finding a basis that simplifies the matrix of $T$.
+
+
+\begin{theorem}{}{029359}
+Let $T : V \to V$ be a linear operator where $V$ has dimension $n$ and suppose that $U$ is any $T$-invariant subspace of $V$. Let $B_{1} = \{\vect{b}_{1}, \dots, \vect{b}_{k}\}$ be any basis of $U$ and extend it to a basis $B = \{\vect{b}_{1}, \dots, \vect{b}_{k}, \vect{b}_{k+1}, \dots, \vect{b}_{n}\}$ of $V$ in any way. Then $M_{B}(T)$ has the block triangular form
+\begin{equation*}
+M_B(T) = \leftB \begin{array}{cc} M_{B_1}(T) & Y \\ 0 & Z \end{array} \rightB
+\end{equation*}
+where $Z$ is $(n - k) \times (n - k)$ and $M_{B_1}(T)$ is the matrix of the restriction of $T$ to $U$.\index{block triangular matrix}
+\end{theorem}
+
+\begin{proof}
+The matrix of (the restriction) $T : U \to U$ with respect to the basis $B_{1}$ is the $k \times k$ matrix
+\begin{equation*}
+M_{B_1}(T) = \leftB \begin{array}{cccc} C_{B_1}[T(\vect{b}_1)] & C_{B_1}[T(\vect{b}_2)] & \cdots & C_{B_1}[T(\vect{b}_k)] \end{array} \rightB
+\end{equation*}
+Now compare the first column $C_{B_1}[T(\vect{b}_1)]$ here with the first column $C_{B}[T(\vect{b}_{1})]$ of $M_{B}(T)$. The fact that $T(\vect{b}_{1})$ lies in $U$ (because $U$ is $T$-invariant) means that $T(\vect{b}_{1})$ has the form
+\begin{equation*}
+T(\vect{b}_1) = t_1\vect{b}_1 + t_2\vect{b}_2 + \cdots + t_k\vect{b}_k + 0\vect{b}_{k+1} + \cdots + 0\vect{b}_n
+\end{equation*}
+Consequently,
+\begin{equation*}
+C_{B_1}[T(\vect{b}_1)] = \leftB \begin{array}{c} t_1 \\ t_2 \\ \vdots \\ t_k \end{array} \rightB \mbox{ in } \RR^k \quad \mbox{ whereas } \quad C_B[T(\vect{b}_1)] = \leftB \begin{array}{c} t_1 \\ t_2 \\ \vdots \\ t_k  \\ 0 \\ \vdots \\ 0 \end{array} \rightB \mbox{ in } \RR^n
+\end{equation*}
+This shows that the matrices $M_{B}(T)$ and $\leftB \begin{array}{cc} M_{B_1}(T) & Y \\ 0 & Z \end{array} \rightB$ have identical first columns.
+
+
+Similar statements apply to columns $2, 3, \dots, k$, and this proves the theorem.
+\end{proof}
+
+The block upper triangular form for the matrix $M_{B}(T)$ in Theorem~\ref{thm:029359} is very useful because the determinant of such a matrix equals the product of the determinants of each of the diagonal blocks. This is recorded in Theorem~\ref{thm:029395} for reference, together with an important application to characteristic polynomials.
+
+
+\begin{theorem}{}{029395}
+Let $A$ be a block upper triangular matrix, say
+\begin{equation*}
+A = \leftB \begin{array}{ccccc}
+A_{11} & A_{12} & A_{13} & \cdots & A_{1n} \\
+0 & A_{22} & A_{23} & \cdots & A_{2n} \\
+0 & 0 & A_{33} & \cdots & A_{3n} \\
+\vdots & \vdots & \vdots & & \vdots \\
+0 & 0 & 0 & \cdots & A_{nn} \\
+\end{array} \rightB
+\end{equation*}
+where the diagonal blocks are square. Then:
+
+
+\begin{enumerate}
+\item $\func{det }A = (\func{det }A_{11})(\func{det }A_{22})(\func{det }A_{33})\cdots(\func{det }A_{nn})$.
+
+\item $c_A(x) = c_{A_{11}}(x)c_{A_{22}}(x)c_{A_{33}}(x){\cdots}c_{A_{nn}}(x)$.\index{characteristic polynomial!block triangular matrix}
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+If $n = 2$, (1) is Theorem~\ref{thm:007890}; the general case (by induction on $n$) is left to the reader. Then (2) follows from (1) because
+\begin{equation*}
+xI - A = \leftB \begin{array}{ccccc}
+xI - A_{11} & -A_{12} & -A_{13} & \cdots & -A_{1n} \\
+0 & xI - A_{22} & -A_{23} & \cdots & -A_{2n} \\
+0 & 0 & xI - A_{33} & \cdots & -A_{3n} \\
+\vdots & \vdots & \vdots & & \vdots \\
+0 & 0 & 0 & \cdots & xI - A_{nn} \\
+\end{array} \rightB
+\end{equation*}
+where, in each diagonal block, the symbol $I$ stands for the identity matrix of the appropriate size.
+\end{proof}
+
+\begin{example}{}{029417}
+Consider the linear operator $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$ given by
+\begin{equation*}
+T(a + bx + cx^2) = (-2a - b + 2c) + (a + b)x + (-6a -2b + 5c)x^2
+\end{equation*}
+Show that $U = \func{span}\{x, 1 + 2x^{2}\}$ is $T$-invariant, use it to find a block upper triangular matrix for $T$, and use that to compute $c_{T}(x)$.
+
+
+\begin{solution}
+$U$ is $T$-invariant by Example~\ref{exa:029323} because $U = \func{span}\{x, 1 + 2x^{2}\}$ and both $T(x)$ and $T(1 + 2x^{2})$ lie in $U$:
+\begin{align*}
+T(x) & = -1 + x - 2x^2 = x - (1 + 2x^2) \\
+T(1 + 2x^2) & = 2 + x + 4x^2 = x + 2(1 + 2x^2)
+\end{align*}
+Extend the basis $B_{1} = \{x, 1 + 2x^{2}\}$ of $U$ to a basis $B$ of $\vectspace{P}_{2}$ in any way at all---say, $B = \{x, 1 + 2x^{2}, x^{2}\}$. Then
+\begin{align*}
+M_B(T) & = \leftB \begin{array}{ccc} C_B[T(x)] & C_B[T(1 + 2x^2)] & C_B[T(x^2)] \end{array} \rightB \\
+& = \leftB \begin{array}{ccc} C_B(-1 + x - 2x^2) & C_B(2 + x + 4x^2) & C_B(2 + 5x^2) \end{array} \rightB \\
+& = \leftB \begin{array}{rr|r} 1 & 1 & 0 \\ -1 & 2 & 2 \\ \hline 0 & 0 & 1 \end{array} \rightB
+\end{align*}
+is in block upper triangular form as expected. Finally,
+\begin{equation*}
+c_T(x) = \func{det } \leftB \begin{array}{cc|c} x - 1 & -1 & 0 \\ 1 & x - 2 & -2 \\ \hline 0 & 0 & x - 1 \end{array} \rightB = (x^2 - 3x + 3)(x - 1)
+\end{equation*}
+\end{solution}
+\end{example}
+
+\subsection*{Eigenvalues}
+
+
+Let $T : V \to V$ be a linear operator. A one-dimensional subspace $\RR\vect{v}$, $\vect{v} \neq \vect{0}$, is $T$-invariant if and only if $T(r\vect{v}) = rT(\vect{v})$ lies in $\RR\vect{v}$ for all $r$ in $\RR$. This holds if and only if $T(\vect{v})$ lies in $\RR\vect{v}$; that is, $T(\vect{v}) = \lambda\vect{v}$ for some $\lambda$ in $\RR$. A real number $\lambda$ is called an \textbf{eigenvalue}\index{eigenvalues!linear operator}\index{linear operator!eigenvalues} of an operator $T : V \to V$ if
+\begin{equation*}
+T(\vect{v}) = \lambda\vect{v}
+\end{equation*}
+holds for some nonzero vector $\vect{v}$ in $V$. In this case, $\vect{v}$ is called an \textbf{eigenvector}\index{eigenvector!linear operator}\index{linear operator!eigenvector} of $T$ corresponding to $\lambda$. The subspace
+\begin{equation*}
+E_{\lambda}(T) = \{\vect{v} \mbox{ in } V \mid T(\vect{v}) = \lambda\vect{v}\}
+\end{equation*}
+is called the \textbf{eigenspace}\index{eigenspace} of $T$ corresponding to $\lambda$. These terms are consistent with those used in Section~\ref{sec:5_5} for matrices. If $A$ is an $n \times n$ matrix, a real number $\lambda$ is an eigenvalue of the matrix operator $T_{A} : \RR^n \to \RR^n$ if and only if $\lambda$ is an eigenvalue of the matrix $A$. Moreover, the eigenspaces agree:
+\begin{equation*}
+E_{\lambda}(T_A) = \{\vect{x} \mbox{ in } \RR^n \mid A\vect{x} = \lambda\vect{x} \} = E_{\lambda}(A)
+\end{equation*}
+The following theorem reveals the connection between the eigenspaces of an operator $T$ and those of the matrices representing $T$.
+
+
+\begin{theorem}{}{029450}
+Let $T : V \to V$ be a linear operator where $\func{dim }V = n$, let $B$ denote any ordered basis of $V$, and let $C_{B} : V \to \RR^n$ denote the coordinate isomorphism. Then:
+
+
+\begin{enumerate}
+\item The eigenvalues $\lambda$ of $T$ are precisely the eigenvalues of the matrix $M_{B}(T)$ and thus are the roots of the characteristic polynomial $c_{T}(x)$.
+
+\item In this case the eigenspaces $E_{\lambda}(T)$ and $E_{\lambda}[M_{B}(T)]$ are isomorphic via the restriction $C_{B} : E_{\lambda}(T) \to E_{\lambda}[M_{B}(T)]$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Write $A = M_{B}(T)$ for convenience. If $T(\vect{v}) = \lambda\vect{v}$, then ${\lambda}C_{B}(\vect{v}) = C_{B}[T(\vect{v})] = AC_{B}(\vect{v})$ because $C_{B}$ is linear. Hence $C_{B}(\vect{v})$ lies in $E_{\lambda}(A)$, so we do have a function $C_{B} : E_{\lambda}(T) \to E_{\lambda}(A)$. It is clearly linear and one-to-one; we claim it is onto. If $\vect{x}$ is in $E_{\lambda}(A)$, write $\vect{x} = C_{B}(\vect{v})$ for some $\vect{v}$ in $V$ ($C_{B}$ is onto). This $\vect{v}$ actually lies in $E_{\lambda}(T)$. To see why, observe that
+\begin{equation*}
+C_B[T(\vect{v})] = AC_B(\vect{v}) = A\vect{x} = \lambda\vect{x} = {\lambda}C_B(\vect{v}) = C_B(\lambda\vect{v})
+\end{equation*}
+Hence $T(\vect{v}) = \lambda\vect{v}$ because $C_{B}$ is one-to-one, and this proves (2). As to (1), we have already shown that eigenvalues of $T$ are eigenvalues of $A$. The converse follows, as in the foregoing proof that $C_{B}$ is onto.
+\end{proof}
+
+\noindent Theorem~\ref{thm:029450} shows how to pass back and forth between the eigenvectors of an operator $T$ and the eigenvectors of any matrix $M_{B}(T)$ of $T$:
+\begin{equation*}
+\vect{v} \mbox{ lies in } E_{\lambda}(T) \quad \mbox{ if and only if } \quad C_B(\vect{v}) \mbox{ lies in } E_{\lambda}[M_B(T)]
+\end{equation*}
+\begin{example}{}{029494}
+Find the eigenvalues and eigenspaces for $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$ given by
+\begin{equation*}
+T(a + bx + cx^2) = (2a + b + c) + (2a + b - 2c)x - (a + 2c)x^2
+\end{equation*}
+\begin{solution}
+If $B = \{1, x, x^{2}\}$, then
+\begin{equation*}
+M_B(T) = \leftB \begin{array}{ccc} C_B[T(1)] & C_B[T(x)] & C_B[T(x^2)] \end{array} \rightB = \leftB \begin{array}{rrr} 2 & 1 & 1 \\ 2 & 1 & -2 \\ -1 & 0 & -2 \end{array} \rightB
+\end{equation*}
+Hence $c_{T}(x) = \func{det}[xI - M_{B}(T)] = (x + 1)^{2}(x - 3)$ as the reader can verify.
+
+
+Moreover, $E_{-1}[M_B(T)] = \RR\leftB \begin{array}{r} -1 \\ 2 \\ 1 \end{array} \rightB$ and $E_3[M_B(T)] = \RR\leftB \begin{array}{r} 5 \\ 6 \\ -1 \end{array} \rightB$, so Theorem~\ref{thm:029450} gives $E_{-1}(T) = \RR(-1 + 2x + x^{2})$ and $E_{3}(T) = \RR(5 + 6x - x^{2})$.
+\end{solution}
+\end{example}
+
+\begin{theorem}{}{029517}
+Each eigenspace of a linear operator $T : V \to V$ is a $T$-invariant subspace of $V$.
+\end{theorem}
+
+\begin{proof}
+If $\vect{v}$ lies in the eigenspace $E_{\lambda}(T)$, then $T(\vect{v}) = \lambda\vect{v}$, so $T[T(\vect{v})] = T(\lambda\vect{v}) = {\lambda}T(\vect{v})$. This shows that $T(\vect{v})$ lies in $E_{\lambda}(T)$ too.
+\end{proof}
+
+\subsection*{Direct Sums}
+\index{direct sum}\index{sum!direct sum}\index{vector spaces!direct sum}
+
+Sometimes vectors in a space $V$ can be written naturally as a sum of vectors in two subspaces\index{sum!of vectors in two subspaces}. For example, in the space $\vectspace{M}_{nn}$ of all $n \times n$ matrices, we have subspaces
+\begin{equation*}
+U = \{P \mbox{ in } \vectspace{M}_{nn} \mid P \mbox{ is symmetric } \} \quad \mbox{ and } \quad W = \{Q \mbox{ in } \vectspace{M}_{nn} \mid Q \mbox{ is skew symmetric} \}
+\end{equation*}
+where a matrix $Q$ is called \textbf{skew-symmetric}\index{skew-symmetric} if $Q^{T} = -Q$. Then every matrix $A$ in $\vectspace{M}_{nn}$ can be written as the sum of a matrix in $U$ and a matrix in $W$; indeed,
+\begin{equation*}
+A = \frac{1}{2}(A + A^T) + \frac{1}{2}(A - A^T)
+\end{equation*}
+where $\frac{1}{2}(A + A^T)$ is symmetric and $\frac{1}{2}(A - A^T)$ is skew symmetric. Remarkably, this representation is unique: If $A = P + Q$ where $P^{T} = P$ and $Q^{T} = -Q$, then $A^{T} = P^{T} + Q^{T} = P - Q$; adding this to $A = P + Q$ gives $P = \frac{1}{2}(A + A^T)$, and subtracting gives $Q = \frac{1}{2}(A - A^{T})$. In addition, this uniqueness turns out to be closely related to the fact that the only matrix in both $U$ and $W$ is $0$. This is a useful way to view matrices, and the idea generalizes to the important notion of a direct sum of subspaces.
+
+
+If $U$ and $W$ are subspaces of $V$, their \textit{sum} $U + W$ and their \textit{intersection} $U \cap W$ were defined in Section~\ref{sec:6_4} as follows:
+\begin{align*}
+U + W & = \{ \vect{u} + \vect{w} \mid \vect{u} \mbox{ in } U \mbox{ and } \vect{w} \mbox{ in } W \} \\
+U \cap W & = \{ \vect{v} \mid \vect{v} \mbox{ lies in both } U \mbox{ and } W \}
+\end{align*}
+These are subspaces of $V$, the sum containing both $U$ and $W$ and the intersection contained in both $U$ and $W$. It turns out that the most interesting pairs $U$ and $W$ are those for which $U \cap W$ is as small as possible and $U + W$ is as large as possible.
+
+
+\begin{definition}{Direct Sum of Subspaces}{029545}
+A vector space $V$ is said to be the \textbf{direct sum}\index{sum!direct sum}\index{direct sum} of subspaces $U$ and $W$ if
+\begin{equation*}
+U \cap W = \{ \vect{0} \} \quad \mbox{ and } \quad U + W = V
+\end{equation*}
+In this case we write $V = U \oplus W$. Given a subspace $U$, any subspace $W$ such that $V = U \oplus W$ is called a \textbf{complement}\index{complement} of $U$ in $V$.
+\end{definition}
+
+\begin{example}{}{029550}
+In the space $\RR^5$, consider the subspaces $U = \{(a, b, c, 0, 0) \mid a, b, \mbox{ and } c \mbox{ in } \RR\}$ and $W = \{(0, 0, 0, d, e) \mid d \mbox{ and } e \mbox{ in } \RR\}$. Show that $\RR^5 = U \oplus W$.
+
+
+\begin{solution}
+If $\vect{x} = (a, b, c, d, e)$ is any vector in $\RR^5$, then $\vect{x} = (a, b, c, 0, 0) + (0, 0, 0, d, e)$, so $\vect{x}$ lies in $U + W$. Hence $\RR^5 = U + W$. To show that $U \cap W = \{\vect{0}\}$, let $\vect{x} = (a, b, c, d, e)$ lie in $U \cap W$. Then $d = e = 0$ because $\vect{x}$ lies in $U$, and $a = b = c = 0$ because $\vect{x}$ lies in $W$. Thus $\vect{x} = (0, 0, 0, 0, 0) = \vect{0}$, so $\vect{0}$ is the only vector in $U \cap W$. Hence $U \cap W = \{\vect{0}\}$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{029560}
+If $U$ is a subspace of $\RR^n$, show that $\RR^n = U \oplus U^{\perp}$.
+
+
+\begin{solution}
+The equation $\RR^n = U + U^{\perp}$ holds because, given $\vect{x}$ in $\RR^n$, the vector $\proj{U}{\vect{x}}$ lies in $U$ and $\vect{x} - \proj{U}{\vect{x}}$ lies in $U^{\perp}$. To see that $U \cap U^{\perp} = \{\vect{0}\}$, observe that any vector in $U \cap U^{\perp}$ is orthogonal to itself and hence must be zero.
+\end{solution}
+\end{example}
+
+\begin{example}{}{029575}
+Let $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ be a basis of a vector space $V$, and partition it into two parts: $\{\vect{e}_{1}, \dots, \vect{e}_{k}\}$ and $\{\vect{e}_{k+1}, \dots, \vect{e}_{n}\}$. If $U = \func{span}\{\vect{e}_{1}, \dots, \vect{e}_{k}\}$ and $W = \func{span}\{\vect{e}_{k+1}, \dots, \vect{e}_{n}\}$, show that $V = U \oplus W$.
+
+
+\begin{solution}
+  If $\vect{v}$ lies in $U \cap W$, then $\vect{v} = a_{1}\vect{e}_{1} + \cdots + a_{k}\vect{e}_{k}$ and $\vect{v} = b_{k+1}\vect{e}_{k+1} + \cdots + b_{n}\vect{e}_{n}$ hold for some $a_{i}$ and $b_{j}$ in $\RR$. The fact that the $\vect{e}_{i}$ are linearly independent forces all $a_{i} = b_{j} = 0$, so $\vect{v} = \vect{0}$. Hence $U \cap W = \{\vect{0}\}$. Now, given $\vect{v}$ in $V$, write $\vect{v} = v_{1}\vect{e}_{1} + \cdots + v_{n}\vect{e}_{n}$ where the $v_{i}$ are in $\RR$. Then $\vect{v} = \vect{u} + \vect{w}$, where $\vect{u} = v_{1}\vect{e}_{1} + \cdots + v_{k}\vect{e}_{k}$ lies in $U$ and $\vect{w} = v_{k+1}\vect{e}_{k+1} + \cdots + v_{n}\vect{e}_{n}$ lies in $W$. This proves that $V = U + W$.
+\end{solution}
+\end{example}
+
+Example~\ref{exa:029575} is typical of all direct sum decompositions.
+
+
+\begin{theorem}{}{029631}
+Let $U$ and $W$ be subspaces of a finite dimensional vector space $V$. The following three conditions are equivalent:
+\begin{enumerate}
+\item $V = U \oplus W$.
+
+\item Each vector $\vect{v}$ in $V$ can be written uniquely in the form
+\begin{equation*}
+\vect{v} = \vect{u} + \vect{w} \qquad \vect{u} \mbox{ in } U, \vect{w} \mbox{ in } W
+\end{equation*}
+\item If $\{\vect{u}_{1}, \dots, \vect{u}_{k}\}$ and $\{\vect{w}_{1}, \dots, \vect{w}_{m}\}$ are bases of $U$ and $W$, respectively, then $B = \{\vect{u}_{1}, \dots, \vect{u}_{k}, \vect{w}_{1}, \dots, \vect{w}_{m}\}$ is a basis of $V$.
+
+\end{enumerate}
+
+(The uniqueness in (2) means that if $\vect{v} = \vect{u}_{1} + \vect{w}_{1}$ is another such representation, then $\vect{u}_{1} = \vect{u}$ and $\vect{w}_{1} = \vect{w}$.)
+\end{theorem}
+
+\begin{proof}
+Example~\ref{exa:029575} shows that (3) $\Rightarrow$ (1).
+
+
+(1) $\Rightarrow$ (2). Given $\vect{v}$ in $V$, we have $\vect{v} = \vect{u} + \vect{w}$, $\vect{u}$ in $U$, $\vect{w}$ in $W$, because $V = U + W$.
+
+
+\noindent If also $\vect{v} = \vect{u}_{1} + \vect{w}_{1}$, then $\vect{u} - \vect{u}_{1} = \vect{w}_{1} - \vect{w}$ lies in $U \cap W = \{\vect{0}\}$, so $\vect{u} = \vect{u}_{1}$ and $\vect{w} = \vect{w}_{1}$.
+
+
+(2) $\Rightarrow$ (3). Given $\vect{v}$ in $V$, we have $\vect{v} = \vect{u} + \vect{w}$, $\vect{u}$ in $U$, $\vect{w}$ in $W$. Hence $\vect{v}$ lies in span $B$; that is, $V = \func{span }B$. To see that $B$ is independent, let $a_{1}\vect{u}_{1} + \cdots + a_{k}\vect{u}_{k} + b_{1}\vect{w}_{1} + \cdots + b_{m}\vect{w}_{m} = \vect{0}$. Write $\vect{u} = a_{1}\vect{u}_{1} + \cdots + a_{k}\vect{u}_{k}$ and $\vect{w} = b_{1}\vect{w}_{1} + \cdots + b_{m}\vect{w}_{m}$. Then $\vect{u} + \vect{w} = \vect{0}$, and so $\vect{u} = \vect{0}$ and $\vect{w} = \vect{0}$ by the uniqueness in (2). Hence $a_{i} = 0$ for all $i$ and $b_{j} = 0$ for all $j$.
+\end{proof}
+
+Condition (3) in Theorem~\ref{thm:029631} gives the following useful result.
+
+
+\begin{theorem}{}{029686}
+If a finite dimensional vector space $V$ is the direct sum $V = U \oplus W$ of subspaces $U$ and $W$, then
+\begin{equation*}
+\func{dim } V = \func{dim } U + \func{dim } W
+\end{equation*}
+\end{theorem}
+
+These direct sum decompositions of $V$ play an important role in any discussion of invariant subspaces. If $T : V \to V$ is a linear operator and if $U_{1}$ is a $T$-invariant subspace, the block upper triangular matrix
+\begin{equation}\label{eqn:9_3_1}
+M_B(T) = \leftB \begin{array}{cc} M_{B_1}(T) & Y \\ 0 & Z \end{array} \rightB
+\end{equation}
+in Theorem~\ref{thm:029359} is achieved by choosing any basis $B_{1} = \{\vect{b}_{1}, \dots, \vect{b}_{k}\}$ of $U_{1}$ and completing it to a basis $B = \{\vect{b}_{1}, \dots, \vect{b}_{k}, \vect{b}_{k+1}, \dots, \vect{b}_{n}\}$ of $V$ in any way at all. The fact that $U_{1}$ is $T$-invariant ensures that the first $k$ columns of $M_{B}(T)$ have the form in (\ref{eqn:9_3_1}) (that is, the last $n - k$ entries are zero), and the question arises whether the additional basis vectors $\vect{b}_{k+1}, \dots, \vect{b}_{n}$ can be chosen such that
+\begin{equation*}
+U_2 = \func{span }\{\vect{b}_{k+1}, \dots, \vect{b}_n\}
+\end{equation*}
+is \textit{also} $T$-invariant. In other words, does each $T$-invariant subspace of $V$ have a $T$-invariant complement? Unfortunately the answer in general is no (see Example~\ref{exa:029851} below); but when it is possible, the matrix $M_{B}(T)$ simplifies further. The assumption that the complement $U_{2} = \func{span}\{\vect{b}_{k+1}, \dots, \vect{b}_{n}\}$ is $T$-invariant too means that $Y = 0$ in equation \ref{eqn:9_3_1} above, and that $Z = M_{B_{2}}(T)$ is the matrix of the restriction of $T$ to $U_{2}$ (where $B_{2} = \{\vect{b}_{k+1}, \dots, \vect{b}_{n}\}$). The verification is the same as in the proof of Theorem~\ref{thm:029359}.
+
+
+\begin{theorem}{}{029723}
+Let $T : V \to V$ be a linear operator where $V$ has dimension $n$. Suppose $V = U_{1} \oplus U_{2}$ where both $U_{1}$ and $U_{2}$ are $T$-invariant. If $B_{1} = \{\vect{b}_{1}, \dots, \vect{b}_{k}\}$ and $B_{2} = \{\vect{b}_{k+1}, \dots, \vect{b}_{n}\}$ are bases of $U_{1}$ and $U_{2}$ respectively, then
+\begin{equation*}
+B = \{\vect{b}_1, \dots, \vect{b}_k, \vect{b}_{k+1}, \dots, \vect{b}_n\}
+\end{equation*}
+is a basis of $V$, and $M_{B}(T)$ has the block diagonal form
+\begin{equation*}
+M_B(T) = \leftB \begin{array}{cc} M_{B_1}(T) & 0 \\ 0 & M_{B_2}(T) \end{array} \rightB
+\end{equation*}
+where $M_{B_{1}}(T)$ and $M_{B_{2}}(T)$ are the matrices of the restrictions of $T$ to $U_{1}$ and to $U_{2}$ respectively.
+\end{theorem}
+
+\begin{definition}{Reducible Linear Operator}{029747}
+The linear operator $T : V \to V$ is said to be \textbf{reducible}\index{reducible}\index{linear operator!reducible} if nonzero $T$-invariant subspaces $U_{1}$ and $U_{2}$ can be found such that $V = U_{1} \oplus U_{2}$.
+\end{definition}
+
+Then $T$ has a matrix in block diagonal form as in Theorem~\ref{thm:029723}, and the study of $T$ is reduced to studying its restrictions to the lower-dimensional spaces $U_{1}$ and $U_{2}$. If these can be determined, so can $T$. Here is an example in which the action of $T$ on the invariant subspaces $U_{1}$ and $U_{2}$ is very simple indeed. The result for operators is used to derive the corresponding similarity theorem for matrices.
+
+
+\begin{example}{}{029759}
+Let $T : V \to V$ be a linear operator satisfying $T^{2} = 1_{V}$ (such operators are called \textbf{involutions}\index{involutions}\index{linear operator!involutions}). Define
+\begin{equation*}
+U_1 = \{ \vect{v} \mid T(\vect{v}) = \vect{v} \} \quad \mbox{ and } \quad U_2 = \{ \vect{v} \mid T(\vect{v}) = -\vect{v} \}
+\end{equation*}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $V = U_{1} \oplus U_{2}$.
+
+\item If $\func{dim }V = n$, find a basis $B$ of $V$ such that $M_B(T) = \leftB \begin{array}{cc} I_k & 0 \\ 0 & -I_{n-k} \end{array} \rightB$ for some $k$.
+
+\item Conclude that, if $A$ is an $n \times n$ matrix such that $A^{2} = I$, then $A$ is similar to $\leftB \begin{array}{cc} I_k & 0 \\ 0 & -I_{n-k} \end{array} \rightB$ for some $k$.
+
+\end{enumerate}
+
+\begin{solution}
+\begin{enumerate}[label={\alph*.}]
+\item The verification that $U_{1}$ and $U_{2}$ are subspaces of $V$ is left to the reader. If $\vect{v}$ lies in $U_{1} \cap U_{2}$, then $\vect{v} = T(\vect{v}) = -\vect{v}$, and it follows that $\vect{v} = \vect{0}$. Hence $U_{1} \cap U_{2} = \{\vect{0}\}$. Given $\vect{v}$ in $V$, write
+\begin{equation*}
+\vect{v} = \frac{1}{2}\{ [\vect{v} + T(\vect{v})] + [\vect{v} - T(\vect{v})] \}
+\end{equation*}
+Then $\vect{v} + T(\vect{v})$ lies in $U_{1}$, because $T[\vect{v} + T(\vect{v})] = T(\vect{v}) + T^{2}(\vect{v}) = \vect{v} + T(\vect{v})$. Similarly, $\vect{v} - T(\vect{v})$ lies in $U_{2}$, and it follows that $V = U_{1} + U_{2}$. This proves part (a).
+
+\item $U_{1}$ and $U_{2}$ are easily shown to be $T$-invariant, so the result follows from Theorem~\ref{thm:029723} if bases $B_{1} = \{\vect{b}_{1}, \dots, \vect{b}_{k}\}$ and $B_{2} = \{\vect{b}_{k+1}, \dots, \vect{b}_{n}\}$ of $U_{1}$ and $U_{2}$ can be found such that $M_{B_1}(T) = I_{k}$ and $M_{B_2}(T) = -I_{n-k}$. But this is true for \textit{any} choice of $B_{1}$ and $B_{2}$:
+\begin{align*}
+M_{B_1}(T) & = \leftB \begin{array}{cccc} C_{B_1}[T(\vect{b}_1)] & C_{B_1}[T(\vect{b}_2)] & \cdots & C_{B_1}[T(\vect{b}_k)] \end{array} \rightB \\
+& = \leftB \begin{array}{cccc} C_{B_1}(\vect{b}_1) & C_{B_1}(\vect{b}_2) & \cdots & C_{B_1}(\vect{b}_k) \end{array} \rightB \\
+& = I_k
+\end{align*}
+A similar argument shows that $M_{B_2}(T) = -I_{n-k}$, so part (b) follows with $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$.
+
+\item Given $A$ such that $A^{2} = I$, consider $T_{A} : \RR^n \to \RR^n$. Then $(T_{A})^{2}(\vect{x}) = A^{2}\vect{x} = \vect{x}$ for all $\vect{x}$ in $\RR^n$, so $(T_{A})^{2} = 1_{V}$. Hence, by part (b), there exists a basis $B$ of $\RR^n$ such that
+\begin{equation*}
+M_B(T_A) = \leftB \begin{array}{cc} I_r & 0 \\ 0 & -I_{n-r} \end{array} \rightB
+\end{equation*}
+But Theorem~\ref{thm:028841} shows that $M_{B}(T_{A}) = P^{-1}AP$ for some invertible matrix $P$, and this proves part (c).
+
+\end{enumerate}
+\end{solution}
+\end{example}
+
+\noindent Note that the passage from the result for operators to the analogous result for matrices is routine and can be carried out in any situation, as in the verification of part (c) of Example~\ref{exa:029759}. The key is the analysis of the operators. In this case, the involutions are just the operators satisfying $T^{2} = 1_{V}$, and the simplicity of this condition means that the invariant subspaces $U_{1}$ and $U_{2}$ are easy to find.
+
+
+Unfortunately, not every linear operator $T : V \to V$ is reducible. In fact, the linear operator in Example~\ref{exa:029341} has \textit{no} invariant subspaces except $0$ and $V$. On the other hand, one might expect that this is the only type of nonreducible operator; that is, if the operator \textit{has} an invariant subspace that is not $0$ or $V$, then \textit{some} invariant complement must exist. The next example shows that even this is not valid.
+
+
+\begin{example}{}{029851}
+Consider the operator $T : \RR^2 \to \RR^2$ given by $T\leftB \begin{array}{c} a \\ b \end{array} \rightB = \leftB \begin{array}{c} a + b \\ b \end{array} \rightB$. Show that $U_1 = \RR\leftB \begin{array}{c} 1 \\ 0 \end{array} \rightB$ is $T$-invariant but that $U_1$ has not $T$-invariant complement in $\RR^2$.
+
+\begin{solution}
+Because $U_1 = \func{span }\left\{\leftB \begin{array}{c} 1 \\ 0 \end{array} \rightB \right\}$ and $T\leftB \begin{array}{c} 1 \\ 0 \end{array} \rightB = \leftB \begin{array}{c} 1 \\ 0 \end{array} \rightB$, it follows (by Example~\ref{exa:029323}) that $U_{1}$ is $T$-invariant. Now assume, if possible, that $U_{1}$ has a $T$-invariant complement $U_{2}$ in $\RR^2$. Then $U_{1} \oplus U_{2} = \RR^2$ and $T(U_{2}) \subseteq U_{2}$. Theorem~\ref{thm:029686} gives
+\begin{equation*}
+2 = \func{dim } \RR^2 = \func{dim } U_1 + \func{dim } U_2 = 1 + \func{dim } U_2
+\end{equation*}
+so $\func{dim }U_{2} = 1$. Let $U_{2} = \RR\vect{u}_{2}$, and write $\vect{u}_2 = \leftB \begin{array}{c} p \\ q \end{array} \rightB$. We claim that $\vect{u}_{2}$ is not in $U_{1}$. For if $\vect{u}_{2} \in U_{1}$, then $\vect{u}_{2} \in U_{1} \cap U_{2} = \{\vect{0}\}$, so $\vect{u}_{2} = \vect{0}$. But then $U_{2} = \RR\vect{u}_{2} = \{\vect{0}\}$, a contradiction, as $\func{dim }U_{2} = 1$. So $\vect{u}_{2} \notin U_{1}$, from which $q \neq 0$. On the other hand, $T(\vect{u}_{2}) \in U_{2} = \RR\vect{u}_{2}$ (because $U_{2}$ is $T$-invariant), say $T(\vect{u}_2) = \lambda\vect{u}_2 = \lambda\leftB \begin{array}{c} p \\ q \end{array} \rightB$.
+
+Thus
+\begin{equation*}
+\leftB \begin{array}{c} p + q \\ q \end{array} \rightB = T\leftB \begin{array}{c} p \\ q \end{array} \rightB = \lambda\leftB \begin{array}{c} p \\ q \end{array} \rightB \mbox{ where } \lambda \in \RR
+\end{equation*}
+Hence $p + q = \lambda p$ and $q = \lambda q$. Because $q \neq 0$, the second of these equations implies that $\lambda = 1$, so the first equation implies $q = 0$, a contradiction. So a $T$-invariant complement of $U_{1}$ does not exist.
+\end{solution}
+\end{example}
+
+This is as far as we take the theory here, but in Chapter~\ref{chap:11} the techniques introduced in this section will be refined to show that every matrix is similar to a very nice matrix indeed---its Jordan canonical form.
+
+
+\section*{Exercises for \ref{sec:9_3}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:9_3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}\label{ex:ex9_3_1}
+If $T : V \to V$ is any linear operator, show that $\func{ker }T$ and $\func{im }T$ are $T$-invariant subspaces.
+\end{ex}
+
+\begin{ex}\label{ex:ex9_3_2}
+Let $T$ be a linear operator on $V$. If $U$ and $W$ are $T$-invariant, show that
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $U \cap W$ and $U + W$ are also $T$-invariant.
+
+\item $T(U)$ is $T$-invariant.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T(U) \subseteq U$, so $T[T(U)] \subseteq T(U)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $S$ and $T$ be linear operators on $V$ and assume that $ST = TS$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{im }S$ and $\func{ker }S$ are $T$-invariant.
+
+\item If $U$ is $T$-invariant, show that $S(U)$ is $T$-invariant.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item If $\vect{v}$ is in $S(U)$, write $\vect{v} = S(\vect{u})$, $\vect{u}$ in $U$. Then $T(\vect{v}) = T[S(\vect{u})] = (TS)(\vect{u}) = (ST)(\vect{u}) = S[T(\vect{u})]$ and this lies in $S(U)$ because $T(\vect{u})$ lies in $U$ ($U$ is $T$-invariant).
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear operator. Given $\vect{v}$ in $V$, let $U$ denote the set of vectors in $V$ that lie in every $T$-invariant subspace that contains $\vect{v}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $U$ is a $T$-invariant subspace of $V$ containing $\vect{v}$.
+
+\item Show that $U$ is contained in every $T$-invariant subspace of $V$ that contains $\vect{v}$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $T$ is a scalar operator (see Example~\ref{exa:020771}) show that every subspace is $T$-invariant.
+
+\item Conversely, if every subspace is $T$-invariant, show that $T$ is scalar.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Show that the only subspaces of $V$ that are $T$-invariant for every operator $T : V \to V$ are $0$ and $V$. Assume that $V$ is finite dimensional. [\textit{Hint}: Theorem~\ref{thm:020916}.]
+
+\begin{sol}
+Suppose $U$ is $T$-invariant for every $T$. If $U \neq 0$, choose $\vect{u} \neq \vect{0}$ in $U$. Choose a basis $B = \{\vect{u}, \vect{u}_2, \dots, \vect{u}_n\}$ of $V$ containing $\vect{u}$. Given any $\vect{v}$ in $V$, there is (by Theorem~\ref{thm:020916}) a linear transformation $T : V \to V$ such that $T(\vect{u}) = \vect{v}$, $T(\vect{u}_2) = \cdots = T(\vect{u}_n) = \vect{0}$. Then $\vect{v} = T(\vect{u})$ lies in $U$ because $U$ is $T$-invariant. This shows that $V = U$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Suppose that $T : V \to V$ is a linear operator and that $U$ is a $T$-invariant subspace of $V$. If $S$ is an invertible operator, put $T^{\prime} = STS^{-1}$. Show that $S(U)$ is a $T^{\prime}$-invariant subspace.
+\end{ex}
+
+\columnbreak 
+
+\begin{ex}
+In each case, show that $U$ is $T$-invariant, use it to find a block upper triangular matrix for $T$, and use that to compute $c_{T}(x)$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \vectspace{P}_2 \to \vectspace{P}_2$, \\ $T(a + bx + cx^2) \\ \hspace*{1em}= (-a + 2b + c) + (a + 3b +c)x + (a + 4b)x^2$, \\ $U = \func{span }\{1, x + x^2\}$
+
+\item $T : \vectspace{P}_2 \to \vectspace{P}_2$, \\ $T(a + bx + cx^2) \\ \hspace*{1em} = (5a - 2b + c) + (5a - b + c)x + (a + 2c)x^2$, \\$U = \func{span }\{1 - 2x^2, x + x^2\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T(1 - 2x^{2}) = 3 + 3x - 3x^{2} = 3(1 - 2x^{2}) + 3(x + x^{2})$ and $T(x + x^{2}) = -(1 - 2x^{2})$, so both are in $U$. Hence $U$ is $T$-invariant by Example~\ref{exa:029323}. If $B = \{ 1 - 2x^2, x + x^2, x^2 \}$ then $M_B(T) = \leftB \begin{array}{rrr} 3 & -1 & 1 \\ 3 & 0 & 1 \\ 0 & 0 & 3 \end{array} \rightB$, so $c_T(x) = \func{det } \leftB \begin{array}{ccc} x - 3 & 1 & -1 \\ -3 & x & -1 \\ 0 & 0 & x - 3 \end{array} \rightB = (x - 3) \func{det } \leftB \begin{array}{cc} x - 3 & 1 \\ -3 & x \end{array} \rightB = (x - 3)(x^2 -3x + 3)$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that $T_{A} : \RR^2 \to \RR^2$ has no invariant subspaces except $0$ and $\RR^2$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A = \leftB \begin{array}{rr} 1 & 2 \\ -1 & -1 \end{array} \rightB$
+
+\item $A = \leftB \begin{array}{rr} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{array} \rightB$, $0 < \theta < \pi$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Suppose $\RR\vect{u}$ is $T_{A}$-invariant where $\vect{u} \neq \vect{0}$. Then $T_{A}(\vect{u}) = r\vect{u}$ for some $r$ in $\RR$, so $(rI - A)\vect{u} = \vect{0}$. But $\func{det}(rI - A) = (r - \cos \theta)^{2} + sin^{2} \theta \neq 0$ because $0 < \theta < \pi$. Hence $\vect{u} = \vect{0}$, a contradiction.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that $V = U \oplus W$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \RR^4$, $U = \func{span}\{(1, 1, 0, 0), (0, 1, 1, 0)\}$, \\ $W = \func{span}\{(0, 1, 0, 1), (0, 0, 1, 1)\}$
+
+\item $V = \RR^4$, $U = \{(a, a, b, b) \mid a, b \mbox{ in }\RR\}$, \\ $W = \{(c, d, c, -d) \mid c, d \mbox{ in } \RR\}$
+
+\item $V = \vectspace{P}_{3}$, $U = \{a + bx \mid a, b \mbox{ in }\RR\}$, \\ $W = \{ax^{2} + bx^{3} \mid a, b \mbox{ in } \RR\}$
+
+\item $V = \vectspace{M}_{22}$, $U = \left\{ \leftB \begin{array}{rr} a & a \\ b & b \end{array} \rightB \middle| a, b \mbox{ in } \RR \right\}$, \\ $W = \left\{ \leftB \begin{array}{rr} a & b \\ -a & b \end{array} \rightB \middle| a, b \mbox{ in } \RR \right\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $U = \func{span}\{(1, 1, 0, 0), (0, 0, 1, 1)\}$ and $W = \func{span}\{(1, 0, 1, 0), (0, 1, 0, -1)\}$, and these four vectors form a basis of $\RR^4$. Use Example~\ref{exa:029575}.
+
+\setcounter{enumi}{3}
+\item $U = \func{span } \left\{ \leftB \begin{array}{rr} 1 & 1 \\ 0 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 0 \\ 1 & 1 \end{array} \rightB \right\}$ and $W = \func{span } \left\{ \leftB \begin{array}{rr} 1 & 0 \\ -1 & 0 \end{array} \rightB, \leftB \begin{array}{rr} 0 & 1 \\ 0 & 1 \end{array} \rightB \right\}$ and these vectors are a basis of $\vectspace{M}_{22}$. Use Example~\ref{exa:029575}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U = \func{span}\{(1, 0, 0, 0), (0, 1, 0, 0)\}$ in $\RR^4$. Show that $\RR^4 = U \oplus W_{1}$ and $\RR^4 = U \oplus W_{2}$, where $W_{1} = \func{span}\{(0, 0, 1, 0), (0, 0, 0, 1)\}$ and $W_{2} = \func{span}\{(1, 1, 1, 1), (1, 1, 1, -1)\}$.
+\end{ex}
+
+\begin{ex}
+Let $U$ be a subspace of $V$, and suppose that $V = U \oplus W_{1}$ and $V = U \oplus W_{2}$ hold for subspaces $W_{1}$ and $W_{2}$. Show that $\func{dim }W_{1} = \func{dim }W_{2}$.
+\end{ex}
+
+\begin{ex}
+If $U$ and $W$ denote the subspaces of even and odd polynomials in $\vectspace{P}_{n}$, respectively, show that $\vectspace{P}_{n} = U \oplus W$. (See Exercise~\ref{ex:ex6_3_36}.) [\textit{Hint}: $f(x) + f(-x)$ is even.]
+\end{ex}
+
+\begin{ex}
+Let $E$ be an $n \times n$ matrix with $E^{2} = E$. Show that $\vectspace{M}_{nn} = U \oplus W$, where $U = \{A \mid AE = A\}$ and $W = \{B \mid BE = 0\}$. [\textit{Hint}: $XE$ lies in $U$ for every matrix $X$.]
+
+\begin{sol}
+The fact that $U$ and $W$ are subspaces is easily verified using the subspace test. If $A$ lies in $U \cap V$, then $A = AE = 0$; that is, $U \cap V = 0$. To show that $\vectspace{M}_{22} = U + V$, choose any $A$ in $\vectspace{M}_{22}$. Then $A = AE + (A - AE)$, and $AE$ lies in $U$ [because $(AE)E = AE^{2} = AE$], and $A - AE$ lies in $W$ [because $(A - AE)E = AE - AE^{2} = 0$].
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U$ and $W$ be subspaces of $V$. Show that $U \cap W = \{\vect{0}\}$ if and only if $\{\vect{u}, \vect{w}\}$ is independent for all $\vect{u} \neq \vect{0}$ in $U$ and all $\vect{w} \neq \vect{0}$ in $W$.
+\end{ex}
+
+\begin{ex}
+Let $V \stackrel{T}{\to} W \stackrel{S}{\to} V$ be linear transformations, and assume that $\func{dim }V$ and $\func{dim }W$ are finite.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $ST = 1_{V}$, show that $W = \func{im }T \oplus \func{ker }S$. \newline[\textit{Hint}: Given $\vect{w}$ in $W$, show that $\vect{w} - TS(\vect{w})$ lies in $\func{ker }S$.]
+
+\item Illustrate with $\RR^2 \stackrel{T}{\to} \RR^3 \stackrel{S}{\to} \RR^2$ where \\ $T(x, y) = (x, y, 0)$ and $S(x, y, z) = (x, y)$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $U$ and $W$ be subspaces of $V$, let $\func{dim }V = n$, and assume that $\func{dim }U + \func{dim }W = n$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $U \cap W = \{\vect{0}\}$, show that $V = U \oplus W$.
+
+\item If $U + W = V$, show that $V = U \oplus W$. [\textit{Hint}: Theorem~\ref{thm:019692}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item By \textbf{(a)} it remains to show $U + W = V$; we show that $\func{dim}(U + W) = n$ and invoke Theorem~\ref{thm:019525}. But $U + W = U \oplus W$ because $U \cap W = 0$, so $\func{dim}(U + W) = \func{dim }U + \func{dim }W = n$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{rr} 0 & 1 \\ 0 & 0 \end{array} \rightB$ and consider \\$T_{A} : \RR^2 \to \RR^2$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the only eigenvalue of $T_{A}$ is $\lambda = 0$.
+
+\item Show that $\func{ker }(T_A) = \RR\leftB \begin{array}{c} 1 \\ 0 \end{array} \rightB$ is the unique \\ $T_{A}$-invariant subspace of $\RR^2$ (except for $0$ and \\ $\RR^2$).
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item First, $\func{ker}(T_{A})$ is $T_{A}$-invariant. Let $U = \RR\vect{p}$ be $T_{A}$-invariant. Then $T_{A}(\vect{p})$ is in $U$, say $T_{A}(\vect{p}) = \lambda\vect{p}$. Hence $A\vect{p} = \lambda\vect{p}$ so $\lambda$ is an eigenvalue of $A$. This means that $\lambda = 0$ by \textbf{(a)}, so $\vect{p}$ is in $\func{ker}(T_{A})$. Thus $U \subseteq \func{ker}(T_{A})$. But $\func{dim}[\func{ker}(T_{A})] \neq 2$ because $T_{A} \neq 0$, so $\func{dim}[\func{ker}(T_{A})] = 1 = \func{dim}(U)$. Hence $U = \func{ker}(T_{A})$.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A = \leftB \begin{array}{rrrr}
+2 & -5 & 0 & 0 \\
+1 & -2 & 0 & 0 \\
+0 & 0 & -1 & -2 \\
+0 & 0 & 1 & 1
+\end{array} \rightB$, show that $T_{A} : \RR^4 \to \RR^4$ has two-dimensional $T$-invariant subspaces $U$ and $W$ such that $\RR^4 = U \oplus W$, but $A$ has no real eigenvalue.
+\end{ex}
+
+\columnbreak
+
+\begin{ex}
+Let $T : V \to V$ be a linear operator where $\func{dim }V = n$. If $U$ is a $T$-invariant subspace of $V$, let $T_{1} : U \to U$ denote the restriction of $T$ to $U$ \\ (so $T_{1}(\vect{u}) = T(\vect{u})$ for all $\vect{u}$ in $U$). Show that $c_T(x) = c_{T_1}(x) \cdot q(x)$ for some polynomial $q(x)$. [\textit{Hint}: Theorem~\ref{thm:029359}.]
+
+\begin{sol}
+Let $B_{1}$ be a basis of $U$ and extend it to a basis $B$ of $V$. Then $M_B(T) = \leftB \begin{array}{cc} M_{B_1}(T) & Y \\ 0 & Z \end{array} \rightB$, so $c_T(x) = \func{det } [xI - M_B(T)] = \func{det } [xI - M_{B_1}(T)]\func{det } [xI - Z] = c_{T1}(x)q(x)$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear operator where $\func{dim }V = n$. Show that $V$ has a basis of eigenvectors if and only if $V$ has a basis $B$ such that $M_{B}(T)$ is diagonal.
+\end{ex}
+
+\begin{ex}
+In each case, show that $T^{2} = 1$ and find (as in Example~\ref{exa:029759}) an ordered basis $B$ such that $M_{B}(T)$ has the given block form.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$ where $T(A) = A^T$, \\ $M_B(T) = \leftB \begin{array}{rr} I_3 & 0 \\ 0 & -1 \end{array} \rightB$
+
+\item $T : \vectspace{P}_3 \to \vectspace{P}_3$ where $T[p(x)] = p(-x)$, \\ $M_B(T) = \leftB \begin{array}{rr} I_2 & 0 \\ 0 & -I_2 \end{array} \rightB$
+
+\item $T : \mathbb{C} \to \mathbb{C}$ where $T(a + bi) = a - bi$, \\ $M_B(T) = \leftB \begin{array}{rr} 1 & 0 \\ 0 & -1 \end{array} \rightB$
+
+\item $T : \RR^3 \to \RR^3$ where \\ $T(a, b, c) = (-a + 2b + c, b + c, -c)$, \\$M_B(T) = \leftB \begin{array}{rr} 1 & 0 \\ 0 & -I_2 \end{array} \rightB$
+
+\item $T : V \to V$ where $T(\vect{v}) = -\vect{v}$, $\func{dim }V = n$, $M_{B}(T) = -I_{n}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T^{2}[p(x)] = p[-(-x)] = p(x)$, so $T^{2} = 1$; $B = \{1, x^{2};\ x, x^{3}\}$
+
+\setcounter{enumi}{3}
+\item $T^{2}(a, b, c) = T(-a + 2b + c, b + c, -c) = (a, b, c)$, so $T^{2} = 1$; $B = \{(1, 1, 0);\ (1, 0, 0), (0, -1, 2)\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex9_3_23}
+Let $U$ and $W$ denote subspaces of a vector space $V$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $V = U \oplus W$, define $T : V \to V$ by $T(\vect{v}) = \vect{w}$ where $\vect{v}$ is written (uniquely) as $\vect{v} = \vect{u} + \vect{w}$ with $\vect{u}$ in $U$ and $\vect{w}$ in $W$. Show that $T$ is a linear transformation, $U = \func{ker }T$, $W = \func{im }T$, and $T^{2} = T$.
+
+\item Conversely, if $T : V \to V$ is a linear transformation such that $T^{2} = T$, show that $V = \func{ker }T \oplus \func{im }T$. [\textit{Hint}: $\vect{v} - T(\vect{v})$ lies in $\func{ker }T$ for all $\vect{v}$ in $V$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Use the Hint and Exercise~\ref{ex:ex9_3_2}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear operator satisfying $T^{2} = T$ (such operators are called \textbf{idempotents}\index{linear operator!idempotents}\index{idempotents}). Define $U_{1} = \{\vect{v} \mid T(\vect{v}) = \vect{v}\}$, \\$U_{2} = \func{ker }T = \{\vect{v} \mid T(\vect{v}) = 0\}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $V = U_{1} \oplus U_{2}$.
+
+\item If $\func{dim }V = n$, find a basis $B$ of $V$ such that $M_B(T) = \leftB \begin{array}{rr} I_r & 0 \\ 0 & 0 \end{array} \rightB$, where $r = \func{rank }T$.
+
+\item If $A$ is an $n \times n$ matrix such that $A^{2} = A$, show that $A$ is similar to $\leftB \begin{array}{rr} I_r & 0 \\ 0 & 0 \end{array} \rightB$, where $r = \func{rank }A$. \newline [\textit{Hint}: Example~\ref{exa:029759}.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+In each case, show that $T^{2} = T$ and find (as in the preceding exercise) an ordered basis $B$ such that $M_{B}(T)$ has the form given ($0_{k}$ is the $k \times k$ zero matrix).
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \vectspace{P}_2 \to \vectspace{P}_2$ where\\ $T(a + bx + cx^2) = (a - b + c)(1 + x + x^2)$, \\ $M_B(T) = \leftB \begin{array}{cc} 1 & 0 \\ 0 & 0_2 \end{array} \rightB$
+
+
+\item $T : \RR^3 \to \RR^3$ where \\$T(a, b, c) = (a + 2b, 0, 4b + c)$, \\ $M_B(T) = \leftB \begin{array}{rr} I_2 & 0 \\ 0 & 0 \end{array} \rightB$
+
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$ where \\$T\leftB \begin{array}{rr} a & b \\ c & d \end{array} \rightB = \leftB \begin{array}{rr} -5 & -15 \\ 2 & 6 \end{array} \rightB\leftB \begin{array}{rr} a & b \\ c & d \end{array} \rightB$, \\ $M_B(T) = \leftB \begin{array}{cc} I_2 & 0 \\ 0 & 0_2 \end{array} \rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T^{2}(a, b, c) = T(a + 2b, 0, 4b + c) = (a + 2b, 0, 4b + c) = T(a, b, c)$, so $T^{2} = T$; $B = \{(1, 0, 0), (0, 0, 1);\ (2, -1, 4)\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be an operator satisfying $T^{2} = cT$, $c \neq 0$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $V = U \oplus \func{ker }T$, where \\$U = \{\vect{u} \mid T(\vect{u}) = c\vect{u}\}$. \newline [\textit{Hint}: Compute $T(\vect{v} - \frac{1}{c}T(\vect{v}))$.]
+
+\item If $\func{dim }V = n$, show that $V$ has a basis $B$ such that $M_B(T) = \leftB \begin{array}{rr} cI_r & 0 \\ 0 & 0 \end{array} \rightB$, where $r = \func{rank }T$.
+
+\item If $A$ is any $n \times n$ matrix of $\func{rank }r$ such that\\ $A^{2} = cA$, $c \neq 0$, show that $A$ is similar to $\leftB \begin{array}{rr} cI_r & 0 \\ 0 & 0 \end{array} \rightB$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be an operator such that $T^{2} = c^{2}$, $c \neq 0$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $V = U_{1} \oplus U_{2}$, where\\ $U_{1} = \{\vect{v} \mid T(\vect{v}) = c\vect{v}\}$ and $U_{2} = \{\vect{v} \mid T(\vect{v}) = -c\vect{v}\}$. [\textit{Hint}: $\vect{v} = \frac{1}{2c} \{[T(\vect{v}) + c\vect{v}] - [T(\vect{v}) - c\vect{v}]\}$.]
+
+\item If $\func{dim }V = n$, show that $V$ has a basis $B$ such that $M_B(T) = \leftB \begin{array}{cc} cI_k & 0 \\ 0 & -cI_{n-k} \end{array} \rightB$ for some $k$.
+
+\item If $A$ is an $n \times n$ matrix such that $A^{2} = c^{2}I$, $c \neq 0$, show that $A$ is similar to $\leftB \begin{array}{cc} cI_k & 0 \\ 0 & -cI_{n-k} \end{array} \rightB$ for some $k$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $P$ is a fixed $n \times n$ matrix, define $T : \vectspace{M}_{nn} \to \vectspace{M}_{nn}$ by $T(A) = PA$. Let $U_{j}$ denote the subspace of $\vectspace{M}_{nn}$ consisting of all matrices with all columns zero except possibly column $j$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that each $U_{j}$ is $T$-invariant.
+
+\item Show that $\vectspace{M}_{nn}$ has a basis $B$ such that $M_{B}(T)$ is block diagonal with each block on the diagonal equal to $P$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $V$ be a vector space. If $f : V \to \RR$ is a linear transformation and $\vect{z}$ is a vector in $V$, define $T_{f,\vect{z}} : V \to V$ by $T_{f,\vect{z}}(\vect{v}) = f(\vect{v})\vect{z}$ for all $\vect{v}$ in $V$. Assume that $f \neq 0$ and $\vect{z} \neq \vect{0}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T_{f,\vect{z}}$ is a linear operator of $\func{rank }1$.
+
+\item If $f \neq 0$, show that $T_{f,\vect{z}}$ is an idempotent if and only if $f(\vect{z}) = 1$. (Recall that $T : V \to V$ is called an idempotent if $T^{2} = T$.)
+
+\item Show that every idempotent $T : V \to V$ of $\func{rank }1$ has the form $T = T_{f,\vect{z}}$ for some $f : V \to \RR$ and some $\vect{z}$ in $V$ with $f(\vect{z}) = 1$. [\textit{Hint}: Write \\ $\func{im }T = \RR\vect{z}$ and show that $T(\vect{z}) = \vect{z}$. Then use Exercise~\ref{ex:ex9_3_23}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T_{f,\vect{z}}[T_{f,\vect{z}}(\vect{v})] = T_{f,\vect{z}}[f(\vect{v})\vect{z}] = f[f(\vect{v})\vect{z}]\vect{z} = f(\vect{v})\{f[\vect{z}]\vect{z}\} = f(\vect{v})f(\vect{z})\vect{z}$. This equals $T_{f,\vect{z}}(\vect{v}) = f(\vect{v})\vect{z}$ for all $\vect{v}$ if and only if $f(\vect{v})f(\vect{z}) = f(\vect{v})$ for all $\vect{v}$. Since $f \neq 0$, this holds if and only if $f(z) = 1$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U$ be a fixed $n \times n$ matrix, and consider the operator $T : \vectspace{M}_{nn} \to \vectspace{M}_{nn}$ given by $T(A) = UA$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\lambda$ is an eigenvalue of $T$ if and only if it is an eigenvalue of $U$.
+
+\item If $\lambda$ is an eigenvalue of $T$, show that $E_{\lambda}(T)$ consists of all matrices whose columns lie in $E_{\lambda}(U)$: \\$E_{\lambda}(T) \\ \hspace*{1em}= \{ \leftB \begin{array}{cccc} P_1 & P_2 & \cdots & P_n \end{array} \rightB \mid P_i \mbox{ in } E_{\lambda}(U) \mbox{ for each } i \}$
+
+\item Show if $\func{dim}[E_{\lambda}(U)] = d$, then $\func{dim}[E_{\lambda}(T)] = nd$. [\textit{Hint}: If $B = \{\vect{x}_{1}, \dots, \vect{x}_{d}\}$ is a basis of $E_{\lambda}(U)$, consider the set of all matrices with one column from $B$ and the other columns zero.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item If $A = \leftB \begin{array}{cccc} \vect{p}_{1} & \vect{p}_2 & \cdots & \vect{p}_{n} \end{array} \rightB$ where $U\vect{p}_{i} = \lambda\vect{p}_{i}$ for each $i$, then $UA = \lambda A$. Conversely, $UA = \lambda A$ means that $U\vect{p} = \lambda\vect{p}$ for every column $\vect{p}$ of $A$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear operator where $V$ is finite dimensional. If $U \subseteq V$ is a subspace, let $\overline{U} = \{ \vect{u}_0 + T(\vect{u}_1) + T^2(\vect{u}_2) + \cdots + T^k(\vect{u}_k) \mid \vect{u}_i \mbox{ in } U, k \geq 0 \}$. Show that $\overline{U}$ is the smallest $T$-invariant subspace containing $U$ (that is, it is $T$-invariant, contains $U$, and is contained in every such subspace).
+\end{ex}
+
+\begin{ex}
+Let $U_{1}, \dots, U_{m}$ be subspaces of $V$ and assume that $V = U_{1} + \cdots + U_{m}$; that is, every $\vect{v}$ in $V$ can be written (in at least one way) in the form $\vect{v} = \vect{u}_{1} + \cdots + \vect{u}_{m}$, $\vect{u}_{i}$ in $U_{i}$. Show that the following conditions are equivalent.
+
+
+\begin{enumerate}[label={\roman*.}]
+\item If $\vect{u}_{1} + \cdots + \vect{u}_{m} = \vect{0}$, $\vect{u}_{i}$ in $U_{i}$, then $\vect{u}_{i} = \vect{0}$ for each $i$.
+
+\item If $\vect{u}_{1} + \cdots + \vect{u}_{m} = \vect{u}^{\prime}_{1} + \cdots + \vect{u}^{\prime}_{m}$, $\vect{u}_{i}$ and $\vect{u}^{\prime}_{i}$ in $U_{i}$, then $\vect{u}_{i} = \vect{u}^{\prime}_{i}$ for each $i$.
+
+\item $U_{i} \cap (U_{1} + \cdots + U_{i-1} + U_{i+1} + \cdots + U_{m}) = \{\vect{0}\}$ for each $i = 1, 2, \dots, m$.
+
+\item $U_{i} \cap (U_{i+1} + \cdots + U_{m}) = \{\vect{0}\}$ for each \\ $i = 1, 2, \dots, m - 1$.
+
+\end{enumerate}
+
+When these conditions are satisfied, we say that $V$ is the \textbf{direct sum}\index{direct sum} of the subspaces $U_{i}$, and write \\ $V = U_{1} \oplus U_{2} \oplus \cdots \oplus U_{m}$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Let $B$ be a basis of $V$ and let $B = B_{1} \cup B_{2} \cup \cdots  \cup B_{m}$ where the $B_{i}$ are pairwise disjoint, nonempty subsets of $B$. If $U_{i} = \func{span }B_{i}$ for each $i$, show that $V = U_{1} \oplus U_{2} \oplus \cdots \oplus U_{m}$ (preceding exercise).
+
+\item Conversely if $V = U_{1} \oplus \cdots \oplus U_{m}$ and $B_{i}$ is a basis of $U_{i}$ for each $i$, show that $B = B_{1} \cup \cdots \cup B_{m}$ is a basis of $V$ as in (a).
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $T: V \to V$ be an operator where $T^3=0$. If $\vect{u} \in V$ and $U = \func{span}\{\vect{u},T(\vect{u}), T^2(\vect{u})\}$, show that $U$ is $T$-invariant and has dimension $3$. 
+\end{ex}
+\end{multicols}

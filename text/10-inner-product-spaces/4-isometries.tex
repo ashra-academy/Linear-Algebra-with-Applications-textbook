@@ -1,0 +1,938 @@
+\section{Isometries}
+\label{sec:10_4}\index{distance preserving isometries}\index{inner product space!isometries}\index{isometries}\index{linear operator!distance preserving isometries}
+
+We saw in Section~\ref{sec:2_6} that rotations about the origin and reflections in a line through the origin are linear operators on $\RR^2$. Similar geometric arguments (in Section~\ref{sec:4_4}) establish that, in $\RR^3$, rotations about a line through the origin and reflections in a plane through the origin are linear. We are going to give an algebraic proof 
+of these results that is valid in any inner product space. The key observation is that reflections and rotations are distance preserving in the following sense. If $V$ is an inner product space, a transformation $S : V \to V$ (not necessarily linear) is said to be \textbf{distance preserving}\index{distance preserving} if the distance between $S(\vect{v})$ and $S(\vect{w})$ is the same as the distance between $\vect{v}$ and $\vect{w}$ for all vectors $\vect{v}$ and $\vect{w}$; more formally, if
+\begin{equation}
+\label{eq:distance_preserving}
+\vectlength S(\vect{v}) - S(\vect{w}) \vectlength = \vectlength \vect{v} - \vect{w} \vectlength \quad \mbox{for all } \vect{v} \mbox{ and } \vect{w} \mbox{ in } V
+\end{equation}
+Distance-preserving maps need not be linear. For example, if $\vect{u}$ is any vector in $V$, the transformation $S_{\vect{u}} : V \to V$ defined by $S_{\vect{u}}(\vect{v}) = \vect{v} + \vect{u}$ for all $\vect{v}$ in $V$ is called \textbf{translation}\index{translation} by $\vect{u}$, and it is routine to verify that $S_{\vect{u}}$ is distance preserving for any $\vect{u}$. However, $S_{\vect{u}}$ is linear only if $\vect{u} = \vect{0}$ (since then $S_{\vect{u}}(\vect{0}) = \vect{0}$). Remarkably, distance-preserving operators that do fix the origin are necessarily linear.
+
+\begin{lemma}{}{032019}
+Let $V$ be an inner product space of dimension $n$, and consider a distance-preserving transformation $S : V \to V$. If $S(\vect{0}) = \vect{0}$, then $S$ is linear.
+\end{lemma}
+
+\begin{proof}
+We have $\vectlength S(\vect{v}) - S(\vect{w})\vectlength^{2} = \vectlength\vect{v} - \vect{w}\vectlength^{2}$ for all $\vect{v}$ and $\vect{w}$ in $V$ by (\ref{eq:distance_preserving}), which gives
+\begin{equation}
+\label{eq:lemma1_proof}
+\langle S(\vect{v}), S(\vect{w}) \rangle = \langle \vect{v}, \vect{w} \rangle \quad \mbox{ for all } \vect{v} \mbox{ and } \vect{w} \mbox{ in } V
+\end{equation}
+Now let $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ be an orthonormal basis of $V$. Then $\{S(\vect{f}_{1}), S(\vect{f}_{2}), \dots, S(\vect{f}_{n})\}$ is orthonormal by (\ref{eq:lemma1_proof}) and so is a basis because $\func{dim} V = n$. Now compute:
+\begin{align*}
+\langle S(\vect{v} + \vect{w}) - S(\vect{v}) - S(\vect{w}), S(\vect{f}_i) \rangle 
+&= \langle S(\vect{v} + \vect{w}), S(\vect{f}_i) \rangle - \langle S(\vect{v}), S(\vect{f}_i) \rangle - \langle S(\vect{w}), S(\vect{f}_i) \rangle \\
+&= \langle \vect{v} + \vect{w}, \vect{f}_i \rangle - \langle \vect{v}, \vect{f}_i \rangle - \langle \vect{w}, \vect{f}_i \rangle \\
+&= 0
+\end{align*}
+for each $i$. It follows from the expansion theorem (Theorem~\ref{thm:030904}) that $S(\vect{v} + \vect{w}) - S(\vect{v}) - S(\vect{w}) = 0$; that is, $S(\vect{v} + \vect{w}) = S(\vect{v}) + S(\vect{w})$. A similar argument shows that $S(a\vect{v}) = aS(\vect{v})$ holds for all $a$ in $\RR$ and $\vect{v}$ in $V$, so $S$ is linear after all.
+\end{proof}
+
+\begin{definition}{Isometries}{032036}
+Distance-preserving linear operators are called \textbf{isometries}\index{isometries}\index{linear operator!isometries}.
+\end{definition}
+
+It is routine to verify that the composite of two distance-preserving transformations is again distance preserving. In particular the composite of a translation and an isometry is distance preserving. Surprisingly, the converse is true.
+
+\begin{theorem}{}{032040}
+If $V$ is a finite dimensional inner product space, then every distance-preserving transformation $S : V \to V$ is the composite of a translation and an isometry.
+\end{theorem}
+
+\begin{proof}
+If $S : V \to V$ is distance preserving, write $S(\vect{0}) = \vect{u}$ and define $T : V \to V$ by $T(\vect{v}) = S(\vect{v}) - \vect{u}$ for all $\vect{v}$ in $V$. Then 
+$\vectlength T(\vect{v}) - T(\vect{w})\vectlength = \vectlength\vect{v} - \vect{w}\vectlength$ for all vectors $\vect{v}$ and $\vect{w}$ in $V$ as the reader can verify; that is, $T$ is
+distance preserving. Clearly, $T(\vect{0}) = \vect{0}$, so it is an isometry by Lemma~\ref{lem:032019}. Since 
+\begin{equation*}
+S(\vect{v}) = \vect{u} + T(\vect{v}) = (S_{\vect{u}} \circ T)(\vect{v}) \quad \mbox{for all } \vect{v} \mbox{ in } V
+\end{equation*}
+we have $S = S_{\vect{u}} \circ T$, and the theorem is proved.
+\end{proof}
+
+\noindent In Theorem~\ref{thm:032040}, $S = S_{\vect{u}} \circ T$ factors as the composite of an isometry $T$ followed by a translation $S_{\vect{u}}$. More is true: this factorization is unique in that $\vect{u}$ and $T$ are uniquely determined by $S$; and $\vect{w} \in V$ exists such that $S = T \circ S_{\vect{w}}$ is uniquely the composite of translation by $\vect{w}$ followed by the same isometry $T$ (Exercise \ref{ex:10_4_12}).
+
+Theorem~\ref{thm:032040} focuses our attention on the isometries, and the next theorem shows 
+that, while they preserve distance, they are characterized as those operators that preserve other properties.
+
+
+\begin{theorem}{}{032053}
+Let $T : V \to V$ be a linear operator on a finite dimensional inner product space $V$.
+
+The following conditions are equivalent:
+
+\tabulinesep=1.2mm
+\begin{tabu}{lll}
+1. & $T$ is an isometry. & ($T$ preserves distance) \\
+2. & $\vectlength T(\vect{v})\vectlength = \vectlength\vect{v}\vectlength$ for all $\vect{v}$ in $V$. & ($T$ preserves norms) \\
+3. & $\langle T(\vect{v}), T(\vect{w}) \rangle = \langle\vect{v}, \vect{w} \rangle $ for all $\vect{v}$ and $\vect{w}$ in $V$. & ($T$ preserves inner products) \\
+4. & If $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ is an orthonormal basis of $V$, & \\
+ & then $\{T(\vect{f}_1), T(\vect{f}_2), \dots, T(\vect{f}_n) \}$ is also an orthonormal basis. & ($T$ preserves orthonormal bases) \\
+5. & \multicolumn{2}{l}{$T$ carries some orthonormal basis to an orthonormal basis.} 
+\end{tabu}
+\end{theorem}
+
+\begin{proof}
+(1) $\Rightarrow$ (2). Take $\vect{w} = \vect{0}$ in (\ref{eq:distance_preserving}).
+
+(2) $\Rightarrow$ (3). Since $T$ is linear, (2) gives $\vectlength
+T(\vect{v}) - T(\vect{w})\vectlength^{2} = \vectlength T(\vect{v} - \vect{w})\vectlength^{2} = \vectlength\vect{v} - \vect{w}\vectlength^{2}$. Now (3) follows.
+
+(3) $\Rightarrow$ (4). By (3), $\{T(\vect{f}_{1}), T(\vect{f}_{2}), \dots, T(\vect{f}_{n})\}$ is orthogonal and $\vectlength T(\vect{f}_{i})\vectlength^{2} = \vectlength\vect{f}_{i}\vectlength^{2} = 1$. Hence it is a basis because $\func{dim} V = n$.
+
+(4) $\Rightarrow$ (5). This needs no proof.
+
+(5) $\Rightarrow$ (1). By (5), let $\{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ be an orthonormal basis of $V$ such that$\{T(\vect{f}_{1}), \dots, T(\vect{f}_{n})\}$ is also orthonormal. Given $\vect{v} = v_{1}\vect{f}_{1} + \dots + v_{n}\vect{f}_{n}$ in $V$, we have $T(\vect{v}) = v_{1}T(\vect{f}_{1}) + \dots + v_{n}T(\vect{f}_{n})$ so Pythagoras' theorem gives
+\begin{equation*}
+\vectlength T(\vect{v}) \vectlength ^2 = v_1^2 + \dots + v_n^2 = \vectlength \vect{v} \vectlength ^2
+\end{equation*}
+Hence $\vectlength T(\vect{v})\vectlength = \vectlength\vect{v}\vectlength$ for all $\vect{v}$, and (1) follows by replacing $\vect{v}$ by $\vect{v} - \vect{w}$.
+\end{proof}
+
+Before giving examples, we note some consequences of Theorem~\ref{thm:032053}.
+
+\begin{corollary}{}{032106}
+Let $V$ be a finite dimensional inner product space.
+
+\begin{enumerate}
+\item Every isometry of $V$ is an isomorphism\index{isomorphism}.\footnotemark
+
+\item 
+\begin{enumerate}[label={\alph*.}]
+\item $1_{V} : V \to V$ is an isometry.
+
+\item The composite of two isometries of $V$ is an isometry.
+
+\item The inverse of an isometry of $V$ is an isometry.
+
+\end{enumerate}
+\end{enumerate}
+\end{corollary}
+\footnotetext{$V$ must be finite dimensional---see Exercise \ref{ex:10_4_13}.}
+
+\begin{proof}
+(1) is by (4) of Theorem~\ref{thm:032053} and Theorem~\ref{thm:022044}. (2a) is clear, and (2b) is left to the reader. If $T : V \to V$ is an isometry and $\{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ is an orthonormal basis of $V$, then (2c) follows because $T^{-1}$ carries the orthonormal basis $\{T(\vect{f}_{1}), \dots, T(\vect{f}_{n})\}$ back to $\{\vect{f}_{1}, \dots, \vect{f}_{n}\}$.
+\end{proof}
+
+The conditions in part (2) of the corollary assert that the set of isometries of a finite dimensional inner product space forms an algebraic system called a \textbf{group}\index{groups}. The theory of groups is well developed, and groups of operators are important in geometry. In fact, geometry itself can be fruitfully viewed as the study of those properties of a vector space that are preserved by a group of invertible linear operators.
+
+\begin{example}{}{032132}
+Rotations of $\RR^2$ about the origin are isometries, as are reflections in lines through the origin: They clearly preserve distance and so are linear by Lemma~\ref{lem:032019}. Similarly, rotations about lines through the origin and reflections in planes through the origin are isometries of $\RR^3$.
+\end{example}
+
+\begin{example}{}{032137}
+Let $T : \vectspace{M}_{nn} \to \vectspace{M}_{nn}$ be the transposition operator: $T(A) = A^{T}$. Then $T$ is an isometry if the inner product is 
+$ \langle A, B \rangle = \func{tr} (AB^T) = \displaystyle \sum_{i, j} a_{ij}b_{ij} $. In fact, $T$ permutes the basis consisting of all matrices with one entry $1$ and the other entries $0$.
+\end{example}
+
+The proof of the next result requires the fact (see Theorem~\ref{thm:032053}) that, if $B$ is an orthonormal basis, then $\langle\vect{v}, \vect{w} \rangle = C_{B}(\vect{v}) \dotprod C_{B}(\vect{w})$ for all vectors $\vect{v}$ and $\vect{w}$.
+
+\begin{theorem}{}{032147}
+Let $T : V \to V$ be an operator where $V$ is a finite dimensional inner product space. The following conditions are equivalent.
+
+\begin{enumerate}
+\item $T$ is an isometry.
+
+\item $M_{B}(T)$ is an orthogonal matrix for every orthonormal basis $B$.
+
+\item $M_{B}(T)$ is an orthogonal matrix for some orthonormal basis $B$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) $\Rightarrow$ (2). Let $B = \{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ be an orthonormal basis. Then the $j$th column of $M_{B}(T)$ is $C_{B}[T(\vect{e}_{j})]$, and we have
+\begin{equation*}
+C_B[T(\vect{e}_j)] \dotprod C_B[T(\vect{e}_k)] = \langle T(\vect{e}_j), T(\vect{e}_k) \rangle = \langle \vect{e}_j, \vect{e}_k \rangle
+\end{equation*}
+using (1). Hence the columns of $M_{B}(T)$ are orthonormal in $\RR^n$, which proves (2).
+
+(2) $\Rightarrow$ (3). This is clear.
+
+(3) $\Rightarrow$ (1). Let $B = \{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ be as in (3). Then, as before,
+\begin{equation*}
+\langle T(\vect{e}_j), T(\vect{e}_k) \rangle = C_B[T(\vect{e}_j)] \dotprod C_B[T(\vect{e}_k)]
+\end{equation*}
+so $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{n})\}$ is orthonormal by (3). Hence Theorem~\ref{thm:032053} gives (1).
+\end{proof}
+
+\noindent It is important that $B$ is \textit{orthonormal} in Theorem~\ref{thm:032147}. For example, $T : V \to V$ given by $T(\vect{v}) = 2\vect{v}$ preserves \textit{orthogonal} sets but is not an isometry, as is easily checked.
+
+If $P$ is an orthogonal square matrix, then $P^{-1} = P^{T}$. Taking determinants yields $(\func{det} P)^{2} = 1$, so $\func{det} P = \pm 1$. Hence:
+
+\begin{corollary}{}{032182}
+If $T : V \to V$ is an isometry where $V$ is a finite dimensional inner product space, then $\func{det} T = \pm 1$.
+\end{corollary}
+
+\begin{example}{}{032185}
+If $A$ is any $n \times n$ matrix, the matrix operator $T_{A}: \RR^n \to \RR^n$ is an isometry if and only if $A$ is orthogonal using the dot product in $\RR^n$. Indeed, if $E$ is the standard basis of $\RR^n$, then $M_{E}(T_{A}) = A$ by Theorem~\ref{thm:028841}.
+\end{example}
+
+Rotations and reflections that fix the origin are isometries in $\RR^2$ and $\RR^3$ (Example~\ref{exa:032132}); we are going to show that these isometries (and compositions of them in $\RR^3$) are the only possibilities. In fact, this will follow from a general structure theorem for isometries. Surprisingly enough, much of the work involves the two--dimensional case.\index{reflections!isometries}\index{rotations!isometries}
+
+\begin{theorem}{}{032199}
+Let $T : V \to V$ be an isometry on the two-dimensional inner product space $V$. Then there are two possibilities.
+
+Either \quad {\normalfont (1)} There is an orthonormal basis $B$ of $V$ such that
+\begin{equation*}
+M_B(T) = 
+\leftB \begin{array}{rr}
+\cos \theta & - \sin \theta \\
+\sin \theta & \cos \theta
+\end{array} \rightB, \ 0 \leq \theta < 2\pi
+\end{equation*}
+or \quad \quad {\normalfont (2)} There is an orthonormal basis $B$ of $V$ such that
+\begin{equation*}
+M_B(T) = 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB
+\end{equation*}
+Furthermore, type {\normalfont (1)} occurs if and only if $\func{det} T = 1$, and type {\normalfont (2)} occurs if and only if $\func{det} T = -1$.
+\end{theorem}
+
+\begin{proof}
+The final statement follows from the rest because $\func{det} T = \func{det} [M_{B}(T)]$ for any basis $B$. Let \newline$B_{0} = \{\vect{e}_{1}, \vect{e}_{2}\}$ be any ordered orthonormal basis of $V$ and write
+\begin{equation*}
+A = M_{B_0}(T) = 
+\leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB; \mbox{ that is, }
+\begin{array}{l}
+T(\vect{e}_1) = a \vect{e}_1 + c \vect{e}_2 \\
+T(\vect{e}_2) = b \vect{e}_1 + d \vect{e}_2 \\
+\end{array}
+\end{equation*}
+Then $A$ is orthogonal by Theorem~\ref{thm:032147}, so its columns (and rows) are orthonormal. Hence 
+\begin{equation*}
+a^{2} + c^{2} = 1 = b^{2} + d^{2}
+\end{equation*}
+so $(a, c)$ and $(d, b)$ lie on the unit circle. Thus angles $\theta$ and $\varphi$ exist such that
+\begin{equation*}
+\begin{array}{lll}
+a = \cos \theta, 	& c = \sin \theta 	& 0 \leq \theta < 2 \pi \\
+d = \cos \varphi,	& b = \sin \varphi 	& 0 \leq \varphi < 2 \pi 
+\end{array}
+\end{equation*}
+Then $\sin(\theta + \varphi) = cd + ab = 0$ because the columns of $A$ are orthogonal, so $\theta + \varphi = k\pi$ for some integer $k$. This gives $d = \cos(k\pi - \theta) = (-1)^{k} \cos \theta$ and $b = \sin(k\pi - \theta) = (-1)^{k+1} \sin \theta$. Finally
+\begin{equation*}
+A = 
+\leftB \begin{array}{cc}
+\cos \theta & (-1)^{k + 1} \sin \theta \\
+\sin \theta & (-1)^k \cos \theta
+\end{array} \rightB
+\end{equation*}
+If $k$ is even we are in type (1) with $B = B_{0}$, so assume $k$ is odd. Then $A = \leftB \begin{array}{rr}
+a & c \\
+c & -a
+\end{array} \rightB$. If $a = -1$ and $c = 0$, we are in type (1) with $B = \{\vect{e}_{2}, \vect{e}_{2}\}$. Otherwise $A$ has eigenvalues $\lambda_{1} = 1$ and $\lambda_{2} = -1$ with corresponding eigenvectors $\vect{x}_1 = 
+\leftB \begin{array}{c}
+1 + a \\
+c
+\end{array} \rightB$ and $\vect{x}_2 = 
+\leftB \begin{array}{c}
+-c \\
+1 + a
+\end{array} \rightB$ as the reader can verify. Write
+\begin{equation*}
+\vect{f}_1 = (1 + a)\vect{e}_1 + c\vect{e}_2 \quad \mbox{ and } \quad \vect{f}_2 = -c\vect{e}_2 + (1 + a)\vect{e}_2
+\end{equation*}
+Then $\vect{f}_{1}$ and $\vect{f}_{2}$ are orthogonal (verify) and $C_{B_0}(\vect{f}_i) = C_{B_0}(\lambda_i \vect{f}_i) = \vect{x}_i $ for each $i$. Moreover
+\begin{equation*}
+C_{B_0} [T(\vect{f}_i)] = AC_{B_0}(\vect{f}_i) = A \vect{x}_i = \lambda_i \vect{x}_i = \lambda_i C_{B_0}(\vect{f}_i) = C_{B_0}(\lambda_i \vect{f}_i)
+\end{equation*}
+so $T(\vect{f}_{i}) = \lambda_{i}\vect{f}_{i}$ for each $i$. Hence $M_B(T) = 
+\leftB \begin{array}{cc}
+\lambda_1 & 0 \\
+0 & \lambda_2
+\end{array} \rightB
+=
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB$ and we are in type (2) with \newline $B = \left\{\frac{1}{\vectlength \vect{f}_1 \vectlength} \vect{f}_1, \frac{1}{\vectlength \vect{f}_2 \vectlength} \vect{f}_2 \right\}$.
+\end{proof}
+
+\begin{corollary}{}{032250}
+An operator $T : \RR^2 \to \RR^2$ is an isometry if and only if $T$ is a rotation or a reflection.
+\end{corollary}
+
+\noindent In fact, if $E$ is the standard basis of $\RR^2$, then the clockwise rotation $R_{\theta}$ about the origin through an angle $\theta$ has matrix
+\begin{equation*}
+M_E(R_\theta) = 
+\leftB \begin{array}{rr}
+\cos \theta & - \sin \theta \\
+\sin \theta & \cos \theta
+\end{array} \rightB
+\end{equation*}
+(see Theorem~\ref{thm:006021}). On the other hand, if $S : \RR^2 \to \RR^2$ is the reflection in a line through the origin (called the \textbf{fixed line}\index{reflections!fixed line}\index{line!fixed line}\index{fixed line} of the reflection), let $\vect{f}_{1}$ be a unit vector pointing along the fixed line and let $\vect{f}_{2}$ be a unit vector perpendicular to the fixed line. Then $B = \{\vect{f}_{1}, \vect{f}_{2}\}$ is an orthonormal basis, $S(\vect{f}_{1}) = \vect{f}_{1}$ and $S(\vect{f}_{2}) = -\vect{f}_{2}$, so
+\begin{equation*}
+M_B(S) = 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB
+\end{equation*}
+Thus $S$ is of type 2. Note that, in this case, $1$ is an eigenvalue of $S$, and any eigenvector corresponding to $1$ is a direction vector for the fixed line.
+
+\begin{example}{}{032272}
+In each case, determine whether $T_{A} : \RR^2 \to \RR^2$ is a rotation or a reflection, and then find the angle or fixed line:
+\begin{equation*}
+\begin{array}{lcl}
+	\mbox{(a) } A = 
+	\frac{1}{2}
+	\leftB \begin{array}{rr}
+	1 & \sqrt{3} \\
+	-\sqrt{3} & 1
+	\end{array} \rightB & \quad &
+	\mbox{(b) } A =
+	\frac{1}{5}
+	\leftB \begin{array}{rr}
+	-3 & 4 \\
+	4 & 3
+	\end{array} \rightB
+\end{array}
+\end{equation*}
+\begin{solution}
+Both matrices are orthogonal, so (because $M_{E}(T_{A}) = A$, where $E$ is the standard basis) $T_{A}$ is an isometry in both cases. In the first case, $\func{det} A = 1$, so $T_{A}$ is a counterclockwise rotation through $\theta$, where $\cos \theta = \frac{1}{2}$ and $\sin \theta = - \frac{\sqrt{3}}{2}$. Thus $\theta = - \frac{\pi}{3}$. In (b), $\func{det} A = -1$, so $T_{A}$ is a reflection in this case. We verify that $\vect{d} = \leftB \begin{array}{r}
+1 \\
+2
+\end{array} \rightB$ is an eigenvector corresponding to the eigenvalue $1$. Hence the fixed line $\RR\vect{d}$ has equation $y = 2x$.
+\end{solution}
+\end{example}
+
+We now give a structure theorem for isometries. The proof requires three preliminary results, each of interest in its own right.\index{structure theorem}
+
+\begin{lemma}{}{032292}
+Let $T : V \to V$ be an isometry of a finite dimensional inner product space $V$. If $U$ is a $T$-invariant subspace of $V$, then $U^{\perp}$ is also $T$-invariant.
+\end{lemma}
+
+\begin{proof}
+Let $\vect{w}$ lie in $U^{\perp}$. We are to prove that $T(\vect{w})$ is also in $U^{\perp}$; that is, $\langle T(\vect{w}), \vect{u} \rangle = 0$ for all $\vect{u}$ in $U$. At this point, observe that the restriction of $T$ to $U$ is an isometry $U \to U$ and so is an isomorphism by the corollary to Theorem~\ref{thm:032053}. In particular, each $\vect{u}$ in $U$ can be written in the form $\vect{u} = T(\vect{u}_{1})$ for some $\vect{u}_{1}$ in $U$, so
+\begin{equation*}
+\langle T(\vect{w}), \vect{u} \rangle = \langle T(\vect{w}), T(\vect{u}_1) \rangle = \langle \vect{w}, \vect{u}_1 \rangle = 0
+\end{equation*}
+because $\vect{w}$ is in $U^{\perp}$. This is what we wanted.
+\end{proof}
+
+To employ Lemma~\ref{lem:032292} above to analyze an isometry $T : V \to V$ when $\func{dim} V = n$, it is necessary to show that a $T$-invariant subspace $U$ exists such that $U \neq 0$ and $U \neq V$. We will show, in fact, that such a subspace $U$ can always be found of dimension $1$ or $2$. If $T$ has a real eigenvalue $\lambda$ then $\RR\vect{u}$ is $T$-invariant where $\vect{u}$ is any $\lambda$-eigenvector. But, in case (1) of Theorem~\ref{thm:032199}, the eigenvalues of $T$ are $e^{i\theta}$ and $e^{-i\theta}$ (the reader should check this), and these are nonreal if $\theta \neq 0$ and $\theta \neq \pi$. It turns out that every complex eigenvalue $\lambda$ of $T$ has absolute value $1$ (Lemma~\ref{lem:032309} below); and that $U$ has a $T$-invariant subspace of dimension $2$ if $\lambda$ is not real (Lemma~\ref{lem:032323}).
+
+\begin{lemma}{}{032309}
+Let $T : V \to V$ be an isometry of the finite dimensional inner product space $V$. If $\lambda$ is a complex eigenvalue of $T$, then $|\lambda| = 1$.
+\end{lemma}
+
+\begin{proof}
+Choose an orthonormal basis $B$ of $V$, and let $A = M_{B}(T)$. Then $A$ is a real orthogonal matrix so, using the standard inner product $ \langle \vect{x}, \vect{y} \rangle = \vect{x}^T \overline{\vect{y}} $ in $\mathbb{C}$, we get
+\begin{equation*}
+\vectlength A\vect{x} \vectlength ^2 = (A\vect{x})^T(\overline{A\vect{x}}) = \vect{x}^T A^T \overline{A\vect{x}} = \vect{x}^TI\vect{x} = \vectlength \vect{x} \vectlength ^2
+\end{equation*}
+for all $\vect{x}$ in $\mathbb{C}^n$. But $A\vect{x} = \lambda\vect{x}$ for some $\vect{x} \neq \vect{0}$, whence $\vectlength\vect{x}\vectlength^{2} = \vectlength\lambda\vect{x}\vectlength^{2} = |\lambda|^{2}\vectlength\vect{x}\vectlength^{2}$. This gives $|\lambda| = 1$, as required.
+\end{proof}
+
+\begin{lemma}{}{032323}
+Let $T : V \to V$ be an isometry of the $n$-dimensional inner product space $V$. If $T$ has a nonreal eigenvalue, then $V$ has a two-dimensional $T$-invariant subspace.
+\end{lemma}
+
+\begin{proof}
+Let $B$ be an orthonormal basis of $V$, let $A = M_{B}(T)$, and (using Lemma~\ref{lem:032309}) let $\lambda = e^{i\alpha}$ be a nonreal eigenvalue of $A$, say $A\vect{x} = \lambda\vect{x}$ where $\vect{x} \neq \vect{0}$ in $\mathbb{C}^n$. Because $A$ is real, complex conjugation gives $A\overline{\vect{x}} = \overline{\lambda} \overline{\vect{x}}$, so $ \overline{\lambda} $ is also an eigenvalue. Moreover $ \lambda \neq \overline{\lambda} $ ($\lambda$ is nonreal), so $ \{\vect{x}, \overline{\vect{x}} \} $ is linearly independent in $\mathbb{C}^n$ (the argument in the proof of Theorem~\ref{thm:016090} works). Now define
+\begin{equation*}
+\vect{z}_1 = \vect{x} + \overline{\vect{x}} \quad \mbox{ and } \quad \vect{z}_2 = i(\vect{x} - \overline{\vect{x}})
+\end{equation*}
+Then $\vect{z}_{1}$ and $\vect{z}_{2}$ lie in $\RR^n$, and $\{\vect{z}_{1}, \vect{z}_{2}\}$ is linearly independent over $\RR$ because $ \{\vect{x}, \overline{\vect{x}} \} $ is linearly independent over $\mathbb{C}$. Moreover
+\begin{equation*}
+\vect{x} = \frac{1}{2} (\vect{z}_1 - i \vect{z}_2) \quad \mbox{ and } \quad \overline{\vect{x}} = \frac{1}{2} (\vect{z}_1 + i\vect{z}_2)
+\end{equation*}
+Now $ \lambda + \overline{\lambda} = 2 \cos \alpha $ and $ \lambda - \overline{\lambda} = 2i \sin \alpha$, and a routine computation gives
+\begin{align*}
+A \vect{z}_1 &= \vect{z}_1 \cos \alpha + \vect{z}_2 \sin \alpha \\
+A \vect{z}_2 &= -\vect{z}_1 \sin \alpha + \vect{z}_2 \cos \alpha
+\end{align*}
+Finally, let $\vect{e}_{1}$ and $\vect{e}_{2}$ in $V$ be such that $\vect{z}_{1} = C_{B}(\vect{e}_{1})$ and $\vect{z}_{2} = C_{B}(\vect{e}_{2})$. Then
+\begin{equation*}
+C_B[T(\vect{e}_1)] = AC_B(\vect{e}_1) = A\vect{z}_1 = C_B(\vect{e}_1 \cos \alpha + \vect{e}_2 \sin \alpha)
+\end{equation*}
+using Theorem~\ref{thm:027955}. Because $C_{B}$ is one-to-one, this gives the first of the following equations (the other is similar):
+\begin{align*}
+T(\vect{e}_1) &= \vect{e}_1 \cos \alpha + \vect{e}_2 \sin \alpha \\
+T(\vect{e}_2) &= -\vect{e}_1 \sin \alpha + \vect{e}_2 \cos \alpha
+\end{align*}
+Thus $U = \func{span}\{\vect{e}_{1}, \vect{e}_{2}\}$ is $T$-invariant and two-dimensional.
+\end{proof}
+
+We can now prove the structure theorem for isometries.
+
+\begin{theorem}{}{032367}
+Let $T : V \to V$ be an isometry of the $n$-dimensional inner product space $V$. Given an angle $\theta$, write $R(\theta) = 
+\leftB \begin{array}{rr}
+\cos \theta & - \sin \theta \\
+\sin \theta & \cos \theta
+\end{array} \rightB$. Then there exists an orthonormal basis $B$ of $V$ such that $M_{B}(T)$ has one of the following block diagonal forms, classified for convenience by whether $n$ is odd or even:
+\begin{align*}
+n &= 2k + 1  \quad
+\leftB \begin{array}{cccc}
+1 & 0 			& \cdots & 0 \\
+0 & R(\theta_1) & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & R(\theta_k)
+\end{array} \rightB \quad 
+\mbox{ or } \quad 
+\leftB \begin{array}{cccc}
+-1 & 0 			& \cdots & 0 \\
+0 & R(\theta_1) & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & R(\theta_k)
+\end{array} \rightB \\
+%row 2
+n &= 2k \quad 
+\leftB \begin{array}{cccc}
+R(\theta_1) & 0 			& \cdots & 0 \\
+0 & R(\theta_2) & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & R(\theta_k)
+\end{array} \rightB \quad
+\mbox{ or } \quad
+\leftB \begin{array}{ccccc}
+-1 & 0 & 0			& \cdots & 0 \\
+0 & 1 & 0 			& \cdots & 0 \\
+0 & 0 & R(\theta_1) & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 			& \cdots & R(\theta_{k - 1})
+\end{array} \rightB
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+We show first, by induction on $n$, that an orthonormal basis $B$ of $V$ can be found such that $M_{B}(T)$ is a block diagonal matrix of the following form:
+\begin{equation*}
+M_B(T) = 
+\leftB \begin{array}{ccccc}
+I_r & 0 & 0			& \cdots & 0 \\
+0 & -I_s & 0 			& \cdots & 0 \\
+0 & 0 & R(\theta_1) & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 			& \cdots & R(\theta_t)
+\end{array} \rightB
+\end{equation*}
+where the identity matrix $I_{r}$, the matrix $-I_{s}$, or the matrices $R(\theta_{i})$ may be missing. If $n = 1$ and $V = \RR\vect{v}$, this holds because $T(\vect{v}) = \lambda\vect{v}$ and
+$\lambda = \pm 1$ by Lemma~\ref{lem:032309}. If $n = 2$, this follows from Theorem~\ref{thm:032199}. If $n \geq 3$, either $T$ has a real eigenvalue and therefore has a one-dimensional $T$-invariant subspace $U = \RR\vect{u}$ for any eigenvector $\vect{u}$, or $T$ has no real eigenvalue and therefore has a two-dimensional $T$-invariant subspace $U$ by Lemma~\ref{lem:032323}. In either case $U^{\perp}$ is $T$-invariant (Lemma~\ref{lem:032292}) and $\func{dim} U^{\perp} = n - \func{dim} U < n$. Hence, by induction, let $B_{1}$ and $B_{2}$ be orthonormal bases of $U$ and $U^{\perp}$ such that $M_{B_1}(T)$ and $M_{B_2}(T)$ have the form given. Then $B = B_{1} \cup B_{2}$ is an orthonormal basis of $V$, and $M_{B}(T)$ has the desired form with a suitable ordering of the vectors in $B$.
+
+\noindent Now observe that $R(0) = 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB$ and $R(\pi) = 
+\leftB \begin{array}{rr}
+-1 & 0 \\
+0 & -1
+\end{array} \rightB$. It follows that an even number of $1$s or $-1$s can be written as $R(\theta_{1})$-blocks. Hence, with a suitable reordering of the basis $B$, the theorem follows.
+\end{proof}
+
+As in the dimension $2$ situation, these possibilities can be given a geometric interpretation when $V = \RR^3$ is taken as euclidean space. As before, this entails looking carefully at reflections and rotations in $\RR^3$. If $Q : \RR^3 \to \RR^3$ is any reflection in a plane through the origin (called the \textbf{fixed plane}\index{fixed plane}\index{reflections!fixed plane} of the reflection), take $\{\vect{f}_{2}, \vect{f}_{3}\}$ to be any orthonormal basis of the fixed plane and take $\vect{f}_{1}$ to be a unit vector perpendicular to the fixed plane. Then $Q(\vect{f}_{1}) = -\vect{f}_{1}$, whereas $Q(\vect{f}_{2}) = \vect{f}_{2}$ and $Q(\vect{f}_{3}) = \vect{f}_{3}$. Hence $B = \{\vect{f}_{1}, \vect{f}_{2}, \vect{f}_{3}\}$ is an orthonormal basis such that
+\begin{equation*}
+M_B(Q) =
+\leftB \begin{array}{rrr}
+-1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+Similarly, suppose that $R : \RR^3 \to \RR^3$ is any rotation about a line through the origin (called the \textbf{axis}\index{axis}\index{rotations!axis} of the rotation), and let $\vect{f}_{1}$ be a unit vector pointing along the axis, so $R(\vect{f}_{1}) = \vect{f}_{1}$. Now the plane through the origin perpendicular to the axis is an $R$-invariant subspace of $\RR^2$ of dimension $2$, and the restriction of $R$ to this plane is a rotation. Hence, by Theorem~\ref{thm:032199}, there is an orthonormal basis $B_{1} = \{\vect{f}_{2}, \vect{f}_{3}\}$ of this plane such that $M_{B_1}(R) = 
+\leftB \begin{array}{rr}
+\cos \theta & - \sin \theta \\
+\sin \theta & \cos \theta
+\end{array} \rightB$. But then $B = \{\vect{f}_{1}, \vect{f}_{2}, \vect{f}_{3}\}$ is an orthonormal basis of $\RR^3$ such that the matrix of $R$ is
+\begin{equation*}
+M_B(R) = 
+\leftB \begin{array}{ccc}
+1 & 0 & 0 \\
+0 & \cos \theta & - \sin \theta \\
+0 & \sin \theta & \cos \theta
+\end{array} \rightB
+\end{equation*}
+However, Theorem~\ref{thm:032367} shows that there are isometries $T$ in $\RR^3$ of a third type: those with a matrix of the form
+\begin{equation*}
+M_B(T) = 
+\leftB \begin{array}{ccc}
+-1 & 0 & 0 \\
+0 & \cos \theta & - \sin \theta \\
+0 & \sin \theta & \cos \theta
+\end{array} \rightB
+\end{equation*}
+If $B = \{\vect{f}_{1}, \vect{f}_{2}, \vect{f}_{3}\}$, let $Q$ be the reflection in the plane spanned by $\vect{f}_{2}$ and $\vect{f}_{3}$, and let $R$ be the rotation corresponding to $\theta$ about the line spanned by $\vect{f}_{1}$. Then $M_{B}(Q)$ and $M_{B}(R)$ are as above, and $M_{B}(Q) M_{B}(R) = M_{B}(T)$ as the reader can verify. This means that $M_{B}(QR) = M_{B}(T)$ by Theorem~\ref{thm:028640}, and this in turn implies that $QR = T$ because $M_{B}$ is one-to-one (see Exercise \ref{ex:9_1_26}). A similar argument shows that $RQ = T$, and we have Theorem~\ref{thm:032447}.
+
+\begin{theorem}{}{032447}
+If $T : \RR^3 \to \RR^3$ is an isometry, there are three possibilities.
+
+\begin{enumerate}[label={\alph*.}]
+\item $T$ is a rotation, and $M_B(T) = 
+\leftB \begin{array}{ccc}
+	1 & 0 & 0 \\
+	0 & \cos \theta & - \sin \theta \\
+	0 & \sin \theta & \cos \theta
+\end{array} \rightB$ for some orthonormal basis $B$.
+
+\item $T$ is a reflection, and $M_B(T) =
+\leftB \begin{array}{rrr}
+-1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$ for some orthonormal basis $B$.
+
+\item $T = QR = RQ$ where $Q$ is a reflection, $R$ is a rotation about an axis perpendicular to the fixed plane of $Q$ and $M_B(T) =
+\leftB \begin{array}{ccc}
+-1 & 0 & 0 \\
+0 & \cos \theta & - \sin \theta \\
+0 & \sin \theta & \cos \theta
+\end{array} \rightB$ for some orthonormal basis $B$.
+\end{enumerate}
+
+Hence $T$ is a rotation if and only if $\func{det} T = 1$.
+\end{theorem}
+
+\begin{proof}
+It remains only to verify the final observation that $T$ is a rotation if and only if $\func{det} T = 1$. But clearly $\func{det} T = -1$ in parts (b) and (c).
+\end{proof}
+
+A useful way of analyzing a given isometry $T : \RR^3 \to \RR^3$ comes from computing the eigenvalues of $T$. Because the characteristic polynomial of $T$ has degree $3$, it must have a real root. Hence, there must be at least one real eigenvalue, and the only possible real eigenvalues are $\pm 1$ by Lemma~\ref{lem:032309}. Thus Table~\ref{tab:10_4_1} includes all possibilities.
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:10_4_1}}
+\def\arraystretch{2}
+\begin{tabu}{|l|X|}
+	\hline
+	\multicolumn{1}{|c|}{\textbf{Eigenvalues of} $T$} & 
+	\multicolumn{1}{c|}{\textbf{Action of} $T$} \\ \hline
+	(1) $ 1 $, no other real eigenvalues & Rotation about the line $\RR \vect{f}$ where $\vect{f}$ is an eigenvector corresponding to $1$. [Case (a) of Theorem~\ref{thm:032447}.] \\
+	(2) $ -1 $, no other real eigenvalues & Rotation about the line $\RR \vect{f}$ followed by reflection in the plane $(\RR \vect{f})^\perp$ where $\vect{f} $ is an eigenvector corresponding to $-1$. [Case (c) of Theorem~\ref{thm:032447}.] \\
+	(3) $ -1, 1, 1 $ & Reflection in the plane $(\RR \vect{f})^\perp$ where $\vect{f}$ is an eigenvector corresponding to $-1$. [Case (b) of Theorem~\ref{thm:032447}.] \\
+	(4) $ 1, -1, -1 $ & This is as in (1) with a rotation of $\pi$. \\
+	(5) $ -1, -1, -1 $ & Here $T(\vect{x}) = -\vect{x}$ for all $x$. This is (2) with a rotation of $\pi$. \\
+	(6) $ 1, 1, 1 $ & Here $T$ is the identity isometry. \\ \hline
+\end{tabu}
+\end{table}
+
+\begin{example}{}{032496}
+Analyze the isometry $T : \RR^3 \to \RR^3$ given by $T
+\leftB \begin{array}{c}
+x \\
+y \\
+z
+\end{array} \rightB
+=
+\leftB \begin{array}{c}
+y \\
+z \\
+-x
+\end{array} \rightB$.
+
+\begin{solution}
+If $B_{0}$ is the standard basis of $\RR^3$, then $M_{B_0}(T) = 
+\leftB \begin{array}{rrr}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+-1 & 0 & 0
+\end{array} \rightB$, so $c_{T}(x) = x^{3} + 1 = (x + 1)(x^{2} - x + 1)$. This is (2) in Table~\ref{tab:10_4_1}. Write:
+\begin{equation*}
+\vect{f}_1 = \frac{1}{\sqrt{3}}
+\leftB \begin{array}{r}
+1 \\
+-1 \\
+1
+\end{array} \rightB
+\quad \vect{f}_2 = \frac{1}{\sqrt{6}}
+\leftB \begin{array}{rr}
+1 \\
+2 \\
+1
+\end{array} \rightB
+\quad \vect{f}_3 = \frac{1}{\sqrt{2}}
+\leftB \begin{array}{rr}
+1 \\
+0 \\
+-1
+\end{array} \rightB
+\end{equation*}
+Here $\vect{f}_{1}$ is a unit eigenvector corresponding to $\lambda_{1} = -1$, so $T$ is a rotation (through an angle $\theta$) about the line $L = \RR\vect{f}_{1}$, followed by reflection in the plane $U$ through the origin perpendicular to $\vect{f}_{1}$ (with equation $x - y + z = 0$). Then, $\{\vect{f}_{1}, \vect{f}_{2}\}$ is chosen as an orthonormal basis of $U$, so $B = \{\vect{f}_{1}, \vect{f}_{2}, \vect{f}_{3}\}$ is an orthonormal basis of $\RR^3$ and
+\begin{equation*}
+\def\arraystretch{1.5}
+M_B(T) = 
+\leftB \begin{array}{rrr}
+-1 & 0 & 0 \\
+ 0 & \frac{1}{2} & - \frac{\sqrt{3}}{2} \\
+ 0 & \frac{\sqrt{3}}{2} & \frac{1}{2} 
+\end{array} \rightB
+\end{equation*}
+Hence $\theta$ is given by $\cos \theta = \frac{1}{2}, \sin \theta = \frac{\sqrt{3}}{2}$, so $\theta = \frac{\pi}{3}$.
+\end{solution}
+\end{example}
+
+Let $V$ be an $n$-dimensional inner product space. A subspace of $V$ of dimension $n - 1$ is called a \textbf{hyperplane}\index{hyperplanes} in $V$. Thus the hyperplanes in $\RR^3$ and $\RR^2$ are, respectively, the planes and lines through the origin. Let $Q : V \to V$ be an isometry with matrix
+\begin{equation*}
+M_B(Q) =
+\leftB \begin{array}{rr}
+-1 & 0 \\
+0 & I_{n - 1}
+\end{array} \rightB
+\end{equation*}
+for some orthonormal basis $B = \{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$. Then $Q(\vect{f}_{1}) = -\vect{f}_{1}$ whereas $Q(\vect{u}) = \vect{u}$ for each $\vect{u}$ in $U = \func{span} \{\vect{f}_{2}, \dots, \vect{f}_{n}\}$. Hence $U$ is called the \textbf{fixed hyperplane}\index{reflections!fixed hyperplane}\index{fixed hyperplane} of $Q$, and $Q$ is called \textbf{reflection} in $U$. Note that each hyperplane in $V$ is the fixed hyperplane of a (unique) reflection of $V$. Clearly, reflections in $\RR^2$ and $\RR^3$ are reflections in this more general sense.
+
+Continuing the analogy with $\RR^2$ and $\RR^3$, an isometry $T : V \to V$ is called a \textbf{rotation}\index{rotation} if there exists an orthonormal basis $\{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ such that
+\begin{equation*}
+M_B(T) = \leftB \begin{array}{ccc}
+I_r & 0 & 0 \\
+0 & R(\theta) & 0 \\
+0 & 0 & I_s 
+\end{array} \rightB
+\end{equation*}
+in block form, where $R(\theta) = 
+\leftB \begin{array}{rr}
+\cos \theta & - \sin \theta \\
+\sin \theta & \cos \theta
+\end{array} \rightB$, and where either $I_{r}$ or $I_{s}$ (or both) may be missing. If
+$R(\theta)$ occupies columns $i$ and $i + 1$ of $M_{B}(T)$, and if $W = \func{span}\{\vect{f}_{i}, \vect{f}_{i+1}\}$, then $W$ is $T$-invariant and the matrix of $T : W \to W$ with respect to $\{\vect{f}_{i}, \vect{f}_{i+1}\}$ is $R(\theta)$. Clearly, if $W$ is
+viewed as a copy of $\RR^2$, then $T$ is a rotation in $W$. Moreover, $T(\vect{u}) = \vect{u}$ holds for all vectors $\vect{u}$ in the $(n - 2)$-dimensional subspace $U = \func{span}\{\vect{f}_{1}, \dots, \vect{f}_{i-1}, \vect{f}_{i+1}, \dots, \vect{f}_{n}\}$, and $U$ is called the \textbf{fixed axis}\index{rotations!fixed axis}\index{fixed axis} of the rotation $T$. In $\RR^3$, the axis of any rotation is a line (one-dimensional), whereas in $\RR^2$ the axis is $U = \{\vect{0}\}$.
+
+With these definitions, the following theorem is an immediate consequence of Theorem~\ref{thm:032367} (the details are left to the reader).
+
+\begin{theorem}{}{032570}
+Let $T : V \to V$ be an isometry of a finite dimensional inner product space $V$. Then there exist isometries $T_{1}, \dots, T$ such that
+\begin{equation*}
+T = T_k T_{k - 1} \cdots T_2 T_1
+\end{equation*}
+where each $T_{i}$ is either a rotation or a reflection, at most one is a reflection, and $T_{i}T_{j} = T_{j}T_{i}$ holds for all $i$ and $j$. Furthermore, $T$ is a composite of rotations if and only if $\func{det} T = 1$.
+\end{theorem}
+
+\section*{Exercises for \ref{sec:10_4}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:10_4}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\noindent Throughout these exercises, $V$ denotes a finite dimensional inner product space.
+
+\vspace{1em}
+\begin{ex}
+Show that the following linear operators are isometries.
+
+\begin{enumerate}[label={\alph*.}]
+\item $ T : \mathbb{C} \to \mathbb{C}$; $T(z) = \overline{z}$; $\langle z, w \rangle = \func{re}(z\overline{w}) $
+
+\item $ T : \RR^n \to \RR^n$; $T(a_1, a_2, \dots, a_n) \\ = (a_n, a_{n - 1}, \dots, a_2, a_1)$;  dot product
+
+\item $ T : \vectspace{M}_{22} \to \vectspace{M}_{22}$; $T
+\leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB
+=
+\leftB \begin{array}{rr}
+c & d \\
+b & a
+\end{array} \rightB$; $\langle A, B \rangle = \func{tr}(AB^T)$
+
+\item $ T : \RR^3 \to \RR^3$; $T(a, b, c) = \frac{1}{9}(2a + 2b -c, 2a + 2c - b, 2b + 2c - a)$; dot product
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+In each case, show that $T$ is an isometry of $\RR^2$, determine whether it is a rotation or a reflection, and find the angle or the fixed line. Use the dot product.
+\begin{exenumerate}
+\exitem $T
+\leftB \begin{array}{r}
+a \\
+b
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+-a \\
+b
+\end{array} \rightB$
+%b
+\exitem $T
+\leftB \begin{array}{r}
+a \\
+b
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+-a \\
+-b
+\end{array} \rightB$
+%c
+\exitem $T
+\leftB \begin{array}{r}
+a \\
+b
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+b \\
+-a
+\end{array} \rightB$
+%d
+\exitem $T
+\leftB \begin{array}{r}
+a \\
+b
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+-b \\
+-a
+\end{array} \rightB$
+%e
+\exitem* $T
+\leftB \begin{array}{r}
+a \\
+b
+\end{array} \rightB
+= \frac{1}{\sqrt{2}}
+\leftB \begin{array}{r}
+a + b \\
+b - a
+\end{array} \rightB$
+%f
+\exitem* $T
+\leftB \begin{array}{r}
+a \\
+b
+\end{array} \rightB
+= \frac{1}{\sqrt{2}}
+\leftB \begin{array}{r}
+a - b \\
+a + b 
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Rotation through $\pi$
+
+\setcounter{enumi}{3}
+\item  Reflection in the line $y = -x$
+
+\setcounter{enumi}{5}
+\item  Rotation through $ \frac{\pi}{4} $
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that $T$ is an isometry of $\RR^3$, determine the type (Theorem~\ref{thm:032447}), and find the axis of any rotations and the fixed plane of any reflections involved.
+\begin{exenumerate}
+\exitem* $T
+\leftB \begin{array}{r}
+a \\
+b \\
+c
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+a \\
+-b \\
+c
+\end{array} \rightB$
+%b
+\exitem* $T
+\leftB \begin{array}{r}
+a \\
+b \\
+c
+\end{array} \rightB
+= \frac{1}{2}
+\leftB \begin{array}{c}
+\sqrt{3} c - a \\
+\sqrt{3} a + c \\
+2b
+\end{array} \rightB$
+%c
+\exitem $T
+\leftB \begin{array}{r}
+a \\
+b \\
+c
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+b \\
+c \\
+a
+\end{array} \rightB$
+%d
+\exitem $T
+\leftB \begin{array}{r}
+a \\
+b \\
+c
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+a \\
+-b \\
+-c
+\end{array} \rightB$
+%e
+\exitem* $T
+\leftB \begin{array}{r}
+a \\
+b \\
+c
+\end{array} \rightB
+= \frac{1}{2}
+\leftB \begin{array}{c}
+a + \sqrt{3} b \\
+b - \sqrt{3} a \\
+2c
+\end{array} \rightB$
+%f
+\exitem* $T
+\leftB \begin{array}{r}
+a \\
+b \\
+c
+\end{array} \rightB
+= \frac{1}{\sqrt{2}}
+\leftB \begin{array}{c}
+a + c \\
+-\sqrt{2} b \\
+c - a
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+	\setcounter{enumi}{1}
+\item $ c_T(x) = (x - 1)(x^2 + \frac{3}{2}x + 1)$. If $ \vect{e} = 
+\leftB \begin{array}{ccc}
+1 & \sqrt{3} & \sqrt{3}
+\end{array} \rightB^T$, then $T$ is a rotation about $\RR\vect{e}$.
+
+\setcounter{enumi}{3}
+\item $c_{T}(x) = (x + 1)(x + 1)^{2}$. Rotation (of $\pi$) about the $x$ axis.
+
+\setcounter{enumi}{5}
+\item $ c_T(x) = (x + 1)(x^2 - \sqrt{2}x + 1) $. Rotation (of $-\frac{\pi}{4}$) about the $y$ axis followed by a reflection in the $x-z$ plane.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:10_4_4}
+Let $T : \RR^2 \to \RR^2$ be an isometry. A vector $\vect{x}$ in $\RR^2$ is said to be \textbf{fixed} by $T$ if $T(\vect{x}) = \vect{x}$. Let $E_{1}$ denote the set of all vectors in $\RR^2$ fixed by $T$. Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $E_{1}$ is a subspace of $\RR^2$.
+
+\item $E_{1} = \RR^2$ if and only if $T = 1$ is the identity map.
+
+\item $\func{dim} E_{1} = 1$ if and only if $T$ is a reflection (about the line $E_{1}$).
+
+\item $E_{1} = \{0\}$ if and only if $T$ is a rotation ($T \neq 1$).
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $T : \RR^3 \to \RR^3$ be an isometry, and let $E_{1}$ be the subspace of all fixed vectors\index{fixed vectors}\index{vectors!fixed vectors} in $\RR^3$ (see Exercise \ref{ex:10_4_4}). Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $E_{1} = \RR^3$ if and only if $T = 1$.
+
+\item $\func{dim} E_{1} = 2$ if and only if $T$ is a reflection (about the plane $E_{1}$).
+
+\item $\func{dim} E_{1} = 1$ if and only if $T$ is a rotation ($T \neq 1$) (about the line $E_{1}$).
+
+\item $\func{dim} E_{1} = 0$ if and only if $T$ is a reflection followed by a (nonidentity) rotation.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $T$ is an isometry, show that $aT$ is an isometry if and only if $a = \pm 1$.
+
+\begin{sol}
+If $\vectlength\vect{v}\vectlength = \vectlength (aT) (\vect{v})\vectlength =
+|a|\vectlength T(\vect{v})\vectlength =
+|a|\vectlength\vect{v}\vectlength$ for some $\vect{v} \neq \vect{0}$, then $|a| = 1$ so $a = \pm 1$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that every isometry preserves the angle between any pair of nonzero vectors (see Exercise \ref{ex:10_1_31}). Must an angle-preserving isomorphism be an isometry? Support your answer.
+\end{ex}
+
+\begin{ex}
+If $T : V \to V$ is an isometry, show that $T^{2} = 1_{V}$ if and only if the only complex eigenvalues of $T$ are $1$ and $-1$.
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear operator. Show that any two of the following conditions implies the third:
+
+\begin{enumerate}
+\item $T$ is symmetric.
+
+\item $T$ is an involution ($T^{2} = 1_{V}$).
+
+\item $T$ is an isometry.
+
+[\textit{Hint}: In all cases, use the definition 
+\begin{equation*}
+\langle\vect{v}, T(\vect{w}) \rangle = \langle  T(\vect{v}), \vect{w} \rangle
+\end{equation*}
+ of a symmetric operator. For (1) and (3) $\Rightarrow$ (2), use the fact that, if $\langle T^{2}(\vect{v}) - \vect{v}, \vect{w} \rangle = 0$ for all $\vect{w}$, then $T^{2}(\vect{v}) = \vect{v}$.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $B$ and $D$ are any orthonormal bases of $V$, show that there is an isometry $T : V \to V$ that carries $B$ to $D$.
+\end{ex}
+
+\begin{ex}
+Show that the following are equivalent for a linear transformation $S : V \to V$ where $V$ is finite dimensional and $S \neq 0$:
+
+\begin{enumerate}
+\item $\langle S(\vect{v}), S(\vect{w}) \rangle = 0$ whenever $\langle\vect{v}, \vect{w} \rangle  = 0$;
+
+\item $S = aT$ for some isometry $T : V \to V$ and some $a \neq 0$ in $\RR$.
+
+\item $S$ is an isomorphism and preserves angles between nonzero vectors.
+
+[\textit{Hint}: Given (1), show that $\vectlength S(\vect{e}) \vectlength = \vectlength S(\vect{f})\vectlength$ for all unit vectors $\vect{e}$ and $\vect{f}$ in $V$.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex} \label{ex:10_4_12}
+Let $S : V \to V$ be a distance preserving transformation where $V$ is finite dimensional.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the factorization in the proof of Theorem~\ref{thm:032040} is unique. That is, if $S = S_{\vect{u}} \circ T$ and $S = S_{\vect{u}^\prime} \circ T^\prime$ where $\vect{u}$, $\vect{u}^\prime \in V$ and $T$, $T^\prime : V \to V$ are isometries, show that $\vect{u} = \vect{u}^\prime$ and $T = T^\prime$.
+
+\item If $S = S_{\vect{u}} \circ T$, $\vect{u} \in V$, $T$ an isometry, show that $\vect{w} \in V$ exists such that $S = T \circ S_{\vect{w}}$.
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Assume that $S = S_{\vect{u}} \circ T$, $\vect{u} \in V$, $T$ an isometry of $V$. Since $T$ is onto (by Theorem~\ref{thm:032053}), let $\vect{u} = T(\vect{w})$ where $\vect{w} \in V$. Then for any $\vect{v} \in V$, we have $(T \circ S_{\vect{w}}) = T(\vect{w} + \vect{v}) = T(\vect{w}) + T(\vect{w}) = S_{T(\vect{w})}(T(\vect{v})) = (S_{T(\vect{w})} \circ T)(\vect{v})$, and it follows that $T \circ S_{\vect{w}} = S_{T(\vect{w})} \circ T$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:10_4_13}
+Define $T : \vectspace{P} \to \vectspace{P}$ by $T(f) = xf(x)$ for all $f \in \vectspace{P}$, and define an inner product on $\vectspace{P}$ as follows: If $f = a_{0} + a_{1}x + a_{2}x^{2} + \cdots$  and $g = b_{0} + b_{1}x + b_{2}x^{2} + \cdots$  are in $\vectspace{P}$, define $\langle f, g\rangle = a_{0}b_{0} + a_{1}b_{1} + a_{2}b_{2} + \cdots$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\langle\ , \rangle $ is an inner product on $\vectspace{P}$.
+
+\item Show that $T$ is an isometry of $\vectspace{P}$.
+
+\item Show that $T$ is one-to-one but not onto.
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

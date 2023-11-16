@@ -1,0 +1,961 @@
+\newpage
+\section{Independence and Dimension}
+\label{sec:5_2}
+
+Some spanning sets are better than others. If $U = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is a subspace of $\RR^n$, then every vector in $U$ can be written as a linear combination of the $\vect{x}_{i}$ in at least one way. Our interest here is in spanning sets where each vector in $U$ has \textit{exactly one} representation as a linear combination of these vectors.
+
+\subsection*{Linear Independence}
+
+\index{independence}
+Given $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ in $\RR^n$, suppose that two linear combinations are equal:
+\begin{equation*}
+r_1\vect{x}_1 + r_2\vect{x}_2 + \dots + r_k\vect{x}_k = s_1\vect{x}_1 + s_2\vect{x}_2 + \dots + s_k\vect{x}_k
+\end{equation*}
+We are looking for a condition on the set $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ of vectors that guarantees that this representation is \textit{unique}; that is, $r_{i} = s_{i}$ for each $i$. Taking all terms to the left side gives
+\begin{equation*}
+(r_1 - s_1)\vect{x}_1 + (r_2 - s_2)\vect{x}_2 + \dots + (r_k - s_k)\vect{x}_k = \vect{0}
+\end{equation*}
+so the required condition is that this equation forces all the coefficients $r_{i} - s_{i}$ to be zero.\index{coefficients!linear combination}
+
+\begin{definition}{Linear Independence in $\RR^n$}{013988}
+With this in mind, we call a set $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ of vectors \textbf{linearly independent}\index{linearly independent}\index{linear independence!independent}\index{set of all ordered $n$-tuples ($\RR^n$)!linear independence} (or simply \textbf{independent}\index{independent}) if it satisfies the following condition:
+\begin{equation*}
+\mbox{If } t_1\vect{x}_1 + t_2\vect{x}_2 + \dots + t_k\vect{x}_k = \vect{0} \mbox{ then } t_1 = t_2 = \dots = t_k = 0
+\end{equation*}
+\end{definition}
+
+\noindent We record the result of the above discussion for reference.
+
+\begin{theorem}{}{013996} %theorem1
+If $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is an independent set of vectors in $\RR^n$, then every vector in $\func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ has a \textbf{unique}\index{linear combinations!unique} representation as a linear combination of the $\vect{x}_{i}$.
+\end{theorem}
+
+It is useful to state the definition of independence in different
+language. Let us say that a linear combination \textbf{vanishes} \index{linear combinations!vanishes} if it equals the zero vector, and
+call a linear combination \textbf{trivial} \index{trivial linear combinations}\index{linear combinations!trivial}  if every coefficient is zero. Then the definition of independence can be compactly stated as follows:
+
+\begin{quotation}
+\noindent A set of vectors is independent if and only if the only linear combination that vanishes is the trivial one. \index{linear independence!set of vectors}
+
+\end{quotation}
+Hence we have a procedure for checking that a set of vectors is independent:
+
+\begin{theorem*}{Independence Test}{014011}
+To verify that a set $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ of vectors in $\RR^n$ is independent, proceed as follows:\index{independence test}
+
+\begin{enumerate}
+\item Set a linear combination equal to zero: $t_{1}\vect{x}_{1} + t_{2}\vect{x}_{2} + \dots + t_{k}\vect{x}_{k} = \vect{0}$.
+
+\item Show that $t_i = 0$ for each $i$ (that is, the linear combination is trivial).
+
+\end{enumerate}
+
+Of course, if some nontrivial linear combination vanishes, the vectors are not independent.
+\end{theorem*}
+
+\begin{example}{}{014031}
+Determine whether $\{(1, 0, -2, 5), (2, 1, 0, -1), (1, 1, 2, 1)\}$ is independent in $\RR^4$.
+
+\begin{solution}
+  Suppose a linear combination vanishes:
+\begin{equation*}
+r(1, 0, -2, 5) + s(2, 1, 0, -1) + t(1, 1, 2, 1) = (0, 0, 0, 0)
+\end{equation*}
+Equating corresponding entries gives a system of four equations:
+\begin{equation*}
+r + 2s + t = 0, s + t = 0, -2r + 2t = 0, \mbox{ and } 5r -s + t = 0
+\end{equation*}
+The only solution is the trivial one $r = s = t = 0$ (verify), so these vectors are independent by the independence test.
+\end{solution}
+\end{example}
+
+\begin{example}{}{014042}
+Show that the standard basis $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ of $\RR^n$ is independent.\index{basis!standard basis}\index{standard basis}
+
+\begin{solution}
+The components of $t_{1}\vect{e}_{1} + t_{2}\vect{e}_{2} + \dots + t_{n}\vect{e}_{n}$ are $t_{1}, t_{2}, \dots, t_{n}$ (see the discussion preceding Example~\ref{exa:013694}) So the linear combination vanishes if and only if each $t_{i} = 0$. Hence the independence test applies.
+\end{solution}
+\end{example}
+
+\begin{example}{}{014062}
+If $\{\vect{x}, \vect{y}\}$ is independent, show that $\{2\vect{x} + 3\vect{y}, \vect{x} - 5\vect{y}\}$ is also independent.
+
+\begin{solution}
+If $s(2\vect{x} + 3\vect{y}) + t(\vect{x} - 5\vect{y}) = \vect{0}$, collect terms to get $(2s + t)\vect{x} + (3s - 5t)\vect{y} = \vect{0}$. Since $\{\vect{x}, \vect{y}\}$ is independent this combination must be trivial; that is, $2s + t = 0$ and $3s - 5t = 0$. These equations have only the trivial solution $s = t = 0$, as required.
+\end{solution}
+\end{example}
+
+\begin{example}{}{014068}
+Show that the zero vector in $\RR^n$ does not belong to any independent set.
+
+\begin{solution}
+  No set $\{\vect{0}, \vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ of vectors is independent because we have a vanishing, nontrivial
+  linear combination $1 \dotprod \vect{0} + 0\vect{x}_{1} + 0\vect{x}_{2} + \dots + 0\vect{x}_{k} = \vect{0}$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{014081}
+Given $\vect{x}$ in $\RR^n$, show that $\{\vect{x}\}$ is independent if and only if $\vect{x} \neq \vect{0}$.
+
+\begin{solution}
+  A vanishing linear combination from $\{\vect{x}\}$ takes the form $t\vect{x} = \vect{0}$, $t$ in $\RR$. This implies that $t = 0$ because $\vect{x} \neq \vect{0}$.
+\end{solution}
+\end{example}
+
+\noindent The next example will be needed later.
+
+
+\begin{example}{}{014089}
+Show that the nonzero rows of a row-echelon matrix $R$ are independent.
+
+\begin{solution}
+  We illustrate the case with 3 leading $1$s; the general case is analogous. Suppose $R$ has the form 
+$R = 
+\leftB \begin{array}{rrrrrr}
+	0 & 1 & * & * & * & * \\
+	0 & 0 & 0 & 1 & * & * \\
+	0 & 0 & 0 & 0 & 1 & * \\
+	0 & 0 & 0 & 0 & 0 & 0 \\
+\end{array} \rightB$
+ where $*$ indicates a nonspecified number. Let $R_{1}$, $R_{2}$, and $R_{3}$ denote the nonzero rows of $R$. If $t_{1}R_{1} + t_{2}R_{2} + t_{3}R_{3} = 0$ we show that $t_{1} = 0$, then $t_{2} = 0$, and finally $t_{3} = 0$. The condition $t_{1}R_{1} + t_{2}R_{2} + t_{3}R_{3} = 0$ becomes
+\begin{equation*}
+(0, t_1, *, *, *, *) + (0, 0, 0, t_2, *, *) + (0, 0, 0, 0, t_3, *) = (0, 0, 0, 0, 0, 0)
+\end{equation*}
+Equating second entries show that $t_{1} = 0$, so the condition becomes $t_{2}R_{2} + t_{3}R_{3} = 0$. Now the same argument shows that $t_{2} = 0$. Finally, this gives $t_{3}R_{3} = 0$ and we obtain $t_{3} = 0$.
+\end{solution}
+\end{example}
+
+A set of vectors in $\RR^n$ is called \textbf{linearly dependent}\index{linearly dependent}\index{linear independence!dependent} (or simply \textbf{dependent}\index{dependent}) if it is \textit{not} linearly independent, equivalently if some nontrivial linear combination vanishes.
+
+\begin{example}{}{014127}
+If $\vect{v}$ and $\vect{w}$ are nonzero vectors in $\RR^3$, show that $\{\vect{v}, \vect{w}\}$ is dependent if and only if $\vect{v}$ and $\vect{w}$ are parallel.
+
+\begin{solution}
+If $\vect{v}$ and $\vect{w}$ are parallel, then one is a scalar multiple of the other (Theorem~\ref{thm:011240}), say $\vect{v} = a\vect{w}$ for some scalar $a$. Then the nontrivial linear combination $\vect{v} - a\vect{w} = \vect{0}$ vanishes, so $\{\vect{v}, \vect{w}\}$ is dependent.
+
+Conversely, if $\{\vect{v}, \vect{w}\}$ is dependent, let $s\vect{v} + t\vect{w} = \vect{0}$ be nontrivial, say $s \neq 0$. Then $\vect{v} = -\frac{t}{s}\vect{w}$ so $\vect{v}$ and $\vect{w}$ are parallel (by Theorem~\ref{thm:011240}). A similar argument works if $t \neq 0$.
+\end{solution}
+\end{example}
+
+With this we can give a geometric description of what it means for a set $\{\vect{u}, \vect{v}, \vect{w}\}$ in $\RR^3$ to be independent. Note that this requirement means that $\{\vect{v}, \vect{w}\}$ is also independent ($a\vect{v} + b\vect{w} = \vect{0}$ means that $0\vect{u} + a\vect{v} + b\vect{w} = \vect{0}$), so $M = \func{span}\{\vect{v}, \vect{w}\}$ is the plane containing $\vect{v}$, $\vect{w}$, and $\vect{0}$ (see the discussion preceding Example~\ref{exa:013596}). So we assume that $\{\vect{v}, \vect{w}\}$ is independent in the following example.\index{linear independence!geometric description}
+
+\begin{example}{}{014139}
+\begin{wrapfigure}[12]{l}{5cm} 
+	\centering
+	\input{5-vector-space-rn/figures/2-independence-and-dimension/example5.2.8}
+	%\caption{\label{fig:014138}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+Let $\vect{u}$, $\vect{v}$, and $\vect{w}$ be nonzero vectors in $\RR^3$ where $\{\vect{v}, \vect{w}\}$ independent. Show that $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent if and only if $\vect{u}$ is not in the plane $M = \func{span}\{\vect{v}, \vect{w}\}$. This is illustrated in the diagrams.
+
+\begin{solution}
+If $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent, suppose $\vect{u}$ is in the plane $M = \func{span}\{\vect{v}, \vect{w}\}$, say $\vect{u} = a\vect{v} + b\vect{w}$, where $a$ and $b$ are in $\RR$. Then $1\vect{u} - a\vect{v} - b\vect{w} = \vect{0}$, contradicting the independence of $\{\vect{u}, \vect{v}, \vect{w}\}$.
+
+On the other hand, suppose that $\vect{u}$ is not in $M$; we must show that $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent. If $r\vect{u} + s\vect{v} + t\vect{w} = \vect{0}$ where $r$, $s$, and $t$ are in $\RR^3$, then $r = 0$ since otherwise $\vect{u} = -\frac{s}{r}\vect{v} + \frac{-t}{r}\vect{w}$ is in $M$. But then $s\vect{v} + t\vect{w} = \vect{0}$, so $s = t = 0$ by our assumption. This shows that $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent, as required.
+\end{solution}
+\vspace{1em}
+\end{example}
+
+\noindent By the inverse theorem, the following conditions are equivalent for an $n \times n$ matrix $A$:
+
+\begin{enumerate}
+\item $A$ \textit{is invertible}.
+
+\item \textit{If} $A\vect{x} = \vect{0}$ \textit{where} $\vect{x}$ \textit{is in} $\RR^n$, \textit{then} $\vect{x} = \vect{0}$.
+
+\item $A\vect{x} = \vect{b}$ \textit{has a solution} $\vect{x}$ \textit{for every vector} $\vect{b}$ \textit{in} $\RR^n$.
+
+\end{enumerate}
+While condition 1 makes no sense if $A$ is not square, conditions 2 and 3 are meaningful for any matrix $A$ and, in fact, are related to independence and spanning. Indeed, if $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}$ are the columns of $A$, and if we write 
+$\vect{x} = 
+\leftB \begin{array}{r}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{array} \rightB$, then
+\vspace*{-1em}
+\begin{equation*}
+A\vect{x} = x_1\vect{c}_1 + x_2\vect{c}_2 + \dots + x_n\vect{c}_n
+\end{equation*}
+by Definition~\ref{def:002668}. Hence the definitions of independence and spanning show, respectively, that condition 2 is equivalent to the independence of $\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\}$ and condition 3 is equivalent to the requirement that $\func{span}\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\} = \RR^m$. This discussion is summarized in the following theorem:
+
+\begin{theorem}{}{014172} %theorem2
+If $A$ is an $m \times n$ matrix, let $\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\}$ denote the columns of $A$.
+
+\begin{enumerate}
+\item $\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\}$ is independent in $\RR^m$ if and only if $A\vect{x} = \vect{0}$, $\vect{x}$ in $\RR^n$, implies $\vect{x} = \vect{0}$.
+
+\item $\RR^m = \func{span}\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\}$ if and only if $A\vect{x} = \vect{b}$ has a solution $\vect{x}$ for every vector $\vect{b}$ in $\RR^m$.
+
+\end{enumerate}
+\end{theorem}
+
+For a \textit{square} matrix $A$, Theorem~\ref{thm:014172} characterizes the invertibility of $A$ in terms of the spanning and independence of its columns (see the discussion preceding Theorem~\ref{thm:014172}). It is important to be able to discuss these notions for \textit{rows}. If $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ are $1 \times n$ rows, we define $\func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ to be the set of all linear combinations of the $\vect{x}_{i}$ (as matrices), and we say that $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is linearly independent if the only vanishing linear combination is the trivial one (that is, if $\{\vect{x}_1^T, \vect{x}_2^T, \dots, \vect{x}_k^T \}$ is independent in $\RR^n$, as the reader can verify).\footnote{It is best to view columns and rows as just two different \textit{notations} for ordered $n$-tuples\index{ordered $n$-tuple}\index{rows!as notations for ordered $n$-tuples}\index{columns!as notations for ordered $n$-tuples}. This discussion will become redundant in Chapter~\ref{chap:6} where we define the general notion of a vector space.}
+
+\begin{theorem}{}{014205} %5.2.3
+The following are equivalent for an $n \times n$ matrix $A$:
+
+\begin{enumerate}
+\item $A$ is invertible.
+
+\item The columns of $A$ are linearly independent.
+
+\item The columns of $A$ span $\RR^n$.
+
+\item The rows of $A$ are linearly independent.
+
+\item The rows of $A$ span the set of all $1 \times n$ rows.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let $\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}$ denote the columns of $A$.
+
+(1) $\Leftrightarrow$ (2). By Theorem~\ref{thm:004553}, $A$ is invertible if and only if $A\vect{x} = \vect{0}$ implies $\vect{x} = \vect{0}$; this holds if and only if $\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\}$ is independent by Theorem~\ref{thm:014172}.
+
+(1) $\Leftrightarrow$ (3). Again by Theorem~\ref{thm:004553}, $A$ is invertible if and only if $A\vect{x} = \vect{b}$ has a solution for every column $B$ in $\RR^n$; this holds if and only if $\func{span}\{\vect{c}_{1}, \vect{c}_{2}, \dots, \vect{c}_{n}\} = \RR^n$ by Theorem~\ref{thm:014172}.
+
+(1) $\Leftrightarrow$ (4). The matrix $A$ is invertible if and only if $A^{T}$ is invertible (by Corollary~\ref{cor:004537} to Theorem \ref{thm:004442}); this in turn holds if and only if $A^{T}$ has independent columns (by (1) $\Leftrightarrow$ (2)); finally, this last statement holds if and only if $A$ has independent rows (because the rows of $A$ are the transposes of the columns of $A^{T}$).
+
+(1) $\Leftrightarrow$ (5). The proof is similar to (1) $\Leftrightarrow$ (4).
+\end{proof}
+
+\begin{example}{}{014241}
+Show that $S = \{(2, -2, 5), (-3, 1, 1), (2, 7, -4)\}$ is independent in $\RR^3$.
+
+\begin{solution}
+Consider the matrix
+$A = 
+\leftB \begin{array}{rrr}
+2 & -2 & 5 \\
+-3 & 1 & 1 \\
+2 & 7 & -4
+\end{array} \rightB $ with the vectors in $S$ as its rows. A routine computation shows that $\func{det} A = -117 \neq 0$, so $A$ is invertible. Hence $S$ is independent by Theorem~\ref{thm:014205}. Note that Theorem~\ref{thm:014205} also shows that $\RR^3 = \func{span} S$.
+\end{solution}
+\end{example}
+
+\subsection*{Dimension}
+
+It is common geometrical language to say that $\RR^3$ is 3-dimensional, that planes are 2-dimensional and that lines are 1-dimensional. The next theorem is a basic tool for clarifying this idea of ``dimension''. Its importance is difficult to exaggerate.\index{set of all ordered $n$-tuples ($\RR^n$)!dimension}
+
+\begin{theorem}{Fundamental Theorem}{014254} % theorem4
+Let $U$ be a subspace of $\RR^n$. If $U$ is spanned by $m$ vectors, and if $U$ contains $k$ linearly independent vectors, then $k \leq m$.\index{fundamental theorem}\index{subspaces!fundamental theorem}
+\end{theorem}
+
+\noindent This proof is given in Theorem~\ref{thm:018746} in much greater generality.
+
+\begin{definition}{Basis of $\RR^n$}{014261} % 5.4 or 5.2.2
+If $U$ is a subspace of $\RR^n$, a set $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{m}\}$ of vectors in $U$ is called a \textbf{basis}\index{basis!of subspace}\index{subspaces!basis} of $U$ if it satisfies the following two conditions:
+
+\begin{enumerate}
+\item $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{m}\}$ is linearly independent.
+
+\item $U = \func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{m}\}$.
+
+\end{enumerate}
+\end{definition}
+
+\noindent The most remarkable result about bases\footnote{The plural of ``basis'' is ``bases''\index{bases}.}
+ is:
+
+\begin{theorem}{Invariance Theorem}{014280}
+If $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{m}\}$ and $\{\vect{y}_{1}, \vect{y}_{2}, \dots, \vect{y}_{k}\}$ are bases of a subspace $U$ of $\RR^n$, then $m = k$.\index{invariance theorem}\index{subspaces!invariance theorem}
+\end{theorem}
+
+\begin{proof}
+We have $k \leq m$ by the fundamental theorem because $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{m}\}$ spans $U$, and $\{\vect{y}_{1}, \vect{y}_{2}, \dots, \vect{y}_{k}\}$ is independent. Similarly, by interchanging $\vect{x}$'s and $\vect{y}$'s we get $m \leq k$. Hence $m = k$.
+\end{proof}
+
+The invariance theorem guarantees that there is no ambiguity in the following definition:
+
+\begin{definition}{Dimension of a Subspace of $\RR^n$}{014302} %5.5 or 5.2.3
+If $U$ is a subspace of $\RR^n$ and $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{m}\}$ is any basis
+of $U$, the number, $m$, of vectors in the basis is called the
+\textbf{dimension}\index{dimension}\index{subspaces!dimension} of $U$, denoted
+\begin{equation*}
+\func{dim } U = m
+\end{equation*}
+\end{definition}
+
+\noindent The importance of the invariance theorem is that the dimension of $U$ can be determined by counting the number of vectors in \textit{any} basis.\footnote{We will show in Theorem~\ref{thm:014407} that every subspace of $\RR^n$ does indeed \textit{have} a basis.}
+
+Let $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ denote the standard basis of $\RR^n$\index{basis!standard basis}\index{standard basis}, that is the set of columns of the identity matrix. Then $\RR^n = \func{span}\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ by Example~\ref{exa:013694}, and $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is independent by Example~\ref{exa:014042}. Hence it is indeed a basis of $\RR^n$ in the present terminology, and we have
+
+\begin{example}{}{014324}
+$\func{dim}(\RR^n) = n$ and $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is a basis.
+\end{example}
+
+This agrees with our geometric sense that $\RR^2$ is two-dimensional and $\RR^3$ is three-dimensional. It also says that $\RR^1 = \RR$ is one-dimensional, and $\{1\}$ is a basis. Returning to subspaces of $\RR^n$, we define
+\begin{equation*}
+\func{dim}\{\vect{0}\} = 0
+\end{equation*}
+This amounts to saying $\{\vect{0}\}$ has a basis containing \textit{no} vectors. This makes sense because $\vect{0}$ cannot belong to \textit{any} independent set (Example~\ref{exa:014068}).
+
+\begin{example}{}{014338}
+Let
+$U = \left \{
+\leftB \begin{array}{r}
+r \\
+s \\
+r
+\end{array} \rightB
+\middle| \, r, s \mbox{ in } \RR
+\right \}$. Show that $U$ is a subspace of $\RR^3$, find a basis, and calculate $\func{dim} U$.
+
+\begin{solution}
+Clearly, 
+$\leftB \begin{array}{r}
+r \\
+s \\
+r
+\end{array} \rightB
+= r\vect{u} + s\vect{v}$ where 
+$\vect{u} = 
+\leftB \begin{array}{r}
+1 \\
+0\\
+1
+\end{array} \rightB$ and 
+$\vect{v} =
+\leftB \begin{array}{r}
+0 \\
+1 \\ 
+0
+\end{array} \rightB$. It follows that $U = \func{span}\{\vect{u}, \vect{v}\}$, and hence that $U$ is a subspace of $\RR^3$. Moreover, if $r\vect{u} + s\vect{v} = \vect{0}$, then 
+$\leftB \begin{array}{rrr}
+r \\
+s \\
+r
+\end{array} \rightB
+= 
+\leftB \begin{array}{rrr}
+0 \\
+0 \\
+0
+\end{array} \rightB$ so $r = s = 0$. Hence $\{\vect{u}, \vect{v}\}$ is independent, and so a \textbf{basis} of $U$. This means $\func{dim} U = 2$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{014351}
+Let $B = \{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{n}\}$ be a basis of $\RR^n$. If $A$ is an invertible $n \times n$ matrix, then $D = \{A\vect{x}_{1}, A\vect{x}_{2}, \dots, A\vect{x}_{n}\}$ is also a basis of $\RR^n$.
+
+\begin{solution}
+Let $\vect{x}$ be a vector in $\RR^n$. Then $A^{-1}\vect{x}$ is in $\RR^n$ so, since $B$ is a basis, we have $A^{-1}\vect{x} = t_{1}\vect{x}_{1} + t_{2}\vect{x}_{2} + \dots + t_{n}\vect{x}_{n}$ for $t_{i}$ in $\RR$. Left multiplication by $A$ gives $\vect{x} = t_{1}(A\vect{x}_{1}) + t_{2}(A\vect{x}_{2}) + \dots + t_{n}(A\vect{x}_{n})$, and it follows that $D$ spans $\RR^n$. To show independence, let $s_{1}(A\vect{x}_{1}) + s_{2}(A\vect{x}_{2}) + \dots + s_{n}(A\vect{x}_{n}) = \vect{0}$, where the $s_{i}$ are in $\RR$. Then $A(s_{1}\vect{x}_{1} + s_{2}\vect{x}_{2} + \dots + s_{n}\vect{x}_{n}) = \vect{0}$ so left multiplication by $A^{-1}$ gives $s_{1}\vect{x}_{1} + s_{2}\vect{x}_{2} + \dots + s_{n}\vect{x}_{n} = \vect{0}$. Now the independence of $B$ shows that each $s_{i} = 0$, and so proves the independence of $D$. Hence $D$ is a basis of $\RR^n$.
+\end{solution}
+\end{example}
+
+While we have found bases in many subspaces of $\RR^n$, we have not yet shown that \textit{every} subspace \textit{has} a basis. This is part of the next theorem, the proof of which is deferred to Section~\ref{sec:6_4} (Theorem \ref{thm:019430}) where it will be proved in more generality.
+
+\begin{theorem}{}{014407} %theorem6
+Let $U \neq \{\normalfont{\vect{0}}\}$ be a subspace of $\RR^n$. Then:
+
+\begin{enumerate}
+\item $U$ has a basis and $\func{dim} U \leq n$.
+
+\item Any independent set in $U$ can be enlarged (by adding vectors from any fixed basis of $U$) to a basis of $U$.\index{basis!enlarging subset to}
+
+\item Any spanning set for $U$ can be cut down (by deleting vectors) to a basis of $U$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{example}{}{014418}
+Find a basis of $\RR^4$ containing $S = \{\vect{u}, \vect{v}\}$ where $\vect{u} = (0, 1, 2, 3)$ and $\vect{v} = (2, -1, 0, 1)$.
+
+\begin{solution}
+By Theorem~\ref{thm:014407} we can find such a basis by adding vectors from the standard basis of $\RR^4$ to $S$. If we try $\vect{e}_{1} = (1, 0, 0, 0)$, we find easily that $\{\vect{e}_{1}, \vect{u}, \vect{v}\}$ is independent. Now add another vector from the standard basis, say $\vect{e}_{2}$.\index{basis!standard basis}\index{standard basis}
+
+Again we find that $B = \{\vect{e}_{1}, \vect{e}_{2}, \vect{u}, \vect{v}\}$ is independent. Since $B$ has $4 = \func{dim} \RR^4$ vectors, then $B$ must span $\RR^4$ by Theorem~\ref{thm:014436} below (or simply verify it directly). Hence $B$ is a basis of $\RR^4$.
+\end{solution}
+\end{example}
+
+\noindent Theorem~\ref{thm:014407} has a number of useful consequences. Here is the first.
+
+\begin{theorem}{}{014436} %theorem7
+Let $U$ be a subspace of $\RR^n$ where $\func{dim} U = m$ and let $B = \{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{m}\}$ be a set of $m$ vectors in $U$. Then $B$ is independent if and only if $B$ spans $U$.
+\end{theorem}
+
+\begin{proof}
+Suppose $B$ is independent. If $B$ does not span $U$ then, by Theorem~\ref{thm:014407}, $B$ can be enlarged to a basis of $U$ containing more than $m$ vectors. This contradicts the invariance theorem because $\func{dim} U = m$, so $B$ spans $U$. Conversely, if $B$ spans $U$ but is not independent, then $B$ can be cut down to a basis of $U$ containing fewer than $m$ vectors, again a contradiction. So $B$ is independent, as required.
+\end{proof}
+
+As we saw in Example~\ref{exa:014418}, Theorem~\ref{thm:014436} is a ``labour-saving'' result. It asserts that, given a subspace $U$ of dimension $m$ and a set $B$ of exactly $m$ vectors in $U$, to prove that $B$ is a basis of $U$ it suffices to show either that $B$ spans $U$ or that $B$ is independent. It is not necessary to verify both properties.
+
+\begin{theorem}{}{014447} %theorem8
+Let $U \subseteq W$ be subspaces of $\RR^n$. Then:
+
+\begin{enumerate}
+\item $\func{dim} U \leq \func{dim} W$.
+
+\item If $\func{dim} U = \func{dim} W$, then $U = W$.
+
+\end{enumerate}
+\end{theorem}
+
+\newpage
+\begin{proof}
+Write $\func{dim} W = k$, and let $B$ be a basis of $U$.
+
+\begin{enumerate}
+\item If $\func{dim} U > k$, then $B$ is an independent set in $W$ containing more than $k$ vectors, contradicting the fundamental theorem. So $\func{dim} U \leq k = \func{dim} W$.
+
+\item If $\func{dim} U = k$, then $B$ is an independent set in $W$ containing $k$ = $\func{dim} W$ vectors, so $B$ spans $W$ by Theorem~\ref{thm:014436}. Hence $W = \func{span} B = U$, proving (2).
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\noindent It follows from Theorem~\ref{thm:014447} that if $U$ is a subspace of $\RR^n$, then $\func{dim} U$ is one of the integers $0, 1, 2, \dots, n$, and that:
+\begin{equation*}
+\begin{array}{l}
+	\func{dim } U = 0 \quad \mbox{ if and only if } \quad U = \{\vect{0}\}, \\
+	\func{dim } U = n \quad \mbox{ if and only if } \quad U = \RR^n
+\end{array}
+\end{equation*}
+The other subspaces of $\RR^n$ are called \textbf{proper}\index{proper subspace}. The following example uses Theorem~\ref{thm:014447} to show that the proper subspaces of $\RR^2$ are the lines through the origin, while the proper subspaces of $\RR^3$ are the lines and planes through the origin.
+
+\begin{example}{}{014470}
+\begin{enumerate}
+\item If $U$ is a subspace of $\RR^2$ or $\RR^3$, then $\func{dim} U = 1$ if and only if $U$ is a line through the origin.
+
+\item If $U$ is a subspace of $\RR^3$, then $\func{dim} U = 2$ if and only if $U$ is a plane through the origin.
+
+\end{enumerate}
+\end{example}
+
+\begin{proof}
+\begin{enumerate}
+\item Since $\func{dim} U = 1$, let $\{\vect{u}\}$ be a basis of $U$. Then $U = \func{span}\{\vect{u}\} = \{t\vect{u} \mid t \mbox{ in }\RR\}$, so $U$ is the line through the origin with direction vector $\vect{u}$. Conversely each line $L$ with direction vector $\vect{d} \neq \vect{0}$ has the form $L = \{t\vect{d} \mid t \mbox{ in }\RR\}$. Hence $\{\vect{d}\}$ is a basis of $U$, so $U$ has dimension 1.
+
+\item If $U \subseteq \RR^3$ has dimension 2, let $\{\vect{v}, \vect{w}\}$ be a basis of $U$. Then $\vect{v}$ and $\vect{w}$ are not parallel (by Example~\ref{exa:014127}) so $\vect{n} = \vect{v} \times \vect{w} \neq \vect{0}$. Let $P = \{\vect{x}$ in $\RR^3 \mid \vect{n} \dotprod \vect{x} = 0\}$ denote the plane through the origin with normal $\vect{n}$. Then $P$ is a subspace of $\RR^3$ (Example~\ref{exa:013478}) and both $\vect{v}$ and $\vect{w}$ lie in $P$ (they are orthogonal to $\vect{n}$), so $U$ = $\func{span}\{\vect{v}, \vect{w}\} \subseteq P$ by Theorem~\ref{thm:013606}. Hence
+\begin{equation*}
+U \subseteq P \subseteq \RR^3
+\end{equation*}
+Since $\func{dim} U = 2$ and $\func{dim}(\RR^3) = 3$, it follows from Theorem~\ref{thm:014447} that $\func{dim} P = 2$ or $3$, whence $P = U$ or $\RR^3$. But $P \neq \RR^3$ (for example, $\vect{n}$ is not in $P$) and so $U = P$ is a plane through the origin.
+
+Conversely, if $U$ is a plane through the origin, then $\func{dim} U = 0$, $1$, $2$, or $3$ by Theorem~\ref{thm:014447}. But $\func{dim} U \neq 0$ or $3$ because $U \neq \{\vect{0}\}$ and $U \neq \RR^3$, and $\func{dim} U \neq 1$ by (1). So $\func{dim} U = 2$.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\noindent Note that this proof shows that if $\vect{v}$ and $\vect{w}$ are nonzero, nonparallel vectors in $\RR^3$, then $\func{span}\{\vect{v}, \vect{w}\}$ is the plane with normal $\vect{n} = \vect{v} \times \vect{w}$. We gave a geometrical verification of this fact in Section~\ref{sec:5_1}.
+
+\section*{Exercises for \ref{sec:5_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:5_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\noindent In Exercises \ref{ex:5_2_1}-\ref{ex:5_2_6} we write vectors $\RR^n$ as rows.
+\begin{ex}\label{ex:5_2_1}
+Which of the following subsets are independent? Support your answer.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{(1, -1, 0)$, $(3, 2, -1)$, $(3, 5, -2)\}$ in $\RR^3$
+
+\item $\{(1, 1, 1)$, $(1, -1, 1)$, $(0, 0, 1)\}$ in $\RR^3$
+
+\item $\{(1, -1, 1, -1)$, $(2, 0, 1, 0)$, $(0, -2, 1, -2)\}$ in $\RR^4$
+
+\item $\{(1, 1, 0, 0)$, $(1, 0, 1, 0)$, $(0, 0, 1, 1)$, $(0, 1, 0, 1)\}$ in $\RR^4$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes. If 
+$r \leftB \begin{array}{r}
+1 \\
+1 \\
+1
+\end{array} \rightB
++ s
+\leftB \begin{array}{r}
+1 \\
+1 \\
+1
+\end{array} \rightB
++ t
+\leftB \begin{array}{r}
+0 \\
+0 \\
+1
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+0 \\
+0 \\
+0
+\end{array} \rightB$, then $r + s = 0$, $r - s = 0$, and $r + s + t = 0$. These equations give $r = s = t = 0$.
+
+\setcounter{enumi}{3}
+\item  No. Indeed: 
+$\leftB \begin{array}{r}
+1 \\
+1 \\
+0 \\
+0
+\end{array} \rightB
+-
+\leftB \begin{array}{r}
+1 \\
+0 \\
+1 \\
+0
+\end{array} \rightB
++
+\leftB \begin{array}{r}
+0 \\
+0 \\
+1 \\
+1 
+\end{array} \rightB
+-
+\leftB \begin{array}{r}
+0 \\
+1 \\
+0 \\
+1 
+\end{array} \rightB
+=
+\leftB \begin{array}{r}
+0 \\
+0 \\
+0 \\
+0
+\end{array} \rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{x}, \vect{y}, \vect{z}, \vect{w}\}$ be an independent set in $\RR^n$. Which of the following sets is independent? Support your answer.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{\vect{x} - \vect{y}, \vect{y} - \vect{z}, \vect{z} - \vect{x}\}$
+
+\item $\{\vect{x} + \vect{y}, \vect{y} + \vect{z}, \vect{z} + \vect{x}\}$
+
+\item $\{\vect{x} - \vect{y}, \vect{y} - \vect{z}, \vect{z} - \vect{w}, \vect{w} - \vect{x}\}$
+
+\item $\{\vect{x} + \vect{y}, \vect{y} + \vect{z}, \vect{z} + \vect{w}, \vect{w} + \vect{x}\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes. If $r(\vect{x} + \vect{y}) + s(\vect{y} + \vect{z}) + t(\vect{z} + \vect{x}) = \vect{0}$, then $(r + t)\vect{x} + (r + s)\vect{y} + (s + t)\vect{z} = \vect{0}$. Since $\{\vect{x}, \vect{y}, \vect{z}\}$ is independent, this implies that $r + t = 0$, $r + s = 0$, and $s + t = 0$. The only solution is $r = s = t = 0$.
+
+\setcounter{enumi}{3}
+\item  No. In fact, $(\vect{x} + \vect{y}) - (\vect{y} + \vect{z}) + (\vect{z} + \vect{w}) - (\vect{w} + \vect{x}) = \vect{0}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find a basis and calculate the dimension of the following subspaces of $\RR^4$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\func{span}\{(1, -1, 2, 0), (2, 3, 0, 3), (1, 9, -6, 6)\}$
+
+\item $\func{span}\{(2, 1, 0, -1), (-1, 1, 1, 1), (2, 7, 4, 1)\}$
+
+\item $\func{span}\{(-1, 2, 1, 0), (2, 0, 3, -1), (4, 4, 11, -3), \\ (3, -2, 2, -1)\}$
+
+\item $\func{span}\{(-2, 0, 3, 1), (1, 2, -1, 0), (-2, 8, 5, 3), \\ (-1, 2, 2, 1)\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$\left \{
+\leftB \begin{array}{r}
+2 \\
+1 \\
+0 \\
+-1
+\end{array} \rightB
+, 
+\leftB \begin{array}{r}
+-1 \\
+1 \\
+1 \\
+1
+\end{array} \rightB
+\right \}$; dimension $2$. 
+
+\setcounter{enumi}{3}
+\item  
+$\left \{
+\leftB \begin{array}{r}
+-2 \\
+0 \\
+3 \\
+1
+\end{array} \rightB
+,\
+\leftB \begin{array}{r}
+1 \\
+2 \\
+-1 \\
+0
+\end{array} \rightB
+\right \}$; dimension $2$.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find a basis and calculate the dimension of the following subspaces of $\RR^4$.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$U = \left \{
+\leftB \begin{array}{c}
+	a \\
+	a + b \\
+	a - b \\
+	b
+\end{array} \rightB \,
+\middle| \, a \mbox{ and } b \mbox{ in } \RR
+\right \} $
+
+\item %b
+$U = \left \{
+\leftB \begin{array}{c}
+a + b\\
+a - b \\
+b \\
+a
+\end{array} \rightB \,
+\middle| \, a \mbox{ and } b \mbox{ in } \RR
+\right \} $
+
+\item %c
+$U = \left \{
+\leftB \begin{array}{c}
+a \\
+b \\
+c + a \\
+c
+\end{array} \rightB \,
+\middle| \, a, b, \mbox{ and } c \mbox{ in } \RR
+\right \}$
+
+\item %d
+$U = \left \{
+\leftB \begin{array}{c}
+a - b\\
+b + c \\
+a \\
+b + c
+\end{array} \rightB \,
+\middle| \, a, b, \mbox{ and } c \mbox{ in } \RR
+\right \} $
+
+\item %e
+$U = \left \{
+\leftB \begin{array}{c}
+a \\
+b \\
+c \\
+d
+\end{array} \rightB \,
+\middle| \, a + b - c + d = 0 \mbox{ in } \RR
+\right \} $
+
+\item %f
+$U = \left \{
+\leftB \begin{array}{c}
+a \\
+b \\
+c \\
+d
+\end{array} \rightB \,
+\middle| \, a + b = c + d \mbox{ in } \RR
+\right \} $
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\left \{
+\leftB \begin{array}{r}
+1 \\
+1 \\
+0 \\
+1
+\end{array} \rightB
+,\
+\leftB \begin{array}{r}
+1 \\
+-1 \\
+1 \\
+0
+\end{array} \rightB
+\right \}
+$; dimension $2$.
+
+\setcounter{enumi}{3}
+\item 
+$\left \{
+\leftB \begin{array}{r}
+	1 \\
+	0 \\
+	1 \\
+	0
+\end{array} \rightB
+,\
+\leftB \begin{array}{r}
+	-1 \\
+	 1 \\
+	 0 \\
+	 1
+\end{array} \rightB
+,\
+\leftB \begin{array}{r}
+	0 \\
+	1 \\
+	0 \\
+	1
+\end{array} \rightB
+\right \}
+$; dimension $3$.
+
+\setcounter{enumi}{5}
+\item  
+$\left \{
+\leftB \begin{array}{r}
+	-1 \\
+	1 \\
+	0 \\
+	0
+\end{array} \rightB
+,\
+\leftB \begin{array}{r}
+	1 \\
+	0 \\
+	1 \\
+	0
+\end{array} \rightB
+,\
+\leftB \begin{array}{r}
+	1 \\
+	0 \\
+	0 \\
+	1
+\end{array} \rightB
+\right \}
+$; dimension $3$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Suppose that $\{\vect{x}, \vect{y}, \vect{z}, \vect{w}\}$ is a basis of $\RR^4$. Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{\vect{x} + a\vect{w}, \vect{y}, \vect{z}, \vect{w}\}$ is also a basis of $\RR^4$ for any choice of the scalar $a$.
+
+\item $\{\vect{x} + \vect{w}, \vect{y} + \vect{w}, \vect{z} + \vect{w}, \vect{w}\}$ is also a basis of $\RR^4$.
+
+\item $\{\vect{x}, \vect{x} + \vect{y}, \vect{x} + \vect{y} + \vect{z}, \vect{x} + \vect{y} + \vect{z} + \vect{w}\}$ is also a basis of $\RR^4$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $r(\vect{x} + \vect{w}) + s(\vect{y} + \vect{w}) + t(\vect{z} + \vect{w}) + u(\vect{w}) = \vect{0}$, then $r\vect{x} + s\vect{y} + t\vect{z} + (r + s + t + u)\vect{w} = \vect{0}$, so $r = 0$, $s = 0$, $t = 0$, and $r + s + t + u = 0$. The only solution is $r = s = t = u = 0$, so the set is independent. Since $\func{dim} \RR^4 = 4$, the set is a basis by Theorem~\ref{thm:014436}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:5_2_6}
+Use Theorem~\ref{thm:014205} to determine if the following sets of vectors are a basis of the indicated space.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{(3, -1), (2, 2)\}$ in $\RR^2$
+
+\item $\{(1, 1, -1), (1, -1, 1), (0, 0, 1)\}$ in $\RR^3$
+
+\item $\{(-1, 1, -1), (1, -1, 2), (0, 0, 1)\}$ in $\RR^3$
+
+\item $\{(5, 2, -1), (1, 0, 1), (3, -1, 0)\}$ in $\RR^3$
+
+\item $\{(2, 1, -1, 3), (1, 1, 0, 2), (0, 1, 0, -3), \\(-1, 2, 3, 1)\}$ in $\RR^4$
+
+\item $\{(1, 0, -2, 5), (4, 4, -3, 2), (0, 1, 0, -3), \\(1, 3, 3, -10)\}$ in $\RR^4$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes
+
+\setcounter{enumi}{3}
+\item  Yes
+
+\setcounter{enumi}{5}
+\item  No.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case show that the statement is true or give an example showing that it is false.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\{\vect{x}, \vect{y}\}$ is independent, then $\{\vect{x}, \vect{y}, \vect{x} + \vect{y}\}$ is independent.
+
+\item If $\{\vect{x}, \vect{y}, \vect{z}\}$ is independent, then $\{\vect{y}, \vect{z}\}$ is independent.
+
+\item If $\{\vect{y}, \vect{z}\}$ is dependent, then $\{\vect{x}, \vect{y}, \vect{z}\}$ is dependent for any $\vect{x}$.
+
+\item If all of $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ are nonzero, then $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is independent.
+
+\item If one of $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ is zero, then $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is dependent.
+
+\item If $a\vect{x} + b\vect{y} + c\vect{z} = \vect{0}$, then $\{\vect{x}, \vect{y}, \vect{z}\}$ is independent.
+
+\item If $\{\vect{x}, \vect{y}, \vect{z}\}$ is independent, then $a\vect{x} + b\vect{y} + c\vect{z} = \vect{0}$ for some $a$, $b$, and $c$ in $\RR$.
+
+\item If $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is dependent, then $t_{1}\vect{x}_{1} + t_{2}\vect{x}_{2} + \dots + t_{k}\vect{x}_{k} = \vect{0}$ for some numbers $t_{i}$ in $\RR$ not all zero.
+
+\item If $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is independent, then $t_{1}\vect{x}_{1} + t_{2}\vect{x}_{2} + \dots + t_{k}\vect{x}_{k} = \vect{0}$ for some $t_{i}$ in $\RR$.
+
+\item Every non-empty subset of a linearly independent set is again linearly independent. 
+
+\item Every set containing a spanning set is again a spanning set. 
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  T. If $r\vect{y} + s\vect{z} = \vect{0}$, then $0\vect{x} + r\vect{y} + s\vect{z} = \vect{0}$ so $r = s = 0$ because $\{\vect{x}, \vect{y}, \vect{z}\}$ is independent.
+
+\setcounter{enumi}{3}
+\item  F. If $\vect{x} \neq \vect{0}$, take $k = 2$, $\vect{x}_{1} = \vect{x}$ and $\vect{x}_{2} = -\vect{x}$.
+
+\setcounter{enumi}{5}
+\item  F. If $\vect{y} = -\vect{x}$ and $\vect{z} = \vect{0}$, then $1\vect{x} + 1\vect{y} + 1\vect{z} = \vect{0}$.
+
+\setcounter{enumi}{7}
+\item  T. This is a nontrivial, vanishing linear combination, so the $\vect{x}_{i}$ cannot be independent.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is an $n \times n$ matrix, show that $\func{det} A = 0$ if and only if some column of $A$ is a linear combination of the other columns.
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{x}, \vect{y}, \vect{z}\}$ be a linearly independent set in $\RR^4$. Show that $\{\vect{x}, \vect{y}, \vect{z}, \vect{e}_{k}\}$ is a basis of $\RR^4$ for some $\vect{e}_{k}$ in the standard basis $\{\vect{e}_{1}, \vect{e}_{2}, \vect{e}_{3}, \vect{e}_{4}\}$.
+\end{ex}
+
+\begin{ex}
+If $\{\vect{x}_{1}, \vect{x}_{2}, \vect{x}_{3}, \vect{x}_{4}, \vect{x}_{5}, \vect{x}_{6}\}$ is an independent set of vectors, show that the subset $\{\vect{x}_{2}, \vect{x}_{3}, \vect{x}_{5}\}$ is also independent.
+
+\begin{sol}
+If $r\vect{x}_{2} + s\vect{x}_{3} + t\vect{x}_{5} = \vect{0}$ then $0\vect{x}_{1} + r\vect{x}_{2} + s\vect{x}_{3} + 0\vect{x}_{4} + t\vect{x}_{5} + 0\vect{x}_{6} = \vect{0}$ so $r = s = t = 0$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be any $m \times n$ matrix, and let $\vect{b}_{1}, \vect{b}_{2}, \vect{b}_{3}, \dots, \vect{b}_{k}$ be columns in $\RR^m$ such that the system $A\vect{x} = \vect{b}_{i}$ has a solution $\vect{x}_{i}$ for each $i$. If $\{\vect{b}_{1}, \vect{b}_{2}, \vect{b}_{3}, \dots, \vect{b}_{k}\}$ is independent in $\RR^m$, show that $\{\vect{x}_{1}, \vect{x}_{2}, \vect{x}_{3}, \dots, \vect{x}_{k}\}$ is independent in $\RR^n$.
+\end{ex}
+
+\begin{ex}
+If $\{\vect{x}_{1}, \vect{x}_{2}, \vect{x}_{3}, \dots, \vect{x}_{k}\}$ is independent, show $\{\vect{x}_{1}, \vect{x}_{1} + \vect{x}_{2}, \vect{x}_{1} + \vect{x}_{2} + \vect{x}_{3}, \dots, \vect{x}_{1} + \vect{x}_{2} + \dots + \vect{x}_{k}\}$ is also independent.
+
+\begin{sol}
+If $t_{1}\vect{x}_{1} + t_{2}(\vect{x}_{1} + \vect{x}_{2}) + \dots + t_{k}(\vect{x}_{1} + \vect{x}_{2} + \dots + \vect{x}_{k}) = \vect{0}$, then $(t_{1} + t_{2} + \dots + t_{k})\vect{x}_{1} + (t_{2} + \dots + t_{k})\vect{x}_{2} + \dots + (t_{k-1} + t_{k})\vect{x}_{k-1} + (t_{k})\vect{x}_{k} = \vect{0}$. Hence all these coefficients are zero, so we obtain successively $t_{k} = 0, t_{k-1} = 0, \dots, t_{2} = 0, t_{1} = 0$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\{\vect{y}, \vect{x}_{1}, \vect{x}_{2}, \vect{x}_{3}, \dots, \vect{x}_{k}\}$ is independent, show that $\{\vect{y} + \vect{x}_{1}, \vect{y} + \vect{x}_{2}, \vect{y} + \vect{x}_{3}, \dots, \vect{y} + \vect{x}_{k}\}$ is also independent.
+\end{ex}
+
+\begin{ex}
+If $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is independent in $\RR^n$, and if $\vect{y}$ is not in $\func{span}\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$, show that $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}, \vect{y}\}$ is independent.
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ are matrices and the columns of $AB$ are independent, show that the columns of $B$ are independent.
+\end{ex}
+
+\begin{ex}
+Suppose that $\{\vect{x}, \vect{y}\}$ is a basis of $\RR^2$, and let
+$A =
+\leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB$.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ is invertible, show that $\{a\vect{x} + b\vect{y}, c\vect{x} + d\vect{y}\}$ is a basis of $\RR^2$.
+
+\item If $\{a\vect{x} + b\vect{y}, c\vect{x} + d\vect{y}\}$ is a basis of $\RR^2$, show that $A$ is invertible.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  We show $A^{T}$ is invertible (then $A$ is invertible). Let $A^{T}\vect{x} = \vect{0}$ where $\vect{x} = [s\ t]^{T}$. This means
+  $as + ct = 0$ and $bs + dt = 0$, so $s(a\vect{x} + b\vect{y}) + t(c\vect{x} + d\vect{y}) = (sa + tc)\vect{x} + (sb + td)\vect{y} = \vect{0}$. Hence $s = t = 0$ by hypothesis.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ denote an $m \times n$ matrix.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{null} A = \func{null}(UA)$ for every invertible $m \times m$ matrix $U$.
+
+\item Show that $\func{dim}(\func{null} A) = \func{dim}(\func{null}(AV))$ for every invertible $n \times n$ matrix $V$. [\textit{Hint}: If $\{\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}\}$ is a basis of $\func{null} A$, show that $\{V^{-1}\vect{x}_{1}, V^{-1}\vect{x}_{2}, \dots, V^{-1}\vect{x}_{k}\}$ is a basis of $\func{null}(AV)$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Each $V^{-1}\vect{x}_{i}$ is in $\func{null}(AV)$ because $AV(V^{-1}\vect{x}_{i}) = A\vect{x}_{i} = \vect{0}$. The set $\{V^{-1}\vect{x}_{1}, \dots, V^{-1}\vect{x}_{k}\}$ is independent as $V^{-1}$ is invertible. If $\vect{y}$ is in $\func{null}(AV)$, then $V\vect{y}$ is in $\func{null}(A)$ so let $V\vect{y} = t_{1}\vect{x}_{1} + \dots + t_{k}\vect{x}_{k}$ where each $t_{k}$ is in $\RR$. Thus $\vect{y} = t_{1}V^{-1}\vect{x}_{1} + \dots + t_{k}V^{-1}\vect{x}_{k}$ is in $\func{span}\{V^{-1}\vect{x}_{1}, \dots, V^{-1}\vect{x}_{k}\}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ denote an $m \times n$ matrix.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{im} A = \func{im}(AV)$ for every invertible $n \times n$ matrix $V$.
+
+\item Show that $\func{dim}(\func{im} A) = \func{dim}(\func{im}(UA))$ for every invertible $m \times m$ matrix $U$. [\textit{Hint}: If $\{\vect{y}_{1}, \vect{y}_{2}, \dots, \vect{y}_{k}\}$ is a basis of $\func{im}(UA)$, show that $\{U^{-1}\vect{y}_{1}, U^{-1}\vect{y}_{2}, \dots, U^{-1}\vect{y}_{k}\}$ is a basis of $\func{im} A$.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $U$ and $W$ denote subspaces of $\RR^n$, and assume that $U \subseteq W$. If $\func{dim} U = n - 1$, show that either $W = U$ or $W = \RR^n$.
+\end{ex}
+
+\begin{ex}
+Let $U$ and $W$ denote subspaces of $\RR^n$, and assume that $U \subseteq W$. If $\func{dim} W = 1$, show that either $U = \{\vect{0}\}$ or $U = W$.
+
+\begin{sol}
+We have $\{\vect{0}\} \subseteq U \subseteq W$ where $\func{dim}\{\vect{0}\} = 0$ and $\func{dim} W = 1$. Hence $\func{dim} U = 0$ or $\func{dim} U = 1$ by Theorem~\ref{thm:014447}, that is $U = 0$ or $U = W$, again by Theorem~\ref{thm:014447}.
+\end{sol}
+\end{ex}
+\end{multicols}

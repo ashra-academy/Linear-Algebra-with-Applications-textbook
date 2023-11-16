@@ -1,0 +1,25 @@
+\begin{tikzpicture}[scale=0.9]
+\coordinate (ptA) at (3, 0);
+\coordinate (ptB) at (0, 1.732); %sqrt(3)
+\coordinate (ptC) at (0, 0);
+
+%right angle near D
+\path (ptC)--(60:1.3cm) node (ptCD) {}; %line CD is 1.5, so 0.2 for box and 1.3 remainder
+\draw[dkbluevect, thick, rotate=-30] (ptCD) rectangle ++(0.2, 0.2);
+\draw[dkbluevect, thick] (0, 0) rectangle +(0.2, 0.2);
+
+\draw[dkgreenvect, thick] (ptA)--(ptB) node[above, text=black, midway] {\small $c$}; % y = -0.577x + 1.732, length = 3/cos 30
+\draw[dkgreenvect, thick] (ptA)--(ptC) node[below, text=black, midway] {\small $b$};
+\draw[dkgreenvect, thick] (ptB)--(ptC) node[left, text=black, midway] {\small $a$};
+\draw[dkgreenvect, thick] (ptC)--(60:1.5cm) node (ptD) {}; % cos 30 * sqrt(3) = 1.5
+\draw[dkbluevect, thick] (2.5, 0) arc [start angle=180,end angle=150,radius=0.5];
+\draw[dkbluevect, thick] (0, 0.5) arc [start angle=90,end angle=60,radius=0.5];
+
+%labels
+\node[below] at (ptA) {\small $A$};
+\node[left] at (ptB) {\small $B$};
+\node[left] at (ptC) {\small $C$};
+\node[above right] at (ptD) {\small $D$};
+\node at (0.3, 1.3) {\small $p$};
+\node at (1.8, 0.45) {\small $q$};
+\end{tikzpicture}

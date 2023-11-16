@@ -1,0 +1,76 @@
+\begin{tikzpicture}[scale=0.9]
+%set up of axis environment
+\begin{axis}[view/h=120,disabledatascaling,
+width=5cm, 
+height=5cm, 
+xlabel={$x_{1}$}, 
+ylabel={$x_{2}$},
+zlabel={$x_{3}$},
+axis lines=center,
+xtick=\empty,
+ytick=\empty,
+ztick=\empty,
+xticklabels=\empty, 
+yticklabels=\empty, 
+zticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=north,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis z label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode = individual,
+domain=-5:5, 
+samples=100, 
+xmin=-1, 
+xmax=5, 
+ymin=-1, 
+ymax=5,
+zmin=-1,
+zmax=5]
+
+\coordinate (ptA1) at (4, 0, 0);
+\coordinate (ptA2) at (0, 4, 0);
+\coordinate (ptA3) at (0, 0, 4);
+\coordinate (ptA) at (0, 2, 3);
+\coordinate (ptA1A2) at (4, 4.5, 0);
+\coordinate (origin) at (0, 0, 0);
+
+%green lines
+\draw [dkgreenvect, thick] (origin)--(ptA1)
+	(origin)--(ptA2)
+	(origin)--(ptA3);
+\draw [dkgreenvect, thick, -latex] (origin)--(ptA);
+
+%dashed lines
+\draw [dkbluevect, thick, dashed] (ptA3)--(ptA)
+	(ptA)--(ptA1A2)
+	(ptA1A2)--(ptA1)
+	(ptA1A2)--(ptA2)
+	;
+
+%points
+\fill (ptA) circle (2pt);
+\fill (ptA1) circle (2pt);
+\fill (ptA2) circle (2pt);
+\fill (ptA3) circle (2pt);
+
+%labels
+\node [right] at (ptA) {\scriptsize $\leftB \begin{array}{c}
+	a_{1} \\
+	a_{2} \\
+	a_{3}
+	\end{array} \rightB$};
+\node [above] at (ptA1) {\scriptsize $a_{1}$};
+\node [above] at (ptA2) {\scriptsize $a_{2}$};
+\node [left] at (ptA3) {\scriptsize $a_{3}$};
+\node at (0, -0.3, 0.4) {\scriptsize $\vect{0}$};
+
+\end{axis}
+\end{tikzpicture}

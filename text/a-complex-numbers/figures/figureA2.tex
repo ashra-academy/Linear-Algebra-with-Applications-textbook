@@ -1,0 +1,45 @@
+
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[disabledatascaling,
+	clip mode=individual, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick=\empty, 
+    ytick=\empty, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,font=\footnotesize
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,font=\footnotesize
+    },
+	 domain=-5:5, 
+    samples=100, 
+    xmin=-2, 
+    xmax=5, 
+    ymin=-1, 
+    ymax=5]
+\draw[dkgreenvect,thick](0,0)--(3,2);
+\draw[dkgreenvect,thick](3,2)--(-1,4);
+\draw[dkgreenvect,thick](-1,4)--(0,0);
+\fill[black] (0,0) circle (2pt);
+\fill[black] (3,2) circle (2pt);
+\fill[black] (-1,4) circle (2pt);
+\node[below left,font=\footnotesize] at (0,0){$0$};
+\node[font=\footnotesize] at (3,1){$|w|$};
+\draw[thin](2,1.33)--(2.5,1);
+\node[right,font=\footnotesize] at (3,2){$w$};
+\node[font=\footnotesize] at (3,4){$|(z+w)-w|=|z|$};
+\draw[thin](1.5,2.75)--(2,3.5);
+\node[above left,font=\footnotesize] at (-0.8,3.9){$z+w$};
+\draw[thin](-0.6,2.4)--(-1,1.9);
+\node[font=\footnotesize] at (-2,2){$|z+w|$};
+\end{axis}
+\end{tikzpicture}

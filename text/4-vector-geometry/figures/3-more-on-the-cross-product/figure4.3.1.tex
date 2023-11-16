@@ -1,0 +1,13 @@
+\begin{tikzpicture}[scale=1.0]
+\coordinate (origin) at (0, 0);
+\coordinate (ptV) at (4, 0);
+
+\draw[dkgreenvect, thick, -latex] (origin)-- +(60:2cm) node (ptU) {};
+\path(origin)-- +(60:2cm) node[left, midway] {\small $\vect{u}$};
+\draw[dkgreenvect, thick, -latex] (origin)--(ptV) node[below, text=black, midway] {\small $\vect{v}$};
+\draw[dkbluevect, thick, dashed] (1, 0)--(ptU.center)-- ++(4, 0)--(ptV);
+\draw[dkbluevect, thick] (1, 0.2)-- ++(0.2, 0)-- ++(0, -0.2);
+\path(1, 0)--(ptU) node[right, midway] {\small $\vectlength\vect{u}\vectlength \sin \theta$};
+\draw[dkbluevect, thick] (0.3, 0) arc [start angle=0,end angle=60,radius=0.3] node[right, text=black, pos=0.9] {\small $\theta$};
+
+\end{tikzpicture}

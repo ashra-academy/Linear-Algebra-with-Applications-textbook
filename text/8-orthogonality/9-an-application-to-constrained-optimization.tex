@@ -1,0 +1,112 @@
+\section{An Application to Constrained Optimization}
+\label{sec:8_9}\index{constrained optimization}\index{orthogonality!constrained optimization}
+
+It is a frequent occurrence in applications that a function $q = q(x_{1}, x_{2}, \dots, x_{n})$ of $n$ variables, called an \textbf{objective function}\index{objective function}\index{function!objective function}, is to be made as large or as small as possible among all vectors $\vect{x} = (x_{1}, x_{2}, \dots, x_{n})$ lying in a certain region of $\RR^n$ called the \textbf{feasible region}\index{feasible region}. A wide variety of objective functions $q$ arise in practice; our primary concern here is to examine one important situation where $q$ is a quadratic form. The next example gives some indication of how such problems arise.
+
+\newpage
+\begin{example}{}{027606}
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{8-orthogonality/figures/9-an-application-to-constrained-optimization/example8.9.1}
+%\captionof{figure}{\label{fig:027624}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+A politician proposes to spend $x_{1}$ dollars annually on health care and $x_{2}$ dollars annually on education. She is constrained in her spending by various budget pressures, and one model of this is that the expenditures $x_{1}$ and $x_{2}$ should satisfy a constraint like
+\begin{equation*}
+5x_{1}^2 + 3x_{2}^2 \leq 15
+\end{equation*}
+Since $x_{i} \geq 0$ for each $i$, the feasible region is the shaded area shown in the diagram. Any choice of feasible point $(x_{1}, x_{2})$ in this region will satisfy the budget constraints. However, these choices have different effects on voters, and the politician wants to choose $\vect{x} = (x_{1}, x_{2})$ to maximize some measure $q = q(x_{1}, x_{2})$ of voter satisfaction. Thus the assumption is that, for any value of $c$, all points on the graph of $q(x_{1}, x_{2}) = c$ have the same appeal to voters.
+
+Hence the goal is to find the largest value of $c$ for which the graph of $q(x_{1}, x_{2}) = c$ contains a feasible point.
+
+
+The choice of the function $q$ depends upon many factors; we will show how to solve the problem for any quadratic form $q$ (even with more than two variables). In the diagram the function $q$ is given by
+\begin{equation*}
+q(x_{1}, x_{2}) = x_{1}x_{2}
+\end{equation*}
+and the graphs of $q(x_{1}, x_{2}) = c$ are shown for $c = 1$ and $c = 2$. As $c$ increases the graph of $q(x_{1}, x_{2}) = c$ moves up and to the right. From this it is clear that there will be a solution for some value of $c$ between $1$ and $2$ (in fact the largest value is $c = \frac{1}{2}\sqrt{15} = 1.94$ to two decimal places).
+\end{example}
+
+The constraint $5x_{1}^2 + 3x_{2}^2 \leq 15$ in Example~\ref{exa:027606} can be put in a standard form. If we divide through by $15$, it becomes $\left(\frac{x_{1}}{\sqrt{3}}\right)^2 + \left(\frac{x_{2}}{\sqrt{5}}\right)^2 \leq 1$. This suggests that we introduce new variables $\vect{y} = (y_{1}, y_{2})$ where $y_{1} = \frac{x_{1}}{\sqrt{3}}$ and $y_{2} = \frac{x_{2}}{\sqrt{5}}$. Then the constraint becomes $\vectlength\vect{y}\vectlength^{2} \leq 1$, equivalently $\vectlength\vect{y}\vectlength \leq 1$. In terms of these new variables, the objective function is $q = \sqrt{15}y_{1}y_{2}$, and we want to maximize this subject to $\vectlength\vect{y}\vectlength \leq 1$. When this is done, the maximizing values of $x_{1}$ and $x_{2}$ are obtained from $x_{1} = \sqrt{3}y_{1}$ and $x_{2} = \sqrt{5}y_{2}$.
+
+
+Hence, for constraints like that in Example~\ref{exa:027606}, there is no real loss in generality in assuming that the constraint takes the form $\vectlength\vect{x}\vectlength \leq 1$. In this case the principal axes theorem\index{principal axes theorem} solves the problem. Recall that a vector in $\RR^n$ of length $1$ is called a \textit{unit vector}.
+
+
+\begin{theorem}{}{027649}
+Consider the quadratic form $q = q(\vect{x}) = \vect{x}^{T}A\vect{x}$ where $A$ is an $n \times n$ symmetric matrix, and let $\lambda_{1}$ and $\lambda_{n}$ denote the largest and smallest eigenvalues of $A$, respectively. Then:
+
+
+\begin{enumerate}
+\item $\func{max}\{q(\vect{x}) \mid \vectlength\vect{x}\vectlength \leq 1\} = \lambda_1$, and $q(\vect{f}_{1}) = \lambda_1$ where $\vect{f}_{1}$ is any unit $\lambda_1$-eigenvector.
+
+\item $\func{min}\{q(\vect{x}) \mid \vectlength\vect{x}\vectlength \leq 1\} = \lambda_{n}$, and $q(\vect{f}_{n}) = \lambda_{n}$ where $\vect{f}_{n}$ is any unit $\lambda_{n}$-eigenvector.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Since $A$ is symmetric, let the (real) eigenvalues $\lambda_{i}$ of $A$ be ordered as to size as follows: 
+\begin{equation*}
+\lambda_{1} \geq \lambda_{2} \geq \cdots \geq \lambda_{n}
+\end{equation*}
+By the principal axes theorem, let $P$ be an orthogonal matrix such that $P^{T}AP = D = \diag(\lambda_{1}, \lambda_{2}, \dots, \lambda_{n})$. Define $\vect{y} = P^{T}\vect{x}$, equivalently $\vect{x} = P\vect{y}$, and note $\vectlength\vect{y}\vectlength = \vectlength\vect{x}\vectlength$ because $\vectlength\vect{y}\vectlength^{2} = \vect{y}^{T}\vect{y} = \vect{x}^{T}(PP^{T})\vect{x} = \vect{x}^{T}\vect{x} = \vectlength\vect{x}\vectlength^{2}$. If we write $\vect{y} = (y_{1}, y_{2}, \dots, y_{n})^{T}$, then
+\begin{align} \label{symMatrixEq}
+q(\vect{x}) &= q(P\vect{y}) = (P\vect{y})^TA(P\vect{y}) \nonumber \\ 
+			&= \vect{y}^T(P^TAP)\vect{y} = \vect{y}^TD\vect{y} \nonumber \\
+			&= \lambda_{1}y_{1}^2 + \lambda_{2}y_{2}^2 + \cdots + \lambda_{n}y_{n}^2
+\end{align}
+Now assume that $\vectlength\vect{x}\vectlength \leq 1$. Since $\lambda_{i} \leq \lambda_{1}$ for each $i$, (\ref{symMatrixEq}) gives
+\begin{equation*}
+q(\vect{x}) = \lambda_{1}y_{1}^2 + \lambda_{2}y_{2}^2 + \cdots + \lambda_{n}y_{n}^2 \leq \lambda_{1}y_{1}^2 + \lambda_{1}y_{2}^2 + \cdots + \lambda_{1}y_{n}^2 = \lambda_{1} \vectlength \vect{y} \vectlength^2 \leq \lambda_{1}
+\end{equation*}
+because $\vectlength\vect{y}\vectlength = \vectlength\vect{x}\vectlength \leq 1$. This shows that $q(\vect{x})$ cannot exceed $\lambda_{1}$ when $\vectlength\vect{x}\vectlength \leq 1$. To see that this maximum is actually achieved, let $\vect{f}_{1}$ be a unit eigenvector corresponding to $\lambda_{1}$. Then
+\begin{equation*}
+q(\vect{f}_{1}) = \vect{f}_{1}^TA\vect{f}_{1} = \vect{f}_{1}^T(\lambda_{1}\vect{f}_{1}) = \lambda_{1}(\vect{f}_{1}^T\vect{f}_{1}) = \lambda_{1} \vectlength \vect{f}_{1} \vectlength^2 = \lambda_{1}
+\end{equation*}
+Hence $\lambda_{1}$ is the maximum value of $q(\vect{x})$ when $\vectlength\vect{x}\vectlength \leq 1$, proving (1). The proof of (2) is analogous.
+\end{proof}
+
+The set of all vectors $\vect{x}$ in $\RR^n$ such that $\vectlength\vect{x}\vectlength \leq 1$ is called the \textbf{unit ball}\index{unit ball}. If $n = 2$, it is often called the unit disk and consists of the unit circle and its interior; if $n = 3$, it is the unit sphere\index{sphere} and its interior. It is worth noting that the maximum value of a quadratic form $q(\vect{x})$ as $\vect{x}$ ranges \textit{throughout} the unit ball is (by Theorem~\ref{thm:027649}) actually attained for a unit vector $\vect{x}$ on the \textit{boundary} of the unit ball.
+
+
+Theorem~\ref{thm:027649} is important for applications involving vibrations in areas as diverse as aerodynamics and particle physics, and the maximum and minimum values in the theorem are often found using advanced calculus to minimize the quadratic form on the unit ball. The algebraic approach using the principal axes theorem gives a geometrical interpretation of the optimal values because they are eigenvalues.\index{aerodynamics}\index{particle physics}\index{vibrations}
+
+
+\begin{example}{}{027706}
+Maximize and minimize the form $q(\vect{x})= 3x_{1}^2 + 14x_{1}x_{2} + 3x_{2}^2$ subject to $\vectlength\vect{x}\vectlength \leq 1$.
+
+
+\begin{solution}
+  The matrix of $q$ is $A = \leftB \begin{array}{rr}
+  3 & 7 \\
+  7 & 3
+  \end{array}\rightB$, with eigenvalues $\lambda_{1} = 10$ and $\lambda_{2} = -4$, and corresponding unit eigenvectors $\vect{f}_{1} = \frac{1}{\sqrt{2}}(1, 1)$ and $\vect{f}_{2} = \frac{1}{\sqrt{2}}(1, -1)$. Hence, among all unit vectors $\vect{x}$ in $\RR^2$, $q(\vect{x})$ takes its maximal value $10$ at $\vect{x} = \vect{f}_{1}$, and the minimum value of $q(\vect{x})$ is $-4$ when $\vect{x} = \vect{f}_{2}$.
+\end{solution}
+\end{example}
+
+As noted above, the objective function\index{objective function}\index{function!objective function} in a constrained optimization problem need not be a quadratic form. We conclude with an example where the objective function is linear, and the feasible region is determined by linear constraints.
+
+\newpage
+
+\begin{example}{}{027722}
+\begin{wrapfigure}{l}{5cm}
+\centering
+\input{8-orthogonality/figures/9-an-application-to-constrained-optimization/example8.9.3}
+%\captionof{figure}{\label{fig:027740}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+A manufacturer makes $x_{1}$ units of product 1, and $x_{2}$ units of product 2, at a profit of \$70 and \$50 per unit respectively, and wants to choose $x_{1}$ and $x_{2}$ to maximize the total profit $p(x_{1}, x_{2}) = 70x_{1} + 50x_{2}$. However $x_{1}$ and $x_{2}$ are not arbitrary; for example, $x_{1} \geq 0$ and $x_{2} \geq 0$. Other conditions also come into play. Each unit of product 1 costs \$1200 to produce and requires $2000$ square feet of warehouse space; each unit of product 2 costs \$1300 to produce and requires $1100$ square feet of space. If the total warehouse space is $11\ 300$ square feet, and if the total production budget is \$8700, $x_{1}$ and $x_{2}$ must also satisfy the conditions
+\begin{align*}
+2000x_1 + 1100x_2 &\leq 11 300 \\
+1200x_1 + 1300x_2 &\leq 8700
+\end{align*}
+
+The feasible region in the plane satisfying these constraints (and $x_{1} \geq 0$, $x_{2} \geq 0$) is shaded in the diagram. If the profit equation $70x_{1} + 50x_{2} = p$ is plotted for various values of $p$, the resulting lines are parallel, with $p$ increasing with distance from the origin. Hence the best choice occurs for the line $70x_{1} + 50x_{2} = 430$ that touches the shaded region at the point $(4, 3)$. So the profit $p$ has a maximum of $p = 430$ for $x_{1} = 4$ units and $x_{2} = 3$ units.
+\end{example}
+
+Example~\ref{exa:027722} is a simple case of the general \textbf{linear programming}\index{linear programming} problem\footnote{More information is available in ``Linear Programming and Extensions'' by N. Wu and R. Coppins, McGraw-Hill, 1981.\index{``Linear Programming and Extensions'' (Wu and Coppins)}} which arises in economic, management, network, and scheduling applications. Here the objective function is a linear combination $q = a_{1}x_{1} + a_{2}x_{2} + \cdots + a_{n}x_{n}$ of the variables, and the feasible region consists of the vectors $\vect{x} = (x_{1}, x_{2}, \dots, x_{n})^{T}$ in $\RR^n$ which satisfy a set of linear inequalities of the form $b_{1}x_{1} + b_{2}x_{2} + \cdots + b_{n}x_{n} \leq b$. There is a good method (an extension of the gaussian algorithm) called the \textbf{simplex algorithm}\index{simplex algorithm} for finding the maximum and minimum values of $q$ when $\vect{x}$ ranges over such a feasible set. As Example~\ref{exa:027722} suggests, the optimal values turn out to be vertices of the feasible set. In particular, they are on the boundary of the feasible region, as is the case in Theorem~\ref{thm:027649}.
+
+

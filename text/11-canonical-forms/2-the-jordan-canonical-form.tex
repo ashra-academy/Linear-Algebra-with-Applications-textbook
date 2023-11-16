@@ -1,0 +1,259 @@
+\section{The Jordan Canonical Form}
+\label{sec:11_2}\index{canonical forms!Jordan canonical form}\index{Jordan canonical form}
+
+Two $m \times n$ matrices $A$ and $B$ are called row-equivalent if $A$ can be carried to $B$ using row operations and, equivalently, if $B = UA$ for some invertible matrix $U$. We know (Theorem~\ref{thm:006021}) that each $m \times n$ matrix is row-equivalent to a unique matrix in reduced row-echelon form, and we say that these reduced row-echelon matrices are \textit{canonical forms} for $m \times n$ matrices using row operations\index{canonical forms!$m \times n$ matrix}\index{$m \times n$ matrix!canonical forms}. If we allow column operations as well, then $A \to UAV = \leftB \begin{array}{cc}
+I_r & 0 \\
+0 & 0
+\end{array} \rightB$
+ for invertible $U$ and $V$, and the canonical forms are the matrices $\leftB \begin{array}{rr}
+ I_r & 0 \\
+ 0 & 0
+ \end{array} \rightB$
+ where $r$ is the $\func{rank}$ (this is the Smith normal form and is discussed in Theorem~\ref{thm:005918}). In this section, we discover the canonical forms for square matrices under similarity: $A \to P^{-1}AP$.
+
+
+If $A$ is an $n \times n$ matrix with distinct real eigenvalues $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$, we saw in Theorem~\ref{thm:032952} that $A$ is similar to a block triangular matrix; more precisely, an invertible matrix $P$ exists such that
+\begin{equation}\label{eq:11_2Jordan}
+P^{-1}AP = \leftB \begin{array}{cccc}
+U_1 & 0 & \cdots & 0 \\
+0 & U_2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 & U_k
+\end{array} \rightB = \diag(U_1, U_2, \dots, U_k)
+\end{equation}
+where, for each $i$, $U_{i}$ is upper triangular with $\lambda_{i}$ repeated on the main diagonal. The Jordan canonical form is a refinement of this theorem. The proof we gave of (\ref{eq:11_2Jordan}) is matrix theoretic because we wanted to give an algorithm for actually finding the matrix $P$. However, we are going to employ abstract methods here. Consequently, we reformulate Theorem~\ref{thm:032952} as follows:
+
+
+\begin{theorem}{}{033492}
+Let $T : V \to V$ be a linear operator where $\func{dim }V = n$. Assume that $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$ are the distinct eigenvalues of $T$, and that the $\lambda_{i}$ are all real. Then there exists a basis $F$ of $V$ such that $M_{F}(T) = \diag(U_{1}, U_{2}, \dots, U_{k})$ where, for each $i$, $U_{i}$ is square, upper triangular, with $\lambda_{i}$ repeated on the main diagonal.
+\end{theorem}
+
+\begin{proof}
+Choose any basis $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ of $V$ and write $A = M_{B}(T)$. Since $A$ has the same eigenvalues as $T$, Theorem~\ref{thm:032952} shows that an invertible matrix $P$ exists such that $P^{-1}AP = \diag(U_{1}, U_{2}, \dots, U_{k})$ where the $U_{i}$ are as in the statement of the Theorem. If $\vect{p}_{j}$ denotes column $j$ of $P$ and $C_{B} : V \to \RR^n$ is the coordinate isomorphism, let $\vect{f}_j = C^{-1}_B (\vect{p}_j)$ for each $j$. Then $F = \{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ is a basis of $V$ and $C_{B}(\vect{f}_{j}) = \vect{p}_{j}$ for each $j$. This means that $P_{B \gets F} = \leftB C_{B}(\vect{f}_{j}) \rightB = \leftB \vect{p}_{j} \rightB = P$, and hence (by Theorem~\ref{thm:028683}) that $P_{F \gets B} = P^{-1}$. With this, column $j$ of $M_{F}(T)$ is
+\begin{equation*}
+C_F(T(\vect{f}_j)) = P_{F \leftarrow B}C_B(T(\vect{f}_j)) = P^{-1}M_B(T)C_B(\vect{f}_j) = P^{-1}A\vect{p}_j
+\end{equation*}
+for all $j$. Hence
+\begin{equation*}
+M_F(T) = \leftB C_F(T(\vect{f}_j)) \rightB = \leftB P^{-1}A\vect{p}_j \rightB = P^{-1}A \leftB \vect{p}_j \rightB = P^{-1}AP = \diag(U_1, U_2, \dots, U_k)
+\end{equation*}
+as required.
+\end{proof}
+
+\begin{definition}{Jordan Blocks}{033541}
+If $n \geq 1$, define the \textbf{Jordan block}\index{Jordan blocks} $J_{n}(\lambda)$ to be the $n \times n$ matrix with $\lambda$s on the main diagonal, $1$s on the diagonal above, and $0$s elsewhere. We take $J_{1}(\lambda) = \leftB \lambda \rightB$.
+\end{definition}
+
+\noindent Hence
+\begin{equation*}
+J_1(\lambda) = \leftB \lambda \rightB, \quad J_2(\lambda) = \leftB \begin{array}{cc}
+\lambda & 1 \\
+0 & \lambda
+\end{array} \rightB, \quad J_3(\lambda) = \leftB \begin{array}{ccc}
+\lambda & 1 & 0 \\
+0 & \lambda & 1 \\
+0 & 0 & \lambda
+\end{array} \rightB, \quad J_4(\lambda) = \leftB \begin{array}{cccc}
+\lambda & 1 & 0 & 0 \\
+0 & \lambda & 1 & 0 \\
+0 & 0 & \lambda & 1 \\
+0 & 0 & 0 & \lambda
+\end{array} \rightB, \quad \dots
+\end{equation*}
+We are going to show that Theorem~\ref{thm:033492} holds with each block $U_{i}$ replaced by Jordan blocks corresponding to eigenvalues. It turns out that the whole thing hinges on the case $\lambda = 0$. An operator $T$ is called \textbf{nilpotent}\index{nilpotent} if $T^{m} = 0$ for some $m \geq 1$, and in this case $\lambda = 0$ for every eigenvalue $\lambda$ of $T$. Moreover, the converse holds by Theorem~\ref{thm:032952}. Hence the following lemma is crucial.
+
+
+\begin{lemma}{}{033551}
+Let $T : V \to V$ be a linear operator where $\func{dim }V = n$, and assume that $T$ is nilpotent; that is, $T^{m} = 0$ for some $m \geq 1$. Then $V$ has a basis $B$ such that
+\begin{equation*}
+M_B(T) = \diag(J_1, J_2, \dots, J_k)
+\end{equation*}
+where each $J_{i}$ is a Jordan block corresponding to $\lambda = 0$.\footnotemark
+\end{lemma}
+\footnotetext{The converse is true too: If $M_{B}(T)$ has this form for some basis $B$ of $V$, then $T$ is nilpotent.}
+
+\noindent A proof is given at the end of this section.
+
+
+\begin{theorem}{Real Jordan Canonical Form}{033558}
+Let $T : V \to V$ be a linear operator where $\func{dim }V = n$, and assume that $\lambda_{1}, \lambda_{2}, \dots, \lambda_{m}$ are the distinct eigenvalues of $T$ and that the $\lambda_{i}$ are all real. Then there exists a basis $E$ of $V$ such that
+\begin{equation*}
+M_E(T) = \diag(U_1, U_2, \dots, U_k)
+\end{equation*}
+in block form. Moreover, each $U_{j}$ is itself block diagonal:
+\begin{equation*}
+U_j = \diag(J_1, J_2, \dots, J_k)
+\end{equation*}
+where each $J_{i}$ is a Jordan block corresponding to some $\lambda_{i}$.\index{real Jordan canonical form}
+\end{theorem}
+
+\begin{proof}
+Let $E = \{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ be a basis of $V$ as in Theorem~\ref{thm:033492}, and assume that $U_{i}$ is an $n_{i} \times n_{i}$ matrix for each $i$. Let
+\begin{equation*}
+E_1 = \{\vect{e}_1, \dots, \vect{e}_{n_1}\}, \quad E_2 = \{\vect{e}_{n_1 + 1}, \dots, \vect{e}_{n_2}\}, \quad \dots, \quad E_k = \{\vect{e}_{n_{k-1} + 1}, \dots, \vect{e}_{n_k}\} \quad
+\end{equation*}
+where $n_{k} = n$, and define $V_{i} = \func{span}\{E_{i}\}$ for each $i$. Because the matrix $M_{E}(T) = \diag(U_{1}, U_{2}, \dots, U_{m})$ is block diagonal, it follows that each $V_{i}$ is $T$-invariant and $M_{E_{i}}(T) = U_{i}$ for each $i$. Let $U_{i}$ have $\lambda_{i}$ repeated along the main diagonal, and consider the restriction $T : V_{i} \to V_{i}$. Then $M_{E_{i}}(T - \lambda_{i}I_{n_{i}})$ is a nilpotent matrix, and hence $(T-\lambda_{i}I_{n_{i}})$ is a nilpotent operator on $V_{i}$. But then Lemma~\ref{lem:033551} shows that $V_{i}$ has a basis $B_{i}$ such that $M_{B_i}(T - \lambda_{i}I_{n_{i}}) = \diag(K_{1}, K_{2}, \dots, K_{t_i})$ where each $K_{i}$ is a Jordan block corresponding to $\lambda = 0$. Hence
+\begin{align*}
+M_{B_i}(T) &= M_{B_i}(\lambda_iI_{n_i}) + M_{B_i}(T - \lambda_iI_{n_i}) \\
+&= \lambda_iI_{n_i} + \diag(K_1, K_2, \dots, K_{t_i}) = \diag(J_1, J_2, \dots, J_k)
+\end{align*}
+where $J_{i} = \lambda_{i}I_{f_i} + K_{i}$ is a Jordan block corresponding to $\lambda_{i}$ (where $K_{i}$ is $f_{i} \times f_{i}$). Finally, 
+\begin{equation*}
+B = B_{1} \cup B_{2} \cup \cdots \cup B_{k}
+\end{equation*}
+is a basis of $V$ with respect to which $T$ has the desired matrix.
+\end{proof}
+
+\begin{corollary}{}{033630}
+If $A$ is an $n \times n$ matrix with real eigenvalues, an invertible matrix $P$ exists such that $P^{-1}AP = \diag(J_{1}, J_{2}, \dots, J_{k})$ where each $J_{i}$ is a Jordan block corresponding to an eigenvalue $\lambda_{i}$.
+\end{corollary}
+
+\begin{proof}
+Apply Theorem~\ref{thm:033558} to the matrix transformation $T_{A} : \RR^n \to \RR^n$ to find a basis $B$ of $\RR^n$ such that $M_{B}(T_{A})$ has the desired form. If $P$ is the (invertible) $n \times n$ matrix with the vectors of $B$ as its columns, then $P^{-1}AP = M_{B}(T_{A})$ by Theorem~\ref{thm:028841}.
+\end{proof}
+
+Of course if we work over the field $\mathbb{C}$ of complex numbers rather than $\RR$, the characteristic polynomial of a (complex) matrix $A$ splits completely as a product of linear factors. The proof of Theorem~\ref{thm:033558} goes through to give
+
+%\begin{figure}[H]
+%\centering
+%\includegraphics{11-canonical-forms/figures/2-the-jordan-canonical-form/ufg11001}
+%\caption{\label{fig:033652}}
+%Photo \textcopyright  Corbis.
+%\end{figure}
+
+\begin{theorem}{Jordan Canonical Form\footnotemark}{033655}
+Let $T : V \to V$ be a linear operator where $\func{dim }V = n$, and assume that $\lambda_{1}, \lambda_{2}, \dots, \lambda_{m}$ are the distinct eigenvalues of $T$. Then there exists a basis $F$ of $V$ such that
+\begin{equation*}
+M_F(T) = \diag(U_1, U_2, \dots, U_k)
+\end{equation*}
+in block form. Moreover, each $U_{j}$ is itself block diagonal:
+\begin{equation*}
+U_j = \diag(J_1, J_2, \dots, J_{t_j})
+\end{equation*}
+where each $J_{i}$ is a Jordan block corresponding to some $\lambda_{i}$.
+\end{theorem}
+\footnotetext{This was first proved in 1870 by the French mathematician Camille Jordan\index{Jordan, Camille} (1838--1922) in his monumental \textit{Trait\'e des substitutions et des \'equations alg\'ebriques}.}
+
+\noindent Except for the order of the Jordan blocks $J_{i}$, the Jordan canonical form is uniquely determined by the operator $T$. That is, for each eigenvalue $\lambda$ the number and size of the Jordan blocks corresponding to $\lambda$ is uniquely determined. Thus, for example, two matrices (or two operators) are similar if and only if they have the same Jordan canonical form. We omit the proof of uniqueness; it is best presented using modules in a course on abstract algebra.
+
+
+\subsection*{Proof of Lemma 1}
+
+%\begin{lemma*}{\ref{lem:033551}}{033671}
+\setcounter{LemmaCounter}{0}
+\begin{lemma}{}{033671}
+Let $T : V \to V$ be a linear operator where $\func{dim }V = n$, and assume that $T$ is nilpotent; that is, $T^{m} = 0$ for some $m \geq 1$. Then $V$ has a basis $B$ such that
+\begin{equation*}
+M_B(T) = \diag(J_1, J_2, \dots, J_k)
+\end{equation*}
+where each $J_{i} = J_{n_{i}}(0)$ is a Jordan block corresponding to $\lambda = 0$.
+\end{lemma}
+%\end{lemma*}
+
+
+\begin{proof}
+The proof proceeds by induction on $n$. If $n = 1$, then $T$ is a scalar operator, and so $T = 0$ and the lemma holds. If $n \geq 1$, we may assume that $T \neq 0$, so $m \geq 1$ and we may assume that $m$ is chosen such that $T^{m} = 0$, but $T^{m-1} \neq 0$. Suppose $T^{m-1}\vect{u} \neq \vect{0}$ for some $\vect{u}$ in $V$.\footnote{If $S : V \to V$ is an operator, we abbreviate $S(\vect{u})$ by $S\vect{u}$ for simplicity.}
+
+
+
+\noindent \textit{Claim}. $\{\vect{u}, T\vect{u}, T^{2}\vect{u}, \dots, T^{m-1}\vect{u}\}$ is independent.
+
+
+\noindent \textit{Proof}. Suppose $a_{0}\vect{u} + a_{1}T\vect{u} + a_{2}T^{2}\vect{u} + \cdots + a_{m-1}T^{m-1}\vect{u} = \vect{0}$ where each $a_{i}$ is in $\RR$. Since $T^{m} = 0$, applying $T^{m-1}$ gives $\vect{0} = T^{m-1}\vect{0} = a_{0} T^{m-1}\vect{u}$, whence $a_{0} = 0$. Hence $a_{1}T\vect{u} + a_{2}T^{2}\vect{u} + \cdots + a_{m-1}T^{m-1}\vect{u} = \vect{0}$ and applying $T^{m-2}$ gives $a_{1} = 0$ in the same way. Continue in this fashion to obtain $a_{i} = 0$ for each $i$. This proves the Claim.
+
+
+Now define $P = \func{span}\{\vect{u}, T\vect{u}, T^{2}\vect{u}, \dots, T^{m-1}\vect{u}\}$. Then $P$ is a $T$-invariant subspace (because $T^{m} = 0$), and $T : P \to P$ is nilpotent with matrix $M_{B}(T) = J_{m}(0)$ where $B = \{\vect{u}, T\vect{u}, T^{2}\vect{u}, \dots, T^{m-1}\vect{u}\}$. Hence we are done, by induction, if $V = P \oplus Q$ where $Q$ is $T$-invariant (then $\func{dim }Q = n- \func{dim }P < n$ because $P \neq 0$, and $T : Q \to Q$ is nilpotent). With this in mind, choose a $T$-invariant subspace $Q$ of maximal dimension such that $P \cap Q = \{\vect{0}\}$.\footnote{Observe that there \textit{is} at least one such subspace: $Q = \{\vect{0}\}$.} We assume that $V \neq P \oplus Q$ and look for a contradiction.
+
+
+Choose $\vect{x} \in V$ such that $\vect{x} \notin P \oplus Q$. Then $T^{m}\vect{x} = \vect{0} \in P \oplus Q$ while $T^{0}\vect{x} = \vect{x} \notin P \oplus Q$. Hence there exists $k$, $1 \leq k \leq m$, such that $T^{k}\vect{x} \in P \oplus Q$ but $T^{k-1}\vect{x} \notin P \oplus Q$. Write $\vect{v} = T^{k-1}\vect{x}$, so that
+\begin{equation*}
+\vect{v} \notin P \oplus Q \quad \mbox{and} \quad T\vect{v} \in P \oplus Q
+\end{equation*}
+Let $T\vect{v} = \vect{p} + \vect{q}$ with $\vect{p}$ in $P$ and $\vect{q}$ in $Q$. Then $\vect{0} = T^{m-1}(T\vect{v}) = T^{m-1}\vect{p} + T^{m-1}\vect{q}$ so, since $P$ and $Q$ are $T$-invariant, $T^{m-1}\vect{p} = -T^{m-1}\vect{q} \in P \cap Q = \{\vect{0}\}$. Hence
+\begin{equation*}
+T^{m-1}\vect{p} = \vect{0}
+\end{equation*}
+Since $\vect{p} \in P$ we have $\vect{p} = a_{0}\vect{u} + a_{1}T\vect{u} + a_{2}T^{2}\vect{u} + \cdots + a_{m-1}T^{m-1}\vect{u}$ for $a_{i} \in \RR$. Since $T^{m} = 0$, applying $T^{m-1}$ gives $\vect{0} = T^{m-1}\vect{p} = a_{0}T^{m-1}\vect{u}$, whence $a_{0} = 0$. Thus $\vect{p} = T(\vect{p}_{1})$ where 
+\begin{equation*}
+\vect{p}_{1} = a_{1}\vect{u} + a_{2}T\vect{u} + \cdots  + a_{m-1}T^{m-2}\vect{u} \in P
+\end{equation*}
+If we write $\vect{v}_{1} = \vect{v} - \vect{p}_{1}$ we have
+\begin{equation*}
+T(\vect{v}_1) = T(\vect{v} - \vect{p}_1) = T\vect{v} - \vect{p} = \vect{q} \in Q
+\end{equation*}
+Since $T(Q) \subseteq Q$, it follows that $T(Q + \RR\vect{v}_{1}) \subseteq Q \subseteq Q + \RR\vect{v}_{1}$. Moreover $\vect{v}_{1} \notin Q$ (otherwise $\vect{v} = \vect{v}_{1} + \vect{p}_{1} \in P \oplus Q$, a contradiction). Hence $Q \subset Q + \RR\vect{v}_{1}$ so, by the maximality of $Q$, we have $(Q + \RR\vect{v}_{1}) \cap P \neq \{\vect{0}\}$, say
+\begin{equation*}
+\vect{0} \neq \vect{p}_2 = \vect{q}_1 + a\vect{v}_1 \quad \mbox{where} \quad \vect{p}_2 \in P, \quad \vect{q}_1 \in Q, \quad \mbox{and} \quad a \in \RR
+\end{equation*}
+Thus $a\vect{v}_{1} = \vect{p}_{2} - \vect{q}_{1} \in P \oplus Q$. But since $\vect{v}_{1} = \vect{v} - \vect{p}_{1}$ we have
+\begin{equation*}
+a\vect{v} = a\vect{v}_1 + a\vect{p}_1 \in (P \oplus Q) + P = P \oplus Q
+\end{equation*}
+Since $\vect{v} \notin P \oplus Q$, this implies that $a = 0$. But then $\vect{p}_{2} = \vect{q}_{1} \in P \cap Q = \{\vect{0}\}$, a contradiction. This completes the proof.
+\end{proof}
+
+\section*{Exercises for \ref{sec:11_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:11_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+By direct computation, show that there is no invertible complex matrix $C$ such that
+\vspace*{-0.5em}{\small \begin{equation*}
+C^{-1}\leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+0 & 1 & 1 \\
+0 & 0 & 1
+\end{array} \rightB C = \leftB \begin{array}{rrr}
+1 & 1 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB
+\end{equation*}}
+\end{ex}
+
+\begin{ex}
+Show that $\leftB \begin{array}{ccc}
+a & 1 & 0 \\
+0 & a & 0 \\
+0 & 0 & b
+\end{array} \rightB$
+ is similar to $\leftB \begin{array}{ccc}
+ b & 0 & 0 \\
+ 0 & a & 1 \\
+ 0 & 0 & a
+ \end{array} \rightB$.
+
+\begin{sol}
+$\leftB \begin{array}{ccc}
+a & 1 & 0 \\
+0 & a & 0 \\
+0 & 0 & b
+\end{array} \rightB \leftB \begin{array}{ccc}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0
+\end{array} \rightB$ \\ ${}\hspace*{3em} = \leftB \begin{array}{ccc}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0
+\end{array} \rightB \leftB \begin{array}{ccc}
+a & 1 & 0 \\
+0 & a & 1 \\
+0 & 0 & a
+\end{array} \rightB$
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that every complex matrix is similar to its transpose.
+
+\item Show every real matrix is similar to its transpose. [\textit{Hint}: Show that $J_{k}(0)Q = Q[J_{k}(0)]^{T}$ where $Q$ is the $k \times k$ matrix with $1$s down the ``counter diagonal'', that is from the $(1, k)$-position to the $(k, 1)$-position.]
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

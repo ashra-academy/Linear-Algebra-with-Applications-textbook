@@ -1,0 +1,657 @@
+\section{Examples and Elementary Properties}
+\label{sec:7_1}
+
+\begin{definition}{Linear Transformations of Vector Spaces}{020742}
+\begin{wrapfigure}[4]{l}{4.5cm}
+	\centering
+	\input{7-linear-transformations/figures/1-examples-and-elementary-properties/definition7.1}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+If $V$ and $W$ are two vector spaces, a function $T : V \to W$ is called a \textbf{linear transformation}\index{linear transformations!defined}\index{vector spaces!linear transformations} if it satisfies the following axioms.
+\begin{equation*}
+\begin{array}{lll}
+\mbox{T1. } \quad T(\vect{v} + \vect{v}_1) = T(\vect{v}) + T(\vect{v}_1) & & \mbox{for all } \vect{v} \mbox{ and } \vect{v}_1 \mbox{ in } V. \\
+\mbox{T2. } \quad T(\vect{rv}) = rT(\vect{v}) & & \mbox{for all } \vect{v} \mbox{ in } V \mbox{ and } r \mbox{ in } \RR.
+\end{array}
+\end{equation*}
+A linear transformation $T : V \to V$ is called a \textbf{linear operator}\index{linear operator!defined} on $V$. The situation can be visualized as in the diagram.
+
+\end{definition}
+
+Axiom T1 is just the requirement that $T$ \textit{preserves} vector addition. It asserts that the result $T(\vect{v} + \vect{v}_{1})$ of adding $\vect{v}$ and $\vect{v}_{1}$ first and then applying $T$ is the same as applying $T$ first to get $T(\vect{v})$ and $T(\vect{v}_{1})$ and then adding. Similarly, axiom T2 means that $T$ \textit{preserves} scalar multiplication. Note that, even though the additions in axiom T1 are both denoted by the same symbol $+$, the addition on the left forming $\vect{v} + \vect{v}_{1}$ is carried out in $V$, whereas the addition $T(\vect{v}) + T(\vect{v}_{1})$ is done in $W$. Similarly, the scalar multiplications $r\vect{v}$ and $rT(\vect{v})$ in axiom T2 refer to the spaces $V$ and $W$, respectively.
+
+
+We have already seen many examples of linear transformations $T : \RR^n \to \RR^m$\index{linear transformations!examples}. In fact, writing vectors in $\RR^n$ as columns, Theorem~\ref{thm:005789} shows that, for each such $T$, there is an $m \times n$ matrix $A$ such that $T(\vect{x}) = A\vect{x}$ for every $\vect{x}$ in $\RR^n$. Moreover, the matrix $A$ is given by $A = \leftB \begin{array}{cccc}
+T(\vect{e}_{1}) & T(\vect{e}_{2}) & \cdots & T(\vect{e}_{n})
+\end{array} \rightB$ where $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is the standard basis of $\RR^n$. We denote this transformation by $T_{A} : \RR^n \to \RR^m$, defined by\index{linear transformations!matrix of a linear transformation}
+\begin{equation*}
+T_A(\vect{x}) = A\vect{x} \quad \mbox{for all } \vect{x} \mbox{ in } \RR^n
+\end{equation*}
+
+Example~\ref{exa:020771} lists three important linear transformations that will be referred to later. The verification of axioms T1 and T2 is left to the reader.
+
+
+\begin{example}{}{020771}
+If $V$ and $W$ are vector spaces, the following are linear transformations:
+\begin{equation*}
+\begin{array}{lrl}
+\mbox{\textbf{Identity operator}\index{identity operator}\index{linear transformations!identity operator} } V \to V & 1_V : V \to V & \mbox{where } 1_V(\vect{v}) = \vect{v} \mbox{ for all } \vect{v} \mbox{ in } V \\
+\mbox{\textbf{Zero transformation}\index{zero transformation}\index{linear transformations!zero transformation} } V \to W & 0 : V \to W & \mbox{where } 0(\vect{v}) = \vect{0} \mbox{ for all } \vect{v} \mbox{ in } V \\
+\mbox{\textbf{Scalar operator}\index{scalar operator}\index{linear transformations!scalar operator} } V \to V & a : V \to V & \mbox{where } a(\vect{v}) = a\vect{v} \mbox{ for all } \vect{v} \mbox{ in } V \\
+& & \quad \mbox{(Here } a \mbox{ is any real number.)}
+\end{array}
+\end{equation*}
+\end{example}
+
+The symbol $0$ will be used to denote the zero transformation from $V$ to $W$ for \textit{any} spaces $V$ and $W$. It was also used earlier to denote the zero function $\left[a, b\right] \to \RR$.
+
+
+The next example gives two important transformations of matrices. Recall that the trace $\func{tr }A$ of an $n \times n$ matrix $A$ is the sum of the entries on the main diagonal.\index{trace}
+
+
+\begin{example}{}{020777}
+Show that the transposition\index{transposition} and trace are linear transformations. More precisely,
+\begin{equation*}
+\begin{array}{lll}
+R: \vectspace{M}_{mn} \to \vectspace{M}_{nm} & & \mbox{where } R(A) = A^T \mbox{ for all } A \mbox{ in } \vectspace{M}_{mn} \\
+S: \vectspace{M}_{mn} \to \RR & & \mbox{where } S(A) = \func{tr }A \mbox{ for all } A \mbox{ in } \vectspace{M}_{nn}
+\end{array}
+\end{equation*}
+are both linear transformations.
+
+
+\begin{solution}
+  Axioms T1 and T2 for transposition are $(A + B)^{T} = A^{T} + B^{T}$ and $(rA)^{T} = r(A^{T})$, respectively (using Theorem~\ref{thm:002240}). The verifications for the trace are left to the reader.
+\end{solution}
+\end{example}
+
+\begin{example}{}{020790}
+If $a$ is a scalar, define $E_{a} : \vectspace{P}_{n} \to \RR$ by $E_{a}(p) = p(a)$ for each polynomial $p$ in $\vectspace{P}_{n}$. Show that $E_{a}$ is a linear transformation (called \textbf{evaluation}\index{evaluation}\index{linear transformations!evaluation} at $a$).
+
+
+\begin{solution}
+  If $p$ and $q$ are polynomials and $r$ is in $\RR$, we use the fact that the sum $p + q$ and scalar product $rp$ are defined as for functions:
+\begin{equation*}
+(p + q)(x) = p(x) + q(x) \quad \mbox{ and } \quad (rp)(x) = rp(x)
+\end{equation*}
+for all $x$. Hence, for all $p$ and $q$ in $\vectspace{P}_{n}$ and all $r$ in $\RR$:
+\begin{align*}
+E_a(p + q) &= (p + q)(a) = p(a) + q(a) = E_a(p) + E_a(q), \quad \mbox{ and } \\
+E_a(rp) &= (rp)(a) = rp(a) = rE_a(p).
+\end{align*}
+
+Hence $E_{a}$ is a linear transformation.
+\end{solution}
+\end{example}
+
+The next example involves some calculus.
+
+
+\begin{example}{}{020807}
+Show that the differentiation\index{differentiation}\index{linear transformations!differentiation} and integration\index{integration}\index{linear transformations!integration} operations on $\vectspace{P}_{n}$ are linear transformations. More precisely,
+\begin{align*}
+D&: \vectspace{P}_n \to \vectspace{P}_{n-1} \quad \mbox{where } D\left[p(x)\right] = p^\prime(x) \mbox{ for all } p(x) \mbox{ in } \vectspace{P}_n \\
+I&: \vectspace{P}_n \to \vectspace{P}_{n+1} \quad \mbox{where } I\left[p(x)\right] = \int_{0}^{x}p(t)dt \mbox{ for all } p(x) \mbox{ in } \vectspace{P}_n
+\end{align*}
+are linear transformations.
+
+
+\begin{solution}
+  These restate the following fundamental properties of differentiation and integration.
+\begin{equation*}
+\begin{array}{l}
+\left[p(x) + q(x)\right]^\prime = p^\prime(x) + q^\prime(x) \quad \mbox{ and } \quad \left[rp(x)\right]^\prime = (rp)^\prime(x) \\
+\\
+\int_{0}^{x}\left[p(t) + q(t)\right]dt = \int_{0}^{x}p(t)dt + \int_{0}^{x}q(t)dt \quad \mbox{ and } \quad \int_{0}^{x}rp(t)dt = r\int_{0}^{x}p(t)dt
+\end{array}
+\end{equation*}
+\end{solution}
+\end{example}
+
+The next theorem collects three useful properties of \textit{all} linear transformations. They can be described by saying that, in addition to preserving addition and scalar multiplication (these are the axioms), linear transformations preserve the zero vector, negatives, and linear combinations.
+
+
+\begin{theorem}{}{020817}
+Let $T : V \to W$ be a linear transformation.\index{linear transformations!properties}
+
+
+\begin{enumerate}
+\item $T(\vect{0}) = \vect{0}$.
+
+\item $T(-\vect{v}) = -T(\vect{v})$ for all $\vect{v}$ in $V$.
+
+\item $T(r_{1}\vect{v}_{1} + r_{2}\vect{v}_{2} + \cdots  + r_{k}\vect{v}_{k}) = r_{1}T(\vect{v}_{1}) + r_{2}T(\vect{v}_{2}) + \cdots  + r_{k}T(\vect{v}_{k})$ for all $\vect{v}_{i}$ in $V$ and all $r_{i}$ in $\RR$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item $T(\vect{0}) = T(0\vect{v}) = 0T(\vect{v}) = \vect{0}$ for any $\vect{v}$ in $V$.
+
+\item $T(-\vect{v}) = T \leftB (-1)\vect{v} \rightB = (-1)T(\vect{v}) = -T(\vect{v})$ for any $\vect{v}$ in $V$.
+
+\item The proof of Theorem~\ref{thm:005709} goes through.
+
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+The ability to use the last part of Theorem~\ref{thm:020817} effectively is vital to obtaining the benefits of linear transformations. Example~\ref{exa:020851} and Theorem~\ref{thm:020878} provide illustrations.
+
+\begin{example}{}{020851}
+Let $T : V \to W$ be a linear transformation. If $T(\vect{v} - 3\vect{v}_{1}) = \vect{w}$ and $T(2\vect{v} - \vect{v}_{1}) = \vect{w}_{1}$, find $T(\vect{v})$ and $T(\vect{v}_{1})$ in terms of $\vect{w}$ and $\vect{w}_{1}$.
+
+
+\begin{solution}
+The given relations imply that
+\begin{align*}
+T(\vect{v}) - 3T(\vect{v}_1) &= \vect{w} \\
+2T(\vect{v}) - T(\vect{v}_1) &= \vect{w}_1
+\end{align*} 
+by Theorem~\ref{thm:020817}. Subtracting twice the first from the second gives $T(\vect{v}_1) = \frac{1}{5}(\vect{w}_1 - 2\vect{w})$. Then substitution gives $T(\vect{v}) = \frac{1}{5}(3\vect{w}_1 - \vect{w})$.
+\end{solution}
+\end{example}
+
+The full effect of property (3) in Theorem~\ref{thm:020817} is this: If $T : V \to W$ is a linear transformation and $T(\vect{v}_{1}), T(\vect{v}_{2}), \dots, T(\vect{v}_{n})$ are known, then $T(\vect{v})$ can be computed for \textit{every} vector $\vect{v}$ in $\func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$. In particular, if $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ spans $V$, then $T(\vect{v})$ is determined for all $\vect{v}$ in $V$ by the choice of $T(\vect{v}_{1}), T(\vect{v}_{2}), \dots, T(\vect{v}_{n})$. The next theorem states this somewhat differently. As for functions in general, two linear transformations $T : V \to W$ and $S : V \to W$ are called \textbf{equal}\index{equal!linear transformations}\index{equal!transformation}\index{linear transformations!equal} (written $T = S$) if they have the same \textbf{action}\index{action!same action}\index{same action}; that is, if $T(\vect{v}) = S(\vect{v})$ for all $\vect{v}$ in $V$.
+
+
+\begin{theorem}{}{020878}
+Let $T : V \to W$ and $S : V \to W$ be two linear transformations. Suppose that $V = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$. If T$(\vect{v}_{i}) = S(\vect{v}_{i})$ for each $i$, then $T = S$.
+\end{theorem}
+
+\begin{proof}
+If $\vect{v}$ is any vector in $V = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$, write $\vect{v} = a_{1}\vect{v}_{1} + a_{2}\vect{v}_{2} + \cdots + a_{n}\vect{v}_{n}$ where each $a_{i}$ is in $\RR$. Since $T(\vect{v}_{i}) = S(\vect{v}_{i})$ for each $i$, Theorem~\ref{thm:020817} gives
+\begin{align*}
+T(\vect{v}) &= T(a_1\vect{v}_1 + a_2\vect{v}_2 + \cdots + a_n\vect{v}_n) \\
+&= a_1T(\vect{v}_1) + a_2T(\vect{v}_2) + \cdots + a_nT(\vect{v}_n) \\
+&= a_1S(\vect{v}_1) + a_2S(\vect{v}_2) + \cdots + a_nS(\vect{v}_n) \\
+&= S(a_1\vect{v}_1 + a_2\vect{v}_2 + \cdots + a_n\vect{v}_n) \\
+&= S(\vect{v})
+\end{align*}
+
+Since $\vect{v}$ was arbitrary in $V$, this shows that $T = S$.
+\end{proof}
+
+\begin{example}{}{020903}
+Let $V = \func{span}\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$. Let $T : V \to W$ be a linear transformation. If $T(\vect{v}_{1}) = \cdots = T(\vect{v}_{n}) = \vect{0}$, show that $T = 0$, the zero transformation from $V$ to $W$.
+
+
+\begin{solution}
+  The zero transformation $0 : V \to W$ is defined by $0(\vect{v}) = \vect{0}$ for all $\vect{v}$ in $V$ (Example~\ref{exa:020771}), so $T(\vect{v}_{i}) = 0(\vect{v}_{i})$ holds for each $i$. Hence $T = 0$ by Theorem~\ref{thm:020878}.
+\end{solution}
+\end{example}
+
+Theorem~\ref{thm:020878} can be expressed as follows: If we know what a linear transformation $T : V \to W$ does to each vector in a spanning set for $V$, then we know what $T$ does to \textit{every} vector in $V$. If the spanning set is a basis, we can say much more.
+
+
+\begin{theorem}{}{020916}
+Let $V$ and $W$ be vector spaces and let $\{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ be a basis of $V$. Given any vectors $\vect{w}_{1}, \vect{w}_{2}, \dots, \vect{w}_{n}$ in $W$ (they need not be distinct), there exists a unique linear transformation $T : V \to W$ satisfying $T(\vect{b}_{i}) = \vect{w}_{i}$ for each $i = 1, 2, \dots, n$. In fact, the action of $T$ is as follows:
+
+
+Given $\vect{v} = v_{1}\vect{b}_{1} + v_{2}\vect{b}_{2} + \cdots + v_{n}\vect{b}_{n}$ in $V$, $v_{i}$ in $\RR$, then
+\begin{equation*}
+T(\vect{v}) = T(v_1\vect{b}_1 + v_2\vect{b}_2 + \cdots + v_n\vect{b}_n) = v_1\vect{w}_1 + v_2\vect{w}_2 + \cdots + v_n\vect{w}_n.
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+If a transformation $T$ \textit{does} exist with $T(\vect{b}_{i}) = \vect{w}_{i}$ for each $i$, and if $S$ is any other such transformation, then $T(\vect{b}_{i}) = \vect{w}_{i} = S(\vect{b}_{i})$ holds for each $i$, so $S = T$ by Theorem~\ref{thm:020878}. Hence $T$ is unique if it exists, and it remains to show that there really is such a linear transformation. Given $\vect{v}$ in $V$, we must specify $T(\vect{v})$ in $W$. Because $\{\vect{b}_{1}, \dots, \vect{b}_{n}\}$ is a basis of $V$, we have $\vect{v} = v_{1}\vect{b}_{1} + \dots + v_{n}\vect{b}_{n}$, where $v_{1}, \dots, v_{n}$ are \textit{uniquely} determined by $\vect{v}$ (this is Theorem~\ref{thm:018721}). Hence we may define $T : V \to W$ by
+\begin{equation*}
+T(\vect{v}) = T(v_1\vect{b}_1 + v_2\vect{b}_2 + \cdots + v_n\vect{b}_n) = v_1\vect{w}_1 + v_2\vect{w}_2 + \cdots + v_n\vect{w}_n
+\end{equation*}
+for all $\vect{v} = v_{1}\vect{b}_{1} + \dots + v_{n}\vect{b}_{n}$ in $V$. This satisfies $T(\vect{b}_{i}) = \vect{w}_{i}$ for each $i$; the verification that $T$ is linear is left to the reader.
+\end{proof}
+
+This theorem shows that linear transformations can be defined almost at will\index{linear transformations!defined}: Simply specify where the basis vectors go, and the rest of the action is dictated by the linearity. Moreover, Theorem~\ref{thm:020878} shows that deciding whether two linear transformations are equal comes down to determining whether they have the same effect on the basis vectors. So, given a basis $\{\vect{b}_{1}, \dots, \vect{b}_{n}\}$ of a vector space $V$, there is a different linear transformation $V \to W$ for every ordered selection $\vect{w}_{1}, \vect{w}_{2}, \dots, \vect{w}_{n}$ of vectors in $W$ (not necessarily distinct).
+
+
+\begin{example}{}{020965}
+Find a linear transformation $T : \vectspace{P}_{2} \to \vectspace{M}_{22}$ such that
+\begin{equation*}
+T(1 + x) = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB, \quad
+T(x + x^2) = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB, \quad \mbox{ and } \quad
+T(1 + x^2) = \leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB.
+\end{equation*}
+\vspace*{-1em}
+\begin{solution}
+ The set $\{1 + x, x + x^{2}, 1 + x^{2}\}$ is a basis of $\vectspace{P}_{2}$, so every vector $p = a + bx + cx^{2}$ in $\vectspace{P}_{2}$ is a linear combination of these vectors. In fact
+\begin{equation*}
+p(x) = \frac{1}{2}(a + b - c)(1 + x) + \frac{1}{2}(-a + b + c)(x + x^2) + \frac{1}{2}(a - b + c)(1 + x^2)
+\end{equation*}
+Hence Theorem~\ref{thm:020916} gives
+\begin{align*}
+T\left[p(x)\right] &= \frac{1}{2}(a + b - c)\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB + \frac{1}{2}(-a + b + c)\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB + \frac{1}{2}(a - b + c)\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB \\
+&= \frac{1}{2} \leftB \begin{array}{rr}
+a + b - c & -a + b + c \\
+-a + b + c & a - b + c
+\end{array} \rightB
+\end{align*}
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:7_1}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:7_1}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Show that each of the following functions is a linear transformation.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^2 \to \RR^2$; $T(x, y) = (x, -y)$ (reflection in the $x$ axis)
+
+\item $T : \RR^3 \to \RR^3$; $T(x, y, z) = (x, y, -z)$ (reflection in the $x$-$y$ plane)
+
+\item $T : \mathbb{C} \to \mathbb{C}$; $T(z) = \overline{z}$ (conjugation)
+
+\item $T : \vectspace{M}_{mn} \to \vectspace{M}_{kl}$; $T(A) = PAQ$, $P$ a $k \times m$ matrix, $Q$ an $n \times l$ matrix, both fixed
+
+\item $T : \vectspace{M}_{nn} \to \vectspace{M}_{nn}$; $T(A) = A^{T} + A$
+
+\item $T : \vectspace{P}_{n} \to \RR$; $T\left[p(x)\right] = p(0)$
+
+\item $T : \vectspace{P}_{n} \to \RR$; $T(r_{0} + r_{1}x + \cdots  + r_{n}x^{n}) = r_{n}$
+
+\item $T : \RR^n \to \RR$; $T(\vect{x}) = \vect{x} \cdot \vect{z}$, $\vect{z}$ a fixed vector in $\RR^n$
+
+\item $T : \vectspace{P}_{n} \to \vectspace{P}_{n}$; $T\left[p(x)\right] = p(x + 1)$
+
+\item $T : \RR^n \to V$; $T(r_{1}, \cdots, r_{n}) = r_{1}\vect{e}_{1} + \cdots + r_{n}\vect{e}_{n}$ where $\{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ is a fixed basis of $V$
+
+\item $T : V \to \RR$; $T(r_{1}\vect{e}_{1} + \cdots + r_{n}\vect{e}_{n}) = r_{1}$, where $\{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ is a fixed basis of $V$
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1} 
+\item $T(\vect{v}) = \vect{v}A$ where $A = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & -1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $T(A + B) = P(A + B)Q = PAQ + PBQ = T(A) + T(B); T(rA) = P(rA)Q = rPAQ = rT(A)$
+
+\setcounter{enumi}{5}
+\item $T\left[(p + q)(x)\right] = (p + q)(0) = p(0) + q(0) = T\left[p(x)\right] + T\left[q(x)\right]$;\\
+$T\left[(rp)(x)\right] = (rp)(0) = r(p(0)) = rT\left[p(x)\right]$
+
+\setcounter{enumi}{7}
+\item $T(X + Y) = (X + Y) \cdot Z = X \cdot Z + Y \cdot Z = T(X) + T(Y)$, and $T(rX) = (rX) \cdot Z = r(X \cdot Z) = rT(X)$
+   
+\setcounter{enumi}{9}
+\item If $\vect{v} = (v_1, \dots, v_n)$ and $\vect{w} = (w_1, \dots, w_n)$, then $T(\vect{v} + \vect{w}) = (v_1 + w_1)\vect{e}_1 + \cdots + (v_n + w_n)\vect{e}_n = (v_1\vect{e}_1 + \cdots + v_n\vect{e}_n) + (w_1\vect{e}_1 + \cdots + w_n\vect{e}_n) = T(\vect{v}) + T(\vect{w})$\\
+$T(a\vect{v}) = (av_1)\vect{e} + \cdots + (av_n)\vect{e}_n = a(v\vect{e} + \cdots + v_n\vect{e}_n) = aT(\vect{v})$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that $T$ is \textit{not} a linear transformation.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \vectspace{M}_{nn} \to \RR$; $T(A) = \func{det }A$
+
+\item $T : \vectspace{M}_{nm} \to \RR$; $T(A) = \func{rank }A$
+
+\item $T : \RR \to \RR$; $T(x) = x^{2}$
+
+\item $T : V \to V$; $T(\vect{v}) = \vect{v} + \vect{u}$ where $\vect{u} \neq \vect{0}$ is a fixed vector in $V$ ($T$ is called the \textbf{translation}\index{translation} by $\vect{u}$)
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\func{rank}(A + B) \neq \func{rank }A + \func{rank }B$ in general. For example, $A = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB$
+ and $B = \leftB \begin{array}{rr}
+ 1 & 0 \\
+ 0 & -1
+ \end{array} \rightB$.
+
+\setcounter{enumi}{3}
+\item  $T(\vect{0}) = \vect{0} + \vect{u} = \vect{u} \neq \vect{0}$, so $T$ is not linear by Theorem~\ref{thm:020817}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, assume that $T$ is a linear transformation.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $T : V \to \RR$ and $T(\vect{v}_{1}) = 1$, $T(\vect{v}_{2}) = -1$, find $T(3\vect{v}_{1} - 5\vect{v}_{2})$.
+
+\item If $T : V \to \RR$ and $T(\vect{v}_{1}) = 2$, $T(\vect{v}_{2}) = -3$, find $T(3\vect{v}_{1} + 2\vect{v}_{2})$.
+
+\item If $T : \RR^2 \to \RR^2$ and $T\leftB \begin{array}{r}
+1 \\
+3
+\end{array} \rightB = \leftB \begin{array}{r}
+1 \\
+1
+\end{array} \rightB$, \\ $T\leftB \begin{array}{r}
+1 \\
+1
+\end{array} \rightB = \leftB \begin{array}{r}
+0 \\
+1
+\end{array} \rightB$, find $T\leftB \begin{array}{r}
+-1 \\
+3
+\end{array} \rightB$.
+
+\item If $T : \RR^2 \to \RR^2$ and $T\leftB \begin{array}{r}
+1 \\
+-1
+\end{array} \rightB = \leftB \begin{array}{r}
+0 \\
+1
+\end{array} \rightB$, \\ $T\leftB \begin{array}{r}
+1 \\
+1
+\end{array} \rightB = \leftB \begin{array}{r}
+1 \\
+0
+\end{array} \rightB$, find $T\leftB \begin{array}{r}
+ 1 \\
+ -7
+ \end{array} \rightB$.
+
+\item If $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$ and $T(x + 1) = x$, $T(x - 1) = 1$, $T(x^{2}) = 0$, find $T(2 + 3x - x^{2})$.
+
+\item If $T : \vectspace{P}_{2} \to \RR$ and $T(x + 2) = 1$, $T(1) = 5$, \\ $T(x^{2} + x) = 0$, find $T(2 - x + 3x^{2})$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T(3\vect{v}_{1} + 2\vect{v}_{2}) = 0$
+
+\setcounter{enumi}{3}
+\item $T\leftB \begin{array}{r}
+1 \\
+-7
+\end{array} \rightB = \leftB \begin{array}{r}
+-3 \\
+4
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item $T(2 - x + 3x^{2}) = 46$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a linear transformation with the given properties and compute $T(\vect{v})$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^2 \to \RR^3$; $T(1, 2) = (1, 0, 1)$, \\ $T(-1, 0) = (0, 1, 1)$; $\vect{v} = (2, 1)$
+
+\item $T : \RR^2 \to \RR^3$; $T(2, -1) = (1, -1, 1)$, \\ $T(1, 1) = (0, 1, 0)$; $\vect{v} = (-1, 2)$
+
+\item $T : \vectspace{P}_{2} \to \vectspace{P}_{3}$; $T(x^{2}) = x^{3}$, $T(x + 1) = 0$, \\ $T(x - 1) = x$; $\vect{v} = x^{2} + x + 1$
+
+\item $T : \vectspace{M}_{22} \to \RR$; $T\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB = 3$, $T\leftB \begin{array}{rr}
+	0 & 1 \\
+	1 & 0
+\end{array} \rightB = -1$, $T\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 0
+\end{array} \rightB = 0 = T\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB$; $\vect{v} = \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $T(x, y) = \frac{1}{3}(x - y, 3y, x - y)$; $T(-1, 2) = (-1, 2, -1)$
+
+\setcounter{enumi}{3}
+\item $T\leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB = 3a -3c + 2b$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $T : V \to V$ is a linear transformation, find $T(\vect{v})$ and $T(\vect{w})$ if:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T(\vect{v} + \vect{w}) = \vect{v} - 2\vect{w}$ and $T(2\vect{v} - \vect{w}) = 2\vect{v}$
+
+\item $T(\vect{v} + 2\vect{w}) = 3\vect{v} - \vect{w}$ and $T(\vect{v} - \vect{w}) = 2\vect{v} - 4\vect{w}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T(\vect{v}) = \frac{1}{3}(7\vect{v} - 9\vect{w})$, $T(\vect{w}) = \frac{1}{3}(\vect{v} + 3\vect{w})$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $T : V \to W$ is a linear transformation, show that $T(\vect{v} - \vect{v}_{1}) = T(\vect{v}) - T(\vect{v}_{1})$ for all $\vect{v}$ and $\vect{v}_{1}$ in $V$.
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{e}_{1}, \vect{e}_{2}\}$ be the standard basis of $\RR^2$. Is it possible to have a linear transformation $T$ such that $T(\vect{e}_{1})$ lies in $\RR$ while $T(\vect{e}_{2})$ lies in $\RR^2$? Explain your answer.
+\end{ex}
+
+\newpage
+\begin{ex}
+Let $\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$ be a basis of $V$ and let $T : V \to V$ be a linear transformation.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $T(\vect{v}_{i}) = \vect{v}_{i}$ for each $i$, show that $T = 1_{V}$.
+
+\item If $T(\vect{v}_{i}) = -\vect{v}_{i}$ for each $i$, show that $T = -1$ is the scalar operator (see Example~\ref{exa:020771}).
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T(\vect{v}) = (-1)\vect{v}$ for all $\vect{v}$ in $V$, so $T$ is the scalar operator $-1$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is an $m \times n$ matrix, let $C_{k}(A)$ denote column $k$ of $A$. Show that $C_{k} : \vectspace{M}_{mn} \to \RR^m$ is a linear transformation for each $k = 1, \dots, n$.
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ be a basis of $\RR^n$. Given $k$, $1 \leq k \leq n$, define $P_{k} : \RR^n \to \RR^n$ by \\ $P_{k}(r_{1}\vect{e}_{1} + \cdots + r_{n}\vect{e}_{n}) = r_{k}\vect{e}_{k}$. Show that $P_{k}$ a linear transformation for each $k$.
+\end{ex}
+
+\begin{ex}
+Let $S : V \to W$ and $T : V \to W$ be linear transformations. Given $a$ in $\RR$, define functions \\ $(S + T) : V \to W$ and $(aT) : V \to W$ by $(S + T)(\vect{v}) = S(\vect{v}) + T(\vect{v})$ and $(aT)(\vect{v}) = aT(\vect{v})$ for all $\vect{v}$ in $V$. Show that $S + T$ and $aT$ are linear transformations.
+\end{ex}
+
+\begin{ex}
+Describe all linear transformations \\ $T : \RR \to V$.
+
+\begin{sol}
+If $T(1) = \vect{v}$, then $T(r) = T(r \cdot 1) = rT(1) = r\vect{v}$ for all $r$ in $\RR$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $V$ and $W$ be vector spaces, let $V$ be finite dimensional, and let $\vect{v} \neq \vect{0}$ in $V$. Given any $\vect{w}$ in $W$, show that there exists a linear transformation $T : V \to W$ with $T(\vect{v}) = \vect{w}$. [\textit{Hint}: Theorem~\ref{thm:019430} and Theorem~\ref{thm:020916}.]
+\end{ex}
+
+\begin{ex}
+Given $\vect{y}$ in $\RR^n$, define $S_{\vect{y}} : \RR^n \to \RR$ by $S_{\vect{y}}(\vect{x}) = \vect{x} \cdot \vect{y}$ for all $\vect{x}$ in $\RR^n$ (where $\cdot$ is the dot product introduced in Section~\ref{sec:5_3}).
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $S_{\vect{y}} : \RR^n \to \RR$ is a linear transformation for any $\vect{y}$ in $\RR^n$.
+
+\item Show that every linear transformation $T : \RR^n \to \RR$ arises in this way; that is, $T = S_{\vect{y}}$ for some $\vect{y}$ in $\RR^n$. [\textit{Hint}: If $\{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ is the standard basis of $\RR^n$, write $S_{\vect{y}}(\vect{e}_{i}) = y_{i}$ for each $i$. Use Theorem~\ref{thm:020817}.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to W$ be a linear transformation.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $U$ is a subspace of $V$, show that \\ $T(U) = \{T(\vect{u}) \mid \vect{u} \mbox{ in } U\}$ is a subspace of $W$ (called the \textbf{image}\index{image!of linear transformations}\index{subspaces!image} of $U$ under $T$).
+
+\item If $P$ is a subspace of $W$, show that \\ $\{\vect{v} \mbox{ in } V \mid T(\vect{v}) \mbox{ in } P\}$ is a subspace of $V$ (called the \textbf{preimage}\index{preimage} of $P$ under $T$).
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\vect{0}$ is in $U = \{\vect{v} \in V \mid T(\vect{v}) \in P\}$ because $T(\vect{0}) = \vect{0}$ is in $P$. If $\vect{v}$ and $\vect{w}$ are in $U$, then $T(\vect{v})$ and $T(\vect{w})$ are in $P$. Hence $T(\vect{v} + \vect{w}) = T(\vect{v}) + T(\vect{w})$ is in $P$ and $T(r\vect{v}) = rT(\vect{v})$ is in $P$, so $\vect{v} + \vect{w}$ and $r\vect{v}$ are in $U$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that differentiation is the only linear transformation $\vectspace{P}_{n} \to \vectspace{P}_{n}$ that satisfies $T(x^{k}) = kx^{k-1}$ for each $k = 0, 1, 2, \dots, n$.
+\end{ex}
+
+\begin{ex}
+Let $T : V \to W$ be a linear transformation and let $\vect{v}_{1}, \dots, \vect{v}_{n}$ denote vectors in $V$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\{T(\vect{v}_{1}), \dots, T(\vect{v}_{n})\}$ is linearly independent, show that $\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$ is also independent.
+
+\item Find $T : \RR^2 \to \RR^2$ for which the converse of part (a) is false.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Suppose $T : V \to V$ is a linear operator with the property that $T\left[T(\vect{v})\right] = \vect{v}$ for all $\vect{v}$ in $V$. (For example, transposition in $\vectspace{M}_{nn}$ or conjugation in $\mathbb{C}$.) If $\vect{v} \neq \vect{0}$ in $V$, show that $\{\vect{v}, T(\vect{v})\}$ is linearly independent if and only if $T(\vect{v}) \neq \vect{v}$ and $T(\vect{v}) \neq -\vect{v}$.
+
+\begin{sol}
+Suppose $r\vect{v} + sT(\vect{v}) = \vect{0}$. If $s = 0$, then $r = 0$ (because $\vect{v} \neq \vect{0}$). If $s \neq 0$, then $T(\vect{v}) = a\vect{v}$ where $a = -s^{-1}r$. Thus $\vect{v} = T^{2}(\vect{v}) = T(a\vect{v}) = a^{2}\vect{v}$, so $a^{2} = 1$, again because $\vect{v} \neq \vect{0}$. Hence $a = \pm 1$. Conversely, if $T(\vect{v}) = \pm\vect{v}$, then $\{\vect{v}, T(\vect{v})\}$ is certainly not independent.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $a$ and $b$ are real numbers, define $T_{a,b} : \mathbb{C} \to \mathbb{C}$ by $T_{a,b}(r + si) = ra + sbi$ for all $r + si$ in $\mathbb{C}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T_{a,b}$ is linear and $T_{a,b}(\overline{z}) = \overline{T_{a,b}(z)}$ for all $z$ in $\mathbb{C}$. (Here $\overline{z}$ denotes the conjugate of $z$.)
+
+\item If $T : \mathbb{C} \to \mathbb{C}$  is linear and $T(\overline{z}) = \overline{T(z)}$ for all $z$ in $\mathbb{C}$, show that $T = T_{a,b}$ for some real $a$ and $b$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Show that the following conditions are equivalent for a linear transformation $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$.
+
+
+\begin{enumerate}
+\item $\func{tr}\left[T(A)\right] = \func{tr }A$ for all $A$ in $\vectspace{M}_{22}$.
+
+\item $T\leftB \begin{array}{cc}
+r_{11} & r_{12} \\
+r_{21} & r_{22}
+\end{array} \rightB = r_{11}B_{11} + r_{12}B_{12} + r_{21}B_{21} + r_{22}B_{22}$
+ for matrices $B_{ij}$ such that\\
+$\func{tr }B_{11} = 1 = \func{tr }B_{22}$ and $\func{tr }B_{12} = 0 = \func{tr }B_{21}$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Given $a$ in $\RR$, consider the \textbf{evaluation}\index{evaluation} map $E_{a} : \vectspace{P}_{n} \to \RR$ defined in Example~\ref{exa:020790}.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $E_{a}$ is a linear transformation satisfying the additional condition that $E_{a}(x^{k}) = \left[E_{a}(x)\right]^{k}$ holds for all $k = 0, 1, 2, \dots$. [\textit{Note}: $x^{0} = 1$.]
+
+\item If $T : \vectspace{P}_{n} \to \RR$ is a linear transformation satisfying $T(x^{k}) = \left[T(x)\right]^{k}$ for all $k = 0, 1, 2, \dots$, show that $T = E_{a}$ for some $a$ in $R$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Given such a $T$, write $T(x) = a$. If $p = p(x) = \sum_{i=0}^{n}a_{i}x^{i}$, then $T(p) = \sum a_{i}T(x^i) = \sum a_i\left[T(x)\right]^i = \sum a_{i}a^i = p(a) = E_a(p)$. Hence $T = E_a$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $T : \vectspace{M}_{nn} \to \RR$ is any linear transformation satisfying $T(AB) = T(BA)$ for all $A$ and $B$ in $\vectspace{M}_{nn}$, show that there exists a number $k$ such that $T(A) = k \func{tr }A$ for all $A$. (See Lemma~\ref{lem:015978}.) [\textit{Hint}: Let $E_{ij}$ denote the $n \times n$ matrix with $1$ in the $(i, j)$ position and zeros elsewhere.
+
+
+Show that $E_{ik}E_{lj} = \left\lbrace \begin{array}{cl}
+0 & \mbox{if } k \neq l \\
+E_{ij} & \mbox{if } k = l
+\end{array} \right.$.
+ Use this to show that $T(E_{ij}) = 0$ if $i \neq j$ and \\ $T(E_{11}) = T(E_{22}) = \cdots = T(E_{nn})$. Put $k = T(E_{11})$ and use the fact that $\{E_{ij} \mid 1 \leq i, j \leq n\}$ is a basis of $\vectspace{M}_{nn}$.]
+\end{ex}
+
+\columnbreak 
+
+\begin{ex}
+Let $T : \mathbb{C} \to \mathbb{C}$ be a linear transformation of the real vector space $\mathbb{C}$ and assume that $T(a) = a$ for every real number $a$. Show that the following are equivalent:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T(zw) = T(z)T(w)$ for all $z$ and $w$ in $\mathbb{C}$.
+
+\item Either $T = 1_{\mathbb{C}}$ or $T(z) = \overline{z}$ for each $z$ in $\mathbb{C}$  (where $\overline{z}$ denotes the conjugate).
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

@@ -1,0 +1,38 @@
+\tikzstyle{block} = [rectangle, draw=ltgreenvect!50, fill=ltgreenvect!50, text centered, rounded corners, font=\scriptsize]
+\tikzstyle{arrow}=[draw,-latex,thick,dkbluevect]
+\tikzstyle{dsharrow}=[draw, dashed, -latex,thick,dkbluevect]
+
+\begin{tikzpicture}[scale=0.4]
+\node[block](1) {Chapter 1: Systems of Linear Equations};
+\node[block, below of=1](2) {Chapter 2: Matrix Algebra};
+\node[below of=2](null){};
+\node[block, left of=null, node distance=3cm] (3) {Chapter 3: Determinants and Diagonalization};
+\node[block, right of=null, node distance=3cm] (4) {Chapter 4: Vector Geometry};
+\node[block, below of=null] (5) {Chapter 5: The Vector Space $\RR^n$};
+\node[block, below of=5] (6) {Chapter 6: Vector Spaces};
+\node[below of=6](null2){};
+\node[block, left of=null2, node distance=3cm] (7) {Chapter 7: Linear Transformations};
+\node[block, right of=null2,node distance=3cm] (8) {Chapter 8: Orthogonality};
+\node[block, below of=null2] (9) {Chapter 9: Change of Basis};
+\node[below of=9] (null3) {};
+\node[block, left of=null3, node distance=3cm] (10) {Chapter 10: Inner Product Spaces};
+\node[block, right of=null3, node distance=3cm] (11) {Chapter 11: Canonical Forms};
+
+
+\path[arrow] (1)--(2);
+\path[arrow] (2)--(3);
+\path[arrow] (2)--(4);
+\path[dsharrow] (3)--(4);
+\path[arrow] (3)--(5);
+\path[arrow] (4)--(5);
+\path[arrow] (5)--(6);
+\path[arrow] (6)--(7);
+\path[arrow] (6)--(8);
+\path[dsharrow] (7)--(8);
+\path[arrow] (7)--(9);
+\path[arrow] (8)--(9);
+\path[arrow] (9)--(10);
+\path[arrow] (9)--(11);
+
+
+\end{tikzpicture}

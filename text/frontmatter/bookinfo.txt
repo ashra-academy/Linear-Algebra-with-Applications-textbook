@@ -1,0 +1,9 @@
+\newcommand{\booktitle}{Linear Algebra}
+\newcommand{\booksubtitle}{with Applications}
+\newcommand{\bookfulltitle}{Linear Algebra with Applications Open Edition}
+\newcommand{\booksubject}{LINEAR ALGEBRA}
+\newcommand{\bookauthor}{W. Keith Nicholson}
+
+\newcommand{\version}{2021}
+\newcommand{\revision}{A}
+

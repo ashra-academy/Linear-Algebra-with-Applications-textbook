@@ -1,0 +1,16 @@
+\begin{tikzpicture}[scale=0.8]
+\coordinate (ptAB) at (0, 0);
+\coordinate (ptAC) at (1.5, 2);
+\coordinate (ptBC) at (4, 0);
+\coordinate (ptBP) at (1.5, 0);
+
+\draw[dkgreenvect, thick] (ptAB)--(ptAC) node[left, text=black, midway]{\small $a$};
+\draw[dkgreenvect, thick] (ptAC)--(ptBC) node[above, text=black, midway]{\small $c$};
+\draw[dkgreenvect, thick] (ptBC)--(ptAB) node[below, text=black, midway]{\small $b$};
+\draw[dkgreenvect, thick] (ptAC)--(ptBP) node[right, text=black, midway]{\small $p$};
+\draw[dkbluevect, thick] (1.5, 0.2)--(1.7, 0.2)--(1.7, 0);
+
+\draw[dkbluevect, thick] (0.3, 0) arc [start angle=0, end angle=56.3, radius=0.3] node[right, text=black] {\small $\theta$};
+\node[above] at (1, -0.1){\small $q$};
+\node[above] at (2.5, -0.1){\small $b - q$};
+\end{tikzpicture}

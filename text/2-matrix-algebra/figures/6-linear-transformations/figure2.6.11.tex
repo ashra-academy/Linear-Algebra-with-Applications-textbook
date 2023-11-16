@@ -1,0 +1,40 @@
+
+\begin{tikzpicture}
+\begin{axis}[disabledatascaling, 
+	clip mode=individual, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick=\empty, 
+    ytick=\empty, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=0:5, 
+    samples=100, 
+    xmin=-0.25, 
+    xmax=1.5, 
+    ymin=-0.25, 
+    ymax=1.5]
+\draw[thick,-latex] (0.52,0.14) arc [start angle=20,end angle=36,radius=0.5] node [right, text=black,font=\footnotesize,pos=0.8]{$\phi$};
+\draw[thick,-latex] (0.46,0.26) arc [start angle=31,end angle=69,radius=0.5] node [right, text=black,font=\footnotesize,pos=0.72]{$\theta$};
+\draw[dkbluevect,thick,dashed] (1,0.25) arc [start angle=20,end angle=65,radius=1.2];
+\draw[dkgreenvect,thick,-latex](0,0)--(0.4,0.9) node[font=\footnotesize,text=black,above]{$R_{\theta}\leftB R_{\phi}(\vect{x})\rightB$};
+\draw[dkgreenvect,thick,-latex](0,0)--(0.88,0.5) node[font=\footnotesize,text=black,right]{$R_{\phi}(\vect{x})$};
+\draw[dkgreenvect,thick,-latex](0,0)--(1,0.25) node[font=\footnotesize,text=black,right]{$\vect{x}$};
+\fill[black] (0.4,0.9) circle (2pt);
+\fill[black] (1,0.25) circle (2pt);
+\fill[black] (0.88,0.5) circle (2pt);
+\fill[black] (0,0) circle (2pt);
+\node[below left,font=\footnotesize] at (0,0){$\vect{0}$};
+\end{axis} 
+\end{tikzpicture}

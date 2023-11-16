@@ -1,0 +1,2107 @@
+\section{Vectors and Lines}
+\label{sec:4_1}
+
+
+In this chapter we study the geometry of 3-dimensional space\index{3-dimensional space}\index{vector spaces!3-dimensional space}. We view a 
+point in 3-space as an arrow from the origin to that point. Doing so 
+provides a ``picture'' of the point that is truly worth a thousand words. 
+We used this idea earlier, in Section~\ref{sec:2_6}, to describe rotations, reflections, and projections of the plane $\RR^2$. We now apply the same techniques to 3-space to examine similar transformations of $\RR^3$. Moreover, the method enables us to completely describe all lines and planes in space.
+
+
+\subsection*{Vectors in $\RR^3$}
+
+
+Introduce a coordinate system in 3-dimensional space in the usual way. First choose a point $O$ called the \textit{origin}\index{origin}, then choose three mutually perpendicular lines through $O$, called the $x$, $y$, and $z$ \textit{axes}\index{axis}\index{$x$-axis}\index{$y$-axis}\index{$z$-axis}, and establish a number scale on each axis with zero at the origin. Given a point $P$ in $3$-space we associate three numbers $x$, $y$, and $z$ with $P$, as described in Figure~\ref{fig:010955}. These numbers are called the \textit{coordinates}\index{coordinates} of $P$, and we denote the point as $(x, y, z)$, or $P(x, y, z)$ to emphasize the label $P$. The result is called a \textit{cartesian}\footnote{Named after Ren\'{e} Descartes\index{Descartes, Ren\'{e}} who introduced the idea in 1637.}
+ coordinate system for 3-space, and the resulting description of 3-space is called \textit{cartesian geometry}.\index{Cartesian coordinates}\index{cartesian geometry}
+
+\begin{wrapfigure}[8]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.1}
+\caption{\label{fig:010955}}
+\end{wrapfigure}
+As in the plane, we introduce vectors by identifying each point $P(x, y, z)$ with the vector 
+$\vect{v} = \leftB
+\begin{array}{c}
+x \\
+y \\
+z 
+\end{array}
+\rightB$ 
+in $\RR^3$, represented by the \textbf{arrow}\index{arrows} from the origin to $P$ as in Figure~\ref{fig:010955}. Informally, we say that the point $P$ \textit{has vector} $\vect{v}$, and that vector $\vect{v}$ \textit{has point} $P$. In this way 3-space is identified with $\RR^3$, and this identification will be made throughout this chapter, often without comment. In particular, the terms ``vector'' and ``point'' are interchangeable.\footnote{Recall that we defined $\RR^n$ as the set of all ordered n-tuples of real numbers, and reserved the right to denote them as rows or as columns.}
+The resulting description of 3-space is called \textbf{vector geometry}\index{vector geometry!defined}. Note that the origin is $\vect{0} = \leftB
+\begin{array}{c}
+0 \\
+0 \\
+0 
+\end{array}
+\rightB$.
+
+\subsection*{Length and Direction}
+
+We are going to discuss two fundamental geometric properties of vectors in $\RR^3$: length and direction. First, if $\vect{v}$ is a vector with point $P$, the \textbf{length}\index{length!vector} $\vectlength\vect{v}\vectlength$ of vector $\vect{v}$ is defined to be the distance from the origin to $P$, that is the length of the arrow representing $\vect{v}$. The following properties of length will be used frequently.
+
+\begin{theorem}{}{010965}
+Let
+$\vect{v} = \leftB
+\begin{array}{c}
+x \\
+y \\
+z 
+\end{array}
+\rightB$ be a vector.
+
+
+\begin{enumerate}
+\item $\vectlength \vect{v} \vectlength = \sqrt{x^2 + y^2 + z^2}$.
+\footnotemark
+
+\item $\vect{v} = \vect{0}$ if and only if $\vectlength \vect{v} \vectlength = 0$
+
+\item $\vectlength a \vect{v} \vectlength = |a| \vectlength \vect{v} \vectlength$ for all scalars $a$. \footnotemark
+
+\end{enumerate}
+\end{theorem}
+\addtocounter{footnote}{-1}
+\footnotetext{When we write $\sqrt{p}$ we mean the positive square root of $p$.}
+\stepcounter{footnote}\footnotetext{Recall that the absolute value $|a|$ of a real number is defined by 
+$|a| = \left\lbrace
+\begin{array}{c}
+a \mbox{ if } a \geq 0 \\
+-a \mbox{ if } a < 0
+\end{array}
+\right.$.\index{absolute value!real number}}
+
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.2}
+\caption{\label{fig:010990}}
+\end{wrapfigure}
+
+\begin{proof} Let $\vect{v}$ have point $P(x, y, z)$.
+\begin{enumerate}
+\item In Figure~\ref{fig:010990}, $\vectlength\vect{v}\vectlength$ is the hypotenuse of the right triangle $OQP$, and so $\vectlength\vect{v}\vectlength^2 = h^{2} + z^{2}$ by Pythagoras' theorem.\footnote{Pythagoras' theorem states that if $a$ and $b$ are sides of right triangle with hypotenuse $c$, then $a^{2} + b^{2} = c^{2}$. A proof is given at the end of this section.}
+ But $h$ is the hypotenuse of the right triangle $ORQ$, so $h^{2} = x^{2} + y^{2}$. Now (1) follows by eliminating $h^{2}$ and taking positive square roots.
+
+\item If $\vectlength\vect{v}\vectlength$ = 0, then $x^{2} + y^{2} + z^{2} = 0$ by (1). Because squares of real numbers are nonnegative, it follows that $x = y = z = 0$, and hence that $\vect{v} = \vect{0}$. The converse is because $\vectlength\vect{0}\vectlength = 0$.
+
+\item We have $a\vect{v} = \leftB \begin{array}{ccc} ax &  ay & az \end{array}\rightB^{T}$ so (1) gives 
+\begin{equation*}
+\vectlength a\vect{v}\vectlength^2 = (ax)^2 + (ay)^2 + (az)^2 = a^{2}\vectlength\vect{v}\vectlength^2
+\end{equation*}
+ Hence $\vectlength a\vect{v}\vectlength = \sqrt{a^2} \vectlength \vect{v} \vectlength$, and we are done because $\sqrt{a^2} = |a|$ for any real number $a$.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+\noindent Of course the $\RR^2$-version of Theorem~\ref{thm:010965} also holds.
+
+\newpage
+\begin{example}{}{011008}
+If
+$\vect{v} = \leftB
+\begin{array}{r}
+2 \\
+-1 \\
+3 
+\end{array}
+\rightB$ 
+ then $\vectlength \vect{v} \vectlength = \sqrt{4 + 1 + 9} = \sqrt{14}$. Similarly if 
+$\vect{v} = \leftB
+\begin{array}{r}
+3 \\
+-4  
+\end{array}
+\rightB$ 
+in 2-space then \\$\vectlength \vect{v} \vectlength = \sqrt{9 + 16} = 5$.
+\end{example}
+
+When
+ we view two nonzero vectors as arrows emanating from the origin, it is 
+clear geometrically what we mean by saying that they have the same or 
+opposite \textbf{direction}\index{direction}\index{vectors!direction of}. This leads to a fundamental new description of vectors.
+
+
+\begin{theorem}{}{011016}
+Let $\vect{v} \neq \vect{0}$ and $\vect{w} \neq \vect{0}$ be vectors in $\RR^3$. Then $\vect{v} = \vect{w}$ as matrices if and only if $\vect{v}$ and $\vect{w}$ have the same direction and the same length.\footnotemark
+\end{theorem}
+\footnotetext{It is Theorem~\ref{thm:011016}
+ that gives vectors their power in science and engineering because many 
+physical quantities are determined by their length and magnitude\index{magnitude} (and 
+are called \textbf{vector quantities}\index{vector quantities}). For example, saying that an 
+airplane is flying at $200$ km/h does not describe where it is going; the 
+direction must also be specified. The speed and direction comprise the \textbf{velocity}\index{velocity} of the airplane, a vector quantity.}
+
+\begin{wrapfigure}[5]{l}{4cm} 
+  \vspace*{-1em}
+	\centering
+	\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.3}
+	\caption{\label{fig:011030}}
+\end{wrapfigure}
+
+\begin{proof} If $\vect{v} = \vect{w}$, they clearly have the same direction and length. Conversely, let $\vect{v}$ and $\vect{w}$ be vectors with points $P(x, y, z)$ and $Q(x_{1}, y_{1}, z_{1})$ respectively. If $\vect{v}$ and $\vect{w}$ have the same length and direction then, geometrically, $P$ and $Q$ must be the same point (see Figure~\ref{fig:011030}). Hence $x = x_{1}$, $y = y_{1}$, and $z = z_{1}$, that is 
+$\vect{v} = \leftB
+\begin{array}{c}
+x \\
+y \\
+z 
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{c}
+x_{1} \\
+y_{1} \\
+z_{1} 
+\end{array}
+\rightB
+=
+\vect{w}$. \end{proof}
+
+
+A characterization of a vector in terms of its length and direction only is called an \textbf{intrinsic}\index{intrinsic descriptions}\index{vectors!intrinsic descriptions} description of the vector. The point to note is that such a description does \textit{not} depend on the choice of coordinate system in $\RR^3$. Such descriptions are important in applications because physical laws are often stated in terms of vectors, and these laws cannot depend on the particular coordinate system used to describe the situation.
+
+\subsection*{Geometric Vectors}
+
+If $A$ and $B$ are distinct points in space, the arrow from $A$ to $B$ has length and direction.
+
+\begin{figure}[H]
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.4}
+\caption{\label{fig:011041}}
+\end{figure}
+
+
+Hence:
+\begin{definition}{Geometric Vectors}{011036}
+Suppose that $A$ and $B$ are any two points in $\RR^3$. In Figure~\ref{fig:011041} the line segment from $A$ to $B$ is denoted $\longvect{AB}$ and is called the \textbf{geometric vector}\index{geometric vectors!defined} from $A$ to $B$. Point $A$ is called the \textbf{tail}\index{tail} \textit{of} $\longvect{AB}$, $B$ is called the \textbf{tip}\index{tip} of $\longvect{AB}$, and the \textbf{length}\index{length!geometric vector}\index{vectors!length} of $\longvect{AB}$ is denoted $\vectlength \longvect{AB} \vectlength$.
+\end{definition}
+
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.5}
+\caption{\label{fig:011048}}
+\end{wrapfigure}
+
+Note that if $\vect{v}$ is any vector in $\RR^3$ with point $P$ then $\vect{v} = \longvect{OP}$ is itself a geometric vector where $O$ is the origin. Referring to $\longvect{AB}$  as a ``vector'' seems justified by Theorem~\ref{thm:011016} because it has a direction (from $A$ to $B$) and a length $\vectlength \longvect{AB} \vectlength$. However there appears to be a problem because two geometric vectors can have the same length and direction even if the tips and tails are different. For example $\longvect{AB}$ and $\longvect{PQ}$ in Figure~\ref{fig:011048} have the same length $\sqrt{5}$ and the same direction (1 unit left and 2 units up) so, by Theorem~\ref{thm:011016}, they are the same vector! The best way to understand this apparent paradox is to see $\longvect{AB}$ and $\longvect{PQ}$ as different \textit{representations} of the same\footnote{Fractions provide another example of quantities that can be the same but \textit{look} different. For example $\frac{6}{9}$ and $\frac{14}{21}$
+ certainly appear different, but they are equal fractions---both equal $\frac{2}{3}$ in ``lowest terms''.\index{equal!fractions}\index{fractions!equal fractions}} underlying vector $\leftB
+ \begin{array}{r}
+ -1 \\
+ 2  
+ \end{array}
+ \rightB$. Once it is clarified, this phenomenon is a great benefit because, thanks to Theorem~\ref{thm:011016},
+ it means that the same geometric vector can be positioned anywhere in 
+space; what is important is the length and direction, not the location 
+of the tip and tail. This ability to move geometric vectors about is 
+very useful as we shall soon see.\index{geometric vectors!described}
+
+\subsection*{The Parallelogram Law}
+
+\begin{wrapfigure}[7]{l}{4cm} 
+	\centering
+	\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.6}
+	\caption{\label{fig:011053}}
+\end{wrapfigure}
+
+We now give an intrinsic description of the sum of two vectors $\vect{v}$ and $\vect{w}$ in $\RR^3$, that is a description that depends only on the lengths and directions of $\vect{v}$ and $\vect{w}$ and not on the choice of coordinate system. Using Theorem~\ref{thm:011016} we can think of these vectors as having a common tail $A$. If their tips are $P$ and $Q$ respectively, then they both lie in a plane $\mathcal{P}$
+ containing $A$, $P$, and $Q$, as shown in Figure~\ref{fig:011053}. The vectors $\vect{v}$ and $\vect{w}$ create a parallelogram\footnote{Recall that a parallelogram is a four-sided figure whose opposite sides are parallel and of equal length.\index{parallelogram!defined}}
+ in $\mathcal{P}$
+, shaded in Figure~\ref{fig:011053}, called the parallelogram \textbf{determined}\index{parallelogram!determined by geometric vectors} by $\vect{v}$ and $\vect{w}$.\index{geometric vectors!intrinsic descriptions}\index{parallelogram!law}
+
+If we now choose a coordinate system in the plane $\mathcal{P}$ with $A$ as origin, then the parallelogram law in the plane (Section~\ref{sec:2_6}) shows that their sum $\vect{v} + \vect{w}$ is the diagonal of the parallelogram they determine with tail $A$. This is an intrinsic description of the sum $\vect{v} + \vect{w}$ because it makes no reference to coordinates. This discussion proves:
+
+\begin{theorem*}{The Parallelogram Law}{011055}
+In the parallelogram determined by two vectors $\vect{v}$ and $\vect{w}$, the vector $\vect{v} + \vect{w}$ is the diagonal with the same tail as $\vect{v}$ and $\vect{w}$.\index{geometric vectors!parallelogram law}
+\end{theorem*}
+
+\begin{wrapfigure}[14]{l}{4cm} 
+	\centering
+	\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.7}
+	\caption{\label{fig:011059}}
+\end{wrapfigure}
+
+Because
+ a vector can be positioned with its tail at any point, the 
+parallelogram law leads to another way to view vector addition. In Figure~\ref{fig:011059}(a) the sum $\vect{v} + \vect{w}$ of two vectors $\vect{v}$ and $\vect{w}$ is shown as given by the parallelogram law. If $\vect{w}$ is moved so its tail coincides with the tip of $\vect{v}$ (Figure~\ref{fig:011059}(b)) then the sum $\vect{v} + \vect{w}$ is seen as ``first $\vect{v}$ and then $\vect{w}$. Similarly, moving the tail of $\vect{v}$ to the tip of $\vect{w}$ shows in Figure~\ref{fig:011059}(c) that $\vect{v} + \vect{w}$ is ``first $\vect{w}$ and then $\vect{v}$.'' This will be referred to as the \textbf{tip-to-tail rule}\index{tip-to-tail rule}\index{geometric vectors!tip-to-tail rule}, and it gives a graphic illustration of why $\vect{v} + \vect{w} = \vect{w} + \vect{v}$.\index{position vector}\index{vectors!position vector}
+
+Since $\longvect{AB}$ denotes the vector from a point $A$ to a point $B$, the tip-to-tail rule takes the easily remembered form
+\begin{equation*}
+\longvect{AB} + \longvect{BC} = \longvect{AC}
+\end{equation*}
+for any points $A$, $B$, and $C$. The next example uses this to derive a theorem in geometry without using coordinates.
+
+\begin{example}{}{011062}
+Show that the diagonals of a parallelogram bisect each other.
+
+\begin{wrapfigure}{l}{5cm} 
+  \vspace*{-1em}
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/example4.1.2}
+%\caption{\label{fig:011074}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt} 
+\begin{solution}
+  Let the parallelogram have vertices $A$, $B$, $C$, and $D$, as shown; let $E$ denote the intersection of the two diagonals; and let $M$ denote the midpoint of diagonal $AC$. We must show that $M = E$ and that this is the midpoint of diagonal $BD$. This is accomplished by showing that $\longvect{BM} = \longvect{MD}$. (Then the fact that these vectors have the same direction means that $M = E$, and the fact that they have the same length means that $M = E$ is the midpoint of $BD$.) Now $\longvect{AM} = \longvect{MC}$ because $M$ is the midpoint of $AC$, and $\longvect{BA} = \longvect{CD}$ because the figure is a parallelogram. Hence
+\begin{equation*}
+\longvect{BM} = \longvect{BA} + \longvect{AM} = \longvect{CD} + \longvect{MC} = \longvect{MC} + \longvect{CD} = \longvect{MD}
+\end{equation*}
+where the first and last equalities use the tip-to-tail rule of vector addition.
+\end{solution}
+\end{example}
+
+\begin{wrapfigure}[9]{l}{5cm} 
+\vspace*{-2em}
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.8}
+\caption{\label{fig:011074}}
+\end{wrapfigure}
+
+One
+ reason for the importance of the tip-to-tail rule is that it means two 
+or more vectors can be added by placing them tip-to-tail in sequence. 
+This gives a useful ``picture'' of the sum of several vectors, and is 
+illustrated for three vectors in Figure~\ref{fig:011074} where $\vect{u} + \vect{v} + \vect{w}$ is viewed as first $\vect{u}$, then $\vect{v}$, then $\vect{w}$.\index{geometric vectors!sum}\index{sum!geometric vectors}
+
+There is a simple geometrical way to visualize the (matrix) \textbf{difference}\index{difference!of two vectors} $\vect{v} - \vect{w}$ of two vectors. If $\vect{v}$ and $\vect{w}$ are positioned so that they have a common tail $A$ (see Figure~\ref{fig:011076}), and if $B$ and $C$ are their respective tips, then the tip-to-tail rule gives $\vect{w} + \longvect{CB} = \vect{v}$. Hence $\vect{v} - \vect{w} = \longvect{CB}$ is the vector from the tip of $\vect{w}$ to the tip of $\vect{v}$. Thus both $\vect{v} - \vect{w}$ and $\vect{v} + \vect{w}$ appear as diagonals in the parallelogram determined by $\vect{v}$ and $\vect{w}$ (see Figure~\ref{fig:011076}). We record this for reference.
+
+\begin{wrapfigure}[5]{l}{5cm} 
+	\centering
+	\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.9}
+	\caption{\label{fig:011076}}
+\end{wrapfigure}
+
+\hfill
+\begin{theorem}{}{011077}
+If $\vect{v}$ and $\vect{w}$ have a common tail, then $\vect{v} - \vect{w}$ is the vector from the tip of $\vect{w}$ to the tip of $\vect{v}$.\index{geometric vectors!difference}
+\end{theorem}
+
+One
+ of the most useful applications of vector subtraction is that it gives a
+ simple formula for the vector from one point to another, and for the 
+distance between the points.\index{geometric vectors!vector subtraction}\index{subtraction!vector}
+\vspace{2em}
+
+\begin{theorem}{}{011081}
+Let $P_{1}(x_{1}, y_{1}, z_{1})$ and $P_{2}(x_{2}, y_{2}, z_{2})$ be two points. Then:
+
+\begin{enumerate}
+\item  
+$\longvect{P_{1}P}_{2} = \leftB
+\begin{array}{c}
+x_{2} - x_{1} \\
+y_{2} - y_{1} \\
+z_{2} - z_{1}   
+\end{array}
+\rightB$.
+
+
+\item The distance between $P_{1}$ and $P_{2}$ is $\sqrt{(x_{2} - x_{1})^2 + (y_{2} - y_{1})^2 + (z_{2} - z_{1})^2}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{wrapfigure}[8]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.10}
+\caption{\label{fig:011110}}
+\end{wrapfigure}
+
+\begin{proof}
+If $O$ is the origin, write 
+\begin{equation*}
+\vect{v}_{1} = \longvect{OP}_{1}= \leftB
+\begin{array}{c}
+x_{1} \\
+y_{1} \\
+z_{1}   
+\end{array}
+\rightB \mbox{ and }
+\vect{v}_{2} = \longvect{OP}_{2} = \leftB
+\begin{array}{c}
+x_{2} \\
+y_{2} \\
+z_{2}   
+\end{array}
+\rightB
+\end{equation*}
+as in Figure~\ref{fig:011110}.
+
+
+ Then Theorem~\ref{thm:011077} gives
+$\longvect{P_{1}P}_{2} = \vect{v}_{2} - \vect{v}_{1}$, and (1) follows. But the distance between $P_{1}$ and $P_{2}$ is $\vectlength \longvect{P_{1}P}_{2} \vectlength$, so (2) follows from (1) and Theorem~\ref{thm:010965}.
+\end{proof}
+
+Of course the $\RR^2$-version of Theorem~\ref{thm:011081} is also valid: If $P_{1}(x_{1}, y_{1})$ and $P_{2}(x_{2}, y_{2})$ are points in $\RR^2$, then $\longvect{P_{1}P}_{2} = \leftB
+\begin{array}{c}
+x_{2} - x_{1} \\
+y_{2} - y_{1}   
+\end{array}
+\rightB$, and the distance between $P_{1}$ and $P_{2}$ is $\sqrt{(x_{2} - x_{1})^2 + (y_{2} - y_{1})^2}$.
+
+\begin{example}{}{011124}
+The distance between $P_{1}(2, -1, 3)$ and $P_{2}(1, 1, 4)$ is $\sqrt{(-1)^2 + (2)^2 + (1)^2} = \sqrt{6}$, and the vector from  $P_{1}$ to $P_{2}$ is 
+$\longvect{P_{1}P}_{2} = \leftB
+\begin{array}{r}
+-1 \\
+2 \\
+1  
+\end{array}
+\rightB$.
+\end{example}
+
+As for the parallelogram law, the intrinsic rule for finding the length and direction of a scalar multiple of a vector in $\RR^3$ follows easily from the same situation in $\RR^2$.\index{geometric vectors!scalar multiplication}\index{scalar multiplication!geometric vectors}\index{geometric vectors!scalar product}\index{scalar product!geometric vectors}
+
+
+\begin{theorem*}{Scalar Multiple Law}{011136}
+If a is a real number and $\vect{v} \neq \vect{0}$ is a vector then:\index{geometric vectors!scalar multiple law}\index{scalar multiple law}
+
+\begin{enumerate}
+\item The length of $a\vect{v}$ is $\vectlength a\vect{v}\vectlength = |a| \vectlength\vect{v}\vectlength$.
+
+\item If\footnotemark $a\vect{v} \neq \vect{0}$, the direction of $a\vect{v}$ is 
+$\left\lbrace
+\begin{array}{c}
+\mbox{the same as } \vect{v} \mbox{ if } a > 0, \\
+\mbox{opposite to } \vect{v} \mbox{ if } a < 0.
+\end{array}
+\right.
+$
+ 
+\end{enumerate}
+\end{theorem*}
+\footnotetext{Since the zero vector has no direction, we deal only with the case $a\vect{v} \neq \vect{0}$.}
+
+\begin{proof}
+\begin{enumerate}
+\item This is part of Theorem~\ref{thm:010965}.
+
+\item Let $O$ denote the origin in $\RR^3$, let $\vect{v}$ have point $P$, and choose any plane containing $O$ and $P$. If we set up a coordinate system in this plane with $O$ as origin, then $\vect{v} = \longvect{OP}$ so the result in (2) follows from the scalar multiple law in the plane (Section~\ref{sec:2_6}).
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+
+\noindent Figure \ref{fig:011157} gives several examples of scalar multiples of a vector $\vect{v}$.
+
+
+\begin{wrapfigure}[8]{l}{5cm}
+\vspace{-1em} 
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.11}
+\caption{\label{fig:011157}}
+\vspace{1em}
+\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.12}
+\caption{\label{fig:011160}}
+\end{wrapfigure}
+
+Consider a line $L$ through the origin, let $P$ be any point on $L$ other than the origin $O$, and let $\vect{p} = \longvect{OP}$. If $t \neq 0$, then $t\vect{p}$ is a point on $L$ because it has direction the same or opposite as that of $\vect{p}$. Moreover $t > 0$ or $t < 0$ according as the point $t\vect{p}$ lies on the same or opposite side of the origin as $P$. This is illustrated in Figure~\ref{fig:011160}.
+
+A vector $\vect{u}$ is called a \textbf{unit vector}\index{unit vector}\index{geometric vectors!unit vector}\index{vectors!unit vector} if $\vectlength \vect{u} \vectlength = 1$. Then 
+$\vect{i} = \leftB
+\begin{array}{c}
+1 \\
+0 \\
+0  
+\end{array}
+\rightB$, 
+\\ $\vect{j} = \leftB
+\begin{array}{c}
+0 \\
+1 \\
+0  
+\end{array}
+\rightB$, and 
+$\vect{k} = \leftB
+\begin{array}{c}
+0 \\
+0 \\
+1  
+\end{array}
+\rightB$ 
+are unit vectors, called the \textbf{coordinate}\index{coordinate vectors}\index{vectors!coordinate vectors} vectors. We discuss them in more detail in Section~\ref{sec:4_2}.
+
+\vspace{2em}
+\begin{example}{}{011164}
+If $\vect{v} \neq \vect{0}$ show that $\frac{1}{\vectlength \vect{v} \vectlength} \vect{v}$ is the unique unit vector in the same direction as $\vect{v}$.
+
+
+\begin{solution}
+  The vectors in the same direction as $\vect{v}$ are the scalar multiples $a\vect{v}$ where $a > 0$. But $\vectlength a\vect{v} \vectlength = |a| \vectlength \vect{v} \vectlength = a \vectlength \vect{v} \vectlength$ when $a > 0$, so $a\vect{v}$ is a unit vector if and only if $a = \frac{1}{\vectlength \vect{v} \vectlength}$.
+\end{solution}
+\end{example}
+
+The
+ next example shows how to find the coordinates of a point on the line 
+segment between two given points. The technique is important and will be
+ used again below.
+
+\begin{example}{}{011173}
+Let $\vect{p}_{1}$ and $\vect{p}_{2}$ be the vectors of two points $P_{1}$ and $P_{2}$. If $M$ is the point one third the way from $P_{1}$ to $P_{2}$, show that the vector $\vect{m}$ of $M$ is given by
+\begin{equation*}
+\vect{m} = \frac{2}{3}\vect{p}_{1} + \frac{1}{3}\vect{p}_{2}
+\end{equation*}
+Conclude that if $P_{1} = P_{1}(x_{1}, y_{1}, z_{1})$ and $P_{2} = P_{2}(x_{2}, y_{2}, z_{2})$, then $M$ has coordinates
+\begin{equation*}
+M = M\left(\frac{2}{3}x_{1} + \frac{1}{3}x_{2}, \frac{2}{3}y_{1} + \frac{1}{3}y_{2}, \frac{2}{3}z_{1} + \frac{1}{3}z_{2}\right)
+\end{equation*}
+
+\begin{wrapfigure}{l}{4cm} 
+\input{4-vector-geometry/figures/1-vectors-and-lines/example4.1.5}
+%\captionof{figure}{\label{fig:011208}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt} 
+\begin{solution}
+  The vectors $\vect{p}_{1}$, $\vect{p}_{2}$, and $\vect{m}$ are shown in the diagram. We have $\longvect{P_{1}M} = \frac{1}{3}\longvect{P_{1}P}_{2}$ because $\longvect{P_{1}M}$ is in the same direction as $\longvect{P_{1}P}_{2}$ and $\frac{1}{3}$ as long. By Theorem~\ref{thm:011077} we have $\longvect{P_{1}P}_{2} = \vect{p}_{2} - \vect{p}_{1}$, so tip-to-tail addition gives
+\begin{equation*}
+\vect{m} = \vect{p}_{1} + \longvect{P_{1}M} = \vect{p}_{1} + \frac{1}{3}(\vect{p}_{2} - \vect{p}_{1}) = \frac{2}{3}\vect{p}_{1} + \frac{1}{3}\vect{p}_{2} 
+\end{equation*}
+as required. For the coordinates, we have 
+$\vect{p}_{1} = \leftB
+\begin{array}{c}
+x_{1} \\
+y_{1} \\
+z_{1}  
+\end{array}
+\rightB$ 
+and 
+$\vect{p}_{2} = \leftB
+\begin{array}{c}
+x_{2} \\
+y_{2} \\
+z_{2}  
+\end{array}
+\rightB$, so
+\begin{equation*}
+\vect{m} = \frac{2}{3}\leftB
+\begin{array}{c}
+x_{1} \\
+y_{1} \\
+z_{1}  
+\end{array}
+\rightB 
++
+\frac{1}{3}\leftB
+\begin{array}{c}
+x_{2} \\
+y_{2} \\
+z_{2}  
+\end{array}
+\rightB
+=
+\leftB \def\arraystretch{1.5}
+\begin{array}{c}
+\frac{2}{3}x_{1} + \frac{1}{3}x_{2} \\ 
+\frac{2}{3}y_{1} + \frac{1}{3}y_{2} \\
+\frac{2}{3}z_{1} + \frac{1}{3}z_{2}  
+\end{array}
+\rightB
+\end{equation*}
+by matrix addition. The last statement follows.
+
+\end{solution}
+\end{example}
+
+\noindent Note that in Example~\ref{exa:011173} $\vect{m} = \frac{2}{3}\vect{p}_{1} + \frac{1}{3}\vect{p}_{2}$ is a ``weighted average'' of $\vect{p}_{1}$ and $\vect{p}_{2}$ with more weight on $\vect{p}_{1}$ because $\vect{m}$ is closer to $\vect{p}_{1}$.
+
+
+The point $M$ halfway between points $P_{1}$ and $P_{2}$ is called the \textbf{midpoint}\index{midpoint}\index{geometric vectors!midpoint} between these points. In the same way, the vector $\vect{m}$ of $M$ is
+\begin{equation*}
+\vect{m} = \frac{1}{2}\vect{p}_{1} + \frac{1}{2}\vect{p}_{2} = \frac{1}{2}(\vect{p}_{1} + \vect{p}_{2})
+\end{equation*}
+as the reader can verify, so $\vect{m}$ is the ``average'' of $\vect{p}_{1}$ and $\vect{p}_{2}$ in this case.
+
+
+\begin{example}{}{011222}
+Show
+ that the midpoints of the four sides of any quadrilateral are the 
+vertices of a parallelogram. Here a quadrilateral is any figure with 
+four vertices and straight sides.
+
+ \begin{solution} Suppose that the vertices of the quadrilateral are $A$, $B$, $C$, and $D$ (in that order) and that $E$, $F$, $G$, and $H$ are the midpoints of the sides as shown in the diagram. It suffices to show $\longvect{EF} = \longvect{HG}$
+ (because then sides $EF$ and $HG$ are parallel and of equal length). 
+
+\newpage
+\begin{wrapfigure}[7]{l}{5cm} 
+	\centering
+	\input{4-vector-geometry/figures/1-vectors-and-lines/example4.1.6}
+\end{wrapfigure}
+
+
+\setlength{\rightskip}{0pt plus 200pt} Now the fact that $E$ is the midpoint of $AB$ means that $\longvect{EB} = \frac{1}{2}\longvect{AB}$. Similarly, $\longvect{BF} = \frac{1}{2}\longvect{BC}$, so
+\begin{equation*}
+ \longvect{EF} = \longvect{EB} + \longvect{BF} = \frac{1}{2}\longvect{AB} + \frac{1}{2}\longvect{BC} = \frac{1}{2}(\longvect{AB} + \longvect{BC}) = \frac{1}{2}\longvect{AC}
+\end{equation*}
+A similar argument shows that $\longvect{HG} = \frac{1}{2}\longvect{AC}$ too, so $\longvect{EF} = \longvect{HG}$ as required.
+\vspace*{2em}
+\end{solution}
+\end{example}
+
+
+\begin{definition}{Parallel Vectors in $\RR^3$}{011236}
+Two nonzero vectors are called \textbf{parallel}\index{parallel} if they have the same or opposite direction.\index{nonzero vectors}\index{vectors!nonzero}
+\end{definition}
+
+Many geometrical propositions involve this notion, so the following theorem will be referred to repeatedly.
+
+
+\begin{theorem}{}{011240}
+Two nonzero vectors $\vect{v}$ and $\vect{w}$ are parallel if and only if one is a scalar multiple of the other.
+\end{theorem}
+
+\begin{proof}
+If one of them is a scalar multiple of the other, they are parallel by the scalar multiple law.\index{geometric vectors!scalar multiple law}\index{scalar multiple law}
+
+
+Conversely, assume that $\vect{v}$ and $\vect{w}$ are parallel and write $d = \frac{\vectlength \vect{v} \vectlength}{\vectlength \vect{w} \vectlength}$
+ for convenience. Then $\vect{v}$ and $\vect{w}$ have the same or opposite direction. If they have the same direction we show that $\vect{v} = d\vect{w}$ by showing that $\vect{v}$ and $d\vect{w}$ have the same length and direction. In fact, $\vectlength d\vect{w}\vectlength = |d| \vectlength\vect{w}\vectlength = \vectlength\vect{v}\vectlength$ by Theorem~\ref{thm:010965}; as to the direction, $d\vect{w}$ and $\vect{w}$ have the same direction because $d > 0$, and this is the direction of $\vect{v}$ by assumption. Hence $\vect{v} = d\vect{w}$ in this case by Theorem~\ref{thm:011016}. In the other case, $\vect{v}$ and $\vect{w}$ have opposite direction and a similar argument shows that $\vect{v} = -d\vect{w}$. We leave the details to the reader.
+\end{proof}
+
+\begin{example}{}{011248}
+Given points $P(2, -1, 4)$, $Q(3, -1, 3)$, $A(0, 2, 1)$, and $B(1, 3, 0)$, determine if $\longvect{PQ}$ and $\longvect{AB}$ are parallel.
+
+\begin{solution}
+  By Theorem~\ref{thm:011077}, $\longvect{PQ} = (1, 0, -1)$ and $\longvect{AB} = (1, 1, -1)$. If $\longvect{PQ} = t\longvect{AB}$
+ then $(1, 0, -1) = (t, t, -t)$, so $1 = t$ and $0 = t$, which is impossible. Hence $\longvect{PQ}$ is \textit{not} a scalar multiple of $\longvect{AB}$, so these vectors are not parallel by Theorem~\ref{thm:011240}.
+\end{solution}
+\end{example}
+
+\vspace*{-1em}
+\subsection*{Lines in Space}
+These
+ vector techniques can be used to give a very simple way of describing 
+straight lines in space. In order to do this, we first need a way to 
+specify the orientation of such a line, much as the slope does in the 
+plane.\index{line!in space}\index{vector geometry!lines in space}
+
+
+\begin{definition}{Direction Vector of a Line}{011258}
+With this in mind, we call a nonzero vector $\vect{d} \neq \vect{0}$ a \textbf{direction vector}\index{direction vector}\index{vector geometry!direction vector}\index{vectors!direction vector} for the line if it is parallel to $\longvect{AB}$ for some pair of distinct points $A$ and $B$ on the line.
+\end{definition}
+
+\begin{wrapfigure}[7]{l}{4.5cm} 
+	\centering
+	\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.13}
+	\caption{\label{fig:011273}}
+\end{wrapfigure}
+
+\noindent Of course it is then parallel to $\longvect{CD}$ for \textit{any} distinct points $C$ and $D$ on the line. In particular, any nonzero scalar multiple of $\vect{d}$ will also serve as a direction vector of the line.
+
+
+We use the fact that there is exactly one line that passes through a particular point $P_{0}(x_{0}, y_{0}, z_{0})$ and has a given direction vector 
+$\vect{d} = \leftB
+\begin{array}{c}
+a \\
+b \\
+c  
+\end{array}
+\rightB$. We want to describe this line by giving a condition on $x$, $y$, and $z$ that the point $P(x, y, z)$ lies on this line. Let 
+$\vect{p}_{0} = \leftB
+\begin{array}{c}
+x_{0} \\
+y_{0} \\
+z_{0}  
+\end{array}
+\rightB$ 
+and 
+$\vect{p} = \leftB
+\begin{array}{c}
+x \\
+y \\
+z  
+\end{array}
+\rightB$ denote the vectors of $P_{0}$ and $P$, respectively (see Figure~\ref{fig:011273}). Then
+\begin{equation*}
+\vect{p} = \vect{p}_{0} + \longvect{P_{0}P}
+\end{equation*}
+Hence $P$ lies on the line if and only if $\longvect{P_{0}P}$ is parallel to $\vect{d}$---that is, if and only if $\longvect{P_{0}P} = t\vect{d}$ for some scalar $t$ by Theorem~\ref{thm:011240}. Thus $\vect{p}$ is the vector of a point on the line if and only if $\vect{p} = \vect{p}_{0} + t\vect{d}$ for some scalar $t$. This discussion is summed up as follows.
+
+
+\begin{theorem*}{Vector Equation of a Line}{011278}
+The line parallel to $\vect{d} \neq \vect{0}$ through the point with vector $\vect{p}_{0}$ is given by
+\begin{equation*}
+\vect{p} = \vect{p}_{0} + t\vect{d} \quad  t \mbox{ any scalar}
+\end{equation*}
+In other words, the point $P$ with vector $\vect{p}$ is on this line if and only if a real number t exists such that $\vect{p} = \vect{p}_{0} + t\vect{d}$.\index{line!vector equation of a line}\index{vector equation of a line}\index{vector geometry!vector equation of a line}
+\end{theorem*}
+
+\noindent In component form the vector equation becomes
+\begin{equation*}
+\leftB
+\begin{array}{c}
+x \\
+y \\
+z  
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{c}
+x_{0} \\
+y_{0} \\
+z_{0}  
+\end{array}
+\rightB
++
+t
+\leftB
+\begin{array}{c}
+a \\
+b \\
+c  
+\end{array}
+\rightB
+\end{equation*}
+Equating components gives a different description of the line.
+
+
+\begin{theorem*}{Parametric Equations of a Line}{011288}
+The line through $P_{0}(x_{0}, y_{0}, z_{0})$ with direction vector 
+$\vect{d} = \leftB
+\begin{array}{c}
+a \\
+b \\
+c  
+\end{array}
+\rightB
+\neq \vect{0}$ is given by
+\begin{equation*}
+\begin{array}{ll}
+x = x_{0} + ta &\\
+y = y_{0} + tb & t \mbox{ any scalar}\\
+z = z_{0} + tc &
+\end{array}
+\end{equation*}
+In other words, the point $P(x, y, z)$ is on this line if and only if a real number $t$ exists such that $x = x_{0} + ta$, $y = y_{0} + tb$, and $z = z_{0} + tc$.\index{line!parametric equations of a line}\index{parametric equations of a line}
+\end{theorem*}
+
+\begin{example}{}{011301}
+Find the equations of the line through the points $P_{0}(2, 0, 1)$ and $P_{1}(4, -1, 1)$.
+
+
+\begin{solution}
+  Let 
+  $\vect{d} = \longvect{P_{0}P}_{1} = \leftB
+  \begin{array}{c}
+  2 \\
+  -1 \\
+  0  
+  \end{array}
+  \rightB$ 
+  denote the vector from $P_{0}$ to $P_{1}$. Then $\vect{d}$ is parallel to the line ($P_{0}$ and $P_{1}$ are \textit{on} the line), so $\vect{d}$ serves as a direction vector for the line. Using $P_{0}$ as the point on the line leads to the parametric equations
+\begin{equation*}
+\begin{array}{ll}
+x = 2 + 2t &\\
+y = -t & t \mbox{ a parameter}\\
+z = 1 &
+\end{array}
+\end{equation*}
+Note that if $P_{1}$ is used (rather than $P_{0}$), the equations are
+\begin{equation*}
+\begin{array}{ll}
+x = 4 + 2s &\\
+y = -1 - s & s \mbox{ a parameter}\\
+z = 1 &
+\end{array}
+\end{equation*}
+These are different from the preceding equations, but this is merely the result of a change of parameter. In fact, $s = t - 1$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{011321}
+Find the equations of the line through $P_{0}(3, -1, 2)$ parallel to the line with equations
+\begin{align*}
+x &= -1 + 2t \\
+y &= 1 + t \\
+z &= -3 + 4t 
+\end{align*}
+
+\begin{solution}
+  The coefficients of $t$ give a direction vector 
+  $\vect{d} = \leftB
+  \begin{array}{c}
+  2 \\
+  1 \\
+  4  
+  \end{array}
+  \rightB$ 
+  of the given line. Because the line we seek is parallel to this line, $\vect{d}$ also serves as a direction vector for the new line. It passes through $P_{0}$, so the parametric equations are
+\begin{align*}
+x &= 3 + 2t \\
+y &= -1 + t \\
+z &= 2 + 4t 
+\end{align*}
+\end{solution}
+\end{example}
+
+\begin{example}{}{011332}
+Determine whether the following lines intersect and, if so, find the point of intersection.
+\begin{equation*}
+\begin{array}{lcl}
+x = 1 - 3t & & x = -1 + s\\
+y = 2 + 5t & & y = 3 - 4s\\
+z = 1 + t  & & z = 1 -s
+\end{array}
+\end{equation*}
+\begin{solution}
+  Suppose $P(x, y, z)$ with vector $\vect{p}$ lies on both lines. Then
+ \begin{equation*}
+\leftB
+\begin{array}{c}
+1 - 3t \\
+2 + 5t \\
+1 + t  
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{c}
+x \\
+y \\
+z  
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{c}
+-1 + s \\
+3 - 4s \\
+1 - s  
+\end{array}
+\rightB
+\mbox{ for some } t \mbox{ and } s,
+\end{equation*}
+where the first (second) equation is because $P$ lies on the first (second) line. Hence the lines intersect if and only if the three equations
+\begin{align*}
+1 - 3t & = -1 + s\\
+2 + 5t & = 3 - 4s\\
+1 + t  & = 1 -s
+\end{align*}
+have a solution. In this case, $t = 1$ and $s = -1$ satisfy all three equations, so the lines \textit{do} intersect and the point of intersection is
+\begin{equation*}
+\vect{p} = \leftB
+\begin{array}{c}
+1 - 3t \\
+2 + 5t \\
+1 + t  
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+-2 \\
+7 \\
+2  
+\end{array}
+\rightB
+\end{equation*}
+using $t = 1$. Of course, this point can also be found from 
+$\vect{p} = \leftB
+\begin{array}{c}
+	-1 + s \\
+	3 - 4s \\
+	1 - s 
+\end{array}
+\rightB$
+ using $s = -1$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{011343}
+Show that the line through $P_{0}(x_{0}, y_{0})$ with slope $m$ has direction vector 
+$\vect{d} = \leftB
+\begin{array}{c}
+1 \\
+m
+\end{array}
+\rightB$
+and equation $y - y_{0} = m(x - x_{0})$. This equation is called the \textit{point-slope} formula.\index{line!point-slope formula}\index{point-slope formula}
+
+
+
+\begin{wrapfigure}[9]{l}{5cm} 
+	\input{4-vector-geometry/figures/1-vectors-and-lines/example4.1.11}
+	%\captionof{figure}{\label{fig:011371}}
+\end{wrapfigure}
+\setlength{\rightskip}{0pt plus 200pt} 
+\begin{solution}  Let $P_{1}(x_{1}, y_{1})$ be the point on the line one unit to the right of $P_{0}$ (see the diagram). Hence $x_{1} = x_{0} + 1$. Then $\vect{d} = \longvect{P_0P}_1$ serves as direction vector of the line, and 
+  $\vect{d} = \leftB
+  \begin{array}{c}
+  x_{1} - x_{0} \\
+  y_{1} - y_{0}
+  \end{array}
+  \rightB
+  = \leftB
+  \begin{array}{c}
+  1 \\
+  y_{1} - y_{0}
+  \end{array}
+  \rightB$. But the slope $m$ can be computed as follows:
+\begin{equation*}
+m = \frac{y_{1} - y_{0}}{x_{1} - x_{0}} = \frac{y_{1} - y_{0}}{1} = y_{1} - y_{0}
+\end{equation*}
+Hence 
+$\vect{d} = \leftB
+\begin{array}{c}
+1 \\
+m
+\end{array}
+\rightB$ 
+and the parametric equations are $x = x_{0} + t$, $y = y_{0} + mt$. Eliminating $t$ gives $y - y_{0} = mt = m(x - x_{0})$, as asserted.
+
+\end{solution}
+\end{example}
+
+Note that the vertical line through $P_{0}(x_{0}, y_{0})$ has a direction vector 
+$\vect{d} = \leftB
+\begin{array}{c}
+0 \\
+1
+\end{array}
+\rightB$ 
+that is \textit{not} of the form 
+$\leftB
+\begin{array}{c}
+1 \\
+m
+\end{array}
+\rightB$ 
+for any $m$.
+ This result confirms that the notion of slope makes no sense in this 
+case. However, the vector method gives parametric equations for the 
+line:
+\begin{align*}
+x &= x_{0} \\
+y &= y_{0} + t
+\end{align*}
+Because $y$ is arbitrary here ($t$ is arbitrary), this is usually written simply as $x = x_{0}$.
+
+
+\subsection*{Pythagoras' Theorem}
+
+\begin{wrapfigure}[4]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/figure4.1.14}
+\caption{\label{fig:011396}}
+\end{wrapfigure}
+The Pythagorean theorem was known earlier, but Pythagoras (c. 550 \textsc{b.c.})\index{Pythagoras}
+ is credited with giving the first rigorous, logical, deductive proof of
+ the result. The proof we give depends on a basic property of similar 
+triangles: ratios of corresponding sides are equal.
+\vspace{4em}
+
+\begin{theorem}{Pythagoras' Theorem}{011384}
+Given a right-angled triangle with hypotenuse $c$ and sides $a$ and $b$, then $a^{2} + b^{2} = c^{2}$.\index{geometric vectors!Pythagoras' theorem}\index{Pythagoras' theorem}
+\end{theorem}
+
+\begin{proof}
+Let $A$, $B$, and $C$ be the vertices of the triangle as in Figure~\ref{fig:011396}. Draw a perpendicular line from $C$ to the point $D$ on the hypotenuse, and let $p$ and $q$ be the lengths of $BD$ and $DA$ respectively. Then $DBC$ and $CBA$ are similar triangles so $\frac{p}{a} = \frac{a}{c}$. This means $a^{2} = pc$. In the same way, the similarity of $DCA$ and $CBA$ gives $\frac{q}{b} = \frac{b}{c}$, whence $b^{2} = qc$. But then
+\begin{equation*}
+a^2 + b^2 = pc + qc = (p +q)c = c^2
+\end{equation*}
+because $p + q = c$. This proves Pythagoras' theorem\footnote{There is an intuitive geometrical proof of Pythagoras' theorem in Example \ref{exa:034656}.}.
+\end{proof}
+
+\section*{Exercises for \ref{sec:4_1}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:4_1}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Compute $\vectlength\vect{v}\vectlength$ if $\vect{v}$ equals:
+
+\begin{exenumerate}[column-sep=-5em]
+\exitem $\leftB
+\begin{array}{r}
+2 \\
+-1 \\
+2
+\end{array}
+\rightB$ 
+\exitem $\leftB
+\begin{array}{r}
+1 \\
+-1 \\
+2
+\end{array}
+\rightB$
+\exitem $\leftB
+\begin{array}{r}
+1 \\
+0 \\
+-1
+\end{array}
+\rightB$
+\exitem $\leftB
+\begin{array}{r}
+-1 \\
+0 \\
+2
+\end{array}
+\rightB$
+\exitem $2\leftB
+\begin{array}{r}
+1 \\
+-1 \\
+2
+\end{array}
+\rightB$
+\exitem $-3\leftB
+\begin{array}{r}
+1 \\
+1 \\
+2
+\end{array}
+\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\sqrt{6}$ 
+
+\setcounter{enumi}{3}
+\item $\sqrt{5}$
+
+\setcounter{enumi}{5}
+\item $3\sqrt{6}$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\begin{ex}
+Find a unit vector in the direction of:
+
+\begin{exenumerate}[column-sep=-5em]
+\exitem $\leftB
+\begin{array}{r}
+7 \\
+-1 \\
+5
+\end{array}
+\rightB$
+\exitem $\leftB
+\begin{array}{r}
+-2 \\
+-1 \\
+2
+\end{array}
+\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$\frac{1}{3}\leftB
+\begin{array}{r}
+-2 \\
+-1 \\
+2
+\end{array}
+\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Find a unit vector in the direction from \\
+$\leftB
+\begin{array}{r}
+3 \\
+-1 \\
+4
+\end{array}
+\rightB$
+to
+$\leftB
+\begin{array}{r}
+1\\
+3 \\
+5
+\end{array}
+\rightB$.
+
+\item If $\vect{u} \neq \vect{0}$, for which values of $a$ is $a\vect{u}$ a unit vector?
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Find the distance between the following pairs of points.
+
+\begin{exenumerate}[column-sep=-15pt]
+\exitem $\leftB
+\begin{array}{r}
+3 \\
+-1 \\
+0
+\end{array}
+\rightB$
+and
+$\leftB
+\begin{array}{r}
+2\\
+-1 \\
+1
+\end{array}
+\rightB$
+\exitem $\leftB
+\begin{array}{r}
+2 \\
+-1 \\
+2
+\end{array}
+\rightB$
+and
+$\leftB
+\begin{array}{r}
+2\\
+0 \\
+1
+\end{array}
+\rightB$
+\exitem $\leftB
+\begin{array}{r}
+-3 \\
+5 \\
+2
+\end{array}
+\rightB$
+and
+$\leftB
+\begin{array}{r}
+1\\
+3 \\
+3
+\end{array}
+\rightB$
+\exitem $\leftB
+\begin{array}{r}
+4 \\
+0 \\
+-2
+\end{array}
+\rightB$
+and
+$\leftB
+\begin{array}{r}
+3\\
+2 \\
+0
+\end{array}
+\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$\sqrt{2}$
+
+\setcounter{enumi}{3}
+\item  $3$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Use
+ vectors to show that the line joining the midpoints of two sides of a 
+triangle is parallel to the third side and half as long.
+\end{ex}
+
+\begin{ex}
+Let $A$, $B$, and $C$ denote the three vertices of a triangle.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $E$ is the midpoint of side $BC$, show that
+\begin{equation*}
+\longvect{AE} = \frac{1}{2}(\longvect{AB} + \longvect{AC})
+\end{equation*}
+\item If $F$ is the midpoint of side $AC$, show that
+\begin{equation*}
+\longvect{FE} = \frac{1}{2}\longvect{AB}
+\end{equation*}
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$\longvect{FE} = \longvect{FC} + \longvect{CE} = \frac{1}{2}\longvect{AC} + \frac{1}{2}\longvect{CB} = \frac{1}{2}(\longvect{AC} + \longvect{CB}) = \frac{1}{2}\longvect{AB}$ 
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Determine whether $\vect{u}$ and $\vect{v}$ are parallel in each of the following cases.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\vect{u} = \leftB
+\begin{array}{r}
+-3\\
+-6\\
+3
+\end{array}
+\rightB$;  
+$\vect{v} = \leftB
+\begin{array}{r}
+5\\
+10 \\
+-5
+\end{array}
+\rightB$
+
+\item 
+$\vect{u} = \leftB
+\begin{array}{r}
+3\\
+-6\\
+3
+\end{array}
+\rightB$;
+$\vect{v} = \leftB
+\begin{array}{r}
+-1\\
+2 \\
+-1
+\end{array}
+\rightB$
+
+
+\item 
+$\vect{u} = \leftB
+\begin{array}{r}
+1\\
+0\\
+1
+\end{array}
+\rightB$;
+$\vect{v} = \leftB
+\begin{array}{r}
+-1\\
+0 \\
+1
+\end{array}
+\rightB$
+
+
+\item 
+$\vect{u} = \leftB
+\begin{array}{r}
+2\\
+0\\
+-1
+\end{array}
+\rightB$;
+$\vect{v} = \leftB
+\begin{array}{r}
+-8\\
+0 \\
+4
+\end{array}
+\rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Yes
+
+\setcounter{enumi}{3}
+\item  Yes
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\begin{ex}
+Let $\vect{p}$ and $\vect{q}$ be the vectors of points $P$ and $Q$, respectively, and let $R$ be the point whose vector is $\vect{p} + \vect{q}$. Express the following in terms of $\vect{p}$ and $\vect{q}$.
+
+\begin{exenumerate}[column-sep=-50pt] 
+\exitem $\longvect{QP}$
+\exitem $\longvect{QR}$
+\exitem $\longvect{RP}$
+\exitem $\longvect{RO}$ where $O$ is the origin
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\vect{p}$
+
+\setcounter{enumi}{3}
+\item $-(\vect{p} + \vect{q})$.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find $\longvect{PQ}$ and $\vectlength \longvect{PQ} \vectlength$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $P(1, -1, 3)$, $Q(3, 1, 0)$
+
+\item $P(2, 0, 1)$, $Q(1, -1, 6)$
+
+\item $P(1, 0, 1)$, $Q(1, 0, -3)$
+
+\item $P(1, -1, 2)$, $Q(1, -1, 2)$
+
+\item $P(1, 0, -3)$, $Q(-1, 0, 3)$
+
+\item $P(3, -1, 6)$, $Q(1, 1, 4)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$\leftB
+\begin{array}{r}
+-1\\
+-1\\
+5
+\end{array}
+\rightB$, 
+$\sqrt{27}$
+
+\setcounter{enumi}{3}
+\item 
+$\leftB
+\begin{array}{r}
+0\\
+0\\
+0
+\end{array}
+\rightB$,
+$0$
+
+\setcounter{enumi}{5}
+\item 
+$\leftB
+\begin{array}{r}
+-2\\
+2\\
+2
+\end{array}
+\rightB$, 
+$\sqrt{12}$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a point $Q$ such that $\longvect{PQ}$ has (i) the same direction as $\vect{v}$; (ii) the opposite direction to $\vect{v}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item
+$P(-1,2,2)$, $\vect{v} = \leftB
+\begin{array}{r}
+1\\
+3\\
+1
+\end{array}
+\rightB$
+
+\item 
+$P(3,0,-1)$, $\vect{v} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+3
+\end{array}
+\rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  \textbf{(i)} $Q(5, -1, 2)$~\textbf{(ii)} $Q(1, 1, -4)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let 
+$\vect{u} = \leftB
+\begin{array}{r}
+	3\\
+	-1\\
+	0
+\end{array}
+\rightB$,
+$\vect{v} = \leftB
+\begin{array}{r}
+4\\
+0\\
+1
+\end{array}
+\rightB$, and 
+$\vect{w} = \leftB
+\begin{array}{r}
+-1\\
+1\\
+5
+\end{array}
+\rightB$. In each case, find $\vect{x}$ such that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $3(2\vect{u} + \vect{x}) + \vect{w} = 2\vect{x} - \vect{v}$
+
+\item $2(3\vect{v} - \vect{x}) = 5\vect{w} + \vect{u} - 3\vect{x}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\vect{x} = \vect{u} - 6\vect{v} + 5\vect{w} = 
+\leftB
+\begin{array}{r}
+-26\\
+4\\
+19
+\end{array}
+\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let 
+$\vect{u} = \leftB
+\begin{array}{r}
+1\\
+1\\
+2
+\end{array}
+\rightB$,
+$\vect{v} = \leftB
+\begin{array}{r}
+0\\
+1\\
+2
+\end{array}
+\rightB$, and \newline
+$\vect{w} = \leftB
+\begin{array}{r}
+1\\
+0\\
+-1
+\end{array}
+\rightB$. In each case, find numbers $a$, $b$, and $c$ such that $\vect{x} = a\vect{u} + b\vect{v} + c\vect{w}$.
+
+\begin{exenumerate}
+\exitem $\vect{x} = \leftB
+\begin{array}{r}
+2\\
+-1\\
+6
+\end{array}
+\rightB$
+\exitem $\vect{x} = \leftB
+\begin{array}{r}
+1\\
+3\\
+0
+\end{array}
+\rightB$
+\end{exenumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$\leftB
+\begin{array}{r}
+a\\
+b\\
+c
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+-5\\
+8\\
+6
+\end{array}
+\rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let 
+$\vect{u} = \leftB
+\begin{array}{r}
+3\\
+-1\\
+0
+\end{array}
+\rightB$,
+$\vect{v} = \leftB
+\begin{array}{r}
+4\\
+0\\
+1
+\end{array}
+\rightB$, and 
+$\vect{z} = \leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB$. In each case, show that there are no numbers $a$, $b$, and $c$ such that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$a\vect{u} + b\vect{v} + c\vect{z} = \leftB
+\begin{array}{r}
+1\\
+2\\
+1
+\end{array}
+\rightB$
+
+
+\item
+$a\vect{u} + b\vect{v} + c\vect{z} = \leftB
+\begin{array}{r}
+5\\
+6\\
+-1
+\end{array}
+\rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item If it holds then 
+$\leftB
+\begin{array}{c}
+3a + 4b + c\\
+-a + c\\
+b + c
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{c}
+x_{1}\\
+x_{2}\\
+x_{3}
+\end{array}
+\rightB$. \\ \hspace*{-2em}$\leftB
+\begin{array}{rrrr}
+3 & 4 & 1 & x_{1}\\
+-1 & 0 & 1 & x_{2}\\
+0 & 1 & 1 & x_{3}
+\end{array}
+\rightB \to \leftB
+\begin{array}{rrrc}
+0 & 4 & 4 & x_{1} + 3x_{2}\\
+-1 & 0 & 1 & x_{2}\\
+0 & 1 & 1 & x_{3}
+\end{array}
+\rightB$
+
+If there is to be a solution then $x_{1} + 3x_{2} = 4x_{3}$ must hold. This is not satisfied.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given $P_{1}(2, 1, -2)$ and $P_{2}(1, -2, 0)$. Find the coordinates of the point $P$:
+\begin{enumerate}[label={\alph*.}]
+\item $\frac{1}{5}$ the way from $P_{1}$ to $P_{2}$
+
+\item $\frac{1}{4}$ the way from $P_{2}$ to $P_{1}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\frac{1}{4}\leftB
+\begin{array}{c}
+5\\
+-5\\
+-2
+\end{array}
+\rightB
+$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the two points trisecting the segment between $P(2, 3, 5)$ and $Q(8, -6, 2)$.
+\end{ex}
+
+\begin{ex}
+Let $P_{1}(x_{1}, y_{1}, z_{1})$ and $P_{2}(x_{2}, y_{2}, z_{2})$ be two points with vectors $\vect{p}_{1}$ and $\vect{p}_{2}$, respectively. If $r$ and $s$ are positive integers, show that the point $P$ lying $\frac{r}{r + s}$ the way from $P_{1}$ to $P_{2}$ has vector
+\begin{equation*}
+\vect{p} = \left( \frac{s}{r + s} \right)\vect{p}_{1} + \left( \frac{r}{r + s} \right)\vect{p}_{2}
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+In each case, find the point $Q$:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item
+$\longvect{PQ} = \leftB
+\begin{array}{r}
+2\\
+0\\
+-3
+\end{array}
+\rightB$
+and $P = P(2,-3,1)
+$
+
+
+\item
+$\longvect{PQ} = \leftB
+\begin{array}{r}
+-1\\
+4\\
+7
+\end{array}
+\rightB$
+and
+$P = P(1,3,-4)
+$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $Q(0, 7, 3)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Let 
+$\vect{u} = \leftB
+\begin{array}{r}
+2\\
+0\\
+-4
+\end{array}
+\rightB$
+and 
+$\vect{v} = \leftB
+\begin{array}{r}
+2\\
+1\\
+-2
+\end{array}
+\rightB$. In each case find $\vect{x}$:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $2\vect{u} - \vectlength \vect{v} \vectlength \vect{v} = \frac{3}{2}(\vect{u} - 2\vect{x})$
+
+\item $3\vect{u} + 7\vect{v} = \vectlength\vect{u}\vectlength^{2}(2\vect{x} + \vect{v})$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item
+$\vect{x} = \frac{1}{40}\leftB
+\begin{array}{r}
+-20\\
+-13\\
+14
+\end{array}
+\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all vectors $\vect{u}$ that are parallel to 
+$\vect{v} = \leftB
+\begin{array}{r}
+3\\
+-2\\
+1
+\end{array}
+\rightB$ 
+and satisfy $\vectlength\vect{u}\vectlength = 3\vectlength\vect{v}\vectlength$.
+\end{ex}
+
+\begin{ex}
+Let $P$, $Q$, and $R$ be the vertices of a parallelogram with adjacent sides $PQ$ and $PR$. In each case, find the other vertex $S$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $P(3, -1, -1)$, $Q(1, -2, 0)$, $R(1, -1, 2)$
+
+\item $P(2, 0, -1)$, $Q(-2, 4, 1)$, $R(3, -1, 0)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $S(-1, 3, 2)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case either prove the statement or give an example showing that it is false.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item The zero vector $\vect{0}$ is the only vector of length 0.
+
+\item If $\vectlength\vect{v} - \vect{w}\vectlength = 0$, then $\vect{v} = \vect{w}$.
+
+\item If $\vect{v} = -\vect{v}$, then $\vect{v} = \vect{0}$.
+
+\item If $\vectlength\vect{v}\vectlength = \vectlength\vect{w}\vectlength$, then $\vect{v} = \vect{w}$.
+
+\item If $\vectlength\vect{v}\vectlength = \vectlength\vect{w}\vectlength$, then $\vect{v} = \pm\vect{w}$.
+
+\item If $\vect{v} = t\vect{w}$ for some scalar $t$, then $\vect{v}$ and $\vect{w}$ have the same direction.
+
+\item If $\vect{v}$, $\vect{w}$, and $\vect{v} + \vect{w}$ are nonzero, and $\vect{v}$ and $\vect{v} + \vect{w}$ parallel, then $\vect{v}$ and $\vect{w}$ are parallel.
+
+\item $\vectlength-5\vect{v}\vectlength = -5\vectlength\vect{v}\vectlength$, for all $\vect{v}$.
+
+\item If $\vectlength\vect{v}\vectlength = \vectlength 2\vect{v}\vectlength$, then $\vect{v} = \vect{0}$.
+
+\item $\vectlength\vect{v} + \vect{w}\vectlength = \vectlength\vect{v}\vectlength + \vectlength\vect{w}\vectlength$, for all $\vect{v}$ and $\vect{w}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  T. $\vectlength\vect{v} - \vect{w}\vectlength = 0$ implies that $\vect{v} - \vect{w} = \vect{0}$.
+
+\setcounter{enumi}{3}
+\item  F. $\vectlength\vect{v}\vectlength = \vectlength - \vect{v}\vectlength$ for all $\vect{v}$ but $\vect{v} = -\vect{v}$ only holds if $\vect{v} = \vect{0}$.
+
+\setcounter{enumi}{5}
+\item  F. If $t < 0$ they have the \textit{opposite} direction.
+
+\setcounter{enumi}{7}
+\item  F. $\vectlength -5\vect{v}\vectlength = 5\vectlength\vect{v}\vectlength$ for all $\vect{v}$, so it fails if $\vect{v} \neq \vect{0}$.
+
+\setcounter{enumi}{9}
+\item  F. Take $\vect{w} = -\vect{v}$ where $\vect{v} \neq \vect{0}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the vector and parametric equations of the following lines.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item The line parallel to 
+$\leftB
+\begin{array}{r}
+2\\
+-1\\
+0
+\end{array}
+\rightB$
+ and passing through $P(1, -1, 3)$.
+
+\item The line passing through $P(3, -1, 4)$ and $Q(1, 0, -1)$.
+
+\item The line passing through $P(3, -1, 4)$ and $Q(3, -1, 5)$.
+
+\item The line parallel to 
+$\leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB$
+and passing through $P(1, 1, 1)$.
+
+\item The line passing through $P(1, 0, -3)$ and parallel to the line with parametric equations $x = -1 + 2t$, $y = 2 - t$, and $z = 3 + 3t$.
+
+\item The line passing through $P(2, -1, 1)$ and parallel to the line with parametric equations $x = 2 - t$, $y = 1$, and $z = t$.
+
+\item The lines through $P(1, 0, 1)$ that meet the line with vector equation 
+$\vect{p} = \leftB
+\begin{array}{r}
+1\\
+2\\
+0
+\end{array}
+\rightB
++ t
+\leftB
+\begin{array}{r}
+2\\
+-1\\
+2
+\end{array}
+\rightB$
+ at points at distance 3 from $P_{0}(1, 2, 0)$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$\leftB
+\begin{array}{r}
+3\\
+-1\\
+4
+\end{array}
+\rightB
++ t
+\leftB
+\begin{array}{r}
+2\\
+-1\\
+5
+\end{array}
+\rightB$;
+$x = 3 + 2t$, $y = -1 -t$, $z = 4 + 5t$
+
+\setcounter{enumi}{3}
+\item
+$\leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB
++ t
+\leftB
+\begin{array}{r}
+1\\
+1\\
+1
+\end{array}
+\rightB$;
+$x = y = z = 1 + t$
+
+\setcounter{enumi}{5}
+\item 
+$\leftB
+\begin{array}{r}
+2\\
+-1\\
+1
+\end{array}
+\rightB
++ t
+\leftB
+\begin{array}{r}
+-1\\
+0\\
+1
+\end{array}
+\rightB$;
+$x = 2 - t$, $y = -1$, $z = 1 + t$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, verify that the points $P$ and $Q$ lie on the line.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\begin{array}[t]{ll}
+x = 3 - 4t & P(-1,3,0), Q(11,0,3) \\
+y = 2 + t & \\
+z = 1 - t &
+\end{array}
+$
+
+\item
+$\begin{array}[t]{ll}
+x = 4 - t & P(2,3,-3), Q(-1,3,-9) \\
+y = 3 & \\
+z = 1 - 2t &
+\end{array}
+$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $P$ corresponds to $t = 2$; $Q$ corresponds to $t = 5$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the point of intersection (if any) of the following pairs of lines.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\begin{array}[t]{ll}
+	x = 3 + t & x = 4 + 2s \\
+	y = 1 - 2t & y = 6 + 3s \\
+	z = 3 + 3t & z = 1 + s 
+\end{array}$
+
+\item
+$\begin{array}{ll}
+	x = 1 - t & x = 2s \\
+	y = 2 + 2t & y = 1 + s \\
+	z = -1 + 3t & z = 3 
+\end{array}$
+
+\item 
+$\leftB
+\begin{array}{c}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+3\\
+-1\\
+2
+\end{array}
+\rightB
++ t
+\leftB
+\begin{array}{r}
+1\\
+1\\
+-1
+\end{array}
+\rightB$
+
+$\leftB
+\begin{array}{c}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+1\\
+1\\
+-2
+\end{array}
+\rightB
++ s
+\leftB
+\begin{array}{r}
+2\\
+0\\
+3
+\end{array}
+\rightB$
+
+\item 
+$\leftB
+\begin{array}{c}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+4\\
+-1\\
+5
+\end{array}
+\rightB
++ t
+\leftB
+\begin{array}{r}
+1\\
+0\\
+1
+\end{array}
+\rightB$
+
+$\leftB
+\begin{array}{c}
+x\\
+y\\
+z
+\end{array}
+\rightB
+=
+\leftB
+\begin{array}{r}
+2\\
+-7\\
+12
+\end{array}
+\rightB
++ s
+\leftB
+\begin{array}{r}
+0\\
+-2\\
+3
+\end{array}
+\rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No intersection
+
+\setcounter{enumi}{3}
+\item  $P(2, -1, 3)$; $t = -2$, $s = -3$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show
+ that if a line passes through the origin, the vectors of points on the 
+line are all scalar multiples of some fixed nonzero vector.
+\end{ex}
+
+\begin{ex}
+Show that every line parallel to the $z$ axis has parametric equations $x = x_{0}$, $y = y_{0}$, $z = t$ for some fixed numbers $x_{0}$ and $y_{0}$.
+\end{ex}
+
+\begin{ex}
+Let
+$\vect{d} = \leftB
+\begin{array}{c}
+a\\
+b\\
+c
+\end{array}
+\rightB$
+ be a vector where $a$, $b$, and $c$ are \textit{all} nonzero. Show that the equations of the line through $P_{0}(x_{0}, y_{0}, z_{0})$ with direction vector $\vect{d}$ can be written in the form
+\begin{equation*}
+\frac{x - x_{0}}{a} = \frac{y - y_{0}}{b} = \frac{z -z_{0}}{c}
+\end{equation*}
+This is called the \textbf{symmetric form}\index{symmetric form}\index{vector geometry!symmetric form} of the equations.
+\end{ex}
+
+\begin{ex}
+A parallelogram has sides $AB$, $BC$, $CD$, and $DA$. Given $A(1, -1, 2)$, $C(2, 1, 0)$, and the midpoint $M(1, 0, -3)$ of $AB$, find $\longvect{BD}$.
+\end{ex}
+
+\begin{ex}
+Find all points $C$ on the line through $A(1, -1, 2)$ and $B = (2, 0, 1)$ such that $\vectlength \longvect{AC} \vectlength = 2 \vectlength \longvect{BC} \vectlength$.
+
+\begin{sol}
+$P(3, 1, 0)$ or $P(\frac{5}{3}, \frac{-1}{3}, \frac{4}{3})$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$, $B$, $C$, $D$, $E$, and $F$ be the vertices of a regular hexagon, taken in order. Show that $\longvect{AB} + \longvect{AC} + \longvect{AD} + \longvect{AE} + \longvect{AF} = 3\longvect{AD}$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Let $P_{1}$, $P_{2}$, $P_{3}$, $P_{4}$, $P_{5}$, and $P_{6}$ be six points equally spaced on a circle with centre $C$. Show that
+\begin{equation*}
+\longvect{CP}_{1} + \longvect{CP}_{2} + \longvect{CP}_{3} + \longvect{CP}_{4} + \longvect{CP}_{5} + \longvect{CP}_{6} = \vect{0}
+\end{equation*}
+\item Show that the conclusion in part (a) holds for any \textit{even} set of points evenly spaced on the circle.
+
+\item Show that the conclusion in part (a) holds for \textit{three} points.
+
+\item Do you think it works for \textit{any} finite set of points evenly spaced around the circle?
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\longvect{CP}_{k} = -\longvect{CP}_{n+k}$
+ if $1 \leq k \leq n$, where there are $2n$ points.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Consider a quadrilateral with vertices $A$, $B$, $C$, and $D$ in order (as shown in the diagram).
+
+
+\begin{figure}[H]
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/exercise4.1.32}
+%\caption{\label{fig:011729}}
+\end{figure}
+
+If the diagonals $AC$ and $BD$ bisect each other, show that the quadrilateral is a parallelogram. (This is the converse of Example~\ref{exa:011062}.) [\textit{Hint}: Let $E$ be the intersection of the diagonals. Show that $\longvect{AB} = \longvect{DC}$ by writing $\longvect{AB} = \longvect{AE} + \longvect{EB}$.]
+\end{ex}
+
+\begin{ex}
+Consider the parallelogram $ABCD$ (see diagram), and let $E$ be the midpoint of side $AD$.
+
+
+\begin{figure}[H]
+\centering
+\input{4-vector-geometry/figures/1-vectors-and-lines/exercise4.1.33}
+%\caption{\label{fig:011735}}
+\end{figure}
+
+Show that $BE$ and $AC$ trisect each other; that is, show that the intersection point is one-third of the way from $E$ to $B$ and from $A$ to $C$. [\textit{Hint}: If $F$ is one-third of the way from $A$ to $C$, show that $2\longvect{EF} = \longvect{FB}$ and argue as in Example~\ref{exa:011062}.]
+
+\begin{sol} 
+$\longvect{DA} = 2\longvect{EA}$ and $2\longvect{AF} = \longvect{FC}$, so $2\longvect{EF} = 2(\longvect{EF} + \longvect{AF}) = \longvect{DA} + \longvect{FC} = \longvect{CB} + \longvect{FC} = \longvect{FC} + \longvect{CB} = \longvect{FB}$. Hence $\longvect{EF} = \frac{1}{2}\longvect{FB}$. So $F$ is the trisection point of both $AC$ and $EB$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+The line from a vertex of a triangle to the midpoint of the opposite side is called a \textbf{median}\index{triangle!median} of the triangle. If the vertices of a triangle have vectors $\vect{u}$, $\vect{v}$, and $\vect{w}$, show that the point on each median that is $\frac{1}{3}$ the way from the midpoint to the vertex has vector $\frac{1}{3}(\vect{u} + \vect{v} + \vect{w})$. Conclude that the point $C$ with vector $\frac{1}{3}(\vect{u} + \vect{v} + \vect{w})$ lies on all three medians. This point $C$ is called the \textbf{centroid}\index{triangle!centroid} of the triangle.\index{centroid}
+\end{ex}
+
+\begin{ex}
+Given four noncoplanar points in space, the figure with these points as vertices is called a \textbf{tetrahedron}\index{tetrahedron}.
+ The line from a vertex through the centroid (see previous exercise) of 
+the triangle formed by the remaining vertices is called a \textbf{median}\index{triangle!median} of the tetrahedron. If $\vect{u}$, $\vect{v}$, $\vect{w}$, and $\vect{x}$ are the vectors of the four vertices, show that the point on a median one-fourth the way from the centroid to the vertex has vector $\frac{1}{4}(\vect{u} + \vect{v} + \vect{w} + \vect{x})$. Conclude that the four medians are concurrent.\index{median!tetrahedron}\index{median!triangle}
+\end{ex}
+\end{multicols}
+
+

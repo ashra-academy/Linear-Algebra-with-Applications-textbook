@@ -1,0 +1,126 @@
+\section*{Supplementary Exercises for Chapter~\ref{chap:3}}
+\addcontentsline{toc}{section}{Supplementary Exercises for Chapter~\ref{chap:3}}
+
+\begin{Filesave}{solutions}
+\solsection{Supplementary Exercises for Chapter~\ref{chap:3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{supex}
+Show that
+\\ {\footnotesize$\func{det} \leftB \begin{array}{ccc}
+a+px & b+qx & c+rx \\
+p+ux & q+vx & r+wx \\
+u+ax & v+bx & w+cx \\
+\end{array} \rightB = (1+x^3) \func{det} \leftB \begin{array}{ccc}
+a & b & c \\
+p & q & r \\
+u & v & w
+\end{array}\rightB$}
+\end{supex}
+
+
+\begin{supex}
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $(A_{ij})^{T} = (A^{T})_{ji}$ for all $i$, $j$, and all square matrices $A$.
+
+\item Use (a) to prove that $\func{det }A^{T} = \func{det }A$. [\textit{Hint}: Induction on $n$ where $A$ is $n \times n$.]
+
+\end{enumerate}
+\begin{supsol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item If $A$ is $1 \times 1$, then $A^{T} = A$. In general, $\func{det}\leftB A_{ij} \rightB = \func{det}\leftB (A_{ij})^{T}\rightB = \func{det}\leftB(A^{T})_{ji} \rightB$ by (a) and induction. Write $A^{T} = \leftB a^\prime_{ij}\rightB$ where $a^\prime_{ij} = a_{ji}$, and expand $\func{det }A^{T}$ along column 1.
+\begin{align*}
+\func{det } A^T &= \sum_{j=1}^{n} a^{\prime}_{j1}(-1)^{j+1} \func{det}[(A^T)_{j1}] \\
+&= \sum_{j=1}^{n} a_{1j}(-1)^{1+j} \func{det}[A_{1j}] = \func{det }A
+\end{align*}
+
+where the last equality is the expansion of $\func{det }A$ along row 1.
+\end{enumerate}
+\end{supsol}
+\end{supex}
+
+\begin{supex}
+Show that $\func{det} \leftB \begin{array}{cc}
+0 & I_n \\
+I_m & 0 
+\end{array}\rightB = (-1)^{nm}$
+ for all $n \geq 1$ and $m \geq 1$.
+
+\end{supex}
+
+\begin{supex}
+Show that
+\begin{equation*}
+\func{det} \leftB \begin{array}{rrr}
+1 & a & a^3 \\
+1 & b & b^3 \\
+1 & c & c^3 
+\end{array}\rightB = (b-a)(c-a)(c-b)(a+b+c)
+\end{equation*}
+\end{supex}
+
+\columnbreak
+\begin{supex}
+Let $A = \leftB \begin{array}{c}
+R_1 \\
+R_2
+\end{array}\rightB$
+ be a 2 $\times$ 2 matrix with rows $R_{1}$ and $R_{2}$. If $\func{det }A = 5$, find $\func{det }B$ where
+\begin{equation*}
+B = \leftB \begin{array}{c}
+3R_1 + 2R_3 \\
+2R_1 + 5R_2
+\end{array}\rightB
+\end{equation*}
+\end{supex}
+
+\begin{supex}
+Let $A = \leftB \begin{array}{rr}
+3 & -4 \\
+2 & -3 
+\end{array}\rightB$
+ and let $\vect{v}_{k} = A^{k}\vect{v}_{0}$ for each $k \geq 0$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A$ has no dominant eigenvalue.
+
+\item Find $\vect{v}_{k}$ if $\vect{v}_{0}$ equals:
+
+
+\begin{enumerate}[label={\roman*.}]
+\item $\leftB \begin{array}{r}
+1 \\
+1
+\end{array}\rightB$
+
+
+\item $\leftB \begin{array}{r}
+2 \\
+1
+\end{array}\rightB$
+
+
+\item $\leftB \begin{array}{r}
+x \\
+y
+\end{array}\rightB \neq \leftB \begin{array}{r}
+1 \\
+1
+\end{array}\rightB$ or $\leftB \begin{array}{r}
+2 \\
+1
+\end{array}\rightB$
+
+
+
+
+
+\end{enumerate}
+\end{enumerate}
+\end{supex}
+
+\end{multicols}

@@ -1,0 +1,1354 @@
+\section{Determinants and Matrix Inverses}
+\label{sec:3_2}
+
+\index{inverses!determinants}
+In this section, several theorems about determinants are derived. One consequence of these theorems is that a square matrix $A$ is invertible if and only if $\func{det } A \neq 0$. Moreover, determinants are used to give a formula for $A^{-1}$
+ which, in turn, yields a formula (called Cramer's rule)\index{determinants!Cramer's Rule}\index{Cramer's Rule}\index{inverses!Cramer's Rule} for the 
+solution of any system of linear equations with an invertible 
+coefficient matrix.
+
+We begin with a remarkable theorem (due
+ to Cauchy in 1812)\index{Cauchy, Augustin Louis} about the determinant of a product of matrices. The 
+proof is given at the end of this section.
+
+\begin{theorem}{Product Theorem}{008196}
+If $A$ and $B$ are $n \times n$ matrices, then $\func{det}(AB) = \func{det } A \func{det } B$.\index{determinants!product of matrices (product theorem)}\index{product!determinant of product of matrices}\index{product!theorem}
+\end{theorem}
+
+The complexity of matrix multiplication
+ makes the product theorem quite unexpected. Here is an example where it
+ reveals an important numerical identity.
+
+
+\begin{example}{}{008202}
+If $A = \leftB \begin{array}{rr} 
+a & b \\
+-b & a 
+\end{array} \rightB$ and $B = \leftB \begin{array}{rr} 
+c & d \\
+-d & c 
+\end{array} \rightB$
+then $AB = \leftB \begin{array}{cc} 
+ac-bd & ad+bc \\
+-(ad+bc) & ac-bd 
+\end{array} \rightB$.
+
+\medskip
+
+Hence $\func{det } A \func{det } B = \func{det}(AB)$ gives the identity
+\begin{equation*}
+(a^2 + b^2)(c^2+d^2) = (ac-bd)^2 + (ad+bc)^2
+\end{equation*}
+\end{example}
+
+Theorem~\ref{thm:008196} extends easily to $\func{det}(ABC) = \func{det } A \func{det } B \func{det } C$. In fact, induction gives
+\begin{equation*}
+\func{det}(A_1A_2 \cdots A_{k-1}A_k) = \func{det } A_1 \func{det } A_2 \cdots \func{det } A_{k-1} \func{det } A_k
+\end{equation*}
+for any square matrices $A_1, \dots, A_k$ of the same size. In particular, if each $A_i = A$, we obtain
+\begin{equation*}
+\func{det} (A^k) = (det A)^k, \mbox{ for any } k\geq 1
+\end{equation*}
+We can now give the invertibility condition.\index{inverses!square matrices!application to}\index{invertibility condition}
+
+
+\begin{theorem}{}{008217}
+An $n \times n$ matrix $A$ is invertible if and only if $\func{det } A \neq 0$. When this is the case,
+$ \func{det} (A^{-1}) = \frac{1}{\func{det } A}$ 
+\end{theorem}
+
+\begin{proof}
+If $A$ is invertible, then $AA^{-1}=I$; so the product theorem gives
+\begin{equation*}
+1 = \func{det } I = \func{det} (AA^{-1}) = \func{det } A \func{det } A^{-1}
+\end{equation*}
+Hence, $\func{det } A \neq 0$ and also $\func{det } A^{-1} = \frac{1}{\func{det } A}$.
+
+Conversely, if $\func{det } A \neq 0$, we show that $A$ can be carried to $I$ by elementary row operations (and invoke Theorem \ref{thm:004553}). Certainly, $A$ can be carried to its reduced row-echelon form $R$, so $R = E_k \cdots E_2E_1A$ where the $E_i$ are elementary matrices (Theorem \ref{thm:005294}). Hence the product theorem gives
+\begin{equation*}
+\func{det } R = \func{det } E_k \cdots \func{det } E_2 \func{det } E_1 \func{det } A
+\end{equation*}
+Since $\func{det } E \neq 0$ for all elementary matrices $E$, this shows $\func{det } R \neq 0$. In particular, $R$ has no row of zeros, so $R = I$ because $R$ is square and reduced row-echelon. This is what we wanted.
+\end{proof}
+
+\begin{example}{}{008234}
+For which values of $c$ does $A = \leftB \begin{array}{rcr}
+1 & 0 & -c \\
+-1 & 3 & 1 \\
+0 & 2c & -4
+\end{array} \rightB$ 
+ have an inverse?
+
+\begin{solution}
+Compute $\func{det } A$ by first adding $c$ times column 1 to column 3 and then expanding along row 1.
+\begin{equation*}
+\func{det } A = \func{det} \leftB \begin{array}{rcr}
+1 & 0 & -c \\
+-1 & 3 & 1 \\
+0 & 2c & -4
+\end{array} \rightB  = \func{det} \leftB \begin{array}{rcc}
+1 & 0 & 0 \\
+-1 & 3 & 1-c \\
+0 & 2c & -4
+\end{array} \rightB = 2(c+2)(c-3) 
+\end{equation*}
+Hence, $\func{det } A = 0$ if $c = -2$ or $c = 3$, and $A$ has an inverse if $c \neq -2$ and $c \neq 3$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{008243}
+If a product $A_1A_2\cdots A_k$ of square matrices is invertible, show that each $A_i$ is invertible.
+
+\begin{solution}
+ We have $\func{det }A_1\func{det }A_2\cdots \func{det }A_k = \func{det}(A_1A_2\cdots A_k)$ by the product theorem, and $\func{det}(A_1A_2\cdots A_k) \neq 0$ by Theorem~\ref{thm:008217} because $A_1A_2\cdots A_k$ is invertible. Hence
+\begin{equation*}
+\func{det } A_1 \func{det } A_2 \cdots \func{det } A_k \neq 0
+\end{equation*}
+so $\func{det } A_i \neq 0$ for each $i$. This shows that each $A_i$ is invertible, again by Theorem~\ref{thm:008217}.
+\end{solution}
+\end{example}
+
+\begin{theorem}{}{008268}
+If $A$ is any square matrix, $\func{det } A^T = \func{det } A$.\index{determinants!square matrices}\index{square matrix ($n \times n$ matrix)!determinants}
+\end{theorem}
+
+\begin{proof}
+Consider first the case of an elementary matrix $E$. If $E$ is of type I or II, then $E^T = E$; so certainly $\func{det } E^T = \func{det } E$. If $E$ is of type III, then $E^T$ is also of type III; so $\func{det } E^T = 1 = \func{det } E$ by Theorem \ref{thm:007779}. Hence, $\func{det } E^T = \func{det } E$ for every elementary matrix $E$.
+
+Now let $A$ be any square matrix. If $A$ is not invertible, then neither is $A^T$; so $\func{det } A^T = 0 = \func{det } A$ by Theorem~\ref{thm:008217}. On the other hand, if $A$ is invertible, then $A = E_k \cdots E_2E_1$, where the $E_i$ are elementary matrices (Theorem \ref{thm:005336}). Hence, $A^T = E^T_1E^T_2 \cdots E^T_k$ so the product theorem gives
+\newpage
+\begin{align*}
+\func{det } A^T = \func{det } E^T_1 \func{det } E^T_2 \cdots \func{det } E^T_k & = \func{det } E_1 \func{det } E_2 \cdots \func{det } E_k \\
+&= \func{det } E_k \cdots \func{det } E_2 \func{det } E_1 \\
+&= \func{det } A
+\end{align*}
+This completes the proof.
+\end{proof}
+
+\begin{example}{}{008291 }
+If $\func{det } A = 2$ and $\func{det } B = 5$, calculate $\func{det}(A^3 B^{-1}A^TB^2)$.
+\begin{solution}
+ We use several of the facts just derived.
+\begin{align*}
+\func{det}(A^3 B^{-1}A^TB^2) &= \func{det} (A^3) \func{det}(B^{-1}) \func{det}(A^T) \func{det} (B^2)\\
+&= (\func{det } A)^3 \frac{1}{\func{det } B} \func{det } A (\func{det } B)^2 \\
+&= 2^3 \cdot \frac{1}{5} \cdot 2 \cdot 5^2 \\
+&= 80
+\end{align*}
+\end{solution}
+\end{example}
+
+\begin{example}{}{008302}
+A square matrix is called \textbf{orthogonal}\index{matrix!orthogonal matrix}\index{orthogonal matrix}\index{square matrix ($n \times n$ matrix)!orthogonal matrix} if $A^{-1} = A^T$. What are the possible values of $\func{det } A$ if $A$ is orthogonal?
+
+
+\begin{solution}
+  If $A$ is orthogonal, we have $I = AA^T$. Take determinants to obtain 
+\begin{equation*}
+1 = \func{det } I = \func{det}(AA^T) = \func{det } A \func{det } A^T = (\func{det } A)^2
+\end{equation*}
+Since $\func{det } A$ is a number, this means $\func{det } A = \pm 1$.
+\end{solution}
+\end{example}
+
+Hence Theorems \ref{thm:006021} and \ref{thm:006096} imply that rotation about the origin and reflection about a line through the origin in $\RR^2$ have orthogonal matrices with determinants $1$ and $-1$ respectively. In fact they are the \textit{only} such transformations of  $\RR^2$. We have more to say about this in Section~\ref{sec:8_2}.\index{reflections!about a line through the origin}\index{rotations!about the origin!and orthogonal matrices}
+
+
+\subsection*{Adjugates}
+
+In Section~\ref{sec:2_4} we defined the adjugate of a 2 $\times$ 2 matrix $A = \leftB \begin{array}{rr}
+a & b \\
+c & d 
+\end{array} \rightB$ 
+ to be $\func{adj} (A) = \leftB \begin{array}{rr}
+d & -b \\
+-c & a 
+\end{array} \rightB$.
+ Then we verified that $A (\func{adj } A) = (\func{det } A)I = (\func{adj } A)A$ and hence that, if $\func{det} A \neq 0$, $A^{-1} = \frac{1}{\func{det } A} \func{adj } A$. We are now able to define the adjugate of an arbitrary square matrix 
+and to show that this formula for the inverse remains valid (when the 
+inverse exists).\index{determinants!adjugate}\index{adjugate}\index{inverses!adjugate}
+
+
+Recall that the $(i, j)$-cofactor $c_{ij}(A)$ of a square matrix $A$ is a number defined for each position $(i, j)$ in the matrix. If $A$ is a square matrix, the \textbf{cofactor matrix of} $A$ is defined to be the matrix $\leftB c_{ij}(A)\rightB$ whose $(i, j)$-entry is the $(i, j)$-cofactor of $A$. \index{cofactor matrix}\index{square matrix ($n \times n$ matrix)!cofactor matrix}
+
+
+\begin{definition}{Adjugate of a Matrix}{008326}
+The \textbf{adjugate}\footnotemark
+of $A$, denoted $\func{adj }(A)$, is the transpose of this cofactor matrix; in symbols,
+\begin{equation*}
+\func{adj}(A) = \leftB c_{ij}(A) \rightB^T
+\end{equation*}
+\end{definition}
+\footnotetext{This is also called the classical adjoint of $A$, but the term ``adjoint'' has another meaning.\index{classical adjoint}}
+
+This agrees with the earlier definition for a $2 \times 2$ matrix $A$ as the reader can verify.
+
+
+\begin{example}{}{008331}
+Compute the adjugate of $A = \leftB \begin{array}{rrr}
+1 & 3 & -2 \\
+0 & 1 & 5 \\
+-2 & -6 & 7 
+\end{array}\rightB$
+ and calculate $A (\func{adj } A)$ and $(\func{adj } A)A$.
+
+
+\begin{solution}
+ We first find the cofactor matrix.
+
+\begin{align*}
+\leftB \begin{array}{rrr}
+c_{11}(A) & c_{12}(A) & c_{13}(A) \\
+c_{21}(A) & c_{22}(A) & c_{23}(A) \\
+c_{31}(A) & c_{32}(A) & c_{33}(A) 
+\end{array}\rightB
+&= \leftB \begin{array}{ccc}
+\left| \begin{array}{rr}
+1 & 5 \\
+-6 & 7 
+\end{array}\right| & -\left| \begin{array}{rr}
+0 & 5 \\
+-2 & 7 
+\end{array}\right| &
+\left| \begin{array}{rr}
+0 & 1 \\
+-2 & -6 
+\end{array}\right| \\
+& & \\
+-\left| \begin{array}{rr}
+3 & -2 \\
+-6 & 7 
+\end{array}\right| & \left| \begin{array}{rr}
+1 & -2 \\
+-2 & 7 
+\end{array}\right| &
+-\left| \begin{array}{rr}
+1 & 3 \\
+-2 & -6 
+\end{array}\right| \\
+& & \\
+\left| \begin{array}{rr}
+3 & -2 \\
+1 & 5 
+\end{array}\right| & -\left| \begin{array}{rr}
+1 & -2 \\
+0 & 5 
+\end{array}\right| &
+\left| \begin{array}{rr}
+1 & 3 \\
+0 & 1 
+\end{array}\right| 
+\end{array}\rightB \\
+&= \leftB \begin{array}{rrr}
+37 & -10 & 2 \\
+-9 & 3 & 0 \\
+17 & -5 & 1 
+\end{array}\rightB
+\end{align*}
+
+Then the adjugate of $A$ is the transpose of this cofactor matrix.
+\begin{equation*}
+\func{adj } A =  \leftB \begin{array}{rrr}
+37 & -10 & 2 \\
+-9 & 3 & 0 \\
+17 & -5 & 1 
+\end{array}\rightB ^T = \leftB \begin{array}{rrr}
+37 & -9 & 17 \\
+-10 & 3 & -5 \\
+2 & 0 & 1 
+\end{array}\rightB
+\end{equation*}
+The computation of $A (\func{adj} A)$ gives
+\begin{equation*}
+A(\func{adj } A) = \leftB \begin{array}{rrr}
+1 & 3 & -2 \\
+0 & 1 & 5 \\
+-2 & -6 & 7
+\end{array}\rightB \leftB \begin{array}{rrr}
+37 & -9 & 17 \\
+-10 & 3 & -5 \\
+2 & 0 & 1 
+\end{array}\rightB = \leftB \begin{array}{rrr}
+3 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & 3 
+\end{array}\rightB = 3I
+\end{equation*}
+and the reader can verify that also $(\func{adj } A)A = 3I$. Hence, analogy with the $2 \times 2$ case would indicate that $\func{det } A = 3$; this is, in fact, the case.
+\end{solution}
+\end{example}
+
+The relationship $A(\func{adj } A) = (\func{det }A)I$ holds for any square matrix $A$. To see why this is so, consider the general $3 \times 3$ case. Writing $c_{ij}(A) = c_{ij}$ for short, we have
+\begin{equation*}
+\func{adj } A = \leftB \begin{array}{rrr}
+c_{11} & c_{12} & c_{13} \\
+c_{21} & c_{22} & c_{23} \\
+c_{31} & c_{32} & c_{33} 
+\end{array}\rightB^T = \leftB \begin{array}{rrr}
+c_{11} & c_{21} & c_{31} \\
+c_{12} & c_{22} & c_{32} \\
+c_{13} & c_{23} & c_{33} 
+\end{array}\rightB
+\end{equation*}
+If $A = \leftB a_{ij} \rightB$ in the usual notation, we are to verify that $A(\func{adj }A) = (\func{det }A)I$. That is,
+\begin{equation*}
+A(\func{adj } A) =\leftB \begin{array}{rrr}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33} 
+\end{array}\rightB \leftB \begin{array}{rrr}
+c_{11} & c_{21} & c_{31} \\
+c_{12} & c_{22} & c_{32} \\
+c_{13} & c_{23} & c_{33}
+\end{array}\rightB
+ = \leftB \begin{array}{ccc}
+\func{det } A & 0 & 0 \\
+0 & \func{det } A & 0 \\
+0 & 0 & \func{det } A
+\end{array}\rightB
+\end{equation*}
+Consider the $(1, 1)$-entry in the product. It is given by $a_{11}c_{11} + a_{12}c_{12} + a_{13}c_{13}$, and this is just the cofactor expansion of $\func{det }A$ along the first row of $A$. Similarly, the $(2, 2)$-entry and the $(3, 3)$-entry are the cofactor expansions of $\func{det }A$ along rows $2$ and $3$, respectively.
+
+
+So it remains to be seen why the off-diagonal elements in the matrix product $A(\func{adj }A)$ are all zero. Consider the $(1, 2)$-entry of the product. It is given by $a_{11}c_{21} + a_{12}c_{22} + a_{13}c_{23}$. This \textit{looks} like the cofactor expansion of the determinant of \textit{some} matrix. To see which, observe that $c_{21}$, $c_{22}$, and $c_{23}$ are all computed by \textit{deleting} row $2$ of $A$ (and one of the columns), so they remain the same if row $2$ of $A$ is changed. In particular, if row $2$ of $A$ is replaced by row $1$, we obtain
+\begin{equation*}
+a_{11}c_{21}+a_{12}c_{22}+a_{13}c_{23} = \func{det} \leftB \begin{array}{rrr}
+a_{11} & a_{12} & a_{13} \\
+a_{11} & a_{12} & a_{13} \\
+a_{31} & a_{32} & a_{33} 
+\end{array}\rightB = 0
+\end{equation*}
+where the expansion is along row $2$ and where the determinant is zero 
+because two rows are identical. A similar argument shows that the other 
+off-diagonal entries are zero.
+
+
+This argument works in general and yields the first part of Theorem~\ref{thm:008370}. The second assertion follows from the first by multiplying through by the scalar $\frac{1}{\func{det } A}$.
+
+\begin{theorem}{Adjugate Formula}{008370}
+If A is any square matrix, then
+\begin{equation*}
+A(\func{adj } A) = (\func{det } A)I = (\func{adj } A)A
+\end{equation*}
+In particular, if det A $\neq$ 0, the inverse of A is given by
+\begin{equation*}
+A^{-1} =\frac{1}{\func{det } A}\func{adj } A
+\end{equation*}\index{adjugate formula}
+\end{theorem}
+
+\noindent It is important to note that this theorem is \textit{not} an efficient way to find the inverse of the matrix $A$. For example, if $A$ were $10 \times 10$, the calculation of $\func{adj } A$ would require computing $10^{2} = 100$ determinants of $9 \times 9$ matrices! On the other hand, the matrix inversion algorithm would find $A^{-1}$ with about the same effort as finding $\func{det }A$. Clearly, Theorem~\ref{thm:008370} is not a \textit{practical} result: its virtue is that it gives a formula for $A^{-1}$ that is useful for \textit{theoretical} purposes.
+
+
+\begin{example}{}{008382}
+Find the $(2, 3)$-entry of $A^{-1}$ if  $A = \leftB \begin{array}{rrr}
+2 & 1 & 3 \\
+5 & -7 & 1 \\
+3 & 0 & -6 
+\end{array}\rightB$.
+
+\begin{solution}
+  First compute 
+\begin{equation*}
+\func{det } A = \left| \begin{array}{rrr}
+2 & 1 & 3 \\
+5 & -7 & 1 \\
+3 & 0 & -6 
+\end{array} \right| = \left| \begin{array}{rrr}
+2 & 1 & 7 \\
+5 & -7 & 11 \\
+3 & 0 & 0
+\end{array} \right| = 
+3 \left| \begin{array}{rr}
+1 & 7 \\
+-7 & 11 
+\end{array}\right| = 180
+\end{equation*}
+Since $A^{-1} = \frac{1}{\func{det } A}\func{adj } A = \frac{1}{180} \leftB c_{ij}(A)\rightB ^T$,
+ the $(2, 3)$-entry of $A^{-1}$ is the $(3, 2)$-entry of the matrix $\frac{1}{180}\leftB c_{ij}(A) \rightB$; that is, it equals 
+$\frac{1}{180} c_{32} (A) = \frac{1}{180} \left( - \left| \begin{array}{rr}
+2 & 3 \\
+5 & 1 
+\end{array}\right| \right) = \frac{13}{180}.$
+\end{solution}
+\end{example}
+
+
+\begin{example}{}{008396}
+If $A$ is $n \times n$, $n \geq 2$, show that $\func{det}(\func{adj }A) = (\func{det }A)^{n-1}$.
+
+
+\begin{solution}
+  Write $d = \func{det } A$; we must show that $\func{det}(\func{adj }A) = d^{n-1}$. We have $A(\func{adj }A) = dI$ by Theorem~\ref{thm:008370}, so taking determinants gives $d\func{det}(\func{adj }A) = d^{n}$. Hence we are done if $d \neq 0$. Assume $d = 0$; we must show that $\func{det}(\func{adj }A) = 0$, that is, $\func{adj }A$ is not invertible. If $A \neq 0$, this follows from $A(\func{adj }A) = dI = 0$; if $A = 0$, it follows because then $\func{adj }A = 0$.
+\end{solution}
+\end{example}
+
+\subsection*{Cramer's Rule}
+\index{linear equation!Cramer's Rule}
+
+Theorem~\ref{thm:008370} has a nice application to linear equations. Suppose
+\begin{equation*}
+A\vect{x}=\vect{b}
+\end{equation*}
+is a system of $n$ equations in $n$ variables $x_{1}, x_{2}, \dots , x_{n}$. Here $A$ is the $n \times n$ coefficient matrix\index{matrix!coefficient matrix}, and $\vect{x}$ and $\vect{b}$ are the columns
+\begin{equation*}
+\vect{x} = \leftB \begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n 
+\end{array} \rightB \mbox{ and }
+\vect{b} = \leftB \begin{array}{c}
+b_1 \\
+b_2 \\
+\vdots \\
+b_n 
+\end{array} \rightB 
+\end{equation*}
+of variables and constants, respectively. If $\func{det }A \neq 0$, we left multiply by $A^{-1}$ to obtain the solution $\vect{x} = A^{-1}\vect{b}$. When we use the adjugate formula, this becomes
+\begin{align*}
+\leftB \begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n 
+\end{array} \rightB &= \frac{1}{\func{det } A} (\func{adj } A)\vect{b} \\
+&= \frac{1}{\func{det } A}
+\leftB \begin{array}{cccc}
+c_{11}(A) & c_{21}(A) & \cdots & c_{n1}(A) \\
+c_{12}(A) & c_{22}(A) & \cdots & c_{n2}(A) \\
+\vdots & \vdots & & \vdots \\
+c_{1n}(A) & c_{2n}(A) & \cdots & c_{nn}(A)
+\end{array}\rightB
+ \leftB \begin{array}{c}
+b_1 \\
+b_2 \\
+\vdots \\
+b_n 
+\end{array} \rightB 
+\end{align*}
+Hence, the variables $x_{1}, x_{2}, \dots, x_{n}$ are given by
+\begin{align*}
+x_1 &= \frac{1}{\func{det } A} \leftB b_1c_{11}(A) + b_2c_{21}(A) + \cdots + b_nc_{n1}(A)\rightB \\
+x_2 &= \frac{1}{\func{det } A} \leftB b_1c_{12}(A) + b_2c_{22}(A) + \cdots + b_nc_{n2}(A)\rightB \\
+& \hspace{5em} \vdots \hspace{5em} \vdots\\
+x_n &= \frac{1}{\func{det } A} \leftB b_1c_{1n}(A) + b_2c_{2n}(A) + \cdots + b_nc_{nn}(A)\rightB 
+\end{align*}
+
+Now the quantity $b_{1}c_{11}(A) + b_{2}c_{21}(A) + \cdots + b_{n}c_{n1}(A)$ occurring in the formula for $x_{1}$ looks like the cofactor expansion of the determinant of a matrix. The cofactors involved are $c_{11}(A), c_{21}(A), \dots, c_{n1}(A)$, corresponding to the first column of $A$. If $A_{1}$ is obtained from $A$ by replacing the first column of $A$ by $\vect{b}$, then $c_{i1}(A_{1}) = c_{i1}(A)$ for each $i$ because column $1$ is deleted when computing them. Hence, expanding $\func{det}(A_{1})$ by the first column gives
+\begin{align*}
+\func{det } A_1 &= b_1c_{11}(A_1) + b_2c_{21}(A_1) + \cdots + b_nc_{n1}(A_1) \\
+ 	 &= b_1c_{11}(A) + b_2c_{21}(A) + \cdots + b_nc_{n1}(A)\\
+	 &= (\func{det } A)x_1 
+\end{align*}
+Hence, $x_1 = \frac{\func{det } A_1}{\func{det } A}$
+ and similar results hold for the other variables.
+
+\begin{theorem}{Cramer's Rule\footnotemark}{008446}
+If $A$ is an invertible $n \times n$ matrix, the solution to the system
+\begin{equation*}
+A\vect{x}=\vect{b}
+\end{equation*}
+of $n$ equations in the variables $x_{1}, x_{2}, \dots, x_{n}$ is given by
+\begin{equation*}
+x_1 = \frac{\func{det } A_1}{\func{det } A}, \; x_2 = \frac{\func{det } A_2}{\func{det } A}, \;\cdots, \; x_n = \frac{\func{det } A_n}{\func{det } A}
+\end{equation*}
+where, for each $k$, $A_k$ is the matrix obtained from $A$ by replacing column $k$ by $\vect{b}$. \index{inverses!Cramer's Rule}
+\end{theorem}
+\footnotetext{Gabriel
+ Cramer (1704--1752)\index{Cramer, Gabriel} was a Swiss mathematician who wrote an introductory 
+work on algebraic curves. He popularized the rule that bears his name, 
+but the idea was known earlier.}
+
+\begin{example}{}{008457}
+Find $x_{1}$, given the following system of equations.
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rrrrrrr}
+ 	 5x_1 & + & x_2 & - & x_3  & = & 4\\
+	9x_1& + & x_2 & - & x_3 & = & 1 \\
+	x_1& - & x_2 & + & 5x_3 & = & 2 \\
+\end{array}
+\end{equation*}
+\begin{solution}
+  Compute the determinants of the coefficient matrix $A$ and the matrix $A_{1}$ obtained from it by replacing the first column by the column of constants.
+\begin{align*}
+\func{det } A &= \func{det} \leftB \begin{array}{rrr}
+5 & 1 & -1 \\
+9 & 1 & -1 \\
+1 & -1 & 5 
+\end{array}\rightB  = -16 \\
+\func{det } A_1 &= \func{det} \leftB \begin{array}{rrr}
+4 & 1 & -1 \\
+1 & 1 & -1 \\
+2 & -1 & 5 
+\end{array}\rightB  = 12
+\end{align*}
+Hence, $x_1 = \frac{\func{det } A_1}{\func{det } A} = -\frac{3}{4}$
+ by Cramer's rule.
+\end{solution}
+\end{example}
+
+Cramer's rule is \textit{not} an efficient way to solve linear systems or invert matrices. True, it enabled us to calculate $x_{1}$ here without computing $x_{2}$ or $x_{3}$.
+ Although this might seem an advantage, the truth of the matter is that,
+ for large systems of equations, the number of computations needed to 
+find \textit{all} the variables by the gaussian algorithm is comparable to the number required to find \textit{one}
+ of the determinants involved in Cramer's rule. Furthermore, the 
+algorithm works when the matrix of the system is not invertible and even
+ when the coefficient matrix is not square. Like the adjugate formula, 
+then, Cramer's rule is \textit{not} a practical numerical technique; its virtue is theoretical.
+
+
+\subsection*{Polynomial Interpolation}
+
+\index{determinants!polynomial interpolation}\index{polynomials!interpolating the polynomial}
+\begin{example}{}{008475}
+\begin{wrapfigure}[4]{l}{4.5cm}
+\input{3-determinants-and-diagonalization/figures/2-determinants-and-matrix-inverses/example3.2.10}
+%\captionof{figure}{\label{fig:008478}}
+\end{wrapfigure} 
+A forester wants to estimate the age 
+(in years) of a tree by measuring the diameter of the trunk (in cm). She
+ obtains the following data:
+
+
+\begin{center}
+\hspace*{0cm}
+\begin{tabu} to 15cm {|l|c|c|c|}
+\hline
+& Tree 1 & Tree 2 & Tree 3 \\ \hline
+Trunk Diameter & $5$ & $10$ & $15$ \\
+Age & $3$ & $5$ & $6$ \\
+\hline
+\end{tabu}
+\end{center}
+
+
+
+Estimate the age of a tree with a trunk diameter of 12 cm.
+
+\begin{solution}
+
+The forester decides to ``fit'' a quadratic polynomial
+\begin{equation*}
+p(x) = r_0 + r_1x + r_2x^2
+\end{equation*}
+to the data, that is choose the coefficients $r_{0}$, $r_{1}$, and $r_{2}$ so that $p(5) = 3$, $p(10) = 5$, and $p(15) = 6$, and then use $p(12)$ as the estimate. These conditions give three linear equations:
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rrrrrrr}
+ 	 r_0 & + & 5r_1 & + & 25r_2  & = & 3\\
+ 	 r_0 & + & 10r_1 & + & 100r_2  & = & 5\\
+ 	 r_0 & + & 15r_1 & + & 225r_2  & = & 6
+\end{array}
+\end{equation*}
+The (unique) solution is $r_0=0, r_1 = \frac{7}{10},$ and $r_2 = -\frac{1}{50}$
+, so
+\begin{equation*}
+p(x) = \frac{7}{10}x - \frac{1}{50}x^2 = \frac{1}{50}x (35-x)
+\end{equation*}
+Hence the estimate is $p(12) = 5.52$.
+\end{solution}
+\end{example}
+
+As in Example~\ref{exa:008475}, it often happens that two variables $x$ and $y$ are related but the actual functional form $y = f(x)$ of the relationship is unknown. Suppose that for certain values $x_{1}, x_{2}, \dots, x_{n}$ of $x$ the corresponding values $y_{1}, y_{2}, \dots, y_{n}$ are known (say from experimental measurements). One way to estimate the value of $y$ corresponding to some other value $a$ of $x$ is to find a polynomial\footnote{A \textbf{polynomial} is an expression of the form $a_{0} + a_{1}x + a_{2}x^{2} + \dots  + a_{n}x^{n}$ where the $a_{i}$ are numbers and $x$ is a variable. If $a_{n} \neq 0$, the integer $n$ is called the degree of the polynomial, and $a_{n}$ is called the leading coefficient\index{coefficients!leading coefficient}. See Appendix~\ref{chap:appdpolynomials}.}
+\begin{equation*}
+p(x) = r_0 + r_1x + r_2x^2 + \cdots + r_{n-1}x^{n-1}
+\end{equation*}
+that ``fits'' the data, that is $p(x_{i}) = y_{i}$ holds for each $i = 1, 2, \dots , n$. Then the estimate for $y$ is $p(a)$. As we will see, such a polynomial always exists if the $x_{i}$ are distinct.
+
+
+The conditions that $p(x_{i}) = y_{i}$ are
+\begin{equation*}
+\arraycolsep=1pt
+\def\arraystretch{1.25}
+\begin{array}{ccccccccccc}
+r_0 & + & r_1x_1 & + & r_2x_1^2 & + & \cdots & + & r_{n-1}x_1^{n-1} & = &y_1 \\
+r_0 & + & r_1x_2 & + & r_2x_2^2 & + & \cdots & + & r_{n-1}x_2^{n-1} & = &y_2 \\
+ & \vdots & & \vdots & & \vdots & & & \vdots & \vdots & \\
+r_0 & + & r_1x_n & + & r_2x_n^2 & + & \cdots & + & r_{n-1}x_n^{n-1} & = & y_n 
+\end{array}
+\end{equation*}
+In matrix form, this is
+\begin{equation}\label{eq:polymatrixform}
+\leftB \begin{array}{ccccc}
+1 & x_1 & x_1^2 & \cdots & x_1^{n-1}\\
+1 & x_2 & x_2^2 & \cdots & x_2^{n-1}\\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^{n-1}
+\end{array}\rightB
+\leftB \begin{array}{c}
+r_0 \\
+r_1 \\
+\vdots \\
+r_{n-1}
+\end{array} \rightB
+=
+\leftB \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \rightB
+\end{equation}
+It can be shown (see Theorem~\ref{thm:008552}) that the determinant of the coefficient matrix\index{determinants!coefficient matrix}\index{coefficient matrix} equals the product of all terms $(x_{i} - x_{j})$ with $i > j$ and so is nonzero (because the $x_{i}$ are distinct). Hence the equations have a unique solution $r_{0}, r_{1}, \dots, r_{n-1}$. This proves
+
+
+\begin{theorem}{}{008520}
+Let $n$ data pairs $(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{n}, y_{n})$ be given, and assume that the $x_{i}$ are distinct. Then there exists a unique polynomial
+\begin{equation*}
+p(x) = r_0 + r_1x + r_2x^2 + \cdots + r_{n-1}x^{n-1}
+\end{equation*}
+such that $p(x_{i}) = y_{i}$ for each $i = 1, 2, \dots, n$.
+\end{theorem}
+
+\noindent The polynomial in Theorem~\ref{thm:008520} is called the \textbf{interpolating polynomial}\index{interpolating polynomial} for the data.
+
+
+We conclude by evaluating the determinant of the coefficient matrix in Equation \ref{eq:polymatrixform}. If $a_{1}, a_{2}, \dots, a_{n}$ are numbers, the determinant
+\begin{equation*}
+\func{det} \leftB \begin{array}{ccccc}
+1 & a_1 & a_1^2 & \cdots & a_1^{n-1}\\
+1 & a_2 & a_2^2 & \cdots & a_2^{n-1}\\
+1 & a_3 & a_3^2 & \cdots & a_3^{n-1}\\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & a_n & a_n^2 & \cdots & a_n^{n-1}\\
+\end{array}\rightB 
+\end{equation*}
+is called a \textbf{Vandermonde determinant}\index{determinants!Vandermonde determinant}\index{Vandermonde determinant}.\footnote{Alexandre Th\'{e}ophile Vandermonde (1735--1796) was a French mathematician who made contributions to the theory of equations.}
+ There is a simple formula for this determinant. If $n = 2$, it equals $(a_{2} - a_{1})$; if $n = 3$, it is $(a_{3} - a_{2})(a_{3} - a_{1})(a_{2} - a_{1})$ by Example \ref{exa:007851}. The general result is the product
+\begin{equation*}
+\prod_{ 1 \le j < i \le n} (a_i - a_j)
+\end{equation*}
+of all factors $(a_{i} - a_{j})$ where $1 \leq j < i \leq n$. For example, if $n = 4$, it is
+\begin{equation*}
+(a_4-a_3)(a_4-a_2)(a_4-a_1)(a_3-a_2)(a_3-a_1)(a_2-a_1)
+\end{equation*}
+\begin{theorem}{}{008552}
+Let $a_{1}, a_{2}, \dots , a_{n}$ be numbers where $n \geq 2$. Then the corresponding Vandermonde determinant is given by
+\begin{equation*}
+\func{det} \leftB \begin{array}{ccccc}
+1 & a_1 & a_1^2 & \cdots & a_1^{n-1}\\
+1 & a_2 & a_2^2 & \cdots & a_2^{n-1}\\
+1 & a_3 & a_3^2 & \cdots & a_3^{n-1}\\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & a_n & a_n^2 & \cdots & a_n^{n-1}\\
+\end{array}\rightB = \prod_{1 \le j < i \le n}(a_i - a_j)
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+We may assume that the $a_{i}$ are distinct; otherwise both sides are zero. We proceed by induction on $n \geq 2$; we have it for $n = 2, 3$. So assume it holds for $n - 1$. The trick is to replace $a_{n}$ by a variable $x$, and consider the determinant
+\begin{equation*}
+p(x) = \func{det} \leftB \begin{array}{ccccc}
+1 & a_1 & a_1^2 & \cdots & a_1^{n-1} \\
+1 & a_2 & a_2^2 & \cdots & a_2^{n-1} \\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & a_{n-1} & a_{n-1}^2 & \cdots & a_{n-1}^{n-1} \\
+1 & x & x^2 & \cdots & x^{n-1} 
+\end{array} \rightB
+\end{equation*}
+Then $p(x)$ is a polynomial of degree at most $n - 1$ (expand along the last row), and $p(a_{i}) = 0$ for each $i = 1, 2, \dots, n - 1$ because in each case there are two identical rows in the determinant. In particular, $p(a_{1}) = 0$, so we have $p(x) = (x - a_{1})p_{1}(x)$ by the factor theorem (see Appendix~\ref{chap:appdpolynomials}). Since $a_{2} \neq a_{1}$, we obtain $p_{1}(a_{2}) = 0$, and so $p_{1}(x) = (x - a_{2})p_{2}(x)$. Thus $p(x) = (x - a_{1})(x - a_{2})p_{2}(x)$. As the $a_{i}$ are distinct, this process continues to obtain
+\begin{equation}\label{eq:polynomial}
+p(x) = (x-a_1)(x-a_2) \cdots (x-a_{n-1})d 
+\end{equation}
+where $d$ is the coefficient of $x^{n-1}$ in $p(x)$. By the cofactor expansion of $p(x)$ along the last row we get
+\begin{equation*}
+d = (-1)^{n+n}\func{det} \leftB \begin{array}{ccccc}
+1 & a_1 & a_1^2 & \cdots & a_1^{n-2} \\
+1 & a_2 & a_2^2 & \cdots & a_2^{n-2} \\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & a_{n-1} & a_{n-1}^2 & \cdots & a_{n-1}^{n-2} 
+\end{array}\rightB
+\end{equation*}
+Because $(-1)^{n+n}=1$ the induction hypothesis shows that $d$ is the product of all factors $(a_{i} - a_{j})$ where $1 \leq j < i \leq n - 1$. The result now follows from Equation \ref{eq:polynomial} by substituting $a_{n}$ for $x$ in $p(x)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:008196}]
+\index{determinants!product of matrices (product theorem)}\index{product!theorem}
+If $A$ and $B$ are $n \times n$ matrices we must show that
+\begin{equation}\label{eq:polyproof1}
+\func{det} (AB) = \func{det } A \func{det } B
+\end{equation}
+Recall that if $E$ is an elementary matrix obtained by doing one row operation to $I_{n}$, then doing that operation to a matrix $C$ (Lemma \ref{lem:005213}) results in $EC$. By looking at the three types of elementary matrices separately, Theorem \ref{thm:007779} shows that
+\begin{equation}\label{eq:polyproof2}
+\func{det} (EC) = \func{det } E \func{det } C \quad \mbox{ for any matrix } C
+\end{equation}
+Thus if $E_{1}, E_{2}, \dots, E_{k}$ are all elementary matrices, it follows by induction that
+\begin{equation}\label{eq:polyproof3}
+\func{det} (E_k \cdots E_2E_1C) = \func{det } E_k \cdots \func{det } E_2 \func{det } E_1 \func{det } C \mbox{ for any matrix } C
+\end{equation}
+\textit{Lemma.} If $A$ has no inverse, then $\func{det } A = 0$.
+
+
+\textit{Proof}. Let $A \to R$ where $R$ is reduced row-echelon, say $E_{n} \cdots E_{2}E_{1}A = R$. Then $R$ has a row of zeros by Part (4) of Theorem \ref{thm:004553},  and hence $\func{det } R = 0$. But then Equation \ref{eq:polyproof3} gives $\func{det }A = 0$ because $\func{det } E \neq 0$ for any elementary matrix $E$. This proves the Lemma.
+
+
+Now we can prove Equation \ref{eq:polyproof1} by considering two cases.
+
+
+\noindent \textit{Case 1}. $A$ \textit{has no inverse}. Then $AB$ also has no inverse (otherwise $A[B(AB)^{-1}] = I$ so $A$ is invertible by Corollary \ref{cor:004612} to Theorem \ref{thm:004553}). Hence the above Lemma (twice) gives
+\begin{equation*}
+\func{det} (AB) = 0 = 0 \func{det } B = \func{det } A \func{det } B
+\end{equation*}
+proving Equation \ref{eq:polyproof1} in this case.
+
+
+\noindent \textit{Case 2}. $A$ \textit{has an inverse.} Then $A$ is a product of elementary matrices by Theorem \ref{thm:005336}, say $A = E_{1}E_{2}\cdots E_{k}$. Then Equation \ref{eq:polyproof3} with $C = I$ gives
+\begin{equation*}
+\func{det } A = \func{det} (E_1E_2\cdots E_k)= \func{det } E_1 \func{det } E_2 \cdots \func{det } E_k
+\end{equation*}
+But then Equation \ref{eq:polyproof3} with $C = B$ gives
+\begin{equation*}
+\func{det}(AB) = \func{det} \left[(E_1E_2\cdots E_k)B \right]= \func{det } E_1 \func{det } E_2 \cdots \func{det } E_k \func{det } B = \func{det } A \func{det } B
+\end{equation*}
+and Equation \ref{eq:polyproof1} holds in this case too.
+\end{proof}
+
+
+
+\section*{Exercises for \ref{sec:3_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:3_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Find the adjugate of each of the following matrices.
+
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rrr}
+5 & 1 & 3 \\
+-1 & 2 & 3 \\
+1 & 4 & 8
+\end{array}\rightB$
+\exitem  $\leftB \begin{array}{rrr}
+1 & -1 & 2 \\
+3 & 1 & 0 \\
+0 & -1 & 1
+\end{array}\rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & 0 & -1 \\
+-1 & 1 & 0 \\
+0 & -1 & 1
+\end{array}\rightB$
+\exitem  $\frac{1}{3}\leftB \begin{array}{rrr}
+-1 & 2 & 2 \\
+2 & -1 & 2 \\
+2 & 2 & -1
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item   $\leftB \begin{array}{rrr}
+1 & -1 & -2 \\
+-3 & 1 & 6 \\
+-3 & 1 & 4
+\end{array}\rightB$
+
+\setcounter{enumi}{3}
+\item   $\frac{1}{3}\leftB \begin{array}{rrr}
+-1 & 2 & 2 \\
+2 & -1 & 2 \\
+2 & 2 & -1
+\end{array}\rightB = A$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Use determinants to find which real values of $c$ make each of the following matrices invertible.
+
+\begin{exenumerate}
+\exitem  $\leftB \begin{array}{rrr}
+1 & 0 & 3 \\
+3 & -4 & c \\
+2 & 5 & 8
+\end{array}\rightB$
+\exitem  $\leftB \begin{array}{rrr}
+0 & c & -c \\
+-1 & 2 & 1 \\
+c & -c & c
+\end{array}\rightB$
+\exitem  $\leftB \begin{array}{rrr}
+c & 1 & 0 \\
+0 & 2 & c \\
+-1 & c & 5
+\end{array}\rightB$
+\exitem  $\leftB \begin{array}{rrr}
+4 & c & 3 \\
+c & 2 & c \\
+5 & c & 4
+\end{array}\rightB$
+\exitem  $\leftB \begin{array}{rrr}
+1 & 2 & -1 \\
+0 & -1 & c \\
+2 & c & 1
+\end{array}\rightB$
+\exitem  $\leftB \begin{array}{rrr}
+1 & c & -1 \\
+c & 1 & 1 \\
+0 & 1 & c
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $c \neq 0$
+
+\setcounter{enumi}{3}
+\item  any $c$
+
+\setcounter{enumi}{5}
+\item  $c \neq -1$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$, $B$, and $C$ denote $n \times n$ matrices and assume that $\func{det } A = -1$, $\func{det } B = 2$, and $\func{det } C = 3$. Evaluate:
+
+\begin{exenumerate}
+\exitem $\func{det}(A^{3}BC^{T}B^{-1})$
+\exitem $\func{det}(B^{2}C^{-1}AB^{-1}C^{T})$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $-2$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be invertible $n \times n$ matrices. Evaluate:
+
+\begin{exenumerate}
+\exitem $\func{det}(B^{-1}AB)$
+\exitem $\func{det}(A^{-1}B^{-1}AB)$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $1$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is $3 \times 3$ and $\func{det}(2A^{-1}) = -4$ and $\func{det}(A^{3}(B^{-1})^{T})=-4$, find $\func{det }A$ and $\func{det }B$.
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{rrr}
+a & b & c \\
+p & q & r \\
+u & v & w 
+\end{array}\rightB$ 
+ and assume that $\func{det } A = 3$. Compute:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\func{det} (2B^{-1}) \mbox{ where } B = \leftB \begin{array}{rrr}
+4u & 2a & -p \\
+4v & 2b & -q \\
+4w & 2c & -r 
+\end{array}\rightB $
+
+\item $\func{det} (2C^{-1}) \mbox{ where } C = \leftB \begin{array}{ccc}
+2p & -a+u & 3u \\
+2q & -b+v & 3v \\
+2r & -c+w & 3w
+\end{array}\rightB $
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\frac{4}{9}$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\func{det} \leftB \begin{array}{rr}
+a & b \\
+c& d 
+\end{array}\rightB = -2$
+ calculate:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $ \func{det} \leftB \begin{array}{ccc}
+2 & -2 & 0 \\
+c+1 & -1 & 2a \\
+d-2 & 2 & 2b 
+\end{array}\rightB$
+
+
+\item  $ \func{det} \leftB \begin{array}{ccc}
+2b & 0 & 4d \\
+1 & 2 & -2 \\
+a+1 & 2 & 2(c-1) 
+\end{array}\rightB$
+
+
+\item $\func{det}(3A^{-1}) \mbox{ where } A = \leftB \begin{array}{rr}
+3c & a+c \\
+3d & b+d 
+\end{array}\rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $16$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Solve each of the following by Cramer's rule:
+
+\begin{exenumerate}
+\exitem $\arraycolsep=1pt
+\begin{array}{rrrrr}
+2x & + & y  & = & 1\\
+3x & + & 7y & = & -2 \end{array}
+$
+\exitem $\arraycolsep=1pt
+\begin{array}{rrrrr}
+3x & + & 4y  & = & 9 \\
+2x & - & y & = & -1
+\end{array} $
+\exitem  $\arraycolsep=1pt
+\begin{array}{rrrrrrr}
+5x & + & y & - & z & = & -7 \\
+2x & - & y & - & 2z & = & 6 \\
+3x &  &  & + & 2z & = & -7 
+\end{array} $
+\exitem $\arraycolsep=1pt
+\begin{array}{rrrrrrr}
+4x & - & y & + & 3z & = & 1 \\
+6x & + & 2y & - & z & = & 0 \\
+3x & + & 3y & + & 2z & = & -1 
+\end{array} $
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\frac{1}{11}\leftB \begin{array}{r}
+5 \\
+21
+\end{array}\rightB$
+
+
+\setcounter{enumi}{3}
+\item   $\frac{1}{79}\leftB \begin{array}{r}
+12  \\
+-37 \\
+-2
+\end{array}\rightB$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Use Theorem~\ref{thm:008370} to find the $(2, 3)$-entry of $A^{-1}$ if:
+
+\begin{exenumerate}
+\exitem $ A = \leftB \begin{array}{rrr}
+3 & 2 & 1 \\
+1 & 1 & 2 \\
+-1 & 2 & 1 
+\end{array}\rightB $ 
+\exitem $ A = \leftB \begin{array}{rrr}
+1 & 2 & -1 \\
+3 & 1 & 1 \\
+0 & 4 & 7 
+\end{array}\rightB $ 
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\frac{4}{51}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Explain what can be said about $\func{det }A$ if:
+
+\begin{exenumerate}
+\exitem $A^{2} = A$
+\exitem $A^{2} = I$
+\exitem $A^{3} = A$
+\exitem $PA = P$ and $P$ is invertible
+\exitem $A^{2} = uA$ and $A$ is $n \times n$
+\exitem $A = -A^{T}$ and $A$ is $n \times n$
+\exitem $A^{2} + I = 0$ and $A$ is $n \times n$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\func{det } A = 1, -1$
+
+\setcounter{enumi}{3}
+\item $\func{det }A = 1$
+
+\setcounter{enumi}{5}
+\item  $\func{det }A = 0$ if $n$ is odd; nothing can be said if $n$ is even
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be $n \times n$. Show that $uA = (uI)A$, and use this with Theorem~\ref{thm:008196} to deduce the result in Theorem \ref{thm:007870}: $\func{det}(uA) = u^{n} \func{det }A$.
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ are $n \times n$ matrices, if $AB = -BA$, and if $n$ is odd, show that either $A$ or $B$ has no inverse.
+\end{ex}
+
+\begin{ex}
+Show that $\func{det }AB = \func{det }BA$ holds for any two $n \times n$ matrices $A$ and $B$.
+\end{ex}
+
+\begin{ex}
+If $A^{k} = 0$ for some $k \geq 1$, show that $A$ is not invertible.
+\end{ex}
+
+\begin{ex}
+If $A^{-1} = A^{T}$, describe the cofactor matrix of $A$ in terms of $A$.
+
+\begin{sol}
+$dA$ where $d = \func{det }A$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that no $3 \times 3$ matrix $A$ exists such that $A^{2} + I = 0$. Find a $2 \times 2$ matrix $A$ with this property.
+\end{ex}
+
+\begin{ex}
+Show that $\func{det}(A + B^{T}) = \func{det}(A^{T} + B)$ for any $n \times n$ matrices $A$ and $B$.
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be invertible $n \times n$ matrices. Show that $\func{det }A = \func{det }B$ if and only if $A = UB$ where $U$ is a matrix with $\func{det }U = 1$.
+\end{ex}
+
+\begin{ex}
+For each of the matrices in Exercise 2, find the inverse for those values of $c$ for which it exists.
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\frac{1}{c} \leftB \begin{array}{rrr}
+1 & 0 & 1 \\
+0 & c & 1 \\
+-1 & c & 1 
+\end{array} \rightB, c \neq 0$
+
+\setcounter{enumi}{3}
+\item $\frac{1}{2}\leftB \begin{array}{rrr}
+8-c^2 & -c & c^2-6 \\
+c & 1 & -c \\
+c^2-10 & c & 8-c^2 
+\end{array} \rightB$
+
+
+\setcounter{enumi}{5}
+\item  $\frac{1}{c^3+1} \leftB \begin{array}{rrr}
+1-c & c^2+1 & -c-1 \\
+c^2 & -c & c+1 \\
+-c & 1 & c^2-1 
+\end{array} \rightB, c \neq -1$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case either prove the statement or give an example showing that it is false:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\func{adj }A$ exists, then $A$ is invertible.
+
+\item If $A$ is invertible and $\func{adj }A = A^{-1}$, then $\func{det }A = 1$.
+
+\item $\func{det}(AB) = \func{det}(B^{T}A)$.
+
+\item If $\func{det }A \neq 0$ and $AB = AC$, then $B = C$.
+
+\item If $A^{T} = -A$, then $\func{det } A = -1$.
+
+\item If $\func{adj }A = 0$, then $A = 0$.
+
+\item If $A$ is invertible, then $\func{adj } A$ is invertible.
+
+\item If $A$ has a row of zeros, so also does $\func{adj } A$.
+
+\item $\func{det}(A^{T}A) > 0$ for all square matrices $A$.
+
+\item $\func{det}(I + A) = 1 + \func{det }A$.
+
+\item If $AB$ is invertible, then $A$ and $B$ are invertible.
+
+\item If $\func{det } A = 1$, then $\func{adj }A = A$.
+
+\item If $A$ is invertible and $\func{det} A = d$, then $\func{adj} A = d A^{-1}$. 
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  T. $\func{det }AB = \func{det }A \func{det }B = \func{det }B \func{det }A = \func{det }BA$.
+
+\setcounter{enumi}{3}
+\item  T. $\func{det }A \neq 0$ means $A^{-1}$ exists, so $AB = AC$ implies that $B=C$.
+
+\setcounter{enumi}{5}
+\item  F. If $A = \leftB \begin{array}{rrr}
+1 & 1 & 1 \\
+1 & 1 & 1 \\
+1 & 1 & 1
+\end{array}\rightB$
+ then $\func{adj }A = 0$.
+
+\setcounter{enumi}{7}
+\item  F. If  $A = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0 
+\end{array}\rightB$
+ then $\func{adj } A = \leftB \begin{array}{rr}
+0 & -1 \\
+0 & 1 
+\end{array}\rightB$
+
+\setcounter{enumi}{9}
+\item F. If $A = \leftB \begin{array}{rr}
+-1 & 1 \\
+1 & -1 
+\end{array}\rightB$
+ then $\func{det}(I + A) = -1$ but $1 + \func{det }A = 1$.
+
+\setcounter{enumi}{11}
+\item F. If $A = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1 
+\end{array}\rightB$ 
+ then $\func{det }A = 1$ but $\func{adj } A = \leftB \begin{array}{rr}
+1 & -1 \\
+0 & 1 
+\end{array}\rightB \neq A$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is $2 \times 2$ and $\func{det }A = 0$, show that one column of $A$ is a scalar multiple of the other. [\textit{Hint}: Definition \ref{def:002668} and Part (2) of Theorem \ref{thm:004553}.]
+\end{ex}
+
+\begin{ex}
+Find a polynomial $p(x)$ of degree $2$ such that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $p(0) = 2$, $p(1) = 3$, $p(3) = 8$
+
+\item $p(0) = 5$, $p(1) = 3$, $p(2) = 5$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $5 - 4x + 2x^{2}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find a polynomial $p(x)$ of degree $3$ such that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $p(0) = p(1) = 1$, $p(-1) = 4$, $p(2) = -5$
+
+\item $p(0) = p(1) = 1$, $p(-1) = 2$, $p(-2) = -3$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ 1- \frac{5}{3}x  + \frac{1}{2} x ^2 + \frac{7}{6}x^3$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given the following data pairs, find the interpolating polynomial of degree at most $3$ and estimate the value of $y$ corresponding to $x = 1.5$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $(0, 1)$, $(1, 2)$, $(2, 5)$, $(3, 10)$
+
+\item $(0, 1)$, $(1, 1.49)$, $(2, -0.42)$, $(3, -11.33)$
+
+\item $(0, 2)$, $(1, 2.03)$, $(2, -0.40)$, $(-1, 0.89)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $1 - 0.51 x + 2.1 x^2 - 1.1 x^3; 1.25$, so  $y = 1.25$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A = \leftB \begin{array}{rrr}
+1 & a & b \\
+-a & 1 & c \\
+-b & -c & 1 
+\end{array} \rightB$
+ show that $\func{det }A = 1 + a^{2} + b^{2} + c^{2}$. Hence, find $A^{-1}$ for any $a$, $b$, and $c$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A = \leftB \begin{array}{rrr}
+a & p & q \\
+0 & b & r \\
+0 & 0 & c 
+\end{array} \rightB$
+ has an inverse if and only if $abc \neq 0$, and find $A^{-1}$ in that case.
+
+\item Show that if an upper triangular matrix is invertible, the inverse is also upper triangular.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Use induction on $n$ where $A$ is $n \times n$. It is clear if $n = 1$. If $n > 1$, write $A = \leftB \begin{array}{cc}
+a & X \\
+0 & B
+\end{array}\rightB$
+ in block form where $B$ is $(n - 1) \times (n - 1)$. Then $A^{-1} = \leftB \begin{array}{cc}
+a^{-1} & -a^{-1}XB^{-1} \\
+0 & B^{-1}
+\end{array}\rightB$, and this is upper triangular because $B$ is upper triangular by induction.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be a matrix each of whose entries are integers. Show that each of the following conditions implies the other.
+
+
+\begin{enumerate}
+\item $A$ is invertible and $A^{-1}$ has integer entries.
+
+\item $\func{det }A = 1$ or $-1$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $A^{-1} = \leftB \begin{array}{rrr}
+3 & 0 & 1 \\ 
+0 & 2 & 3 \\
+3 & 1 & -1 
+\end{array}\rightB$
+ find $\func{adj }A$.
+
+\begin{sol}
+$-\frac{1}{21}\leftB\begin{array}{rrr}
+3 & 0 & 1 \\
+0 & 2 & 3\\
+3 & 1 & -1 
+\end{array}\rightB$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is $3 \times 3$ and $\func{det }A = 2$, find $\func{det}(A^{-1} + 4 \func{adj }A)$.
+\end{ex}
+
+\begin{ex}
+Show that $\func{det} \leftB \begin{array}{rr}
+0 & A \\
+B & X 
+\end{array}\rightB = \func{det }A \func{det }B$ when $A$ and $B$ are $2 \times 2$. What if $A$ and $B$ are $3 \times 3$?
+
+
+[\textit{Hint}: Block multiply by $ \leftB \begin{array}{rr}
+0 & I \\
+I & 0 
+\end{array}\rightB$.]
+\end{ex}
+
+\begin{ex}
+Let $A$ be $n \times n$, $n \geq 2$, and assume one column of $A$ consists of zeros. Find the possible values of $\func{rank}(\func{adj }A)$.
+\end{ex}
+
+\begin{ex}
+If $A$ is $3 \times 3$ and invertible, compute $\func{det}(-A^{2}(\func{adj }A)^{-1})$.
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Show that $\func{adj}(uA) = u^{n-1} \func{adj }A$ for all $n \times n$ matrices $A$.
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ denote invertible $n \times n$ matrices. Show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\func{adj}(\func{adj }A) = (\func{det }A)^{n-2}A$ (here $n \geq 2$) [\textit{Hint}: See Example~\ref{exa:008396}.]
+
+\item $\func{adj}(A^{-1}) = (\func{adj }A)^{-1}$
+
+\item $\func{adj}(A^{T}) = (\func{adj }A)^T$
+
+\item $\func{adj}(AB) = (\func{adj }B)(\func{adj }A)$ [\textit{Hint}: Show that $AB \func{adj}(AB) = AB \func{adj }B \func{adj }A$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Have $(\func{adj }A)A = (\func{det }A)I$; so taking inverses, $A^{-1} \cdot (\func{adj } A)^{-1} = \frac{1}{\func{det } A}I$.
+ On the other hand, $A^{-1} \func{adj} (A^{-1}) = \func{det}(A^{-1})I = \frac{1}{\func{det } A}I$.
+ Comparison yields $A^{-1}(\func{adj }A)^{-1} = A^{-1}\func{adj}(A^{-1})$, and part \textbf{(b)} follows.
+
+\setcounter{enumi}{3}
+\item  Write $\func{det} A = d$, $\func{det } B = e$. By the adjugate formula $AB \func{adj}(AB) = deI$, and $AB \func{adj }B \func{adj }A = A[eI] \func{adj} A = (eI)(dI) = deI$. Done as $AB$ is invertible.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\end{multicols}
+
+
+
+

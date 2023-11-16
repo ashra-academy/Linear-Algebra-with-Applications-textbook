@@ -1,0 +1,773 @@
+\section{An Application to Quadratic Forms}
+\label{sec:8_8}\index{orthogonality!quadratic forms}\index{quadratic form}
+
+An expression like $x_{1}^2 + x_{2}^2 + x_{3}^2 - 2x_{1}x_{3} + x_{2}x_{3}$ is called a quadratic form in the variables $x_{1}$, $x_{2}$, and $x_{3}$. In this section we show that new variables $y_{1}$, $y_{2}$, and $y_{3}$ can always be found so that the quadratic form, when expressed in terms of the new variables, has no cross terms $y_{1}y_{2}$, $y_{1}y_{3}$, or $y_{2}y_{3}$. Moreover, we do this for forms involving any finite number of variables using orthogonal diagonalization. This has far-reaching applications; quadratic forms arise in such diverse areas as statistics, physics, the theory of functions of several variables, number theory, and geometry.
+
+
+\begin{definition}{Quadratic Form}{026966}
+A \textbf{quadratic form}\index{quadratic form}\index{diagonalization!quadratic form} $q$ in the $n$ variables $x_1, x_{2}, \dots, x_{n}$ is a linear combination of terms $x_{1}^2, x_{2}^2, \dots, x_{n}^2$, and cross terms $x_{1}x_{2}, x_{1}x_{3}, x_{2}x_{3}, \dots$ .
+\end{definition}
+
+If $n = 3$, $q$ has the form
+\begin{equation*}
+q = a_{11}x_{1}^2 + a_{22}x_{2}^2 + a_{33}x_{3}^2 + a_{12}x_{1}x_{2} + a_{21}x_2x_1+ a_{13}x_{1}x_{3} + a_{31}x_{3}x_{1} + a_{23}x_{2}x_{3} + a_{32}x_{3}x_{2}
+\end{equation*}
+In general
+\begin{equation*}
+q = a_{11}x_{1}^2 + a_{22}x_{2}^2 + \cdots + a_{nn}x_{n}^2 + a_{12}x_{1}x_{2} + a_{13}x_{1}x_{3} + \cdots
+\end{equation*}
+This sum can be written compactly as a matrix product
+\begin{equation*}
+q = q(\vect{x}) = \vect{x}^TA\vect{x}
+\end{equation*}
+where $\vect{x} = (x_{1}, x_{2}, \dots, x_{n})$ is thought of as a column, and $A = \leftB a_{ij} \rightB$ is a real $n \times n$ matrix. Note that if $i \neq j$, two separate terms $a_{ij}x_{i}x_{j}$ and $a_{ji}x_{j}x_{i}$ are listed, each of which involves $x_{i}x_{j}$, and they can (rather cleverly) be replaced by
+\begin{equation*}
+\frac{1}{2}(a_{ij} + a_{ji})x_{i}x_{j} \quad \mbox{ and } \quad \frac{1}{2}(a_{ij} + a_{ji})x_{j}x_{i}
+\end{equation*}
+respectively, \textit{without altering the quadratic form}. Hence there is no loss of generality in assuming that $x_{i}x_{j}$ and $x_{j}x_{i}$ have the same coefficient in the sum for $q$. In other words, \textbf{we may assume that} $A$ \textbf{is symmetric}\index{symmetric form}.
+
+
+\begin{example}{}{027002}
+Write $q = x_1^2 + 3x_3^2+2x_1x_2 - x_1x_3$ in the form $q(\vect{x}) = \vect{x}^{T}A\vect{x}$, where $A$ is a symmetric $3 \times 3$ matrix.
+
+
+\begin{solution}
+  The cross terms are $2x_{1}x_{2} = x_{1}x_{2} + x_{2}x_{1}$ and $-x_{1}x_{3} = -\frac{1}{2}x_{1}x_{3} - \frac{1}{2}x_{3}x_{1}$.
+
+
+Of course, $x_{2}x_{3}$ and $x_{3}x_{2}$ both have coefficient zero, as does $x^{2}_{2}$. Hence
+\begin{equation*}
+q(\vect{x}) = \leftB \begin{array}{rrr}
+x_{1} & x_{2} & x_{3} 
+\end{array}\rightB \leftB \begin{array}{rrr}
+1 & 1 & -\frac{1}{2} \\
+1 & 0 & 0 \\
+-\frac{1}{2} & 0 & 3
+\end{array}\rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array}\rightB
+\end{equation*}
+is the required form (verify).
+\end{solution}
+\end{example}
+
+We shall assume from now on that all quadratic forms are given by
+\begin{equation*}
+q(\vect{x}) = \vect{x}^TA\vect{x}
+\end{equation*}
+where $A$ is symmetric. Given such a form, the problem is to find new variables $y_{1}, y_{2}, \dots, y_{n}$, related to $x_{1}, x_{2}, \dots, x_{n}$, with the property that when $q$ is expressed in terms of $y_{1}, y_{2}, \dots, y_{n}$, there are no cross terms. If we write
+\begin{equation*}
+\vect{y} = (y_{1}, y_{2}, \dots, y_{n})^T
+\end{equation*}
+this amounts to asking that $q = \vect{y}^{T}D\vect{y}$ where $D$ is diagonal. It turns out that this can always be accomplished and, not surprisingly, that $D$ is the matrix obtained when the symmetric matrix $A$ is orthogonally diagonalized. In fact, as Theorem~\ref{thm:024303} shows, a matrix $P$ can be found that is orthogonal (that is, $P^{-1} = P^{T}$) and diagonalizes $A$:
+\begin{equation*}
+P^TAP = D = \leftB \begin{array}{cccc}
+\lambda_{1} & 0 & \cdots & 0 \\
+0 & \lambda_{2} & \cdots & 0 \\
+\vdots & \vdots && \vdots \\
+0 & 0 & \cdots & \lambda_{n}
+\end{array}\rightB
+\end{equation*}
+The diagonal entries $\lambda_{1}, \lambda_{2}, \dots, \lambda_{n}$ are the (not necessarily distinct) eigenvalues of $A$, repeated according to their multiplicities in $c_{A}(x)$, and the columns of $P$ are corresponding (orthonormal) eigenvectors of $A$. As $A$ is symmetric, the $\lambda_{i}$ are real by Theorem~\ref{thm:016397}.
+
+
+Now define new variables $\vect{y}$ by the equations
+\begin{equation*}
+\vect{x} = P\vect{y} \quad \mbox{ equivalently } \quad \vect{y} = P^T\vect{x}
+\end{equation*}
+Then substitution in $q(\vect{x}) = \vect{x}^{T}A\vect{x}$ gives
+\begin{equation*}
+q = (P\vect{y})^TA(P\vect{y}) = \vect{y}^T(P^TAP)\vect{y} = \vect{y}^TD\vect{y} = \lambda_{1}y_{1}^2 + \lambda_{2}y_{2}^2 + \cdots + \lambda_{n}y_{n}^2
+\end{equation*}
+Hence this change of variables produces the desired simplification in $q$.
+
+
+\begin{theorem}{Diagonalization Theorem}{027060}
+Let $q = \vect{x}^{T}A\vect{x}$ be a quadratic form in the variables $x_{1}, x_{2}, \dots, x_{n}$, where $\vect{x} = (x_{1}, x_{2}, \dots, x_{n})^{T}$ and $A$ is a symmetric $n \times n$ matrix. Let $P$ be an orthogonal matrix such that $P^{T}AP$ is diagonal, and define new variables $\vect{y} = (y_{1}, y_{2}, \dots, y_{n})^{T}$ by
+\begin{equation*}
+\vect{x} = P\vect{y} \quad \mbox{ equivalently } \quad \vect{y} = P^T\vect{x}
+\end{equation*}
+If $q$ is expressed in terms of these new variables $y_{1}, y_{2}, \dots, y_{n}$, the result is
+\begin{equation*}
+q = \lambda_{1}y_{1}^2 + \lambda_{2}y_{2}^2 + \cdots + \lambda_{n}y_{n}^2
+\end{equation*}
+where $\lambda_{1}, \lambda_{2}, \dots, \lambda_{n}$ are the eigenvalues of $A$ repeated according to their multiplicities.
+\end{theorem}\index{diagonalization theorem}
+
+Let $q = \vect{x}^{T}A\vect{x}$ be a quadratic form where $A$ is a symmetric matrix and let $\lambda_{1}, \dots, \lambda_{n}$ be the (real) eigenvalues of $A$ repeated according to their multiplicities. A corresponding set $\{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ of orthonormal eigenvectors for $A$ is called a set of \textbf{principal axes}\index{principal axes} for the quadratic form $q$. (The reason for the name will become clear later.) The orthogonal matrix $P$ in Theorem~\ref{thm:027060} is given as $P = \leftB \begin{array}{ccc} \vect{f}_{1} & \cdots & \vect{f}_{n} \end{array} \rightB$, so the variables $X$ and $Y$ are related by
+\begin{equation*}
+\vect{x} = P\vect{y} = \leftB \begin{array}{cccc}
+\vect{f}_{1} & \vect{f}_{2}& \cdots & \vect{f}_{n} 
+\end{array}\rightB \leftB \begin{array}{c}
+y_{1} \\
+y_{2} \\
+\vdots \\
+y_{n}
+\end{array}\rightB = y_{1}\vect{f}_{1} + y_{2}\vect{f}_{2} + \cdots + y_{n}\vect{f}_{n}
+\end{equation*}
+Thus the new variables $y_{i}$ are the coefficients when $\vect{x}$ is expanded in terms of the orthonormal basis $\{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ of $\RR^n$. In particular, the coefficients $y_{i}$ are given by $y_{i} = \vect{x} \cdot \vect{f}_{i}$ by the expansion theorem (Theorem~\ref{thm:015082}). Hence $q$ itself is easily computed from the eigenvalues $\lambda_{i}$ and the principal axes $\vect{f}_{i}$:
+\begin{equation*}
+q = q(\vect{x}) = \lambda_{1}(\vect{x} \dotprod \vect{f}_{1})^2 + \cdots + \lambda_{n}(\vect{x} \dotprod \vect{f}_{n})^2
+\end{equation*}
+\begin{example}{}{027107}
+Find new variables $y_{1}$, $y_{2}$, $y_{3}$, and $y_{4}$ such that
+\begin{equation*}
+q = 3(x_{1}^2 + x_{2}^2 + x_{3}^2 +x_{4}^2) + 2x_{1}x_{2} - 10x_{1}x_{3} + 10x_{1}x_{4} + 10x_{2}x_{3} - 10x_{2}x_{4} + 2x_{3}x_{4}
+\end{equation*}
+has diagonal form, and find the corresponding principal axes.
+
+
+\begin{solution}
+  The form can be written as $q = \vect{x}^{T}A\vect{x}$, where
+\begin{equation*}
+\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4}
+\end{array}\rightB \quad \mbox{ and } \quad 
+A = \leftB \begin{array}{rrrr}
+3 & 1 & -5 & 5 \\
+1 & 3 & 5 & -5 \\
+-5 & 5 & 3 & 1 \\
+5 & -5 & 1 & 3
+\end{array}\rightB
+\end{equation*}
+A routine calculation yields
+\begin{equation*}
+c_{A}(x) = \func{det}(xI - A) = (x - 12)(x + 8)(x - 4)^2
+\end{equation*}
+so the eigenvalues are $\lambda_{1} = 12$, $\lambda_{2} = -8$, and $\lambda_{3} = \lambda_{4} = 4$. Corresponding orthonormal eigenvectors are the principal axes:
+\begin{equation*}
+\vect{f}_{1} = \frac{1}{2} \leftB \begin{array}{r}
+1 \\
+-1 \\
+-1 \\
+1
+\end{array}\rightB \quad
+\vect{f}_{2} = \frac{1}{2} \leftB \begin{array}{r}
+1 \\
+-1 \\
+1 \\
+-1
+\end{array}\rightB \quad
+\vect{f}_{3} = \frac{1}{2} \leftB \begin{array}{r}
+1 \\
+1 \\
+1 \\
+1
+\end{array}\rightB \quad
+\vect{f}_{4} = \frac{1}{2} \leftB \begin{array}{r}
+1 \\
+1 \\
+-1 \\
+-1
+\end{array}\rightB 
+\end{equation*}
+The matrix
+\begin{equation*}
+P = \leftB \begin{array}{cccc}
+\vect{f}_{1} & \vect{f}_{2} & \vect{f}_{3} & \vect{f}_{4}
+\end{array}\rightB  = \frac{1}{2} \leftB \begin{array}{rrrr}
+1 & 1 & 1 & 1 \\
+-1 & -1 & 1 & 1 \\
+-1 & 1 & 1 & -1 \\
+1 & -1 & 1 & -1
+\end{array}\rightB
+\end{equation*}
+is thus orthogonal, and $P^{-1}AP = P^{T}AP$ is diagonal. Hence the new variables $\vect{y}$ and the old variables $\vect{x}$ are related by $\vect{y} = P^{T}\vect{x}$ and $\vect{x} = P\vect{y}$. Explicitly,
+
+
+\begin{align*}
+y_{1} = \frac{1}{2}(x_{1} - x_{2} - x_{3} + x_{4}) & &x_{1} &= \frac{1}{2}(y_{1} + y_{2} + y_{3} + y_{4}) \\
+y_{2} = \frac{1}{2}(x_{1} - x_{2} + x_{3} - x_{4}) & &x_{2} &= \frac{1}{2}(-y_{1} - y_{2} + y_{3} + y_{4}) \\
+y_{3} = \frac{1}{2}(x_{1} + x_{2} + x_{3} + x_{4}) & &x_{3} &= \frac{1}{2}(-y_{1} + y_{2} + y_{3} - y_{4}) \\
+y_{4} = \frac{1}{2}(x_{1} + x_{2} - x_{3} - x_{4}) & &x_{4} &= \frac{1}{2}(y_{1} - y_{2} + y_{3} - y_{4}) 
+\end{align*}
+
+If these $x_{i}$ are substituted in the original expression for $q$, the result is
+\begin{equation*}
+q = 12y_{1}^2 - 8y_{2}^2 + 4y_{3}^2 + 4y_{4}^2
+\end{equation*}
+This is the required diagonal form.
+\end{solution}
+\end{example}
+
+It is instructive to look at the case of quadratic forms in two variables $x_{1}$ and $x_{2}$. Then the principal axes can always be found by rotating the $x_{1}$ and $x_{2}$ axes counterclockwise about the origin through an angle $\theta$. This rotation is a linear transformation $R_{\theta} : \RR^2 \to \RR^2$, and it is shown in Theorem~\ref{thm:006021} that $R_{\theta}$ has matrix $P = \leftB \begin{array}{rr}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{array}\rightB$. If $\{\vect{e}_{1}, \vect{e}_{2}\}$ denotes the standard basis of $\RR^2$, the rotation produces a new basis $\{\vect{f}_{1}, \vect{f}_{2}\}$ given by
+\begin{equation} \label{rotationEq}
+\vect{f}_{1} = R_{\theta}(\vect{e}_{1}) = \leftB \begin{array}{r}
+\cos\theta \\
+\sin\theta 
+\end{array}\rightB \quad \mbox{ and } \quad
+\vect{f}_{2} = R_{\theta}(\vect{e}_{2}) = \leftB \begin{array}{r}
+-\sin\theta \\
+\cos\theta 
+\end{array}\rightB
+\end{equation}
+
+\begin{wrapfigure}[7]{l}{5cm} 
+\vspace*{-2em}
+\centering
+\input{8-orthogonality/figures/8-an-application-to-quadratic-forms/rotation-graph}
+%\caption{\label{fig:027161}}
+\end{wrapfigure}
+
+Given a point $\vect{p} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2}
+\end{array}\rightB = x_{1}\vect{e}_{1}  + x_{2}\vect{e}_{2}$
+ in the original system, let $y_{1}$ and $y_{2}$ be the coordinates of $\vect{p}$ in the new system (see the diagram). That is,
+\begin{equation}\label{rotationEq2}
+\leftB \begin{array}{c}
+x_{1} \\
+x_{2}
+\end{array}\rightB = \vect{p} = y_{1}\vect{f}_{1} + y_{2}\vect{f}_{2} = \leftB \begin{array}{rr}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{array}\rightB \leftB \begin{array}{c}
+y_{1} \\
+y_{2}
+\end{array}\rightB
+\end{equation}
+Writing $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2}
+\end{array}\rightB$
+and $\vect{y} = \leftB \begin{array}{c}
+y_{1} \\
+y_{2}
+\end{array}\rightB$, this reads $\vect{x} = P\vect{y}$ so, since $P$ is orthogonal, this is the change of variables formula for the rotation as in Theorem~\ref{thm:027060}.
+
+If $r \neq 0 \neq s$, the graph of the equation $rx_{1}^2 + sx_{2}^2 = 1$ is called an \textbf{ellipse}\index{ellipse}\index{graphs!ellipse} if $rs > 0$ and a \textbf{hyperbola}\index{hyperbola}\index{graphs!hyperbola} if $rs < 0$. More generally, given a quadratic form
+\begin{equation*}
+q = ax_{1}^2 + bx_{1}x_{2} + cx_{2}^2 \quad \mbox{ where not all of } a, b, \mbox{ and } c \mbox{ are zero}
+\end{equation*}
+the graph of the equation $q = 1$ is called a \textbf{conic}\index{conic graph}. We can now completely describe this graph. There are two special cases which we leave to the reader.
+
+
+\begin{enumerate}
+\item \textit{If exactly one of} $a$ \textit{and} $c$ \textit{is zero, then the graph of} $q = 1$ \textit{is a} \textbf{parabola}\index{parabola}.
+
+\end{enumerate}
+
+\noindent So we assume that $a \neq 0$ and $c \neq 0$. In this case, the description depends on the quantity $b^{2} - 4ac$, called the \textbf{discriminant}\index{discriminant} of the quadratic form $q$.
+
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item \textit{If} $b^{2} - 4ac = 0$, \textit{then either both} $a \geq 0$ \textit{and} $c \geq 0$, \textit{or both} $a \leq 0$ \textit{and} $c \leq 0$. \\ \textit{Hence} $q = (\sqrt{a}x_{1} + \sqrt{c}x_{2})^2$ \textit{or} $q = (\sqrt{-a}x_{1} + \sqrt{-c}x_{2})^2$, \textit{so the graph of} $q = 1$ \textit{is a} \textbf{pair of straight lines}\index{line!straight, pair of} \textit{in either case}.
+\end{enumerate}
+
+\noindent So we also assume that $b^{2} - 4ac \neq 0$. But then the next theorem asserts that there exists a rotation of the plane about the origin which transforms the equation $ax_{1}^2 + bx_{1}x_{2} + cx_{2}^2 = 1$ into either an ellipse or a hyperbola, and the theorem also provides a simple way to decide which conic it is.
+
+
+\begin{theorem}{}{027179}
+Consider the quadratic form $q = ax_{1}^2 + bx_{1}x_{2} + cx_{2}^2$ where $a$, $c$, and $b^{2} - 4ac$ are all nonzero.
+
+
+\begin{enumerate}
+\item There is a counterclockwise rotation of the coordinate axes about the origin such that, in the new coordinate system, $q$ has no cross term.
+
+\item The graph of the equation
+\begin{equation*}
+ax_{1}^2 + bx_{1}x_{2} + cx_{2}^2 = 1
+\end{equation*}
+is an ellipse if $b^{2} - 4ac < 0$ and an hyperbola if $b^{2} - 4ac > 0$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+If $b = 0$, $q$ \textit{already} has no cross term and (1) and (2) are clear. So assume $b \neq 0$.
+The matrix $A = \leftB \begin{array}{cc}
+a & \frac{1}{2}b \\
+\frac{1}{2}b & c
+\end{array}\rightB$ of $q$ has characteristic polynomial $c_A(x) = x^2 - (a + c)x - \frac{1}{4}(b^2 - 4ac)$. If we write $d = \sqrt{b^2 + (a - c)^2}$ for convenience; then the quadratic formula gives the eigenvalues
+\begin{equation*}
+\lambda_{1} = \frac{1}{2}[a + c - d] \quad \mbox{ and } \quad \lambda_{2} = \frac{1}{2}[a + c + d]
+\end{equation*}
+with corresponding principal axes
+\begin{align*}
+\vect{f}_{1} &= \frac{1}{\sqrt{b^2 + (a - c - d)^2}}\leftB \begin{array}{c}
+	a - c - d \\
+	b
+\end{array}\rightB \quad \mbox{ and } \\
+\vect{f}_{2} &= \frac{1}{\sqrt{b^2 + (a - c - d)^2}}\leftB \begin{array}{c}
+	-b \\
+	a - c - d 
+	\end{array}\rightB
+\end{align*}
+as the reader can verify. These agree with equation (\ref{rotationEq}) above if $\theta$ is an angle such that
+\begin{equation*}
+\cos\theta = \frac{a - c - d}{\sqrt{b^2 + (a - c - d)^2}} \quad \mbox{ and } \quad \sin\theta = \frac{b}{\sqrt{b^2 + (a - c - d)^2}}
+\end{equation*}
+Then $P = \leftB \begin{array}{cc}
+\vect{f}_{1} & \vect{f}_{2}
+\end{array}\rightB = \leftB \begin{array}{rr}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{array}\rightB$ diagonalizes $A$ and equation (\ref{rotationEq2}) becomes the formula $\vect{x} = P\vect{y}$ in Theorem~\ref{thm:027060}. This proves (1).
+
+
+Finally, $A$ is similar to $\leftB \begin{array}{cc}
+\lambda_{1} & 0 \\
+0 & \lambda_{2}
+\end{array}\rightB$
+ so $\lambda_{1}\lambda_{2} = \func{det}A = \frac{1}{4}(4ac - b^2)$. Hence the graph of $\lambda_{1}y_{1}^2 + \lambda_{2}y_{2}^2 = 1$ is an ellipse if $b^{2} < 4ac$ and an hyperbola if $b^{2} > 4ac$. This proves (2).
+\end{proof}
+
+\begin{example}{}{027215}
+Consider the equation $x^{2} + xy + y^{2} = 1$. Find a rotation so that the equation has no cross term.
+
+\begin{solution}
+\begin{wrapfigure}[9]{l}{5cm}
+\centering
+\input{8-orthogonality/figures/8-an-application-to-quadratic-forms/example8.8.3}
+%\captionof{figure}{\label{fig:027233}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+Here $a = b = c = 1$ in the notation of Theorem~\ref{thm:027179}, so $\cos\theta = \frac{-1}{\sqrt{2}}$ and $\sin\theta = \frac{1}{\sqrt{2}}$. Hence $\theta = \frac{3\pi}{4}$ will do it. The new variables are $y_{1} = \frac{1}{\sqrt{2}}(x_{2} - x_{1})$ and $y_{2} = \frac{-1}{\sqrt{2}}(x_{2} + x_{1})$ by (\ref{rotationEq2}), and the equation becomes $y_{1}^2 + 3y_{2}^2 = 2$. The angle $\theta$ has been chosen such that the new $y_{1}$ and $y_{2}$ axes are the axes of symmetry of the ellipse (see the diagram). The eigenvectors $\vect{f}_{1} = \frac{1}{\sqrt{2}} \leftB \begin{array}{r}
+ -1 \\
+ 1
+ \end{array}\rightB$
+ and $\vect{f}_{2} = \frac{1}{\sqrt{2}} \leftB \begin{array}{r}
+ -1 \\
+ -1
+ \end{array}\rightB$
+ point along these axes of symmetry, and this is the reason for the name \textit{principal axes}.
+\end{solution}
+\end{example}
+
+The determinant of any orthogonal matrix $P$ is either $1$ or $-1$ (because $PP^{T} = I$). The orthogonal matrices $\leftB \begin{array}{rr}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{array}\rightB$ arising from rotations all have determinant $1$. More generally, given any quadratic form $q = \vect{x}^{T}A\vect{x}$, the orthogonal matrix $P$ such that $P^{T}AP$ is diagonal can always be chosen so that $\func{det }P = 1$ by interchanging two eigenvalues (and hence the corresponding columns of $P$). It is shown in Theorem~\ref{thm:032199} that orthogonal $2 \times 2$ matrices with determinant $1$ correspond to rotations. Similarly, it can be shown that orthogonal $3 \times 3$ matrices with determinant $1$ correspond to rotations about a line through the origin. This extends Theorem~\ref{thm:027179}: Every quadratic form in two or three variables can be diagonalized by a rotation of the coordinate system.
+
+
+\subsection*{Congruence}
+\index{congruence}\index{congruent matrices}\index{matrix!congruent matrices}\index{symmetric matrix!congruence}
+
+We return to the study of quadratic forms in general.
+
+
+\begin{theorem}{}{027243}
+If $q(\vect{x}) = \vect{x}^{T}A\vect{x}$ is a quadratic form given by a symmetric matrix $A$, then $A$ is uniquely determined by $q$.
+\end{theorem}
+
+\begin{proof}
+Let $q(\vect{x}) = \vect{x}^{T}B\vect{x}$ for all $\vect{x}$ where $B^{T} = B$. If $C = A - B$, then $C^{T} = C$ and $\vect{x}^{T}C\vect{x} = 0$ for all $\vect{x}$. We must show that $C = 0$. Given $\vect{y}$ in $\RR^n$,
+\begin{align*}
+0 = (\vect{x} + \vect{y})^TC(\vect{x} + \vect{y}) &= \vect{x}^TC\vect{x} + \vect{x}^TC\vect{y} + \vect{y}^TC\vect{x} + \vect{y}^TC\vect{y} \\
+&= \vect{x}^TC\vect{y} + \vect{y}^TC\vect{x}
+\end{align*}
+
+But $\vect{y}^{T}C\vect{x} = (\vect{x}^{T}C\vect{y})^{T} = \vect{x}^{T}C\vect{y}$ (it is $1 \times 1$). Hence $\vect{x}^{T}C\vect{y} = 0$ for all $\vect{x}$ and $\vect{y}$ in $\RR^n$. If $\vect{e}_{j}$ is column $j$ of $I_{n}$, then the $(i, j)$-entry of $C$ is $\vect{e}_{i}^{T}C\vect{e}_{j} = 0$. Thus $C = 0$.
+\end{proof}
+
+\noindent Hence we can speak of \textit{the} symmetric matrix of a quadratic form.
+
+
+On the other hand, a quadratic form $q$ in variables $x_{i}$ can be written in several ways as a linear combination of squares of new variables, even if the new variables are required to be linear combinations of the $x_{i}$. For example, if $q = 2x_{1}^2 - 4x_{1}x_{2} + x_{2}^2$ then
+\begin{equation*}
+q = 2(x_{1} - x_{2})^2 - x_{2}^2 \quad \mbox{ and } \quad q = -2x_{1}^2 + (2x_{1} - x_{2})^2
+\end{equation*}
+The question arises: How are these changes of variables related, and what properties do they share? To investigate this, we need a new concept.
+
+
+Let a quadratic form $q = q(\vect{x}) = \vect{x}^{T}A\vect{x}$ be given in terms of variables $\vect{x} = (x_{1}, x_{2}, \dots, x_{n})^{T}$. If the new variables $\vect{y} = (y_{1}, y_{2}, \dots, y_{n})^{T}$ are to be linear combinations of the $x_{i}$, then $\vect{y} = A\vect{x}$ for some $n \times n$ matrix $A$. Moreover, since we want to be able to solve for the $x_{i}$ in terms of the $y_{i}$, we ask that the matrix $A$ be invertible. Hence suppose $U$ is an invertible matrix and that the new variables $\vect{y}$ are given by
+\begin{equation*}
+\vect{y} = U^{-1}\vect{x}, \quad \mbox{ equivalently } \vect{x} = U\vect{y}
+\end{equation*}
+In terms of these new variables, $q$ takes the form
+\begin{equation*}
+q = q(\vect{x}) = (U\vect{y})^TA(U\vect{y}) = \vect{y}^T(U^TAU)\vect{y}
+\end{equation*}
+That is, $q$ has matrix $U^{T}AU$ with respect to the new variables $\vect{y}$. Hence, to study changes of variables in quadratic forms, we study the following relationship on matrices: Two $n \times n$ matrices $A$ and $B$ are called \textbf{congruent}, written $A \stackrel{c}{\sim} B$, if $B = U^{T}AU$ for some invertible matrix $U$. Here are some properties of congruence:
+\begin{enumerate}
+	\item $A \stackrel{c}{\sim} A$ \textit{for all} $A$.
+	
+	\item \textit{If} $A \stackrel{c}{\sim} B$, \textit{then} $B \stackrel{c}{\sim} A$.
+	
+	\item \textit{If} $A \stackrel{c}{\sim} B$ \textit{and} $B \stackrel{c}{\sim} C$, \textit{then} $A \stackrel{c}{\sim} C$.
+	
+	\item \textit{If} $A \stackrel{c}{\sim} B$, \textit{then} $A$ \textit{is symmetric if and only if} $B$ \textit{is symmetric}.
+	
+	\item \textit{If} $A \stackrel{c}{\sim} B$, \textit{then} $\func{rank}A = \func{rank}B$.
+\end{enumerate}
+
+\noindent The converse to (5) can fail even for symmetric matrices.
+
+
+\begin{example}{}{027315}
+The symmetric matrices $A = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array}\rightB$
+and $B = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array}\rightB$
+ have the same $\func{rank}$ but are not congruent. Indeed, if $A \stackrel{c}{\sim} B$, an invertible matrix $U$ exists such that $B= U^{T}AU = U^{T}U$. But then $-1 = \func{det }B = (\func{det }U)^{2}$, a contradiction.
+\end{example}
+
+
+The key distinction between $A$ and $B$ in Example~\ref{exa:027315} is that $A$ has two positive eigenvalues (counting multiplicities) whereas $B$ has only one.
+
+
+\begin{theorem}{Sylvester's Law of Inertia}{027325}
+If $A \stackrel{c}{\sim} B$, then $A$ and $B$ have the same number of positive eigenvalues, counting multiplicities.\index{Sylvester's Law of Inertia}
+\end{theorem}
+
+\noindent The proof is given at the end of this section.
+
+
+The \textbf{index}\index{index}\index{symmetric matrix!index} of a symmetric matrix $A$ is the number of positive eigenvalues of $A$. If $q = q(\vect{x}) = \vect{x}^{T}A\vect{x}$ is a quadratic form, the \textbf{index} and \textbf{rank}\index{symmetric matrix!rank and index}\index{rank!quadratic form} of $q$ are defined to be, respectively, the index and $\func{rank}$ of the matrix $A$. As we saw before, if the variables expressing a quadratic form $q$ are changed, the new matrix is congruent to the old one. Hence the index and $\func{rank}$ depend only on $q$ and not on the way it is expressed.
+
+
+Now let $q = q(\vect{x}) = \vect{x}^{T}A\vect{x}$ be any quadratic form in $n$ variables, of index $k$ and $\func{rank }r$, where $A$ is symmetric\index{rank!symmetric matrix}. We claim that new variables $\vect{z}$ can be found so that $q$ is \textbf{completely diagonalized}\index{completely diagonalized}\index{diagonalization!completely diagonalized}---that is,
+\begin{equation*}
+q(\vect{z}) = z_{1}^2 + \cdots + z_{k}^2 - z_{k+1}^2 - \cdots - z_{r}^2
+\end{equation*}
+If $k \leq r \leq n$, let $D_{n}(k, r)$ denote the $n \times n$ diagonal matrix whose main diagonal consists of $k$ ones, followed by $r - k$ minus ones, followed by $n - r$ zeros. Then we seek new variables $\vect{z}$ such that
+\begin{equation*}
+q(\vect{z}) = \vect{z}^TD_{n}(k, r)\vect{z}
+\end{equation*}
+To determine $\vect{z}$, first diagonalize $A$ as follows: Find an orthogonal matrix $P_{0}$ such that
+\begin{equation*}
+P_{0}^TAP_{0} = D = \func{diag}(\lambda_{1}, \lambda_{2}, \dots, \lambda_{r}, 0, \dots, 0)
+\end{equation*}
+is diagonal with the nonzero eigenvalues $\lambda_{1}, \lambda_{2}, \dots, \lambda_{r}$ of $A$ on the main diagonal (followed by $n - r$ zeros). By reordering the columns of $P_{0}$, if necessary, we may assume that $\lambda_{1}, \dots, \lambda_{k}$ are positive and $\lambda_{k + 1}, \dots, \lambda_{r}$ are negative. This being the case, let $D_{0}$ be the $n \times n$ diagonal matrix
+\begin{equation*}
+D_{0} = \func{diag} \left( \frac{1}{\sqrt{\lambda_{1}}}, \dots, \frac{1}{\sqrt{\lambda_{k}}}, \frac{1}{\sqrt{-\lambda_{k+1}}}, \dots, \frac{1}{\sqrt{-\lambda_{r}}}, 1, \dots, 1 \right)
+\end{equation*}
+Then $D_{0}^{T}DD_{0} = D_{n}(k, r)$, so if new variables $\vect{z}$ are given by $\vect{x} = (P_{0}D_{0})\vect{z}$, we obtain
+\begin{equation*}
+q(\vect{z}) = \vect{z}^TD_{n}(k, r)\vect{z} = z_{1}^2 + \cdots + z_{k}^2 - z_{k+1}^2 - \cdots - z_{r}^2
+\end{equation*}
+as required. Note that the change-of-variables matrix $P_{0}D_{0}$ from $\vect{z}$ to $\vect{x}$ has orthogonal columns (in fact, scalar multiples of the columns of $P_{0}$).
+
+
+\begin{example}{}{027363}
+Completely diagonalize the quadratic form $q$ in Example~\ref{exa:027107} and find the index and $\func{rank}$.
+
+
+\begin{solution}
+  In the notation of Example~\ref{exa:027107}, the eigenvalues of the matrix $A$ of $q$ are $12$, $-8$, $4$, $4$; so the index is $3$ and the $\func{rank}$ is $4$. Moreover, the corresponding orthogonal eigenvectors are $\vect{f}_{1}$, $\vect{f}_{2}$, $\vect{f}_{3}$ (see Example~\ref{exa:027107}), and $\vect{f}_{4}$. Hence $P_{0} = \leftB \begin{array}{cccc} \vect{f}_{1} & \vect{f}_{3} & \vect{f}_{4} & \vect{f}_{2} \end{array} \rightB$ is orthogonal and
+\begin{equation*}
+P_{0}^TAP_{0} = \func{diag}(12, 4, 4, -8)
+\end{equation*}
+As before, take $D_{0} = \func{diag}(\frac{1}{\sqrt{12}}, \frac{1}{2}, \frac{1}{2}, \frac{1}{\sqrt{8}})$ and define the new variables $\vect{z}$ by $\vect{x} = (P_{0}D_{0})\vect{z}$. Hence the new variables are given by $\vect{z} = D_{0}^{-1}P_{0}^T\vect{x}$. The result is
+\begin{align*}
+z_{1} &= \sqrt{3}(x_{1} - x_{2} - x_{3} + x_{4}) \\
+z_{2} &= x_{1} + x_{2} + x_{3} + x_{4} \\
+z_{3} &= x_{1} + x_{2} - x_{3} - x_{4} \\
+z_{4} &= \sqrt{2}(x_{1} - x_{2} + x_{3} - x_{4}) 
+\end{align*}
+\end{solution}
+\end{example}
+
+This discussion gives the following information about symmetric matrices.
+
+
+\begin{theorem}{}{027386}
+Let $A$ and $B$ be symmetric $n \times n$ matrices, and let $0 \leq k \leq r \leq n$.
+
+
+\begin{enumerate}
+\item $A$ has index $k$ and $\func{rank }r$ if and only if $A \stackrel{c}{\sim} D_{n}(k, r)$.
+
+\item $A \stackrel{c}{\sim} B$ if and only if they have the same $\func{rank}$ and index.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item If $A$ has index $k$ and $\func{rank }r$, take $U = P_{0}D_{0}$ where $P_{0}$ and $D_{0}$ are as described prior to Example~\ref{exa:027363}. Then $U^{T}AU = D_{n}(k, r)$. The converse is true because $D_{n}(k, r)$ has index $k$ and $\func{rank }r$ (using Theorem~\ref{thm:027325}).
+
+\item If $A$ and $B$ both have index $k$ and $\func{rank }r$, then $A \stackrel{c}{\sim} D_{n}(k, r) \stackrel{c}{\sim} B$ by (1). The converse was given earlier.
+
+\end{enumerate}
+\end{proof}
+
+\newpage
+\begin{proof}[Proof of Theorem \ref{thm:027325}]
+
+\noindent By Theorem~\ref{thm:027060}, $A \stackrel{c}{\sim} D_{1}$ and $B \stackrel{c}{\sim} D_{2}$ where $D_{1}$ and $D_{2}$ are diagonal and have the same eigenvalues as $A$ and $B$, respectively. We have $D_{1} \stackrel{c}{\sim} D_{2}$, (because $A \stackrel{c}{\sim} B$), so we may assume that $A$ and $B$ are both diagonal. Consider the quadratic form $q(\vect{x}) = \vect{x}^{T}A\vect{x}$. If $A$ has $k$ positive eigenvalues, $q$ has the form
+\begin{equation*}
+q(\vect{x}) = a_{1}x_{1}^2 + \cdots + a_{k}x_{k}^2 - a_{k+1}x_{k+1}^2 - \cdots - a_{r}x_{r}^2, \ \ a_{i} > 0
+\end{equation*}
+where $r = \func{rank }A = \func{rank }B$. The subspace $W_{1} = \{\vect{x} \mid x_{k + 1} = \cdots = x_{r} = 0\}$ of $\RR^n$ has dimension $n - r + k$ and satisfies $q(\vect{x}) > 0$ for all $\vect{x} \neq \vect{0}$ in $W_{1}$.
+
+On the other hand, if $B = U^{T}AU$, define new variables $\vect{y}$ by $\vect{x} = U\vect{y}$. If $B$ has $k^\prime$ positive eigenvalues, $q$ has the form
+\begin{equation*}
+q(\vect{x}) = b_{1}y_{1}^2 + \cdots + b_{k^\prime}y_{k^\prime}^2 - b_{k^\prime+1}y_{k^\prime+1}^2 - \cdots - b_{r}y_{r}^2, \ \ b_{i} > 0
+\end{equation*}
+Let $\vect{f}_{1}, \dots, \vect{f}_{n}$ denote the columns of $U$. They are a basis of $\RR^n$ and
+\begin{equation*}
+\vect{x} = U\vect{y} = \leftB \begin{array}{ccc}
+\vect{f}_{1} & \cdots & \vect{f}_{n}
+\end{array}\rightB \leftB \begin{array}{c}
+y_{1} \\
+\vdots \\
+y_{n}
+\end{array}\rightB = y_{1}\vect{f}_{1} + \cdots + y_{n}\vect{f}_{n}
+\end{equation*}
+Hence the subspace $W_{2} = \func{span}\{\vect{f}_{k^{\prime}+1}, \dots, \vect{f}_{r}\}$ satisfies $q(\vect{x}) < 0$ for all $\vect{x} \neq \vect{0}$ in $W_{2}$. Note $\func{dim }W_{2} = r - k^{\prime}$. It follows that $W_{1}$ and $W_{2}$ have only the zero vector in common. Hence, if $B_{1}$ and $B_{2}$ are bases of $W_{1}$ and $W_{2}$, respectively, then (Exercise~\ref{ex:ex6_3_33}) $B_{1} \cup B_{2}$ is an independent set of $(n - r + k) + (r - k^{\prime}) = n + k - k^{\prime}$ vectors in $\RR^n$. This implies that $k \leq k^{\prime}$, and a similar argument shows $k^{\prime} \leq k$.
+\end{proof}
+
+\section*{Exercises for \ref{sec:8_8}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:8_8}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case, find a symmetric matrix $A$ such that $q = \vect{x}^{T}B\vect{x}$ takes the form $q = \vect{x}^{T}A\vect{x}$.
+
+
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array}\rightB$
+\exitem $\leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 2
+\end{array}\rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+0 & 1 & 1
+\end{array}\rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & 2 & -1 \\
+4 & 1 & 0 \\
+5 & -2 & 3
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $A = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 2
+\end{array}\rightB$
+
+\setcounter{enumi}{3}
+\item  $A = \leftB \begin{array}{rrr}
+1 & 3 & 2 \\
+3 & 1 & -1 \\
+2 & -1 & 3
+\end{array}\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a change of variables that will diagonalize the quadratic form $q$. Determine the index and $\func{rank}$ of $q$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $q = x_{1}^2 + 2x_{1}x_{2} + x_{2}^2$
+
+\item $q = x_{1}^2 + 4x_{1}x_{2} + x_{2}^2$
+
+\item $q = x_{1}^2 + x_{2}^2 + x_{3}^2 - 4(x_{1}x_{2} + x_{1}x_{3} + x_{2}x_{3})$
+
+\item $q = 7x_{1}^2 + x_{2}^2 + x_{3}^2 + 8x_{1}x_{2} + 8x_{1}x_{3} - 16x_{2}x_{3}$
+
+\item $q = 2(x_{1}^2 + x_{2}^2 + x_{3}^2 - x_{1}x_{2} + x_{1}x_{3} - x_{2}x_{3})$
+
+\item $q = 5x_{1}^2 + 8x_{2}^2 + 5x_{3}^2 - 4(x_{1}x_{2} + 2x_{1}x_{3} + x_{2}x_{3})$
+
+\item $q = x_{1}^2 - x_{3}^2 - 4x_{1}x_{2} + 4x_{2}x_{3}$
+
+\item $q = x_{1}^2 + x_{3}^2 - 2x_{1}x_{2} + 2x_{2}x_{3}$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $P = \frac{1}{\sqrt{2}}\leftB \begin{array}{rr}
+1 & 1 \\
+1 & -1
+\end{array}\rightB$; \\
+$\vect{y} = \frac{1}{\sqrt{2}}\leftB \begin{array}{r}
+x_{1} + x_{2} \\
+x_{1} - x_{2}
+\end{array}\rightB$; \\
+$q = 3y_{1}^2 - y_{2}^2$; \ $1$, $2$
+
+\setcounter{enumi}{3}
+\item $P = \frac{1}{3}\leftB \begin{array}{rrr}
+2 & 2 & -1 \\
+2 & -1 & 2 \\
+-1 & 2 & 2
+\end{array}\rightB$;  \\
+$\vect{y} = \frac{1}{3}\leftB \begin{array}{rcrcr}
+2x_{1} & + & 2x_{2} & - & x_{3} \\
+2x_{1} & - & x_{2} & + & 2x_{3} \\
+-x_{1} & + & 2x_{2} & + & 2x_{3} 
+\end{array}\rightB$; \\
+$q = 9y_{1}^2 + 9y_{2}^2 - 9y_{3}^2$; \ $2$, $3$
+
+\setcounter{enumi}{5}
+\item $P = \frac{1}{3}\leftB \begin{array}{rrr}
+-2 & 1 & 2 \\
+2 & 2 & 1 \\
+1 & -2 & 2
+\end{array}\rightB$; \\ 
+$\vect{y} = \frac{1}{3}\leftB \begin{array}{rcrcr}
+-2x_{1} & + & 2x_{2} & + & x_{3} \\
+x_{1} & + & 2x_{2} & - & 2x_{3} \\
+2x_{1} & + & x_{2} & + & 2x_{3} 
+\end{array}\rightB$; \\ 
+$q = 9y_{1}^2 + 9y_{2}^2$; \ $2$, $2$
+
+\setcounter{enumi}{7}
+\item  $P = \frac{1}{\sqrt{6}}\leftB \begin{array}{rrr}
+-\sqrt{2} & \sqrt{3} & 1 \\
+\sqrt{2} & 0 & 2 \\
+\sqrt{2} & \sqrt{3} & -1
+\end{array}\rightB$; \\ 
+$\vect{y} = \frac{1}{\sqrt{6}}\leftB \begin{array}{rcrcr}
+-\sqrt{2}x_{1} & + & \sqrt{2}x_{2} & + & \sqrt{2}x_{3} \\
+\sqrt{3}x_{1} & & & + & \sqrt{3}x_{3} \\
+x_{1} & + & 2x_{2} & - & x_{3} 
+\end{array}\rightB$; \\
+$q = 2y_{1}^2 + y_{2}^2 - y_{3}^2$; \ $2$, $3$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+For each of the following, write the equation in terms of new variables so that it is in standard position, and identify the curve.
+
+\begin{exenumerate}
+\exitem $xy = 1$
+\exitem $3x^{2} - 4xy = 2$
+\exitem $6x^{2} + 6xy - 2y^{2} = 5$
+\exitem $2x^{2} + 4xy + 5y^{2} = 1$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $x_{1} = \frac{1}{\sqrt{5}}(2x - y)$, $y_{1} = \frac{1}{\sqrt{5}}(x + 2y)$; $4x_{1}^2 - y_{1}^2 = 2$; hyperbola
+
+\setcounter{enumi}{3}
+\item $x_{1} = \frac{1}{\sqrt{5}}(x + 2y)$, $y_{1} = \frac{1}{\sqrt{5}}(2x - y)$; $6x_{1}^2 + y_{1}^2 = 1$; ellipse
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Consider the equation $ax^{2} + bxy + cy^{2} = d$, where $b \neq 0$. Introduce new variables $x_{1}$ and $y_{1}$ by rotating the axes counterclockwise through an angle $\theta$. Show that the resulting equation has no $x_{1}y_{1}$-term if $\theta$ is given by
+\begin{align*}
+& \cos2\theta = \frac{a - c}{\sqrt{b^2+(a-c)^2}}
+ \\ & \sin2\theta = \frac{b}{\sqrt{b^2+(a-c)^2}}
+\end{align*}
+
+[\textit{Hint}: Use equation (\ref{rotationEq2}) preceding Theorem~\ref{thm:027179} to get $x$ and $y$ in terms of $x_{1}$ and $y_{1}$, and substitute.]
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Basis $\{(i, 0, i), (1, 0, -1)\}$, dimension $2$
+
+\setcounter{enumi}{3}
+\item Basis $\{(1, 0, -2i), (0, 1, 1 - i)\}$, dimension $2$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Prove properties (1)--(5) preceding Example~\ref{exa:027315}.
+\end{ex}
+
+\begin{ex}
+If $A \stackrel{c}{\sim} B$ show that $A$ is invertible if and only if $B$ is invertible.
+\end{ex}
+
+\begin{ex}
+If $\vect{x} = (x_{1}, \dots, x_{n})^{T}$ is a column of variables, $A = A^{T}$ is $n \times n$, $B$ is $1 \times n$, and $c$ is a constant, $\vect{x}^{T}A\vect{x} + B\vect{x} = c$ is called a \textbf{quadratic equation}\index{quadratic equation} in the variables $x_{i}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that new variables $y_{1}, \dots, y_{n}$ can be found such that the equation takes the form 
+\begin{equation*}
+\lambda_{1}y_{1}^2 + \cdots + \lambda_{r}y_{r}^2 + k_{1}y_{1} + \cdots + k_{n}y_{n} = c
+\end{equation*}
+
+\item Put $x_{1}^2 + 3x_{2}^2 + 3x_{3}^2 + 4x_{1}x_{2} - 4x_{1}x_{3} + 5x_{1} - 6x_{3} = 7$ in this form and find variables $y_{1}$, $y_{2}$, $y_{3}$ as in (a).
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $3y_{1}^2 + 5y_{2}^2 - y_{3}^2 - 3\sqrt{2}y_{1} + \frac{11}{3}\sqrt{3}y_{2} + \frac{2}{3}\sqrt{6}y_{3} = 7$ \\
+$y_{1} = \frac{1}{\sqrt{2}}(x_{2} + x_{3})$, $y_{2} = \frac{1}{\sqrt{3}}(x_{1} + x_{2} - x_{3})$, $y_{3} = \frac{1}{\sqrt{6}}(2x_{1} - x_{2} + x_{3})$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak 
+\begin{ex}
+Given a symmetric matrix $A$, define $q_{A}(\vect{x}) = \vect{x}^{T}A\vect{x}$. Show that $B \stackrel{c}{\sim} A$ if and only if $B$ is symmetric and there is an invertible matrix $U$ such that $q_{B}(\vect{x}) = q_{A}(U\vect{x})$ for all $\vect{x}$. [\textit{Hint}: Theorem~\ref{thm:027243}.]
+\end{ex}
+
+\begin{ex}
+Let $q(\vect{x}) = \vect{x}^{T}A\vect{x}$ be a quadratic form where $A = A^{T}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $q(\vect{x}) > 0$ for all $\vect{x} \neq \vect{0}$, if and only if $A$ is positive definite (all eigenvalues are positive). In this case, $q$ is called \textbf{positive definite}\index{positive definite}.
+
+\item Show that new variables $\vect{y}$ can be found such that $q = \vectlength\vect{y}\vectlength^{2}$ and $\vect{y} = U\vect{x}$ where $U$ is upper triangular with positive diagonal entries. [\textit{Hint}: Theorem~\ref{thm:024907}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item By Theorem~\ref{thm:024907} let $A = U^{T}U$ where $U$ is upper triangular with positive diagonal entries. Then $q = \vect{x}^{T}(U^{T}U)\vect{x} = (U\vect{x})^{T}U\vect{x} = \vectlength U\vect{x} \vectlength^{2}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+
+\begin{ex}
+A \textbf{bilinear form}\index{bilinear form} $\beta$ on $\RR^n$ is a function that assigns to every pair $\vect{x}$, $\vect{y}$ of columns in $\RR^n$ a number $\beta(\vect{x}, \vect{y})$ in such a way that
+\begin{align*}
+\beta(r\vect{x} + s\vect{y}, \vect{z}) = r\beta(\vect{x}, \vect{z}) + s\beta(\vect{y}, \vect{z}) \\
+\beta(\vect{x}, r\vect{y} + s\vect{z}) = r\beta(\vect{x}, \vect{z}) + s\beta(\vect{x}, \vect{z})
+\end{align*}
+for all $\vect{x}$, $\vect{y}$, $\vect{z}$ in $\RR^n$ and $r$, $s$ in $\RR$. If $\beta(\vect{x}, \vect{y}) = \beta(\vect{y}, \vect{x})$ for all $\vect{x}$, $\vect{y}$, $\beta$ is called \textbf{symmetric}\index{symmetric bilinear form}.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\beta$ is a bilinear form, show that an $n \times n$ matrix $A$ exists such that $\beta(\vect{x}, \vect{y}) = \vect{x}^{T}A\vect{y}$ for all $\vect{x}$, $\vect{y}$.
+
+\item Show that $A$ is uniquely determined by $\beta$.
+
+\item Show that $\beta$ is symmetric if and only if $A = A^{T}$.
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

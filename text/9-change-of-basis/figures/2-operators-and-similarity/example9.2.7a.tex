@@ -1,0 +1,21 @@
+
+\begin{tikzpicture}
+\draw[dkbluevect,thick](-0.25,-20/12)--(0.375,2.5);
+\filldraw[color=dkbluevect, fill=ltbluevect, thick] (-1.5,1)--(0.85,0.85)--(2,-0.8)--(0.15,-1.25)--cycle;
+\draw[dkgreenvect,very thick,-latex](0,0)--(0.225,1.5);
+\draw[dkgreenvect,very thick,-latex](0,0)--(20:1);
+\draw[dkgreenvect,very thick,-latex](0,0)--(50:1);
+\draw[dkbluevect, -latex] (0.5, 0.2) arc [start angle=20, end angle=50, radius=0.5] node[right, text=black, pos=0.9] {\scriptsize $\theta$};
+\draw[dkgreenvect,very thick,-latex](0,0)--(300:1);
+\draw[dkgreenvect,very thick,-latex](0,0)--(330:1);
+\draw[dkbluevect, -latex] (0.25, -0.45) arc [start angle=300, end angle=330, radius=0.5] node[right,text=black, pos=0.0] {\scriptsize $\theta$};
+\node[left,font=\scriptsize]at(0,0){$\vect{0}$};
+\draw[dkgreenvect,dashed,thick] (300:1) arc [start angle=300, end angle=410, radius=1];
+\node[left,font=\scriptsize] at(0.225,1.5){$\vect{d}=R(\vect{d})$};
+\node[right,font=\scriptsize] at (0.375,2.5){$L$};
+\node[above,font=\scriptsize] at(50:1){$R(\vect{g})$};
+\node[right=-0.1cm,font=\scriptsize] at(20:1){$\vect{g}$};
+\node[right,font=\scriptsize] at(330:1){$R(\vect{f})$};
+\node[below=-0.1cm,font=\scriptsize] at(300:1){$\vect{f}$};
+\end{tikzpicture}
+

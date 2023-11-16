@@ -1,0 +1,1091 @@
+\section{Linear Independence and Dimension}
+\label{sec:6_3}
+
+\begin{definition}{Linear Independence and Dependence}{018551}
+As in $\RR^n$, a set of vectors $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ in a vector space $V$ is called \textbf{linearly independent}\index{linearly independent}\index{linear independence!vector spaces}\index{linear independence!independent}\index{linear independence!set of vectors} (or simply \textbf{independent}\index{independent}) if it satisfies the following condition:\index{independence}\index{vector spaces!linear independence}
+\begin{equation*}
+\mbox{If } \quad s_1\vect{v}_1 + s_2\vect{v}_2 + \dots + s_n\vect{v}_n = \vect{0}, \quad \mbox{ then } \quad 
+s_1 = s_2 = \dots = s_n = 0.
+\end{equation*}
+A set of vectors that is not linearly independent is said to be \textbf{linearly dependent} (or simply \textbf{dependent}\index{dependent}\index{linear independence!dependent}\index{linearly dependent}).
+\end{definition}
+
+\noindent The \textbf{trivial linear combination}\index{linear combinations!trivial}\index{trivial linear combinations} of the vectors $\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}$ is the one with every coefficient zero:
+\begin{equation*}
+0\vect{v}_1 + 0\vect{v}_2 + \dots + 0\vect{v}_n
+\end{equation*}
+This is obviously one way of expressing $\vect{0}$ as a linear combination of the vectors $\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}$, and they are linearly independent when it is the \textit{only} way.
+
+\begin{example}{}{018569}
+Show that $\{1 + x, 3x + x^{2}, 2 + x - x^{2}\}$ is independent in $\vectspace{P}_{2}$.
+
+\begin{solution}
+Suppose a linear combination of these polynomials vanishes.
+\begin{equation*}
+s_1(1 + x) + s_2(3x + x^2) + s_3(2 + x - x^2) = 0
+\end{equation*}
+Equating the coefficients of $1$, $x$, and $x^{2}$ gives a set of linear equations.
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrlrcr}
+	s_1 & + &      & + & 2s_3 & = & 0 \\
+	s_1 & + & 3s_2 & + &  s_3 & = & 0 \\
+	    &   &  s_2 & - &  s_3 & = & 0 \\
+\end{array}
+\end{equation*}
+The only solution is $s_{1} = s_{2} = s_{3} = 0$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{018586}
+Show that $\{\sin x, \cos x\}$ is independent in the vector space $\vectspace{F}[0, 2\pi]$ of functions defined on the interval $[0, 2\pi]$.
+
+\begin{solution}
+Suppose that a linear combination of these functions vanishes.
+\begin{equation*}
+s_1(\sin x) + s_2(\cos x) = 0
+\end{equation*}
+This must hold for \textit{all} values of $x$ in $[0, 2\pi]$ (by the definition of equality in $\vectspace{F}[0, 2\pi]$). Taking $x = 0$ yields $s_{2} = 0$ (because $\sin 0 = 0$ and $\cos 0 = 1$). Similarly, $s_{1} = 0$ follows from taking $x = \frac{\pi}{2}$ (because $\sin \frac{\pi}{2} = 1$ and $\cos \frac{\pi}{2} = 0$).
+\end{solution}
+\end{example}
+
+\begin{example}{}{018596}
+Suppose that $\{\vect{u}, \vect{v}\}$ is an independent set in a vector space $V$. Show that $\{\vect{u} + 2\vect{v}, \vect{u} - 3\vect{v}\}$ is also independent.
+
+\begin{solution}
+Suppose a linear combination of $\vect{u} + 2\vect{v}$ and $\vect{u} - 3\vect{v}$ vanishes:
+\begin{equation*}
+s(\vect{u} + 2\vect{v}) + t(\vect{u} - 3\vect{v}) = \vect{0}
+\end{equation*}
+We must deduce that $s = t = 0$. Collecting terms involving $\vect{u}$ and $\vect{v}$ gives
+\begin{equation*}
+(s + t)\vect{u} + (2s - 3t)\vect{v} = \vect{0}
+\end{equation*}
+Because $\{\vect{u}, \vect{v}\}$ is independent, this yields linear equations $s + t = 0$ and $2s - 3t = 0$. The only solution is $s = t = 0$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{018606}
+Show that any set of polynomials of distinct degrees\index{polynomials!distinct degrees} is independent.
+
+\begin{solution}
+Let $p_{1}, p_{2}, \dots, p_{m}$ be polynomials where $\func{deg}(p_{i}) = d_{i}$. By relabelling if necessary, we may assume that $d_{1} > d_{2} > \dots > d_{m}$. Suppose that a linear combination vanishes:
+\begin{equation*}
+t_1p_1 + t_2p_2 + \dots + t_mp_m = 0
+\end{equation*}
+where each $t_{i}$ is in $\RR$. As $\func{deg}(p_{1}) = d_{1}$, let $ax^{d_{1}}$ be the term in $p_{1}$ of highest degree, where $a \neq 0$. Since $d_{1} > d_{2} > \dots > d_{m}$, it follows that $t_{1}ax^{d_{1}}$ is the only term of degree $d_{1}$ in the linear combination $t_{1}p_{1} + t_{2}p_{2} + \dots + t_{m}p_{m} = 0$. This means that $t_{1}ax^{d_{1}} = 0$, whence $t_{1}a = 0$, hence $t_{1} = 0$ (because $a \neq 0$). But then $t_{2}p_{2} + \dots + t_{m}p_{m} = 0$ so we can repeat the argument to show that $t_{2} = 0$. Continuing, we obtain $t_{i} = 0$ for each $i$, as desired.
+\end{solution} 
+\end{example}
+
+\begin{example}{}{018648}
+Suppose that $A$ is an $n \times n$ matrix such that $A^{k} = 0$ but $A^{k-1} \neq 0$. Show that $B = \{I, A, A^{2}, \dots, A^{k-1}\}$ is independent in $\vectspace{M}_{nn}$.
+
+\begin{solution}
+Suppose $r_{0}I + r_{1}A + r_{2}A^{2} + \dots + r_{k-1}A^{k-1} = 0$. Multiply by $A^{k-1}$:
+\begin{equation*}
+r_0A^{k - 1} + r_1A^k + r_2A^{k + 1} + \dots + r_{k-1}A^{2k-2} = 0
+\end{equation*}
+Since $A^{k} = 0$, all the higher powers are zero, so this becomes $r_{0}A^{k-1} = 0$. But $A^{k-1} \neq 0$, so $r_{0} = 0$, and we have $r_{1}A^{1} + r_{2}A^{2} + \dots + r_{k-1}A^{k-1} = 0$. Now multiply by $A^{k-2}$ to conclude that $r_{1} = 0$. Continuing, we obtain $r_{i} = 0$ for each $i$, so $B$ is independent.
+\end{solution}
+\end{example}
+
+The next example collects several useful properties of independence for reference.\index{linear independence!properties}
+
+\begin{example}{}{018694}
+Let $V$ denote a vector space.
+
+\begin{enumerate}
+\item If $\vect{v} \neq \vect{0}$ in $V$, then $\{\vect{v}\}$ is an independent set.
+
+\item No independent set of vectors in $V$ can contain the zero vector.
+
+\end{enumerate}
+
+\begin{solution}
+\begin{enumerate}
+\item Let $t\vect{v} = \vect{0}$, $t$ in $\RR$. If $t \neq 0$, then $\vect{v} = 1\vect{v} = \frac{1}{t}(t\vect{v}) = \frac{1}{t}\vect{0} = \vect{0}$, contrary to assumption. So $t = 0$.
+
+\item If $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ is independent and (say) $\vect{v}_{2} = \vect{0}$, then $0\vect{v}_{1} + 1\vect{v}_{2} + \dots + 0\vect{v}_{k} = \vect{0}$ is a nontrivial linear combination that vanishes, contrary to the independence of $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$.
+\end{enumerate}
+\end{solution}
+\end{example}
+
+A set of vectors is independent if $\vect{0}$ is a linear combination in a unique way. The following theorem shows that \textit{every} linear combination of these vectors has uniquely determined coefficients, and so extends Theorem~\ref{thm:013996}.
+
+\begin{theorem}{}{018721}
+Let $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ be a linearly independent set of vectors in a vector space $V$. If a vector $\vect{v}$ has two (ostensibly different) representations
+\begin{equation*}\def\arraycolsep{1.5pt}
+\begin{array}{lllllllll}
+\vect{v} & = & s_1\vect{v}_1 &+& s_2\vect{v}_2 &+& \cdots &+& s_n\vect{v}_n \\
+\vect{v} & = & t_1\vect{v}_1 &+& t_2\vect{v}_2 &+& \cdots &+& t_n\vect{v}_n
+\end{array}
+\end{equation*}
+as linear combinations of these vectors, then $s_{1} = t_{1}, s_{2} = t_{2}, \dots, s_{n} = t_{n}$. In other words, every vector in $V$ can be written in a unique way as a linear combination of the $\vect{v}_{i}$.
+\end{theorem}
+
+\begin{proof}
+Subtracting the equations given in the theorem gives
+\begin{equation*}
+(s_1 - t_1)\vect{v}_1 + (s_2 - t_2)\vect{v}_2 + \dots + (s_n - t_n)\vect{v}_n = \vect{0}
+\end{equation*}
+The independence of $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ gives $s_{i} - t_{i} = 0$ for each $i$, as required.
+\end{proof}
+
+The following theorem extends (and proves) Theorem~\ref{thm:014254}, and is one of the most useful results in linear algebra.
+
+\begin{theorem}{Fundamental Theorem}{018746}
+Suppose a vector space $V$ can be spanned by $n$ vectors. If any set of $m$ vectors in $V$ is linearly independent, then $m \leq n$.\index{fundamental theorem}
+\end{theorem}
+
+\begin{proof}
+Let $V = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$, and suppose that $\{\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{m}\}$ is an independent set in $V$. Then $\vect{u}_{1} = a_{1}\vect{v}_{1} + a_{2}\vect{v}_{2} + \dots + a_{n}\vect{v}_{n}$ where each $a_{i}$ is in $\RR$. As $\vect{u}_{1} \neq \vect{0}$ (Example~\ref{exa:018694}), not all of the $a_{i}$ are zero, say $a_{1} \neq 0$ (after relabelling the $\vect{v}_{i}$). Then $V = \func{span}\{\vect{u}_{1}, \vect{v}_{2}, \vect{v}_{3}, \dots, \vect{v}_{n}\}$ as the reader can verify. Hence, write $\vect{u}_{2} = b_{1}\vect{u}_{1} + c_{2}\vect{v}_{2} + c_{3}\vect{v}_{3} + \dots + c_{n}\vect{v}_{n}$. Then some $c_{i} \neq 0$ because $\{\vect{u}_{1}, \vect{u}_{2}\}$ is independent; so, as before, $V = \func{span}\{\vect{u}_{1}, \vect{u}_{2}, \vect{v}_{3}, \dots, \vect{v}_{n}\}$, again after possible relabelling of the $\vect{v}_{i}$. If $m > n$, this procedure continues until all the vectors $\vect{v}_{i}$ are replaced by the vectors $\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{n}$. In particular, $V = \func{span}\{\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{n}\}$. But then $\vect{u}_{n+1}$ is a linear combination of $\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{n}$ contrary to the independence of the $\vect{u}_{i}$. Hence, the assumption $m > n$ cannot be valid, so $m \leq n$ and the theorem is proved.
+\end{proof}
+
+If $V = \func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$, and if $\{\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{m}\}$ is an independent set in $V$, the above proof shows not only that $m \leq n$ but also that $m$ of the (spanning) vectors $\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}$ can be replaced by the (independent) vectors $\vect{u}_{1}, \vect{u}_{2}, \dots, \vect{u}_{m}$ and the resulting set will still $\func{span} V$. In this form the result is called the \textbf{Steinitz Exchange Lemma}.
+
+\newpage
+\begin{definition}{Basis of a Vector Space}{018819}
+As in $\RR^n$, a set $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ of vectors in a vector space V is called a \textbf{basis}\index{basis!vector spaces}\index{vector spaces!basis} of $V$ if it satisfies the following two conditions:
+
+\begin{enumerate}
+\item $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is linearly independent
+
+\item $V = \func{span}\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$
+
+\end{enumerate}
+\end{definition}
+
+\noindent Thus if a set of vectors $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is a basis, then \textit{every} vector in $V$ can be written as a linear combination of these vectors in a \textit{unique} way (Theorem~\ref{thm:018721}). But even more is true: Any two (finite) bases of $V$ contain the same number of vectors.
+
+\begin{theorem}{Invariance Theorem}{018841}
+Let $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ and $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ be two bases of a vector space $V$. Then $n = m$.
+\end{theorem}
+
+\begin{proof}
+Because $V = \func{span}\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ and $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{m}\}$ is independent, it follows from Theorem~\ref{thm:018746} that $m \leq n$. Similarly $n \leq m$, so $n = m$, as asserted.
+\end{proof}
+
+Theorem~\ref{thm:018841} guarantees that no matter which basis of $V$ is chosen it contains the same number of vectors as any other basis. Hence there is no ambiguity about the following definition.
+
+\begin{definition}{Dimension of a Vector Space}{018862}
+If $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is a basis of the nonzero vector space $V$, the number $n$ of vectors in the basis is called the \textbf{dimension}\index{dimension}\index{vector spaces!dimension} of $V$, and we write
+\begin{equation*}
+\func{dim } V = n
+\end{equation*}
+The zero vector space $\{\vect{0}\}$ is defined to have dimension $0$:
+\begin{equation*}
+\func{dim }\{\vect{0}\} = 0
+\end{equation*}
+\end{definition}
+
+\noindent In our discussion to this point we have always assumed that a basis is nonempty and hence that the dimension of the space is at least $1$. However, the zero space $\{\vect{0}\}$ has \textit{no} basis (by Example~\ref{exa:018694}) so our insistence that $\func{dim}\{\vect{0}\} = 0$ amounts to saying that the \textit{empty} set of vectors is a basis of $\{\vect{0}\}$. Thus the statement that ``the dimension of a vector space is the number of vectors in any basis'' holds even for the zero space.
+
+We saw in Example~\ref{exa:014241} that $\func{dim}(\RR^n) = n$ and, if $\vect{e}_{j}$ denotes column $j$ of $I_{n}$, that $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is a basis (called the standard basis)\index{basis!standard basis}. In Example~\ref{exa:018880} below, similar considerations apply to the space $\vectspace{M}_{mn}$ of all $m \times n$ matrices; the verifications are left to the reader.
+
+\begin{example}{}{018880}
+The space $\vectspace{M}_{mn}$ has dimension $mn$, and one basis consists of all $m \times n$ matrices with exactly one entry equal to $1$ and all other entries equal to $0$. We call this the \textbf{standard basis}\index{standard basis} of $\vectspace{M}_{mn}$.
+\end{example}
+
+\begin{example}{}{018885}
+Show that $\func{dim} \vect{P}_{n} = n + 1$ and that $\{1, x, x^{2}, \dots, x^{n}\}$ is a basis, called the \textbf{standard basis} of $\vectspace{P}_{n}$.
+
+\begin{solution}
+Each polynomial $p(x) = a_{0} + a_{1}x + \dots + a_{n}x^{n}$ in $\vectspace{P}_{n}$ is clearly a linear combination of $1, x, \dots, x^{n}$, so $\vectspace{P}_{n} = \func{span}\{1, x, \dots, x^{n}\}$. However, if a linear combination of these vectors vanishes, $a_{0}1 + a_{1}x + \dots + a_{n}x^{n} = 0$, then $a_{0} = a_{1} = \dots = a_{n} = 0$ because $x$ is an indeterminate. So $\{1, x, \dots, x^{n}\}$ is linearly independent and hence is a basis containing $n + 1$ vectors. Thus, $\func{dim}(\vect{P}_{n}) = n + 1$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{018912}
+If $\vect{v} \neq \vect{0}$ is any nonzero vector in a vector space $V$, show that $\func{span}\{\vect{v}\} = \RR\vect{v}$ has dimension $1$.
+
+\begin{solution}
+$\{\vect{v}\}$ clearly spans $\RR\vect{v}$, and it is linearly independent by Example~\ref{exa:018694}. Hence $\{\vect{v}\}$ is a basis of $\RR\vect{v}$, and so $\func{dim} \RR\vect{v} = 1$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{018918}
+Let $A = 
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB$ and consider the subspace
+\begin{equation*}
+U = \{X \mbox{ in } \vectspace{M}_{22} \mid AX = XA \}
+\end{equation*}
+of $\vectspace{M}_{22}$. Show that $\func{dim} U = 2$ and find a basis of $U$.
+
+\begin{solution}
+It was shown in Example~\ref{exa:018107} that $U$ is a subspace for any choice of the matrix $A$. In the present case, if $X = 
+\leftB \begin{array}{rr}
+x & y \\
+z & w
+\end{array} \rightB$
+ is in $U$, the condition $AX = XA$ gives $z = 0$ and $x = y + w$. Hence each matrix $X$ in $U$ can be written
+\begin{equation*}
+X = 
+\leftB \begin{array}{cc}
+y + w & y \\
+0 & w
+\end{array} \rightB
+= y
+\leftB \begin{array}{rrr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB
++ w
+\leftB \begin{array}{rrr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+\end{equation*}
+so $U = \func{span} B$ where 
+$B = 
+\left\{
+\leftB \begin{array}{rrr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rrr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+\right\}.$
+ Moreover, the set $B$ is linearly independent (verify this), so it is a basis of $U$ and $\func{dim} U = 2$.
+\end{solution}
+\end{example}
+
+\begin{example}{}{018930}
+Show that the set $V$ of all symmetric $2 \times 2$ matrices is a vector space, and find the dimension of $V$.
+
+\begin{solution}
+A matrix $A$ is symmetric if $A^{T} = A$. If $A$ and $B$ lie in $V$, then
+\begin{equation*}
+(A + B)^T = A^T + B^T = A + B \quad \mbox{ and } \quad (kA)^T = kA^T = kA
+\end{equation*}
+using Theorem~\ref{thm:002240}. Hence $A + B$ and $kA$ are also symmetric. As the $2 \times 2$ zero matrix is also in $V$, this shows that $V$ is a vector space (being a subspace of $\vectspace{M}_{22}$). Now a matrix $A$ is symmetric when entries directly across the main diagonal are equal, so each $2 \times 2$ symmetric matrix has the form
+\begin{equation*}
+\leftB \begin{array}{rr}
+a & c \\
+c & b
+\end{array} \rightB
+= a
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB
++ b
+\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB
++ c
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB
+\end{equation*}
+Hence the set 
+$B = \left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB
+,\
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB
+\right\}$
+ spans $V$, and the reader can verify that $B$ is linearly independent. Thus $B$ is a basis of $V$, so $\func{dim} V = 3$.
+\end{solution}
+\end{example}
+
+It is frequently convenient to alter a basis by multiplying each basis vector by a nonzero scalar. The next example shows that this always produces another basis. The proof is left as Exercise \ref{ex:6_3_22}.
+
+\begin{example}{}{018943}
+Let $B = \{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ be nonzero vectors in a vector space $V$. Given nonzero scalars $a_{1}, a_{2}, \dots, a_{n}$, write $D = \{a_{1}\vect{v}_{1}, a_{2}\vect{v}_{2}, \dots, a_{n}\vect{v}_{n}\}$. If $B$ is independent or spans $V$, the same is true of $D$. In particular, if $B$ is a basis of $V$, so also is $D$.
+\end{example}
+
+\section*{Exercises for \ref{sec:6_3}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:6_3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Show that each of the following sets of vectors is independent.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{1 + x, 1 - x, x + x^{2}\}$ in $\vectspace{P}_{2}$
+
+\item $\{x^{2}, x + 1, 1 - x - x^{2}\}$ in $\vectspace{P}_{2}$
+
+\item \hspace{1em} \\
+\hspace*{-2em}$
+\left\{
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 0 \\
+1 & -1
+\end{array} \rightB
+,\
+\leftB \begin{array}{rr}
+0 & 1 \\
+0 & 1
+\end{array} \rightB
+\right\}$ \\  in $\vectspace{M}_{22}$
+
+\item \hspace{1em} \\
+\hspace*{-2em}$
+\left\{
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1
+\end{array} \rightB
+,\
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB
+\right\}$ \\ in $\vectspace{M}_{22}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $ax^{2} + b(x + 1) + c(1 - x - x^{2}) = 0$, then $a + c = 0$, $b - c = 0$, $b + c = 0$, so $a = b = c = 0$.
+
+\setcounter{enumi}{3}
+\item  If $a
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & 0
+\end{array} \rightB
++ b
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 1
+\end{array} \rightB
++ c
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1
+\end{array} \rightB
++ d
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB
+= 
+\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 0
+\end{array} \rightB$, then $a + c + d = 0$, $a + b + d = 0$, $a + b + c = 0$, and $b + c + d = 0$, so $a = b = c = d = 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Which of the following subsets of $V$ are independent?
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \vectspace{P}_{2}$; $\{x^{2} + 1, x + 1, x\}$
+
+\item $V = \vectspace{P}_{2}$; $\{x^{2} - x + 3, 2x^{2} + x + 5, x^{2} + 5x + 1\}$
+
+\item $V = \vectspace{M}_{22}$;
+$\left\{
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+\right\}$
+
+\item $V = \vectspace{M}_{22}$; \\
+\hspace*{-2.5em}$\small{\left\{
+\leftB \begin{array}{rr}
+	-1 & 0 \\
+	0 & -1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+	1 & -1 \\
+	-1 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+	1 & 1 \\
+	1 & 1
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+	0 & -1 \\
+	-1 & 0
+\end{array} \rightB
+\right\}}$
+
+\item $V = \vectspace{F}[1, 2]$; $\left\{\frac{1}{x}, \frac{1}{x^2}, \frac{1}{x^3} \right\}$
+
+\item $V = \vectspace{F}[0, 1]$; $\left\{\frac{1}{x^2 + x - 6}, \frac{1}{x^2 - 5x + 6}, \frac{1}{x^2 -9} \right\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $3(x^{2} - x + 3) - 2(2x^{2} + x + 5) + (x^{2} + 5x + 1) = 0$
+
+\setcounter{enumi}{3}
+\item $2 
+\leftB \begin{array}{rr}
+-1 & 0 \\
+0 & -1
+\end{array} \rightB
++
+\leftB \begin{array}{rr}
+1 & -1 \\
+-1 & 1
+\end{array} \rightB
++
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & 1
+\end{array} \rightB
+= \leftB \begin{array}{rr}
+0 & 0 \\
+0 & 0
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item $\frac{5}{x^2 + x - 6} + \frac{1}{x^2 - 5x + 6} - \frac{6}{x^2 - 9} = 0$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Which of the following are independent in $\vectspace{F}[0, 2\pi]$?
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{\sin^{2} x, \cos^{2} x\}$
+
+\item $\{1, \sin^{2} x, \cos^{2} x\}$
+
+\item $\{x, \sin^{2} x, \cos^{2} x\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Dependent: $1 - \sin^{2} x - \cos^{2} x = 0$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all values of $a$ such that the following are independent in $\RR^3$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{(1, -1, 0), (a, 1, 0), (0, 2, 3)\}$
+
+\item $\{(2, a, 1), (1, 0, 1), (0, 1, 3)\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x \neq -\frac{1}{3}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the following are bases of the space $V$ indicated.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{(1, 1, 0), (1, 0, 1), (0, 1, 1)\}$; $V = \RR^3$
+
+\item $\{(-1, 1, 1), (1, -1, 1), (1, 1, -1)\}$; $V = \RR^3$
+
+\item $\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB
+\right\}$; \\ $V = \vectspace{M}_{22}$
+
+\item $\{1 + x, x + x^{2}, x^{2} + x^{3}, x^{3}\}$; $V = \vectspace{P}_{3}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $r(-1, 1, 1) + s(1, -1, 1) + t(1, 1, -1) = (0, 0, 0)$, then $-r + s + t = 0$, $r - s + t = 0$, and $r - s - t = 0$, and this implies that $r = s = t = 0$. This proves independence. To prove that they $\func{span} \RR^3$, observe that $(0, 0, 1) = \frac{1}{2}[(-1, 1, 1) + (1, -1, 1)]$ so $(0, 0, 1)$ lies in $\func{span}\{(-1, 1, 1), (1, -1, 1), (1, 1, -1)\}$. The proof is similar for $(0, 1, 0)$ and $(1, 0, 0)$.
+
+\setcounter{enumi}{3}
+\item  If $r(1 + x) + s(x + x^{2}) + t(x^{2} + x^{3}) + ux^{3} = 0$, then $r = 0$, $r + s = 0$, $s + t = 0$, and $t + u = 0$, so $r = s = t = u = 0$. This proves independence. To show that they $\func{span} \vectspace{P}_{3}$, observe that $x^{2} = (x^{2} + x^{3}) - x^{3}$, $x = (x + x^{2}) - x^{2}$, and $1 = (1 + x) - x$, so $\{1, x, x^{2}, x^{3}\} \subseteq \func{span}\{1 + x, x + x^{2}, x^{2} + x^{3}, x^{3}\}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Exhibit a basis and calculate the dimension of each of the following subspaces of $\vectspace{P}_{2}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{a(1 + x) + b(x + x^{2}) \mid a \mbox{ and } b \mbox{ in } \RR\}$
+
+\item $\{a + b(x + x^{2}) \mid a \mbox{ and } b \mbox{ in } \RR\}$
+
+\item $\{p(x) \mid p(1) = 0\}$
+
+\item $\{p(x) \mid p(x) = p(-x)\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{1, x + x^{2}\}$; dimension $= 2$
+
+\setcounter{enumi}{3}
+\item  $\{1, x^{2}\}$; dimension $= 2$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Exhibit a basis and calculate the dimension of each of the following subspaces of $\vectspace{M}_{22}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{A \mid A^{T} = -A\}$
+
+\item $\left\{
+A\ \middle|\ A 
+\leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 0
+\end{array} \rightB
+=
+\leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 0
+\end{array} \rightB
+A
+\right\}$
+
+\item $\left \{
+A\ \middle|\ A 
+\leftB \begin{array}{rr}
+1 & 0 \\
+-1 & 0
+\end{array} \rightB
+=
+\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 0
+\end{array} \rightB
+\right \}$
+
+\item $\left\{
+A\ \middle|\ A
+\leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 0
+\end{array} \rightB
+=
+\leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 1
+\end{array} \rightB A
+\right\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\left\{
+\leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+\right\}$; dimension $= 2$
+
+\setcounter{enumi}{3}
+\item $\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array} \rightB
+\right\}$; dimension $= 2$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A = 
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 0
+\end{array} \rightB$ and define
+\newline $U = \{X \mid X \in \vectspace{M}_{22} \mbox{ and } AX = X\}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Find a basis of $U$ containing $A$.
+
+\item Find a basis of $U$ not containing $A$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB
+\right\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the set $\mathbb{C}$  of all complex numbers is a vector space with the usual operations, and find its dimension.
+\end{ex}
+
+\columnbreak
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Let $V$ denote the set of all $2 \times 2$ matrices with equal column sums. Show that $V$ is a subspace of $\vectspace{M}_{22}$, and compute $\func{dim} V$.
+
+\item Repeat part (a) for $3 \times 3$ matrices.
+
+\item Repeat part (a) for $n \times n$ matrices.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\func{dim} V = 7$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Let $V = \{(x^{2} + x + 1)p(x) \mid p(x) \mbox{ in } \vectspace{P}_{2}\}$. Show that $V$ is a subspace of $\vectspace{P}_{4}$ and find $\func{dim} V$. [\textit{Hint}: If $f(x)g(x) = 0$ in $\vectspace{P}$, then $f(x) = 0$ or $g(x) = 0$.]
+
+\item Repeat with $V = \{(x^{2} - x)p(x) \mid p(x) \mbox{ in } \vectspace{P}_{3}\}$, a subset of $\vectspace{P}_{5}$.
+
+\item Generalize.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{x^{2} - x, x(x^{2} - x), x^{2}(x^{2} - x), x^{3}(x^{2} - x)\}$; $\func{dim} V = 4$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, either prove the assertion or give an example showing that it is false.
+
+\begin{enumerate}[label={\alph*.}]
+\item Every set of four nonzero polynomials in $\vectspace{P}_{3}$ is a basis.
+
+\item $\vectspace{P}_{2}$ has a basis of polynomials $f(x)$ such that $f(0) = 0$.
+
+\item $\vectspace{P}_{2}$ has a basis of polynomials $f(x)$ such that $f(0) = 1$.
+
+\item Every basis of $\vectspace{M}_{22}$ contains a noninvertible matrix.
+
+\item No independent subset of $\vectspace{M}_{22}$ contains a matrix $A$ with $A^{2} = 0$.
+
+\item If $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent then, $a\vect{u} + b\vect{v} + c\vect{w} = \vect{0}$ for some $a$, $b$, $c$.
+
+\item $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent if $a\vect{u} + b\vect{v} + c\vect{w} = \vect{0}$ for some $a$, $b$, $c$.
+
+\item If $\{\vect{u}, \vect{v}\}$ is independent, so is $\{\vect{u}, \vect{u} + \vect{v}\}$.
+
+\item If $\{\vect{u}, \vect{v}\}$ is independent, so is $\{\vect{u}, \vect{v}, \vect{u} + \vect{v}\}$.
+
+\item If $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent, so is $\{\vect{u}, \vect{v}\}$.
+
+\item If $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent, so is $\{\vect{u} + \vect{w}, \vect{v} + \vect{w}\}$.
+
+\item If $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent, so is $\{\vect{u} + \vect{v} + \vect{w}\}$.
+
+\item If $\vect{u} \neq \vect{0}$ and $\vect{v} \neq \vect{0}$ then $\{\vect{u}, \vect{v}\}$ is dependent if and only if one is a scalar multiple of the other.
+
+\item If $\func{dim} V = n$, then no set of more than $n$ vectors can be independent.
+
+\item If $\func{dim} V = n$, then no set of fewer than $n$ vectors can span $V$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No. Any linear combination $f$ of such polynomials has $f(0) = 0$.
+
+\setcounter{enumi}{3}
+\item  No. \\
+$\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 1 \\
+1 & 1
+\end{array} \rightB
+\right\}$; consists of invertible matrices.
+
+\setcounter{enumi}{5}
+\item  Yes. $0\vect{u} + 0\vect{v} + 0\vect{w} = \vect{0}$ for every set $\{\vect{u}, \vect{v}, \vect{w}\}$.
+
+\setcounter{enumi}{7}
+\item  Yes. $s\vect{u} + t(\vect{u} + \vect{v}) = \vect{0}$ gives $(s + t)\vect{u} + t\vect{v} = \vect{0}$, whence $s + t = 0 = t$.
+
+\setcounter{enumi}{9}
+\item  Yes. If $r\vect{u} + s\vect{v} = \vect{0}$, then $r\vect{u} + s\vect{v} + 0\vect{w} = \vect{0}$, so $r = 0 = s$.
+
+\setcounter{enumi}{11}
+\item  Yes. $\vect{u} + \vect{v} + \vect{w} \neq \vect{0}$ because $\{\vect{u}, \vect{v}, \vect{w}\}$ is independent.
+
+\setcounter{enumi}{13}
+\item  Yes. If $I$ is independent, then $|I| \leq n$ by the fundamental theorem because any basis spans $V$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A \neq 0$ and $B \neq 0$ be $n \times n$ matrices, and assume that $A$ is symmetric and $B$ is skew-symmetric (that is, $B^{T} = -B$). Show that $\{A, B\}$ is independent.
+\end{ex}
+
+\begin{ex}
+Show that every set of vectors containing a dependent set is again dependent.
+\end{ex}
+
+\begin{ex} \label{ex:6_3_15}
+Show that every nonempty subset of an independent set of vectors is again independent.
+
+\begin{sol}
+If a linear combination of the subset vanishes, it is a linear combination of the vectors in the larger set (coefficients outside the subset are zero) so it is trivial.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $f$ and $g$ be functions on $[a, b]$, and assume that $f(a) = 1 = g(b)$ and $f(b) = 0 = g(a)$. Show that $\{f, g\}$ is independent in $\vectspace{F}[a, b]$.
+\end{ex}
+
+\begin{ex}
+Let $\{A_{1}, A_{2}, \dots, A_{k}\}$ be independent in $\vectspace{M}_{mn}$, and suppose that $U$ and $V$ are invertible matrices of size $m \times m$ and $n \times n$, respectively. Show that $\{UA_{1}V, UA_{2}V, \dots, UA_{k}V\}$ is independent.
+\end{ex}
+
+\begin{ex}
+Show that $\{\vect{v}, \vect{w}\}$ is independent if and only if neither $\vect{v}$ nor $\vect{w}$ is a scalar multiple of the other.
+\end{ex}
+
+\begin{ex}
+Assume that $\{\vect{u}, \vect{v}\}$ is independent in a vector space $V$. Write $\vect{u}^\prime = a\vect{u} + b\vect{v}$ and $\vect{v}^\prime = c\vect{u} + d\vect{v}$, where $a$, $b$, $c$, and $d$ are numbers. Show that $\{\vect{u}^\prime, \vect{v}^\prime\}$ is independent if and only if the matrix 
+$\leftB \begin{array}{rr}
+a & c \\
+b & d
+\end{array} \rightB$
+ is invertible. [\textit{Hint}: Theorem~\ref{thm:004553}.]
+
+\begin{sol}
+Because $\{\vect{u}, \vect{v}\}$ is linearly independent, $s\vect{u}^\prime + t\vect{v}^\prime = \vect{0}$ is equivalent to 
+$\leftB \begin{array}{rr}
+a & c \\
+b & d
+\end{array} \rightB
+\leftB \begin{array}{r}
+s \\
+t
+\end{array} \rightB
+= 
+\leftB \begin{array}{r}
+0 \\
+0
+\end{array} \rightB$. Now apply Theorem~\ref{thm:004553}.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ is independent and $\vect{w}$ is not in $\func{span}\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$, show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{\vect{w}, \vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ is independent.
+
+\item $\{\vect{v}_{1} + \vect{w}, \vect{v}_{2} + \vect{w}, \dots, \vect{v}_{k} + \vect{w}\}$ is independent.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{k}\}$ is independent, show that $\{\vect{v}_{1}, \vect{v}_{1} + \vect{v}_{2}, \dots, \vect{v}_{1} + \vect{v}_{2} + \dots + \vect{v}_{k}\}$ is also independent.
+\end{ex}
+
+\begin{ex}
+\label{ex:6_3_22}
+Prove Example~\ref{exa:018943}.
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{u}, \vect{v}, \vect{w}, \vect{z}\}$ be independent. Which of the following are dependent?
+
+\begin{enumerate}[label={\alph*.}]
+\item $\{\vect{u} - \vect{v}, \vect{v} - \vect{w}, \vect{w} - \vect{u}\}$
+
+\item $\{\vect{u} + \vect{v}, \vect{v} + \vect{w}, \vect{w} + \vect{u}\}$
+
+\item $\{\vect{u} - \vect{v}, \vect{v} - \vect{w}, \vect{w} - \vect{z}, \vect{z} - \vect{u}\}$
+
+\item $\{\vect{u} + \vect{v}, \vect{v} + \vect{w}, \vect{w} + \vect{z}, \vect{z} + \vect{u}\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Independent.
+
+\setcounter{enumi}{3}
+\item  Dependent. For example, $(\vect{u} + \vect{v}) - (\vect{v} + \vect{w}) + (\vect{w} + \vect{z}) - (\vect{z} + \vect{u}) = \vect{0}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $U$ and $W$ be subspaces of $V$ with bases $\{\vect{u}_{1}, \vect{u}_{2}, \vect{u}_{3}\}$ and $\{\vect{w}_{1}, \vect{w}_{2}\}$ respectively. If $U$ and $W$ have only the zero vector in common, show that $\{\vect{u}_{1}, \vect{u}_{2}, \vect{u}_{3}, \vect{w}_{1}, \vect{w}_{2}\}$ is independent.
+\end{ex}
+
+\begin{ex}
+Let $\{p, q\}$ be independent polynomials. Show that $\{p, q, pq\}$ is independent if and only if $\func{deg} p \geq 1$ and $\func{deg} q \geq 1$.
+\end{ex}
+
+\begin{ex}
+If $z$ is a complex number, show that $\{z, z^{2}\}$ is independent if and only if $z$ is not real.
+
+\begin{sol}
+If $z$ is not real and $az + bz^{2} = 0$, then $a + bz = 0 (z \neq 0)$. Hence if $b \neq 0$, then $z = -ab^{-1}$ is real. So $b = 0$, and so $a = 0$. Conversely, if $z$ is real, say $z = a$, then $(-a)z + 1z^{2} = 0$, contrary to the independence of $\{z, z^{2}\}$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $B = \{A_{1}, A_{2}, \dots, A_{n}\} \subseteq \vectspace{M}_{mn}$, and write $B^\prime = \{A_1^T, A_2^T, \dots, A_n^T\} \subseteq \vectspace{M}_{nm}$. Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $B$ is independent if and only if $B^\prime$ is independent.
+
+\item $B$ spans $\vectspace{M}_{mn}$ if and only if $B^\prime$ spans $\vectspace{M}_{nm}$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+If $V = \vectspace{F}[a, b]$ as in Example~\ref{exa:017760}, show that the set of constant functions is a subspace of dimension $1$ ($f$ is \textbf{constant}\index{constant} if there is a number $c$ such that $f(x) = c$ for all $x$).
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $U$ is an invertible $n \times n$ matrix and $\{A_{1}, A_{2}, \dots, A_{mn}\}$ is a basis of $\vectspace{M}_{mn}$, show that $\{A_{1}U, A_{2}U, \dots, A_{mn}U\}$ is also a basis.
+
+\item Show that part (a) fails if $U$ is not invertible. [\textit{Hint}: Theorem~\ref{thm:004553}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $U\vect{x} = \vect{0}$, $\vect{x} \neq \vect{0}$ in $\RR^n$, then $R\vect{x} = \vect{0}$ where $R \neq 0$ is row 1 of $U$. If $B \in \vectspace{M}_{mn}$ has each row equal to $R$, then $B\vect{x} \neq \vect{0}$. But if $B = \sum r_{i}A_{i}U$, then $B\vect{x} = \sum  r_{i}A_{i}U\vect{x} = \vect{0}$. So $\{A_{i}U\}$ cannot span $\vectspace{M}_{mn}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that $\{(a, b), (a_{1}, b_{1})\}$ is a basis of $\RR^2$ if and only if $\{a + bx, a_{1} + b_{1}x\}$ is a basis of $\vectspace{P}_{1}$.
+\end{ex}
+
+\begin{ex}
+Find the dimension of the subspace $\func{span}\{1, \sin^{2} \theta, \cos 2\theta\}$ of $\vectspace{F}[0, 2\pi]$.
+\end{ex}
+
+\begin{ex}\label{ex:6_3_32}
+Show that $\vectspace{F}[0, 1]$ is not finite dimensional.
+\end{ex}
+
+\begin{ex}\label{ex:ex6_3_33}
+If $U$ and $W$ are subspaces of $V$, define their intersection $U \cap W$ as follows:
+
+$U \cap W = \{\vect{v} \mid \vect{v} \mbox{ is in both } U \mbox{ and } W\}$
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $U \cap W$ is a subspace contained in $U$ and $W$.
+
+\item Show that $U \cap W = \{\vect{0}\}$ if and only if $\{\vect{u}, \vect{w}\}$ is independent for any nonzero vectors $\vect{u}$ in $U$ and $\vect{w}$ in $W$.
+
+\item If $B$ and $D$ are bases of $U$ and $W$, and if $U \cap W = \{\vect{0}\}$, show that $B \cup D = \{\vect{v} \mid \vect{v} \mbox{ is in } B \mbox{ or } D\}$ is independent.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $U \cap W = 0$ and $r\vect{u} + s\vect{w} = \vect{0}$, then $r\vect{u} = -s\vect{w}$ is in $U \cap W$, so $r\vect{u} = \vect{0} = s\vect{w}$. Hence $r = 0 = s$ because $\vect{u} \neq \vect{0} \neq \vect{w}$. Conversely, if $\vect{v} \neq \vect{0}$ lies in $U \cap W$, then $1\vect{v} + (-1)\vect{v} = \vect{0}$, contrary to hypothesis.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:6_3_34}
+If $U$ and $W$ are vector spaces, let $V = \{(\vect{u}, \vect{w}) \mid \vect{u} \mbox{ in } U \mbox{ and } \vect{w} \mbox{ in } W\}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $V$ is a vector space if $(\vect{u}, \vect{w}) + (\vect{u}_{1}, \vect{w}_{1}) = (\vect{u} + \vect{u}_{1}, \vect{w} + \vect{w}_{1})$ and $a(\vect{u}, \vect{w}) = (a\vect{u}, a\vect{w})$.
+
+\item If $\func{dim} U = m$ and $\func{dim} W = n$, show that \newline $\func{dim} V = m + n$.
+
+\item If $V_{1}, \dots, V_{m}$ are vector spaces, let 
+\begin{align*}
+V &= V_{1} \times \dots \times V_{m} \\
+&= \{(\vect{v}_{1}, \dots, \vect{v}_{m}) \mid \vect{v}_{i} \in V_{i} \mbox{ for each } i\}
+\end{align*}
+ denote the space of $n$-tuples from the $V_{i}$ with componentwise operations (see Exercise~\ref{ex:ex6_1_17}). If $\func{dim} V_{i} = n_{i}$ for each $i$, show that $\func{dim} V = n_{1} + \dots + n_{m}$.
+
+\end{enumerate}
+\end{ex}
+
+\columnbreak
+
+\begin{ex}\label{ex:ex6_3_35}
+Let $\vect{D}_{n}$ denote the set of all functions $f$ from the set $\{1, 2, \dots, n\}$ to $\RR$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vectspace{D}_{n}$ is a vector space with pointwise addition and scalar multiplication.
+
+\item Show that $\{S_{1}, S_{2}, \dots, S_{n}\}$ is a basis of $\vectspace{D}_{n}$ where, for each $k = 1, 2, \dots, n$, the function $S_{k}$ is defined by $S_{k}(k) = 1$, whereas $S_{k}(j) = 0$ if $j \neq k$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}\label{ex:ex6_3_36}
+A polynomial $p(x)$ is called \textbf{even}\index{even polynomial}\index{polynomials!even} if $p(-x) = p(x)$ and \textbf{odd}\index{odd polynomial}\index{polynomials!odd} if $p(-x) = -p(x)$. Let $E_{n}$ and $O_{n}$ denote the sets of even and odd polynomials in $\vectspace{P}_{n}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $E_{n}$ is a subspace of $\vectspace{P}_{n}$ and find $\func{dim} E_{n}$.
+
+\item Show that $O_{n}$ is a subspace of $\vectspace{P}_{n}$ and find $\func{dim} O_{n}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\func{dim } O_n = \frac{n}{2}$ if $n$ is even and $\func{dim } O_n = \frac{n + 1}{2}$ if $n$ is odd.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\{\vect{v}_{1}, \dots, \vect{v}_{n}\}$ be independent in a vector space $V$, and let $A$ be an $n \times n$ matrix. Define $\vect{u}_{1}, \dots, \vect{u}_{n}$ by
+\begin{equation*}
+\leftB \begin{array}{c}
+\vect{u}_1 \\
+\vdots \\
+\vect{u}_n
+\end{array} \rightB
+= A
+\leftB \begin{array}{c}
+\vect{v}_1 \\
+\vdots \\
+\vect{v}_n
+\end{array} \rightB
+\end{equation*}
+(See Exercise~\ref{ex:6_1_18}.) Show that $\{\vect{u}_{1}, \dots, \vect{u}_{n}\}$ is independent if and only if $A$ is invertible.
+\end{ex}
+\end{multicols}

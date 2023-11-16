@@ -1,0 +1,476 @@
+\chapter*{Preface}
+\label{chap:preface}
+
+This textbook is an introduction to the
+ ideas and techniques of linear algebra for first- or second-year 
+students with a working knowledge of high school algebra. The contents 
+have enough flexibility to present a traditional introduction to the 
+subject, or to allow for a more applied course. Chapters~\ref{chap:1}--\ref{chap:4} contain a one-semester course for beginners whereas Chapters~\ref{chap:5}--\ref{chap:9}
+ contain a second semester course (see the Suggested Course Outlines 
+below). The text is primarily about real linear algebra with complex 
+numbers being mentioned when appropriate (reviewed in Appendix \ref{chap:appacomplexnumbers}).
+ Overall, the aim of the text is to achieve a balance among 
+computational skills, theory, and applications of linear algebra. 
+Calculus is not a prerequisite; places where it is mentioned may be 
+omitted.
+
+
+As a rule, students of linear algebra 
+learn by studying examples and solving problems. Accordingly, the book 
+contains a variety of exercises (over 1200, many with multiple parts), 
+ordered as to their difficulty. In addition, more than 375 solved 
+examples are included in the text, many of which are computational in 
+nature. The examples are also used to motivate (and illustrate) concepts
+ and theorems, carrying the student from concrete to abstract. While the
+ treatment is rigorous, proofs are presented at a level appropriate to 
+the student and may be omitted with no loss of continuity. As a result, 
+the book can be used to give a course that emphasizes computation and 
+examples, or to give a more theoretical treatment (some longer proofs 
+are deferred to the end of the Section).
+
+
+Linear Algebra has application to the 
+natural sciences, engineering, management, and the social sciences as 
+well as mathematics. Consequently, 18 optional ``applications'' sections 
+are included in the text introducing topics as diverse as electrical 
+networks, economic models, Markov chains, linear recurrences, systems of
+ differential equations, and linear codes over finite fields. 
+Additionally some applications (for example linear dynamical systems, 
+and directed graphs) are introduced in context. The applications 
+sections appear at the end of the relevant chapters to encourage 
+students to browse.
+
+
+\section*{SUGGESTED COURSE OUTLINES}
+
+This text includes the basis for a two-semester course in linear algebra.
+
+
+\begin{itemize}
+\item Chapters~\ref{chap:1}--\ref{chap:4}
+ provide a standard one-semester course of 35 lectures, including linear
+ equations, matrix algebra, determinants, diagonalization, and geometric
+ vectors, with applications as time permits. At Calgary, we cover Sections \ref{sec:1_1}--\ref{sec:1_3}, \ref{sec:2_1}--\ref{sec:2_6}, \ref{sec:3_1}--\ref{sec:3_3}, and \ref{sec:4_1}--\ref{sec:4_4} and the course is taken by all science and engineering students in 
+their first semester. Prerequisites include a working knowledge of high 
+school algebra (algebraic manipulations and some familiarity with 
+polynomials); calculus is not required.
+
+\item Chapters~\ref{chap:5}--\ref{chap:9} contain a second semester course including $\RR^n$,
+ abstract vector spaces, linear transformations (and their matrices), 
+orthogonality, complex matrices (up to the spectral theorem) and 
+applications. There is more material here than can be covered in one 
+semester, and at Calgary we cover Sections \ref{sec:5_1}--\ref{sec:5_5}, \ref{sec:6_1}--\ref{sec:6_4}, \ref{sec:7_1}--\ref{sec:7_3}, \ref{sec:8_1}--\ref{sec:8_6}, and \ref{sec:9_1}--\ref{sec:9_3} with a couple of applications as time permits.
+
+\item Chapter~\ref{chap:5} is a ``bridging'' chapter that introduces concepts like spanning, independence, and basis in the concrete setting of $\RR^n$, before venturing into the abstract in Chapter~\ref{chap:6}. The duplication is balanced by the value of reviewing these notions, and it enables the student to focus in Chapter~\ref{chap:6} on the new idea of an abstract system. Moreover, Chapter~\ref{chap:5}
+ completes the discussion of rank and diagonalization from earlier 
+chapters, and includes a brief introduction to orthogonality in $\RR^n$, which creates the possibility of a one-semester, matrix-oriented course covering Chapter~\ref{chap:1}--\ref{chap:5} for students not wanting to study the abstract theory.
+
+\end{itemize}
+
+\section*{CHAPTER DEPENDENCIES}
+
+The following chart suggests how the 
+material introduced in each chapter draws on concepts covered in certain
+ earlier chapters. A solid arrow means that ready assimilation of ideas 
+and techniques presented in the later chapter depends on familiarity 
+with the earlier chapter. A broken arrow indicates that some reference 
+to the earlier chapter is made but the chapter need not be covered.
+
+\begin{figure}[H]
+\centering
+\input{frontmatter/figures/preface/chapterDependencies}
+\end{figure}
+
+
+%% \section*{NEW IN THE SEVENTH EDITION}
+
+%% \begin{itemize}
+%% \item \textbf{Vector notation}.
+%%  Based on feedback from reviewers and current users, all vectors are 
+%% denoted by boldface letters (used only in abstract spaces in earlier 
+%% editions). Thus \textit{x} becomes \textbf{x} in $\RR$\textsuperscript{2} and $\RR$\textsuperscript{3} (Chapter~\ref{chap:4}), and in $\RR$\textit{\textsuperscript{n}} the column \textit{X} becomes \textbf{x}. Furthermore, the notation [\textit{x}\textsubscript{1} \textit{x}\textsubscript{2} \dots  \textit{x\textsubscript{n}}]\textit{\textsuperscript{T}} for vectors in $\RR$\textit{\textsuperscript{n}} has been eliminated; instead we write vectors as \textit{n}-tuples (\textit{x}\textsubscript{1}, \textit{x}\textsubscript{2}, \dots , \textit{x\textsubscript{n}}) or as columns $\leftB \begin{array}{c}
+%% x_1 \\
+%% x_2 \\
+%% \vdots \\
+%% x_n 
+%% \end{array}\rightB$.
+%%  The result is a uniform notation for vectors throughout the text.
+
+%% \item \textbf{Definitions.}
+%%  Important ideas and concepts are identified in their given context for 
+%% student's understanding. These are highlighted in the text when they are
+%%  first discussed, identified in the left margin, and listed on the 
+%% inside back cover for reference.
+
+%% \item \textbf{Exposition}.
+%%  Several new margin diagrams have been included to clarify concepts, and
+%%  the exposition has been improved to simplify and streamline discussion 
+%% and proofs.
+
+%% \end{itemize}
+
+%% \section*{OTHER CHANGES}
+
+%% \begin{itemize}
+%% \item Several new examples and exercises have been added.
+
+%% \item The motivation for the matrix inversion algorithm has been rewritten in Section~\ref{sec:2_4}.
+
+%% \item For geometric vectors in $\RR$\textsuperscript{2}, addition (parallelogram law) and scalar multiplication now appear earlier (Section~\ref{sec:2_2}). The discussion of reflections in Section~\ref{sec:2_6} has been simplified, and projections are now included.
+
+%% \item The example in Section~\ref{sec:3_3}, which illustrates that \textbf{x} in $\RR$\textsuperscript{2} is an eigenvector of \textit{A} if, and only if, the line $\RR$\textit{\textsubscript{x}} is \textit{A}-invariant, has been completely rewritten.
+
+%% \item The first part of Section~\ref{sec:4_1} on vector geometry in $\RR$\textsuperscript{2} and $\RR$\textsuperscript{3} has also been rewritten and shortened.
+
+%% \item In Section~\ref{sec:6_4} there are three improvements: Theorem \ref{thm:019430} now shows that an independent set can be extended to a basis by adding vectors from \textit{any prescribed basis}; the proof that a spanning set can be cut down to a basis has been simplified (in Theorem \ref{thm:019593}); and in Theorem \ref{thm:019633}, the argument that independence is equivalent to spanning for a set \textit{S} $\subseteq$ \textit{V} with |\textit{S}| = dim \textit{V} has been streamlined and a new example added.
+
+%% \item In Section~\ref{sec:8_1}, the definition of projections has been clarified, as has the discussion of the nature of quadratic forms in $\RR$\textsuperscript{2}.
+
+%% \end{itemize}
+\vspace*{-2em}
+\section*{HIGHLIGHTS OF THE TEXT}
+
+\begin{itemize}
+\item \textbf{Two-stage definition of matrix multiplication.} First, in Section~\ref{sec:2_2}
+ matrix-vector products are introduced naturally by viewing the left 
+side of a system of linear equations as a product. Second, matrix-matrix
+ products are defined in Section~\ref{sec:2_3} by taking the columns of a product $AB$ to be $A$ times the corresponding columns of $B$.
+ This is motivated by viewing the matrix product as composition of maps 
+(see next item). This works well pedagogically and the usual dot-product
+ definition follows easily. As a bonus, the proof of associativity of 
+matrix multiplication now takes four lines.
+
+\item \textbf{Matrices as transformations.} Matrix-column multiplications are viewed (in Section~\ref{sec:2_2}) as transformations $\RR^n \to  \RR^m$. These maps are then used to describe simple geometric reflections and rotations in $\RR^2$ as well as systems of linear equations.
+
+\item \textbf{Early linear transformations.}
+ It has been said that vector spaces exist so that linear 
+transformations can act on them---consequently these maps are a recurring 
+theme in the text. Motivated by the matrix transformations introduced 
+earlier, linear transformations $\RR^n \to  \RR^m$ are defined in Section~\ref{sec:2_6},
+ their standard matrices are derived, and they are then used to describe
+ rotations, reflections, projections, and other operators on $\RR^2$.
+
+\item \textbf{Early diagonalization.}
+ As requested by engineers and scientists, this important technique is 
+presented in the first term using only determinants and matrix inverses 
+(before defining independence and dimension). Applications to population
+ growth and linear recurrences are given.
+
+\item \textbf{Early dynamical systems.} These are introduced in Chapter~\ref{chap:3},
+ and lead (via diagonalization) to applications like the possible 
+extinction of species. Beginning students in science and engineering can
+ relate to this because they can see (often for the first time) the 
+relevance of the subject to the real world.
+
+\item \textbf{Bridging chapter.} Chapter~\ref{chap:5} lets students deal with tough concepts (like independence, spanning, and basis) in the concrete setting of $\RR^n$ before having to cope with abstract vector spaces in Chapter~\ref{chap:6}.
+
+\item \textbf{Examples.}
+ The text contains over 375 worked examples, which present the main 
+techniques of the subject, illustrate the central ideas, and are keyed 
+to the exercises in each section.
+
+\item \textbf{Exercises.}
+ The text contains a variety of exercises (nearly 1175, many with 
+multiple parts), starting with computational problems and gradually 
+progressing to more theoretical exercises. Select solutions are available at the end of the book or in the Student Solution Manual. There is a complete Solution Manual is 
+available for instructors.
+
+\item \textbf{Applications}.
+ There are optional applications at the end of most chapters (see the 
+list below). While some are presented in the course of the text, most 
+appear at the end of the relevant chapter to encourage students to 
+browse.
+
+\item \textbf{Appendices.} Because complex numbers are needed in the text, they are described in Appendix \ref{chap:appacomplexnumbers}, which includes the polar form and roots of unity. Methods of proofs are discussed in Appendix \ref{chap:appbproofs}, followed by mathematical induction in Appendix \ref{chap:appcinduction}. A brief discussion of polynomials is included in Appendix \ref{chap:appdpolynomials}. All these topics are presented at the high-school level.
+
+\item \textbf{Self-Study.} This text is self-contained and therefore is suitable for self-study.
+
+\item \textbf{Rigour.}
+ Proofs are presented as clearly as possible (some at the end of the 
+section), but they are optional and the instructor can choose how much 
+he or she wants to prove. However the proofs are there, so this text is 
+more rigorous than most. Linear algebra provides one of the better 
+venues where students begin to think logically and argue concisely. To 
+this end, there are exercises that ask the student to ``show'' some simple
+ implication, and others that ask her or him to either prove a given 
+statement or give a counterexample. I personally present a few proofs in
+ the first semester course and more in the second (see the Suggested 
+Course Outlines).
+
+\item \textbf{Major Theorems.}
+ Several major results are presented in the book. Examples: Uniqueness 
+of the reduced row-echelon form; the cofactor expansion for 
+determinants; the Cayley-Hamilton theorem; the Jordan canonical form; 
+Schur's theorem on block triangular form; the principal axes and 
+spectral theorems; and others. Proofs are included because the stronger 
+students should at least be aware of what is involved.
+
+\end{itemize}
+
+\section*{CHAPTER SUMMARIES}
+
+
+\subsection*{Chapter 1: Systems of Linear Equations.}
+
+
+A standard treatment of gaussian 
+elimination is given. The rank of a matrix is introduced via the 
+row-echelon form, and solutions to a homogeneous system are presented as 
+linear combinations of basic solutions. Applications to network flows, 
+electrical networks, and chemical reactions are provided.
+
+
+
+\subsection*{Chapter 2: Matrix Algebra.}
+
+
+After a traditional look at matrix addition, scalar multiplication, and transposition in Section~\ref{sec:2_1}, matrix-vector multiplication is introduced in Section~\ref{sec:2_2} by viewing the left side of a system of linear equations as the product $A\vect{x}$ of the coefficient matrix $A$ with the column $\vect{x}$ of variables. The usual dot-product definition of a matrix-vector multiplication follows. Section~\ref{sec:2_2} ends by viewing an $m \times n$ matrix $A$ as a transformation $\RR^n \to \RR^m$. This is illustrated for $\RR^2 \to \RR^2$ by describing reflection in the $x$ axis, rotation of $\RR^2$ through $\frac{\pi}{2}$, shears, and so on.
+
+
+In Section~\ref{sec:2_3}, the product of matrices $A$ and $B$ is defined by $AB = \leftB \begin{array}{cccc} A\vect{b}_1 & A\vect{b}_2 & \cdots & A\vect{b}_n \end{array}\rightB$, where the $\vect{b}_i$ are the columns of $B$. A routine computation shows that this is the matrix of the transformation $B$ followed by $A$.
+ This observation is used frequently throughout the book, and leads to 
+simple, conceptual proofs of the basic axioms of matrix algebra. Note 
+that linearity is not required---all that is needed is some basic 
+properties of matrix-vector multiplication developed in Section~\ref{sec:2_2}.
+ Thus the usual arcane definition of matrix multiplication is split into
+ two well motivated parts, each an important aspect of matrix algebra. 
+Of course, this has the pedagogical advantage that the conceptual power 
+of geometry can be invoked to illuminate and clarify algebraic 
+techniques and definitions.
+
+
+In Section \ref{sec:2_4} and \ref{sec:2_5}
+ matrix inverses are characterized, their geometrical meaning is 
+explored, and block multiplication is introduced, emphasizing those 
+cases needed later in the book. Elementary matrices are discussed, and 
+the Smith normal form is derived. Then in Section~\ref{sec:2_6}, linear transformations $\RR^n \to \RR^m$ are defined and shown to be matrix transformations. The matrices of reflections, rotations, and projections in the plane are determined. Finally, matrix multiplication is related to directed graphs, matrix 
+LU-factorization is introduced, and applications to economic models and 
+Markov chains are presented.
+
+
+
+\subsection*{Chapter 3: Determinants and Diagonalization.}
+
+
+The cofactor expansion is stated 
+(proved by induction later) and used to define determinants inductively 
+and to deduce the basic rules. The product and adjugate theorems are 
+proved. Then the diagonalization algorithm is presented (motivated by an
+ example about the possible extinction of a species of birds). As 
+requested by our Engineering Faculty, this is done earlier than in most 
+texts because it requires only determinants and matrix inverses, 
+avoiding any need for subspaces, independence and dimension. 
+Eigenvectors of a $2 \times 2$ matrix $A$ are described geometrically (using the $A$-invariance
+ of lines through the origin). Diagonalization is then used to study 
+discrete linear dynamical systems and to discuss applications to linear 
+recurrences and systems of differential equations. A brief discussion of
+ Google PageRank is included.
+
+
+
+\subsection*{Chapter 4: Vector Geometry.}
+
+
+Vectors are presented intrinsically in 
+terms of length and direction, and are related to matrices via 
+coordinates. Then vector operations are defined using matrices and shown
+ to be the same as the corresponding intrinsic definitions. Next, dot 
+products and projections are introduced to solve problems about lines 
+and planes. This leads to the cross product. Then matrix transformations
+ are introduced in $\RR^3$,
+ matrices of projections and reflections are derived, and areas and 
+volumes are computed using determinants. The chapter closes with an 
+application to computer graphics.
+
+
+
+\subsection*{Chapter 5: The Vector Space $\RR^n$.}
+
+
+Subspaces, spanning, independence, and dimensions are introduced in the context of $\RR^n$
+ in the first two sections. Orthogonal bases are introduced and used to 
+derive the expansion theorem. The basic properties of rank are presented
+ and used to justify the definition given in Section~\ref{sec:1_2}.
+ Then, after a rigorous study of diagonalization, best approximation and
+ least squares are discussed. The chapter closes with an application to 
+correlation and variance.
+
+This is a ``bridging'' chapter, easing the transition to abstract spaces. Concern about duplication with Chapter~\ref{chap:6}
+ is mitigated by the fact that this is the most difficult part of the 
+course and many students welcome a repeat discussion of concepts like 
+independence and spanning, albeit in the abstract setting. In a 
+different direction, Chapter~\ref{chap:1}--\ref{chap:5} could serve as a solid introduction to linear algebra for students not requiring abstract theory.
+
+
+
+\subsection*{Chapter 6: Vector Spaces.}
+
+
+Building on the work on $\RR^n$ in Chapter~\ref{chap:5},
+ the basic theory of abstract finite dimensional vector spaces is 
+developed emphasizing new examples like matrices, polynomials and 
+functions. This is the first acquaintance most students have had with an
+ abstract system, so not having to deal with spanning, independence and 
+dimension in the general context eases the transition to abstract 
+thinking. Applications to polynomials and to differential equations are 
+included.
+
+
+
+\subsection*{Chapter 7: Linear Transformations.}
+
+
+General linear transformations are 
+introduced, motivated by many examples from geometry, matrix theory, and
+ calculus. Then kernels and images are defined, the dimension theorem is
+ proved, and isomorphisms are discussed. The chapter ends with an 
+application to linear recurrences. A proof is included that the order of
+ a differential equation (with constant coefficients) equals the 
+dimension of the space of solutions.
+
+
+
+\subsection*{Chapter 8: Orthogonality.}
+
+
+The study of orthogonality in $\RR^n$, begun in Chapter~\ref{chap:5},
+ is continued. Orthogonal complements and projections are defined and 
+used to study orthogonal diagonalization. This leads to the principal 
+axes theorem, the Cholesky factorization of a positive definite matrix, QR-factorization, and to a discussion of the singular value decomposition, the polar form, and the pseudoinverse. The theory is extended to $\mathbb{C}^n$ in Section~\ref{sec:8_6}
+ where hermitian and unitary matrices are discussed, culminating in 
+Schur's theorem and the spectral theorem. A short proof of the 
+Cayley-Hamilton theorem is also presented. In Section~\ref{sec:8_7} the field $\mathbb{Z}_p$ of integers modulo $p$ is constructed informally for any prime $p$,
+ and codes are discussed over any finite field. The chapter concludes 
+with applications to quadratic forms, constrained optimization, and 
+statistical principal component analysis.
+
+
+
+\subsection*{Chapter 9: Change of Basis.}
+
+
+The matrix of general linear 
+transformation is defined and studied. In the case of an operator, the 
+relationship between basis changes and similarity is revealed. This is 
+illustrated by computing the matrix of a rotation about a line through 
+the origin in $\RR^3$.
+ Finally, invariant subspaces and direct sums are introduced, related to
+ similarity, and (as an example) used to show that every involution is 
+similar to a diagonal matrix with diagonal entries $\pm 1$.
+
+
+
+\subsection*{Chapter 10: Inner Product Spaces.}
+
+
+General inner products are introduced 
+and distance, norms, and the Cauchy-Schwarz inequality are discussed. 
+The Gram-Schmidt algorithm is presented, projections are defined and the
+ approximation theorem is proved (with an application to Fourier 
+approximation). Finally, isometries are characterized, and distance 
+preserving operators are shown to be composites of a translations and 
+isometries.
+
+
+\vspace*{-0.5em}
+\subsection*{Chapter 11: Canonical Forms.}
+
+
+The work in Chapter~\ref{chap:9}
+ is continued. Invariant subspaces and direct sums are used to derive 
+the block triangular form. That, in turn, is used to give a compact 
+proof of the Jordan canonical form. Of course the level is higher.
+
+
+
+\subsection*{Appendices}
+
+
+In Appendix \ref{chap:appacomplexnumbers}, complex arithmetic is developed far enough to find $n$th roots. In Appendix \ref{chap:appbproofs}, methods of proof are discussed, while Appendix \ref{chap:appcinduction} presents mathematical induction. Finally, Appendix \ref{chap:appdpolynomials} describes the properties of polynomials in elementary terms.
+
+
+
+
+\section*{LIST OF APPLICATIONS}
+
+\begin{itemize}
+\item Network Flow (Section~\ref{sec:1_4})
+
+\item Electrical Networks (Section~\ref{sec:1_5})
+
+\item Chemical Reactions (Section~\ref{sec:1_6})
+
+\item Directed Graphs (in Section~\ref{sec:2_3})
+
+\item Input-Output Economic Models (Section~\ref{sec:2_8})
+
+\item Markov Chains (Section~\ref{sec:2_9})
+
+\item Polynomial Interpolation (in Section~\ref{sec:3_2})
+
+\item Population Growth (Examples \ref{exa:008923} and \ref{exa:009389}, Section~\ref{sec:3_3})
+
+\item Google PageRank (in Section~\ref{sec:3_3})
+
+\item Linear Recurrences (Section~\ref{sec:3_4}; see also Section~\ref{sec:7_5})
+
+\item Systems of Differential Equations (Section~\ref{sec:3_5})
+
+\item Computer Graphics (Section~\ref{sec:4_5})
+
+\item Least Squares Approximation (in Section~\ref{sec:5_6})
+
+\item Correlation and Variance (Section~\ref{sec:5_7})
+
+\item Polynomials (Section~\ref{sec:6_5})
+
+\item Differential Equations (Section~\ref{sec:6_6})
+
+\item Linear Recurrences (Section~\ref{sec:7_5})
+
+\item Error Correcting Codes (Section~\ref{sec:8_7})
+
+\item Quadratic Forms (Section~\ref{sec:8_8})
+
+\item Constrained Optimization (Section~\ref{sec:8_9})
+
+\item Statistical Principal Component Analysis (Section~\ref{sec:8_10})
+
+\item Fourier Approximation (Section~\ref{sec:10_5})
+
+\end{itemize}
+
+\section*{ACKNOWLEDGMENTS}
+
+Many colleagues have contributed to the development of this text over many years of publication, and I specially thank the following instructors for their reviews of the $7^{th}$ edition:
+
+
+Robert Andre\\
+\hspace*{3em}\textit{University of Waterloo}
+
+Dietrich Burbulla\\
+\hspace*{3em}\textit{University of Toronto}
+
+Dzung M. Ha\\
+\hspace*{3em}\textit{Ryerson University}
+
+Mark Solomonovich\\
+\hspace*{3em}\textit{Grant MacEwan}
+
+Fred Szabo\\
+\hspace*{3em}\textit{Concordia University}
+
+Edward Wang\\
+\hspace*{3em}\textit{Wilfred Laurier}
+
+Petr Zizler\\
+\hspace*{3em}\textit{Mount Royal University}
+
+It is also a pleasure to recognize the contributions of several people. Discussions with Thi Dinh and Jean Springer have been invaluable and many of their suggestions have been incorporated. Thanks are also due to Kristine Bauer and Clifton Cunningham for several conversations about the new way to look at matrix multiplication. I also wish to extend my thanks to Joanne Canape for being there when I had technical questions. Thanks also go to Jason Nicholson for his help in various aspects of the book, particularly the Solutions Manual. Finally, I want to thank my wife Kathleen, without whose understanding and cooperation, this book would not exist.
+
+As we undertake this new publishing model with the text as an open educational resource, I would also like to thank my previous publisher. The team who supported my text greatly contributed to its success. 
+
+Now that the text has an open license, we have a much more fluid and powerful mechanism to incorporate comments and suggestions. The editorial group at Lyryx invites instructors and students to contribute to the text, and also offers to provide adaptations of the material for specific courses. Moreover the LaTeX source files are available to anyone wishing to do the adaptation and editorial work themselves!
+
+W. Keith Nicholson \\
+\hspace*{3em}\textit{University of Calgary}

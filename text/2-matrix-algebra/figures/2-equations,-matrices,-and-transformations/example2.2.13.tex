@@ -1,0 +1,53 @@
+\begin{tikzpicture}[scale=0.9]
+\begin{axis} %[xlabel=x axis label,ylabel=y axis label]
+[disabledatascaling, 
+width=5cm, 
+height=5cm, 
+xlabel={$x$}, 
+ylabel={$y$}, 
+axis lines=middle, 
+xtick={\empty}, 
+ytick={\empty},
+xticklabels=\empty, 
+yticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode = individual,
+domain=-5:5, 
+samples=100, 
+xmin=-0.5, 
+xmax=4, 
+ymin=-3, 
+ymax=3]
+
+\coordinate (ptPos) at (3, 2.5);
+\coordinate (ptNeg) at (3, -2.5);
+
+%lines
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptPos);
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptNeg);
+\draw [dkbluevect, thick, dashed] (ptPos)--(ptNeg);
+
+%points
+\fill (ptPos) circle (2pt);
+\fill (ptNeg) circle (2pt);
+
+%labels
+\node [right, font=\scriptsize] at (ptPos) {$\leftB \begin{array}{r}
+a_{1} \\
+a_{2}
+\end{array} \rightB$};
+\node [right, font=\scriptsize] at (ptNeg) {$\leftB \begin{array}{r}
+	a_{1} \\
+	-a_{2}
+	\end{array} \rightB$};
+\node at (-0.3, -0.4) {\footnotesize $\vect{0}$};
+
+\end{axis}
+\end{tikzpicture}

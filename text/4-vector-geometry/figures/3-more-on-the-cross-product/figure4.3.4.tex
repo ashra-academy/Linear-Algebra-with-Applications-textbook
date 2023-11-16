@@ -1,0 +1,56 @@
+\begin{tikzpicture}[scale=1.0]
+%set up of axis environment
+\begin{axis}[view/h=110,disabledatascaling,
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$},
+    zlabel={$z$},
+    axis lines=center,
+    axis on top=false,
+    xtick=\empty,
+    ytick=\empty,
+    ztick=\empty,
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    zticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=north,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+   every axis z label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=0:5, 
+    samples=100, 
+    xmin=0, 
+    xmax=4, 
+    ymin=0, 
+    ymax=5,
+    zmin=0,
+    zmax=1]
+
+\coordinate (origin) at (0, 0, 0);
+\coordinate (ptA) at (2, 0, 0);
+\coordinate (ptB) at (3, 0, 0);
+\coordinate (ptV) at (3, 4, 0);
+\coordinate (ptC) at (0, 4, 0);
+
+\draw[dkgreenvect, thick, -latex] (origin)--(ptV) node[above, text=black, pos=0.7] {\footnotesize $\vect{v}$};
+\draw[dkbluevect, thick, dashed] (ptB)--(ptV)--(ptC);
+
+\draw[dkbluevect, thick] (0.7, 0, 0) arc [start angle=0, end angle=53.13, radius=0.7] node[below, text=black, pos=0.9] {\footnotesize $\theta$};
+\node[above] at (ptC) {\footnotesize $c$};
+\node[above right] at (origin) {\footnotesize $O$};
+
+\path (ptA)-- ++(0, 0.2, 0.05) node[left] {\footnotesize $a$};
+\path (ptB)-- ++(0.0, -0.25, 0.02) node {\footnotesize $b$};
+
+\draw[dkgreenvect, thick, -latex] (origin)--(ptA) node[right=0.05, text=black] {\footnotesize $\vect{u}$};
+\end{axis}
+\end{tikzpicture}

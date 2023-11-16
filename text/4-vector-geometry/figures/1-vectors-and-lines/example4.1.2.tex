@@ -1,0 +1,18 @@
+\begin{tikzpicture}[scale=0.75]
+\draw[dkgreenvect,thick] (0,0)--(2,1)--(4,-2)--(2, -3)--cycle;
+\draw[dkgreenvect,thick, name path=lineAC] (0, 0)--(4, -2);
+\draw[dkgreenvect,thick, name path=lineBD] (2, 1)--(2, -3);
+
+\fill[black] (0, 0) circle(2 pt);
+\fill[black] (2, 1) circle(2 pt);
+\fill[black] (4, -2) circle(2 pt);
+\fill[black] (2, -3) circle(2 pt);
+\fill[black,thick,name intersections={of=lineAC and lineBD}] (intersection-1) circle (2pt);
+\fill[black] (1.6, -0.8) circle(2 pt);
+\node[left,font=\small] at (0, 0) {$A$};
+\node[right, font=\small] at (2, 1) {$B$};
+\node[below, font=\small] at (4, -2) {$C$};
+\node[below, font=\small] at (2, -3) {$D$};
+\node[above right, font=\small] at (intersection-1) {$E$};
+\node[above, font=\small] at (1.6, -0.8) {$M$};
+\end{tikzpicture}

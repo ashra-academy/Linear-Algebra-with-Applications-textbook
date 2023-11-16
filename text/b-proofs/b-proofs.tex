@@ -1,0 +1,383 @@
+
+Logic plays a basic role in human 
+affairs. Scientists use logic to draw conclusions from experiments, 
+judges use it to deduce consequences of the law, and mathematicians use 
+it to prove theorems. Logic arises in ordinary speech with assertions 
+such as ``If John studies hard, he will pass the course,'' or ``If an 
+integer $n$ is divisible by $6$, then $n$ is divisible by $3$.''\footnote{By an \textit{integer}\index{integers} we mean a ``whole number''\index{whole number}; that is, a number in the set $0, \pm 1, \pm 2, \pm 3, \dots$ }
+ In each case, the aim is to assert that if a certain statement is true, then another statement must also be true. In fact, if $p$ and $q$ denote statements, most theorems take the form of an \textbf{implication}\index{implication}: ``If $p$ is true, then $q$ is true.'' We write this in symbols as
+\begin{equation*}
+p \Rightarrow q 
+\end{equation*}
+and read it as ``$p$ implies $q$.'' Here $p$ is the \textbf{hypothesis}\index{hypothesis} and $q$ the \textbf{conclusion}\index{conclusion} of the implication. The verification that $p \Rightarrow  q$ is valid is called the \textbf{proof}\index{proof!defined} of the implication. In this section we examine the most common methods of proof\footnote{For a more detailed look at proof techniques see D. Solow, How to Read and 
+Do Proofs, 2nd ed. (New York: Wiley, 1990); or J. F. Lucas. \textit{Introduction to Abstract Mathematics}, Chapter 2 (Belmont, CA: Wadsworth, 1986).\index{\textit{Introduction to Abstract Mathematics} (Lucas)}\index{\textit{How to Read and Do Proofs} (Solow)}}
+ and illustrate each technique with some examples.
+
+
+\subsection*{Method of Direct Proof}
+
+To prove that $p \Rightarrow q$, demonstrate directly that $q$ is true whenever $p$ is true.\index{direct proof}\index{proof!direct proof}
+
+\begin{example}{}{034634}
+If $n$ is an odd integer, show that $n^{2}$ is odd.
+
+
+\begin{solution}
+  If $n$ is odd, it has the form $n = 2k + 1$ for some integer $k$. Then $n^{2} = 4k^{2} + 4k + 1 = 2(2k^{2} + 2k) + 1$ also is odd because $2k^{2} + 2k$ is an integer.
+\end{solution}
+\end{example}
+
+Note that the computation $n^{2} = 4k^{2} + 4k + 1$ in Example~\ref{exa:034634}
+ involves some simple properties of arithmetic that we did not prove. 
+These properties, in turn, can be proved from certain more basic 
+properties of numbers (called axioms)\index{axioms}---more about that later. Actually, a
+ whole body of mathematical information lies behind nearly every proof 
+of any complexity, although this fact usually is not stated explicitly. 
+Here is a geometrical example.
+
+
+\newpage
+\begin{example}{}{034648}
+In a right triangle, show that the sum of the two acute angles is 90 degrees.
+
+
+\begin{solution}
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{b-proofs/figures/exampleB2}
+%\caption{\label{fig:034654}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+ The right triangle is shown in the diagram. Construct a rectangle with 
+sides of the same length as the short sides of the original triangle, 
+and draw a diagonal as shown. The original triangle appears on the 
+bottom of the rectangle, and the top triangle is identical to the 
+original (but rotated). Now it is clear that $\alpha + \beta$ is a right angle.
+\vspace{5em}
+\end{solution}
+\end{example}
+
+Geometry was one of the first subjects in which formal proofs\index{formal proofs}\index{proof!formal proofs} were used---Euclid's \textit{Elements}\index{Euclid}\index{\textit{Elements} (Euclid)} was published about 300 B.C. The \textit{Elements}
+ is the most successful textbook ever written, and contains many of the 
+basic geometrical theorems that are taught in school today. In 
+particular, Euclid included a proof of an earlier theorem (about 500 
+B.C.) due to Pythagoras. Recall that, in a right triangle, the side 
+opposite the right angle is called the \textit{hypotenuse}\index{triangle!hypotenuse}\index{hypotenuse} of the triangle.
+
+
+\begin{example}{Pythagoras' Theorem}{034656}
+\begin{wrapfigure}{l}{5cm} 
+\vspace*{-1em}
+\centering
+\input{b-proofs/figures/exampleB3}
+%\caption{\label{fig:034667}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+In a right-angled triangle, show that 
+the square of the length of the hypotenuse equals the sum of the squares
+ of the lengths of the other two sides.\index{Pythagoras}\index{Pythagoras' theorem}
+
+\begin{solution}
+  Let the sides of the right triangle have lengths $a$, $b$, and $c$ as shown. Consider two squares with sides of length $a + b$,
+ and place four copies of the triangle in these squares as in the 
+diagram. The central rectangle in the second square shown is itself a 
+square because the angles $\alpha$ and $\beta$ add to $90$ degrees (using Example~\ref{exa:034648}), so its area is $c^{2}$ as shown. Comparing areas shows that both $a^{2} + b^{2}$ and $c^{2}$ each equal the area of the large square minus four times the area of the original triangle, and hence are equal.
+\vspace*{6em}
+\end{solution}
+\end{example}
+
+Sometimes it is convenient (or even 
+necessary) to break a proof into parts, and deal with each case 
+separately. We formulate the general method as follows:
+
+
+\subsection*{Method of Reduction to Cases}
+
+To prove that $p \Rightarrow q$, show that $p$ implies at least one of a list $p_{1}, p_{2}, \dots , p_{n}$ of statements (the cases) and then show that $p_{i} \Rightarrow q$ for each $i$.\index{proof!reduction to cases}\index{reduction to cases}
+
+
+\begin{example}{}{034677}
+Show that $n^{2} \geq 0$ for every integer $n$.
+
+
+\begin{solution}
+  This statement can be expressed as an implication: If $n$ is an integer, then $n^{2} \geq 0$. To prove it, consider the following three cases:
+\begin{equation*}
+(1) \ n > 0;  \quad (2) \ n = 0; \quad (3) \ n < 0.
+\end{equation*}
+Then $n^{2} > 0$ in Cases (1) and (3) because the product of two positive (or two negative) integers is positive. In Case (2) $n^{2} = 0^{2} = 0$, so $n^{2} \geq 0$ in every case.
+\end{solution}
+\end{example}
+
+\begin{example}{}{034691}
+If $n$ is an integer, show that $n^{2} - n$ is even.
+
+
+\begin{solution}
+  We consider two cases:
+\begin{equation*}
+(1) \ n \mbox{ is even; } \quad (2) \ n \mbox{ is odd.}
+\end{equation*}
+We have $n^{2} - n = n(n - 1)$, so this is even in Case (1) because any multiple of an even number is again even. Similarly, $n - 1$ is even in Case (2) so $n(n - 1)$ is again even for the same reason. Hence $n^{2} - n$ is even in any case.
+\end{solution}
+\end{example}
+
+The statements used in mathematics are 
+required to be either true or false. This leads to a proof technique 
+which causes consternation in many beginning students. The method is a 
+formal version of a debating strategy whereby the debater assumes the 
+truth of an opponent's position and shows that it leads to an absurd 
+conclusion.
+
+
+\subsection*{Method of Proof by Contradiction}
+
+To prove that $p \Rightarrow q$, show that the assumption that both $p$ is true and $q$ is false leads to a contradiction. In other words, if $p$ is true, then $q$ must be true; that is, $p \Rightarrow q$.\index{contradiction, proof by}\index{proof!by contradiction}
+
+
+\begin{example}{}{034707}
+If $r$ is a rational number (fraction), show that $r^{2} \neq 2$.
+
+
+\begin{solution}
+  To argue by contradiction, we assume that $r$ is a rational number and that $r^{2} = 2$, and show that this assumption leads to a contradiction. Let $m$ and $n$ be integers such that $r = \frac{m}{n}$ is in lowest terms (so, in particular, $m$ and $n$ are not both even). Then $r^{2} = 2$ gives $m^{2} = 2n^{2}$, so $m^{2}$ is even. This means $m$ is even (Example~\ref{exa:034634}), say $m = 2k$. But then $2n^{2} = m^{2} = 4k^{2}$, so $n^{2} = 2k^{2}$ is even, and hence $n$ is even. This shows that $n$ and $m$ are both even, contrary to the choice of these numbers.
+\end{solution}
+\end{example}
+
+\begin{example}{Pigeonhole Principle}{034724}
+If $n + 1$ pigeons are placed in $n$ holes, then some hole contains at least $2$ pigeons.
+
+\begin{solution}
+  Assume the conclusion is false. Then each hole contains at most one pigeon and so, since there are $n$ holes, there must be at most $n$ pigeons, contrary to assumption.
+\end{solution}\index{pigeonhole principle}
+\end{example}
+
+The next example involves the notion of a \textit{prime}\index{prime}
+ number, that is an integer that is greater than 1 which cannot be 
+factored as the product of two smaller positive integers both greater 
+than $1$. The first few primes are $2, 3, 5, 7, 11, \dots$.
+
+
+\begin{example}{}{034732}
+If $2^n - 1$ is a prime number, show that $n$ is a prime number.
+
+
+\begin{solution}
+  We must show that $p \Rightarrow q$ where $p$ is the statement ``$2^n - 1$ is a prime'', and $q$ is the statement ``$n$ is a prime.'' Suppose that $p$ is true but $q$ is false so that $n$ is not a prime, say $n = ab$ where $a \geq 2$ and $b \geq 2$ are integers. If we write $2^a = x$, then $2^n = 2^{ab} = (2^a)^b = x^b$. Hence $2^n - 1$ factors:
+\begin{equation*}
+2^n - 1 = x^b - 1 = (x-1)(x^{b-1} +x^{b-2} + \cdots + x^2 + x + 1 )
+\end{equation*}
+As $x \geq 4$, this expression is a factorization of $2^n - 1$ into smaller positive integers, contradicting the assumption that $2^n - 1$ is prime.
+\end{solution}
+\end{example}
+
+The next example exhibits one way to show that an implication is \textit{not} valid.
+
+
+\begin{example}{}{034752}
+Show that the implication ``$n$ is a prime $\Rightarrow 2^n - 1$ is a prime'' is false.
+
+
+\begin{solution}
+  The first four primes are $2$, $3$, $5$, and $7$, and the corresponding values for $2^n - 1$ are $3$, $7$, $31$, $127$ (when $n = 2$, $3$, $5$, $7$). These are all prime as the reader can verify. This 
+result seems to be evidence that the implication is true. However, the 
+next prime is $11$ and $2^{11} - 1 = 2047 = 23 \cdot 89$, which is clearly \textit{not} a prime.
+\end{solution}
+\end{example}
+
+\noindent We say that $n = 11$ is a \textbf{counterexample}\index{counterexample} to the (proposed) implication in Example~\ref{exa:034752}.
+ Note that, if you can find even one example for which an implication is
+ not valid, the implication is false. Thus disproving implications is in
+ a sense easier than proving them.
+
+
+The implications in Example~\ref{exa:034732} and Example~\ref{exa:034752} are closely related: They have the form $p \Rightarrow q$ and $q \Rightarrow p$, where $p$ and $q$ are statements. Each is called the \textbf{converse}\index{converse} of the other and, as these examples show, an implication can be valid even though its converse is not valid. If \textit{both} $p \Rightarrow q$ and $q \Rightarrow p$ are valid, the statements $p$ and $q$ are called \textbf{logically equivalent}\index{logically equivalent}. This is written in symbols as
+\begin{equation*}
+p \Leftrightarrow q
+\end{equation*}
+and is read ``$p$ if and only if $q$''. Many of the most 
+satisfying theorems make the assertion that two statements, ostensibly 
+quite different, are in fact logically equivalent.
+
+
+\begin{example}{}{034764}
+If $n$ is an integer, show that ``$n$ is odd $\Leftrightarrow n^{2}$ is odd.''
+
+
+\begin{solution}
+  In Example~\ref{exa:034634} we proved the implication ``$n$ is odd $\Rightarrow n^{2}$ is odd.'' Here we prove the converse by contradiction. If $n^{2}$ is odd, we assume that $n$ is not odd. Then $n$ is even, say $n = 2k$, so $n^{2} = 4k^{2}$, which is also even, a contradiction.
+\end{solution}
+\end{example}
+
+Many more examples of proofs can be 
+found in this book and, although they are often more complex, most are 
+based on one of these methods. In fact, linear algebra is one of the 
+best topics on which the reader can sharpen his or her skill at 
+constructing proofs. Part of the reason for this is that much of linear 
+algebra is developed using the \textbf{axiomatic method}\index{axiomatic method}. That is, in the 
+course of studying various examples it is observed that they all have 
+certain properties in common. Then a general, abstract system is studied
+ in which these basic properties are \textit{assumed} to hold (and are called \textbf{axioms}). In this system, statements (called \textbf{theorems}\index{theorems}) are deduced from the axioms using the methods presented in this appendix. These theorems will then be true in \textit{all}
+ the concrete examples, because the axioms hold in each case. But this 
+procedure is more than just an efficient method for finding theorems in 
+the examples. By reducing the proof to its essentials, we gain a better 
+understanding of why the theorem is true and how it relates to analogous
+ theorems in other abstract systems.
+
+
+The
+ axiomatic method is not new. Euclid\index{Euclid} first used it in about 300 B.C. to 
+derive all the propositions of (euclidean) geometry from a list of 10 
+axioms. The method lends itself well to linear algebra. The axioms are 
+simple and easy to understand, and there are only a few of them. For 
+example, the theory of vector spaces contains a large number of theorems
+ derived from only ten simple axioms.
+
+\vspace*{-1em}
+\section*{Exercises for \ref{chap:appbproofs}}
+
+\begin{Filesave}{solutions}
+\solsection{Appendix~\ref{chap:appbproofs}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case prove the result and either prove the converse or give a counterexample.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $n$ is an even integer, then $n^{2}$ is a multiple of $4$.
+
+\item If $m$ is an even integer and $n$ is an odd integer, then $m + n$ is odd.
+
+\item If $x = 2$ or $x = 3$, then $x^{3} - 6x^{2} + 11x - 6 = 0$.
+
+\item If $x^{2} - 5x + 6 = 0$, then $x = 2$ or $x = 3$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $m = 2p$ and $n = 2q + 1$ where $p$ and $q$ are integers, then $m + n = 2(p + q) + 1$ is odd. The converse is false: $m = 1$ and $n = 2$ is a counterexample.
+
+\setcounter{enumi}{3}
+\item  $x^{2} - 5x + 6 = (x - 2)(x - 3)$ so, if this is zero, then $x = 2$ or $x = 3$. The converse is true: each of $2$ and $3$ satisfies $x^{2} - 5x + 6 = 0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case either prove the result by splitting into cases, or give a counterexample.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $n$ is any integer, then $n^{2} = 4k + 1$ for some integer $k$.
+
+\item If $n$ is any odd integer, then $n^{2} = 8k + 1$ for some integer $k$.
+
+\item If $n$ is any integer, $n^{3} - n = 3k$ for some integer $k$. [\textit{Hint}: Use the fact that each integer has one of the forms $3k$, $3k + 1$, or $3k + 2$, where $k$ is an integer.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  This implication is true. If $n = 2t + 1$ where $t$ is an integer, then $n^{2} = 4t^{2} + 4t + 1 = 4t(t + 1) + 1$. Now $t$ is either even or odd, say $t = 2m$ or $t = 2m + 1$. If $t = 2m$, then $n^{2} = 8m(2m + 1) + 1$; if $t = 2m + 1$, then $n^{2} = 8(2m + 1)(m + 1) + 1$. Either way, $n^{2}$ has the form $n^{2} = 8k + 1$ for some integer $k$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case prove the result by contradiction and either prove the converse or give a counterexample.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $n > 2$ is a prime integer, then $n$ is odd.
+
+\item If $n + m = 25$ where $n$ and $m$ are integers, then one of $n$ and $m$ is greater than $12$.
+
+\item If $a$ and $b$ are positive numbers and $a \leq b$, then $\sqrt{a} \leq \sqrt{b}$.
+
+\item If $m$ and $n$ are integers and $mn$ is even, then $m$ is even or $n$ is even.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Assume that the statement ``one of $m$ and $n$ is greater than $12$'' is false. Then both $n \leq 12$ and $m \leq 12$, so $n + m \leq 24$, contradicting the hypothesis that $n + m = 25$. This proves the implication. The converse is false: $n = 13$ and $m = 13$ is a counterexample.
+
+\setcounter{enumi}{3}
+\item  Assume that the statement ``$m$ is even or $n$ is even'' is false. Then both $m$ and $n$ are odd, so $mn$ is odd, contradicting the hypothesis. The converse is true: If $m$ or $n$ is even, then $mn$ is even.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Prove each implication by contradiction.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $x$ and $y$ are positive numbers, then \newline $\sqrt{x + y} \neq \sqrt{x} + \sqrt{y}$.
+
+\item If $x$ is irrational and $y$ is rational, then $x + y$ is irrational.
+
+\item If $13$ people are selected, at least $2$ have birthdays in the same month.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $x$ is irrational and $y$ is rational, assume that $x + y$ is rational. Then $x = (x + y) - y$ is the difference of two rationals, and so is rational, contrary to the hypothesis.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Disprove each statement by giving a counterexample.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $n^{2} + n + 11$ is a prime for all positive integers $n$.
+
+\item $n^{3} \geq 2^n$ for all integers $n \geq 2$.
+
+\item If $n \geq 2$ points are arranged on a circle in such a way that no three of the 
+lines joining them have a common point, then these lines divide the 
+circle into $2^{n-1}$ regions. [The cases $n = 2$, $3$, and $4$ are shown in the diagram.]
+\begin{figure}[H]
+\centering
+\input{b-proofs/figures/exerciseB5}
+%\caption{\label{fig:034841}}
+\end{figure}
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $n = 10$ is a counterexample because $10^3 = 1000$ while $2^{10} = 1024$, so the statement $n^{3} \geq 2^n$ is false if $n = 10$. Note that $n^{3} \geq 2^n$ \textit{does} hold for $2 \leq n \leq 9$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+The number $e$ from calculus has a series expansion
+\begin{equation*}
+e = 1 + \frac{1}{1!} + \frac{1}{2!} + \frac{1}{3!} + \cdots
+\end{equation*}
+where $n! = n(n - 1) \cdots  3 \cdot 2 \cdot 1$ for each integer $n \geq 1$. Prove that $e$ is irrational by contradiction. [\textit{Hint}: If $e = m/n$, consider
+\begin{equation*}
+k = n! \left(e- 1 - \frac{1}{1!} - \frac{1}{2!} - \frac{1}{3!} - \cdots - \frac{1}{n!} \right).
+\end{equation*}
+Show that $k$ is a positive integer and that
+\begin{equation*}
+k = \frac{1}{n+1} + \frac{1}{(n+1)(n+2)} + \cdots < \frac{1}{n}. ]
+\end{equation*}
+\end{ex}
+
+\end{multicols}
+
+

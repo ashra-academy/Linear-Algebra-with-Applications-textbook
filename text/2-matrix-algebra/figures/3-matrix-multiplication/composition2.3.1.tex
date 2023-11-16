@@ -1,0 +1,17 @@
+\begin{tikzpicture}[scale=0.6, transform shape]
+\draw (0,0) [dkgreenvect,thick] ellipse (1cm and 1.5cm);
+\draw (3,0) [dkgreenvect,thick] ellipse (1cm and 1.5cm);
+\draw (6,0) [dkgreenvect,thick] ellipse (1cm and 1.5cm);
+\node(st1) at (0,1) {};
+\node(st2) at (6,1) {};
+\node(e1) at (0,0) {};
+\node(e2) at (3,0) {};
+\node(e3) at (6,0) {};
+\draw[-latex, dkgreenvect, thick](e1)..controls (1.25,0.5) and (1.75,0.5)..(e2) node[above,midway,text=black,font=\Large]{$T$};
+\draw[-latex, dkgreenvect, thick](e2)..controls (4.25,0.5) and (4.75,0.5)..(e3) node[above,midway,text=black,font=\Large]{$S$};
+\draw[-latex, dkgreenvect, thick](st1)..controls (2.75,2) and (3.25,2)..(st2) node[above,midway,text=black,font=\Large]{$S \circ T$};
+\node[font=\Large] at (0.1,-0.75) {$\RR^k$};
+\node[font=\Large] at (3.15,-0.75) {$\RR^n$};
+\node[font=\Large] at (6.15,-0.75) {$\RR^m$};
+\end{tikzpicture}
+

@@ -1,0 +1,729 @@
+\section{Orthogonal Diagonalization}
+\label{sec:10_3}\index{diagonalization!orthogonal diagonalization}\index{inner product space!orthogonal diagonalization}\index{linear operator!on finite dimensional inner product space}\index{orthogonal diagonalization}
+
+There is a natural way to define a symmetric linear operator $T$ on a finite dimensional inner product space $V$. If $T$ is such an operator, it is shown in this section that $V$ has an orthogonal basis consisting of eigenvectors of $T$. This yields another proof of the principal axes theorem in the context of inner product spaces.
+
+\begin{theorem}{}{031533}
+Let $T : V \to V$ be a linear operator on a finite dimensional space $V$. Then the following conditions are equivalent.
+
+\begin{enumerate}
+\item $V$ has a basis consisting of eigenvectors of $T$.
+
+\item There exists a basis $B$ of $V$ such that $M_B(T)$ is diagonal.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We have $M_{B}(T) = 
+\leftB \begin{array}{cccc}
+C_{B}[T(\vect{b}_{1})] & C_{B}[T(\vect{b}_{2})] & \cdots & C_{B}[T(\vect{b}_{n})]
+\end{array} \rightB$ where $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ is any basis of $V$. By comparing columns:
+\begin{equation*}
+M_B(T) =
+\leftB \begin{array}{cccc}
+\lambda_1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots & & \vdots \\
+0 & 0 & \cdots & \lambda_n
+\end{array} \rightB
+\mbox{ if and only if } T(\vect{b}_i) = \lambda_i \vect{b}_i \mbox{ for each } i
+\end{equation*}
+Theorem~\ref{thm:031533} follows.
+\end{proof}
+
+\begin{definition}{Diagonalizable Linear Operators}{031557}
+A linear operator $T$ on a finite dimensional space $V$ is called \textbf{diagonalizable}\index{diagonalizable linear operator}\index{linear operator!diagonalizable} if $V$ has a basis consisting of eigenvectors of $T$.
+\end{definition}
+
+\begin{example}{}{031560}
+Let $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$ be given by
+\begin{equation*}
+T(a + bx + cx^2) = (a + 4c) - 2bx + (3a + 2c)x^2
+\end{equation*}
+Find the eigenspaces of $T$ and hence find a basis of eigenvectors.
+
+\begin{solution}
+If $B_{0} = \{1, x, x^{2}\}$, then
+\begin{equation*}
+M_{B_0}(T) = 
+\leftB \begin{array}{rrr}
+1 & 0 & 4 \\
+0 & -2 & 0 \\
+3 & 0 & 2
+\end{array} \rightB
+\end{equation*}
+so $c_{T}(x) = (x + 2)^{2}(x - 5)$, and the eigenvalues of $T$ are $\lambda = -2$ and $\lambda = 5$. One sees that 
+$\left\{
+\leftB \begin{array}{r}
+0 \\
+1 \\
+0
+\end{array} \rightB
+, 
+\leftB \begin{array}{r}
+4 \\
+0 \\
+-3
+\end{array} \rightB
+, 
+\leftB \begin{array}{r}
+1 \\
+0 \\
+1
+\end{array} \rightB
+\right\}$ is a basis of eigenvectors of $M_{B_{0}}(T)$, so $B = \{x, 4 - 3x^{2}, 1 + x^{2}\}$ is a basis of $\vectspace{P}_{2}$ consisting of eigenvectors of $T$.
+\end{solution}
+\end{example}
+
+If $V$ is an inner product space, the expansion theorem gives a simple formula for the matrix of a linear operator with respect to an orthogonal basis.\index{expansion theorem}
+
+\begin{theorem}{}{031583}
+Let $T : V \to V$ be a linear operator on an inner product space $V$. If $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ is an orthogonal basis of $V$, then
+\begin{equation*}
+M_B(T) = 
+\leftB 
+\frac{\langle \vect{b}_i, T(\vect{b}_j) \rangle}{\vectlength \vect{b}_i \vectlength ^2}
+\rightB
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+Write $M_{B}(T) = \leftB a_{ij} \rightB$. The $j$th column of $M_{B}(T)$ is $C_{B}[T(\vect{e}_{j})]$, so
+\begin{equation*}
+T(\vect{b}_j) = a_{1j}\vect{b}_1 + \dots + a_{ij}\vect{b}_i + \dots + a_{nj}\vect{b}_n
+\end{equation*}
+On the other hand, the expansion theorem (Theorem~\ref{thm:030904}) gives
+\begin{equation*}
+\vect{v} = \frac{\langle \vect{b}_1, \vect{v} \rangle}{\vectlength \vect{b}_1 \vectlength ^2} \vect{b}_1 + \dots + 
+\frac{\langle \vect{b}_i, \vect{v} \rangle}{\vectlength \vect{b}_i \vectlength ^2} \vect{b}_i + \dots +
+\frac{\langle \vect{b}_n, \vect{v} \rangle}{\vectlength \vect{b}_n \vectlength ^2} \vect{b}_n
+\end{equation*}
+for any $\vect{v}$ in $V$. The result follows by taking $\vect{v} = T(\vect{b}_{j})$.
+\end{proof}
+
+\begin{example}{}{031602}
+Let $T : \RR^3 \to \RR^3$ be given by
+\begin{equation*}
+T(a, b, c) = (a + 2b - c, 2a + 3c, -a + 3b + 2c)
+\end{equation*}
+If the dot product in $\RR^3$ is used, find the matrix of $T$ with respect to the standard basis $B = \{\vect{e}_{1}, \vect{e}_{2}, \vect{e}_{3}\}$ where $\vect{e}_{1} = (1, 0, 0)$, $\vect{e}_{2} = (0, 1, 0)$, $\vect{e}_{3} = (0, 0, 1)$.
+
+\begin{solution}
+The basis $B$ is orthonormal, so Theorem~\ref{thm:031583} gives
+\begin{equation*}
+M_B(T) = 
+\leftB \begin{array}{rrr}
+\vect{e}_1 \dotprod T(\vect{e}_1) & \vect{e}_1 \dotprod T(\vect{e}_2) & \vect{e}_1 \dotprod T(\vect{e}_3) \\
+\vect{e}_2 \dotprod T(\vect{e}_1) & \vect{e}_2 \dotprod T(\vect{e}_2) & \vect{e}_2 \dotprod T(\vect{e}_3) \\
+\vect{e}_3 \dotprod T(\vect{e}_1) & \vect{e}_3 \dotprod T(\vect{e}_2) & \vect{e}_3 \dotprod T(\vect{e}_3) 
+\end{array} \rightB
+=
+\leftB \begin{array}{rrr}
+ 1 & 2 & -1 \\
+ 2 & 0 &  3 \\
+-1 & 3 &  2
+\end{array} \rightB
+\end{equation*}
+Of course, this can also be found in the usual way.
+\end{solution}
+\end{example}
+
+It is not difficult to verify that an $n \times n$ matrix $A$ is symmetric if and only if $\vect{x} \dotprod (A\vect{y}) = (A\vect{x}) \dotprod \vect{y}$ holds for all columns $\vect{x}$ and $\vect{y}$ in $\RR^n$. The analog for operators is as follows:
+
+\begin{theorem}{}{031623}
+Let $V$ be a finite dimensional inner product space. The following conditions are equivalent for a linear operator $T : V \to V$.
+
+\begin{enumerate}
+\item $\langle\vect{v}, T(\vect{w})\rangle = \langle T(\vect{v}), \vect{w}\rangle$ for all $\vect{v}$ and $\vect{w}$ in $V$.
+
+\item The matrix of $T$ is symmetric with respect to every orthonormal basis of $V$.
+
+\item The matrix of $T$ is symmetric with respect to some orthonormal basis of $V$.
+
+\item There is an orthonormal basis $B = \{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ of $V$ such that $\langle \vect{f}_i, T(\vect{f}_j) \rangle = \langle T(\vect{f}_i), \vect{f}_j \rangle$ holds for all $i$ and $j$.
+
+\end{enumerate}\index{basis!orthonormal basis}\index{orthonormal basis}
+\end{theorem}
+
+\begin{proof}
+(1) $\Rightarrow$ (2). Let $B = \{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ be an orthonormal basis of $V$, and write $M_{B}(T) = \leftB a_{ij} \rightB$. Then $a_{ij} = \langle\vect{f}_{i}, T(\vect{f}_{j}) \rangle $ by Theorem~\ref{thm:031583}. Hence (1) and axiom P2 give
+\begin{equation*}
+a_{ij} = \langle \vect{f}_i, T(\vect{f}_j) \rangle
+= \langle T(\vect{f}_i), \vect{f}_j \rangle 
+= \langle \vect{f}_j, T(\vect{f}_i) \rangle
+= a_{ji}
+\end{equation*}
+for all $i$ and $j$. This shows that $M_{B}(T)$ is symmetric.
+
+(2) $\Rightarrow$ (3). This is clear.
+
+(3) $\Rightarrow$ (4). Let $B = \{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ be an orthonormal basis of $V$ such that $M_{B}(T)$ is symmetric. By (3) and Theorem~\ref{thm:031583}, $\langle\vect{f}_{i}, T(\vect{f}_{j}) \rangle = \langle\vect{f}_{j}, T(\vect{f}_{i}) \rangle$ for all $i$ and $j$, so (4) follows from axiom P2.
+
+(4) $\Rightarrow$ (1). Let $\vect{v}$ and $\vect{w}$ be vectors in $V$ and write them as $\vect{v} = \displaystyle \sum_{i = 1}^{n} v_i\vect{f}_i$ and 
+ $\vect{w} = \displaystyle \sum_{j = 1}^{n} w_j\vect{f}_j$. Then
+\begin{align*}
+\langle \vect{v}, T(\vect{w}) \rangle = \left\langle \sum_{i} v_i\vect{f}_i, \sum_{j} w_jT\vect{f}_j \right\rangle &= \sum_{i} \sum_{j} v_iw_j \langle \vect{f}_i, T(\vect{f}_j) \rangle \\
+&= \sum_{i} \sum_{j} v_iw_j \langle T(\vect{f}_i), \vect{f}_j \rangle \\
+&= \left\langle \sum_{i} v_i T(\vect{f}_i), \sum_{j} w_j \vect{f}_j \right\rangle \\
+&= \langle T(\vect{v}), \vect{w} \rangle
+\end{align*}
+where we used (4) at the third stage. This proves (1).
+\end{proof}
+
+\noindent A linear operator $T$ on an inner product space $V$ is called \textbf{symmetric}\index{symmetric linear operator}\index{linear operator!symmetric} if $\langle\vect{v}, T(\vect{w}) \rangle = \langle T(\vect{v}), \vect{w} \rangle$ holds for all $\vect{v}$ and $\vect{w}$ in $V$.
+
+\begin{example}{}{031665}
+If $A$ is an $n \times n$ matrix, let $T_{A} : \RR^n \to \RR^n$ be the matrix operator given by $T_{A}(\vect{v}) = A\vect{v}$ for all columns $\vect{v}$. If the dot product is used in $\RR^n$, then $T_{A}$ is a symmetric operator if and only if $A$ is a symmetric matrix.
+
+\begin{solution}
+If $E$ is the standard basis of $\RR^n$, then $E$ is orthonormal when the dot product is used. We have $M_{E}(T_{A}) = A$ (by Example~\ref{exa:028025}), so the result follows immediately from part (3) of Theorem~\ref{thm:031623}.
+\end{solution}
+\end{example}
+
+It is important to note that whether an operator is symmetric depends on which inner product is being used (see Exercise \ref{ex:10_3_2}).
+
+If $V$ is a finite dimensional inner product space, the eigenvalues of an operator $T : V \to V$ are the same as those of $M_{B}(T)$ for any orthonormal basis $B$ (see Theorem~\ref{thm:029450}). If $T$ is symmetric, $M_{B}(T)$ is a symmetric matrix and so has real eigenvalues by Theorem~\ref{thm:016397}. Hence we have the following:
+
+\begin{theorem}{}{031684}
+A symmetric linear operator on a finite dimensional inner product space has real eigenvalues.\index{eigenvalues!symmetric linear operator on finite dimensional inner product space}
+\end{theorem}
+
+If $U$ is a subspace of an inner product space $V$, recall that its orthogonal complement is the subspace $U^{\perp}$ of $V$ defined by
+\begin{equation*}
+U ^ \perp = \{\vect{v} \mbox{ in } V \mid \langle \vect{v}, \vect{u} \rangle = 0 \mbox{ for all } \vect{u} \mbox{ in } U \}
+\end{equation*}
+\begin{theorem}{}{031690}
+Let $T : V \to V$ be a symmetric linear operator on an inner product space $V$, and let $U$ be a $T$-invariant subspace of $V$. Then:
+
+\begin{enumerate}
+\item The restriction of $T$ to $U$ is a symmetric linear operator on $U$.
+
+\item $U^\perp$ is also $T$-invariant.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item $U$ is itself an inner product space using the same inner product, and condition 1 in Theorem~\ref{thm:031623} that $T$ is symmetric is clearly preserved.
+
+\item If $\vect{v}$ is in $U^{\perp}$, our task is to show that $T(\vect{v})$ is also in $U^{\perp}$; that is, $\langle T(\vect{v}), \vect{u} \rangle = 0$ for all $\vect{u}$ in $U$. But if $\vect{u}$ is in $U$, then $T(\vect{u})$ also lies in $U$ because $U$ is $T$-invariant, so
+\begin{equation*}
+\langle T(\vect{v}), \vect{u} \rangle = \langle \vect{v}, T(\vect{u}) \rangle
+\end{equation*}
+using the symmetry of $T$ and the definition of $U^{\perp}$.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+The principal axes theorem (Theorem~\ref{thm:024303}) asserts that an $n \times n$ matrix $A$ is symmetric if and only if $\RR^n$ has an orthogonal basis of eigenvectors of $A$. The following result not only extends this theorem to an arbitrary $n$-dimensional inner product space, but the proof is much more intuitive.
+
+\begin{theorem}{Principal Axes Theorem}{031712}
+The following conditions are equivalent for a linear operator $T$ on a finite dimensional inner product space $V$.
+
+\begin{enumerate}
+\item $T$ is symmetric.
+
+\item $V$ has an orthogonal basis consisting of eigenvectors of $T$.
+\end{enumerate}\index{principal axes theorem}
+\end{theorem}
+
+\begin{proof}
+(1) $\Rightarrow$ (2). Assume that $T$ is symmetric and proceed by induction on $n = \func{dim} V$. If $n = 1$, \textit{every} nonzero vector in $V$ is an eigenvector of $T$, so there is nothing to prove. If $n \geq 2$, assume inductively that the theorem holds for spaces of dimension less than $n$. Let $\lambda_{1}$ be a real eigenvalue of $T$ (by Theorem~\ref{thm:031684}) and choose an eigenvector $\vect{f}_{1}$ corresponding to $\lambda_{1}$. Then $U = \RR\vect{f}_{1}$ is $T$-invariant, so $U^{\perp}$ is also $T$-invariant by Theorem~\ref{thm:031690} ($T$ is symmetric). Because $\func{dim} U^{\perp} = n - 1$ (Theorem~\ref{thm:031043}), and because the restriction of $T$ to $U^{\perp}$ is a symmetric operator (Theorem~\ref{thm:031690}), it follows by induction that $U^{\perp}$ has an orthogonal basis $\{\vect{f}_{2}, \dots, \vect{f}_{n}\}$ of eigenvectors of $T$. Hence $B = \{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ is an orthogonal basis of $V$, which proves (2).
+
+(2) $\Rightarrow$ (1). If $B = \{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ is a basis as in (2), then $M_{B}(T)$ is symmetric (indeed diagonal), so $T$ is symmetric by Theorem~\ref{thm:031623}.
+\end{proof}
+
+The matrix version of the principal axes theorem is an immediate consequence of Theorem~\ref{thm:031712}. If $A$ is an $n \times n$ symmetric matrix, then $T_{A} : \RR^n \to \RR^n$ is a symmetric operator, so let $B$ be an orthonormal basis of $\RR^n$ consisting of eigenvectors of $T_{A}$ (and hence of $A$). Then $P^{T}AP$ is diagonal where $P$ is the orthogonal matrix whose columns are the vectors in $B$ (see Theorem~\ref{thm:028841}).
+
+Similarly, let $T : V \to V$ be a symmetric linear operator on the $n$-dimensional inner product space $V$ and let $B_{0}$ be any convenient orthonormal basis of $V$. Then an orthonormal basis of eigenvectors of $T$ can be computed from $M_{B_0}(T)$. In fact, if $P^T M_{B_0}(T)P$ is diagonal where $P$ is orthogonal, let $B = \{\vect{f}_{1}, \dots, \vect{f}_{n}\}$ be the vectors in $V$ such that $C_{B_{0}}(\vect{f}_{j})$ is column $j$ of $P$ for each $j$. Then $B$ consists of eigenvectors of $T$ by Theorem~\ref{thm:029450}, and they are orthonormal because $B_{0}$ is orthonormal. Indeed
+\begin{equation*}
+\langle \vect{f}_i, \vect{f}_j \rangle = C_{B_0}(\vect{f}_i) \dotprod C_{B_0}(\vect{f}_j)
+\end{equation*}
+holds for all $i$ and $j$, as the reader can verify. Here is an example.
+
+\begin{example}{}{031760}
+Let $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$ be given by
+\begin{equation*}
+T(a + bx + cx^2) = (8a - 2b + 2c) + (-2a + 5b + 4c)x + (2a + 4b + 5c)x^2
+\end{equation*}
+Using the inner product $\langle a + bx + cx^{2}, a^\prime + b^{\prime}x + c^{\prime}x^{2} \rangle = aa^\prime + bb^\prime + cc^\prime$, show that $T$ is symmetric and find an orthonormal basis of $\vectspace{P}_{2}$ consisting of eigenvectors.
+
+\begin{solution}
+If $B_{0} = \{1, x, x^{2}\}$, then 
+$M_{B_0}(T) = 
+\leftB \begin{array}{rrr}
+8 & -2 & 2 \\
+-2 & 5 & 4 \\
+2 & 4 & 5
+\end{array} \rightB$ is symmetric, so $T$ is symmetric. This matrix was analyzed in Example~\ref{exa:024416}, where it was found that an \textit{orthonormal}\index{eigenvector!orthonormal basis} basis of eigenvectors is $\left\{\frac{1}{3} 
+\leftB \begin{array}{ccc}
+1 & 2 & -2 
+\end{array} \rightB^T, \frac{1}{3}
+\leftB \begin{array}{ccc}
+2 & 1 & 2
+\end{array} \rightB^T, \frac{1}{3}
+\leftB \begin{array}{ccc} 
+-2 & 2 & 1 
+\end{array} \rightB^T
+\right \}$. Because $B_{0}$ is orthonormal, the corresponding orthonormal basis of $\vectspace{P}_{2}$ is
+\begin{equation*}
+B = \left\{\frac{1}{3} (1 + 2x - 2x^2), \frac{1}{3}(2 + x + 2x^2),\
+\frac{1}{3}(-2 + 2x + x^2) \right\}
+\end{equation*}
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:10_3}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:10_3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case, show that $T$ is symmetric by calculating $M_{B}(T)$ for some orthonormal basis $B$.
+
+\begin{enumerate}[leftmargin=1em, label={\alph*.}]
+\item $T : \RR^3 \to \RR^3$; \\ $T(a, b, c) = (a - 2b, -2a + 2b + 2c, 2b - c)$; dot product
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$; \\
+$T \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB
+=
+\leftB \begin{array}{cc}
+c - a & d - b \\
+a + 2c & b + 2d
+\end{array} \rightB$; \\ inner product:\\ $\left\langle \leftB \begin{array}{rr}
+x & y \\
+z & w \end{array}\rightB, \leftB \begin{array}{rr}
+x^{\prime} & y^{\prime} \\
+z^{\prime} & w^{\prime} \end{array}\rightB \right\rangle = xx^{\prime} + yy^{\prime}+zz^{\prime} + ww^{\prime}$
+
+\item $T : \vectspace{P}_2 \to \vectspace{P}_2$; \\ $T(a + bx + cx^2) = (b + c) + (a + c)x + (a + b)x^2$; \\ inner product:\\ $\langle a + bx + cx^2, a^\prime + b^\prime x + c^\prime x^2 \rangle = aa^\prime + bb^\prime + cc^ \prime$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item \hspace{1em} \\
+\hspace*{-2em}$B = 
+\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB
+\right\}$;
+$M_B(T) = 
+\leftB \begin{array}{rrrr}
+-1 &  0 & 1 & 0 \\
+ 0 & -1 & 0 & 1 \\
+ 1 &  0 & 2 & 0 \\
+ 0 &  1 & 0 & 2
+\end{array} \rightB
+$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:10_3_2}
+Let $T : \RR^2 \to \RR^2$ be given by
+\begin{equation*}
+T(a, b) = (2a + b, a - b).
+\end{equation*}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T$ is symmetric if the dot product is used.
+
+\item Show that $T$ is \textit{not} symmetric if $\langle\vect{x}, \vect{y} \rangle = \vect{x}A\vect{y}^{T}$, where $A = 
+\leftB \begin{array}{rr}
+1 & 1 \\
+1 & 2
+\end{array} \rightB$. \newline [\textit{Hint}: Check that $B = \{(1, 0), (1, -1)\}$ is an orthonormal basis.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $T : \RR^2 \to \RR^2$ be given by 
+\begin{equation*}
+T(a, b) = (a - b, b - a)
+\end{equation*}
+Use the dot product in $\RR^2$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T$ is symmetric.
+
+\item Show that $M_{B}(T)$ is \textit{not} symmetric if the orthogonal basis $B = \{(1, 0), (0, 2)\}$ is used. Why does this not contradict Theorem~\ref{thm:031623}?
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $V$ be an $n$-dimensional inner product space, and let $T$ and $S$ denote symmetric linear operators on $V$. Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item The identity operator is symmetric.
+
+\item $rT$ is symmetric for all $r$ in $\RR$.
+
+\item $S + T$ is symmetric.
+
+\item If $T$ is invertible, then $T^{-1}$ is symmetric. 
+
+\item If $ST = TS$, then $ST$ is symmetric.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$ \langle \vect{v}, (rT)\vect{w} \rangle = \langle \vect{v}, rT(\vect{w}) \rangle = r \langle \vect{v}, T(\vect{w}) \rangle = r \langle T(\vect{v}), \vect{w} \rangle= \langle rT(\vect{v}), \vect{w} \rangle = \langle (rT)(\vect{v}), \vect{w} \rangle$
+
+\setcounter{enumi}{3}
+\item Given $\vect{v}$ and $\vect{w}$, write $T^{-1}(\vect{v}) = \vect{v}_1$ and $ T^{-1}(\vect{w}) = \vect{w}_1 $. Then $\langle T^{-1} (\vect{v}), \vect{w} \rangle = 
+\langle\vect{v}_1, T(\vect{w}_1) \rangle = \langle T(\vect{v}_1), \vect{w}_1 \rangle = \langle
+\vect{v}, T^{-1}(\vect{w}) \rangle.$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that $T$ is symmetric and find an orthonormal basis of eigenvectors of $T$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $ T : \RR^3 \to \RR^3$; \\ $T(a, \ b, \ c) = (2a + 2c, \ 3b, \ 2a + 5c)$; use the dot product
+
+\item $ T : \RR^3 \to \RR^3$; \\ $T(a, \ b, \ c) = (7a - b, \ -a + 7b, \ 2c)$; use the dot product
+
+\item $ T : \vectspace{P}_2 \to \vectspace{P}_2$; \\ $T(a + bx + cx^2) = 3b + (3a + 4c)x + 4bx^2$; \\ inner product \\ $\langle a + bx + cx^2, a^\prime + b^\prime x + c^\prime x^2 \rangle = aa^\prime + bb^\prime + cc^ \prime$
+
+\item $T : \vectspace{P}_2 \to \vectspace{P}_2$; \\ $T(a + bx + cx^2) = (c  - a) + 3bx + (a - c)x^2$; inner product as in part (c)
+
+\end{enumerate}
+\begin{sol}
+	\begin{enumerate}[label={\alph*.}]
+		\setcounter{enumi}{1}
+		\item If $B_{0} = \{(1, 0, 0), (0, 1, 0), (0, 0, 1)\}$, then
+$M_{B_0}(T) = 
+\leftB \begin{array}{rrr}
+7 & -1 & 0 \\
+-1 & 7 & 0 \\
+0 & 0 & 2
+\end{array} \rightB$ has an orthonormal basis of eigenvectors $\left\{
+\frac{1}{\sqrt{2}}
+\leftB \begin{array}{r}
+1 \\
+1 \\
+0
+\end{array} \rightB
+,
+\frac{1}{\sqrt{2}}
+\leftB \begin{array}{r}
+1 \\
+-1 \\
+0
+\end{array} \rightB
+,
+\leftB \begin{array}{r}
+0 \\
+0 \\
+1
+\end{array} \rightB
+\right\}$. Hence an orthonormal basis of eigenvectors of $T$ is
+$ \left\{\frac{1}{\sqrt{2}}(1, 1, 0), \frac{1}{\sqrt{2}}(1, -1, 0), (0, 0, 1) \right\} $.
+
+\setcounter{enumi}{3}
+\item If $B_{0} = \{1, x, x^{2}\}$, then $M_{B_0}(T) = 
+\leftB \begin{array}{rrr}
+-1 & 0 & 1 \\
+0 & 3 & 0 \\
+1 & 0 & -1
+\end{array} \rightB$ has an orthonormal basis of eigenvectors \\
+$ \left\{
+\leftB \begin{array}{r}
+0 \\
+1 \\
+0
+\end{array} \rightB
+,
+\frac{1}{\sqrt{2}}
+\leftB \begin{array}{r}
+1 \\
+0 \\
+1
+\end{array} \rightB
+,
+\frac{1}{\sqrt{2}}
+\leftB \begin{array}{r}
+1 \\
+0 \\
+-1
+\end{array} \rightB
+\right\}$. \\ Hence an orthonormal basis of eigenvectors of $T$ is $ \left\{x, \frac{1}{\sqrt{2}} (1 + x^2), \frac{1}{\sqrt{2}}(1 - x^2) \right\}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is any $n \times n$ matrix, let $T_{A} : \RR^n \to \RR^n$ be given by $T_{A}(\vect{x}) = A\vect{x}$. Suppose an inner product on $\RR^n$ is given by $\langle\vect{x}, \vect{y} \rangle = \vect{x}^{T}P\vect{y}$, where $P$ is a positive definite matrix.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T_{A}$ is symmetric if and only if \\ $PA = A^{T}P$.
+
+\item Use part (a) to deduce Example~\ref{exa:031665}.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex} \label{ex:10_3_7}
+Let $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$ be given by \newline $T(X) = AX$, where $A$ is a fixed $2 \times 2$ matrix.
+
+\begin{enumerate}[label={\alph*.}]
+\item Compute $M_{B}(T)$, where \\
+\hspace*{-2em}$B = 
+\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB
+\right\}$. Note the order!
+
+\item Show that $c_T(x) = [c_A(x)]^2 $.
+
+\item If the inner product on $\vectspace{M}_{22}$ is $\langle X, Y \rangle = \func{tr}(XY^{T})$, show that $T$ is symmetric if and only if $A$ is a symmetric matrix.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$M_B(T) = 
+\leftB \begin{array}{rr}
+A & 0 \\
+0 & A
+\end{array} \rightB$, so $
+c_T(x) = \func{det} 
+\leftB \begin{array}{cc}
+xI_2 - A & 0 \\
+0 & xI_2 - A
+\end{array} \rightB
+= [c_A(x)]^2$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : \RR^2 \to \RR^2$ be given by 
+\begin{equation*}
+T(a, b) = (b - a, a + 2b)
+\end{equation*} Show that $T$ is symmetric if the dot product is used in $\RR^2$ but that it is not symmetric if the following inner product is used:
+\begin{equation*}
+\langle \vect{x}, \vect{y} \rangle = \vect{x} A \vect{y}^T, A =
+\leftB \begin{array}{rr}
+1 & -1 \\
+-1 & 2
+\end{array} \rightB 
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+If $T : V \to V$ is symmetric, write $T^{-1}(W) = \{\vect{v} \mid T(\vect{v}) \mbox{ is in } W\}$. Show that \newline $T(U)^{\perp} = T^{-1}(U^{\perp})$ holds for every subspace $U$ of $V$.
+\end{ex}
+
+\begin{ex}
+Let $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$ be defined by $T(X) = PXQ$, where $P$ and $Q$ are nonzero $2 \times 2$ matrices. Use the inner product $\langle X, Y\rangle = \func{tr}(XY^{T})$. Show that $T$ is symmetric if and only if either $P$ and $Q$ are both symmetric or both are scalar multiples of 
+$\leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array} \rightB$. [\textit{Hint}: If $B$ is as in part (a) of Exercise \ref{ex:10_3_7}, then 
+\newline $M_B(T) = 
+\leftB \begin{array}{rr}
+aP & cP \\
+bP & dP
+\end{array} \rightB$ in block form, where \newline $Q = 
+\leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB$. \newline If $B_0 = 
+\left\{
+\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+0 & 1 \\
+0 & 0
+\end{array} \rightB
+, 
+\leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB
+,
+\leftB \begin{array}{rr}
+0 & 0 \\
+0 & 1
+\end{array} \rightB
+\right\}$, then $M_B(T) = 
+\leftB \begin{array}{cc}
+pQ^T & qQ^T \\
+rQ^T & sQ^T
+\end{array} \rightB$, where $P = 
+\leftB \begin{array}{rr}
+p & q \\
+r & s
+\end{array} \rightB$. Use the fact that $cP = bP^T \Rightarrow (c^2 - b^2)P = 0.$]
+\end{ex}
+
+\begin{ex}
+Let $T : V \to W$ be any linear transformation and let $B = \{\vect{b}_{1}, \dots, \vect{b}_{n}\}$ and $D = \{\vect{d}_{1}, \dots, \vect{d}_{m}\}$ be bases of $V$ and $W$, respectively. If $W$ is an inner product space and $D$ is orthogonal, show that
+\begin{equation*}
+M_{DB}(T) = 
+\leftB \frac{\langle \vect{d}_i, T(\vect{b}_j) \rangle}{\vectlength \vect{d}_i \vectlength ^2} \rightB
+\end{equation*}
+This is a generalization of Theorem~\ref{thm:031583}.
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear operator on an inner product space $V$ of finite dimension. Show that the following are equivalent.
+
+\begin{enumerate}
+\item $\langle\vect{v}, T(\vect{w}) \rangle  = -\langle T(\vect{v}), \vect{w} \rangle$ for all $\vect{v}$ and $\vect{w}$ in $V$.
+
+\item $M_{B}(T)$ is skew-symmetric for every orthonormal basis $B$.
+
+\item $M_{B}(T)$ is skew-symmetric for some orthonormal basis $B$.
+
+\end{enumerate}
+
+Such operators $T$ are called \textbf{skew-symmetric}\index{skew-symmetric} operators.
+
+\begin{sol}
+(1) $\Rightarrow$ (2). If $B = \{\vect{f}_1, \dots, \vect{f}_n \}$ is an orthonormal basis
+of $V$, then $M_B(T) = \leftB a_{ij}\rightB$ where $a_{ij} = \langle \vect{f}_i, T(\vect{f}_j) \rangle$ by Theorem~\ref{thm:031583}. If (1) holds, then $ a_{ji} 
+= \langle \vect{f}_j, T(\vect{f}_i) \rangle 
+= -\langle T(\vect{f}_j), \vect{f}_i \rangle 
+= -\langle \vect{f}_i, T(\vect{f}_j) \rangle 
+= -a_{ij} $. Hence $[M_V(T)]^T = -M_V(T)$, proving (2).
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear operator on an $n$-dimensional inner product space $V$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T$ is symmetric if and only if it satisfies the following two conditions.
+
+\begin{enumerate}[label={\roman*.}]
+\item $c_{T}(x)$ factors completely over $\RR$.
+
+\item If $U$ is a $T$-invariant subspace of $V$, then $U^{\perp}$ is also $T$-invariant.
+
+\end{enumerate}
+
+\item Using the standard inner product on $\RR^2$, show that $T : \RR^2 \to \RR^2$ with $T(a, b) = (a, a + b)$ satisfies condition (i) and that $S : \RR^2 \to \RR^2$ with \\ $S(a, b) = (b, -a)$ satisfies condition (ii), but that neither is symmetric. (Example~\ref{exa:029341} is useful for $S$.)
+
+[\textit{Hint for part} (a): If conditions (i) and (ii) hold, proceed by induction on $n$. By condition (i), let $\vect{e}_{1}$ be an eigenvector of $T$. If $U = \RR\vect{e}_{1}$, then $U^{\perp}$ is $T$-invariant by condition (ii), so show that the restriction of $T$ to $U^{\perp}$ satisfies conditions (i) and (ii). (Theorem~\ref{thm:029359} is helpful for part (i)). Then apply induction to show that $V$ has an orthogonal basis of eigenvectors (as in Theorem~\ref{thm:031712})].
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $B = \{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ be an orthonormal basis of an inner product space $V$. Given $T : V \to V$, define $T^\prime : V \to V$ by 
+\begin{align*}
+T^\prime(\vect{v}) & = \langle \vect{v}, T(\vect{f}_1) \rangle \vect{f}_1 + 
+\langle \vect{v}, T(\vect{f}_2) \rangle \vect{f}_2 + \dots +
+\langle \vect{v}, T(\vect{f}_n) \rangle \vect{f}_n \\
+& = \displaystyle \sum_{i = 1}^{n} \langle \vect{v}, T(\vect{f}_i) \rangle \vect{f}_i
+\end{align*}
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $(aT)^\prime = aT^\prime$.
+
+\item Show that $(S + T)^\prime = S^\prime + T^\prime$.
+
+\item Show that $M_{B}(T^\prime)$ is the transpose of $M_{B}(T)$.
+
+\item Show that $(T^\prime)^\prime = T$, using part (c). [\textit{Hint}: $M_{B}(S) = M_{B}(T)$ implies that $S = T$.]
+
+\item Show that $(ST)^\prime = T^\prime S^\prime$, using part (c).
+
+\item Show that $T$ is symmetric if and only if \newline $T = T^\prime$. [\textit{Hint}: Use the expansion theorem and Theorem~\ref{thm:031623}.]
+
+\item Show that $T + T^\prime$ and $TT^\prime$ are symmetric, using parts (b) through (e).
+
+\item Show that $T^\prime(\vect{v})$ is independent of the choice of orthonormal basis $B$. [\textit{Hint}: If $D = \{\vect{g}_{1}, \dots, \vect{g}_{n}\}$ is also orthonormal, use the fact that \newline $\vect{f}_i = \displaystyle \sum_{j = 1}^{n} \langle \vect{f}_i, \vect{g}_j \rangle \vect{g}_j$ for each $i$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{2}
+\item  The coefficients in the definition of $T^\prime(\vect{f}_j) = \displaystyle \sum_{i = 1}^{n} \langle \vect{f}_j, T(\vect{f}_i) \rangle \vect{f}_i$ are the entries in the $j$th column $C_{B}[T^\prime(\vect{f}_{j})]$ of $M_{B}(T^\prime)$. Hence $M_{B}(T^\prime) = [\langle\vect{f}_{j}, T(\vect{f}_{j}) \rangle]$, and this is the transpose of $M_{B}(T)$ by Theorem~\ref{thm:031583}.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:10_3_15}
+Let $V$ be a finite dimensional inner product space. Show that the following conditions are equivalent for a linear operator $T : V \to V$.
+
+\begin{enumerate}
+\item $T$ is symmetric and $T^{2} = T$.
+
+\item $M_B(T) = 
+\leftB \begin{array}{cc}
+I_r & 0 \\
+0 & 0
+\end{array} \rightB$ for some orthonormal basis $B$ of $V$.
+
+An operator is called a \textbf{projection}\index{linear operator!projection}\index{projection!linear operator} if it satisfies these conditions. [\textit{Hint}: If $T^{2} = T$ and $T(\vect{v}) = \lambda\vect{v}$, apply $T$ to get $\lambda\vect{v} = \lambda^{2}\vect{v}$. Hence show that $0$, $1$ are the only eigenvalues of $T$.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $V$ denote a finite dimensional inner product space. Given a subspace $U$, define \\ $\proj{U}{} : V \to V$ as in Theorem~\ref{thm:031102}.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that  $\proj{U}{}$ is a projection in the sense of Exercise \ref{ex:10_3_15}.
+
+\item If $T$ is any projection, show that $T = \proj{U}{}$, where $U = \func{im} T$. [\textit{Hint}: Use $T^{2} = T$ to show that $V = \func{im} T \oplus \func{ker} T$ and $T(\vect{u}) = \vect{u}$ for all $\vect{u}$ in $\func{im} T$. Use the fact that $T$ is symmetric to show that $\func{ker} T \subseteq (\func{im} T)^{\perp}$ and hence that these are equal because they have the same dimension.]
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

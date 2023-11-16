@@ -1,0 +1,17 @@
+\begin{tikzpicture}[scale=1.3]
+\filldraw[color=dkbluevect, fill=ltbluevect, thick] (0,0)--(1.2,0.75)--(3,0)--(1.9,-1)--cycle;
+\draw[thick, dkbluevect] (0.6,0)--(1.7,0)--(1.7,1.25);
+\draw[thick, dashed, dkbluevect](0.6,1.25)--(1.7,1.25);
+\draw[dkgreenvect, thick, -latex] (0.6,0)--(1.7,1.25) node[midway,below right, text=black]{\footnotesize $\vect{u}$};
+\draw[dkgreenvect, thick, -latex] (0.6,0)--(0.6,1.25);
+\draw[dkgreenvect, thick, -latex] (0.6,1.25)--(0.6,1.6);
+\draw[dkbluevect](1.55,0)--(1.55,0.15)--(1.7,0.15);
+\fill (0.6,0) circle (2pt);
+\fill (1.7,0) circle (2pt);
+\fill (1.7,1.25) circle (2pt);
+\node[below] at (0.5,0) {\footnotesize $P_0(0, -1, 0)$};
+\node[right] at (1.7,0) {\footnotesize $Q(x, y, z)$};
+\node[right] at (1.7,1.25) {\footnotesize $P(2, 1, -3)$};
+\node[left] at (0.6,1.15){\footnotesize $\vect{u}_1$};
+\node[left] at (0.6,1.5){\footnotesize $\vect{n}$};
+\end{tikzpicture}

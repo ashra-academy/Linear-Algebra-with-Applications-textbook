@@ -1,0 +1,17 @@
+\begin{tikzpicture}[scale=0.7]
+\coordinate (ptO) at (0, 0);
+\coordinate (ptA) at (-2, 0);
+\coordinate (ptB) at (2, 0);
+
+\draw[dkgreenvect, thick] (ptO)--(60:2cm) node(ptC){}
+ (ptC.center)--(ptB)
+ (ptB)--(ptA)
+ (ptA)--(ptC.center);
+\draw[dkbluevect, thick] (ptO) circle (2);
+
+\node[below] at (ptO) {\small $O$};
+\node[left] at (ptA) {\small $A$};
+\node[right] at (ptB) {\small $B$};
+\node[above] at (ptC) {\small $C$};
+\end{tikzpicture}
+	

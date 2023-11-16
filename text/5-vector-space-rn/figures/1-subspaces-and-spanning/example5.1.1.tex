@@ -1,0 +1,14 @@
+\begin{tikzpicture}[scale=0.9]
+\coordinate (origin) at (0, 0);
+
+\draw[thick, -latex] (origin)--(2, 0) node [right] {\small $y$};
+\draw[thick, -latex] (origin)--(0, 2) node [above] {\small $z$};
+\draw[thick, -latex] (origin)--(-1, -1) node [below left] {\small $x$};
+
+\def \angleD {60}
+\draw[thick, dkbluevect] (origin)--(\angleD:2.5)
+	(origin)--(180 + \angleD :2);
+\draw[thick, -latex, dkgreenvect] (origin)--(\angleD:1.25) node [right, text=black] {\small $\vect{d}$};
+
+\node[right] at (\angleD:2.0) {\small $L$};
+\end{tikzpicture}

@@ -1,0 +1,1919 @@
+\section{Diagonalization and Eigenvalues}
+\label{sec:3_3}
+
+The
+ world is filled with examples of systems that evolve in time---the 
+weather in a region, the economy of a nation, the diversity of an 
+ecosystem, etc. Describing such systems is difficult in general and 
+various methods have been developed in special cases. In this section we
+ describe one such method, called \textit{diagonalization,} which is one 
+of the most important techniques in linear algebra. A very fertile 
+example of this procedure is in modelling the growth of the population 
+of an animal species. This has attracted more attention in recent years 
+with the ever increasing awareness that many species are endangered. To 
+motivate the technique, we begin by setting up a simple model of a bird 
+population in which we make assumptions about survival and reproduction 
+rates.
+
+\index{diagonalization!example}
+\begin{example}{}{008923}
+Consider
+ the evolution of the population of a species of birds. Because the 
+number of males and females are nearly equal, we count only females. We 
+assume that each female remains a juvenile for one year and then becomes
+ an adult, and that only adults have offspring. We make three 
+assumptions about reproduction and survival rates:
+
+
+\begin{enumerate}
+\item The number of juvenile females hatched in any year is twice the number of adult females alive the year before (we say the \textbf{reproduction rate} is 2).\index{reproduction rate}
+
+\item Half of the adult females in any year survive to the next year (the \textbf{adult survival rate} is $\frac{1}{2}$).\index{adult survival rate}
+
+\item One quarter of the juvenile females in any year survive into adulthood (the \textbf{juvenile survival rate} is $\frac{1}{4}$).\index{juvenile survival rate}
+
+\end{enumerate}
+
+If there were 100 adult females and 40 juvenile females alive initially, compute the population of females $k$ years later.
+
+
+\begin{solution}
+  Let $a_{k}$ and $j_{k}$ denote, respectively, the number of adult and juvenile females after $k$ years, so that the total female population is the sum $a_{k} + j_{k}$. Assumption 1 shows that $j_{k+1} = 2a_{k}$, while assumptions 2 and 3 show that $a_{k+1} = \frac{1}{2}a_{k} + \frac{1}{4}j_{k}$. Hence the numbers $a_{k}$ and $j_{k}$ in successive years are related by the following equations:
+\begin{align*}
+a_{k+1} & = \frac{1}{2} a_k + \frac{1}{4} j_k \\
+j_{k+1} & = 2 a_k 
+\end{align*}
+
+If we write $\vect{v}_k = \leftB \begin{array}{c}
+a_k \\
+j_k 
+\end{array}\rightB$
+ and $A = \leftB \begin{array}{rr}
+\frac{1}{2} & \frac{1}{4} \\
+2 & 0 \end{array}\rightB$
+ these equations take the matrix form
+\begin{equation*}
+\vect{v}_{k+1} = A\vect{v}_k, \mbox{ for each } k = 0,1,2,\dots
+\end{equation*}
+Taking $k = 0$ gives $\vect{v}_{1} = A\vect{v}_{0}$, then taking $k = 1$ gives $\vect{v}_{2} = A\vect{v}_{1} = A^{2}\vect{v}_{0}$, and taking $k = 2$ gives $\vect{v}_{3} = A\vect{v}_{2} = A^{3}\vect{v}_{0}$. Continuing in this way, we get
+\begin{equation*}
+\vect{v}_k = A^k \vect{v}_0, \mbox{ for each } k=0,1,2, \dots
+\end{equation*}
+Since $\vect{v}_0 = \leftB \begin{array}{c}
+a_0 \\
+j_0 
+\end{array}\rightB = \leftB \begin{array}{c}
+100 \\
+40 
+\end{array}\rightB $
+ is known, finding the population profile $\vect{v}_{k}$ amounts to computing $A^{k}$ for all $k \geq 0$. We will complete this calculation in Example~\ref{exa:009389} after some new techniques have been developed.
+\end{solution}
+\end{example}
+
+Let $A$ be a fixed $n \times n$ matrix. A sequence $\vect{v}_{0}, \vect{v}_{1}, \vect{v}_{2}, \dots$  of column vectors\index{vectors!column vectors}\index{column vectors}\index{sequences!of column vectors} in $\RR^n$ is called a \textbf{linear dynamical system}\index{linear dynamical system}\footnote{More precisely, this is \textit{a linear discrete} dynamical system\index{linear discrete dynamical system}. Many models regard $\vect{v}_{t}$ as a continuous function of the time $t$, and replace our condition between $\vect{b}_{k+1}$ and $A\vect{v}_k$ with a differential relationship viewed as functions of time.\index{time, functions of}}
+ if $\vect{v}_{0}$ is known and the other $\vect{v}_{k}$ are determined (as in Example~\ref{exa:008923}) by the conditions
+\begin{equation*}
+\vect{v}_{k+1} = A\vect{v}_k \mbox{ for each } k = 0, 1, 2, \dots
+\end{equation*}
+These conditions are called a \textbf{matrix recurrence}\index{matrix recurrence}\index{vectors!matrix recurrence} for the vectors $\vect{v}_{k}$. As in Example~\ref{exa:008923}, they imply that
+\begin{equation*}
+\vect{v}_k = A^k \vect{v}_0 \mbox{ for all }k \ge 0
+\end{equation*}
+so finding the columns $\vect{v}_{k}$ amounts to calculating $A^{k}$ for $k \geq 0$.
+
+
+Direct computation of the powers $A^{k}$ of a square matrix $A$ can be time-consuming, so we adopt an indirect method that is commonly used. The idea is to first \textbf{diagonalize} the matrix $A$, that is, to find an invertible matrix $P$ such that
+\begin{equation}\label{eq:diagonalizeP}
+P^{-1}AP=D \mbox{ is a diagonal matrix}
+\end{equation}\index{matrix!diagonal matrices}\index{diagonal matrices}\index{square matrix ($n \times n$ matrix)!diagonal matrices}
+This works because the powers $D^{k}$ of the diagonal matrix $D$ are easy to compute, and Equation \ref{eq:diagonalizeP} enables us to compute powers $A^{k}$ of the matrix $A$ in terms of powers $D^{k}$ of $D$. Indeed, we can solve Equation \ref{eq:diagonalizeP} for $A$ to get $A = PDP^{-1}$. Squaring this gives
+\begin{equation*}
+A^2 = (PDP^{-1})(PDP^{-1}) = PD^2P^{-1}
+\end{equation*}
+Using this we can compute $A^{3}$ as follows:
+\begin{equation*}
+A^3 = AA^2 = (PDP^{-1})(PD^2P^{-1}) = PD^3P^{-1}
+\end{equation*}
+Continuing in this way we obtain Theorem~\ref{thm:008997} (even if $D$ is not diagonal).
+
+
+\begin{theorem}{}{008997}
+If $A = PDP^{-1}$ then $A^{k} = PD^{k}P^{-1}$ for each $k = 1, 2, \dots$.
+\end{theorem}
+
+Hence computing $A^{k}$ comes down to finding an invertible matrix $P$ as in equation Equation \ref{eq:diagonalizeP}. To do this it is necessary to first compute certain numbers (called eigenvalues) associated with the matrix $A$.
+
+
+\subsection*{Eigenvalues and Eigenvectors}
+\index{diagonalization!eigenvalues}
+
+\begin{definition}{Eigenvalues and Eigenvectors of a Matrix}{009008}
+If $A$ is an $n \times n$ matrix, a number $\lambda$ is called an \textbf{eigenvalue}\index{eigenvalues!defined} of $A$ if
+\begin{equation*}
+A\vect{x} = \lambda \vect{x} \mbox{ for some column } \vect{x} \neq \vect{0} \mbox{ in } \RR^n
+\end{equation*}
+In this case, $\vect{x}$ is called an \textbf{eigenvector}\index{eigenvector!defined} of $A$ corresponding to the eigenvalue $\lambda$, or a $\lambda$-\textbf{eigenvector} for short.
+\end{definition}
+
+\begin{example}{}{009013}
+If $A = \leftB \begin{array}{rr}
+3 & 5 \\
+1 & -1 
+\end{array}\rightB$
+ and $\vect{x} = \leftB \begin{array}{r}
+5 \\
+1
+\end{array}\rightB$
+ then $A\vect{x} = 4 \vect{x}$ so $\lambda = 4$
+ is an eigenvalue of $A$ with corresponding eigenvector $\vect{x}$.
+\end{example}
+
+The matrix $A$ in Example~\ref{exa:009013} has another eigenvalue in addition to $\lambda = 4$. To find it, we develop a general procedure for \textit{any} $n \times n$ matrix $A$.\index{diagonalization!matrix}
+
+
+By definition a number $\lambda$ is an eigenvalue of the $n \times n$ matrix $A$ if and only if $A\vect{x} = \lambda\vect{x}$ for some column $\vect{x} \neq \vect{0}$. This is equivalent to asking that the homogeneous system
+\begin{equation*}
+(\lambda I - A)\vect{x} = \vect{0}
+\end{equation*}
+of linear equations has a nontrivial solution $\vect{x} \neq \vect{0}$\index{homogeneous equations!nontrivial solution}\index{nontrivial solution}\index{solution!nontrivial solution}. By Theorem \ref{thm:004553} this happens if and only if the matrix $\lambda I - A$ is not invertible and this, in turn, holds if and only if the determinant of the coefficient matrix is zero:
+\begin{equation*}
+\func{det}(\lambda I -A)=0
+\end{equation*}
+This last condition prompts the following definition:
+
+
+\begin{definition}{Characteristic Polynomial of a Matrix}{009024}
+If $A$ is an $n \times n$ matrix, the \textbf{characteristic polynomial}\index{characteristic polynomial!square matrix}\index{square matrix ($n \times n$ matrix)!characteristic polynomial} $c_{A}(x)$ of $A$ is defined by
+\begin{equation*}
+c_A(x) = \func{det}(xI - A)
+\end{equation*}
+\end{definition}
+
+\noindent Note that $c_{A}(x)$ is indeed a polynomial in the variable $x$, and it has degree $n$ when $A$ is an $n \times n$ matrix (this is illustrated in the examples below). The above discussion shows that a number $\lambda$ is an eigenvalue of $A$ if and only if $c_{A}(\lambda) = 0$, that is if and only if $\lambda$ is a \textbf{root} of the characteristic polynomial $c_{A}(x)$. We record these observations in 
+\index{characteristic polynomial!root of}\index{characteristic polynomial!eigenvalues}\index{eigenvalues!root of the characteristic polynomial}\index{polynomials!root}\index{polynomials!root of characteristic polynomial}\index{root!of characteristic polynomial}
+
+\begin{theorem}{}{009033}
+Let $A$ be an $n \times n$ matrix.
+
+\begin{enumerate}
+\item The eigenvalues $\lambda$ of $A$ are the roots of the characteristic polynomial $c_{A}(x)$ of $A$.\index{eigenvalues!solving for}
+
+\item The $\lambda$-eigenvectors $\vect{x}$ are the nonzero solutions to the homogeneous system
+\begin{equation*}
+(\lambda I - A)\vect{x} = \vect{0}
+\end{equation*}
+of linear equations with $\lambda I - A$ as coefficient matrix.
+
+\end{enumerate}
+\end{theorem}
+
+\noindent In practice, solving the equations in part 2 of Theorem~\ref{thm:009033} is a routine application of gaussian elimination, but finding the eigenvalues can be difficult, often requiring computers (see Section~\ref{sec:8_5}).
+ For now, the examples and exercises will be constructed so that the 
+roots of the characteristic polynomials are relatively easy to find 
+(usually integers). However, the reader should not be misled by this 
+into thinking that eigenvalues are so easily obtained for the matrices 
+that occur in practical applications!
+
+
+\begin{example}{}{009044}
+Find the characteristic polynomial of the matrix $A = \leftB \begin{array}{rr}
+3 & 5 \\
+1 & -1 
+\end{array}\rightB$
+ discussed in Example~\ref{exa:009013}, and then find all the eigenvalues and their eigenvectors.
+
+
+\begin{solution}
+  Since $xI-A = \leftB \begin{array}{rr}
+x & 0 \\
+0 & x 
+\end{array}\rightB - \leftB \begin{array}{rr}
+3 & 5 \\
+1 & -1 
+\end{array}\rightB = 
+\leftB \begin{array}{cc}
+x - 3 & -5 \\
+-1 & x+1 
+\end{array}\rightB$
+ we get
+\begin{equation*}
+c_A(x) = \func{det} \leftB \begin{array}{cc}
+x - 3 & -5 \\
+-1 & x+1 
+\end{array}\rightB = x^2 - 2x - 8 = (x-4)(x+2)
+\end{equation*}
+Hence, the roots of $c_{A}(x)$ are $\lambda_{1} = 4$ and $\lambda_{2} = -2$, so these are the eigenvalues of $A$. Note that $\lambda_{1} = 4$ was the eigenvalue mentioned in Example~\ref{exa:009013}, but we have found a new one: $\lambda_{2} = -2$.
+
+
+To find the eigenvectors corresponding to $\lambda_{2} = -2$, observe that in this case
+\begin{equation*}
+(\lambda_2 I - A)\vect{x} = \leftB \begin{array}{cc}
+\lambda_2 - 3 & -5 \\
+-1 & \lambda_2+1
+\end{array}\rightB = \leftB \begin{array}{rr}
+-5 & -5 \\
+-1 & -1
+\end{array}\rightB
+\end{equation*}
+so the general solution to $(\lambda_{2} I - A)\vect{x} = \vect{0}$ is $\vect{x} = t \leftB \begin{array}{r}
+-1 \\
+1
+\end{array}\rightB$
+ where $t$ is an arbitrary real number. Hence, the eigenvectors $\vect{x}$ corresponding to $\lambda$\textsubscript{2} are $\vect{x} = t \leftB \begin{array}{r}
+-1 \\
+1
+\end{array}\rightB$
+ where $t \neq 0$ is arbitrary. Similarly, $\lambda_{1} = 4$ gives rise to the eigenvectors $\vect{x} = t \leftB \begin{array}{r}
+5 \\
+1
+\end{array}\rightB, t \neq 0$
+ which includes the observation in Example~\ref{exa:009013}.
+\end{solution}
+\end{example}
+
+Note that a square matrix $A$ has \textit{many} eigenvectors associated with any given eigenvalue $\lambda$. In fact \textit{every} nonzero solution $\vect{x}$ of $(\lambda I - A)\vect{x} = \vect{0}$ is an eigenvector. Recall that these solutions are all linear 
+combinations of certain basic solutions determined by the gaussian 
+algorithm (see Theorem \ref{thm:001586}). Observe that any nonzero multiple of an eigenvector\index{eigenvector!nonzero multiple} is again an eigenvector,\footnote{In fact, any nonzero linear combination of $\lambda$-eigenvectors is again a $\lambda$-eigenvector.\index{eigenvector!nonzero linear combination}}
+ and such multiples are often more convenient.\footnote{Allowing nonzero multiples helps eliminate round-off error when the eigenvectors involve fractions.\index{eigenvector!nonzero multiple}\index{eigenvector!fractions}\index{fractions!eigenvectors}\index{round-off error}}
+ Any set of nonzero multiples of the basic solutions of $(\lambda I - A)\vect{x} = \vect{0}$ will be called a set of \textbf{basic eigenvectors}\index{basic eigenvectors}\index{eigenvector!basic eigenvectors} corresponding to $\lambda$.
+
+
+\begin{example}{}{009069}
+Find the characteristic polynomial, eigenvalues, and basic eigenvectors for
+\begin{equation*}
+A = \leftB \begin{array}{rrr}
+2 & 0 & 0 \\
+1 & 2 & -1 \\
+1 & 3 & -2
+\end{array}\rightB
+\end{equation*}
+\begin{solution}
+  Here the characteristic polynomial is given by
+\begin{equation*}
+c_A(x) = \func{det} \leftB \begin{array}{ccc}
+x-2 & 0 & 0 \\
+-1 & x-2 & 1 \\
+-1 & -3 & x+2
+\end{array}\rightB = (x-2)(x-1)(x+1)
+\end{equation*}
+so the eigenvalues are $\lambda_{1} = 2$, $\lambda_{2} = 1$, and $\lambda_{3} = -1$. To find all eigenvectors for $\lambda_{1} = 2$, compute
+\begin{equation*}
+\lambda_1 I-A = \leftB \begin{array}{ccc}
+\lambda_1-2 & 0 & 0 \\
+-1 & \lambda_1-2 & 1 \\
+-1 & -3 & \lambda_1+2
+\end{array}\rightB = \leftB \begin{array}{rrr}
+0 & 0 & 0 \\
+-1 & 0 & 1 \\
+-1 & -3 & 4 
+\end{array}\rightB
+\end{equation*}
+We want the (nonzero) solutions to $(\lambda_{1}I - A)\vect{x} = \vect{0}$. The augmented matrix becomes
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+0 & 0 & 0 & 0 \\
+-1 & 0 & 1 & 0 \\
+-1 & -3 & 4 & 0 
+\end{array}\rightB \rightarrow
+\leftB \begin{array}{rrr|r}
+1 & 0 & -1 & 0 \\
+0 & 1 & -1 & 0 \\
+0 & 0 & 0 & 0 
+\end{array}\rightB
+\end{equation*}
+using row operations. Hence, the general solution $\vect{x}$ to $(\lambda_{1}I - A)\vect{x} = \vect{0}$ is $\vect{x} = t \leftB \begin{array}{r}
+1 \\
+1 \\
+1
+\end{array}\rightB$
+ where $t$ is arbitrary, so we can use $\vect{x}_1 = \leftB \begin{array}{r}
+1 \\
+1 \\
+1
+\end{array}\rightB$
+ as the basic eigenvector corresponding to $\lambda_{1} = 2$. As the reader can verify, the gaussian algorithm gives basic eigenvectors $\vect{x}_2 = \leftB \begin{array}{r}
+0 \\
+1 \\
+1
+\end{array}\rightB$
+ and $\vect{x}_3 = \leftB \begin{array}{r}
+0 \\
+\frac{1}{3} \\
+1
+\end{array}\rightB$
+ corresponding to $\lambda_{2} = 1$ and $\lambda_{3} = -1$, respectively. Note that to eliminate fractions, we could instead use $3\vect{x}_3 = \leftB \begin{array}{r}
+0 \\
+1 \\
+3
+\end{array}\rightB$
+ as the basic $\lambda_{3}$-eigenvector.
+\end{solution}
+\end{example}
+
+\begin{example}{}{009095}
+If $A$ is a square matrix, show that $A$ and $A^{T}$ have the same characteristic polynomial, and hence the same eigenvalues.
+
+
+\begin{solution}
+  We use the fact that $xI - A^{T} = (xI - A)^{T}$. Then
+\begin{equation*}
+c_{A^T}(x) = \func{det} \left( xI-A^T \right) = \func{det} \left[ (xI-A)^T \right] = \func{det} (xI-A) = c_A(x)
+\end{equation*}
+by Theorem \ref{thm:008268}. Hence $c_{A^{T}}(x)$ and $c_{A}(x)$ have the same roots, and so $A^{T}$ and $A$ have the same eigenvalues (by Theorem~\ref{thm:009033}).
+\end{solution}
+\end{example}
+
+The eigenvalues of a matrix need not be distinct. For example, if $A = \leftB \begin{array}{rr}
+1 & 1  \\
+0 & 1 
+\end{array}\rightB$
+ the characteristic polynomial is $(x - 1)^2$ so the eigenvalue 1 occurs twice. Furthermore, eigenvalues are usually 
+not computed as the roots of the characteristic polynomial. There are 
+iterative, numerical methods (for example the QR-algorithm in Section~\ref{sec:8_5}) that are much more efficient for large matrices.
+
+
+\subsection*{$A$-Invariance}
+
+
+If $A$ is a $2 \times 2$ matrix, we can describe the eigenvectors of $A$ geometrically using the following concept. A line $L$ through the origin in $\RR^2$ is called $A$-\textbf{invariant}\index{$A$-invariance}\index{invariants}\index{square matrix ($n \times n$ matrix)!invariants} if $A\vect{x}$ is in $L$ whenever $\vect{x}$ is in $L$. If we think of $A$ as a linear transformation $\RR^2 \to \RR^2$, this asks that $A$ carries $L$ into itself, that is the image $A\vect{x}$ of each vector $\vect{x}$ in $L$ is again in $L$.
+
+
+\begin{example}{}{009117}
+The $x$ axis $L = \left\{ \leftB \begin{array}{r}
+x \\
+0
+\end{array} \rightB \mid x \mbox{ in } \RR \right\}$  is $A$-invariant for any matrix of the form
+\begin{equation*}
+A = \leftB \begin{array}{rr}
+a & b \\
+0 & c 
+\end{array} \rightB \mbox{ because }  \leftB \begin{array}{rr}
+a & b \\
+0 & c 
+\end{array} \rightB \leftB \begin{array}{r}
+x \\
+0
+\end{array}\rightB = \leftB \begin{array}{r}
+ax \\
+0
+\end{array}\rightB \mbox{ is } L \mbox{ for all } \vect{x} = \leftB \begin{array}{r}
+x \\
+0
+\end{array}\rightB \mbox{ in } L
+\end{equation*}
+\end{example}
+
+\begin{wrapfigure}[12]{l}{5cm} 
+	\centering
+	\input{3-determinants-and-diagonalization/figures/3-diagonalization-and-eigenvalues/example3.3.6}
+	%\caption{\label{fig:009127}}
+\end{wrapfigure}
+
+To see the connection with eigenvectors, let $\vect{x} \neq \vect{0}$ be any nonzero vector in $\RR^2$  and let $L_{\vect{x}}$ denote the unique line through the origin containing $\vect{x}$ (see the diagram). By the definition of scalar multiplication in Section~\ref{sec:2_6}, we see that $L_{\vect{x}}$ consists of all scalar multiples of $\vect{x}$, that is
+\begin{equation*}
+L_{\vect{x}} = \RR \vect{x} = \left\{ t\vect{x} \mid t \mbox{ in } \RR \right\}
+\end{equation*}
+\noindent Now suppose that $\vect{x}$ is an eigenvector of $A$, say $A\vect{x} = \lambda\vect{x}$ for some $\lambda$ in $\RR$. Then if $t\vect{x}$ is in $L_{\vect{x}}$ then
+\begin{equation*}
+A(t\vect{x}) = t\left(A\vect{x}\right) = t(\lambda \vect{x}) = (t\lambda)\vect{x} \mbox{ is again in } L_{\vect{x}}
+\end{equation*}
+That is, $L_{\vect{x}}$ is $A$-invariant. On the other hand, if $L_{\vect{x}}$ is $A$-invariant then $A\vect{x}$ is in $L_{\vect{x}}$ (since $\vect{x}$ is in $L_{\vect{x}}$). Hence $A\vect{x} = t\vect{x}$ for some $t$ in $\RR$, so $\vect{x}$ is an eigenvector for $A$ (with eigenvalue $t$). This proves:
+
+
+\begin{theorem}{}{009136}
+Let $A$ be a $2 \times 2$ matrix, let $\vect{x} \neq \vect{0}$ be a vector in $\RR^2$, and let $L_{\vect{x}}$ be the line through the origin in $\RR^2$ containing $\vect{x}$. Then
+\begin{equation*}
+\vect{x} \mbox{ is an eigenvector of } A \quad \mbox{ if and only if } \quad L_{\vect{x}} \mbox{ is } A\mbox{-invariant}
+\end{equation*}
+\end{theorem}
+
+\begin{example}{}{009143}
+\begin{enumerate}
+\item If $\theta$ is not a multiple of $\pi$, show that $A = \leftB \begin{array}{cc}
+\cos \theta & - \sin \theta \\
+\sin \theta & \cos \theta
+\end{array}\rightB$
+ has no real eigenvalue.
+
+\item If $m$ is real show that $B = \frac{1}{1+m^2} \leftB \begin{array}{cc}
+1-m^2 & 2m \\
+2m & m^2 -1
+\end{array}\rightB$
+ has a 1 as an eigenvalue.
+
+\end{enumerate}
+
+\begin{solution}
+\begin{enumerate}
+\item $A$ induces rotation about the origin through the angle $\theta$ (Theorem \ref{thm:006021}). Since $\theta$ is not a multiple of $\pi$, this shows that no line through the origin is $A$-invariant. Hence $A$ has no eigenvector by Theorem~\ref{thm:009136}, and so has no eigenvalue.
+
+\item $B$ induces reflection $Q_{m}$ in the line through the origin with slope $m$ by Theorem \ref{thm:006096}. If $\vect{x}$ is any nonzero point on this line then it is clear that $Q_{m}\vect{x} = \vect{x}$, that is $Q_{m}\vect{x} = 1\vect{x}$. Hence 1 is an eigenvalue (with eigenvector $\vect{x}$).
+
+\end{enumerate}
+\end{solution}
+\end{example}
+
+If $\theta = \frac{\pi}{2}$ in Example~\ref{exa:009143}, then $A = \leftB \begin{array}{rr}
+0 & -1 \\
+1 & 0 
+\end{array}\rightB$
+ so $c_{A}(x) = x^{2} + 1$. This polynomial has no root in $\RR$, so $A$ has no (real) eigenvalue, and hence no eigenvector. In fact its eigenvalues are the complex numbers $i$ and $-i$, with corresponding eigenvectors $\leftB \begin{array}{r}
+1 \\
+-i 
+\end{array}\rightB$
+ and $\leftB \begin{array}{r}
+1 \\
+i 
+\end{array}\rightB$
+ In other words, $A$ \textit{has} eigenvalues and eigenvectors, just not real ones.
+
+
+Note that \textit{every} polynomial has complex roots\index{polynomials!complex roots},\footnote{This is called the \textit{Fundamental Theorem of Algebra}\index{fundamental theorem of algebra} and was first proved by Gauss\index{Gauss, Carl Friedrich} in his doctoral dissertation.} so every matrix has complex eigenvalues\index{eigenvalues!complex eigenvalues}. While these eigenvalues may very well be real, this suggests that we really should be doing linear algebra over the complex numbers. Indeed, everything we have done (gaussian elimination, matrix algebra, determinants, etc.) works if all the scalars are complex.
+
+
+\subsection*{Diagonalization}
+
+
+An $n \times n$ matrix $D$ is called a \textbf{diagonal matrix}\index{matrix!diagonal matrices}\index{diagonal matrices} if all its entries off the main diagonal are zero, that is if $D$ has the form
+\begin{equation*}
+D = \leftB \begin{array}{cccc}
+\lambda_1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \lambda_n \end{array}\rightB = \diag(\lambda_1, \lambda_2, \cdots, \lambda_n)
+\end{equation*}
+where $\lambda_{1}, \lambda_{2}, \dots , \lambda_{n}$ are numbers. Calculations with diagonal matrices are very easy. Indeed, if \newline$D = \func{diag}(\lambda_{1}, \lambda_{2}, \dots , \lambda_{n})$ and $E = \func{diag}(\mu_{1}, \mu_{2}, \dots , \mu_{n})$ are two diagonal matrices, their product $DE$ and sum $D + E$ are again diagonal, and are obtained by doing the same operations to corresponding diagonal elements:
+\begin{align*}
+DE &= \diag(\lambda_1 \mu_1, \lambda_2 \mu_2, \dots, \lambda_n \mu_n) \\
+D + E &= \diag(\lambda_1 + \mu_1, \lambda_2 + \mu_2, \dots, \lambda_n + \mu_n)
+\end{align*}
+Because of the simplicity of these formulas, and with an eye on Theorem~\ref{thm:008997} and the discussion preceding it, we make another definition:
+
+
+\begin{definition}{Diagonalizable Matrices}{009185}
+An $n \times n$ matrix $A$ is called \textbf{diagonalizable}\index{matrix!diagonalizable matrix}\index{diagonalizable matrix}\index{square matrix ($n \times n$ matrix)!diagonalizable matrix} if
+\begin{equation*}
+P^{-1}AP \mbox{ is diagonal for some invertible } n \times n \mbox{ matrix } P
+\end{equation*}
+Here the invertible matrix $P$ is called a \textbf{diagonalizing matrix}\index{matrix!diagonalizing matrix}\index{diagonalizing matrix}\index{square matrix ($n \times n$ matrix)!diagonalizing matrix} for $A$.
+\end{definition}
+
+\index{diagonalization!described}
+To discover when such a matrix $P$ exists, we let $\vect{x}_{1}, \vect{x}_{2}, \dots , \vect{x}_{n}$ denote the columns of $P$ and look for ways to determine when such $\vect{x}_{i}$ exist and how to compute them. To this end, write $P$ in terms of its columns as follows:
+\begin{equation*}
+P = \leftB \vect{x}_1, \vect{x}_2, \cdots, \vect{x}_n \rightB
+\end{equation*}
+Observe that $P^{-1}AP = D$ for some diagonal matrix $D$ holds if and only if
+\begin{equation*}
+AP = PD
+\end{equation*}
+If we write $D = \func{diag}(\lambda_{1}, \lambda_{2}, \dots , \lambda_{n})$, where the $\lambda_{i}$ are numbers to be determined, the equation $AP = PD$ becomes
+\begin{equation*}
+A\leftB \vect{x}_1, \vect{x}_2, \cdots, \vect{x}_n \rightB = \leftB \vect{x}_1, \vect{x}_2, \cdots, \vect{x}_n \rightB \leftB \begin{array}{cccc}
+\lambda_1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \lambda_n \end{array}\rightB
+\end{equation*}
+By the definition of matrix multiplication, each side simplifies as follows
+\begin{equation*}
+\leftB \begin{array}{cccc}
+A\vect{x}_1 & A\vect{x}_2 & \cdots & A\vect{x}_n 
+\end{array}\rightB = \leftB \begin{array}{cccc}
+\lambda_1 \vect{x}_1 & \lambda_2 \vect{x}_2 & \cdots & \lambda_n \vect{x}_n 
+\end{array}\rightB\end{equation*}
+Comparing columns shows that $A\vect{x}_{i} = \lambda_{i}\vect{x}_{i}$ for each $i$, so
+\begin{equation*}
+P^{-1}AP = D \quad \mbox{ if and only if } A\vect{x}_i = \lambda_i \vect{x}_i \mbox{ for each } i
+\end{equation*}
+In other words, $P^{-1}AP = D$ holds if and only if the diagonal entries of $D$ are eigenvalues of $A$ and the columns of $P$ are corresponding eigenvectors. This proves the following fundamental result.
+
+
+\begin{theorem}{}{009214}
+Let $A$ be an $n \times n$ matrix.
+
+
+\begin{enumerate}
+\item $A$ is diagonalizable if and only if it has eigenvectors $\vect{x}_{1}, \vect{x}_{2}, \dots , \vect{x}_{n}$ such that the matrix $P = \leftB \begin{array}{cccc} \vect{x}_{1}&  \vect{x}_{2} & \dots & \vect{x}_{n} \end{array}\rightB$ is invertible.\index{eigenvalues!and diagonalizable matrices}
+
+\item When this is the case, $P^{-1}AP = \func{diag}(\lambda_{1}, \lambda_{2}, \dots , \lambda_{n})$ where, for each $i$, $\lambda_{i}$ is the eigenvalue of $A$ corresponding to $\vect{x}_{i}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{example}{}{009234}
+Diagonalize the matrix $A = \leftB \begin{array}{rrr}
+2 & 0 & 0 \\
+1 & 2 & -1 \\
+1 & 3 & -2 
+\end{array}\rightB$
+ in Example~\ref{exa:009069}.
+
+
+\begin{solution}
+  By Example~\ref{exa:009069}, the eigenvalues of $A$ are $\lambda_{1} = 2$, $\lambda_{2} = 1$, and $\lambda_{3} = -1$, with corresponding basic eigenvectors $\vect{x}_1 = \leftB \begin{array}{r}
+1 \\
+1 \\
+1
+\end{array}\rightB, \vect{x}_2 = \leftB \begin{array}{r}
+0 \\
+1 \\
+1
+\end{array}\rightB$, 
+ and $\vect{x}_3 = \leftB \begin{array}{r}
+0 \\
+1 \\
+3
+\end{array}\rightB$ 
+ respectively. Since the matrix $P= \leftB \begin{array}{cccc}
+\vect{x}_1 & \vect{x}_2 & \vect{x}_3 \end{array}\rightB = \leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+1 & 1 & 1 \\
+1 & 1 & 3
+\end{array}\rightB$
+ is invertible, Theorem~\ref{thm:009214} guarantees that 
+\begin{equation*}
+P^{-1} AP = \leftB \begin{array}{ccc}
+\lambda_1 & 0 & 0 \\
+0 & \lambda_2 & 0 \\
+0 & 0 & \lambda_3 
+\end{array}\rightB = \leftB \begin{array}{ccc}
+2 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & -1 
+\end{array}\rightB
+=D
+\end{equation*}
+The reader can verify this directly---easier to check $AP = PD$.
+\end{solution}
+\end{example}
+
+In Example~\ref{exa:009234}, suppose we let $Q = \leftB \begin{array}{ccc} \vect{x}_{2} & \vect{x}_{1} & \vect{x}_{3} \end{array} \rightB$ be the matrix formed from the eigenvectors $\vect{x}_{1}$, $\vect{x}_{2}$, and $\vect{x}_{3}$ of $A$, but in a \textit{different order} than that used to form $P$. Then $Q^{-1}AQ = \func{diag}(\lambda_{2}, \lambda_{1}, \lambda_{3})$ is diagonal by Theorem~\ref{thm:009214}, but the eigenvalues are in the \textit{new} order. Hence we can choose the diagonalizing matrix $P$ so that the eigenvalues $\lambda_{i}$ appear in any order we want along the main diagonal of $D$.
+
+
+In
+ every example above each eigenvalue has had only one basic eigenvector.
+ Here is a diagonalizable matrix where this is not the case.
+
+
+\begin{example}{}{009262}
+Diagonalize the matrix $ A = \leftB \begin{array}{rrr}
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 
+\end{array}\rightB$
+
+
+
+\begin{solution}
+  To compute the characteristic polynomial of $A$ first add rows 2 and 3 of $xI - A$ to row 1:
+
+
+\begin{align*}
+c_A(x) &= \func{det} \leftB \begin{array}{ccc}
+x & -1 & -1 \\
+-1 & x & -1\\
+-1 & -1 & x
+\end{array}\rightB =  \func{det} \leftB \begin{array}{ccc}
+x-2 & x-2 & x-2 \\
+-1 & x & -1\\
+-1 & -1 & x
+\end{array}\rightB \\
+& =  \func{det} \leftB \begin{array}{ccc}
+x-2 & 0 & 0 \\
+-1 & x+1 & 0\\
+-1 & 0 & x+1
+\end{array}\rightB = (x-2)(x+1)^2
+\end{align*}
+
+Hence the eigenvalues are $\lambda_{1} = 2$ and $\lambda_{2} = -1$, with $\lambda_{2}$ repeated twice (we say that $\lambda_{2}$ has \textit{multiplicity} two). However, $A$ \textit{is} diagonalizable. For $\lambda_{1} = 2$, the system of equations $(\lambda_{1}I - A)\vect{x} = \vect{0}$ has general solution $\vect{x} = t \leftB \begin{array}{r}
+1\\
+1\\
+1
+\end{array}\rightB$
+ as the reader can verify, so a basic $\lambda_{1}$-eigenvector is $\vect{x}_1 = \leftB \begin{array}{r}
+1\\
+1\\
+1
+\end{array}\rightB$.
+
+
+Turning to the repeated eigenvalue $\lambda_{2} = -1$, we must solve $(\lambda_{2}I - A)\vect{x} = \vect{0}$. By gaussian elimination, the general solution is $\vect{x} = s \leftB \begin{array}{r}
+-1 \\
+1 \\
+0
+\end{array}\rightB + t \leftB \begin{array}{r}
+-1\\
+0\\
+1
+\end{array}\rightB$
+ where $s$ and $t$ are arbitrary. Hence the gaussian algorithm produces \textit{two} basic $\lambda_{2}$-eigenvectors $\vect{x}_2 = \leftB \begin{array}{r}
+-1\\
+1\\
+0
+\end{array}\rightB$ and $\vect{y}_2 =  \leftB \begin{array}{r}
+-1\\
+0\\
+1
+\end{array}\rightB$
+ If we take $P = \leftB \begin{array}{ccc}
+\vect{x}_1 & \vect{x}_2 & \vect{y}_2
+\end{array}\rightB = \leftB \begin{array}{rrr}
+1 & -1 & -1 \\
+1 & 1 & 0 \\
+1 & 0 & 1
+\end{array}\rightB$
+ we find that $P$ is invertible. Hence $P^{-1}AP = \func{diag}(2, -1, -1)$ by Theorem~\ref{thm:009214}.
+\end{solution}
+\end{example}
+
+Example~\ref{exa:009262} typifies every diagonalizable matrix. To describe the general case, we need some terminology.
+
+
+\begin{definition}{Multiplicity of an Eigenvalue}{009289}
+An eigenvalue $\lambda$ of a square matrix $A$ is said to have \textbf{multiplicity} $m$ if it occurs $m$ times as a root of the characteristic polynomial $c_{A}(x)$.\index{eigenvalues!multiplicity}\index{multiplicity}
+\end{definition}
+
+\noindent For example, the eigenvalue $\lambda_{2} = -1$ in Example~\ref{exa:009262} has multiplicity $2$. In that example the gaussian algorithm yields two basic $\lambda_{2}$-eigenvectors, the same number as the multiplicity. This works in general.
+
+
+\begin{theorem}{}{009296}
+A  square matrix $A$ is diagonalizable if and only if every eigenvalue $\lambda$ of 
+multiplicity $m$ yields exactly $m$ basic eigenvectors; that is, if and only
+ if the general solution of the system $(\lambda I - A)\vect{x} = \vect{0}$ has exactly $m$ parameters.
+\end{theorem}
+
+\noindent One case of Theorem~\ref{thm:009296} deserves mention.
+
+
+\begin{theorem}{}{009300}
+An $n \times n$ matrix with $n$ distinct eigenvalues is diagonalizable.
+\end{theorem}
+
+\noindent The proofs of Theorem~\ref{thm:009296} and Theorem~\ref{thm:009300} require more advanced techniques and are given in Chapter~\ref{chap:5}. The following procedure summarizes the method.
+
+\index{diagonalization algorithm}
+\begin{theorem*}{Diagonalization Algorithm}{009304}
+To diagonalize an $n \times n$ matrix $A$:
+
+
+\begin{itemize}[leftmargin=1em]
+\item[] Step 1. Find the distinct eigenvalues $\lambda$ of $A$.
+
+\item[] Step 2. Compute a set of basic eigenvectors corresponding to each of these 
+eigenvalues $\lambda$ as basic solutions of the homogeneous system $(\lambda I - A)\vect{x} = \vect{0}$.
+
+\item[] Step 3. The matrix A is diagonalizable if and only if there are n basic eigenvectors in all.
+
+\item[] Step 4. If $A$ is diagonalizable, the $n \times n$ matrix $P$ with these basic 
+eigenvectors as its columns is a diagonalizing matrix for $A$, that is, $P$ 
+is invertible and $P^{-1}AP$ is diagonal.
+\end{itemize}
+\end{theorem*}
+
+\noindent The diagonalization algorithm is valid even if the eigenvalues are nonreal 
+complex numbers. In this case the eigenvectors will also have complex 
+entries, but we will not pursue this here.
+
+
+\begin{example}{}{009318}
+Show that $A = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1 
+\end{array}\rightB$
+ is not diagonalizable.
+
+
+\begin{solution}[1] 
+  The characteristic polynomial is $c_{A}(x) = (x - 1)^{2}$, so $A$ has only one eigenvalue $\lambda_{1} = 1$ of multiplicity $2$. But the system of equations $(\lambda_{1}I - A)\vect{x} = \vect{0}$ has general solution $ t \leftB \begin{array}{r}
+1 \\ 
+0
+\end{array}\rightB$,
+ so there is only one parameter, and so only one basic eigenvector $ \leftB \begin{array}{r}
+1 \\ 
+2
+\end{array}\rightB$.
+ Hence $A$ is not diagonalizable.
+\end{solution}
+
+\begin{solution}[2]
+  We have $c_{A}(x) = (x - 1)^{2}$ so the only eigenvalue of $A$ is $\lambda = 1$. Hence, if $A$ were diagonalizable, Theorem~\ref{thm:009214} would give $ P^{-1}AP = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1 \end{array}\rightB = I$
+ for some invertible matrix $P$. But then $A = PIP^{-1} = I$, which is not the case. So $A$ cannot be diagonalizable.
+\end{solution}
+\end{example}
+
+Diagonalizable matrices share many properties of their eigenvalues. The following example illustrates why.
+
+
+\begin{example}{}{009339}
+If $\lambda^{3} = 5\lambda$ for every eigenvalue of the diagonalizable matrix $A$, show that $A^{3} = 5A$.
+
+
+\begin{solution}
+  Let $P^{-1}AP = D = \func{diag}(\lambda_{1}, \dots , \lambda_{n})$. Because $\lambda_i^3$ = $5\lambda_{i}$ for each $i$, we obtain
+\begin{equation*}
+D^3 = \diag(\lambda_1^3 ,\dots, \lambda_n^3) = \diag(5\lambda_1, \dots, 5 \lambda_n) = 5D
+\end{equation*}
+Hence $A^{3} = (PDP^{-1})^{3} = PD^{3}P^{-1} = P(5D)P^{-1} = 5(PDP^{-1}) = 5A$ using Theorem~\ref{thm:008997}. This is what we wanted.
+\end{solution}
+\end{example}
+
+If $p(x)$ is any polynomial and $p(\lambda) = 0$ for every eigenvalue of the diagonalizable matrix $A$, an argument similar to that in Example~\ref{exa:009339} shows that $p(A) = 0$. Thus Example~\ref{exa:009339} deals with the case $p(x) = x^{3} - 5x$. In general, $p(A)$ is called the \textit{evaluation}\index{evaluation}\index{polynomials!evaluation} of the polynomial $p(x)$ at the matrix $A$. For example, if $p(x) = 2x^{3} - 3x + 5$, then $p(A) = 2A^{3} - 3A + 5I$---note the use of the identity matrix.
+
+
+In particular, if $c_{A}(x)$ denotes the characteristic polynomial of $A$, we certainly have $c_{A}(\lambda) = 0$ for each eigenvalue $\lambda$ of $A$ (Theorem~\ref{thm:009033}). Hence $c_{A}(A) = 0$ for every diagonalizable matrix $A$. This is, in fact, true for \textit{any} square matrix, diagonalizable or not, and the general result is called the Cayley-Hamilton theorem. It is proved in Section~\ref{sec:8_6} and again in Section~\ref{sec:11_1}. 
+
+
+\subsection*{Linear Dynamical Systems}
+\index{diagonalization!linear dynamical systems}\index{linear dynamical system}
+
+We began Section \ref{sec:3_3} with an example from ecology which models the evolution of the 
+population of a species of birds as time goes on. As promised, we now 
+complete the example---Example~\ref{exa:009389} below.
+
+
+The bird population was described by computing the female population profile $\vect{v}_k = \leftB \begin{array}{r}
+a_k \\
+j_k
+\end{array}\rightB$
+ of the species, where $a_{k}$ and $j_{k}$ represent the number of adult and juvenile females present $k$ years after the initial values $a_{0}$ and $j_{0}$ were observed. The model assumes that these numbers are related by the following equations:
+\begin{align*}
+a_{k+1} &= \frac{1}{2} a_k + \frac{1}{4}j_k \\
+j_{k+1} &= 2a_k
+\end{align*}
+If we write $A = \leftB \begin{array}{rr}
+\frac{1}{2} & \frac{1}{4} \\
+2 & 0 
+\end{array}\rightB$
+ the columns $\vect{v}_{k}$ satisfy $\vect{v}_{k+1} = A\vect{v}_{k}$ for each $k = 0, 1, 2, \dots$.
+
+\noindent Hence $\vect{v}_{k} = A^{k}\vect{v}_{0}$ for each $k = 1, 2, \dots$. We can now use our diagonalization techniques to determine the population profile $\vect{v}_{k}$ for all values of $k$ in terms of the initial values.
+
+
+\begin{example}{}{009389}
+Assuming that the initial values were $a_{0} = 100$ adult females and $j_{0} = 40$ juvenile females, compute $a_{k}$ and $j_{k}$ for $k = 1, 2, \dots$.
+
+
+\begin{solution}
+  The characteristic polynomial of the matrix $A = \leftB \begin{array}{rr}
+\frac{1}{2} & \frac{1}{4} \\
+2 & 0 
+\end{array}\rightB$
+ is $c_{A}(x) = x^{2} - \frac{1}{2}x - \frac{1}{2} = (x - 1)(x + \frac{1}{2})$, so the eigenvalues are $\lambda_{1} = 1$ and $\lambda_{2} = -\frac{1}{2}$ and gaussian elimination gives corresponding basic eigenvectors $\leftB \begin{array}{r}
+\frac{1}{2} \\
+1
+\end{array}\rightB$
+ and $\leftB \begin{array}{r}
+-\frac{1}{4} \\
+1
+\end{array}\rightB$.
+ For convenience, we can use multiples $\vect{x}_1 = \leftB \begin{array}{r}
+1 \\
+2
+\end{array}\rightB$
+ and $\vect{x}_2 = \leftB \begin{array}{r}
+-1 \\
+4
+\end{array}\rightB$
+ respectively. Hence a diagonalizing matrix is $P = \leftB \begin{array}{rr}
+1 & -1 \\
+2 & 4 
+\end{array} \rightB$
+ and we obtain
+\begin{equation*}
+P^{-1}AP=D \mbox{ where } D = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -\frac{1}{2}
+\end{array}\rightB
+\end{equation*}
+This gives $A = PDP^{-1}$ so, for each $k \geq 0$, we can compute $A^{k}$ explicitly:
+
+
+\begin{align*}
+A^k = PD^kP^{-1} &= \leftB \begin{array}{rr}
+1 & -1 \\
+2 & 4 \end{array}\rightB \leftB \begin{array}{cc}
+1 & 0 \\
+0 & (-\frac{1}{2})^k \end{array}\rightB
+\frac{1}{6}
+\leftB \begin{array}{rr}
+4 & 1 \\
+-2 & 1 \end{array}\rightB \\
+&= \frac{1}{6}
+\leftB \def\arraystretch{1.25}\begin{array}{cc}
+4+2(-\frac{1}{2})^k & 1-(-\frac{1}{2})^k \\
+8-8(-\frac{1}{2})^k & 2+4(-\frac{1}{2})^k \end{array}\rightB
+\end{align*}
+
+Hence we obtain
+
+\begin{align*}
+\leftB \begin{array}{r}
+a_k \\
+j_k
+\end{array}\rightB = \vect{v}_k = A^k \vect{v}_0 & = \frac{1}{6}
+\leftB \def\arraystretch{1.25} \begin{array}{cc}
+4+2(-\frac{1}{2})^k & 1-(-\frac{1}{2})^k \\
+8-8(-\frac{1}{2})^k & 2+4(-\frac{1}{2})^k \end{array}\rightB \leftB \begin{array}{r}
+100 \\
+40
+\end{array}\rightB \\
+&= \frac{1}{6} \leftB \def\arraystretch{1.25}\begin{array}{cc}
+440 + 160 (-\frac{1}{2})^k \\
+880 - 640 (-\frac{1}{2})^k 
+\end{array}\rightB
+\end{align*}
+
+Equating top and bottom entries, we obtain exact formulas for $a_{k}$ and $j_{k}$:
+\begin{equation*}
+a_k = \frac{220}{3} + \frac{80}{3}\left(-\frac{1}{2}\right)^k \mbox{ and } j_k = \frac{440}{3} + \frac{320}{3}\left(-\frac{1}{2}\right)^k \mbox{ for } k = 1,2,\cdots
+\end{equation*}
+In practice, the exact values of $a_{k}$ and $j_{k}$ are not usually required. What is needed is a measure of how these numbers behave for large values of $k$. This is easy to obtain here. Since $(-\frac{1}{2})^{k}$ is nearly zero for large $k$, we have the following approximate values
+\begin{equation*}
+a_k \approx \frac{220}{3} \mbox{ and } j_k \approx \frac{440}{3} \mbox{ if } k \mbox{ is large}
+\end{equation*}
+Hence, in the long term, the female population stabilizes with approximately twice as many juveniles as adults.
+\end{solution}
+\end{example}
+
+\begin{definition}{Linear Dynamical System}{009426}
+If $A$ is an $n \times n$ matrix, a sequence $\vect{v}_{0}, \vect{v}_{1}, \vect{v}_{2}, \dots$  of columns in $\RR^n$ is called a \textbf{linear dynamical system} if $\vect{v}_{0}$ is specified and $\vect{v}_{1}, \vect{v}_{2}, \dots $ are given by the matrix recurrence $\vect{v}_{k+1}= A\vect{v}_{k}$ for each $k \geq 0$. We call $A$ the \textbf{migration} matrix of the system. \index{migration matrix}\index{matrix!migration}
+\end{definition}
+
+We have $\vect{v}_1 = A\vect{v}_0$, then $\vect{v}_2 = A\vect{v}_1 = A^{2}\vect{v}_0$, and continuing we find
+\begin{equation}\label{eq:dynamicalsyst}
+\vect{v}_k = A^k \vect{v}_0 \mbox{ for each } k = 1, 2, \cdots 
+\end{equation}
+Hence the columns $\vect{v}_{k}$ are determined by the powers $A^{k}$ of the matrix $A$ and, as we have seen, these powers can be efficiently computed if $A$ is diagonalizable. In fact Equation \ref{eq:dynamicalsyst} can be used to give a nice ``formula'' for the columns $\vect{v}_{k}$ in this case.
+
+
+Assume that $A$ is diagonalizable with eigenvalues $\lambda_{1}, \lambda_{2}, \dots ,  \lambda_{n}$ and corresponding basic eigenvectors $\vect{x}_{1}, \vect{x}_{2}, \dots , \vect{x}_{n}$. If $P = \leftB \begin{array}{cccc} \vect{x}_{1} & \vect{x}_{2} & \dots  & \vect{x}_{n} \end{array}\rightB$  is a diagonalizing matrix with the $\vect{x}_{i}$ as columns, then $P$ is invertible and
+\begin{equation*}
+P^{-1}AP=D = \diag(\lambda_1, \lambda_2, \cdots, \lambda_n)
+\end{equation*}
+by Theorem~\ref{thm:009214}. Hence $A = PDP^{-1}$ so Equation \ref{eq:dynamicalsyst} and Theorem~\ref{thm:008997} give
+\begin{equation*}
+\vect{v}_k = A^k \vect{v}_0 = (PDP^{-1})^k \vect{v}_0 = (PD^kP^{-1}) \vect{v}_0 = PD^k (P^{-1}\vect{v}_0)
+\end{equation*}
+for each $k = 1, 2, \dots$. For convenience, we denote the column $P^{-1}\vect{v}_{0}$ arising here as follows:
+\begin{equation*}
+\vect{b} = P^{-1} \vect{v}_0 = \leftB \begin{array}{c}
+b_1 \\
+b_2 \\
+\vdots \\
+b_n 
+\end{array} \rightB
+\end{equation*}
+Then matrix multiplication gives
+\begin{align}
+\vect{v}_k & = PD^k (P^{-1} \vect{v}_0) \nonumber\\
+ & = \leftB \begin{array}{cccc}
+\vect{x}_1 & \vect{x}_2 & \cdots & \vect{x}_n 
+\end{array} \rightB  
+\leftB \begin{array}{cccc}
+\lambda_1^k & 0 & \cdots & 0 \\
+0 & \lambda_2^k & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \lambda_n^k
+\end{array}\rightB 
+\leftB 
+\begin{array}{c}
+b_1 \\
+b_2 \\
+\vdots \\
+b_n 
+\end{array}\rightB \nonumber\\
+&=  \leftB \begin{array}{cccc}
+\vect{x}_1 & \vect{x}_2 & \cdots & \vect{x}_n 
+\end{array} \rightB \leftB \begin{array}{c}
+b_1 \lambda_1^k \\
+b_2 \lambda_2^k \\
+\vdots \\
+b_3 \lambda_n^k 
+\end{array} \rightB \nonumber\\
+&= b_1 \lambda_1^k \vect{x}_1 + b_2 \lambda_2^k \vect{x}_2 + \cdots + b_n \lambda_n^k \vect{x}_n  \label{eq:vkformula}
+\end{align}
+for each $k \geq 0$. This is a useful \textbf{exact formula}\index{exact formula} for the columns $\vect{v}_{k}$. Note that, in particular, 
+\begin{equation*}
+\vect{v}_{0} = b_{1}\vect{x}_{1} + b_{2}\vect{x}_{2} + \dots  + b_{n}\vect{x}_{n}
+\end{equation*}
+
+
+However, such an exact formula for $\vect{v}_{k}$ is often not required in practice; all that is needed is to \textit{estimate} $\vect{v}_{k}$ for large values of $k$ (as was done in Example~\ref{exa:009389}). This can be easily done if $A$ has a largest eigenvalue. An eigenvalue $\lambda$ of a matrix $A$ is called a \textbf{dominant eigenvalue}\index{dominant eigenvalue}\index{eigenvalues!dominant eigenvalue} of $A$ if it has multiplicity $1$ and
+\begin{equation*}
+| \lambda | > | \mu | \mbox{ for all eigenvalues } \mu \neq \lambda
+\end{equation*}
+where $|\lambda |$ denotes the absolute value of the number $\lambda$. For example, $\lambda_{1} = 1$ is dominant in Example~\ref{exa:009389}.
+
+
+Returning to the above discussion, suppose that $A$ has a dominant eigenvalue. By choosing the order in which the columns $\vect{x}_{i}$ are placed in $P$, we may assume that $\lambda_{1}$ is dominant among the eigenvalues $\lambda_{1}, \lambda_{2}, \dots , \lambda_{n}$ of $A$ (see the discussion following Example~\ref{exa:009234}). Now recall the exact expression for $\vect{v}_{k}$ in Equation \ref{eq:vkformula} above:
+\begin{equation*}
+\vect{v}_k = b_1 \lambda_1^k \vect{x}_1 + b_2 \lambda_2^k \vect{x}_2 + \cdots + b_n \lambda_n^k \vect{x}_n 
+\end{equation*}
+Take $\lambda_1^k$ out as a common factor in this equation to get
+\begin{equation*}
+\vect{v}_k = \lambda_1^k \left[ b_1 \vect{x}_1 + b_2 \left( \frac{\lambda_2}{\lambda_1}\right)^k \vect{x}_2 + \cdots + b_n \left( \frac{\lambda_n}{\lambda_1}\right)^k \vect{x}_n \right]
+\end{equation*}
+for each $k \geq 0$. Since $\lambda_{1}$ is dominant, we have $|\lambda_{i}| < |\lambda_{1}|$ for each $i \geq 2$, so each of the numbers $(\lambda_{i} /\lambda_{1})^{k}$ become small in absolute value as $k$ increases. Hence $\vect{v}_{k}$ is approximately equal to the first term $\lambda_1^k b_1 \vect{x}_1$, and we write this as $\vect{v}_k \approx \lambda_1^k b_1 \vect{x}_1$. These observations are summarized in the following theorem (together with the above exact formula for $\vect{v}_{k}$).
+
+\begin{theorem}{}{009500}
+Consider the dynamical system $\vect{v}_{0}, \vect{v}_{1}, \vect{v}_{2}, \dots$  with matrix recurrence
+\begin{equation*}
+\vect{v}_{k+1} = A \vect{v}_k \mbox{ for } k \geq 0  
+\end{equation*}
+where $A$ and $\vect{v}_{0}$ are given. Assume that $A$ is a diagonalizable $n \times n$ matrix with eigenvalues $\lambda_{1}, \lambda_{2}, \dots , \lambda_{n}$ and corresponding basic eigenvectors $\vect{x}_{1}, \vect{x}_{2}, \dots , \vect{x}_{n}$, and let $P = \leftB \begin{array}{cccc} \vect{x}_{1} & \vect{x}_{2} & \dots & \vect{x}_{n} \end{array}\rightB$ be the diagonalizing matrix. Then an exact formula for $\vect{v}_{k}$ is
+\begin{equation*}
+\vect{v}_k = b_1 \lambda_1^k \vect{x}_1 +  b_2 \lambda_2^k \vect{x}_2 + \cdots +  b_n \lambda_n^k \vect{x}_n \mbox{ for each } k \geq 0
+\end{equation*}
+where the coefficients $b_{i}$ come from
+\begin{equation*}
+\vect{b} = P^{-1} \vect{v}_0  = \leftB \begin{array}{c}
+b_1 \\
+b_2 \\
+\vdots \\
+b_n
+\end{array} \rightB
+\end{equation*}
+Moreover, if $A$ has dominant\footnotemark eigenvalue $\lambda_{1}$,  then $\vect{v}_{k}$ is approximated by
+\begin{equation*}
+\vect{v}_k = b_1 \lambda_1^k \vect{x}_1 \mbox{ for sufficiently large } k.
+\end{equation*}
+\end{theorem}
+\footnotetext{Similar results can be found in other situations. If for example, eigenvalues $\lambda_{1}$ and $\lambda_{2}$ (possibly equal) satisfy $|\lambda_{1}| = |\lambda_{2}| > |\lambda_{i}|$ for all $i > 2$, then we obtain $\vect{v}_{k} \approx b_{1}\lambda_1^kx_{1} + b_{2}\lambda_2^kx_{2}$ for large $k$.}
+
+\begin{example}{}{009525}
+Returning to Example~\ref{exa:009389}, we see that $\lambda_{1} = 1$ is the dominant eigenvalue, with eigenvector $\vect{x}_1 = \leftB \begin{array}{c}
+1 \\
+2
+\end{array} \rightB$.
+ Here $P = \leftB \begin{array}{rr}
+1 & -1 \\
+2 & 4 
+\end{array} \rightB$ 
+ and $\vect{v}_0 = \leftB \begin{array}{c}
+100 \\
+40
+\end{array} \rightB$
+ so $P^{-1} \vect{v}_0 = \frac{1}{3} \leftB \begin{array}{r}
+220 \\
+-80
+\end{array}\rightB$.
+ Hence $b_1 = \frac{220}{3}$
+ in the notation of Theorem~\ref{thm:009500}, so
+\begin{equation*}
+\leftB \begin{array}{c}
+a_k \\
+j_k 
+\end{array}
+\rightB = \vect{v}_k \approx b_1\lambda_1^k \vect{x}_1  = \frac{220}{3} 1^k \leftB \begin{array}{r}
+1 \\
+2
+\end{array} \rightB
+\end{equation*}
+where $k$ is large. Hence $ a_k \approx \frac{220}{3}$ 
+ and $j_k \approx \frac{440}{3}$
+ as in Example~\ref{exa:009389}.
+\end{example}
+
+This next example uses Theorem~\ref{thm:009500} to solve a ``linear recurrence.'' See also Section~\ref{sec:3_4}.
+
+
+\begin{example}{}{009538}
+Suppose a sequence $x_{0}, x_{1}, x_{2}, \dots$  is determined by insisting that
+\begin{equation*}
+x_0  = 1, x_1 = -1, \mbox{ and } x_{k+2} = 2x_k - x_{k+1} \mbox{ for every } k\geq 0 
+\end{equation*}
+Find a formula for $x_{k}$ in terms of $k$.
+
+\begin{solution}
+  Using the linear recurrence $x_{k+2} = 2x_{k} - x_{k+1}$ repeatedly gives
+\begin{equation*}
+x_2  = 2 x_0 - x_1 = 3, \quad x_3 = 2x_1 - x_2 = -5, \quad x_4 = 11, \quad x_5 = -21, \dots 
+\end{equation*}
+so the $x_{i}$ are determined but no pattern is apparent. The idea is to find $ \vect{v}_k = \leftB \begin{array}{c}
+x_k \\
+x_{k+1}
+\end{array} \rightB$
+ for each $k$ instead, and then retrieve $x_{k}$ as the top component of $\vect{v}_{k}$. The reason this works is that the linear recurrence guarantees that these $\vect{v}_{k}$ are a dynamical system:
+\begin{equation*}
+\vect{v}_{k+1} = \leftB \begin{array}{c}
+x_{k+1} \\
+x_{k+2}
+\end{array}\rightB = \leftB \begin{array}{c}
+x_{k+1} \\
+2x_k - x_{k+1}
+\end{array} \rightB 
+= A \vect{v}_k
+\mbox{ where } A = \leftB \begin{array}{rr}
+0 & 1  \\
+2 & -1 
+\end{array} \rightB 
+\end{equation*}
+The eigenvalues of $A$ are $\lambda_{1} = -2$ and $\lambda_{2} = 1$ with eigenvectors $ \vect{x}_1 = \leftB \begin{array}{r}
+1 \\
+-2
+\end{array}\rightB$
+ and  $ \vect{x}_2 = \leftB \begin{array}{r}
+1 \\
+1
+\end{array}\rightB$,
+ so the diagonalizing matrix is $P = \leftB \begin{array}{rr}
+1 & 1 \\
+-2 & 1 
+\end{array} \rightB$.
+
+Moreover, $ \vect{b} = P_0^{-1} \vect{v}_0 = \frac{1}{3} \leftB \begin{array}{c}
+2 \\
+1
+\end{array}\rightB$
+ so the exact formula for $\vect{v}_{k}$ is
+\begin{equation*}
+\leftB \begin{array}{c}
+x_k \\
+x_{k+1} 
+\end{array} \rightB = \vect{v}_k = b_1 \lambda_1^k \vect{x}_1 + b_2 \lambda_2^k \vect{x}_2 = \frac{2}{3} (-2)^k \leftB \begin{array}{r}
+1 \\
+-2
+\end{array} \rightB + \frac{1}{3} 1^k \leftB \begin{array}{r}
+1 \\
+1
+\end{array}\rightB
+\end{equation*}
+Equating top entries gives the desired formula for $x_{k}$:
+\begin{equation*}
+ x_k = \frac{1}{3} \left[ 2(-2)^k +1 \right] \mbox{ for all } k = 0, 1, 2, \dots
+\end{equation*}
+The reader should check this for the first few values of $k$.
+\end{solution}
+\end{example}
+
+
+\subsection*{Graphical Description of Dynamical Systems}
+\index{graphs!linear dynamical system}
+
+If a dynamical system $\vect{v}_{k+1} = A\vect{v}_{k}$ is given, the sequence $\vect{v}_{0}, \vect{v}_{1}, \vect{v}_{2}, \dots$  is called the \textbf{trajectory}\index{graphs!trajectory}\index{trajectory} of the system starting at $\vect{v}_{0}$. It is instructive to obtain a graphical plot of the system by writing $\vect{v}_k = \leftB \begin{array}{c}
+x_k \\
+y_k 
+\end{array} \rightB$
+ and plotting the successive values as points in the plane, identifying $\vect{v}_{k}$ with the point $(x_{k}, y_{k})$
+ in the plane. We give several examples which illustrate properties of 
+dynamical systems. For ease of calculation we assume that the matrix $A$ is simple, usually diagonal.
+
+
+\begin{example}{}{009590}
+\begin{wrapfigure}[12]{l}{5cm} 
+\centering
+\input{3-determinants-and-diagonalization/figures/3-diagonalization-and-eigenvalues/example3.3.15}
+%\caption{\label{fig:009611}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+Let $A = \leftB \begin{array}{cc}
+\frac{1}{2} & 0 \\
+0 & \frac{1}{3}
+\end{array}\rightB$
+ Then the eigenvalues are $\frac{1}{2}$ and $\frac{1}{3}$, with corresponding eigenvectors $\vect{x}_1 = \leftB \begin{array}{r}
+1\\
+0
+\end{array} \rightB$
+ and $ \vect{x}_2 = \leftB \begin{array}{c}
+0 \\
+1
+\end{array}\rightB$. 
+
+ The exact formula is
+\begin{equation*}
+\vect{v}_k = b_1 \left( \frac{1}{2}\right)^k \leftB \begin{array}{r}
+1 \\
+0
+\end{array}\rightB + b_2 \left( \frac{1}{3} \right)^k \leftB \begin{array}{r}
+0 \\
+1
+\end{array} \rightB
+\end{equation*}
+for $k = 0, 1, 2, \dots $ by Theorem~\ref{thm:009500}, where the coefficients $b_{1}$ and $b_{2}$ depend on the initial point $\vect{v}_{0}$. 
+Several trajectories are plotted in the diagram and, for each choice of $\vect{v}_{0}$,
+ the trajectories converge toward the origin because both eigenvalues 
+are less than $1$ in absolute value. For this reason, the origin is called
+ an \textbf{attractor}\index{attractor}\index{graphs!attractor} for the system.
+\end{example}
+
+\begin{example}{}{009601}
+\begin{wrapfigure}[12]{l}{5cm}
+\centering
+\input{3-determinants-and-diagonalization/figures/3-diagonalization-and-eigenvalues/example3.3.16}
+%\caption{\label{fig:009627}}
+\end{wrapfigure}
+\setlength{\rightskip}{0pt plus 200pt}
+Let $ A = \leftB \begin{array}{cc}
+\frac{3}{2} & 0 \\
+0 & \frac{4}{3} 
+\end{array}\rightB$. 
+ Here the eigenvalues are $\frac{3}{2}$
+ and $\frac{4}{3}$, with corresponding eigenvectors $\vect{x}_1 = \leftB \begin{array}{r}
+1 \\
+0
+\end{array}\rightB$
+ and $\vect{x}_2 = \leftB \begin{array}{r}
+0 \\
+1
+\end{array}\rightB$ as before. The exact formula is
+\begin{equation*}
+\vect{v}_k  =  b_1 \left( \frac{3}{2}\right)^k \leftB \begin{array}{r}
+1 \\
+0
+\end{array}\rightB + b_2 \left( \frac{4}{3} \right)^k \leftB \begin{array}{r}
+0 \\
+1
+\end{array} \rightB
+\end{equation*}
+for $k = 0, 1, 2, \dots$. Since both eigenvalues are greater than $1$ in 
+absolute value, the trajectories diverge away from the origin for every 
+choice of initial point $V_{0}$. For this reason, the origin is called a \textbf{repellor}\index{repellor} for the system.
+\end{example}
+
+
+\begin{example}{}{009612}
+\begin{wrapfigure}[12]{l}{5cm}
+\centering
+\input{3-determinants-and-diagonalization/figures/3-diagonalization-and-eigenvalues/example3.3.17}
+%\caption{\label{fig:009627}}
+\end{wrapfigure}
+\setlength{\rightskip}{0pt plus 200pt}
+Let $A = \leftB \begin{array}{rr}
+1 & -\frac{1}{2} \\
+-\frac{1}{2} & 1 
+\end{array}\rightB$. Now the eigenvalues are $\frac{3}{2}$
+ and $\frac{1}{2}$, with corresponding eigenvectors $\vect{x}_1 = \leftB \begin{array}{r}
+-1 \\
+1
+\end{array}\rightB$
+ and $\vect{x}_2 = \leftB \begin{array}{r}
+1 \\
+1
+\end{array}\rightB$
+ The exact formula is
+\begin{equation*}
+\vect{v}_k = b_1 \left( \frac{3}{2} \right)^k \leftB \begin{array}{r}
+-1 \\
+1
+\end{array}\rightB + b_2 \left( \frac{1}{2} \right)^k \leftB \begin{array}{r}
+1 \\
+1
+\end{array}\rightB
+\end{equation*}
+for $k = 0, 1, 2, \dots$. In this case $\frac{3}{2}$
+ is the dominant eigenvalue so, if $b_{1} \neq 0$, we have $\vect{v}_k \approx b_1 \left( \frac{3}{2} \right)^k \leftB \begin{array}{r}
+-1 \\
+1
+\end{array}\rightB$
+ for large $k$ and $\vect{v}_{k}$ is approaching the line $y = -x$.
+
+However, if $b_{1} = 0$, then $\vect{v}_k = b_2 \left( \frac{1}{2} \right)^k \leftB \begin{array}{r}
+1 \\
+1
+\end{array}\rightB$
+ and so approaches the origin along the line $y = x$. In general the trajectories appear as in the diagram, and the origin is called a \textbf{saddle point}\index{graphs!saddle point}\index{saddle point} for the dynamical system in this case.
+\end{example}
+
+
+\begin{example}{}{009628}
+Let $A = \leftB \begin{array}{rr}
+0 & \frac{1}{2} \\
+-\frac{1}{2} & 0 
+\end{array}\rightB$.
+ Now the characteristic polynomial is $c_{A}(x) = x^{2} + \frac{1}{4}$, so the eigenvalues are the complex numbers $\frac{i}{2}$
+ and $-\frac{i}{2}$
+ where $i^{2} = -1$. Hence $A$ is not diagonalizable as a real matrix. However, the trajectories are not difficult to describe. If we start with $\vect{v}_0 = \leftB \begin{array}{r}
+1 \\
+1
+\end{array}\rightB$
+ then the trajectory begins as
+\begin{equation*}
+\vect{v}_1 = \leftB \def\arraystretch{1.25}\begin{array}{r}
+\frac{1}{2} \\
+-\frac{1}{2}
+\end{array}\rightB, \vect{v}_2 = \leftB \def\arraystretch{1.25}\begin{array}{r}
+-\frac{1}{4} \\
+-\frac{1}{4}
+\end{array}\rightB, \vect{v}_3 = \leftB \def\arraystretch{1.25}\begin{array}{r}
+-\frac{1}{8} \\
+\frac{1}{8}
+\end{array}\rightB, \vect{v}_4 = \leftB \def\arraystretch{1.25}\begin{array}{r}
+\frac{1}{16} \\
+\frac{1}{16}
+\end{array}\rightB, \vect{v}_5 = \leftB \def\arraystretch{1.25}\begin{array}{r}
+\frac{1}{32} \\
+-\frac{1}{32}
+\end{array}\rightB, \vect{v}_6 = \leftB \def\arraystretch{1.25}\begin{array}{r}
+-\frac{1}{64} \\
+-\frac{1}{64}
+\end{array}\rightB, \dots
+\end{equation*}
+
+\begin{wrapfigure}[7]{l}{5cm} 
+\centering
+\input{3-determinants-and-diagonalization/figures/3-diagonalization-and-eigenvalues/example3.3.18}
+%\captionof{figure}{\label{fig:009639}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+The first five
+ of these points are plotted in the diagram. Here each trajectory 
+spirals in toward the origin, so the origin is an attractor. Note that 
+the two (complex) eigenvalues have absolute value less than 1 here. If 
+they had absolute value greater than 1, the trajectories would spiral 
+out from the origin.
+\vspace{5em}
+\end{example}
+
+\subsection*{Google PageRank}
+\index{eigenvalues!and Google PageRank}\index{Google PageRank}\index{PageRank}
+
+Dominant
+ eigenvalues are useful to the Google search engine for finding 
+information on the Web. If an information query comes in from a client, 
+Google has a sophisticated method of establishing the ``relevance'' of 
+each site to that query. When the relevant sites have been determined, 
+they are placed in order of importance using a ranking of \textit{all} 
+sites called the PageRank. The relevant sites with the highest PageRank 
+are the ones presented to the client. It is the construction of the 
+PageRank that is our interest here.
+
+
+The Web contains many links from one site to another. Google interprets a link from site $j$ to site $i$ as a ``vote'' for the importance of site $i$. Hence if site $i$ has more links to it than does site $j$, then $i$
+ is regarded as more ``important'' and assigned a higher PageRank. One way
+ to look at this is to view the sites as vertices in a huge directed 
+graph (see Section~\ref{sec:2_2}). Then if site $j$ links to site $i$ there is an edge from $j$ to $i$, and hence the $(i, j)$-entry is a $1$ in the associated adjacency matrix (called the \textit{connectivity} matrix in this context). Thus a large number of $1$s in row $i$ of this matrix is a measure of the PageRank of site $i$.\footnote{For more on PageRank\index{Google PageRank}\index{PageRank}, visit \href{https://en.wikipedia.org/wiki/PageRank}{https://en.wikipedia.org/wiki/PageRank.}}
+
+
+
+However this does not take into account the PageRank of the sites that link to $i$. Intuitively, the higher the rank of these sites, the higher the rank of site $i$. One approach is to compute a dominant eigenvector $\vect{x}$ for the connectivity matrix. In most cases the entries of $\vect{x}$ can be chosen to be positive with sum 1. Each site corresponds to an entry of $\vect{x}$, so the sum of the entries of sites linking to a given site $i$ is a measure of the rank of site $i$. In fact, Google chooses the PageRank of a site so that it is proportional to this sum.\footnote{See
+ the articles ``Searching the web with eigenvectors'' by Herbert S. Wilf\index{Wilf, Herbert S.}, 
+UMAP Journal 23(2), 2002, pages 101--103, and ``The worlds largest matrix 
+computation: Google's PageRank is an eigenvector of a matrix of order 
+2.7 billion'' by Cleve Moler, Matlab News and Notes, October 2002, pages 
+12--13.}
+
+
+
+\section*{Exercises for \ref{sec:3_3}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:3_3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case find the characteristic polynomial, eigenvalues, eigenvectors, and (if possible) an invertible matrix $P$ such that $P^{-1}AP$ is diagonal.
+
+
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rr}
+1 & 2 \\
+3 & 2 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rr}
+2 & -4 \\
+-1 & -1 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+7 & 0 & -4 \\
+0 & 5 & 0 \\
+5 & 0 & -2 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+1 & 1 & -3 \\
+2 & 0 & 6 \\
+1 & -1 & 5 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+1 & -2 & 3 \\
+2 & 6 &-6 \\
+1 & 2 & -1 
+\end{array}\rightB$
+\exitem  $A = \leftB \begin{array}{rrr}
+0 & 1 & 0 \\
+3 & 0 & 1 \\
+2 & 0 & 0 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+3 & 1 & 1 \\
+-4 & -2 & -5 \\
+2 & 2 & 5 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+2 & 1 & 1 \\
+0 & 1 & 0 \\
+1 & -1 & 2 
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rrr}
+\lambda & 0 & 0 \\
+0 & \lambda & 0 \\
+0 & 0 & \mu 
+\end{array}\rightB$, $\lambda \neq \mu $
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $(x-3)(x+2); 3; -2$; $\leftB \begin{array}{r}
+4 \\
+-1
+\end{array} \rightB, \leftB \begin{array}{r}
+1 \\
+1
+\end{array} \rightB$; \\ $P = \leftB \begin{array}{rr}
+4 & 1 \\
+-1 & 1 
+\end{array} \rightB$; $P^{-1}AP = \leftB \begin{array}{rr}
+3 & 0 \\
+0 & -2 
+\end{array}\rightB.$
+
+\setcounter{enumi}{3}
+\item $(x-2)^3 ; 2 ; \leftB \begin{array}{c}
+1 \\
+1 \\
+0
+\end{array}\rightB, \leftB \begin{array}{r}
+-3 \\
+0 \\
+1
+\end{array}\rightB$;  No such $P$; Not diagonalizable.
+
+\setcounter{enumi}{5}
+\item $(x+1)^2(x-2) ; -1, -2; \leftB \begin{array}{r}
+-1 \\
+1 \\
+2
+\end{array}\rightB, \leftB \begin{array}{r}
+1 \\
+2 \\
+1
+\end{array}\rightB$; No such $P$; Not diagonalizable. Note that this matrix and the matrix in Example~\ref{exa:009262} have the same characteristic polynomial, but that matrix is diagonalizable.
+
+\setcounter{enumi}{7}
+\item $(x-1)^2(x-3) ; 1, 3; \leftB \begin{array}{r}
+-1 \\
+0 \\
+1
+\end{array}\rightB, \leftB \begin{array}{r}
+1 \\
+0 \\
+1
+\end{array}\rightB$
+ No such $P$; Not diagonalizable.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Consider a linear dynamical system $\vect{v}_{k+1} = A\vect{v}_{k}$ for $k \geq 0$. In each case approximate $\vect{v}_{k}$ using Theorem~\ref{thm:009500}.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A = \leftB \begin{array}{rr}
+2 & 1 \\
+4 & -1 
+\end{array}\rightB, \vect{v}_0 = \leftB \begin{array}{r}
+1 \\
+2
+\end{array}\rightB$
+
+
+\item $A = \leftB \begin{array}{rr}
+3 & -2 \\
+2 & -2 
+\end{array}\rightB, \vect{v}_0 = \leftB \begin{array}{r}
+3 \\
+-1
+\end{array}\rightB$
+
+
+\item $A = \leftB \begin{array}{rrr}
+1 & 0 & 0  \\
+1 & 2 & 3 \\
+1 & 4 & 1  
+\end{array}\rightB, \vect{v}_0 = \leftB \begin{array}{r}
+1 \\
+1 \\
+1
+\end{array}\rightB$
+
+
+\item $A = \leftB \begin{array}{rrr}
+1 & 3 & 2  \\
+-1 & 2 & 1 \\
+4 & -1 & -1  
+\end{array}\rightB, \vect{v}_0 = \leftB \begin{array}{r}
+2 \\
+0 \\
+1
+\end{array}\rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $V_k = \frac{7}{3} 2^k  \leftB \begin{array}{r}
+2 \\
+1
+\end{array}\rightB$
+
+
+\setcounter{enumi}{3}
+\item  $V_k = \frac{3}{2} 3^k  \leftB \begin{array}{r}
+1 \\
+0 \\
+1
+\end{array}\rightB$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that $A$ has $\lambda = 0$ as an eigenvalue if and only if $A$ is not invertible.
+\end{ex}
+
+\begin{ex}
+Let $A$ denote an $n \times n$ matrix and put $A_{1} = A - \alpha I$, $\alpha$ in $\RR$. Show that $\lambda$ is an eigenvalue of $A$ if and only if $\lambda -\alpha$ is an eigenvalue of $A_{1}$. (Hence, the eigenvalues of $A_{1}$ are just those of $A$ ``shifted'' by $\alpha$.) How do the eigenvectors compare?
+
+\begin{sol}
+$A\vect{x} = \lambda\vect{x}$ if and only if $(A - \alpha I)\vect{x} = (\lambda -  \alpha)\vect{x}$. Same eigenvectors.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the eigenvalues of $\leftB \begin{array}{cc}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta 
+\end{array} \rightB$ 
+ are $e^{i\theta}$ and $e^{-i\theta}$. \newline (See Appendix \ref{chap:appacomplexnumbers})
+\end{ex}
+
+\begin{ex}
+Find the characteristic polynomial of the $n \times n$ identity matrix $I$. Show that $I$ has exactly one eigenvalue and find the eigenvectors.
+\end{ex}
+
+\begin{ex}
+Given $A = \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB$
+ show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $c_{A}(x) = x^{2} - \func{tr } Ax + \func{det }A$, where $\func{tr } A = a + d$ is called the \textbf{trace} of $A$.
+
+\item The eigenvalues are $\frac{1}{2} \left[ (a+d) \pm \sqrt{(a-b)^2 + 4bc}\right]$.
+
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+In each case, find $P^{-1}AP$ and then compute $A^{n}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $ A = \leftB \begin{array}{rr}
+6 & -5 \\
+2 & -1 
+\end{array}\rightB, P = \leftB \begin{array}{rr}
+1 & 5 \\
+1 & 2 
+\end{array}\rightB$
+
+
+\item $ A = \leftB \begin{array}{rr}
+-7 & -12 \\
+6 & -10 
+\end{array}\rightB, P = \leftB \begin{array}{rr}
+-3 & 4 \\
+2 & -3 
+\end{array}\rightB$
+
+[\textit{Hint}: $(PDP^{-1})^{n} = PD^{n}P^{-1}$ for each $n = 1, 2, \dots$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ P^{-1}AP = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 2
+\end{array}\rightB$, so $A^n  = P \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 2^n 
+\end{array}\rightB P^{-1} = \leftB \begin{array}{cc}
+9 - 8 \cdot 2^n & 12(1-2^n) \\
+6(2^n-1) & 9\cdot 2^n - 8
+\end{array}\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+%\columnbreak
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $A = \leftB \begin{array}{rr}
+1 & 3 \\
+0 & 2 \end{array} \rightB$
+ and $B = \leftB \begin{array}{rr}
+2 & 0 \\
+0 & 1 
+\end{array}\rightB$
+ verify that $A$ and $B$ are diagonalizable, but $AB$ is not.
+
+\item If $D = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1 
+\end{array}\rightB$
+ find a diagonalizable matrix $A$ such that $D + A$ is not diagonalizable.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $A = \leftB \begin{array}{rr}
+0 & 1 \\
+0 & 2 
+\end{array}\rightB$ 
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is an $n \times n$ matrix, show that $A$ is diagonalizable if and only if $A^{T}$ is diagonalizable.
+\end{ex}
+
+\begin{ex}
+If $A$ is diagonalizable, show that each of the following is also diagonalizable.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A^{n}$, $n \geq 1$
+
+\item $kA$, $k$ any scalar.
+
+\item $p(A)$, $p(x)$ any polynomial (Theorem~\ref{thm:008997})
+
+\item $U^{-1}AU$ for any invertible matrix $U$.
+
+\item $kI + A$ for any scalar $k$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  and d. $PAP^{-1} = D$ is diagonal, then b. $P^{-1}(kA)P = kD$ is diagonal, and  d. $Q(U^{-1}AU)Q = D$ where $Q = PU$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Give an example of two diagonalizable matrices $A$ and $B$ whose sum $A + B$ is not diagonalizable.
+
+\begin{sol}
+$\leftB \begin{array}{cc}
+1 & 1 \\
+0 & 1 
+\end{array}\rightB$
+ is not diagonalizable by Example~\ref{exa:009234}. But $\leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1 
+\end{array}\rightB = \leftB \begin{array}{rr}
+2 & 1 \\
+0 & -1 
+\end{array}\rightB + \leftB \begin{array}{rr}
+-1 & 0 \\
+0 & 2 
+\end{array}\rightB$
+ where $\leftB \begin{array}{rr} 
+2 & 1 \\
+0 & -1 
+\end{array}\rightB$  has diagonalizing matrix $P = \leftB \begin{array}{rr}
+1 & -1 \\
+0 & 3 
+\end{array}\rightB$
+ and $\leftB \begin{array}{rr}
+-1 & 0 \\
+0 & 2 
+\end{array}\rightB$
+ is already diagonal.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is diagonalizable and $1$ and $-1$ are the only eigenvalues, show that $A^{-1} = A$.
+\end{ex}
+
+\begin{ex}
+If $A$ is diagonalizable and $0$ and $1$ are the only eigenvalues, show that $A^{2} = A$.
+
+\begin{sol}
+We have $\lambda^{2} = \lambda$ for every eigenvalue $\lambda$ (as $\lambda = 0, 1$) so $D^{2} = D$, and so $A^{2} = A$ as in Example~\ref{exa:009262}.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is diagonalizable and $\lambda \geq 0$ for each eigenvalue of $A$, show that $A = B^{2}$ for some matrix $B$.
+\end{ex}
+
+\begin{ex}
+If $P^{-1}AP$ and $P^{-1}BP$ are both diagonal, show that $AB = BA$. [\textit{Hint}: Diagonal matrices commute.]
+\end{ex}
+
+\begin{ex}
+A square matrix $A$ is called \textbf{nilpotent}\index{matrix!nilpotent matrix}\index{nilpotent}\index{square matrix ($n \times n$ matrix)!nilpotent matrix} if $A^{n} = 0$ for some $n \geq 1$. Find all nilpotent diagonalizable matrices. [\textit{Hint}: Theorem~\ref{thm:008997}.]
+\end{ex}
+
+\begin{ex}
+Let $A$ be any $n \times n$ matrix and $r \neq 0$ a real number.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the eigenvalues of $rA$ are precisely the numbers $r\lambda$, where $\lambda$ is an eigenvalue of $A$.
+
+\item Show that $c_{rA}(x) = r^n c_A\left( \frac{x}{r} \right)$.
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $c_{rA} (x) =\func{det} \left[ xI - rA \right]$ \\ ${} = r^n \func{det} \left[ \frac{x}{r}I-A \right] = r^n c_A \left[ \frac{x}{r} \right]$
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If all rows of $A$ have the same sum $s$, show that $s$ is an eigenvalue.
+
+\item If all columns of $A$ have the same sum $s$, show that $s$ is an eigenvalue.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $A$ be an invertible $n \times n$ matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the eigenvalues of $A$ are nonzero.
+
+\item Show that the eigenvalues of $A^{-1}$ are precisely the numbers $1/\lambda$, where $\lambda$ is an eigenvalue of $A$.
+
+\item Show that $c_{A^{-1}}(x) = \frac{(-x)^n}{\func{det } A} c_A \left( \frac{1}{x} \right)$.
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $\lambda \neq 0$, $A\vect{x} = \lambda\vect{x}$ if and only if $A^{-1}\vect{x} = \frac{1}{\lambda}\vect{x}$.
+ The result follows.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Suppose $\lambda$ is an eigenvalue of a square matrix $A$ with eigenvector $\vect{x} \neq \vect{0}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\lambda^{2}$ is an eigenvalue of $A^{2}$ (with the same $\vect{x}$).
+
+\item Show that $\lambda^{3} - 2 \lambda + 3$ is an eigenvalue of \\ $A^{3} - 2A + 3I$.
+
+\item Show that $p(\lambda)$ is an eigenvalue of $p(A)$ for any nonzero polynomial $p(x)$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(A^{3} - 2A - 3I)\vect{x} = A^{3}\vect{x} - 2A\vect{x} + 3\vect{x} = \lambda^{3}\vect{x} - 2\lambda\vect{x} + 3\vect{x} = (\lambda^{3} - 2\lambda - 3)\vect{x}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is an $n \times n$ matrix, show that $c_{A^2}(x^{2}) = (-1)^{n}c_{A}(x)c_{A}(-x)$.
+\end{ex}
+
+\begin{ex}
+An $n \times n$ matrix $A$ is called nilpotent if $A^{m} = 0$ for some $m \geq 1$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that every triangular matrix with zeros on the main diagonal is nilpotent.
+
+\item If $A$ is nilpotent, show that $\lambda = 0$ is the only eigenvalue (even complex) of $A$.
+
+\item Deduce that $c_{A}(x) = x^{n}$, if $A$ is $n \times n$ and nilpotent.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $A^{m} = 0$ and $A\vect{x} = \lambda\vect{x}$, $\vect{x} \neq \vect{0}$, then $A^{2}\vect{x} = A(\lambda\vect{x}) = \lambda A\vect{x} = \lambda^{2}\vect{x}$. In general, $A^{k}\vect{x} = \lambda^{k}\vect{x}$ for all $k \geq 1$. Hence, $\lambda^{m}\vect{x} = A^{m}\vect{x} = \vect{0}\vect{x} = \vect{0}$, so $\lambda = 0$ (because $\vect{x} \neq \vect{0}$).
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ be diagonalizable with real eigenvalues and assume that $A^{m} = I$ for some $m \geq 1$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A^{2} = I$.
+
+\item If $m$ is odd, show that $A = I$.
+
+
+[\textit{Hint}: Theorem~\ref{thm:034138}]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\item  If $A\vect{x} = \lambda\vect{x}$, then $A^{k}\vect{x} = \lambda^{k}\vect{x}$ for each $k$. Hence $\lambda^{m}\vect{x} = A^{m}\vect{x} = \vect{x}$, so $\lambda^{m} = 1$. As $\lambda$ is real, $\lambda = \pm 1$ by the Hint. So if $P^{-1}AP = D$ is diagonal, then $D^{2} = I$ by Theorem~\ref{thm:009214}. Hence $A^{2} = PD^{2}P = I$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Let $A^{2} = I$, and assume that $A \neq I$ and $A \neq -I$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the only eigenvalues of $A$ are $\lambda = 1$ and $\lambda = -1$.
+
+\item Show that $A$ is diagonalizable. [\textit{Hint}: Verify that $A(A + I) = A + I$ and $A(A - I) = -(A - I)$, and then look at nonzero columns of $A + I$ and of $A - I$.]
+
+\item If $Q_{m} : \RR^2 \to \RR^2$  is reflection in the line $y = mx$ where $m \neq 0$, use (b) to show that the matrix of $Q_{m}$ is diagonalizable for each $m$.
+
+\item Now prove (c) geometrically using Theorem~\ref{thm:009136}.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{rrr}
+2 & 3 & -3 \\
+1 & 0 & -1 \\
+1 & 1 & -2 
+\end{array} \rightB$
+ and $B = \leftB \begin{array}{rrr}
+0 & 1 & 0 \\
+3 & 0 & 1 \\
+2 & 0 & 0  
+\end{array} \rightB$.
+ Show that $c_{A}(x) = c_{B}(x) = (x + 1)^{2} (x - 2)$, but $A$ is diagonalizable and $B$ is not.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that the only diagonalizable matrix $A$ that has only one eigenvalue $\lambda$ is the scalar matrix $A = \lambda I$.
+
+\item Is $\leftB \begin{array}{rr}
+3 & -2 \\
+2 & -1 
+\end{array}\rightB$
+ diagonalizable?
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\item  We have $P^{-1}AP = \lambda I$ by the diagonalization algorithm, so $A = P(\lambda I)P^{-1} = \lambda PP^{-1} = \lambda I$.
+
+\item  No. $\lambda = 1$ is the only eigenvalue.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Characterize the diagonalizable $n \times n$ matrices $A$ such that $A^{2} - 3A + 2I = 0$ in terms of their eigenvalues. [\textit{Hint}: Theorem~\ref{thm:008997}.]
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{cc}
+B & 0 \\
+0 & C 
+\end{array}\rightB$
+ where $B$ and $C$ are square matrices.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $B$ and $C$ are diagonalizable via $Q$ and $R$ (that is, $Q^{-1}BQ$ and $R^{-1}CR$ are diagonal), show that $A$ is diagonalizable via $\leftB \begin{array}{cc}
+Q & 0 \\
+0 & R 
+\end{array}\rightB$
+
+
+\item Use (a) to diagonalize $A$ if $B = \leftB \begin{array}{rr}
+5 & 3 \\
+3 & 5 
+\end{array}\rightB$
+ and $C = \leftB \begin{array}{rr}
+7 & -1 \\
+-1 & 7 
+\end{array}\rightB$.
+
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $A = \leftB \begin{array}{cc}
+B & 0 \\
+0 & C 
+\end{array}\rightB$
+ where $B$ and $C$ are square matrices.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $c_{A}(x) = c_{B}(x)c_{C}(x)$.
+
+\item If $\vect{x}$ and $\vect{y}$ are eigenvectors of $B$ and $C$, respectively, show that $\leftB \begin{array}{c}
+\vect{x} \\
+0
+\end{array}\rightB$
+ and $\leftB \begin{array}{c}
+0 \\
+\vect{y}
+\end{array}\rightB$
+ are eigenvectors of $A$, and show how every eigenvector of $A$ arises from such eigenvectors.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Referring to the model in Example~\ref{exa:008923},
+ determine if the population stabilizes, becomes extinct, or becomes 
+large in each case. Denote the adult and juvenile survival rates as $A$ and $J$, and the reproduction rate as $R$.
+\begin{equation*}
+\def\arraystretch{1.5}  \begin{array}{c|ccccc}
+& R & & A & & J \\ \cline{2-6}
+a. & 2 & & \frac{1}{2} & &\frac{1}{2}\\
+b. & 3 & &\frac{1}{4} & &\frac{1}{4}\\
+c. & 2 & &\frac{1}{4} & &\frac{1}{3}\\
+d. & 3 & &\frac{3}{5} & &\frac{1}{5}
+\end{array}
+\end{equation*}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\lambda_{1} = 1$, stabilizes.
+
+\setcounter{enumi}{3}
+\item  $\lambda_1 = \frac{1}{24} (3+\sqrt{69}) = 1.13$, diverges.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In the model of Example~\ref{exa:008923}, does the final outcome depend on the initial population of adult and juvenile females? Support your answer.
+\end{ex}
+
+\begin{ex}
+In Example~\ref{exa:008923}, keep the same reproduction rate of 2 and the same adult survival rate of $\frac{1}{2}$, but suppose that the juvenile survival rate is $\rho$. Determine which values of $\rho$ cause the population to become extinct or to become large.
+\end{ex}
+
+\begin{ex}
+In Example~\ref{exa:008923}, let the juvenile survival rate be $\frac{2}{5}$
+ and let the reproduction rate be 2. What values of the adult survival rate $\alpha$ will ensure that the population stabilizes?
+
+\begin{sol}
+Extinct if $\alpha < \frac{1}{5}$, stable if $\alpha = \frac{1}{5}$, diverges if $\alpha > \frac{1}{5}$.
+\end{sol}
+\end{ex}
+
+\end{multicols}
+
+
+
+
+
+
+
+

@@ -1,0 +1,275 @@
+% Chapters will always start on odd numbered page
+\documentclass[letter,12pt]{book}
+
+% For the font
+\usepackage{mathptmx}
+\usepackage{roboto} 
+\usepackage{opensans}
+\usepackage[T1]{fontenc}
+\usepackage[EULERGREEK]{sansmath}
+
+% Various math packages
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{multirow}
+\usepackage{bm}
+
+% Simple arithmetic
+\usepackage{calc}
+
+% Todo notes
+\usepackage{todonotes}
+
+% For colouring various things
+\usepackage{xcolor}
+
+% Colored tables and other nice enhancements
+\usepackage{tabu}
+
+% Conditional statements
+\usepackage{ifthen}
+
+% Page layout
+\ifthenelse{\equal{\detokenize{interior}}{\jobname}\or\equal{\detokenize{interior-1}}{\jobname}\or\equal{\detokenize{interior-2}}{\jobname}\or\equal{\detokenize{inst-soln-manual-interior}}{\jobname}\or\equal{\detokenize{pssm-interior}}{\jobname}\or\equal{\detokenize{testbank}}{\jobname}}{
+	\usepackage[headheight=15pt,top=1in, bottom=0.75in, outer=0.65in, inner=0.85in]{geometry}
+}{
+  \usepackage[headheight=15pt,top=1in, bottom=0.75in, outer=0.75in, inner=0.75in]{geometry}
+}
+
+% Captions for objects
+\usepackage[format=hang,font=bf]{caption}
+
+% Additional commands for simple LaTeX drawings
+\usepackage{eepic}
+
+% For multicolumn cells in text
+\usepackage{multicol}
+
+% More sophisticated package for creating indexes
+\usepackage{imakeidx}
+\usepackage{idxlayout}
+
+% If you want to include postscript graphics
+\usepackage{graphicx}
+
+% For including eps graphic files
+\usepackage{epsfig}
+
+% Additional features for lists
+\usepackage{mdwlist}
+
+% Coloured titlepage setup
+\usepackage{afterpage}
+\usepackage{pagecolor}
+
+% Hyperlinks
+\usepackage[bookmarksnumbered,breaklinks]{hyperref}
+
+\hypersetup{
+        pdftitle={Linear Algebra With Applications},
+        pdfauthor={W. Keith Nicholson},
+        pdfcreator={Lyryx Learning Inc},
+        pdfdisplaydoctitle=true
+} 
+
+
+% Enumerations where the numbering goes left-to-right
+\usepackage{tasks}
+
+% Change numbering style of enumerate
+\usepackage{enumitem}
+
+% Creates coloured boxes
+\usepackage[many]{tcolorbox}
+%\tcbuselibrary{theorems,breakable}
+
+
+% Draw frames around text
+\usepackage[framemethod=tikz]{mdframed}
+\mdfsetup{skipabove=\topskip,skipbelow=\topskip}
+
+% To remove headers and footers from truly empty pages
+\usepackage{emptypage}
+
+% Draw images and figures
+%\usepackage{tikz}
+
+\usepackage{pgfplots}
+\usetikzlibrary{calc,intersections,shapes.callouts}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shadows}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{patterns}
+\usepackage{circuitikz}
+
+% Wrapping text around a figure
+\usepackage{wrapfig}
+
+% The following passes on paperheight to ps2pdf... bug fix  
+\pdfpageheight=\paperheight 
+
+% For plotting data
+\usepackage{pgfplotstable}
+
+% For fancy headers!
+\usepackage{fancyhdr}
+
+% Used for creating EOC questions with corresponding solutions at the end of the textbook
+\usepackage{answers}
+
+% Used to fix Exercise Counter error in solutions when using tasks environment
+\usepackage{etoolbox}
+
+
+% Figures that don't float
+\usepackage{float}
+
+% Reset Figure numbering to run per section
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+% Fancy section headers, sc for small caps, prevent titles from being stranded on previous page
+\usepackage[explicit,sc,nobottomtitles]{titlesec}
+
+
+% Building a solutions manual
+\ifthenelse{\equal{\detokenize{inst-soln-manual}}{\jobname}\or\equal{\detokenize{pssm}}{\jobname}\or\equal{\detokenize{inst-soln-manual-interior}}{\jobname}\or\equal{\detokenize{pssm-interior}}{\jobname}\or\equal{\detokenize{testbank}}{\jobname}}{
+	\usepackage{xr}
+	\externaldocument{interior}
+}
+{
+	% Don't include...
+}
+
+% Inputs information regarding book Title, Authors, Version and 
+\input frontmatter/bookinfo.txt
+
+% Inputs information regarding Institution,Course Code, Name, Session and Section (for adapted text)
+\input frontmatter/courseInfo.txt
+
+% Lyryx Math Style
+\usepackage{LyryxMathStyle}
+
+% Lyryx Linear Algebra Style 
+\usepackage{LyryxLinAlgStyle}
+
+\ifthenelse{\equal{\detokenize{interior-1}}{\jobname}\or\equal{\detokenize{interior-2}}{\jobname}}{
+	\usepackage{xr}
+	\externaldocument{interior}
+}{}
+
+% Create index. Options for formatting index below. 
+\makeindex
+\idxlayout{indentunit=10pt,columns=4,columnsep=15pt}
+
+
+\begin{document}
+
+	\raggedbottom
+	\allowdisplaybreaks
+	\frontmatter
+
+	\newpage\null\thispagestyle{empty}\newpage
+
+
+% License
+	\input frontmatter/license.tex
+	\cleardoublepage	
+	\input frontmatter/attribution.tex
+	\cleardoublepage
+
+
+% Revision
+	\input frontmatter/revision.tex
+	\cleardoublepage
+
+
+% Table of Contents
+	\phantomsection
+%	\addcontentsline{toc}{chapter}{Contents} %Adds contents to the table of contents itself
+	\setlength{\parskip}{2.5pt} % alter vertical space in subsequent contents. Can alter this value to adjust TOC to fit nicely on page and prevent widows/orphans, careful that this will affect the entire text. 
+	\tableofcontents
+	\cleardoublepage
+
+\ifthenelse{\equal{\detokenize{inst-soln-manual}}{\jobname}}{
+\mainmatter
+\input content-inst-soln-manual.tex
+}{
+\ifthenelse{\equal{\detokenize{pssm}}{\jobname}}{
+\mainmatter
+\input content-pssm.tex
+}{
+\ifthenelse{\equal{\detokenize{inst-soln-manual-interior}}{\jobname}}{
+\mainmatter
+\input content-inst-soln-manual.tex
+}{
+\ifthenelse{\equal{\detokenize{pssm-interior}}{\jobname}}{
+\mainmatter
+\input content-pssm.tex
+}
+\ifthenelse{\equal{\detokenize{testbank}}{\jobname}}{
+\mainmatter
+\input content-testbank.tex
+}{
+%not the instructor solution manual:
+
+      \input frontmatter/foreward
+      \cleardoublepage
+
+       \input frontmatter/preface
+       \cleardoublepage
+
+	\mainmatter
+
+	\Opensolutionfile{solutions}[ex]
+
+%LOAD COURSE CONTENT
+\ifthenelse{\equal{\detokenize{interior-1}}{\jobname}}{
+\input content-interior-1.tex
+}{
+\ifthenelse{\equal{\detokenize{interior-2}}{\jobname}}{
+\input content-interior-2.tex
+}{
+	\input{content.tex}
+}
+}
+
+
+
+
+% Solutions
+%\ifthenelse{\equal{\detokenize{interior}}{\jobname}\or\equal{\detokenize{interior-1}}{\jobname}\or\equal{\detokenize{interior-2}}{\jobname}}{
+%}{
+	\Closesolutionfile{solutions}
+	\chapter*{Selected Exercise Answers}
+%	\addcontentsline{toc}{chapter}{Selected Exercise Answers}
+%	\begin{enumialphparenastyle}
+% Give a little extra room for solutions:	\setlist[enumerate]{wide, labelwidth=!, labelindent=0pt}
+        {\footnotesize
+	\begin{multicols}{2}
+	{\raggedright
+	\input{ex}}
+	\end{multicols}}
+%	\end{enumialphparenastyle}
+	\cleardoublepage
+%}
+
+% Print Index at the end and add to TOC
+	\cleardoublepage
+	\phantomsection
+	%\addcontentsline{toc}{chapter}{\indexname}
+	{\footnotesize
+        \printindex }
+
+}
+}
+}
+}
+
+
+
+
+%%that's it folks
+\end{document}

@@ -1,0 +1,283 @@
+\section[An Application to Fourier Approximation]{An Application to Fourier Approximation\footnote{The name honours the French mathematician J.B.J. Fourier (1768-1830) who used these techniques in 1822 to investigate heat conduction in solids.\index{heat conduction in solids}} }
+\label{sec:10_5}\index{inner product space!Fourier approximation}
+
+If $U$ is an orthogonal basis of a vector space $V$, the expansion theorem (Theorem \ref{thm:030904}) presents a vector $v \in V$ as a linear combination of the vectors in $U$. Of course this requires that the set $U$ is finite since otherwise the linear combination is an infinite sum and makes no sense in $V$. 
+
+However, given an infinite orthogonal set $U = \{ \vect{f}_1, \vect{f}_2, \dots, \vect{f}_n, \dots \}$, we can use the expansion theorem for $\{ \vect{f}_1, \vect{f}_2, \dots, \vect{f}_n\}$ for each $n$ to get a series of ``approximations'' $\vect{v}_n$ for a given vector $\vect{v}$. A natural question is whether these $\vect{v}_n$ are getting closer and closer to $\vect{v}$ as $n$ increases. This turns out to be a very fruitful idea.  
+
+In this section we shall investigate an important orthogonal set in the space $\vectspace{C}[-\pi, \pi]$ of continuous functions on the interval $[-\pi, \pi]$, using the inner product.
+\begin{equation*}
+\langle f, g \rangle = \int_{-\pi}^{\pi} f(x)g(x)dx
+\end{equation*}
+Of course, calculus will be needed. The orthogonal set in question is
+\begin{equation*}
+\{1, \sin x, \cos x, \sin(2x), \cos(2x), \sin(3x), \cos(3x), \dots \}
+\end{equation*}
+
+Standard techniques of integration give
+\begin{align*}
+\vectlength 1 \vectlength^2 &= \int_{-\pi}^{\pi} 1^2 dx = 2\pi \\
+\vectlength \sin\ kx \vectlength ^2 &= \int_{-\pi}^{\pi} \sin^2(kx) dx = \pi \quad \mbox{ for any } k = 1, 2, 3, \dots \\
+\vectlength \cos\ kx \vectlength ^2 &= \int_{-\pi}^{\pi} \cos^2(kx) dx = \pi \quad \mbox{ for any } k = 1, 2, 3, \dots
+\end{align*}
+We leave the verifications to the reader, together with the task of showing that these functions are orthogonal:
+\begin{equation*}
+\langle \sin(kx), \sin(mx) \rangle = 0 = \langle \cos(kx), \cos(mx) \rangle \quad \mbox{ if } k \neq m
+\end{equation*}
+and
+\begin{equation*}
+\langle \sin(kx), \cos(mx) \rangle = 0 \quad \mbox{ for all } k \geq 0 \mbox{ and } m \geq 0
+\end{equation*}
+(Note that $1 = \cos(0x)$, so the constant function $1$ is included.)
+
+Now define the following subspace of $\vectspace{C}[-\pi, \pi]$:
+\begin{equation*}
+F_n = \func{span}\{1, \sin x, \cos x, \sin(2x), \cos(2x), \dots, \sin(nx), \cos(nx) \}
+\end{equation*}
+The aim is to use the approximation theorem (Theorem~\ref{thm:031150}); so, given a function $f$ in $\vectspace{C}[-\pi, \pi]$, define the \textbf{Fourier coefficients}\index{coefficients!Fourier coefficients}\index{Fourier coefficients} of $f$ by
+\begin{align*}
+a_0 &= \frac{\langle f(x), 1 \rangle}{\vectlength 1 \vectlength ^2} = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x)dx \\
+a_k &= \frac{\langle f(x), \cos(kx) \rangle}{\vectlength \cos(kx) \vectlength ^2} =
+\frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\cos(kx)dx\quad k = 1, 2, \dots \\
+b_k &= \frac{\langle f(x), \sin(kx) \rangle}{\vectlength \sin(kx) \vectlength ^2} =
+\frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\sin(kx)dx\quad k = 1, 2, \dots
+\end{align*}
+Then the approximation theorem (Theorem~\ref{thm:031150}) gives Theorem~\ref{thm:032777}.\index{approximation theorem}
+
+\begin{theorem}{}{032777}
+Let $f$ be any continuous real-valued function defined on the interval
+$[-\pi, \pi]$. If $a_{0}$, $a_{1}$, $\dots$, and $b_{0}$, $b_{1}$, $\dots$ are the Fourier coefficients of $f$, then given $n \geq 0$,
+\begin{equation*}
+f_n(x) = a_0 + a_1 \cos x + b_1 \sin x + a_2 \cos(2x) + b_2 \sin(2x) + \dots + a_n \cos(nx) + b_n \sin(nx)
+\end{equation*}
+is a function in $F_{n}$ that is closest to $f$ in the sense that
+\begin{equation*}
+\vectlength f - f_n \vectlength \leq \vectlength f - g \vectlength
+\end{equation*}
+holds for all functions $g$ in $F_{n}$.
+\end{theorem}
+
+\noindent The function $f_{n}$ is called the $n$th \textbf{Fourier approximation}\index{Fourier approximation} to the function $f$.
+
+\newpage
+\begin{example}{}{032790}
+Find the fifth Fourier approximation to the function $f(x)$ defined on $[-\pi, \pi]$ as follows:
+\begin{equation*}
+f(x) = \left\{
+\begin{array}{ll}
+\pi + x & \mbox{if } -\pi \leq x < 0 \\
+\pi - x & \mbox{if } 0 \leq x \leq \pi \\
+\end{array}
+\right.
+\end{equation*}
+
+\begin{wrapfigure}{l}{5cm} 
+\vspace*{-6em}
+\centering
+\input{10-inner-product-spaces/figures/5-an-application-to-fourier-approximation/example10.5.1}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt} 
+\begin{solution} The graph of $y = f(x)$ appears in the top diagram. The Fourier coefficients are computed as follows. The details of the integrations (usually by parts) are omitted.\index{coefficients!Fourier coefficients}\index{Fourier coefficients}
+
+\begin{align*}
+a_0 &= \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x)dx = \frac{\pi}{2} \\
+%row 2
+a_k &= \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\cos(kx)dx = \frac{2}{\pi k^2}[1 - \cos(k\pi)] = 
+\left\{
+\begin{array}{ll}
+0 			& \mbox{if } k \mbox{ is even} \\
+\frac{4}{\pi k^2} 	& \mbox{if } k \mbox{ is odd} \\
+\end{array}
+\right. \\
+%row 3
+b_k &= \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\sin(kx)dx = 0 \quad \mbox{ for all } k = 1, 2, \dots
+\end{align*}
+
+Hence the fifth Fourier approximation is
+\begin{equation*}
+f_5(x) = \frac{\pi}{2} + \frac{4}{\pi}\left\{\cos x + \frac{1}{3^2} \cos(3x) + \frac{1}{5^2} \cos(5x) \right\}
+\end{equation*}
+This is plotted in the middle diagram and is already a reasonable approximation to $f(x)$. By comparison, $f_{13}(x)$ is also plotted in the bottom diagram.
+\end{solution}
+\end{example}
+
+We say that a function $f$ is an \textbf{even function}\index{function!even function}\index{even function} if $f(x) = f(-x)$ holds for all $x$; $f$ is called an \textbf{odd function}\index{function!odd function}\index{odd function} if $f(-x) = -f(x)$ holds for all $x$. Examples of even functions are constant functions, the even powers $x^{2}$, $x^{4}$, $\dots$, and $\cos(kx)$; these functions are characterized by the fact that the graph of $y = f(x)$ is symmetric about the $y$ axis. Examples of odd functions are the odd powers $x$, $x^{3}$, $\dots$, and $\sin(kx)$ where $k > 0$, and the graph of $y = f(x)$ is symmetric about the origin if $f$ is odd. The usefulness of these functions stems from the fact that
+\begin{equation*}
+\begin{array}{ll}
+\int_{-\pi}^{\pi} f(x)dx = 0 & \mbox{if } f \mbox{ is odd} \\
+\int_{-\pi}^{\pi} f(x)dx = 2 \int_{0}^{\pi} f(x)dx & \mbox{if } f \mbox{ is even}
+\end{array}
+\end{equation*}
+These facts often simplify the computations of the Fourier coefficients. For example:
+
+\begin{enumerate}
+\item The Fourier sine coefficients $b_{k}$ all vanish if $f$ is even.
+
+\item The Fourier cosine coefficients $a_{k}$ all vanish if $f$ is odd.
+\end{enumerate}
+This is because $f(x) \sin(kx)$ is odd in the first case and $f(x) \cos(kx)$ is odd in the second case.
+
+The functions $1$, $\cos(kx)$, and $\sin(kx)$ that occur in the Fourier approximation for $f(x)$ are all easy to generate as an electrical voltage (when $x$ is time). By summing these signals (with the amplitudes given by the Fourier coefficients), it is possible to produce an electrical signal with (the approximation to) $f(x)$ as the voltage. Hence these Fourier approximations play a fundamental role in electronics.
+
+Finally, the Fourier approximations $f_{1}, f_{2}, \dots$ of a function $f$ get better and better as $n$ increases. The reason is that the subspaces $F_{n}$ increase:
+\begin{equation*}
+F_1 \subseteq F_2 \subseteq F_3 \subseteq \cdots \subseteq F_n \subseteq \cdots
+\end{equation*}
+So, because $f_n = \proj{F_n}{f}$, we get (see the discussion following Example~\ref{exa:031164})
+\begin{equation*}
+\vectlength f - f_1 \vectlength \geq 
+\vectlength f - f_2 \vectlength \geq \cdots \geq 
+\vectlength f - f_n \vectlength \geq \cdots
+\end{equation*}
+These numbers $\vectlength f - f_{n} \vectlength$ approach zero; in fact, we have the following fundamental theorem. %\footnote{See, for example, J. W. Brown and R. V. Churchill, \textit{Fourier Series and Boundary Value Problems}, 7th ed., (New York: McGraw-Hill, 2008).\index{\textit{Fourier Series and Boundary Value Problems} (Brown and Churchill)}}
+
+\begin{theorem}{}{032829}
+Let $f$ be any continuous function in $C[-\pi, \pi]$. Then
+\begin{equation*}
+f_n(x) \mbox{ approaches } f(x) \mbox{ for all } x \mbox{ such that } -\pi < x < \pi.  \footnotemark
+\end{equation*}
+\end{theorem}
+\footnotetext{We have to be careful at the end points $x = \pi$ or $x = -\pi$ because $\sin(k\pi) = \sin(-k\pi)$ and $\cos(k\pi) = \cos(-k\pi)$.}
+
+\noindent It shows that $f$ has a representation as an infinite series, called the \textbf{Fourier series}\index{Fourier series} of $f$:
+\begin{equation*}
+f(x) = a_0 + a_1 \cos x + b_1 \sin x + a_2 \cos(2x) + b_2 \sin(2x) + \cdots
+\end{equation*}
+whenever $-\pi < x < \pi$. A full discussion of Theorem~\ref{thm:032829} is beyond the scope of this book. This subject had great historical impact on the development of mathematics, and has become one of the standard tools in science and engineering.
+
+Thus the Fourier series for the function $f$ in Example~\ref{exa:032790} is
+\begin{equation*}
+f(x) = \frac{\pi}{2} + \frac{4}{\pi}\left\{\cos x + 
+\frac{1}{3^2} \cos(3x) + 
+\frac{1}{5^2} \cos(5x) + 
+\frac{1}{7^2} \cos(7x) + \cdots 
+\right\}
+\end{equation*}
+Since $f(0) = \pi$ and $\cos(0) = 1$, taking $x = 0$ leads to the series
+\begin{equation*}
+\frac{\pi^2}{8} = 1 + \frac{1}{3^2} + \frac{1}{5^2} + \frac{1}{7^2} + \cdots
+\end{equation*}
+
+\vspace*{-1em}\begin{example}{}{032840}
+Expand $f(x) = x$ on the interval $[-\pi, \pi]$ in a Fourier series, and so obtain a series expansion of $\frac{\pi}{4}$.
+
+\begin{solution}
+Here $f$ is an odd function so all the Fourier cosine coefficients $a_{k}$ are zero. As to the sine coefficients:
+\begin{equation*}
+b_k = \frac{1}{\pi} \int_{-\pi}^{\pi} x \sin(kx)dx = \frac{2}{k}(-1)^{k + 1} \quad \mbox{ for } k \geq 1
+\end{equation*}
+where we omit the details of the integration by parts. Hence the Fourier series for $x$ is
+\begin{equation*}
+x = 2[\sin x - \frac{1}{2} \sin(2x) + \frac{1}{3} \sin(3x) - \frac{1}{4} \sin(4x) + \dots]
+\end{equation*}
+for $-\pi < x < \pi$. In particular, taking $x = \frac{\pi}{2}$ gives an infinite series for $\frac{\pi}{4}$.
+\begin{equation*}
+\frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \frac{1}{9} - \cdots
+\end{equation*}
+Many other such formulas can be proved using Theorem~\ref{thm:032829}.
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:10_5}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:10_5}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex} \label{ex:10_5_1}
+In each case, find the Fourier approximation $f_{5}$ of the given function in $\vectspace{C}[-\pi, \pi]$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $ f(x) = \pi - x $
+
+\item $ f(x) = |x| = 
+\left\{
+\begin{array}{rl}
+ x & \mbox{if } 0 \leq x \leq \pi \\
+-x & \mbox{if } -\pi \leq x < 0
+\end{array}
+\right.$
+
+\item $ f(x) = x^2 $
+
+\item $f(x) =
+\left\{
+\begin{array}{rl}
+0 & \mbox{if } -\pi \leq x < 0 \\
+x & \mbox{if } 0 \leq x \leq \pi
+\end{array}
+\right.$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\displaystyle \frac{\pi}{2} - \frac{4}{\pi} \leftB
+\cos x + \frac{\cos 3x}{3^2} + \frac{\cos 5x}{5^2}
+\rightB$
+
+\setcounter{enumi}{3}
+\item $\displaystyle \frac{\pi}{4} + \leftB
+\sin x - \frac{\sin 2x}{2} + \frac{\sin 3x}{3} - \frac{\sin 4x}{4} +\frac{\sin 5x}{5}
+\rightB$ 
+
+$\displaystyle -\frac{2}{\pi} \leftB
+\cos x + \frac{\cos 3x}{3^2} + \frac{\cos 5x}{5^2}
+\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Find $f_{5}$ for the even function $f$ on $[-\pi, \pi]$ satisfying $f(x) = x$ for $0 \leq x \leq \pi$.
+
+\item Find $f_{6}$ for the even function $f$ on $[-\pi, \pi]$ satisfying $f(x) = \sin x$ for $0 \leq x \leq \pi$.
+
+[\textit{Hint}: If $k > 1$, $\int \sin x \cos(kx) \\ = \frac{1}{2} 
+\leftB
+\frac{\cos[(k - 1)x]}{k - 1} - \frac{\cos[(k + 1)x]}{k + 1}
+\rightB$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\displaystyle
+\frac{2}{\pi} - \frac{8}{\pi} \leftB
+\frac{\cos 2x}{2^2 - 1} + \frac{\cos 4x}{4^2 - 1} + \frac{\cos 6x}{6^2 - 1}
+\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Prove that $\int_{-\pi}^{\pi} f(x)dx = 0$ if $f$ is odd and that $\int_{-\pi}^{\pi} f(x)dx = 2 \int_{0}^{\pi} f(x)dx$ if $f$ is even.
+
+\item Prove that $\frac{1}{2}[f(x) + f(-x)]$ is even and that $\frac{1}{2} [f(x) - f(-x)]$ is odd for any function $f$. Note that they sum to $f(x)$.
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Show that $\{1, \cos x, \cos(2x), \cos(3x), \dots\}$ is an orthogonal set in $\vectspace{C}[0, \pi]$ with respect to the inner product $ \langle f, g \rangle = \int_{0}^{\pi} f(x)g(x)dx $.
+
+\begin{sol}
+$ \int \cos\ kx\ \cos\ lx\ dx $ \\ $ = \frac{1}{2} \leftB \frac{\sin[(k + l)x]}{k + l} - \frac{\sin[(k - l)x]}{k - l}
+\rightB_0^{\pi} = 0$ provided that $ k \neq l $.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Show that $ \frac{\pi^2}{8} = 1 + \frac{1}{3^2} + \frac{1}{5^2} + \cdots $ using Exercise \ref{ex:10_5_1}(b).
+
+\item Show that $ \frac{\pi^2}{12} = 1 - \frac{1}{2^2} + \frac{1}{3^2} - \frac{1}{4^2} + \cdots $ using Exercise \ref{ex:10_5_1}(c).
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

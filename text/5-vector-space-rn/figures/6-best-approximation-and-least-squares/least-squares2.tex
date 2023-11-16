@@ -1,0 +1,78 @@
+\begin{tikzpicture}[scale=0.9]
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+width=5cm, 
+height=5cm, 
+xlabel={$x$}, 
+ylabel={$y$}, 
+axis lines=middle, 
+xtick={\empty}, 
+ytick={\empty}, 
+xticklabels=\empty, 
+yticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode=individual,
+domain=-0.25:6.5, 
+samples=100, 
+xmin=-0.5, 
+xmax=6, 
+ymin=-0.5, 
+ymax=6]
+
+\coordinate (x1f) at (1, 2);
+\coordinate (x1y) at ($(x1f) + (0, -0.7)$);
+\coordinate (xif) at (3, 4);
+\coordinate (xiy) at ($(xif) + (0, 0.7)$);
+\coordinate (xnf) at (4, 5);
+\coordinate (xny) at ($(xnf) + (0, -0.5)$);
+
+%dashed lines
+\draw [dkbluevect, thick, dashed] (x1y)--(x1y |- 0, 0)
+	(xif)--(xif |- 0, 0)
+	(xny)--(xny |- 0, 0);
+
+%point labels
+\node[right, rectangle, fill=white] at (x1f) {\scriptsize $(x_1, f(x_1))$};
+\node[right] at ($(x1y) + (0, -0.2)$) {\scriptsize $(x_1, y_1)$};
+\node[right, rectangle, fill=white] at ($(xif) + (0, -0.3)$) {\scriptsize $(x_i, f(x_i))$};
+\node at ($(xiy) + (-0.4, 0.4)$) {\scriptsize $(x_i, y_i)$};
+\node[right] at (xnf) {\scriptsize $(x_n, f(x_n))$};
+\node[right] at ($(xny) + (0, -0.2)$) {\scriptsize $(x_n, y_n)$};
+
+%green lines
+\addplot[dkgreenvect, thick] {\x + 1};
+\draw [dkgreenvect, thick] (x1f)-- coordinate[midway](midD1) (x1y) 
+	(xif)-- coordinate[midway](midDi) (xiy)
+	(xnf)-- coordinate[midway](midDn) (xny);
+
+%points
+\fill[black] (x1f) circle (2pt);
+\fill[black] (x1y) circle (2pt); 
+\fill[black] (xif) circle (2pt); 
+\fill[black] (xiy) circle (2pt); 
+\fill[black] (xnf) circle (2pt); 
+\fill[black] (xny) circle (2pt); 
+
+%blue label curves
+\draw[dkbluevect, thick] (midD1) arc [start angle=270, end angle=200, radius=0.5] node (labelD1) {};
+\draw[dkbluevect, thick] (midDn) arc [start angle=270, end angle=200, radius=0.5] node (labelDn) {};
+%line labels
+\node at ($ (labelD1) + (0, 0.3) $) {\scriptsize $d_1$};
+\node at ($ (midDi) + (-0.4, 0) $) {\scriptsize $d_i$};
+\node at ($ (labelDn) + (0, 0.4) $) {\scriptsize $d_n$};
+\node [rotate=45] at (1.75, 3.25) {\scriptsize $y = f(x)$};
+
+\node [below left] at (0, 0) {\scriptsize $\vect{0}$};
+\node at (x1y |- 0, -0.5) {\scriptsize $x_1$};
+\node at (xiy |- 0, -0.5) {\scriptsize $x_i$};
+\node at (xny |- 0, -0.5) {\scriptsize $x_n$};
+
+\end{axis}
+\end{tikzpicture}

@@ -1,0 +1,14 @@
+\begin{tikzpicture}[scale=0.9]
+\draw[dkgreenvect, -latex, thick] (0, 0)--(110:2cm) node[left, text=black, midway]{\small $\vect{v}$};
+\draw[dkgreenvect, -latex, thick] (0, 0)--(3, 0) node[below, text=black, midway]{\small $\vect{w}$};
+
+\draw[dkbluevect, thick] (0.5, 0) arc [start angle=0, end angle=110, radius=0.5] node[above, text=black, midway] {\small $\theta$};
+\node[right] at (0, 1.5) {\small $\theta$ obtuse};
+
+%bottom image
+\draw[dkgreenvect, -latex, thick] (0, -3)-- +(60:2cm) node[left, text=black, midway]{\small $\vect{v}$};
+\draw[dkgreenvect, -latex, thick] (0, -3)--(3, -3) node[below, text=black, midway]{\small $\vect{w}$};
+
+\draw[dkbluevect, thick] (0.5, -3) arc [start angle=0, end angle=60, radius=0.5] node[right, text=black, pos=0.6] {\small $\theta$};
+\node[right] at (1, -2) {\small $\theta$ acute};
+\end{tikzpicture}

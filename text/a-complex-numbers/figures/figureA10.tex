@@ -1,0 +1,49 @@
+
+\begin{tikzpicture}[scale=0.9]
+\begin{axis}[disabledatascaling, 
+	clip mode=individual, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick={-5,-4,...,5}, 
+    ytick={-5,-4,...,5}, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-5:5, 
+    samples=100, 
+    xmin=-1.5, 
+    xmax=1.5, 
+    ymin=-1.5, 
+    ymax=1.5]
+\draw (0,0) circle (1); 
+\draw[dkgreenvect,thick](0,0)--(1,0);
+\draw[dkgreenvect,thick](0,0)--(0.309,0.951);
+\draw[dkgreenvect,thick](0,0)--(-0.809,0.588);
+\draw[dkgreenvect,thick](0,0)--(-0.809,-0.588);
+\draw[dkgreenvect,thick](0,0)--(0.309,-0.951);
+
+
+\fill[black] (1,0) circle (1.5pt);
+\fill[black] (0.309,0.951) circle (1.5pt);
+\fill[black] (-0.809,0.588) circle (1.5pt);
+\fill[black] (-0.809,-0.588) circle (1.5pt);
+\fill[black] (0.309,-0.951) circle (1.5pt);
+
+\node[below right,font=\footnotesize] at (0,0){$0$};
+\node[above right,font=\footnotesize] at (0.9,0){$1=e^{0i}$};
+\node[above right,font=\footnotesize] at (0.309,0.951){$e^{2\pi i/5}$};
+\node[left,font=\footnotesize] at (-0.809,0.588){$e^{4\pi i/5}$};
+\node[below left,font=\footnotesize] at (-0.809,-0.588){$e^{6\pi i/5}$};
+\node[below right,font=\footnotesize] at (0.309,-0.951){$e^{8\pi i/5}$};
+\end{axis} 
+\end{tikzpicture}

@@ -1,0 +1,43 @@
+\begin{tikzpicture}[scale=0.9]
+\def \vectLength {1.2}
+\def \angleV{20}
+\draw[dkbluevect, fill=ltbluevect, thick] (-1.25, 0.75)-- ++(2.5, 0)-- ++(1.5, -1.5)-- ++(-2.5, 0)--cycle;
+
+\coordinate (ptU) at (70:\vectLength);
+\coordinate (ptV) at (\angleV:\vectLength);
+\coordinate (ptW) at (-\angleV:\vectLength);
+
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptU);
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptV);
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptW);
+
+\node[above] at (ptU) {\footnotesize $\vect{u}$};
+\node at ($(ptV) + (0.15, 0)$) {\footnotesize $\vect{v}$};
+\node[right] at (ptW) {\footnotesize $\vect{w}$};
+
+\node at (1.5, -1) {\footnotesize $M$};
+\node at (1.0, -1.5) {\scriptsize $\{\vect{u}, \vect{v}, \vect{w}\}$ independent};
+\end{tikzpicture}
+
+\bigskip
+
+\begin{tikzpicture}[scale=0.9]
+\def \vectLength {1.2}
+\def \angleV{20}
+\draw[dkbluevect, fill=ltbluevect, thick] (-1.25, 0.75)-- ++(2.5, 0)-- ++(1.5, -1.5)-- ++(-2.5, 0)--cycle;
+
+\coordinate (ptU) at (0:\vectLength);
+\coordinate (ptV) at (\angleV:\vectLength);
+\coordinate (ptW) at (-\angleV:\vectLength);
+
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptU);
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptV);
+\draw [dkgreenvect, thick, -latex] (0, 0)--(ptW);
+
+\node[right] at (ptU) {\footnotesize $\vect{u}$};
+\node at ($(ptV) + (0.15, 0)$) {\footnotesize $\vect{v}$};
+\node[right] at (ptW) {\footnotesize $\vect{w}$};
+
+\node at (1.5, -1) {\footnotesize $M$};
+\node at (1.0, -1.5) {\scriptsize $\{\vect{u}, \vect{v}, \vect{w}\}$ not independent};
+\end{tikzpicture}

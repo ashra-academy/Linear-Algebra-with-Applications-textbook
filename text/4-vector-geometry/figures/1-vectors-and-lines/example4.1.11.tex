@@ -1,0 +1,51 @@
+\begin{tikzpicture}
+[scale=0.9]
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick=\empty, 
+    ytick=\empty, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-5:5, 
+    samples=100, 
+    xmin=-0.75, 
+    xmax=2, 
+    ymin=-0.25, 
+    ymax=2]
+    
+    \coordinate (ptX0) at (0.5, 0);
+    \coordinate (ptX1) at (1.5, 0);
+    \coordinate (ptP0) at (0.5, 0.5);
+    \coordinate (ptP1) at (1.5, 1);
+    
+    \draw[dkbluevect, thick] (1.5, 0.5) rectangle ++(-0.1, 0.1);
+    \draw[dkgreenvect, thick] (-0.7, -0.1)--(2, 1.25); %y=0.5x + 0.25
+    \draw[dkgreenvect, thick] (ptP0)--(ptX0);
+    \draw[dkgreenvect, thick] (ptP0)--(1.5, 0.5);
+    \draw[dkgreenvect, thick] (ptP1)--(ptX1);
+    
+    \fill[black, thick] (ptX0) circle (2pt) ;
+    \fill[black, thick] (ptX1) circle (2pt) ;
+	\fill[dkgreenvect, thick] (ptP0) circle (2pt) ;
+	\fill[dkgreenvect, thick] (ptP1) circle (2pt) ;
+	%labels
+	\node[above] at (0.5, 0.6) {\scriptsize $P_0(x_0, y_0)$};
+	\node[above] at (1.5, 1.1) {\scriptsize $P_1(x_1, y_1)$};
+	\node[below] at (ptX0) {\scriptsize $x_0$};
+	\node[below] at (ptX1) {\scriptsize $x_1=x_0 + 1$};
+	\node[below left] at (0, 0) {\scriptsize $O$};
+\end{axis}
+\end{tikzpicture}

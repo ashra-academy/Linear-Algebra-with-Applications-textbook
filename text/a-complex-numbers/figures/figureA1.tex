@@ -1,0 +1,44 @@
+
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[disabledatascaling,
+	clip mode=individual, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick={1}, 
+    ytick={1}, 
+    xticklabels={$1$}, 
+    yticklabels={$i$}, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,font=\footnotesize
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,font=\footnotesize
+    },
+	tick label style={font=\footnotesize},
+    domain=-5:5, 
+    samples=100, 
+    xmin=-2, 
+    xmax=5, 
+    ymin=-4, 
+    ymax=5]
+\draw[thick](0,0)--(2,3);
+\draw[dkbluevect,thick,dashed](0,3)--(2,3);
+\draw[dkbluevect,thick,dashed](2,3)--(2,-3);
+\fill (0,3) circle (2pt);
+\fill (0,0) circle (2pt);
+\fill (2,3) circle (2pt);
+\fill (2,0) circle (2pt);
+\fill (2,-3) circle (2pt);
+\node[below,font=\footnotesize] at (3,-3){$(a,-b)=a-bi$};
+\node[below left,font=\footnotesize] at (0,0){$0$};
+\node[left,font=\footnotesize] at (0,3){$(0,b)=bi$};
+\node[above,font=\footnotesize] at (2.5,3){$(a,b)=a+bi$};
+\node[above right,font=\footnotesize] at (2,0){$(a,0)=a$};
+\end{axis}
+\end{tikzpicture}

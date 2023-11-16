@@ -1,0 +1,927 @@
+\section{Isomorphisms and Composition}
+\label{sec:7_3}
+
+Often two vector spaces can consist of quite different types of vectors but, on closer examination, turn out to be the same underlying space displayed in different symbols. For example, consider the spaces
+\begin{equation*}
+\RR^2 = \{(a, b) \mid a, b \in \RR\} \quad \mbox{and} \quad \vectspace{P}_1 = \{a + bx \mid a, b \in \RR\}
+\end{equation*}
+
+Compare the addition and scalar multiplication in these spaces:
+\begin{alignat*}{2}
+(a, b) + (a_1, b_1) &= (a + a_1, b + b_1) \quad & \quad (a + bx) + (a_1 + b_1x) &= (a + a_1) + (b + b_1)x \\
+r(a, b) &= (ra, rb) \quad & \quad r(a + bx) &= (ra) + (rb)x
+\end{alignat*}
+Clearly these are the \textit{same} vector space expressed in different notation: if we change each $(a, b)$ in $\RR^2$ to $a + bx$, then $\RR^2$ \textit{becomes} $\vectspace{P}_{1}$, complete with addition and scalar multiplication. This can be expressed by noting that the map $(a, b) \mapsto a + bx$ is a linear transformation $\RR^2 \to \vectspace{P}_{1}$ that is both one-to-one and onto. In this form, we can describe the general situation.
+
+
+\begin{definition}{Isomorphic Vector Spaces}{022010}
+A linear transformation $T : V \to W$ is called an \textbf{isomorphism}\index{isomorphism}\index{linear transformations!isomorphism} if it is both onto and one-to-one. The vector spaces $V$ and $W$ are said to be \textbf{isomorphic}\index{isomorphic} if there exists an isomorphism $T : V \to W$, and we write $V \cong W$ when this is the case.\index{vector spaces!isomorphic}
+\end{definition}
+
+\begin{example}{}{022013}
+The identity transformation $1_{V} : V \to V$ is an isomorphism for any vector space $V$.
+\end{example}
+
+\begin{example}{}{022017}
+If $T : \vectspace{M}_{mn} \to \vectspace{M}_{nm}$ is defined by $T(A) = A^{T}$ for all $A$ in $\vectspace{M}_{mn}$, then $T$ is an isomorphism (verify). Hence $\vectspace{M}_{mn} \cong \vectspace{M}_{nm}$.
+\end{example}
+
+\begin{example}{}{022026}
+Isomorphic spaces can ``look'' quite different. For example, $\vectspace{M}_{22} \cong \vectspace{P}_{3}$ because the map $T : \vectspace{M}_{22} \to \vectspace{P}_{3}$ given by $T\leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB = a + bx + cx^2 + dx^3$ is an isomorphism (verify).
+\end{example}
+
+The word \textit{isomorphism} comes from two Greek roots: \textit{iso}, meaning ``same,'' and \textit{morphos}, meaning ``form.'' An isomorphism $T : V \to W$ induces a pairing
+\begin{equation*}
+\vect{v} \leftrightarrow T(\vect{v})
+\end{equation*}
+between vectors $\vect{v}$ in $V$ and vectors $T(\vect{v})$ in $W$ that preserves vector addition and scalar multiplication. Hence, \textit{as far as their vector space properties are concerned}, the spaces $V$ and $W$ are identical except for notation. Because addition and scalar multiplication in either space are completely determined by the same operations in the other space, all \textit{vector space} properties of either space are completely determined by those of the other.
+
+
+One of the most important examples of isomorphic spaces was considered in Chapter~\ref{chap:4}. Let $A$ denote the set of all ``arrows'' with tail at the origin in space, and make $A$ into a vector space using the parallelogram law and the scalar multiple law (see Section~\ref{sec:4_1}). Then define a transformation $T : \RR^3 \to A$ by taking
+\begin{equation*}
+T\leftB \begin{array}{c}
+x \\
+y \\
+z
+\end{array} \rightB = \mbox{ the arrow } \vect{v} \mbox{ from the origin to the point } P(x, y, z).
+\end{equation*}
+In Section~\ref{sec:4_1} matrix addition and scalar multiplication were shown to correspond to the parallelogram law and the scalar multiplication law for these arrows, so the map $T$ is a linear transformation. Moreover $T$ is an isomorphism: it is one-to-one by Theorem~\ref{thm:011016}, and it is onto because, given an arrow $\vect{v}$ in $A$ with tip $P(x, y, z)$, we have $T\leftB \begin{array}{c}
+x \\
+y \\
+z
+\end{array} \rightB = \vect{v}$.
+ This justifies the identification $\vect{v} = \leftB \begin{array}{c}
+ x \\
+ y \\
+ z
+ \end{array} \rightB$ 
+in Chapter~\ref{chap:4} of the geometric arrows with the algebraic matrices. This identification is very useful. The arrows give a ``picture'' of the matrices and so bring geometric intuition into $\RR^3$; the matrices are useful for detailed calculations and so bring analytic precision into geometry. This is one of the best examples of the power of an isomorphism to shed light on both spaces being considered.
+
+
+The following theorem gives a very useful characterization of isomorphisms: They are the linear transformations that preserve bases.
+
+
+\begin{theorem}{}{022044}
+If $V$ and $W$ are finite dimensional spaces, the following conditions are equivalent for a linear transformation $T : V \to W$.\index{basis!isomorphisms}
+
+
+\begin{enumerate}
+\item $T$ is an isomorphism.
+
+\item If $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is any basis of $V$, then $\{T(\vect{e}_{1}), T(\vect{e}_{2}), \dots, T(\vect{e}_{n})\}$ is a basis of $W$.
+
+\item There exists a basis $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ of $V$ such that $\{T(\vect{e}_{1}), T(\vect{e}_{2}), \dots, T(\vect{e}_{n})\}$ is a basis of $W$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) $\Rightarrow$ (2). Let $\{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ be a basis of $V$. If $t_{1}T(\vect{e}_{1}) + \cdots + t_{n}T(\vect{e}_{n}) = \vect{0}$ with $t_{i}$ in $\RR$, then $T(t_{1}\vect{e}_{1} + \cdots + t_{n}\vect{e}_{n}) = \vect{0}$, so $t_{1}\vect{e}_{1} + \cdots + t_{n}\vect{e}_{n} = \vect{0}$ (because $\func{ker }T = \{\vect{0}\}$). But then each $t_{i} = 0$ by the independence of the $\vect{e}_{i}$, so $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{n})\}$ is independent. To show that it spans $W$, choose $\vect{w}$ in $W$. Because $T$ is onto, $\vect{w} = T(\vect{v})$ for some $\vect{v}$ in $V$, so write $\vect{v} = t_{1}\vect{e}_{1} + \cdots + t_{n}\vect{e}_{n}$. Hence we obtain $\vect{w} = T(\vect{v}) = t_{1}T(\vect{e}_{1}) + \cdots + t_{n}T(\vect{e}_{n})$, proving that $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{n})\}$ spans $W$.
+
+
+(2) $\Rightarrow$ (3). This is because $V$ has a basis.
+
+
+(3) $\Rightarrow$ (1). If $T(\vect{v}) = \vect{0}$, write $\vect{v} = v_{1}\vect{e}_{1} + \cdots + v_{n}\vect{e}_{n}$ where each $v_{i}$ is in $\RR$. Then 
+\begin{equation*}
+\vect{0} = T(\vect{v}) = v_{1}T(\vect{e}_{1}) + \cdots + v_{n}T(\vect{e}_{n})
+\end{equation*}
+so $v_{1} = \cdots = v_{n} = 0$ by (3). Hence $\vect{v} = \vect{0}$, so $\func{ker }T = \{\vect{0}\}$ and $T$ is one-to-one. To show that $T$ is onto, let $\vect{w}$ be any vector in $W$. By (3) there exist $w_{1}, \dots, w_{n}$ in $\RR$ such that
+\begin{equation*}
+\vect{w} = w_{1}T(\vect{e}_1) + \cdots + w_{n}T(\vect{e}_n) = T(w_{1}\vect{e}_1 + \cdots + w_n\vect{e}_n)
+\end{equation*}
+Thus $T$ is onto.
+\end{proof}
+
+Theorem~\ref{thm:022044} dovetails nicely with Theorem~\ref{thm:020916} as follows. Let $V$ and $W$ be vector spaces of dimension $n$, and suppose that $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ and $\{\vect{f}_{1}, \vect{f}_{2}, \dots, \vect{f}_{n}\}$ are bases of $V$ and $W$, respectively. Theorem~\ref{thm:020916} asserts that there exists a linear transformation $T : V \to W$ such that
+\begin{equation*}
+T(\vect{e}_i) = \vect{f}_i \quad \mbox{for each } i = 1, 2, \dots, n
+\end{equation*}
+Then $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{n})\}$ is evidently a basis of $W$, so $T$ is an isomorphism by Theorem~\ref{thm:022044}. Furthermore, the action of $T$ is prescribed by
+\begin{equation*}
+T(r_1\vect{e}_1 + \cdots + r_n\vect{e}_n) = r_1\vect{f}_1 + \cdots + r_n\vect{f}_n
+\end{equation*}
+so isomorphisms between spaces of equal dimension can be easily defined as soon as bases are known. In particular, this shows that if two vector spaces $V$ and $W$ have the same dimension then they are isomorphic, that is $V \cong W$. This is half of the following theorem.
+
+
+\begin{theorem}{}{022127}
+If $V$ and $W$ are finite dimensional vector spaces, then $V \cong W$ if and only if $\func{dim }V = \func{dim }W$.
+\end{theorem}
+
+\begin{proof}
+It remains to show that if $V \cong W$ then $\func{dim }V = \func{dim }W$. But if $V \cong W$, then there exists an isomorphism $T : V \to W$. Since $V$ is finite dimensional, let $\{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ be a basis of $V$. Then $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{n})\}$ is a basis of $W$ by Theorem~\ref{thm:022044}, so $\func{dim }W = n = \func{dim }V$.
+\end{proof}
+
+\begin{corollary}{}{022137}
+Let $U$, $V$, and $W$ denote vector spaces. Then:
+
+
+\begin{enumerate}
+\item $V \cong V$ for every vector space $V$.
+
+\item If $V \cong W$ then $W \cong V$.
+
+\item If $U \cong V$ and $V \cong W$, then $U \cong W$.
+
+\end{enumerate}
+\end{corollary}
+
+\noindent The proof is left to the reader. By virtue of these properties, the relation $\cong$ is called an \textit{equivalence relation} on the class of finite dimensional vector spaces. Since $\func{dim}(\RR^n) = n$ it follows that
+
+
+\begin{corollary}{}{022149}
+If $V$ is a vector space and $\func{dim }V = n$, then $V$ is isomorphic to $\RR^n$.
+\end{corollary}
+
+If $V$ is a vector space of dimension $n$, note that there are important explicit isomorphisms $V \to \RR^n$. Fix a basis $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ of $V$ and write $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ for the standard basis of $\RR^n$. By Theorem~\ref{thm:020916} there is a unique linear transformation $C_{B} : V \to \RR^n$ given by
+\begin{equation*}
+C_B(v_1\vect{b}_1 + v_2\vect{b}_2 + \cdots +  v_n\vect{b}_n) = v_1\vect{e}_1 + v_2\vect{e}_2 + \cdots + v_n\vect{e}_n = \leftB \begin{array}{c}
+v_1 \\
+v_2 \\
+\vdots \\
+v_n
+\end{array} \rightB
+\end{equation*}
+where each $v_{i}$ is in $\RR$. Moreover, $C_{B}(\vect{b}_{i}) = \vect{e}_{i}$ for each $i$ so $C_{B}$ is an isomorphism by Theorem~\ref{thm:022044}, called the \textbf{coordinate isomorphism}\index{coordinate isomorphism}\index{inner product!coordinate isomorphism} corresponding to the basis $B$. These isomorphisms will play a central role in Chapter~\ref{chap:9}.
+
+
+The conclusion in the above corollary can be phrased as follows: As far as vector space properties are concerned, every $n$-dimensional vector space $V$ is essentially the same as $\RR^n$; they are the ``same'' vector space except for a change of symbols. This appears to make the process of abstraction seem less important---just study $\RR^n$ and be done with it! But consider the different ``feel'' of the spaces $\vectspace{P}_{8}$ and $\vectspace{M}_{33}$ even though they are both the ``same'' as $\RR^9$: For example, vectors in $\vectspace{P}_{8}$ can have roots, while vectors in $\vectspace{M}_{33}$ can be multiplied. So the merit in the abstraction process lies in identifying \textit{common} properties of the vector spaces in the various examples. This is important even for finite dimensional spaces. However, the payoff from abstraction is much greater in the infinite dimensional case, particularly for spaces of functions.
+
+
+\begin{example}{}{022178}
+Let $V$ denote the space of all $2 \times 2$ symmetric matrices. Find an isomorphism $T : \vectspace{P}_{2} \to V$ such that $T(1) = I$, where $I$ is the $2 \times 2$ identity matrix.
+
+
+\begin{solution}
+  $\{1, x, x^{2}\}$ is a basis of $\vectspace{P}_{2}$, and we want a basis of $V$ containing $I$. The set $\left\lbrace \leftB \begin{array}{cc}
+  	1 & 0 \\
+  	0 & 1
+  \end{array} \rightB, \leftB \begin{array}{cc}
+  0 & 1 \\
+  1 & 0
+  \end{array} \rightB, \leftB \begin{array}{cc}
+  0 & 0 \\
+  0 & 1
+  \end{array} \rightB \right\rbrace$
+ is independent in $V$, so it is a basis because $\func{dim }V = 3$ (by Example~\ref{exa:018930}). Hence define $T : \vectspace{P}_{2} \to V$ by taking $T(1) = \leftB \begin{array}{cc}
+ 1 & 0 \\
+ 0 & 1
+ \end{array} \rightB$, $T(x) = \leftB \begin{array}{cc}
+ 0 & 1 \\
+ 1 & 0
+ \end{array} \rightB$, $T(x^2) = \leftB \begin{array}{cc}
+ 0 & 0 \\
+ 0 & 1
+ \end{array} \rightB$, and extending linearly as in Theorem~\ref{thm:020916}. Then $T$ is an isomorphism by Theorem~\ref{thm:022044}, and its action is given by\begin{equation*} 
+T(a + bx + cx^2) = aT(1) + bT(x) + cT(x^2) = \leftB \begin{array}{cc}
+ a & b \\
+ b & a + c
+ \end{array} \rightB
+\end{equation*}
+\end{solution}
+\end{example}
+
+The dimension theorem (Theorem~\ref{thm:021499}) gives the following useful fact about isomorphisms.
+
+
+\begin{theorem}{}{022192}
+If $V$ and $W$ have the same dimension $n$, a linear transformation $T : V \to W$ is an isomorphism if it is either one-to-one or onto.\index{dimension theorem}
+\end{theorem}
+
+\begin{proof}
+The dimension theorem asserts that $\func{dim}(\func{ker }T) + \func{dim}(\func{im }T) = n$, so $\func{dim}(\func{ker }T) = 0$ if and only if $\func{dim}(\func{im }T) = n$. Thus $T$ is one-to-one if and only if $T$ is onto, and the result follows.
+\end{proof}
+
+\subsection*{Composition}
+
+
+Suppose that $T : V \to W$ and $S : W \to U$ are linear transformations. They link together as in the diagram so, as in Section~\ref{sec:2_3}, it is possible to define a new function $V \to U$ by first applying $T$ and then $S$.
+
+
+\begin{definition}{Composition of Linear Transformations}{022202}
+\begin{wrapfigure}{l}{4.5cm}
+	\centering
+	\input{7-linear-transformations/figures/3-isomorphisms-and-composition/definition7.5}	
+\end{wrapfigure}
+	
+\setlength{\rightskip}{0pt plus 200pt}
+Given linear transformations $V \xrightarrow{T} W \xrightarrow{S} U$, the \textbf{composite}\index{composite}\index{linear transformations!composite} $ST : V \to U$ of $T$ and $S$ is defined by
+\begin{equation*}
+ST(\vect{v}) = S\left[T(\vect{v})\right] \quad \mbox{for all } \vect{v} \mbox{ in } V
+\end{equation*}
+The operation of forming the new function $ST$ is called \textbf{composition}\index{composition}\index{function!composition}\index{linear transformations!composition}.\footnotemark
+\end{definition}
+\footnotetext{In Section~\ref{sec:2_3} we denoted the composite as $S \circ T$. However, it is more convenient to use the simpler notation $ST$.}
+
+\noindent The action of $ST$ can be described compactly as follows: $ST$ means first $T$ then $S$.
+
+
+Not all pairs of linear transformations can be composed. For example, if $T : V \to W$ and $S : W \to U$ are linear transformations then $ST : V \to U$ is defined, but $TS$ \textit{cannot} be formed unless $U = V$ because $S : W \to U$ and $T : V \to W$ do not ``link'' in that order.\footnote{Actually, all that is required is $U \subseteq V$.}
+
+
+
+Moreover, even if $ST$ and $TS$ can both be formed, they may not be equal. In fact, if $S : \RR^m \to \RR^n$ and $T : \RR^n \to \RR^m$ are induced by matrices $A$ and $B$ respectively, then $ST$ and $TS$ can both be formed (they are induced by $AB$ and $BA$ respectively), but the matrix products $AB$ and $BA$ may not be equal (they may not even be the same \textit{size}). Here is another example.
+
+
+\begin{example}{}{022216}
+Define: $S : \vectspace{M}_{22} \to \vectspace{M}_{22}$ and $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$ by $S\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+c & d \\
+a & b
+\end{array} \rightB$
+ and $T(A) = A^{T}$ for $A \in \vectspace{M}_{22}$. Describe the action of $ST$ and $TS$, and show that $ST \neq TS$.
+
+
+\begin{solution}
+$ST\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = S\leftB \begin{array}{cc}
+a & c \\
+b & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+b & d \\
+a & c
+\end{array} \rightB$, whereas $TS\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = T\leftB \begin{array}{cc}
+c & d \\
+a & b
+\end{array} \rightB = \leftB \begin{array}{cc}
+c & a \\
+d & b
+\end{array} \rightB$.
+
+It is clear that $TS\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB$
+ need not equal $ST\leftB \begin{array}{cc}
+ a & b \\
+ c & d
+ \end{array} \rightB$, so $TS \neq ST$.
+\end{solution}
+\end{example}
+
+The next theorem collects some basic properties of the composition operation.
+
+
+\begin{theorem}{\footnotemark}{022234}
+Let $V \xrightarrow{T} W \xrightarrow{S} U \xrightarrow{R} Z$ be linear transformations.
+
+
+\begin{enumerate}
+\item The composite $ST$ is again a linear transformation.
+
+\item $T1_{V} = T$ and $1_{W}T = T$.
+
+\item $(RS)T = R(ST)$.
+
+\end{enumerate}
+\end{theorem}
+\footnotetext{Theorem~\ref{thm:022234} can be expressed by saying that vector spaces and linear transformations are an example of a category\index{category}. In general a category consists of certain objects\index{objects} and, for any two objects $X$ and $Y$, a set $\func{mor}(X, Y)$. The elements $\alpha$ of $\func{mor}(X, Y)$ are called morphisms\index{morphisms} from $X$ to $Y$ and are written $\alpha : X \to Y$. It is assumed that identity morphisms and composition are defined in such a way that Theorem~\ref{thm:022234} holds. Hence, in the category of vector spaces the objects are the vector spaces themselves and the morphisms are the linear transformations\index{linear transformations!as category}\index{vector spaces!as category}. Another example is the category of metric spaces, in which the objects are sets equipped with a distance function\index{distance function} (called a metric)\index{metric}, and the morphisms are continuous functions (with respect to the metric). The category of sets and functions is a very basic example.}
+
+\begin{proof}
+The proofs of (1) and (2) are left as Exercise~\ref{ex:ex7_3_25}. To prove (3), observe that, for all $\vect{v}$ in $V$:
+\begin{equation*}
+\{(RS)T\}(\vect{v}) = (RS)\left[T(\vect{v})\right] = R\{S\left[T(\vect{v})\right]\} = R\{(ST)(\vect{v})\} = \{R(ST)\}(\vect{v})
+\end{equation*}
+\end{proof}
+
+Up to this point, composition seems to have no connection with isomorphisms. In fact, the two notions are closely related.
+
+
+\begin{theorem}{}{022252}
+Let $V$ and $W$ be finite dimensional vector spaces. The following conditions are equivalent for a linear transformation $T : V \to W$.
+
+
+\begin{enumerate}
+\item $T$ is an isomorphism.
+
+\item There exists a linear transformation $S : W \to V$ such that $ST = 1_{V}$ and $TS = 1_{W}$.
+
+\end{enumerate}
+
+Moreover, in this case $S$ is also an isomorphism and is uniquely determined by $T$:
+\begin{equation*}
+\mbox{If } \vect{w} \mbox{ in } W \mbox{ is written as } \vect{w} = T(\vect{v}), \mbox{ then } S(\vect{w}) = \vect{v}.
+ \end{equation*}
+\end{theorem}
+
+\begin{proof}
+(1) $\Rightarrow$ (2). If $B = \{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ is a basis of $V$, then $D = \{T(\vect{e}_{1}), \dots, T(\vect{e}_{n})\}$ is a basis of $W$ by Theorem~\ref{thm:022044}. Hence (using Theorem~\ref{thm:020916}), define a linear transformation $S : W \to V$ by
+\begin{equation}\label{eq:proofthm7_3_5}
+S[T(\vect{e}_i)] = \vect{e}_i \quad \mbox{for each } i
+\end{equation}
+Since $\vect{e}_{i} = 1_{V}(\vect{e}_{i})$, this gives $ST = 1_{V}$ by Theorem~\ref{thm:020878}. But applying $T$ gives $T\left[S\left[T(\vect{e}_{i})\right]\right] = T(\vect{e}_{i})$ for each $i$, so $TS = 1_{W}$ (again by Theorem~\ref{thm:020878}, using the basis $D$ of $W$).
+
+
+(2) $\Rightarrow$ (1). If $T(\vect{v}) = T(\vect{v}_{1})$, then $S\left[T(\vect{v})\right] = S\left[T(\vect{v}_{1})\right]$. Because $ST = 1_{V}$ by (2), this reads $\vect{v} = \vect{v}_{1}$; that is, $T$ is one-to-one. Given $\vect{w}$ in $W$, the fact that $TS = 1_{W}$ means that $\vect{w} = T\left[S(\vect{w})\right]$, so $T$ is onto.
+
+
+Finally, $S$ is uniquely determined by the condition $ST = 1_{V}$ because this condition implies (\ref{eq:proofthm7_3_5}). $S$ is an isomorphism because it carries the basis $D$ to $B$. As to the last assertion, given $\vect{w}$ in $W$, write $\vect{w} = r_{1}T(\vect{e}_{1}) + \cdots + r_{n}T(\vect{e}_{n})$. Then $\vect{w} = T(\vect{v})$, where $\vect{v} = r_{1}\vect{e}_{1} + \cdots + r_{n}\vect{e}_{n}$. Then $S(\vect{w}) = \vect{v}$ by (\ref{eq:proofthm7_3_5}).
+\end{proof}
+
+Given an isomorphism $T : V \to W$, the unique isomorphism $S : W \to V$ satisfying condition (2) of Theorem~\ref{thm:022252} is called the \textbf{inverse}\index{inverses!linear transformation}\index{linear transformations!inverses} of $T$ and is denoted by $T^{-1}$. Hence $T : V \to W$ and $T^{-1} : W \to V$ are related by the \textbf{fundamental identities}\index{fundamental identities}\index{linear transformations!fundamental identities}:
+\begin{equation*}
+T^{-1}\left[T(\vect{v})\right] = \vect{v} \mbox{ for all } \vect{v} \mbox{ in } V \quad \mbox{ and } \quad T\left[T^{-1}(\vect{w})\right] = \vect{w} \mbox{ for all } \vect{w} \mbox{ in } W
+\end{equation*}
+In other words, each of $T$ and $T^{-1}$ reverses the action of the other. In particular, equation (\ref{eq:proofthm7_3_5}) in the proof of Theorem~\ref{thm:022252} shows how to define $T^{-1}$ using the image of a basis under the isomorphism $T$. Here is an example.
+
+
+\begin{example}{}{022303}
+Define $T : \vectspace{P}_{1} \to \vectspace{P}_{1}$ by $T(a + bx) = (a - b) + ax$. Show that $T$ has an inverse, and find the action of $T^{-1}$.
+
+
+\begin{solution}
+  The transformation $T$ is linear (verify). Because $T(1) = 1 + x$ and $T(x) = -1$, $T$ carries the basis $B = \{1, x\}$ to the basis $D = \{1 + x, -1\}$. Hence $T$ is an isomorphism, and $T^{-1}$ carries $D$ back to $B$, that is,
+\begin{equation*}
+T^{-1}(1 + x) = 1 \quad \mbox{and} \quad T^{-1}(-1) = x
+\end{equation*}
+Because $a + bx = b(1 + x) + (b - a)(-1)$, we obtain
+\begin{equation*}
+T^{-1}(a + bx) = bT^{-1}(1 + x) + (b - a)T^{-1}(-1) = b + (b -a)x
+\end{equation*}
+\end{solution}
+\end{example}
+
+Sometimes the action of the inverse of a transformation is apparent.
+
+
+\begin{example}{}{022317}
+If $B = \{\vect{b}_{1}, \vect{b}_{2}, \dots, \vect{b}_{n}\}$ is a basis of a vector space $V$, the coordinate transformation $C_{B} : V \to \RR^n$ is an isomorphism defined by
+\begin{equation*}
+C_B(v_1\vect{b}_1 + v_2\vect{b}_2 + \cdots + v_n\vect{b}_n) = (v_1, v_2, \dots, v_n)^T
+\end{equation*}
+The way to reverse the action of $C_{B}$ is clear: $C_{B}^{-1} : \RR^n \to V$ is given by
+\begin{equation*}
+C_B^{-1}(v_1, v_2, \dots, v_n) = v_1\vect{b}_1 + v_2\vect{b}_2 + \cdots + v_n\vect{b}_n \quad \mbox{for all } v_i \mbox{ in } V
+\end{equation*}
+\end{example}
+
+Condition (2) in Theorem~\ref{thm:022252} characterizes the inverse of a linear transformation $T : V \to W$ as the (unique) transformation $S : W \to V$ that satisfies $ST = 1_{V}$ and $TS = 1_{W}$. This often determines the inverse.
+
+
+\begin{example}{}{022333}
+Define $T : \RR^3 \to \RR^3$ by $T(x, y, z) = (z, x, y)$. Show that $T^{3} = 1_{\RR^3}$, and hence find $T^{-1}$.
+
+
+\begin{solution}
+  $T^{2}(x, y, z) = T\left[T(x, y, z)\right] = T(z, x, y) = (y, z, x)$. Hence
+\begin{equation*}
+T^3(x, y, z) = T\left[T^2(x, y, z)\right] = T(y, z, x) = (x, y, z)
+\end{equation*}
+Since this holds for all $(x, y, z)$, it shows that $T^3 = 1_{\RR^3}$, so $T(T^{2}) = 1_{\RR^3} = (T^{2})T$. Thus $T^{-1} = T^{2}$ by (2) of Theorem~\ref{thm:022252}.
+\end{solution}
+\end{example}
+
+\begin{example}{}{022357}
+Define $T : \vectspace{P}_{n} \to \RR^{n+1}$ by $T(p) = (p(0), p(1), \dots, p(n))$ for all $p$ in $\vectspace{P}_{n}$. Show that $T^{-1}$ exists.
+
+
+\begin{solution}
+  The verification that $T$ is linear is left to the reader. If $T(p) = 0$, then $p(k) = 0$ for $k = 0, 1, \dots, n$, so $p$ has $n + 1$ distinct roots. Because $p$ has degree at most $n$, this implies that $p = 0$ is the zero polynomial (Theorem~\ref{thm:020203}) and hence that $T$ is one-to-one. But $\func{dim }\vectspace{P}_{n} = n + 1 = \func{dim }\RR^{n+1}$, so this means that $T$ is also onto and hence is an isomorphism. Thus $T^{-1}$ exists by Theorem~\ref{thm:022252}. Note that we have not given a description of the action of $T^{-1}$, we have merely shown that such a description exists. To give it explicitly requires some ingenuity; one method involves the Lagrange interpolation expansion (Theorem~\ref{thm:020177}).
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:7_3}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:7_3}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Verify that each of the following is an isomorphism (Theorem~\ref{thm:022192} is useful).
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^3 \to \RR^3$; $T(x, y, z) = (x + y, y + z, z + x)$
+
+\item $T : \RR^3 \to \RR^3$; $T(x, y, z) = (x, x + y, x + y + z)$
+
+\item $T : \mathbb{C} \to \mathbb{C}$; $T(z) = \overline{z}$
+
+\item $T : \vectspace{M}_{mn} \to \vectspace{M}_{mn}$; $T(X) = UXV$, $U$ and $V$ invertible
+
+\item $T : \vectspace{P}_{1} \to \RR^2$; $T\left[p(x)\right] = \left[p(0), p(1)\right]$
+
+\item $T : V \to V$; $T(\vect{v}) = k\vect{v}$, $k \neq 0$ a fixed number, $V$ any vector space
+
+\item $T : \vectspace{M}_{22} \to \RR^4$; $T\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = (a + b, d, c, a - b)$
+
+\item $T : \vectspace{M}_{mn} \to \vectspace{M}_{nm}$; $T(A) = A^{T}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T$ is onto because $T(1, -1, 0) = (1, 0, 0)$, $T(0, 1, -1) = (0, 1, 0)$, and $T(0, 0, 1) = (0, 0, 1)$. Use Theorem~\ref{thm:022192}.
+
+\setcounter{enumi}{3}
+\item $T$ is one-to-one because $0 = T(X) = UXV$ implies that $X = 0$ ($U$ and $V$ are invertible). Use Theorem~\ref{thm:022192}.
+
+\setcounter{enumi}{5}
+\item $T$ is one-to-one because $\vect{0} = T(\vect{v}) = k\vect{v}$ implies that $\vect{v} = \vect{0}$ (because $k \neq 0$). $T$ is onto because $T\left(\frac{1}{k}\vect{v}\right) = \vect{v}$ for all $\vect{v}$. [Here Theorem~\ref{thm:022192} does not apply if $\func{dim }V$ is not finite.]
+
+\setcounter{enumi}{7}
+\item $T$ is one-to-one because $T(A) = 0$ implies $A^{T} = 0$, whence $A = 0$. Use Theorem~\ref{thm:022192}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that 
+\begin{equation*}
+\{a + bx + cx^{2}, a_{1} + b_{1}x + c_{1}x^{2}, a_{2} + b_{2}x + c_{2}x^{2}\}
+\end{equation*}
+is a basis of $\vectspace{P}_{2}$ if and only if \\ $\{(a, b, c), (a_{1}, b_{1}, c_{1}), (a_{2}, b_{2}, c_{2})\}$ is a basis of $\RR^3$.
+\end{ex}
+
+\begin{ex}
+If $V$ is any vector space, let $V^{n}$ denote the space of all $n$-tuples $(\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n})$, where each $\vect{v}_{i}$ lies in $V$. (This is a vector space with component-wise operations; see Exercise~\ref{ex:ex6_1_17}.) If $C_{j}(A)$ denotes the $j$th column of the $m \times n$ matrix $A$, show that $T : \vectspace{M}_{mn} \to (\RR^m)^{n}$ is an isomorphism if \\ $T(A) = \leftB \begin{array}{cccc}
+C_{1}(A) & C_{2}(A) & \cdots & C_{n}(A)
+\end{array} \rightB$. (Here $\RR^m$ consists of columns.)
+\end{ex}
+
+\columnbreak
+\begin{ex}
+In each case, compute the action of $ST$ and $TS$, and show that $ST \neq TS$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $S : \RR^2 \to \RR^2$ with $S(x, y) = (y, x)$; $T : \RR^2 \to \RR^2$ with $T(x, y) = (x, 0)$
+
+\item $S : \RR^3 \to \RR^3$ with $S(x, y, z) = (x, 0, z)$; \\ $T : \RR^3 \to \RR^3$ with $T(x, y, z) = (x + y, 0, y + z)$
+
+\item $S : \vectspace{P}_{2} \to \vectspace{P}_{2}$ with $S(p) = p(0) + p(1)x + p(2)x^{2}$; $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$ with $T(a + bx + cx^{2}) = b + cx + ax^{2}$
+
+\item $S : \vectspace{M}_{22} \to \vectspace{M}_{22}$ with $S\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+a & 0 \\
+0 & d
+\end{array} \rightB$; \\
+$T : \vectspace{M}_{22} \to \vectspace{M}_{22}$ with $T\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+c & a \\
+d & b
+\end{array} \rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $ST(x, y, z) = (x + y, 0, y + z)$, $TS(x, y, z) = (x, 0, z)$
+
+\setcounter{enumi}{3}
+\item $ST\leftB \begin{array}{cc}
+	a & b \\
+	c & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+c & 0 \\
+0 & d
+\end{array} \rightB$, $TS\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+0 & a \\
+d & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that the linear transformation $T$ satisfies $T^{2} = T$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^4 \to \RR^4$; $T(x, y, z, w) = (x, 0, z, 0)$
+
+\item $T : \RR^2 \to \RR^2$; $T(x, y) = (x + y, 0)$
+
+\item $T : \vectspace{P}_{2} \to \vectspace{P}_{2}$; \\ $T(a + bx + cx^{2}) = (a + b - c) + cx + cx^{2}$
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$; \\ $T\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \frac{1}{2}\leftB \begin{array}{cc}
+a + c & b + d \\
+a + c & b + d
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T^{2}(x, y) = T(x + y, 0) = (x + y, 0) = T(x, y)$. Hence $T^{2} = T$.
+
+\setcounter{enumi}{3}
+\item $T^2 \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB = \frac{1}{2}T\leftB \begin{array}{cc}
+a + c & b + d \\
+a + c & b + d
+\end{array} \rightB  = \frac{1}{2}\leftB \begin{array}{cc}
+a + c & b + d \\
+a + c & b + d
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Determine whether each of the following transformations $T$ has an inverse and, if so, determine the action of $T^{-1}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^3 \to \RR^3$; \\ $T(x, y, z) = (x + y, y + z, z + x)$
+
+\item $T : \RR^4 \to \RR^4$; \\ $T(x, y, z, t) = (x + y, y + z, z + t, t + x)$
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$; \\ $T\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+a - c & b - d \\
+2a - c & 2b - d
+\end{array} \rightB$
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$; \\ $T\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+a + 2c & b + 2d \\
+3c - a & 3d - b
+\end{array} \rightB$
+
+\item $T : \vectspace{P}_{2} \to \RR^3$; $T(a + bx + cx^{2}) = (a - c, 2b, a + c)$
+
+\item $T : \vectspace{P}_{2} \to \RR^3$; $T(p) = \left[p(0), p(1), p(-1)\right]$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No inverse; $(1, -1, 1, -1)$ is in $\func{ker }T$.
+
+\setcounter{enumi}{3}
+\item $T^{-1}\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \frac{1}{5}\leftB \begin{array}{cc}
+3a - 2c & 3b - 2d \\
+a + c & b + d
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item $T^{-1}(a, b, c) = \frac{1}{2}\left[2a + (b - c)x - (2a - b - c)x^{2}\right]$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that $T$ is self-inverse, that is: $T^{-1} = T$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^4 \to \RR^4$; $T(x, y, z, w) = (x, -y, -z, w)$
+
+\item $T : \RR^2 \to \RR^2$; $T(x, y) = (ky - x, y)$, $k$ any fixed number
+
+\item $T : \vectspace{P}_{n} \to \vectspace{P}_{n}$; $T(p(x)) = p(3 - x)$
+
+\item $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$; $T(X) = AX$ where \\ $A = \frac{1}{4}\leftB \begin{array}{rr}
+5 & -3 \\
+3 & -5
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T^{2}(x, y) = T(ky - x, y) = (ky - (ky - x), y) = (x, y)$
+
+\setcounter{enumi}{3}
+\item $T^{2}(X) = A^{2}X = IX = X$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that $T^{6} = 1_{R^4}$ and so determine $T^{-1}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^4 \to \RR^4$; $T(x, y, z, w) = (-x, z, w, y)$
+
+\item $T : \RR^4 \to \RR^4$; $T(x, y, z, w) = (-y, x - y, z, -w)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T^{3}(x, y, z, w) = (x, y, z, -w)$ so $T^{6}(x, y, z, w) = T^{3}\left[T^{3}(x, y, z, w)\right] = (x, y, z, w)$. Hence $T^{-1} = T^{5}$. So $T^{-1}(x, y, z, w) = (y - x, -x, z, -w)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, show that $T$ is an isomorphism by defining $T^{-1}$ explicitly.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \vectspace{P}_{n} \to \vectspace{P}_{n}$ is given by $T\left[p(x)\right] = p(x + 1)$.
+
+\item $T : \vectspace{M}_{nn} \to \vectspace{M}_{nn}$ is given by $T(A) = UA$ where $U$ is invertible in $\vectspace{M}_{nn}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T^{-1}(A) = U^{-1} A$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given linear transformations \\ $V \xrightarrow{T} W \xrightarrow{S} U$:
+
+\begin{enumerate}[label={\alph*.}]
+\item If $S$ and $T$ are both one-to-one, show that $ST$ is one-to-one.
+
+\item If $S$ and $T$ are both onto, show that $ST$ is onto.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Given $\vect{u}$ in $U$, write $\vect{u} = S(\vect{w})$, $\vect{w}$ in $W$ (because $S$ is onto). Then write $\vect{w} = T(\vect{v})$, $\vect{v}$ in $V$ ($T$ is onto). Hence $\vect{u} = ST(\vect{v})$, so $ST$ is onto.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to W$ be a linear transformation.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $T$ is one-to-one and $TR = TR_{1}$ for transformations $R$ and $R_{1} : U \to V$, show that $R = R_{1}$.
+
+\item If $T$ is onto and $ST = S_{1}T$ for transformations $S$ and $S_{1} : W \to U$, show that $S = S_{1}$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Consider the linear transformations $V \xrightarrow{T} W \xrightarrow{R} U$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{ker }T \subseteq \func{ker }RT$.
+
+\item Show that $\func{im }RT \subseteq \func{im }R$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item For all $\vect{v}$ in $V$, $(RT)(\vect{v}) = R\left[T(\vect{v})\right]$ is in $\func{im}(R)$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex7_3_13}
+Let $V \xrightarrow{T} U \xrightarrow{S} W$ be linear transformations.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $ST$ is one-to-one, show that $T$ is one-to-one and that $\func{dim }V \leq \func{dim }U$.
+
+\item If $ST$ is onto, show that $S$ is onto and that \\ $\func{dim }W \leq \func{dim }U$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Given $\vect{w}$ in $W$, write $\vect{w} = ST(\vect{v})$, $\vect{v}$ in $V$ ($ST$ is onto). Then $\vect{w} = S\left[T(\vect{v})\right]$, $T(\vect{v})$ in $U$, so $S$ is onto. But then $\func{im }S = W$, so $\func{dim }U = \func{dim}(\func{ker }S) + \func{dim}(\func{im }S) \geq \func{dim}(\func{im }S) = \func{dim }W$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear transformation. Show that $T^{2} = 1_{V}$ if and only if $T$ is invertible and $T = T^{-1}$.
+\end{ex}
+
+\begin{ex}
+Let $N$ be a nilpotent $n \times n$ matrix (that is, $N^{k} = 0$ for some $k$). Show that $T : \vectspace{M}_{nm} \to \vectspace{M}_{nm}$ is an isomorphism if $T(X) = X - NX$. [\textit{Hint}: If $X$ is in $\func{ker }T$, show that $X = NX = N^{2}X = \cdots$. Then use Theorem~\ref{thm:022192}.]
+\end{ex}
+
+\begin{ex}
+Let $T : V \to W$ be a linear transformation, and let $\{\vect{e}_{1}, \dots, \vect{e}_{r}, \vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ be any basis of $V$ such that $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ is a basis of $\func{ker }T$. Show that $\func{im }T \cong \func{span}\{\vect{e}_{1}, \dots, \vect{e}_{r}\}$. [\textit{Hint}: See Theorem~\ref{thm:021572}.]
+
+\begin{sol}
+$\{T(\vect{e}_{1}), T(\vect{e}_{2}), \dots, T(\vect{e}_{r})\}$ is a basis of $\func{im }T$ by Theorem~\ref{thm:021572}. So $T : \func{span}\{\vect{e}_{1}, \dots, \vect{e}_{r}\} \to \func{im }T$ is an isomorphism by Theorem~\ref{thm:022044}.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Is every isomorphism $T : \vectspace{M}_{22} \to \vectspace{M}_{22}$ given by an invertible matrix $U$ such that $T(X) = UX$ for all $X$ in $\vectspace{M}_{22}$? Prove your answer.
+\end{ex}
+
+\begin{ex}
+Let $\vectspace{D}_{n}$ denote the space of all functions $f$ from $\{1, 2, \dots, n\}$ to $\RR$ (see Exercise~\ref{ex:ex6_3_35}). If $T : \vectspace{D}_{n} \to \RR^n$ is defined by
+\begin{equation*}
+T(f) = (f(1), f(2), \dots, f(n)),
+\end{equation*}
+show that $T$ is an isomorphism.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Let $V$ be the vector space of Exercise~\ref{ex:ex6_1_3}. Find an isomorphism $T : V \to \RR^1$.
+
+\item Let $V$ be the vector space of Exercise~\ref{ex:ex6_1_4}. Find an isomorphism $T : V \to \RR^2$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T(x, y) = (x, y + 1)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $V \xrightarrow{T} W \xrightarrow{S} V$ be linear transformations such that $ST = 1_{V}$. If $\func{dim }V = \func{dim }W = n$, show that $S = T^{-1}$ and $T = S^{-1}$. [\textit{Hint}: Exercise~\ref{ex:ex7_3_13} and Theorem~\ref{thm:022192}, Theorem~\ref{thm:022234}, and Theorem~\ref{thm:022252}.]
+\end{ex}
+
+\begin{ex}
+Let  $V \xrightarrow{T} W \xrightarrow{S} V$ be functions such that $TS = 1_{W}$ and $ST = 1_{V}$. If $T$ is linear, show that $S$ is also linear.
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be matrices of size $p \times m$ and $n \times q$. Assume that $mn = pq$. Define $R : \vectspace{M}_{mn} \to \vectspace{M}_{pq}$ by $R(X) = AXB$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\vectspace{M}_{mn} \cong \vectspace{M}_{pq}$ by comparing dimensions.
+
+\item Show that $R$ is a linear transformation.
+
+\item Show that if $R$ is an isomorphism, then $m = p$ and $n = q$. [\textit{Hint}: Show that $T : \vectspace{M}_{mn} \to \vectspace{M}_{pn}$ given by $T(X) = AX$ and $S : \vectspace{M}_{mn} \to \vectspace{M}_{mq}$ given by $S(X) = XB$ are both one-to-one, and use the dimension theorem.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to V$ be a linear transformation such that $T^{2} = 0$ is the zero transformation.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $V \neq \{\vect{0}\}$, show that $T$ cannot be invertible.
+
+\item If $R : V \to V$ is defined by $R(\vect{v}) = \vect{v} + T(\vect{v})$ for all $\vect{v}$ in $V$, show that $R$ is linear and invertible.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $V$ consist of all sequences $[x_{0}, x_{1}, x_{2}, \dots)$ of numbers, and define vector operations
+\begin{align*}
+[x_o, x_1, \dots) + [y_0, y_1, \dots) &= [x_0 + y_0, x_1 + y_1, \dots) \\
+r[x_0, x_1, \dots) &= [rx_0, rx_1, \dots)
+\end{align*}
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $V$ is a vector space of infinite dimension.
+
+\item Define $T : V \to V$ and $S : V \to V$ by $T[x_{0}, x_{1}, \dots) = [x_{1}, x_{2}, \dots)$ and \\ $S[x_{0}, x_{1}, \dots) = [0, x_{0}, x_{1}, \dots)$. Show that $TS = 1_{V}$, so $TS$ is one-to-one and onto, but that $T$ is not one-to-one and $S$ is not onto.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $TS[x_{0}, x_{1}, \dots) = T[0, x_{0}, x_{1}, \dots) = [x_{0}, x_{1}, \dots)$, so $TS = 1_{V}$. Hence $TS$ is both onto and one-to-one, so $T$ is onto and $S$ is one-to-one by Exercise~\ref{ex:ex7_3_13}. But $[1, 0, 0, \dots)$ is in $\func{ker }T$ while $[1, 0, 0, \dots)$ is not in $\func{im }S$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex7_3_25}
+Prove (1) and (2) of Theorem~\ref{thm:022234}.
+\end{ex}
+
+\begin{ex}
+Define $T : \vectspace{P}_{n} \to \vectspace{P}_{n}$ by \\ $T(p) = p(x) + xp^\prime(x)$ for all $p$ in $\vectspace{P}_{n}$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T$ is linear.
+
+\item Show that $\func{ker }T = \{\vect{0}\}$ and conclude that $T$ is an isomorphism. [\textit{Hint}: Write $p(x) = a_{0} + a_{1}x + \cdots + a_{n}x^{n}$ and compare coefficients if $p(x) = -xp^\prime(x)$.]
+
+\item Conclude that each $q(x)$ in $\vectspace{P}_{n}$ has the form \\ $q(x) = p(x) + xp^\prime(x)$ for some unique polynomial $p(x)$.
+
+\item Does this remain valid if $T$ is defined by \\ $T[p(x)] = p(x) - xp^\prime(x)$? Explain.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $T(p) = 0$, then $p(x) = -xp^\prime(x)$. We write $p(x) = a_{0} + a_{1}x + a_{2}x^{2} + \cdots + a_{n}x^{n}$, and this becomes $a_{0} + a_{1}x + a_{2}x^{2} + \cdots + a_{n}x^{n} = -a_{1}x - 2a_{2}x^{2} - \cdots - na_{n}x^{n}$. Equating coefficients yields $a_{0} = 0, 2a_{1} = 0, 3a_{2} = 0, \dots, (n + 1)a_{n} = 0$, whence $p(x) = 0$. This means that $\func{ker }T = 0$, so $T$ is one-to-one. But then $T$ is an isomorphism by Theorem~\ref{thm:022192}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : V \to W$ be a linear transformation, where $V$ and $W$ are finite dimensional.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $T$ is one-to-one if and only if there exists a linear transformation $S : W \to V$ with $ST = 1_{V}$. [\textit{Hint}: If $\{\vect{e}_{1}, \dots, \vect{e}_{n}\}$ is a basis of $V$ and $T$ is one-to-one, show that $W$ has a basis $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{n}), \vect{f}_{n+1}, \dots, \vect{f}_{n+k}\}$ and use Theorem~\ref{thm:020878} and Theorem~\ref{thm:020916}.]
+
+\item Show that $T$ is onto if and only if there exists a linear transformation $S : W \to V$ with $TS = 1_{W}$. [\textit{Hint}: Let $\{\vect{e}_{1}, \dots, \vect{e}_{r}, \dots, \vect{e}_{n}\}$ be a basis of $V$ such that $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ is a basis of $\func{ker }T$. Use Theorem~\ref{thm:021572}, Theorem~\ref{thm:020878} and Theorem~\ref{thm:020916}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item If $ST = 1_{V}$ for some $S$, then $T$ is onto by Exercise~\ref{ex:ex7_3_13}. If $T$ is onto, let $\{\vect{e}_{1}, \dots, \vect{e}_{r}, \dots, \vect{e}_{n}\}$ be a basis of $V$ such that $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ is a basis of $\func{ker }T$. Since $T$ is onto, $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{r})\}$ is a basis of $\func{im }T = W$ by Theorem~\ref{thm:021572}. Thus $S : W \to V$ is an isomorphism where by $S\{T(\vect{e}_{i})] = \vect{e}_{i}$ for $i = 1, 2, \dots, r$. Hence $TS[T(\vect{e}_{i})] = T(\vect{e}_{i})$ for each $i$, that is $TS[T(\vect{e}_{i})] = 1_{W}[T(\vect{e}_{i})]$. This means that $TS = 1_{W}$ because they agree on the basis $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{r})\}$ of $W$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex7_3_28}
+Let $S$ and $T$ be linear transformations $V \to W$, where $\func{dim }V = n$ and $\func{dim }W = m$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\func{ker }S = \func{ker }T$ if and only if $T = RS$ for some isomorphism $R : W \to W$. [\textit{Hint}: Let $\{\vect{e}_{1}, \dots, \vect{e}_{r}, \dots, \vect{e}_{n}\}$ be a basis of $V$ such that $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ is a basis of $\func{ker }S = \func{ker }T$. Use Theorem~\ref{thm:021572} to extend $\{S(\vect{e}_{1}), \dots, S(\vect{e}_{r})\}$ and $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{r})\}$ to bases of $W$.]
+
+\item Show that $\func{im }S = \func{im }T$ if and only if $T = SR$ for some isomorphism $R : V \to V$. [\textit{Hint}: Show that $\func{dim}(\func{ker }S) = \func{dim}(\func{ker }T)$ and choose bases $\{\vect{e}_{1}, \dots, \vect{e}_{r}, \dots, \vect{e}_{n}\}$ and $\{\vect{f}_{1}, \dots, \vect{f}_{r}, \dots, \vect{f}_{n}\}$ of $V$ where $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ and $\{\vect{f}_{r+1}, \dots, \vect{f}_{n}\}$ are bases of $\func{ker }S$ and $\func{ker }T$, respectively. If $1 \leq i \leq r$, show that $S(\vect{e}_{i}) = T(\vect{g}_{i})$ for some $\vect{g}_{i}$ in $V$, and prove that $\{\vect{g}_{1}, \dots, \vect{g}_{r}, \vect{f}_{r+1}, \dots, \vect{f}_{n}\}$ is a basis of $V$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item If $T = SR$, then every vector $T(\vect{v})$ in $\func{im }T$ has the form $T(\vect{v}) = S[R(\vect{v})]$, whence $\func{im }T \subseteq \func{im }S$. Since $R$ is invertible, $S = TR^{-1}$ implies $\func{im }S \subseteq \func{im }T$. 
+
+Conversely, assume that $\func{im }S = \func{im }T$. Then $\func{dim}(\func{ker }S) = \func{dim}(\func{ker }T)$ by the dimension theorem. Let $\{\vect{e}_{1}, \dots, \vect{e}_{r}, \vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ and $\{\vect{f}_{1}, \dots, \vect{f}_{r}, \vect{f}_{r+1}, \dots, \vect{f}_{n}\}$ be bases of $V$ such that $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ and $\{\vect{f}_{r+1}, \dots, \vect{f}_{n}\}$ are bases of $\func{ker }S$ and $\func{ker }T$, respectively. By Theorem~\ref{thm:021572}, $\{S(\vect{e}_{1}), \dots, S(\vect{e}_{r})\}$ and $\{T(\vect{f}_{1}), \dots, T(\vect{f}_{r})\}$ are both bases of $\func{im }S = \func{im }T$. So let $\vect{g}_{1}, \dots, \vect{g}_{r}$ in $V$ be such that $S(\vect{e}_{i}) = T(\vect{g}_{i})$ for each $i = 1, 2, \dots, r$. Show that
+\begin{equation*}
+B = \{\vect{g}_1, \dots, \vect{g}_r, \vect{f}_{r+1}, \dots, \vect{f}_n\} \mbox{ is a basis of } V.
+\end{equation*}
+Then define $R : V \to V$ by $R(\vect{g}_{i}) = \vect{e}_{i}$ for $i = 1, 2, \dots, r$, and $R(\vect{f}_{j}) = \vect{e}_{j}$ for $j = r + 1, \dots, n$. Then $R$ is an isomorphism by Theorem~\ref{thm:022044}. Finally $SR = T$ since they have the same effect on the basis $B$.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $T : V \to V$ is a linear transformation where $\func{dim }V = n$, show that $TST = T$ for some isomorphism $S : V \to V$. [\textit{Hint}: Let $\{\vect{e}_{1}, \dots, \vect{e}_{r}, \vect{e}_{r+1}, \dots, \vect{e}_{n}$\} be as in Theorem~\ref{thm:021572}. Extend $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{r})\}$ to a basis of $V$, and use Theorem~\ref{thm:022044}, Theorem~\ref{thm:020878} and Theorem~\ref{thm:020916}.]
+
+\begin{sol}
+Let $B = \{\vect{e}_{1}, \dots, \vect{e}_{r}, \vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ be a basis of $V$ with $\{\vect{e}_{r+1}, \dots, \vect{e}_{n}\}$ a basis of $\func{ker }T$. If $\{T(\vect{e}_{1}), \dots, T(\vect{e}_{r}), \vect{w}_{r+1}, \dots, \vect{w}_{n}\}$ is a basis of $V$, define $S$ by $S[T(\vect{e}_{i})] = \vect{e}_{i}$ for $1 \leq i \leq r$, and $S(\vect{w}_{j}) = \vect{e}_{j}$ for $r + 1 \leq j \leq n$. Then $S$ is an isomorphism by Theorem~\ref{thm:022044}, and $TST(\vect{e}_{i}) = T(\vect{e}_{i})$ clearly holds for $1 \leq i \leq r$. But if $i \geq r + 1$, then $T(\vect{e}_{i}) = \vect{0} = TST(\vect{e}_{i})$, so $T = TST$ by Theorem~\ref{thm:020878}.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ denote $m \times n$ matrices. In each case show that (1) and (2) are equivalent.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item (1) $A$ and $B$ have the same $\func{null}$ space. (2) $B = PA$ for some invertible $m \times m$ matrix $P$.
+
+\item (1) $A$ and $B$ have the same range. (2) $B = AQ$ for some invertible $n \times n$ matrix $Q$.
+
+\end{enumerate}
+
+[\textit{Hint}: Use Exercise~\ref{ex:ex7_3_28}.]
+\end{ex}
+\end{multicols}

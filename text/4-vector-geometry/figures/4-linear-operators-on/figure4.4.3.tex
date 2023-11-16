@@ -1,0 +1,29 @@
+\begin{tikzpicture}[scale=0.8]
+\coordinate (ptO) at (0, 0);
+\coordinate (ptV) at (2, 2);
+\coordinate (ptPMv) at (2, 0);
+\coordinate (ptQMv) at (2, -2);
+\coordinate (ptPlaneBottomLeft) at (-0.5, -0.75);
+\path [name path=planeLine] (ptPlaneBottomLeft)++(3, 0);
+
+%lines below plane
+\draw[dkgreenvect, thick, -latex] (ptO)--(ptQMv);
+\draw[dkbluevect, thick] (2, -0.5)--(ptQMv);
+\filldraw[color=dkbluevect, fill=ltbluevect, thick] (ptPlaneBottomLeft)-- ++(1, 2.4)-- ++(2.75, 0) -- ++(-1, -2.4)--cycle;
+
+%lines above plane
+\draw[dkbluevect, thick] (ptPMv)++(0, 0.2) -- ++(-0.2, 0) -- ++(0, -0.2);
+\draw[dkbluevect, thick] (ptPMv)++(0, 0.2) -- ++(45:0.2) -- ++(0, -0.2);
+\draw[dkgreenvect, thick, -latex] (ptO)--(ptV);
+\draw[dkgreenvect, thick, -latex] (ptO)--(ptPMv);
+\draw[dkbluevect, thick] (ptPMv)--(ptV);
+
+\draw[dkbluevect, thick] (ptPMv)++(0.35, 0) arc [start angle=170, end angle=30, radius=0.2] node (labelM) {};
+\path (labelM) ++ (0.3, 0) node {\footnotesize $M$};
+
+%labels
+\node[left] at (ptV) {\footnotesize $\vect{v}$};
+\node[below] at (ptO) {\footnotesize $O$};
+\node[below left] at (ptPMv) {\footnotesize $P_M(\vect{v})$};
+\node[left=0.1] at (ptQMv) {\footnotesize $Q_M(\vect{v})$};
+\end{tikzpicture}

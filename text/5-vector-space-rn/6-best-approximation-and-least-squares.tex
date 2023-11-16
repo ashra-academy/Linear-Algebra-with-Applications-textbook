@@ -1,0 +1,1057 @@
+\section{Best Approximation and Least Squares}
+\label{sec:5_6}
+
+Often an exact solution to a problem in applied mathematics is difficult to obtain. However, it is usually just as useful to find arbitrarily close approximations to a solution. In particular, finding ``linear approximations'' is a potent technique in applied mathematics. One basic case is the situation where a system of linear equations has no solution, and it is desirable to find a ``best approximation'' to a solution to the system. In this section best approximations are defined and a method for finding them is described. The result is then applied to ``least squares'' approximation of data.\index{best approximation}\index{solution!best approximation to}
+
+Suppose $A$ is an $m \times n$ matrix and $\vect{b}$ is a column in $\RR^m$, and consider the system
+\begin{equation*}
+A\vect{x} = \vect{b}
+\end{equation*}
+of $m$ linear equations in $n$ variables. This need not have a solution. However, given any column $\vect{z} \in \RR^n$, the distance $\vectlength\vect{b} - A\vect{z}\vectlength$ is a measure of how far $A\vect{z}$ is from $\vect{b}$. Hence it is natural to ask whether there is a column $\vect{z}$ in $\RR^n$ that is as close as possible to a solution in the sense that
+\begin{equation*}
+\vectlength \vect{b} - A\vect{z} \vectlength
+\end{equation*}
+is the minimum value of $\vectlength\vect{b} - A\vect{x}\vectlength$ as $\vect{x}$ ranges over all columns in $\RR^n$.
+
+The answer is ``yes'', and to describe it define
+\begin{equation*}
+U = \{A\vect{x} \mid \vect{x} \mbox{ lies in } \RR^n \}
+\end{equation*}
+\begin{wrapfigure}[10]{l}{5cm} 
+\centering
+\input{5-vector-space-rn/figures/6-best-approximation-and-least-squares/best-approximation}
+%\caption{\label{fig:016714}}
+\end{wrapfigure}
+This is a subspace of $\RR^n$ (verify) and we want a vector $A\vect{z}$ in $U$ as close as possible to $\vect{b}$. That there is such a vector is clear geometrically if $n = 3$ by the diagram. In general such a vector $A\vect{z}$ exists by a general result called the \textit{projection theorem}\index{orthogonality!projection theorem}\index{projection theorem} that will be proved in Chapter~\ref{chap:8} (Theorem~\ref{thm:023885}). Moreover, the projection theorem gives a simple way to compute $\vect{z}$ because it also shows that the vector $\vect{b} - A\vect{z}$ is \textit{orthogonal} to every vector $A\vect{x}$ in $U$. Thus, for all $\vect{x}$ in $\RR^n$,
+\begin{align*}
+0 = (A\vect{x}) \dotprod (\vect{b} - A\vect{z}) = (A\vect{x})^T(\vect{b} - A\vect{z}) &= \vect{x}^TA^T(\vect{b} - A\vect{z}) \\
+&= \vect{x} \dotprod [A^T(\vect{b} - A\vect{z})]
+\end{align*}
+In other words, the vector $A^{T}(\vect{b} - A\vect{z})$ in $\RR^n$ is orthogonal to \textit{every} vector in $\RR^n$ and so must be zero (being orthogonal to itself). Hence $\vect{z}$ satisfies
+\begin{equation*}
+(A^TA)\vect{z} = A^T\vect{b}
+\end{equation*}
+
+\begin{definition}{Normal Equations}{016724} %5.14 
+This is a system of linear equations called the \textbf{normal equations}\index{normal equations} for $\vect{z}$.\index{gaussian elimination!normal equations}\index{system of linear equations!normal equations}
+\end{definition}
+\noindent Note that this system can have more than one solution (see Exercise~\ref{ex:5_6_5}). However, the $n \times n$ matrix $A^{T}A$ is invertible if (and only if) the columns of $A$ are linearly independent (Theorem~\ref{thm:015672}); so, in this case, $\vect{z}$ is uniquely determined and is given explicitly by $\vect{z} = (A^{T}A)^{-1}A^{T}\vect{b}$. However, the most efficient way to find $\vect{z}$ is to apply gaussian elimination to the normal equations.
+
+This discussion is summarized in the following theorem.
+
+\begin{theorem}{Best Approximation Theorem}{016733} %theorem1
+Let $A$ be an $m \times n$ matrix, let $\vect{b}$ be any column in $\RR^m$, and consider the system
+\begin{equation*}
+A\vect{x} = \vect{b}
+\end{equation*}
+of $m$ equations in $n$ variables.\index{best approximation theorem}
+
+\begin{enumerate}
+\item Any solution $\vect{z}$ to the normal equations
+\begin{equation*}
+(A^TA)\vect{z} = A^T\vect{b}
+\end{equation*}
+is a best approximation to a solution to $A\vect{x} = \vect{b}$ in the sense that $\vectlength\vect{b} - A\vect{z}\vectlength$ is the minimum value of $\vectlength\vect{b} - A\vect{x}\vectlength$ as $\vect{x}$ ranges over all columns in $\RR^n$.
+
+\item If the columns of $A$ are linearly independent, then $A^{T}A$ is invertible and $\vect{z}$ is given uniquely by $\vect{z} = (A^{T}A)^{-1}A^{T}\vect{b}$.
+
+\end{enumerate}
+\end{theorem}
+
+\noindent We note in passing that if $A$ is $n \times n$ and invertible, then
+\begin{equation*}
+\vect{z} = (A^TA)^{-1} A^T\vect{b} = A^{-1}\vect{b}
+\end{equation*}
+is the solution to the system of equations, and $\vectlength\vect{b} - A\vect{z}\vectlength = 0$. Hence if $A$ has independent columns, then $(A^{T}A)^{-1}A^{T}$ is playing the role of the inverse of the nonsquare matrix $A$. The matrix $A^{T}(AA^{T})^{-1}$ plays a similar role when the rows of $A$ are linearly independent. These are both special cases of the \textbf{generalized inverse}\index{generalized inverse}\index{inverses!generalized inverse} of a matrix $A$ (see Exercise~\ref{ex:5_6_14}). However, we shall not pursue this topic here.
+
+\begin{example}{}{016759}
+The system of linear equations
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrcr}
+	3x & - &  y & = & 4 \\
+ 	 x & + & 2y & = & 0 \\
+ 	2x & + &  y & = & 1
+\end{array}
+\end{equation*}
+has no solution. Find the vector 
+$ \vect{z} = 
+\leftB \begin{array}{r}
+x_0 \\
+y_0
+\end{array} \rightB$ that best approximates a solution.
+
+\begin{solution}
+In this case,
+\begin{equation*}
+A = \leftB \begin{array}{rr}
+3 & -1 \\
+1 & 2 \\
+2 & 1
+\end{array} \rightB
+\mbox{, so }
+A^TA = \leftB \begin{array}{rrr}
+3 & 1 & 2 \\
+-1 & 2 & 1
+\end{array} \rightB
+\leftB \begin{array}{rr}
+3 & -1 \\
+1 & 2 \\
+2 & 1
+\end{array} \rightB
+= \leftB \begin{array}{rr}
+14 & 1 \\
+ 1 & 6
+\end{array} \rightB
+\end{equation*}
+is invertible. The normal equations $(A^{T}A)\vect{z} = A^{T}\vect{b}$ are
+\begin{equation*}
+\leftB \begin{array}{rr}
+14 & 1 \\
+1 & 6
+\end{array} \rightB
+\vect{z} = 
+\leftB \begin{array}{r}
+14 \\
+-3
+\end{array} \rightB
+\mbox{, so }
+\vect{z} = \frac{1}{83}
+\leftB \begin{array}{r}
+87 \\
+-56
+\end{array} \rightB
+\end{equation*}
+Thus $x_0 = \frac{87}{83}$ and $y_0 = \frac{-56}{83}$. With these values of $x$ and $y$, the left sides of the equations are, approximately,
+\begin{equation*}
+\arraycolsep=1pt
+\def\arraystretch{1.5}
+\begin{array}{rlrcrcr}
+3x_0 & - &  y_0 & = & \frac{317}{83} & = & 3.82 \\
+ x_0 & + & 2y_0 & = & \frac{-25}{83} & = & -0.30 \\
+2x_0 & + &  y_0 & = & \frac{118}{83} & = & 1.42
+\end{array}
+\end{equation*}
+This is as close as possible to a solution.
+\end{solution}
+\end{example}
+
+\begin{example}{}{016776}
+The average number $g$ of goals per game scored by a hockey player seems to be related linearly to two factors: the number $x_{1}$ of years of experience and the number $x_{2}$ of goals in the preceding 10 games. The data on the following page were collected on four players. Find the linear function $g = a_{0} + a_{1}x_{1} + a_{2}x_{2}$ that best fits these data.
+\begin{equation*}
+\begin{array}{|c|c|c|}
+\hline
+	g & x_1 & x_2 \\ \hline
+	0.8 & 5 & 3 \\
+	0.8 & 3 & 4 \\
+	0.6 & 1 & 5 \\
+	0.4 & 2 & 1 \\ \hline
+\end{array}
+\end{equation*}
+\begin{solution}
+If the relationship is given by $g = r_{0} + r_{1}x_{1} + r_{2}x_{2}$, then the data can be described as follows:
+\begin{equation*}
+\leftB \begin{array}{rrr}
+1 & 5 & 3 \\
+1 & 3 & 4 \\
+1 & 1 & 5 \\
+1 & 2 & 1
+\end{array} \rightB
+\leftB \begin{array}{r}
+r_0 \\
+r_1 \\
+r_2
+\end{array} \rightB
+= \leftB \begin{array}{r}
+0.8 \\
+0.8 \\
+0.6 \\
+0.4
+\end{array} \rightB
+\end{equation*}
+Using the notation in Theorem~\ref{thm:016733}, we get
+\begin{align*}
+\vect{z} &= (A^TA)^{-1}A^T\vect{b} \\
+&= \frac{1}{42}
+\leftB \begin{array}{rrr}
+119 & -17 & -19 \\
+-17 &  5  &   1 \\
+-19 &  1  &   5
+\end{array} \rightB
+\leftB \begin{array}{rrrr}
+1 & 1 & 1 & 1 \\
+5 & 3 & 1 & 2 \\
+3 & 4 & 5 & 1 
+\end{array} \rightB
+\leftB \begin{array}{r}
+0.8 \\
+0.8 \\
+0.6 \\
+0.4
+\end{array} \rightB
+= \leftB \begin{array}{r}
+0.14 \\
+0.09 \\
+0.08
+\end{array} \rightB
+\end{align*}
+Hence the best-fitting function is $g = 0.14 + 0.09x_{1} + 0.08x_{2}$. The amount of computation would have been reduced if the normal equations had been constructed and then solved by gaussian elimination.
+\end{solution}
+\end{example}
+
+\subsection*{Least Squares Approximation}
+\index{least squares approximation}
+
+In many scientific investigations, data are collected that relate two variables. For example, if $x$ is the number of dollars spent on advertising by a manufacturer and $y$ is the value of sales in the region in question, the manufacturer could generate data by spending $x_{1}, x_{2}, \dots, x_{n}$ dollars at different times and measuring the corresponding sales values $y_{1}, y_{2}, \dots, y_{n}$.
+
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{5-vector-space-rn/figures/6-best-approximation-and-least-squares/least-squares1}
+%\caption{\label{fig:016810}}
+\end{wrapfigure}
+
+Suppose it is known that a linear relationship exists between the variables $x$ and $y$---in other words, that $y = a + bx$ for some constants $a$ and $b$. If the data are plotted, the points $(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{n}, y_{n})$ may appear to lie on a straight line and estimating $a$ and $b$ requires finding the ``best-fitting'' line through these data points. For example, if five data points occur as shown in the diagram, line 1 is clearly a better fit than line 2. In general, the problem is to find the values of the constants $a$ and $b$ such that the line $y = a + bx$ best approximates the data in question. Note that an exact fit would be obtained if $a$ and $b$ were such that $y_{i} = a + bx_{i}$ were true for each data point $(x_{i}, y_{i})$. But this is too much to expect. Experimental errors in measurement are bound to occur, so the choice of $a$ and $b$ should be made in such a way that the errors between the observed values $y_{i}$ and the corresponding fitted values $a + bx_{i}$ are in some sense minimized. Least squares approximation is a way to do this.
+
+The first thing we must do is explain exactly what we mean by the \textit{best fit} of a line $y = a + bx$ to an observed set of data points $(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{n}, y_{n})$. For convenience, write the linear function $r_{0} + r_{1}x$ as
+\begin{equation*}
+f(x) = r_0 +r_1x
+\end{equation*}
+so that the fitted points (on the line) have coordinates $(x_{1}, f(x_{1})), \dots, (x_{n}, f(x_{n}))$.
+
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{5-vector-space-rn/figures/6-best-approximation-and-least-squares/least-squares2}
+%\caption{\label{fig:016834}}
+\end{wrapfigure}
+ 
+The second diagram is a sketch of what the line $y = f(x)$ might look like. For each $i$ the observed data point $(x_{i}, y_{i})$ and the fitted point $(x_{i}, f(x_{i}))$ need not be the same, and the distance $d_{i}$ between them measures how far the line misses the observed point. For this reason $d_{i}$ is often called the \textbf{error}\index{error} at $x_{i}$, and a natural measure of how close the line $y = f(x)$ is to the observed data points is the sum $d_{1} + d_{2} + \dots + d_{n}$ of all these errors. However, it turns out to be better to use the sum of squares
+\begin{equation*}
+S = d_1^2 + d_2^2 + \dotsb + d_n^2
+\end{equation*}
+as the measure of error, and the line $y = f(x)$ is to be chosen so as to make this sum as small as possible. This line is said to be the \textbf{least squares approximating line}\index{least squares approximating line}\index{line!least squares approximating line} for the data points $(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{n}, y_{n})$.
+
+The square of the error $d_i$ is given by $ d_i^2 = [y_i - f(x_i)]^2 $ for each $i$, so the quantity $S$ to be minimized is the sum:
+\begin{equation*}
+S = [y_1 - f(x_1)]^2 + [y_2 - f(x_2)]^2 + \dotsb + [y_n - f(x_n)]^2
+\end{equation*}
+Note that all the numbers $x_{i}$ and $y_{i}$ are \textit{given} here; what is required is that the \textit{function} $f$ be chosen in such a way as to minimize $S$. Because $f(x) = r_{0} + r_{1}x$, this amounts to choosing $r_{0}$ and $r_{1}$ to minimize $S$. This problem can be solved using Theorem~\ref{thm:016733}. The following notation is convenient.
+\begin{equation*}
+\vect{x} = 
+\leftB \begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{array} \rightB
+\ \vect{y} = 
+\leftB \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \rightB
+\quad \mbox{ and } \quad f(\vect{x}) = 
+\leftB \begin{array}{c}
+f(x_1) \\
+f(x_2) \\
+\vdots \\
+f(x_n)
+\end{array} \rightB
+= \leftB \begin{array}{c}
+r_0 + r_1x_1 \\
+r_0 + r_1x_2 \\
+\vdots \\
+r_0 + r_1x_n \\
+\end{array} \rightB
+\end{equation*}
+Then the problem takes the following form: Choose $r_{0}$ and $r_{1}$ such that
+\begin{equation*}
+S = [y_1 - f(x_1)]^2 + [y_2 - f(x_2)]^2 + \dotsb + [y_n - f(x_n)]^2 = \vectlength \vect{y} - f(\vect{x}) \vectlength ^2
+\end{equation*}
+is as small as possible. Now write
+\begin{equation*}
+M = 
+\leftB \begin{array}{cc}
+1 & x_1 \\
+1 & x_2 \\
+\vdots & \vdots \\
+1 & x_n
+\end{array} \rightB
+\quad \mbox{ and } \quad \vect{r} = 
+\leftB \begin{array}{r}
+r_0 \\
+r_1
+\end{array} \rightB
+\end{equation*}
+Then $M\vect{r} = f(\vect{x})$, so we are looking for a column $\vect{r} = 
+\leftB \begin{array}{r}
+r_0 \\
+r_1
+\end{array} \rightB$ such that $\vectlength\vect{y} - M\vect{r}\vectlength^{2}$ is as small as possible. In other words, we are looking for a best approximation $\vect{z}$ to the system $M\vect{r} = \vect{y}$. Hence Theorem~\ref{thm:016733} applies directly, and we have
+
+\begin{theorem}{}{016878} %theorem2
+Suppose that n data points $(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{n}, y_{n})$ are given, where at least two of $x_{1}, x_{2}, \dots, x_{n}$ are distinct. Put
+\begin{equation*}
+\vect{y} = 
+\leftB \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \rightB
+\ M =
+\leftB \begin{array}{cc}
+1 & x_1 \\
+1 & x_2 \\
+\vdots & \vdots \\
+1 & x_n
+\end{array} \rightB
+\end{equation*}
+Then the least squares approximating line for these data points has equation
+\begin{equation*}
+y = z_0 +z_1x
+\end{equation*}
+where
+$ \vect{z} = 
+\leftB \begin{array}{r}
+z_0 \\
+z_1
+\end{array} \rightB$ is found by gaussian elimination from the normal equations
+\begin{equation*}
+(M^TM)\vect{z} = M^T\vect{y}
+\end{equation*}
+The condition that at least two of $x_{1}, x_{2}, \dots, x_{n}$  are distinct ensures that $M^{T}M$ is an invertible matrix, so $\vect{z}$ is unique:
+\begin{equation*}
+\vect{z} = (M^TM)^{-1}M^T\vect{y}
+\end{equation*}
+\end{theorem}
+
+\begin{example}{}{016901}
+Let data points $(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{5}, y_{5})$ be given as in the accompanying table. Find the least squares approximating line for these data.
+\begin{equation*}
+\begin{array}{|c|c|}
+\hline
+x & y \\ \hline
+1 & 1 \\
+3 & 2 \\
+4 & 3 \\
+6 & 4 \\
+7 & 5 \\
+\hline
+\end{array}
+\end{equation*}
+\begin{solution}
+  In this case we have
+\begin{align*}
+M^TM &= 
+\leftB \begin{array}{cccc}
+	1 & 1 & \cdots & 1 \\
+	x_1 & x_2 & \cdots & x_5
+\end{array} \rightB
+\leftB \begin{array}{cc}
+	1 & x_1 \\
+	1 & x_2 \\
+	\vdots & \vdots \\
+	1 & x_5 
+\end{array} \rightB \\
+&= \leftB \begin{array}{cc}
+	5 & x_1 + \dotsb + x_5 \\
+	x_1 + \dotsb + x_5 & x_1^2 + \dotsb + x_5^2 \\
+\end{array} \rightB
+= \leftB \begin{array}{rr}
+	 5 & 21 \\
+	21 & 111
+\end{array} \rightB \\
+\mbox{and } M^T\vect{y} &=
+\leftB \begin{array}{cccc}
+	1 & 1 & \cdots & 1 \\
+	x_1 & x_2 & \cdots & x_5
+\end{array} \rightB
+\leftB \begin{array}{c}
+	y_1 \\
+	y_2 \\
+	\vdots \\
+	y_5 
+\end{array} \rightB \\
+&= \leftB \begin{array}{c}
+	y_1 + y_2 + \dotsb + y_5 \\
+	x_1y_1 + x_2y_2 + \dotsb + x_5y_5
+\end{array} \rightB
+= \leftB \begin{array}{r}
+	15 \\
+	78
+\end{array} \rightB
+\end{align*}
+so the normal equations $(M^{T}M)\vect{z} = M^{T}\vect{y}$ for 
+$\vect{z} = 
+\leftB \begin{array}{r}
+z_0 \\
+z_1
+\end{array} \rightB$ become
+\begin{equation*}
+\leftB \begin{array}{rr}
+ 5 & 21 \\
+21 & 111
+\end{array} \rightB
+= \leftB \begin{array}{r}
+z_0 \\
+z_1
+\end{array} \rightB
+= \leftB \begin{array}{r}
+15 \\
+78
+\end{array} \rightB
+\end{equation*}
+The solution (using gaussian elimination) is $\vect{z} = 
+\leftB \begin{array}{r}
+z_0 \\
+z_1
+\end{array} \rightB
+=\leftB \begin{array}{r}
+0.24 \\
+0.66
+\end{array} \rightB$ to two decimal places, so the least squares approximating line for these data is $y = 0.24 + 0.66x$. Note that $M^{T}M$ is indeed invertible here (the determinant is $114$), and the exact solution is
+\begin{equation*}
+\vect{z} = (M^TM)^{-1}M^T\vect{y} = \frac{1}{114}
+\leftB \begin{array}{rr}
+111 & -21 \\
+-21 &   5
+\end{array} \rightB
+\leftB \begin{array}{rr}
+15 \\
+78
+\end{array} \rightB
+= \frac{1}{114}
+\leftB \begin{array}{r}
+27 \\
+75
+\end{array} \rightB
+= \frac{1}{38}
+\leftB \begin{array}{r}
+9 \\
+25
+\end{array} \rightB
+\end{equation*}
+\end{solution}
+\end{example}
+
+\subsection*{Least Squares Approximating Polynomials}
+Suppose now that, rather than a straight line, we want to find a polynomial
+\begin{equation*}
+y = f(x) = r_0 + r_1x + r_2x^2 + \dots + r_mx^m
+\end{equation*}
+of degree $m$ that best approximates the data pairs $(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{n}, y_{n})$. As before, write
+\begin{equation*}
+\vect{x} = \leftB \begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{array} \rightB \ \vect{y} = \leftB \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \rightB
+\quad \mbox{ and } \quad f(\vect{x}) = 
+\leftB \begin{array}{c}
+f(x_1) \\
+f(x_2) \\
+\vdots \\
+f(x_n)
+\end{array} \rightB
+\end{equation*}
+For each $x_{i}$ we have two values of the variable $y$, the observed value $y_{i}$, and the computed value $f(x_{i})$. The problem is to choose $f(x)$---that is, choose $r_{0}, r_{1}, \dots, r_{m}$ ---such that the $f(x_{i})$ are as close as possible to the $y_{i}$. Again we define ``as close as possible'' by the least squares condition: We choose the $r_{i}$ such that
+\begin{equation*}
+\vectlength \vect{y} - f(\vect{x}) \vectlength ^2 = [y_1 - f(x_1)]^2 + [y_2 - f(x_2)]^2 + \dotsb + [y_n - f(x_n)]^2 
+\end{equation*}
+is as small as possible.
+
+\begin{definition}{Least Squares Approximation}{016945} %5.15 
+A polynomial $f(x)$ satisfying this condition is called a \textbf{least squares approximating polynomial}\index{least squares approximating polynomial}\index{polynomials!least squares approximating polynomial} of degree $m$ for the given data pairs.
+\end{definition}
+
+\noindent If we write
+\begin{equation*}
+M = \def\arraystretch{1.3}
+\leftB \begin{array}{ccccc}
+1 & x_1 & x_1^2 & \cdots & x_1^m \\
+1 & x_2 & x_2^2 & \cdots & x_2^m \\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^m \\
+\end{array} \rightB
+\quad \mbox{ and } \quad \vect{r} = 
+\leftB \begin{array}{c}
+r_0 \\
+r_1 \\
+\vdots \\
+r_m
+\end{array} \rightB
+\end{equation*}
+we see that $f(\vect{x}) = M\vect{r}$. Hence we want to find $\vect{r}$ such that $\vectlength\vect{y} - M\vect{r}\vectlength^{2}$ is as small as possible; that is, we want a best approximation $\vect{z}$ to the system $M\vect{r} = \vect{y}$. Theorem~\ref{thm:016733} gives the first part of Theorem~\ref{thm:016951}.
+
+\begin{theorem}{}{016951} %theorem3
+Let $n$ data pairs $(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{n}, y_{n})$ be given, and write
+\begin{equation*}
+\vect{y} = 
+\leftB \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \rightB
+\ M = 
+\def\arraystretch{1.3}
+\leftB \begin{array}{ccccc}
+1 & x_1 & x_1^2 & \cdots & x_1^m \\
+1 & x_2 & x_2^2 & \cdots & x_2^m \\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^m \\
+\end{array} \rightB
+\ \vect{z} = 
+\leftB \begin{array}{c}
+z_0 \\
+z_1 \\
+\vdots \\
+z_m
+\end{array} \rightB
+\end{equation*}
+\begin{enumerate}
+\item If $\vect{z}$ is any solution to the normal equations
+\begin{equation*}
+(M^TM)\vect{z} = M^T\vect{y}
+\end{equation*}
+then the polynomial
+\begin{equation*}
+z_0 + z_1x + z_2x^2 + \dots + z_mx^m
+\end{equation*}
+is a least squares approximating polynomial of degree m for the given data pairs.
+
+\item If at least $m + 1$ of the numbers $x_{1}, x_{2}, \dots, x_{n}$ are distinct (so $n \geq m + 1$), the matrix $M^{T}M$ is invertible and $\vect{z}$ is uniquely determined by
+\begin{equation*}
+\vect{z} = (M^TM)^{-1}M^T\vect{y}
+\end{equation*}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+It remains to prove (2), and for that we show that the columns of $M$ are linearly independent (Theorem~\ref{thm:015672}). Suppose a linear combination of the columns vanishes:
+\begin{equation*}
+r_0 \leftB \begin{array}{c}
+	1 \\
+	1 \\
+	\vdots \\
+	1
+\end{array} \rightB
++ r_1 \leftB \begin{array}{c}
+	x_1 \\
+	x_2 \\
+	\vdots \\
+	x_n
+\end{array} \rightB
++ \dots + r_m \leftB \begin{array}{c}
+	x_1^m \\
+	x_2^m \\
+	\vdots \\
+	x_n^m
+\end{array} \rightB
+= \leftB \begin{array}{c}
+	0 \\
+	0 \\
+	\vdots \\
+	0 \\
+\end{array} \rightB
+\end{equation*}
+If we write $q(x) = r_{0} + r_{1}x + \dots + r_{m}x^{m}$, equating coefficients shows that 
+\begin{equation*}
+q(x_{1}) = q(x_{2}) = \dots = q(x_{n}) = 0
+\end{equation*}
+Hence $q(x)$ is a polynomial of degree $m$ with at least $m + 1$ distinct roots, so $q(x)$ must be the zero polynomial (see Appendix \ref{chap:appdpolynomials} or Theorem~\ref{thm:020203}). Thus $r_{0} = r_{1} = \dots = r_{m} = 0$ as required.
+\end{proof}
+
+\begin{example}{}{016988}
+Find the least squares approximating quadratic $y = z_{0} + z_{1}x + z_{2}x^{2}$ for the following data points.
+\begin{equation*}
+(-3, 3), (-1, 1), (0, 1), (1, 2), (3, 4)
+\end{equation*}
+\begin{solution}
+This is an instance of Theorem~\ref{thm:016951} with $m = 2$. Here
+\begin{equation*}
+\vect{y} =
+\leftB \begin{array}{r}
+3\\
+1\\
+1\\
+2\\
+4
+\end{array} \rightB
+\ M = 
+\leftB \begin{array}{rrr}
+1 & -3 &  9 \\
+1 & -1 &  1 \\
+1 &  0 &  0 \\
+1 &  1 &  1 \\
+1 &  3 &  9
+\end{array} \rightB
+\end{equation*}
+Hence,
+\begin{equation*}
+M^TM =
+\leftB \begin{array}{rrrrr}
+ 1 &  1 & 1 & 1 & 1 \\
+-3 & -1 & 0 & 1 & 3 \\
+ 9 &  1 & 0 & 1 & 9 
+\end{array} \rightB
+\leftB \begin{array}{rrr}
+1 & -3 &  9 \\
+1 & -1 &  1 \\
+1 &  0 &  0 \\
+1 &  1 &  1 \\
+1 &  3 &  9
+\end{array} \rightB
+= \leftB \begin{array}{rrr}
+ 5 &  0 & 20 \\
+ 0 & 20 &  0 \\
+20 &  0 & 164 
+\end{array} \rightB
+\end{equation*}
+\begin{equation*}
+M^T\vect{y} = 
+\leftB \begin{array}{rrrrr}
+ 1 &  1 & 1 & 1 & 1 \\
+-3 & -1 & 0 & 1 & 3 \\
+ 9 &  1 & 0 & 1 & 9 
+\end{array} \rightB
+\leftB \begin{array}{r}
+3 \\
+1 \\
+1 \\
+2 \\
+4 
+\end{array} \rightB
+= \leftB \begin{array}{r}
+11 \\
+4 \\
+66
+\end{array} \rightB
+\end{equation*}
+The normal equations for $\vect{z}$ are
+\begin{equation*}
+\leftB \begin{array}{rrr}
+ 5 &  0 & 20 \\
+ 0 & 20 &  0 \\
+20 &  0 & 164 
+\end{array} \rightB
+\vect{z} = 
+\leftB \begin{array}{r}
+11 \\
+4 \\
+66
+\end{array} \rightB \quad
+\mbox{ whence } \vect{z} = 
+\leftB \begin{array}{r}
+1.15 \\
+0.20 \\
+0.26
+\end{array} \rightB
+\end{equation*}
+This means that the least squares approximating quadratic for these data is $y = 1.15 + 0.20x + 0.26x^{2}$.
+\end{solution}
+\end{example}
+
+\subsection*{Other Functions}
+There is an extension of Theorem~\ref{thm:016951} that should be mentioned. Given data pairs $(x_{1}, y_{1}), (x_{2}, y_{2}), \\ \dots, (x_{n}, y_{n})$, that theorem shows how to find a polynomial
+\begin{equation*}
+f(x) = r_0 + r_1x + \dots + r_mx^m 
+\end{equation*}
+such that $\vectlength\vect{y} - f(\vect{x})\vectlength^{2}$ is as small as possible, where $\vect{x}$ and $f(\vect{x})$ are as before. Choosing the appropriate polynomial $f(x)$ amounts to choosing the coefficients $r_{0}, r_{1}, \dots, r_{m}$, and Theorem~\ref{thm:016951} gives a formula for the optimal choices. Here $f(x)$ is a linear combination of the functions $1, x, x^{2}, \dots, x^{m}$ where the $r_{i}$ are the coefficients\index{coefficients!of the polynomial}\index{polynomials!coefficients}, and this suggests applying the method to other functions. If $f_{0}(x), f_{1}(x), \dots, f_{m}(x)$ are given functions, write
+\begin{equation*}
+f(x) = r_0f_0(x) + r_1f_1(x) + \dots + r_mf_m(x)
+\end{equation*}
+where the $r_{i}$ are real numbers. Then the more general question is whether $r_{0}, r_{1}, \dots, r_{m}$ can be found such that $\vectlength\vect{y} - f(\vect{x})\vectlength^{2}$ is as small as possible where
+\begin{equation*}
+f(\vect{x}) =
+\leftB \begin{array}{c}
+f(x_1) \\
+f(x_2) \\
+\vdots \\
+f(x_m)
+\end{array} \rightB
+\end{equation*}
+Such a function $f(\vect{x})$ is called a \textbf{least squares best approximation}\index{least squares best approximation} for these data pairs of the form $r_{0}f_{0}(x) + r_{1}f_{1}(x) + \dots + r_{m}f_{m}(x)$, $r_{i}$ in $\RR$. The proof of Theorem~\ref{thm:016951} goes through to prove
+
+\begin{theorem}{}{017041} %theorem4
+Let $n$ data pairs $(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{n}, y_{n})$ be given, and suppose that $m + 1$ functions $f_{0}(x), f_{1}(x), \dots, f_{m}(x)$ are specified. Write
+\begin{equation*}
+\vect{y} = \leftB \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \rightB
+\quad M = \leftB \begin{array}{cccc}
+	f_0(x_1) & f_1(x_1) & \cdots & f_m(x_1) \\
+	f_0(x_2) & f_1(x_2) & \cdots & f_m(x_2) \\
+	\vdots & \vdots & & \vdots \\
+	f_0(x_n) & f_1(x_n) & \cdots & f_m(x_n) \\
+\end{array} \rightB
+\quad
+\vect{z} = \leftB \begin{array}{c}
+z_1 \\
+z_2 \\
+\vdots \\
+z_m
+\end{array} \rightB
+\end{equation*}
+\begin{enumerate}
+\item If $\vect{z}$ is any solution to the normal equations
+\begin{equation*}
+(M^TM)\vect{z} = M^T\vect{y}
+\end{equation*}
+then the function
+\begin{equation*}
+z_0f_0(x) + z_1f_1(x) + \dots + z_mf_m(x)
+\end{equation*}
+is the best approximation for these data among all functions of the form $r_{0}f_{0}(x) + r_{1}f_{1}(x) + \dots + r_{m}f_{m}(x)$ where the $r_{i}$ are in $\RR$.
+
+\item If $M^{T}M$ is invertible (that is, if $\func{rank}(M) = m + 1$), then $\vect{z}$ is uniquely determined; in fact, $\vect{z} = (M^{T}M)^{-1}(M^{T}\vect{y})$.
+
+\end{enumerate}
+\end{theorem}
+
+\noindent Clearly Theorem~\ref{thm:017041} contains Theorem~\ref{thm:016951} as a special case, but there is no simple test in general for whether $M^{T}M$ is invertible. Conditions for this to hold depend on the choice of the functions $f_{0}(x), f_{1}(x), \dots, f_{m}(x)$.
+
+\begin{example}{}{017077}
+Given the data pairs $(-1, 0)$, $(0, 1)$, and $(1, 4)$, find the least squares approximating function of the form $r_{0}x + r_{1}2^{x}$.
+
+\begin{solution}
+The functions are $f_{0}(x) = x$ and $f_{1}(x) = 2^{x}$, so the matrix $M$ is
+\begin{equation*}
+M = \leftB \begin{array}{cc}
+f_0(x_1) & f_1(x_1) \\
+f_0(x_2) & f_1(x_2) \\
+f_0(x_3) & f_1(x_3)
+\end{array} \rightB
+= \leftB \begin{array}{rl}
+-1 & 2^{-1} \\
+0 & 2^0 \\
+1 & 2^1
+\end{array} \rightB
+=\frac{1}{2} \leftB \begin{array}{rr}
+-2 & 1 \\
+0 & 2 \\
+2 & 4
+\end{array} \rightB
+\end{equation*}
+In this case $M^TM = \frac{1}{4}
+\leftB \begin{array}{rr}
+8 & 6 \\
+6 & 21
+\end{array} \rightB$ is invertible, so the normal equations
+\begin{equation*}
+\frac{1}{4}
+\leftB \begin{array}{rr}
+8 & 6 \\
+6 & 21
+\end{array} \rightB
+\vect{z} = 
+\leftB \begin{array}{r}
+4 \\
+9 
+\end{array} \rightB
+\end{equation*}
+have a unique solution $\vect{z} = \frac{1}{11}
+\leftB \begin{array}{r}
+10 \\
+16
+\end{array} \rightB.$ Hence the best-fitting function of the form $r_0x + r_12^x$ is $\overline{f}(x) = \frac{10}{11}x + \frac{16}{11}2^x$. Note that $\overline{f}(\vect{x}) =
+\leftB \begin{array}{c}
+	\overline{f}(-1) \\
+	\overline{f}(0) \\
+	\overline{f}(1) \\
+\end{array} \rightB
+= \def\arraystretch{1.5}
+\leftB \begin{array}{r}
+\frac{-2}{11} \\
+\frac{16}{11} \\
+\frac{42}{11}
+\end{array} \rightB$, compared with $\vect{y} = 
+\leftB \begin{array}{r}
+0 \\
+1 \\
+4
+\end{array} \rightB$
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:5_6}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:5_6}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Find the best approximation to a solution of each of the following systems of equations.
+
+\begin{exenumerate}
+\exitem $\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+ x & + &  y & - &  z & = & 5 \\
+2x & - &  y & + & 6z & = & 1 \\
+3x & + & 2y & - &  z & = & 6 \\
+-x & + & 4y & + &  z & = & 0 \\
+\end{array}$
+\exitem $\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+3x & + &  y & + &  z & = & 6 \\
+2x & + & 3y & - &  z & = & 1 \\
+2x & - &  y & + &  z & = & 0 \\
+3x & - & 3y & + & 3z & = & 8 \\
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\frac{1}{12}
+\leftB \begin{array}{r}
+-20 \\
+46 \\
+95
+\end{array} \rightB, (A^TA)^{-1}$ \\
+$ = \frac{1}{12}
+\leftB \begin{array}{rrr}
+  8 & -10 & -18 \\
+-10 &  14 &  24 \\
+-18 &  24 &  43 
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the least squares approximating line $y = z_{0} + z_{1}x$ for each of the following sets of data points.
+
+\begin{enumerate}[label={\alph*.}]
+\item $(1, 1), (3, 2), (4, 3), (6, 4)$
+
+\item $(2, 4), (4, 3), (7, 2), (8, 1)$
+
+\item $(-1, -1), (0, 1), (1, 2), (2, 4), (3, 6)$
+
+\item $(-2, 3), (-1, 1), (0, 0), (1, -2), (2, -4)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ \frac{64}{13} - \frac{6}{13}x $
+
+\setcounter{enumi}{3}
+\item  $ -\frac{4}{10} - \frac{17}{10}x $
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the least squares approximating quadratic $y = z_{0} + z_{1}x + z_{2}x^{2}$ for each of the following sets of data points.
+
+\begin{enumerate}[label={\alph*.}]
+\item $(0, 1), (2, 2), (3, 3), (4, 5)$
+
+\item $(-2, 1), (0, 0), (3, 2), (4, 3)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $y = 0.127 - 0.024x + 0.194x^{2}, (M^TM)^{-1} = \frac{1}{4248}
+\leftB \begin{array}{rrr}
+3348 &  642 & -426 \\
+ 642 &  571 & -187 \\
+-426 & -187 &   91
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find a least squares approximating function of the form $r_{0}x + r_{1}x^{2} + r_{2}2^{x}$ for each of the following sets of data pairs.
+
+\begin{enumerate}[label={\alph*.}]
+\item $(-1, 1), (0, 3), (1, 1), (2, 0)$
+
+\item $(0, 1), (1, 1), (2, 5), (3, 10)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\frac{1}{92}(-46x + 66x^2 + 60 \dotprod 2^x), (M^TM)^{-1} = \frac{1}{46}
+\leftB \begin{array}{rrr}
+115 &   0 & -46 \\
+  0 &  17 & -18 \\
+-46 & -18 &  38
+\end{array} \rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+	\label{ex:5_6_5}
+Find the least squares approximating function of the form $r_0 + r_1x^2 + r_2\sin \frac{\pi x}{2}$ for each of the following sets of data pairs.
+
+\begin{enumerate}[label={\alph*.}]
+\item $(0, 3), (1, 0), (1, -1), (-1, 2)$
+
+\item $(-1, \frac{1}{2}), (0, 1), (2, 5), (3, 9)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\frac{1}{20}[18 + 21x^2 + 28\sin (\frac{\pi x}{2})], (M^TM)^{-1} = \frac{1}{40}
+\leftB \begin{array}{rrr}
+24 & -2 & 14 \\
+-2 &  1 &  3 \\
+14 &  3 & 49
+\end{array} \rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $M$ is a square invertible matrix, show that $\vect{z} = M^{-1}\vect{y}$ (in the notation of Theorem~\ref{thm:016951}).
+\end{ex}
+
+\begin{ex}
+Newton's laws of motion imply that an object dropped from rest at a height of 100 metres will be at a height $s = 100 - \frac{1}{2}gt^{2}$ metres $t$ seconds later, where $g$ is a constant called the acceleration due to gravity. The values of $s$ and $t$ given in the table are observed. Write $x = t^{2}$, find the least squares approximating line $s = a + bx$ for these data, and use $b$ to estimate $g$.
+
+Then find the least squares approximating quadratic $s = a_{0} + a_{1}t + a_{2}t^{2}$ and use the value of $a_{2}$ to estimate $g$.
+\begin{equation*}
+\begin{array}{|c|c|c|c|}
+\hline
+t &  1 &  2 &  3 \\ \hline
+s & 95 & 80 & 56 \\ \hline
+\end{array}
+\end{equation*}
+
+\begin{sol}
+$s = 99.71 - 4.87x$; the estimate of $g$ is $9.74$. [The true value of $g$ is $9.81$]. If a quadratic in $s$ is fit, the result is $s = 101 - \frac{3}{2}t - \frac{9}{2}t^2$ giving $g = 9$;
+
+$(M^TM)^{-1} = \frac{1}{2}
+\leftB \begin{array}{rrr}
+ 38 & -42 &  10 \\
+-42 &  49 & -12 \\
+ 10 & -12 &   3
+\end{array} \rightB$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+A naturalist measured the heights $y_{i}$ (in metres) of several spruce trees with trunk diameters $x_{i}$ (in centimetres). The data are as given in the table. Find the least squares approximating line for these data and use it to estimate the height of a spruce tree with a trunk of diameter 10 cm.
+\begin{equation*}
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+x_i &  5 &  7 &  8 & 12 & 13 & 16 \\ \hline
+y_i &  2 & 3.3 &  4 & 7.3 & 7.9 & 10.1 \\ \hline
+\end{array}
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+The yield $y$ of wheat in bushels per acre appears to be a linear function of the number of days $x_{1}$ of sunshine, the number of inches $x_{2}$ of rain, and the number of pounds $x_{3}$ of fertilizer applied per acre. Find the best fit to the data in the table by an equation of the form $y = r_{0} + r_{1}x_{1} + r_{2}x_{2} + r_{3}x_{3}$. [\textit{Hint}: If a calculator for inverting $A^{T}A$ is not available, the inverse is given in the answer.]
+
+\begin{equation*}
+\begin{array}{|c|c|c|c|}
+\hline
+ y & x_1 & x_2 & x_3 \\ \hline
+28 & 50  & 18  & 10 \\ 
+30 & 40  & 20  & 16 \\ 
+21 & 35  & 14  & 10 \\ 
+23 & 40  & 12  & 12 \\ 
+23 & 30  & 16  & 14 \\ \hline
+\end{array}
+\end{equation*}
+
+\begin{sol}
+$y = -5.19 + 0.34x_{1} + 0.51x_{2} + 0.71x_{3}, (A^TA)^{-1}$ \\
+$ = \frac{1}{25080}
+\leftB \begin{array}{rrrr}
+517860 & -8016 &  5040 & -22650 \\
+ -8016 &   208 &  -316 &    400 \\
+  5040 &  -316 &  1300 &  -1090 \\
+-22650 &   400 & -1090 &   1975
+\end{array} \rightB$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Use $m = 0$ in Theorem~\ref{thm:016951} to show that the best-fitting horizontal line $y = a_{0}$ through the data points $(x_{1}, y_{1}), \dots, (x_{n}, y_{n})$ is 
+\begin{equation*}
+y = \frac{1}{n}(y_1 + y_2 + \dots + y_n)
+\end{equation*}
+the average of the $y$ coordinates.
+
+\item Deduce the conclusion in (a) without using Theorem~\ref{thm:016951}.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $f(x) = a_{0}$ here, so the sum of squares is 
+$S = \sum(y_i - a_0)^2 = na_0^2 - 2a_0\sum y_i + \sum y_i^2$. Completing the square gives  $S = n[a_0 - \frac{1}{n}\sum y_i]^2 + [\sum y_i^2 - \frac{1}{n}(\sum y_i)^2]$ This is minimal when $a_0 = \frac{1}{n}\sum y_i$.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Assume $n = m + 1$ in Theorem~\ref{thm:016951} (so $M$ is square). If the $x_{i}$ are distinct, use Theorem~\ref{thm:008520} to show that $M$ is invertible. Deduce that $\vect{z} = M^{-1}\vect{y}$ and that the least squares polynomial is the interpolating polynomial (Theorem~\ref{thm:008520}) and actually passes through all the data points.
+\end{ex}
+
+\begin{ex}
+Let $A$ be any $m \times n$ matrix and write $K = \{\vect{x} \mid A^{T}A\vect{x} = \vect{0}\}$. Let $\vect{b}$ be an $m$-column. Show that, if $\vect{z}$ is an $n$-column such that $\vectlength\vect{b} - A\vect{z}\vectlength$ is minimal, then \textit{all} such vectors have the form $\vect{z} + \vect{x}$ for some $\vect{x} \in K$. [\textit{Hint}: $\vectlength\vect{b} - A\vect{y}\vectlength$ is minimal if and only if $A^{T}A\vect{y} = A^{T}\vect{b}$.]
+\end{ex}
+
+\begin{ex}
+Given the situation in Theorem~\ref{thm:017041}, write
+\begin{equation*}
+f(x) = r_0p_0(x) + r_1p_1(x) + \dots + r_mp_m(x)
+\end{equation*}
+Suppose that $f(x)$ has at most $k$ roots for any choice of the coefficients $r_{0}, r_{1}, \dots, r_{m}$, not all zero.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $M^{T}M$ is invertible if at least $k + 1$ of the $x_{i}$ are distinct.
+
+\item If at least two of the $x_{i}$ are distinct, show that there is always a best approximation of the form $r_{0} + r_{1}e^{x}$.
+
+\item If at least three of the $x_{i}$ are distinct, show that there is always a best approximation of the form $r_{0} + r_{1}x + r_{2}e^{x}$. [Calculus is needed.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Here $f(x) = r_{0} + r_{1}e^{x}$. If $f(x_{1}) = 0 = f(x_{2})$ where $x_{1} \neq x_{2}$, then $r_0 + r_1 \dotprod e^{x_1} = 0 = r_0 + r_1 \dotprod e^{x_2}$ so $r_1(e^{x_1} - e^{x_2}) = 0$. Hence $r_{1} = 0 = r_{0}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+	\label{ex:5_6_14}
+If $A$ is an $m \times n$ matrix, it can be proved that there exists a unique $n \times m$ matrix $A^{\#}$ satisfying the following four conditions: $AA^{\#}A = A$; $A^{\#}AA^{\#} = A^{\#}$; $AA^{\#}$ and $A^{\#}A$ are symmetric. The matrix $A^{\#}$ is called the \textbf{generalized inverse}\index{generalized inverse}\index{inverses!generalized inverse} of $A$, or the \textbf{Moore-Penrose}\index{inverses!Moore-Penrose inverse}\index{Moore-Penrose inverse} inverse.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ is square and invertible, show that $A^{\#} = A^{-1}$.
+
+\item If $\func{rank} A = m$, show that $A^{\#} = A^{T}(AA^{T})^{-1}$.
+
+\item If $\func{rank} A = n$, show that $A^{\#} = (A^{T}A)^{-1}A^{T}$.
+
+\end{enumerate}
+\end{ex}
+\end{multicols}

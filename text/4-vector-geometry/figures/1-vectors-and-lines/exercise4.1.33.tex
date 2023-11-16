@@ -1,0 +1,14 @@
+\begin{tikzpicture}[scale=0.9]
+\draw[dkgreenvect,thick,name path=lineAD] (0,0)--(3,1);
+\draw[dkgreenvect,thick,name path=lineBE] (0,2)--(1.5,0.49);
+\draw[dkgreenvect,thick,name path=lineAC] (0,0)--(3,3);
+\draw[dkgreenvect,thick](0,0)--(0,2)--(3,3)--(3,1)--cycle;
+\fill[dkgreenvect,thick,black, name intersections={of=lineAD and lineBE}] (intersection-1) circle (2pt);
+\fill[dkgreenvect,thick,black, name intersections={of=lineBE and lineAC}] (intersection-1) circle (2pt);
+\node[below] at (0,0){$A$};
+\node[left] at (0,2){$B$};
+\node[right] at (3,3){$C$};
+\node[right] at (3,1){$D$};
+\node[below] at (1.5,0.5){$E$};
+\node[right] at (1,1){$F$};
+\end{tikzpicture}

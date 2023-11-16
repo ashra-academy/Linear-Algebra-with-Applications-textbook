@@ -1,0 +1,42 @@
+\begin{tikzpicture}[scale=0.8]
+\coordinate (ptP) at (0, 0);
+\coordinate (ptR) at (1.75, -0.75);
+\coordinate (ptS) at (2.5, 0);
+
+\draw[dkgreenvect, thick] (ptP)--(45:2) node (ptQ) {};
+\fill[ltbluevect] (ptP)--(ptS)--(ptR)--cycle;
+\draw[dkbluevect, thick, dashed] (ptP)--(ptS);
+\draw[dkbluevect, thick] (ptP)--(ptR)--(ptS);
+\draw[dkgreenvect, thick] (ptS)--(ptQ.center) 
+	(ptQ.center)--(ptR);
+
+\node[left] at (ptP) {\footnotesize $P$};
+\node[above] at (ptQ) {\footnotesize $Q$};
+\node[below] at (ptR) {\footnotesize $R$};
+\node[right] at (ptS) {\footnotesize $S$};
+
+%right image
+\coordinate (ptLeft1) at (3.5, 0.6);
+\coordinate[below=0.4 of ptLeft1] (ptLeft2);
+\coordinate[below=0.4 of ptLeft2.center] (ptLeft3);
+\coordinate[below=0.4 of ptLeft3.center] (ptLeft4);
+\coordinate (ptRight) at (6, 0);
+\coordinate (apex) at (4.75, 1.6);
+
+\fill[ltbluevect] (ptLeft1) .. controls (3.3, 0.5) and (3.3, 0.3) .. (ptLeft2)
+ .. controls (3.8, 0.0) and (3.8, -0.2) .. (ptLeft3)
+ .. controls (3.3, -0.5) and (3.3, -0.7) .. (ptLeft4)
+ .. controls (4.0, -1.2) and (5.5, -1.0) .. (ptRight)
+ .. controls (5.5, 0.8) and (4.0, 1.0) .. (ptLeft1);
+ 
+\draw[dkbluevect, thick] (ptLeft1) .. controls (3.3, 0.5) and (3.3, 0.3) .. (ptLeft2);
+\draw[dkbluevect, thick, dashed] (ptLeft2) .. controls (3.8, 0) and (3.8, -0.2) .. (ptLeft3);
+\draw[dkbluevect, thick] (ptLeft3) .. controls (3.3, -0.5) and (3.3, -0.7) .. (ptLeft4);
+\draw[dkbluevect, thick] (ptLeft4) .. controls (4.0, -1.2) and (5.5, -1.0) .. (ptRight);
+\draw[dkbluevect, thick, dashed] (ptLeft1) .. controls (4.0, 1.0) and (5.5, 0.8) .. (ptRight);
+
+\draw[dkgreenvect, thick] (ptLeft1)--(apex)
+ (ptLeft3)--(apex)
+ (ptRight)--(apex) 
+ (apex |- 0, 0) -- (apex) node[right, text=black, pos=0.6] {\footnotesize $h$}; %apex.x-coord and 0
+\end{tikzpicture}

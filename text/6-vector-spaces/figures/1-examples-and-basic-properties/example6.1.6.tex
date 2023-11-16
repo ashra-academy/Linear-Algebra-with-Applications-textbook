@@ -1,0 +1,37 @@
+
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+	clip mode=individual,
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick={1}, 
+    ytick={1}, 
+    xticklabels={1}, 
+    yticklabels={1}, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-1:1.25, 
+    samples=100, 
+    xmin=-0.25, 
+    xmax=2, 
+    ymin=-1, 
+    ymax=2]
+\addplot[dkgreenvect, thick] {pow(x,2)}; 
+\addplot[dkgreenvect, thick] {pow(x,2)-x};
+\addplot[dkgreenvect, thick] {-x};  
+\node[below left, font=\footnotesize] at (0,0) {$O$};
+\node[right,font=\scriptsize] at (1,-1){$y=-x=g(x)$}; 
+\node[right,font=\scriptsize,align=center] at (1,0.5){$y=f(x)+g(x)$\\$=x^2-x$};
+\node[above,font=\scriptsize] at (1.25,1.5){$y=x^2=f(x)$};  
+\end{axis}
+\end{tikzpicture}

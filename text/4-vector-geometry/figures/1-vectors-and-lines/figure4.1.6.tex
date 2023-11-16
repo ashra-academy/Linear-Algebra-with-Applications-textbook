@@ -1,0 +1,21 @@
+\begin{tikzpicture}[scale=0.6]
+\coordinate (ptA) at (1.5, 0);
+\coordinate (ptP) at (2.5, 0.5);
+\coordinate (ptInnerRight) at (4.5, 0);
+\coordinate (ptQ) at (3.5, -0.5);
+\draw[thick, dkbluevect] (0, 0)--(2, 1.0)--(6, 0)--(4, -1.0)--cycle; %outer
+\filldraw[color=dkbluevect, fill=ltbluevect, thick] (ptA)--(ptP)--(ptInnerRight)--(ptQ)--cycle;
+
+%vectors
+\draw[thick, -latex, dkgreenvect] (ptA)--(ptP) node[left, text=black, pos=0.7]{\footnotesize{$\vect{v}$}}; %v
+\draw[thick, -latex, dkgreenvect] (ptA)--(ptInnerRight) node[right, text=black] at (4.3, -0.1) {\footnotesize{$\vect{v} + \vect{w}$}}; %v + w
+\draw[thick, -latex, dkgreenvect] (ptA)--(ptQ) node[left, text=black] at (2.6, -0.4) {\footnotesize{$\vect{w}$}}; %w
+%point labels
+\node[left] at (ptA) {\scriptsize{$A$}};
+\node[above left=-0.15cm] at (ptP) {\scriptsize{$P$}};
+\node[below right=-0.15cm] at (ptQ) {\scriptsize{$Q$}};
+
+\node[right] at (4.2, 0.7) {\footnotesize{$\mathcal{P}$}};
+\draw[dkbluevect, thick] (3.9, 0.3) arc [start angle=180,end angle=90,radius=0.4]; 
+\draw[dkbluevect, thick] (4, 0) arc [start angle=180,end angle=310,radius=0.4]; 
+\end{tikzpicture}

@@ -1,0 +1,44 @@
+
+\begin{tikzpicture}
+%set up of axis environment
+\begin{axis}[disabledatascaling,
+    clip mode = individual,
+    width=5cm, 
+    height=4cm, 
+    font=\footnotesize,
+    clip mode=individual,
+    xlabel={Diameter}, 
+    ylabel={Age}, 
+    axis lines=middle,
+    hide obscured x ticks=false,
+    enlargelimits=true,
+    xtick={0,5,9.5,12,15}, 
+    ytick={0,1,2,...,6}, 
+    xticklabels={0,5,10,12,15}, 
+    yticklabels={,,2,,4,,6}, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+	domain=4:17,
+	samples=100,
+    xmin=0, 
+    xmax=15, 
+    ymin=0, 
+    ymax=6, 
+    ]
+\addplot[dkgreenvect, thick] {7/10*\x - 1/50*pow(x,2)};
+\fill[black] (5,3) circle (1pt);
+\fill[black] (9.5,4.845) circle (1pt);
+\fill[black] (12,5.52) circle (1pt);
+\fill[black] (15,6) circle (1pt);
+\draw[dashed,dkbluevect](12,0)--(12,5.52);
+\node[above, font=\footnotesize] at (3.9,3) {$(5,3)$};
+\node[above, font=\footnotesize] at (8.2,5) {$(10,5)$};
+\node[above, font=\footnotesize] at (15,6) {$(15,6)$};
+\end{axis}
+\end{tikzpicture}

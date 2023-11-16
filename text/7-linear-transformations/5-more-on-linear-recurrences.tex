@@ -1,0 +1,474 @@
+\section[More on Linear Recurrences]{More on Linear Recurrences\footnote{This section requires only Sections \ref{sec:7_1}-\ref{sec:7_3}.}}
+\label{sec:7_5}\index{linear transformations!linear recurrences}
+
+In Section~\ref{sec:3_4} we used diagonalization to study linear recurrences, and gave several examples. We now apply the theory of vector spaces and linear transformations to study the problem in more generality.\index{linear recurrences!linear transformations}\index{linear recurrences!vector spaces}\index{vector spaces!linear recurrences}
+
+
+Consider the linear recurrence
+\begin{equation*}
+x_{n+2} = 6x_n - x_{n+1} \quad \mbox{for } n \geq 0
+\end{equation*}
+If the initial values $x_{0}$ and $x_{1}$ are prescribed, this gives a sequence of numbers. For example, if $x_{0} = 1$ and $x_{1} = 1$ the sequence continues
+\begin{equation*}
+x_2 = 5, x_3 = 1, x_4 = 29, x_5 = -23, x_6 = 197, \dots
+\end{equation*}
+as the reader can verify. Clearly, the entire sequence is uniquely determined by the recurrence and the two initial values. In this section we define a vector space structure on the set of \textit{all} sequences, and study the subspace of those sequences that satisfy a particular recurrence.
+
+
+Sequences will be considered entities in their own right, so it is useful to have a special notation for them. Let\index{sequences!notation}
+\begin{equation*}
+[x_n) \quad \mbox{denote the sequence } x_0, x_1, x_2, \dots, x_n, \dots
+\end{equation*}
+\begin{example}{}{023023}
+\vspace*{-1em}
+\begin{alignat*}{2}
+&[n) & \quad\quad &\mbox{is the sequence } 0, 1, 2, 3, \dots \\
+&[n + 1) & \quad\quad &\mbox{is the sequence } 1, 2, 3, 4, \dots \\
+&[2^n) & \quad\quad &\mbox{is the sequence } 1, 2, 2^2, 2^3, \dots \\
+&[(-1)^n) & \quad\quad &\mbox{is the sequence } 1, -1, 1, -1, \dots \\
+&[5) & \quad\quad &\mbox{is the sequence } 5, 5, 5, 5, \dots
+\end{alignat*}
+\end{example}
+
+\noindent Sequences of the form $[c)$ for a fixed number $c$ will be referred to as \textbf{constant sequences}\index{constant sequences}\index{sequences!constant sequences}, and those of the form $[\lambda^{n})$, $\lambda$ some number, are \textbf{power sequences}\index{power sequences}\index{sequences!power sequences}.
+
+
+Two sequences are regarded as \textbf{equal}\index{equal!sequences}\index{sequences!equal} when they are identical:
+\begin{equation*}
+[x_n) = [y_n) \quad \mbox{means} \quad x_n = y_n \quad \mbox{for all } n = 0, 1, 2, \dots
+\end{equation*}
+Addition and scalar multiplication of sequences are defined by
+\begin{align*}
+[x_n) + [y_n) &= [x_n + y_n) \\
+r[x_n) &= [rx_n)
+\end{align*}
+These operations are analogous to the addition and scalar multiplication in $\RR^n$, and it is easy to check that the vector-space axioms are satisfied. The zero vector is the constant sequence $[0)$, and the negative of a sequence $[x_{n})$ is given by $-[x_{n}) = [-x_{n})$.
+
+
+Now suppose $k$ real numbers $r_{0}, r_{1}, \dots, r_{k-1}$ are given, and consider the \textbf{linear recurrence relation}\index{linear recurrence relation} determined by these numbers.
+\begin{equation}\label{eq:linRecurrRel}
+x_{n+k} = r_{0}x_{n} + r_{1}x_{n+1} + \cdots + r_{k-1}x_{n+k-1}
+\end{equation}
+When $r_{0} \neq 0$, we say this recurrence has \textbf{length}\index{length!linear recurrence}\index{linear recurrences!length}\index{length!recurrence} $k$.\footnote{We shall usually assume that $r_{0} \neq 0$; otherwise, we are essentially dealing with a recurrence of shorter length than $k$.} For example, the relation $x_{n+2} = 2x_{n}+ x_{n+1}$ is of length $2$.
+
+
+A sequence $[x_{n})$ is said to \textbf{satisfy} the relation\index{satisfy the relation}\index{sequences!satisfy the relation} (\ref{eq:linRecurrRel}) if (\ref{eq:linRecurrRel}) holds for all $n \geq 0$. Let $V$ denote the set of all sequences that satisfy the relation. In symbols,
+\begin{equation*}
+V = \{[x_n) \mid x_{n+k} = r_{0}x_{n} + r_{1}x_{n+1} + \cdots + r_{k-1}x_{n+k-1} \mbox{ hold for all } n \geq 0\}
+\end{equation*}
+It is easy to see that the constant sequence $[0)$ lies in $V$ and that $V$ is closed under addition and scalar multiplication of sequences. Hence $V$ is vector space (being a subspace of the space of all sequences). The following important observation about $V$ is needed (it was used implicitly earlier): If the first $k$ terms of two sequences agree, then the sequences are identical. More formally,
+
+
+\begin{lemma}{}{023054}
+Let  $[x_n)$  and $[y_n)$ denote two sequences in $V$. Then
+\begin{equation*}
+[x_n) = [y_n) \quad \mbox{if and only if } \quad x_0 = y_0, \ x_1 = y_1, \dots, x_{k-1} = y_{k-1}
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+If $[x_{n}) = [y_{n})$ then $x_{n} = y_{n}$ for \textit{all} $n = 0, 1, 2, \dots$\ . Conversely, if $x_{i} = y_{i}$ for all $i = 0, 1, \dots, k - 1$, use the recurrence (\ref{eq:linRecurrRel}) for $n = 0$.
+\begin{equation*}
+x_{k} = r_{0}x_{0} + r_{1}x_{1} + \cdots + r_{k-1}x_{k-1} = r_{0}y_{0} + r_{1}y_{1} + \cdots + r_{k-1}y_{k-1} = y_{k}
+\end{equation*}
+Next the recurrence for $n = 1$ establishes $x_{k+1} = y_{k+1}$. The process continues to show that $x_{n+k} = y_{n+k}$ holds for \textit{all} $n \geq 0$ by induction on $n$. Hence $[x_{n}) = [y_{n})$.
+\end{proof}
+
+This shows that a sequence in $V$ is completely determined by its first $k$ terms. In particular, given a $k$-tuple $\vect{v} = (v_{0}, v_{1}, \dots, v_{k-1})$ in $\RR^k$, define
+\begin{equation*}
+T(\vect{v}) \mbox{ to be the sequence in } V \mbox{ whose first } k \mbox{ terms are } v_0, v_1, \dots, v_{k-1}
+\end{equation*}
+The rest of the sequence $T(\vect{v})$ is determined by the recurrence, so $T : \RR^k \to V$ is a function. In fact, it is an isomorphism.
+
+
+\begin{theorem}{}{023092}
+Given real numbers $r_{0}, r_{1}, \dots, r_{k-1}$, let
+\begin{equation*}
+V = \{[x_n) \mid x_{n+k} = r_{0}x_{n} + r_{1}x_{n+1} + \cdots + r_{k-1}x_{n+k-1}, \mbox{ for all } n \geq 0\}
+\end{equation*}
+denote the vector space of all sequences satisfying the linear recurrence relation (\ref{eq:linRecurrRel}) determined by $r_{0}, r_{1}, \dots, r_{k-1}$. Then the function
+\begin{equation*}
+T : \RR^k \to V
+\end{equation*}
+defined above is an isomorphism. In particular:
+
+\begin{enumerate}
+\item $\func{dim }V = k$.
+
+\item If $\{\vect{v}_{1}, \dots, \vect{v}_{k}\}$ is any basis of $\RR^k$, then $\{T(\vect{v}_{1}), \dots, T(\vect{v}_{k})\}$ is a basis of $V$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) and (2) will follow from Theorem~\ref{thm:022044} and Theorem~\ref{thm:022127} as soon as we show that $T$ is an isomorphism. Given $\vect{v}$ and $\vect{w}$ in $\RR^k$, write $\vect{v} = (v_{0}, v_{1}, \dots, v_{k-1})$ and $\vect{w} = (w_{0}, w_{1}, \dots, w_{k-1})$. The first $k$ terms of $T(\vect{v})$ and $T(\vect{w})$ are $v_{0}, v_{1}, \dots, v_{k-1}$ and $w_{0}, w_{1}, \dots, w_{k-1}$, respectively, so the first $k$ terms of $T(\vect{v}) + T(\vect{w})$ are $v_{0} + w_{0}, v_{1} + w_{1}, \dots, v_{k-1} + w_{k-1}$. Because these terms agree with the first $k$ terms of $T(\vect{v} + \vect{w})$, Lemma~\ref{lem:023054} implies that $T(\vect{v} + \vect{w}) = T(\vect{v}) + T(\vect{w})$. The proof that $T(r\vect{v}) + rT(\vect{v})$ is similar, so $T$ is linear.
+
+
+Now let $[x_{n})$ be any sequence in $V$, and let $\vect{v} = (x_{0}, x_{1}, \dots, x_{k-1})$. Then the first $k$ terms of $[x_{n})$ and $T(\vect{v})$ agree, so $T(\vect{v}) = [x_{n})$. Hence $T$ is onto. Finally, if $T(\vect{v}) = [0)$ is the zero sequence, then the first $k$ terms of $T(\vect{v})$ are all zero (\textit{all} terms of $T(\vect{v})$ are zero!) so $\vect{v} = \vect{0}$. This means that $\func{ker }T = \{\vect{0}\}$, so $T$ is one-to-one.
+\end{proof}
+
+\begin{example}{}{023151}
+Show that the sequences $[1)$, $[n)$, and $[(-1)^{n})$ are a basis of the space $V$ of all solutions of the recurrence
+\begin{equation*}
+x_{n+3} = -x_{n} + x_{n+1} + x_{n+2}
+\end{equation*}
+Then find the solution satisfying $x_{0} = 1$, $x_{1} = 2$, $x_{2} = 5$.
+
+
+\begin{solution}
+  The verifications that these sequences satisfy the recurrence (and hence lie in $V$) are left to the reader. They are a basis because $[1) = T(1, 1, 1)$, $[n) = T(0, 1, 2)$, and $[(-1)^{n}) = T(1, -1, 1)$; and $\{(1, 1, 1), (0, 1, 2), (1, -1, 1)\}$ is a basis of $\RR^3$. Hence the sequence $[x_{n})$ in $V$ satisfying $x_{0} = 1$, $x_{1} = 2$, $x_{2} = 5$ is a linear combination of this basis:
+\begin{equation*}
+[x_n) = t_1[1) + t_2[n) + t_3[(-1)^n)
+\end{equation*}
+The $n$th term is $x_{n} = t_{1} + nt_{2} + (-1)^{n}t_{3}$, so taking $n = 0, 1, 2$ gives
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{ccccccccc}
+1 & = & x_0 & = & t_1 & + & 0 & + & t_3 \\
+2 & = & x_1 & = &t_1 & + & t_2 & - & t_3 \\
+5 & = & x_2 & = & t_1 & + & 2t_2 & + & t_3
+\end{array}
+\end{equation*}
+This has the solution $t_1 = t_3 = \frac{1}{2}$, $t_2 = 2$, so $x_n = \frac{1}{2} + 2n + \frac{1}{2}(-1)^n$.
+\end{solution}
+\end{example}
+
+This technique clearly works for any linear recurrence of length $k$: Simply take your favourite basis $\{\vect{v}_{1}, \dots, \vect{v}_{k}\}$ of $\RR^k$---perhaps the standard basis---and compute $T(\vect{v}_{1}), \dots, T(\vect{v}_{k})$. This is a basis of $V$ all right, but the $n$th term of $T(\vect{v}_{i})$ is not usually given as an explicit function of $n$. (The basis in Example~\ref{exa:023151} was carefully chosen so that the $n$th terms of the three sequences were $1$, $n$, and $(-1)^{n}$, respectively, each a simple function of $n$.)
+
+
+However, it turns out that an explicit basis of $V$ can be given in the general situation. Given the recurrence (\ref{eq:linRecurrRel}) again:
+\begin{equation*}
+x_{n+k} = r_{0}x_{n} + r_{1}x_{n+1} + \cdots + r_{k-1}x_{n+k-1}
+\end{equation*}
+the idea is to look for numbers $\lambda$ such that the power sequence $[\lambda^{n})$ satisfies (\ref{eq:linRecurrRel}). This happens if and only if
+\begin{equation*}
+\lambda^{n+k} = r_{0}\lambda^{n} + r_{1}\lambda^{n+1} + \cdots + r_{k-1}\lambda^{n+k-1}
+\end{equation*}
+holds for all $n \geq 0$. This is true just when the case $n = 0$ holds; that is,
+\begin{equation*}
+\lambda^k = r_0 + r_1\lambda + \cdots + r_{k-1}\lambda^{k-1}
+\end{equation*}
+The polynomial
+\begin{equation*}
+p(x) = x^k - r_{k-1}x^{k-1} - \cdots - r_1x - r_0
+\end{equation*}
+is called the polynomial \textbf{associated} with the linear recurrence\index{linear recurrences!polynomials associated with the linear recurrence}\index{polynomials!associated with the linear recurrence} (\ref{eq:linRecurrRel}). Thus every root $\lambda$ of $p(x)$ provides a sequence $[\lambda^{n})$ satisfying (\ref{eq:linRecurrRel}). If there are $k$ distinct roots, the power sequences provide a basis. Incidentally, if $\lambda = 0$, the sequence $[\lambda^{n})$ is $1, 0, 0, \dots$; that is, we accept the convention that $0^{0} = 1$.
+
+
+\begin{theorem}{}{023197}
+Let $r_{0}, r_{1}, \dots, r_{k-1}$ be real numbers; let
+\begin{equation*}
+V = \{[x_n) \mid  x_{n+k} = r_0x_n + r_1x_{n+1} + \cdots + r_{k-1}x_{n+k-1} \mbox{ for all } n \geq 0\}
+\end{equation*}
+denote the vector space of all sequences satisfying the linear recurrence relation determined by $r_{0}, r_{1}, \dots, r_{k-1}$; and let
+\begin{equation*}
+p(x) = x^k -r_{k-1}x^{k-1} - \cdots - r_1x - r_0
+\end{equation*}
+denote the polynomial associated with the recurrence relation. Then
+
+\begin{enumerate}
+\item $[\lambda^{n})$ lies in $V$ if and only if $\lambda$ is a root of $p(x)$.
+
+\item If $\lambda_1, \lambda_2, \dots, \lambda_k$ are distinct real roots of $p(x)$, then $\{[\lambda_{1}^{n}), [\lambda_2^{n}), \dots, [\lambda_k^{n})\}$ is a basis of $V$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+It remains to prove (2). But $[\lambda_{i}^{n}) = T(\vect{v}_{i})$ where $\vect{v}_{i} = (1, \lambda_{i}, \lambda_{i}^{2}, \dots, \lambda_{i}^{k-1})$, so (2) follows by Theorem~\ref{thm:023092}, provided that $(\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n})$ is a basis of $\RR^k$. This is true provided that the matrix with the $\vect{v}_{i}$ as its rows
+\begin{equation*}
+\leftB \begin{array}{ccccc}
+1 & \lambda_1 & \lambda_1^2 & \cdots & \lambda_1^{k-1} \\
+1 & \lambda_2 & \lambda_2^2 & \cdots & \lambda_2^{k-1} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & \lambda_k & \lambda_k^2 & \cdots & \lambda_k^{k-1}
+\end{array} \rightB
+\end{equation*}
+is invertible. But this is a Vandermonde matrix and so is invertible if the $\lambda_{i}$ are distinct (Theorem~\ref{thm:008552}). This proves (2).
+\end{proof}
+
+\begin{example}{}{023239}
+Find the solution of $x_{n+2} = 2x_{n} + x_{n+1}$ that satisfies $x_{0} = a$, $x_{1} = b$.
+
+
+\begin{solution}
+  The associated polynomial is $p(x) = x^{2} - x - 2 = (x - 2)(x + 1)$. The roots are $\lambda_{1} = 2$ and $\lambda_{2} = -1$, so the sequences $[2^n)$ and $[(-1)^n)$ are a basis for the space of solutions by Theorem~\ref{thm:023197}. Hence every solution $[x_{n})$ is a linear combination
+\begin{equation*}
+[x_n) = t_1[2^n) + t_2[(-1)^n)
+\end{equation*}
+This means that $x_{n} = t_{1}2^{n} + t_{2}(-1)^{n}$ holds for $n = 0, 1, 2, \dots$, so (taking $n = 0, 1$) $x_{0} = a$ and $x_{1} = b$ give
+\begin{align*}
+t_1 + t_2 &= a \\
+2t_1 - t_2 &= b
+\end{align*}
+These are easily solved: $t_1 = \frac{1}{3}(a + b)$ and $t_2 = \frac{1}{3}(2a - b)$, so
+\begin{equation*}
+t_n = \frac{1}{3}\left[(a + b)2^n + (2a - b)(-1)^n\right]
+\end{equation*}
+\end{solution}
+\end{example}
+
+\subsection*{The Shift Operator}
+
+\index{linear recurrences!shift operator}
+If $p(x)$ is the polynomial associated with a linear recurrence relation of length $k$, and if $p(x)$ has $k$ distinct roots $\lambda_{1}, \lambda_{2}, \dots, \lambda_{k}$, then $p(x)$ factors completely:
+\begin{equation*}
+p(x) = (x - \lambda_1)(x - \lambda_2)\cdots(x - \lambda_k)
+\end{equation*}
+Each root $\lambda_{i}$ provides a sequence $[\lambda_{i}^{n})$ satisfying the recurrence, and they are a basis of $V$ by Theorem~\ref{thm:023197}. In this case, each $\lambda_{i}$ has multiplicity $1$ as a root of $p(x)$. In general, a root $\lambda$ has \textbf{multiplicity}\index{multiplicity} $m$ if $p(x) = (x - \lambda)^{m}q(x)$, where $q(\lambda) \neq 0$. In this case, there are fewer than $k$ distinct roots and so fewer than $k$ sequences $[\lambda^{n})$ satisfying the recurrence. However, we can still obtain a basis because, if $\lambda$ has multiplicity $m$ (and $\lambda \neq 0$), it provides $m$ linearly independent sequences that satisfy the recurrence. To prove this, it is convenient to give another way to describe the space $V$ of all sequences satisfying a given linear recurrence relation.
+
+Let $\vectspace{S}$ denote the vector space of \textit{all} sequences and define a function
+\begin{equation*}
+S : \vectspace{S} \to \vectspace{S} \quad \mbox{by} \quad S[x_n) = [x_{n+1}) = [x_1, \ x_2, \ x_3, \ \dots)
+\end{equation*}
+$S$ is clearly a linear transformation and is called the \textbf{shift operator}\index{shift operator} on $\vectspace{S}$. Note that powers of $S$ shift the sequence further: $S^{2}[x_{n}) = S[x_{n+1}) = [x_{n+2})$. In general,
+\begin{equation*}
+S^k[x_n) = [x_{n+k}) = [x_k, \ x_{k+1}, \ \dots) \quad \mbox{for all } k = 0, 1, 2, \dots
+\end{equation*}
+But then a linear recurrence relation
+\begin{equation*}
+x_{n+k} = r_0x_n + r_1x_{n+1} + \cdots + r_{k-1}x_{n+k-1} \quad \mbox{for all } n = 0, 1, \dots
+\end{equation*}
+can be written
+\begin{equation}\label{eq:shiftOperator}
+S^k[x_n) = r_0[x_n) + r_1S[x_n) + \cdots + r_{k-1}S^{k-1}[x_n)
+\end{equation}
+Now let $p(x) = x^{k} - r_{k-1}x^{k-1} - \cdots - r_{1}x - r_{0}$ denote the polynomial associated with the recurrence relation. The set $\vectspace{L}[\vectspace{S}, \vectspace{S}]$ of all linear transformations from $\vectspace{S}$ to itself is a vector space (verify\footnote{See Exercises~\ref{ex:ex9_1_19} and \ref{ex:ex9_1_20}.}) that is closed under composition. In particular,
+\begin{equation*}
+p(S) = S^k - r_{k-1}S^{k-1} - \cdots - r_1S - r_0
+\end{equation*}
+is a linear transformation called the \textbf{evaluation}\index{evaluation}\index{linear transformations!evaluation} of $p$ at $S$. The point is that condition (\ref{eq:shiftOperator}) can be written as
+\begin{equation*}
+p(S)\{[x_n)\} = 0
+\end{equation*}
+In other words, the space $V$ of all sequences satisfying the recurrence relation is just $\func{ker}[p(S)]$. This is the first assertion in the following theorem.
+
+\begin{theorem}{}{023309}
+Let $r_{0}, r_{1}, \dots, r_{k-1}$ be real numbers, and let
+\begin{equation*}
+V = \{[x_n) \mid  x_{n+k} = r_{0}x_n + r_{1}x_{n+1} + \cdots + r_{k-1}x_{n+k-1} \quad \mbox{for all } n \geq 0\}
+\end{equation*}
+denote the space of all sequences satisfying the linear recurrence relation determined by $r_{0}, r_{1}, \dots, r_{k-1}$. Let
+\begin{equation*}
+p(x) = x^k - r_{k-1}x^{k-1} - \cdots - r_{1}x - r_0
+\end{equation*}
+denote the corresponding polynomial. Then:
+
+
+\begin{enumerate}
+\item $V = \func{ker}[p(S)]$, where $S$ is the shift operator.
+
+\item If $p(x) = (x - \lambda)^{m}q(x)$, where $\lambda \neq 0$ and $m > 1$, then the sequences
+\begin{equation*}
+\{[\lambda^n), [n\lambda^n), [n^2\lambda^n), \dots, [n^{m-1}\lambda^n)\}
+\end{equation*}
+all lie in $V$ and are linearly independent.
+
+\end{enumerate}
+\end{theorem}
+\vspace{-0.5em}
+\begin{proof}[Proof (Sketch)]
+ It remains to prove (2). If $\binom{n}{k} = \frac{n(n - 1) \cdots (n - k + 1)}{k!}$ denotes the binomial coefficient, the idea is to use (1) to show that the sequence $s_k = \left[\binom{n}{k} \lambda^n \right)$ is a solution for each $k = 0, 1, \dots, m - 1$. Then (2) of Theorem~\ref{thm:023092} can be applied to show that $\{s_{0}, s_{1}, \dots, s_{m-1}\}$ is linearly independent. Finally, the sequences $t_{k} = [n^{k}\lambda^{n}), k = 0, 1, \dots, m - 1$, in the present theorem can be given by $t_k = \sum_{j=0}^{m-1} a_{kj}s_{j}$, where $A = \leftB a_{ij} \rightB$ is an invertible matrix. Then (2) follows. We omit the details.
+\end{proof}
+
+This theorem combines with Theorem~\ref{thm:023197} to give a basis for $V$ when $p(x)$ has $k$ real roots (not necessarily distinct) none of which is zero. This last requirement means $r_{0} \neq 0$, a condition that is unimportant in practice (see Remark 1 below).
+
+
+\begin{theorem}{}{023345}
+Let $r_{0}, r_{1}, \dots, r_{k-1}$ be real numbers with $r_{0} \neq 0$; let
+\begin{equation*}
+V = \{[x_n) \mid x_{n+k} = r_{0}x_n + r_{1}x_{n+1} + \cdots + r_{k-1}x_{n+k-1} \mbox{ for all } n \geq 0 \}
+\end{equation*}
+denote the space of all sequences satisfying the linear recurrence relation of length $k$ determined by $r_{0}, \dots, r_{k-1}$; and assume that the polynomial
+\begin{equation*}
+p(x) = x^k - r_{k-1}x^{k-1} - \cdots - r_{1}x - r_{0}
+\end{equation*}
+factors completely as
+\begin{equation*}
+p(x) = (x - \lambda_1)^{m_1}(x-\lambda_2)^{m_2} \cdots (x - \lambda_p)^{m_p}
+\end{equation*}
+where $\lambda_{1}, \lambda_{2}, \dots, \lambda_{p}$ are distinct real numbers and each $m_{i} \geq 1$. Then $\lambda_{i} \neq 0$ for each $i$, and
+\begin{equation*}
+\def\arraystretch{1.5}
+\begin{array}{c}
+\left[\lambda_{1}^{n}\right), \left[n\lambda_{1}^{n}\right), \dots, \left[n^{m_{1}-1}\lambda_{1}^{n}\right) \\
+\left[\lambda_{2}^{n}\right), \left[n\lambda_{2}^{n}\right), \dots, \left[n^{m_{2}-1}\lambda_{2}^{n}\right) \\
+\vdots \\
+\left[\lambda_{p}^{n}\right), \left[n\lambda_{p}^{n}\right), \dots, \left[n^{m_{p}-1}\lambda_{p}^{n}\right)
+\end{array}
+\end{equation*}
+is a basis of $V$.
+\end{theorem}
+
+\begin{proof}
+There are $m_{1} + m_{2} + \cdots + m_{p} = k$ sequences in all so, because $\func{dim }V = k$, it suffices to show that they are linearly independent. The assumption that $r_{0} \neq 0$, implies that $0$ is not a root of $p(x)$. Hence each $\lambda_{i} \neq 0$, so $\{[\lambda_i^n), [n\lambda_i^n), \dots, [n^{m_i-1}\lambda_i^n)\}$ is linearly independent by Theorem~\ref{thm:023309}. The proof that the whole set of sequences is linearly independent is omitted.
+\end{proof}
+
+\begin{example}{}{023374}
+Find a basis for the space $V$ of all sequences $[x_{n})$ satisfying
+\begin{equation*}
+x_{n+3} = -9x_n - 3x_{n+1} + 5x_{n+2}
+\end{equation*}
+\vspace*{-2em}
+\begin{solution}
+ The associated polynomial is
+\begin{equation*}
+p(x) = x^3 - 5x^2 + 3x + 9 = (x - 3)^2(x + 1)
+\end{equation*}
+Hence $3$ is a double root, so $[3_{n})$ and $[n3^{n})$ both lie in $V$ by Theorem~\ref{thm:023309} (the reader should verify this). Similarly, $\lambda = -1$ is a root of multiplicity $1$, so $[(-1)^{n})$ lies in $V$. Hence $\{[3^{n}), [n3^{n}), [(-1)^{n})\}$ is a basis by Theorem~\ref{thm:023345}.
+\end{solution}
+\end{example}
+
+\vspace{1em}
+\noindent{\sl\textbf{Remark 1}}
+
+\noindent If $r_{0} = 0$ [so $p(x)$ has $0$ as a root], the recurrence reduces to one of shorter length. For example, consider
+\begin{equation}\label{eq:7_5remark1Eq}
+x_{n+4} = 0x_n + 0x_{n+1} + 3x_{n+2} + 2x_{n+3}
+\end{equation}
+If we set $y_{n} = x_{n+2}$, this recurrence becomes $y_{n+2} = 3y_{n} + 2y_{n+1}$, which has solutions $[3^{n})$ and $[(-1)^{n})$. These give the following solution to (\ref{eq:linRecurrRel}):
+\begin{equation*}
+\def\arraystretch{1.5}
+\begin{array}{l}
+\left[0, 0, 1, 3, 3^2, \dots\right) \\
+\left[0, 0, 1, -1, (-1)^2, \dots\right)
+\end{array}
+\end{equation*}
+In addition, it is easy to verify that
+\begin{equation*}
+\def\arraystretch{1.5}
+\begin{array}{l}
+\left[1, 0, 0, 0, 0, \dots\right) \\
+\left[0, 1, 0, 0, 0, \dots\right)
+\end{array}
+\end{equation*}
+are also solutions to (\ref{eq:7_5remark1Eq}). The space of all solutions of (\ref{eq:linRecurrRel}) has dimension $4$ (Theorem~\ref{thm:023092}), so these sequences are a basis. This technique works whenever $r_{0} = 0$.
+
+\vspace{1em}
+\noindent{\sl\textbf{Remark 2}}
+
+\noindent Theorem~\ref{thm:023345} completely describes the space $V$ of sequences that satisfy a linear recurrence relation for which the associated polynomial $p(x)$ has all real roots. However, in many cases of interest, $p(x)$ has complex roots that are not real. If $p(\mu) = 0$, $\mu$ complex, then $p(\overline{\mu}) = 0$ too ($\overline{\mu}$ the conjugate), and the main observation is that $[\mu^n + \overline{\mu}^n)$ and $[i(\mu^n + \overline{\mu}^n))$ are \textit{real} solutions. Analogs of the preceding theorems can then be proved.
+
+
+\section*{Exercises for \ref{sec:7_5}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:7_5}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Find a basis for the space $V$ of sequences $[x_{n})$ satisfying the following recurrences, and use it to find the sequence satisfying $x_{0} = 1$, $x_{1} = 2$, $x_{2} = 1$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $x_{n+3} = -2x_{n} + x_{n+1} + 2x_{n+2}$
+
+\item $x_{n+3} = -6x_{n} + 7x_{n+1}$
+
+\item $x_{n+3} = -36x_{n} + 7x_{n+2}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $\{[1), [2^n), [(-3)^n)\}$; $x_n = \frac{1}{20}(15 + 2^{n+3} + (-3)^{n+1})$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a basis for the space $V$ of all sequences $[x_{n})$ satisfying the recurrence, and use it to find $x_{n}$ if $x_{0} = 1$, $x_{1} = -1$, and $x_{2} = 1$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $x_{n+3} = x_{n} + x_{n+1} - x_{n+2}$
+
+\item $x_{n+3} = -2x_{n} + 3x_{n+1}$
+
+\item $x_{n+3} = -4x_{n} + 3x_{n+2}$
+
+\item $x_{n+3} = x_{n} - 3x_{n+1} + 3x_{n+2}$
+
+\item $x_{n+3} = 8x_{n} - 12x_{n+1} + 6x_{n+2}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\{[1), [n), [(-2)^n)\}$; $x_n = \frac{1}{9}(5 -6n + (-2)^{n+2})$
+
+\setcounter{enumi}{3}
+\item $\{[1), [n), [n^2)\}$; $x_n = 2(n - 1)^2 - 1$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find a basis for the space $V$ of sequences $[x_{n})$ satisfying each of the following recurrences.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $x_{n+2} = -a^{2}x_{n} + 2ax_{n+1}$, $a \neq 0$
+
+\item $x_{n+2} = -abx_{n} + (a + b)x_{n+1}$, $(a \neq b)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\{[a^{n}), [b^{n})\}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, find a basis of $V$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $V = \{[x_{n}) \mid x_{n+4} = 2x_{n+2} - x_{n+3}$, for $n \geq 0\}$
+
+\item $V = \{[x_{n}) \mid x_{n+4} = -x_{n+2} + 2x_{n+3}$, for $n \geq 0\}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $[1, 0, 0, 0, 0, \dots)$, $[0, 1, 0, 0, 0, \dots)$, \\ $[0, 0, 1, 1, 1, \dots)$, $[0, 0, 1, 2, 3, \dots)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Suppose that $[x_{n})$ satisfies a linear recurrence relation of length $k$. If $\{\vect{e}_{0} = (1, 0, \dots, 0), \\ \vect{e}_{1} = (0, 1, \dots, 0), \dots, \vect{e}_{k-1} = (0, 0, \dots, 1)\}$ is the standard basis of $\RR^k$, show that 
+\begin{equation*}
+x_{n} = x_{0}T(\vect{e}_{0}) + x_{1}T(\vect{e}_{1}) + \cdots + x_{k-1}T(\vect{e}_{k-1})
+\end{equation*}
+ holds for all $n \geq k$. (Here $T$ is as in Theorem~\ref{thm:023092}.)
+\end{ex}
+
+\begin{ex}
+Show that the shift operator $S$ is onto but not one-to-one. Find $\func{ker }S$.
+\end{ex}
+
+\begin{ex}
+Find a basis for the space $V$ of all sequences $[x_{n})$ satisfying $x_{n+2} = -x_{n}$.
+
+\begin{sol}
+By Remark 2,
+\begin{equation*}
+\def\arraystretch{1.5}
+\begin{array}{l}
+\left[i^n + (-i)^n\right) = \left[2, 0, -2, 0, 2, 0, -2, 0, \dots \right) \\
+\left[i(i^n - (-i)^n)\right) = \left[0, -2, 0, 2, 0, -2, 0, 2, \dots \right)
+\end{array}
+\end{equation*}
+are solutions. They are linearly independent and so are a basis.
+\end{sol}
+\end{ex}
+\end{multicols}

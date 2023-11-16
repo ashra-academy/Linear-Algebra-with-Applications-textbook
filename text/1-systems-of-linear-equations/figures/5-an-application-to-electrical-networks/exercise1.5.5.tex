@@ -1,0 +1,13 @@
+\begin{circuitikz}[scale=0.75]
+\draw[dkgreenvect, text=black] (0,0) to [battery1, v_= $x\; V$, color=dkgreenvect, font=\small] (2.5,0)
+      to [short, i_=$I_3$, color=dkgreenvect, font=\small] (5,0)
+(5,3) to [battery1, v^= $5\; V$, color=dkgreenvect, font=\small] (5,0)
+(5,3) to [R, l_= $ 2 \Omega $, color=dkgreenvect, font=\small] (2.5,3)
+      to [R = $ 1 \Omega $, color=dkgreenvect, font=\small] (2.5,1.5)
+      to [battery1, v^= $2\; V$, i>_=$I_2$, color=dkgreenvect, font=\small] (2.5,0)
+(2.5,3) to [short, i=$I_1$, color=dkgreenvect, font=\small] (0,3)
+	  to [R = $ 1 \Omega $, color=dkgreenvect, font=\small] (0,0)
+;
+\fill[black] (2.5,0) circle (2pt) ;
+\fill[black] (2.5,3) circle (2pt) ;
+\end{circuitikz}

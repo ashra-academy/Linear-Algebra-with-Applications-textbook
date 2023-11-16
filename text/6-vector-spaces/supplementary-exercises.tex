@@ -1,0 +1,78 @@
+\section*{Supplementary Exercises for Chapter~\ref{chap:6}}
+\addcontentsline{toc}{section}{Supplementary Exercises for Chapter~\ref{chap:6}}
+
+\begin{Filesave}{solutions}
+\solsection{Supplementary Exercises for Chapter~\ref{chap:6}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{supex}
+(Requires calculus) Let $V$ denote the space of all functions $f : \RR \to \RR$ for which the derivatives $f^\prime$ and $f^\dprime$ exist. Show that $f_{1}$, $f_{2}$, and $f_{3}$ in $V$ are linearly independent provided that their \textbf{wronskian}\index{wronskian} $w(x)$ is nonzero for some $x$, where
+\begin{equation*}
+w(x) = \func{det}
+\def\arraystretch{1.3}
+\leftB \begin{array}{ccc}
+f_1(x) & f_2(x) & f_3(x) \\
+f_1^\prime(x) & f_2^\prime(x) & f_3^\prime(x) \\
+f_1^\dprime(x) & f_2^\dprime(x) & f_3^\dprime(x) \\
+\end{array} \rightB
+\end{equation*}
+\end{supex}
+
+\begin{supex}
+Let $\{\vect{v}_{1}, \vect{v}_{2}, \dots, \vect{v}_{n}\}$ be a basis of $\RR^n$ (written as columns), and let $A$ be an $n \times n$ matrix.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ is invertible, show that $\{A\vect{v}_{1}, A\vect{v}_{2}, \dots, A\vect{v}_{n}\}$ is a basis of $\RR^n$.
+
+\item If $\{A\vect{v}_{1}, A\vect{v}_{2}, \dots, A\vect{v}_{n}\}$ is a basis of $\RR^n$, show that $A$ is invertible.
+
+\end{enumerate}
+\begin{supsol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $YA = 0$, $Y$ a row, we show that $Y = 0$; thus $A^{T}$ (and hence $A$) is invertible. Given a column $\vect{c}$ in $\RR^n$ write $\vect{c} = \displaystyle \sum_{i}r_i(A\vect{v}_i)$ where each $r_{i}$ is in $\RR$. Then $Y \vect{c} = \displaystyle \sum_{i}r_iYA\vect{v}_i$, so $Y = YI_n = Y
+\leftB \begin{array}{cccc}
+\vect{e}_1 &
+\vect{e}_2 &
+\cdots &
+\vect{e}_n 
+\end{array} \rightB
+= 
+\leftB \begin{array}{cccc}
+Y\vect{e}_1 &
+Y\vect{e}_2 &
+\cdots &
+Y\vect{e}_n 
+\end{array} \rightB
+= 
+\leftB \begin{array}{cccc}
+0 & 0 & \cdots & 0
+\end{array} \rightB
+= 0$, as required.
+
+\end{enumerate}
+\end{supsol}
+\end{supex}
+
+\columnbreak
+
+\begin{supex}
+If $A$ is an $m \times n$ matrix, show that $A$ has rank $m$ if and only if col $A$ contains every column of $I_{m}$.
+
+\end{supex}
+
+\begin{supex}
+Show that $\func{null} A = \func{null}(A^{T}A)$ for any real matrix $A$.
+
+\begin{supsol}
+We have $\func{null} A \subseteq \func{null}(A^{T}A)$ because $A\vect{x} = \vect{0}$ implies $(A^{T}A)\vect{x} = \vect{0}$. Conversely, if $(A^{T}A)\vect{x} = \vect{0}$, then $\vectlength A\vect{x}\vectlength^{2} = (A\vect{x})^{T}(A\vect{x}) = \vect{x}^{T}A^{T}A\vect{x} = 0$. Thus $A\vect{x} = \vect{0}$.
+
+\end{supsol}
+\end{supex}
+
+\begin{supex}
+Let $A$ be an $m \times n$ matrix of rank $r$. Show that $\func{dim}(\func{null} A) = n - r$ (Theorem~\ref{thm:015672}) as follows. Choose a basis $\{\vect{x}_{1}, \dots, \vect{x}_{k}\}$ of $\func{null} A$ and extend it to a basis $\{\vect{x}_{1}, \dots, \vect{x}_{k}, \vect{z}_{1}, \dots, \vect{z}_{m}\}$ of $\RR^n$. Show that $\{A\vect{z}_{1}, \dots, A\vect{z}_{m}\}$ is a basis of $\func{col} A$.
+
+\end{supex}
+\end{multicols}

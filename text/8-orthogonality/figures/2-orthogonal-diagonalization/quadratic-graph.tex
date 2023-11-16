@@ -1,0 +1,74 @@
+\begin{tikzpicture}[scale=0.8]
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+    width=5cm, 
+    height=5cm, 
+    xlabel={$x_1$}, 
+    ylabel={$x_2$}, 
+    axis lines=middle, 
+    xtick={\empty}, 
+    ytick={\empty}, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=1/2.5:2.5,
+    samples=100, 
+    xmin=-3.1, 
+    xmax=3.1, 
+    ymin=-3.1, 
+    ymax=3.1]
+
+\addplot [dkgreenvect, thick] {1/x};
+\addplot [dkgreenvect, thick, domain= -2.5: -0.4] {1/x};
+
+\node [below left] at (0, 0) {\footnotesize $O$};
+\node at (1.5, -1) {\footnotesize $x_1x_2 = 1$};
+\end{axis}
+\end{tikzpicture}
+
+\smallskip
+
+\begin{tikzpicture}[scale=0.8]
+%set up of axis environment
+\begin{axis}[disabledatascaling, 
+width=5cm, 
+height=5cm, 
+axis lines=middle, 
+xtick={\empty}, 
+ytick={\empty}, 
+xticklabels=\empty, 
+yticklabels=\empty, 
+every axis x label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=west,
+},
+every axis y label/.style={
+	at={(ticklabel* cs:1.05)},
+	anchor=south,
+},
+clip mode=individual,
+domain=1/2.5:2.5,
+samples=100, 
+xmin=-3.1, 
+xmax=3.1, 
+ymin=-3.1, 
+ymax=3.1]
+
+\addplot [dkgreenvect, thick] {1/x};
+\addplot [dkgreenvect, thick, domain= -2.5: -0.4] {1/x};
+\draw [dkgreenvect, thick, ->] (-2.5, -2.5) -- (2.5, 2.5);
+\draw [dkgreenvect, thick, ->] (2.5, -2.5) -- (-2.5, 2.5);
+
+\node at (-0.3, -0.7) {\footnotesize $O$};
+\node at (3, -0.8) {\footnotesize $y_{1}^2 - y_{2}^2 = 1$}; 
+\node at (3, 2.5) {\footnotesize $y_1$};
+\node at (-3, 2.5) {\footnotesize $y_2$};
+\end{axis}
+\end{tikzpicture}

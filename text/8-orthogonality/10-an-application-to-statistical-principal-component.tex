@@ -1,0 +1,53 @@
+\section[An Application to Statistical Principal Component Analysis]{An Application to Statistical Principal Component \\ Analysis}
+\label{sec:8_10}\index{orthogonality!statistical principal component analysis}\index{statistical principal component analysis}
+
+Linear algebra is important in multivariate analysis in statistics, and we conclude with a very short look at one application of diagonalization in this area. A main feature of probability and statistics is the idea of a \textit{random variable} $X$\index{random variable}, that is a real-valued function which takes its values according to a probability law\index{probability law} (called its \textit{distribution}\index{distribution}). Random variables occur in a wide variety of contexts; examples include the number of meteors falling per square kilometre in a given region, the price of a share of a stock, or the duration of a long distance telephone call from a certain city.
+
+
+The values of a random variable $X$ are distributed about a central number $\mu$, called the \textit{mean}\index{mean!calculation} of $X$. The mean can be calculated from the distribution as the \textit{expectation}\index{expectation} $E(X) = \mu$ of the random variable $X$. Functions of a random variable are again random variables. In particular, $(X - \mu)^{2}$ is a random variable, and the \textit{variance}\index{variance} of the random variable $X$, denoted $\func{var}(X)$, is defined to be the number
+\begin{equation*}
+\func{var}(X) = E\{(X - \mu)^2\} \quad \mbox{ where } \mu = E(X)
+\end{equation*}
+It is not difficult to see that $\func{var}(X) \geq 0$ for every random variable $X$. The number $\sigma = \sqrt{\func{var}(X)}$ is called the \textit{standard deviation}\index{standard deviation} of $X$, and is a measure of how much the values of $X$ are spread about the mean $\mu$ of $X$. A main goal of statistical inference is finding reliable methods for estimating the mean and the standard deviation of a random variable $X$ by sampling the values of $X$.
+
+
+If two random variables $X$ and $Y$ are given, and their joint distribution is known, then functions of $X$ and $Y$ are also random variables. In particular, $X + Y$ and $aX$ are random variables for any real number $a$, and we have
+\begin{equation*}
+E(X + Y) = E(X) + E(Y) \quad \mbox{ and } \quad E(aX) = aE(X). \footnote{Hence $E(\ )$ is a linear transformation from the vector space of all random variables to the space of real numbers.}
+\end{equation*}
+An important question is how much the random variables $X$ and $Y$ depend on each other. One measure of this is the \textit{covariance}\index{covariance} of $X$ and $Y$, denoted $\func{cov}(X, Y)$, defined by
+\begin{equation*}
+\func{cov}(X, Y) = E\{(X - \mu)(Y - \upsilon)\} \quad \mbox{ where } \mu = E(X) \mbox{ and } \upsilon = E(Y)
+\end{equation*}
+Clearly, $\func{cov}(X, X) = \func{var}(X)$. If $\func{cov}(X, Y) = 0$ then $X$ and $Y$ have little relationship to each other and are said to be \textit{uncorrelated}\index{uncorrelated}.\footnote{If $X$ and $Y$ are independent in the sense of probability theory\index{probability theory}, then they are uncorrelated; however, the converse is not true in general.}
+
+
+
+Multivariate statistical analysis\index{diagonalization!multivariate analysis}\index{multivariate analysis} deals with a family $X_{1}, X_{2}, \dots, X_{n}$ of random variables with means $\mu_{i} = E(X_{i})$ and variances $\sigma_{i}^2 = \func{var}(X_{i})$ for each $i$. Let $\sigma_{ij} = \func{cov}(X_{i}, X_{j})$ denote the covariance of $X_{i}$ and $X_{j}$. Then the \textit{covariance matrix}\index{matrix!covariance matrix}\index{covariance matrix} of the random variables $X_{1}, X_{2}, \dots, X_{n}$ is defined to be the $n \times n$ matrix
+\begin{equation*}
+\Sigma = [\sigma_{ij}]
+\end{equation*}
+whose $(i, j)$-entry is $\sigma_{ij}$. The matrix $\Sigma$ is clearly symmetric; in fact it can be shown that $\Sigma$ is \textbf{positive semidefinite}\index{positive semidefinite} in the sense that $\lambda \geq 0$ for every eigenvalue $\lambda$ of $\Sigma$. (In reality, $\Sigma$ is positive definite in most cases of interest.) So suppose that the eigenvalues of $\Sigma$ are $\lambda_{1} \geq \lambda_{2} \geq \cdots \geq \lambda_{n} \geq 0$. The principal axes theorem (Theorem~\ref{thm:024303}) shows that an orthogonal matrix $P$ exists such that
+\begin{equation*}
+P^T\Sigma P = \func{diag}(\lambda_{1}, \lambda_{2}, \dots, \lambda_{n})
+\end{equation*}
+If we write $\overline{X} = (X_{1}, X_{2}, \dots, X_{n})$, the procedure for diagonalizing a quadratic form gives new variables $\overline{Y} = (Y_{1}, Y_{2}, \dots, Y_{n})$ defined by
+\begin{equation*}
+\overline{Y} = P^T\overline{X}
+\end{equation*}
+These new random variables $Y_{1}, Y_{2}, \dots, Y_{n}$ are called the \textbf{principal components}\index{principal components} of the original random variables $X_{i}$, and are linear combinations of the $X_{i}$. Furthermore, it can be shown that
+\begin{equation*}
+\func{cov}(Y_{i}, Y_{j}) = 0 \mbox{ if } i \neq j \quad \mbox{ and } \quad \func{var}(Y_{i}) = \lambda_{i} \quad \mbox{ for each } i
+\end{equation*}
+Of course the principal components $Y_{i}$ point along the principal axes of the quadratic form $q = \overline{X}^T\Sigma\overline{X}$.
+
+
+The sum of the variances of a set of random variables is called the \textbf{total variance}\index{sum!variances of set of random variables}\index{total variance} of the variables, and determining the source of this total variance is one of the benefits of principal component analysis. The fact that the matrices $\Sigma$ and $\diag(\lambda_{1}, \lambda_{2}, \dots, \lambda_{n})$ are similar means that they have the same trace, that is,
+\begin{equation*}
+\sigma_{11} + \sigma_{22} + \cdots + \sigma_{nn} = \lambda_{1} + \lambda_{2} + \cdots + \lambda_{n}
+\end{equation*}
+This means that the principal components $Y_{i}$ have the same total variance as the original random variables $X_{i}$. Moreover, the fact that $\lambda_{1} \geq \lambda_{2} \geq \cdots \geq \lambda_{n} \geq 0$ means that most of this variance resides in the first few $Y_{i}$. In practice, statisticians find that studying these first few $Y_{i}$ (and ignoring the rest) gives an accurate analysis of the total system variability. This results in substantial data reduction since often only a few $Y_{i}$ suffice for all practical purposes. Furthermore, these $Y_{i}$ are easily obtained as linear combinations of the $X_{i}$. Finally, the analysis of the principal components often reveals relationships among the $X_{i}$ that were not previously suspected, and so results in interpretations that would not otherwise have been made.
+
+
+
+

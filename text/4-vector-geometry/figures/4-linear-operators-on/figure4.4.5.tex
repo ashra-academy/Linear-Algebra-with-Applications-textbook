@@ -1,0 +1,15 @@
+\begin{tikzpicture}[scale=0.8, rotate=30]
+\coordinate(origin) at (0, 0);
+\coordinate(ptSV) at (3, 0);
+\coordinate(ptV) at (5, 0);
+
+\draw[dkgreenvect, thick, -latex] (origin)--(ptSV);
+\draw[dkgreenvect, thick, -latex] (ptSV)--(ptV);
+
+\fill[black] (origin) circle (2pt);
+\fill[black] (ptSV) circle (2pt);
+
+\node[right=0.2] at (origin) {\small Origin};
+\node[below=0.1] at (ptSV) {\small s$\vect{v}$};
+\node[below=0.1] at (ptV) {\small $\vect{v}$};
+\end{tikzpicture}

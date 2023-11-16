@@ -1,0 +1,1031 @@
+\section{Linear Operators on $\RR^3$}
+\label{sec:4_4}
+
+Recall that a transformation $T : \RR^n \to \RR^m$ is called \textit{linear} if $T(\vect{x} + \vect{y}) = T(\vect{x}) + T(\vect{y})$ and $T(a\vect{x}) = aT(\vect{x})$ holds for all $\vect{x}$ and $\vect{y}$ in $\RR^n$ and all scalars $a$. In this case we showed (in Theorem~\ref{thm:005789}) that there exists an $m \times n$ matrix $A$ such that $T(\vect{x}) = A\vect{x}$ for all $\vect{x}$ in $\RR^n$, and we say that $T$ is the \textbf{matrix transformation induced}\index{matrix transformation induced}\index{linear transformations!matrix transformation induced} by $A$.\index{set of all ordered $n$-tuples ($\RR^n$)!linear operators}
+
+
+\begin{definition}{Linear Operator on $\RR^n$}{012946}
+A linear transformation
+\begin{equation*}
+T: \RR^n \to \RR^n
+\end{equation*}
+is called a \textbf{linear operator}\index{vector geometry!linear operators}\index{linear operator!defined} on $\RR^n$.
+\end{definition}
+
+
+\noindent In Section~\ref{sec:2_6} we investigated three important linear operators on $\RR^2$: rotations about the origin, reflections in a line through the origin, and projections on this line.
+
+
+In this section we investigate the analogous operators on $\RR^3$:
+ Rotations about a line through the origin, reflections in a plane 
+through the origin, and projections onto a plane or line through the 
+origin in $\RR^3$. In every case we show that the operator is linear, and we find the matrices of all the reflections and projections.
+
+
+To do this we must prove that these reflections, projections, and rotations are actually \textit{linear} operators on $\RR^3$. In the case of reflections and rotations, it is convenient to examine a more general situation. A transformation $T : \RR^3 \to \RR^3$ is said to be \textbf{distance preserving}\index{linear transformations!distance preserving}\index{distance preserving}\index{linear operator!distance preserving} if the distance between $T(\vect{v})$ and $T(\vect{w})$ is the same as the distance between $\vect{v}$ and $\vect{w}$ for all $\vect{v}$ and $\vect{w}$ in $\RR^3$; that is,
+\begin{equation}\label{eq:distancePresEq}
+\vectlength T(\vect{v}) - T(\vect{w}) \vectlength = \vectlength \vect{v} - \vect{w} \vectlength \mbox{ for all } \vect{v} \mbox{ and } \vect{w} \mbox{ in } \RR^3
+\end{equation}
+Clearly reflections and rotations are distance preserving, and both carry $\vect{0}$ to $\vect{0}$, so the following theorem shows that they are both linear.
+
+
+\begin{theorem}{}{012963}
+If $T : \RR^3 \to \RR^3$ is distance preserving, and if $T(\vect{0}) = \vect{0}$, then $T$ is linear.
+\end{theorem}
+
+\begin{wrapfigure}[12]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/4-linear-operators-on/figure4.4.1}
+\caption{\label{fig:012980}}
+\end{wrapfigure}
+
+\begin{proof}
+Since $T(\vect{0}) = \vect{0}$, taking $\vect{w} = \vect{0}$ in (\ref{eq:distancePresEq}) shows that $\vectlength T(\vect{v})\vectlength = \vectlength\vect{v}\vectlength$ for all $\vect{v}$ in $\RR^3$, that is $T$ preserves length. Also, $\vectlength T(\vect{v}) - T(\vect{w})\vectlength^{2} = \vectlength\vect{v} - \vect{w}\vectlength^{2}$ by (\ref{eq:distancePresEq}). Since $\vectlength\vect{v} - \vect{w}\vectlength^{2} = \vectlength\vect{v}\vectlength^{2} - 2\vect{v} \dotprod \vect{w} + \vectlength\vect{w}\vectlength^{2}$ always holds, it follows that $T(\vect{v}) \dotprod T(\vect{w}) = \vect{v} \dotprod \vect{w}$ for all $\vect{v}$ and $\vect{w}$. Hence (by Theorem~\ref{thm:011851}) the angle between $T(\vect{v})$ and $T(\vect{w})$ is the same as the angle between $\vect{v}$ and $\vect{w}$ for all (nonzero) vectors $\vect{v}$ and $\vect{w}$ in $\RR^3$.
+
+
+With this we can show that $T$ is linear. Given nonzero vectors $\vect{v}$ and $\vect{w}$ in $\RR^3$, the vector $\vect{v} + \vect{w}$ is the diagonal of the parallelogram determined by $\vect{v}$ and $\vect{w}$. By the preceding paragraph, the effect of $T$ is to carry this \textit{entire parallelogram} to the parallelogram determined by $T(\vect{v})$ and $T(\vect{w})$, with diagonal $T(\vect{v} + \vect{w})$. But this diagonal is $T(\vect{v}) + T(\vect{w})$ by the parallelogram law (see Figure~\ref{fig:012980}).
+
+In other words, $T(\vect{v} + \vect{w}) = T(\vect{v}) + T(\vect{w})$. A similar argument shows that $T(a\vect{v}) = aT(\vect{v})$ for all scalars $a$, proving that $T$ is indeed linear.
+\end{proof}
+
+\noindent Distance-preserving linear operators are called \textbf{isometries}\index{linear operator!isometries}\index{isometries}, and we return to them in Section~\ref{sec:10_4}.
+
+
+\subsection*{Reflections and Projections}
+
+\index{linear operator!projection}\index{linear operator!reflections}\index{linear transformations!projections}\index{linear transformations!reflections}\index{projection!linear operators}\index{reflections!linear operators}
+In Section~\ref{sec:2_6} we studied the reflection $Q_{m} : \RR^2 \to \RR^2$ in the line $y = mx$ and projection $P_{m} : \RR^2 \to \RR^2$ on the same line. We found (in Theorems~\ref{thm:006096} and~\ref{thm:006137}) that they are both linear and
+\begin{equation*}
+Q_{m} \mbox{ has matrix } \frac{1}{1 + m^2}\leftB
+\begin{array}{cc}
+1 - m^2 & 2m \\
+2m & m^2 -1
+\end{array}
+\rightB
+\quad \mbox{ and } \quad P_{m} \mbox{ has matrix }\frac{1}{1 + m^2}\leftB
+\begin{array}{cr}
+1  & m \\
+m & m^2
+\end{array}
+\rightB.
+\end{equation*}
+
+\begin{wrapfigure}[9]{l}{5cm} 
+  \vspace*{-1em}
+	\centering
+	\input{4-vector-geometry/figures/4-linear-operators-on/figure4.4.2}
+	\caption{\label{fig:013008}}
+\end{wrapfigure}
+
+We now look at the analogues in $\RR^3$.
+
+Let $L$ denote a line through the origin in $\RR^3$. Given a vector $\vect{v}$ in $\RR^3$, the reflection $Q_{L}(\vect{v})$ of $\vect{v}$ in $L$ and the projection $P_{L}(\vect{v})$ of $\vect{v}$ on $L$ are defined in Figure~\ref{fig:013008}. In the same figure, we see that
+\begin{equation}\label{eq:refProjEq}
+P_{L}(\vect{v}) = \vect{v} + \frac{1}{2}[Q_{L}(\vect{v}) - \vect{v}] = \frac{1}{2}[Q_{L}(\vect{v}) + \vect{v}]
+\end{equation}
+so the fact that $Q_{L}$ is linear (by Theorem~\ref{thm:012963}) shows that $P_{L}$ is also linear.\footnote{Note that Theorem~\ref{thm:012963} does \textit{not} apply to $P_{L}$ since it does not preserve distance.}
+
+ However, Theorem~\ref{thm:011958} gives us the matrix of $P_{L}$ directly. In fact, if 
+ $\vect{d} = \leftB
+ \begin{array}{c}
+ a \\
+ b \\
+ c
+ \end{array}
+ \rightB \neq \vect{0}$
+ is a direction vector for $L$, and we write 
+$\vect{v} = \leftB
+\begin{array}{c}
+x \\
+y \\
+z
+\end{array}
+\rightB$, then
+\begin{equation*}
+P_{L}(\vect{v}) = \frac{\vect{v} \dotprod \vect{d}}{\vectlength \vect{d} \vectlength^2}\vect{d} = \frac{ax + by + cz}{a^2 + b^2 + c^2} \leftB
+\begin{array}{c}
+a \\
+b \\
+c
+\end{array}
+\rightB = \frac{1}{a^2 + b^2 + c^2} \leftB
+\begin{array}{ccc}
+a^2 & ab & ac \\
+ab & b^2 & bc \\
+ac & bc & c^2
+\end{array}
+\rightB \leftB
+\begin{array}{c}
+x \\
+y \\
+z
+\end{array}
+\rightB
+\end{equation*}
+as the reader can verify. Note that this shows directly that $P_{L}$ is a matrix transformation and so gives another proof that it is linear.
+
+
+\begin{theorem}{}{013009}
+Let $L$ denote the line through the origin in $\RR^3$ with direction vector $\vect{d} = \leftB
+\begin{array}{c}
+a \\
+b \\
+c
+\end{array}
+\rightB \neq \vect{0}$. Then $P_{L}$ and $Q_{L}$ are both linear and
+\begin{equation*}
+P_{L} \mbox{ has matrix }\frac{1}{a^2 + b^2 + c^2} \leftB
+\begin{array}{ccc}
+a^2 & ab & ac \\
+ab & b^2 & bc \\
+ac & bc & c^2
+\end{array}
+\rightB
+\end{equation*}
+\begin{equation*}
+Q_{L} \mbox{ has matrix }\frac{1}{a^2 + b^2 + c^2} \leftB
+\begin{array}{ccc}
+a^2 - b^2 - c^2 & 2ab & 2ac \\
+2ab & b^2 - a^2 - c^2 & 2bc \\
+2ac & 2bc & c^2 - a^2 - b^2
+\end{array}
+\rightB
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+It remains to find the matrix of $Q_{L}$. But (\ref{eq:refProjEq}) implies that $Q_{L}(\vect{v}) = 2P_{L}(\vect{v}) - \vect{v}$ for each $\vect{v}$ in $\RR^3$, so if $\vect{v} = \leftB
+\begin{array}{c}
+x \\
+y \\
+z
+\end{array}
+\rightB$ we obtain (with some matrix arithmetic):
+\begin{align*}
+Q_{L}(\vect{v}) &= \left\lbrace \frac{2}{a^2 + b^2 + c^2} \leftB
+\begin{array}{ccc}
+a^2 & ab & ac \\
+ab & b^2 & bc \\
+ac & bc & c^2
+\end{array}
+\rightB
+- 
+\leftB
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array}
+\rightB
+\right\rbrace \leftB
+\begin{array}{c}
+x \\
+y \\
+z
+\end{array}
+\rightB \\ 
+& = 
+\frac{1}{a^2 + b^2 + c^2} \leftB
+\begin{array}{ccc}
+a^2 - b^2 - c^2 & 2ab & 2ac \\
+2ab & b^2 - a^2 - c^2 & 2bc \\
+2ac & 2bc & c^2 - a^2 - b^2
+\end{array}
+\rightB  \leftB
+\begin{array}{c}
+x \\
+y \\
+z
+\end{array}
+\rightB
+\end{align*}
+as required.
+\end{proof}
+
+\begin{wrapfigure}[9]{l}{5cm} 
+\vspace{-2em}
+\centering
+\input{4-vector-geometry/figures/4-linear-operators-on/figure4.4.3}
+\caption{\label{fig:013036}}
+\end{wrapfigure}
+
+In $\RR^3$ we can reflect in planes as well as lines. Let $M$ denote a plane through the origin in $\RR^3$. Given a vector $\vect{v}$ in $\RR^3$, the reflection $Q_{M}(\vect{v})$ of $\vect{v}$ in $M$ and the projection $P_{M}(\vect{v})$ of $\vect{v}$ on $M$ are defined in Figure~\ref{fig:013036}. As above, we have
+\begin{equation*}
+P_{M}(\vect{v}) = \vect{v} + \frac{1}{2}[Q_{M}(\vect{v}) - \vect{v}] = \frac{1}{2}[Q_{M}(\vect{v}) + \vect{v}]
+\end{equation*}
+so the fact that $Q_{M}$ is linear (again by Theorem~\ref{thm:012963}) shows that $P_{M}$ is also linear. 
+
+Again we can obtain the matrix directly. If $\vect{n}$ is a normal for the plane $M$, then Figure~\ref{fig:013036} shows that
+\begin{equation*}
+P_{M}(\vect{v}) = \vect{v} - \proj{\vect{n}}{\vect{v}} =  \vect{v} - \frac{\vect{v} \dotprod \vect{n}}{\vectlength \vect{n} \vectlength^2}\vect{n} \mbox{ for all vectors }\vect{v}.
+\end{equation*}
+If 
+$\vect{n} = \leftB
+\begin{array}{c}
+a \\
+b \\
+c
+\end{array}
+\rightB \neq \vect{0}$
+ and 
+$\vect{v} = \leftB
+\begin{array}{c}
+x \\
+y \\
+z
+\end{array}
+\rightB$, a computation like the above gives
+\begin{align*}
+P_{M}(\vect{v}) &=  
+\leftB
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array}
+\rightB
+\leftB
+\begin{array}{c}
+x \\
+y \\
+z
+\end{array}
+\rightB 
+- \frac{ax + by + cz}{a^2 + b^2 + c^2} \leftB
+\begin{array}{c}
+a \\
+b \\
+c
+\end{array}
+\rightB 
+\\
+&=
+\frac{1}{a^2 + b^2 + c^2} \leftB
+\begin{array}{ccc}
+b^2 + c^2 & -ab & -ac \\
+-ab & a^2 + c^2 & -bc \\
+-ac & -bc & b^2 + c^2 
+\end{array}
+\rightB  \leftB
+\begin{array}{c}
+x \\
+y \\
+z
+\end{array}
+\rightB
+\end{align*}
+This proves the first part of
+
+\begin{theorem}{}{013042}
+Let $M$ denote the plane through the origin in $\RR^3$ with normal $\vect{n} = \leftB
+\begin{array}{c}
+a \\
+b \\
+c
+\end{array}
+\rightB \neq \vect{0}$. Then $P_{M}$ and $Q_{M}$ are both linear and
+\begin{equation*}
+P_{M} \mbox{ has matrix }\frac{1}{a^2 + b^2 + c^2} \leftB
+\begin{array}{ccc}
+b^2 + c^2 & -ab & -ac \\
+-ab & a^2 + c^2 & -bc \\
+-ac & -bc & a^2 + b^2  
+\end{array}
+\rightB
+\end{equation*}
+\begin{equation*}
+Q_{M} \mbox{ has matrix }\frac{1}{a^2 + b^2 + c^2} \leftB
+\begin{array}{ccc}
+b^2 + c^2 - a^2 & -2ab & -2ac \\
+-2ab & a^2 + c^2 - b^2 & -2bc \\
+-2ac & -2bc & a^2 + b^2 - c^2
+\end{array}
+\rightB
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+It remains to compute the matrix of $Q_{M}$. Since $Q_{M}(\vect{v}) = 2P_{M}(\vect{v}) - \vect{v}$ for each $\vect{v}$ in $\RR^3$, the computation is similar to the above and is left as an exercise for the reader.
+\end{proof}
+
+\subsection*{Rotations}
+
+\index{linear operator!rotations}\index{linear transformations!rotations}\index{rotations!linear operators}
+In Section~\ref{sec:2_6} we studied the rotation $R_{\theta} : \RR^2 \to \RR^2$ counterclockwise about the origin through the angle $\theta$. Moreover, we showed in Theorem~\ref{thm:006021} that $R_{\theta}$ is linear and has matrix $\leftB
+\begin{array}{cc}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{array}
+\rightB$. One extension of this is given in the following example.
+
+
+\begin{example}{}{013065}
+Let $R_{z,\theta} : \RR^3 \to \RR^3$ denote rotation of $\RR^3$ about the $z$ axis through an angle $\theta$ from the positive $x$ axis toward the positive $y$ axis. Show that $R_{z,\theta}$ is linear and find its matrix.
+
+
+
+\begin{wrapfigure}[10]{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/4-linear-operators-on/figure4.4.4}
+\caption{\label{fig:013089}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+\begin{solution} First $R$ is distance preserving and so is linear by Theorem~\ref{thm:012963}. Hence we apply Theorem~\ref{thm:005789} to obtain the matrix of  $R_{z,\theta}$.
+
+Let $\vect{i} = \leftB
+\begin{array}{c}
+1 \\
+0 \\
+0
+\end{array}
+\rightB$, 
+$\vect{j} = \leftB
+\begin{array}{c}
+0 \\
+1 \\
+0
+\end{array}
+\rightB$, and 
+$\vect{k} = \leftB
+\begin{array}{c}
+0 \\
+0 \\
+1
+\end{array}
+\rightB$ denote the standard basis of $\RR^3$; we must find  $R_{z,\theta}(\vect{i})$, $R_{z,\theta}(\vect{j})$, and  $R_{z,\theta}(\vect{k})$. Clearly  $R_{z,\theta}(\vect{k}) = \vect{k}$. The effect of $R_{z,\theta}$ on the $x$-$y$ plane is to rotate it counterclockwise through the angle $\theta$. Hence Figure~\ref{fig:013089} gives
+\begin{equation*}
+R_{z,\theta}(\vect{i}) = \leftB
+\begin{array}{c}
+\cos\theta \\
+\sin\theta \\
+0
+\end{array}
+\rightB,\
+R_{z,\theta}(\vect{j}) = \leftB
+\begin{array}{c}
+-\sin\theta \\
+\cos\theta \\
+0
+\end{array}
+\rightB
+\end{equation*}
+so, by Theorem~\ref{thm:005789}, $R_{z,\theta}$ has matrix
+\begin{equation*}
+\leftB
+\begin{array}{ccc}
+R_{z,\theta}(\vect{i}) &  R_{z,\theta}(\vect{j}) & R_{z,\theta}(\vect{k})
+\end{array}
+\rightB = \leftB
+\begin{array}{ccc}
+\cos\theta & -\sin\theta & 0 \\
+sin\theta & \cos\theta & 0\\
+0 & 0 & 1
+\end{array}
+\rightB
+\end{equation*}
+
+\end{solution}
+\end{example}
+
+Example~\ref{exa:013065} begs to be generalized. Given a line $L$ through the origin in $\RR^3$, every rotation about $L$ through a fixed angle is clearly distance preserving, and so is a linear operator by Theorem~\ref{thm:012963}.
+ However, giving a precise description of the matrix of this rotation is
+ not easy and will have to wait until more techniques are available.
+
+
+\subsection*{Transformations of Areas and Volumes}
+
+\index{area!linear transformations of}\index{volume!linear transformations of}\index{linear operator!transformations of areas and volumes}\index{linear transformations!of areas}\index{linear transformations!of volume}
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/4-linear-operators-on/figure4.4.5}
+\caption{\label{fig:013099}}
+\end{wrapfigure}
+
+Let $\vect{v}$ be a nonzero vector in $\RR^3$. Each vector in the same direction as $\vect{v}$ whose length is a fraction $s$ of the length of $\vect{v}$ has the form $s\vect{v}$ (see Figure~\ref{fig:013099}).
+
+With this, scrutiny of Figure~\ref{fig:013100} shows that a vector $\vect{u}$ is in the parallelogram determined by $\vect{v}$ and $\vect{w}$ if and only if it has the form $\vect{u} = s\vect{v} + t\vect{w}$ where $0 \leq s \leq 1$ and $0 \leq t \leq 1$. But then, if $T : \RR^3 \to \RR^3$ is a linear transformation, we have
+\begin{equation*}
+T(s\vect{v} + t\vect{w}) = T(s\vect{v}) + T(t\vect{w}) = sT(\vect{v}) + tT(\vect{w})
+\end{equation*}
+
+\begin{wrapfigure}[6]{l}{5cm} 
+\vspace{-2em}
+\centering
+\input{4-vector-geometry/figures/4-linear-operators-on/figure4.4.6}
+\caption{\label{fig:013100}}
+\end{wrapfigure}
+
+\noindent Hence $T(s\vect{v} + t\vect{w})$ is in the parallelogram determined by $T(\vect{v})$ and $T(\vect{w})$. Conversely, every vector in this parallelogram has the form $T(s\vect{v} + t\vect{w})$ where $s\vect{v} + t\vect{w}$ is in the parallelogram determined by $\vect{v}$ and $\vect{w}$. For this reason, the parallelogram determined by $T(\vect{v})$ and $T(\vect{w})$ is called the \textbf{image}\index{image!of the parallelogram}\index{parallelogram!image} of the parallelogram determined by $\vect{v}$ and $\vect{w}$. We record this discussion as:
+
+\begin{wrapfigure}[11]{l}{5cm} 
+\vspace*{-2em}
+\centering
+\input{4-vector-geometry/figures/4-linear-operators-on/figure4.4.7}
+\caption{\label{fig:013110}}
+\end{wrapfigure}
+
+\hspace{0em}\hfill\begin{theorem}{}{013102}
+If $T : \RR^3 \to \RR^3$ (or $\RR^2 \to \RR^2$) is a linear operator, the image of the parallelogram determined by vectors $\vect{v}$ and $\vect{w}$ is the parallelogram determined by $T(\vect{v})$ and $T(\vect{w})$.
+\end{theorem}
+
+\noindent This result is illustrated in Figure~\ref{fig:013110}, and was used in Examples~\ref{exa:003088} and~\ref{exa:003128} to reveal the effect of expansion and shear transformations.
+
+We now describe the effect of a linear transformation $T: \RR^3 \to \RR^3$ on the parallelepiped determined by three vectors $\vect{u}$, $\vect{v}$, and $\vect{w}$ in $\RR^3$ (see the discussion preceding Theorem~\ref{thm:012765}). If $T$ has matrix $A$, Theorem~\ref{thm:013102} shows that this parallelepiped is carried to the parallelepiped determined by $T(\vect{u}) = A\vect{u}$, $T(\vect{v}) = A\vect{v}$, and $T(\vect{w}) = A\vect{w}$. In particular, we want to discover how the volume changes, and it turns out to be closely related to the determinant of the matrix $A$.\index{parallelepiped}
+
+\begin{theorem}{}{013115}
+Let $\func{vol}(\vect{u}, \vect{v}, \vect{w})$ denote the volume of the parallelepiped determined by three vectors $\vect{u}$, $\vect{v}$, and $\vect{w}$ in $\RR^3$, and let area $(\vect{p}, \vect{q})$ denote the area of the parallelogram determined by two vectors $\vect{p}$ and $\vect{q}$ in $\RR^2$. Then:\index{volume!of parallelepiped}
+
+\begin{enumerate}
+\item If $A$ is a $3 \times 3$ matrix, then $\func{vol}(A\vect{u}, A\vect{v}, A\vect{w}) = |\func{det}(A)| \cdot \func{vol}(\vect{u}, \vect{v}, \vect{w})$.
+
+\item If $A$ is a $2 \times 2$ matrix, then $\func{area}(A\vect{p}, A\vect{q}) = |\func{det}(A)| \cdot \func{area}(\vect{p}, \vect{q})$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+
+\begin{enumerate}
+\item  Let $\leftB \begin{array}{ccc} \vect{u} & \vect{v} & \vect{w} \end{array}\rightB$ denote the $3 \times 3$ matrix with columns $\vect{u}$, $\vect{v}$, and $\vect{w}$. Then
+\begin{equation*}
+\func{vol}(A\vect{u}, A\vect{v}, A\vect{w}) = |A\vect{u} \dotprod (A\vect{v} \times A\vect{w})|
+\end{equation*}
+by Theorem~\ref{thm:012765}. Now apply Theorem~\ref{thm:012676} twice to get
+\begin{align*}
+A\vect{u} \dotprod (A\vect{v} \times A\vect{w}) = \func{det}\leftB \begin{array}{ccc} A\vect{u} & A\vect{v} & A\vect{w}\end{array}\rightB 
+&= \func{det}(A\leftB \begin{array}{ccc} \vect{u} & \vect{v} & \vect{w} \end{array}\rightB) \\
+&= \func{det}(A)\func{det}\leftB \begin{array}{ccc} \vect{u} & \vect{v} & \vect{w} \end{array}\rightB \\
+&= \func{det}(A)(\vect{u} \dotprod (\vect{v} \times \vect{w}))
+\end{align*}
+where we used Definition~\ref{def:003447} and the product theorem for determinants. Finally (1) follows from Theorem~\ref{thm:012765} by taking absolute values.
+\end{enumerate}
+
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{4-vector-geometry/figures/4-linear-operators-on/proof4.4.5}
+\end{wrapfigure}
+
+\hspace{0em}\begin{enumerate}
+\setcounter{enumi}{1}
+\item Given $\vect{p} = \leftB
+\begin{array}{c}
+x\\
+y 
+\end{array}
+\rightB$
+ in $\RR^2$, 
+$\vect{p}_{1} = \leftB
+\begin{array}{c}
+x \\
+y \\
+0
+\end{array}
+\rightB$
+in $\RR^3$. By the diagram, $\func{area}(\vect{p}, \vect{q}) = \func{vol}(\vect{p}_{1}, \vect{q}_{1}, \vect{k})$ where $\vect{k}$ is the (length $1$) coordinate vector along the $z$ axis. If $A$ is a $2 \times 2$ matrix, write $A_{1} = \leftB
+\begin{array}{cc}
+A & 0 \\
+0 & 1
+\end{array}
+\rightB$ in block form, and observe that $(A\vect{v})_{1} = (A_{1}\vect{v}_{1})$ for all $\vect{v}$ in $\RR^2$ and $A_{1}\vect{k} = \vect{k}$. Hence part (1) of this theorem shows
+\begin{align*}
+\func{area}(A\vect{p}, A\vect{q})
+&= \func{vol}(A_{1}\vect{p}_{1}, A_{1}\vect{q}_{1}, A_{1}\vect{k}) \\
+&= |\func{det}(A_{1})|\func{vol}(\vect{p}_{1}, \vect{q}_{1}, \vect{k})\\
+&= |\func{det}(A)|\func{area}(\vect{p}, \vect{q})
+\end{align*}
+as required.
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+Define the \textbf{unit square}\index{unit square} and \textbf{unit cube}\index{unit cube} to be the square and cube corresponding to the coordinate vectors in $\RR^2$ and $\RR^3$, respectively\index{coordinate vectors}\index{vectors!coordinate vectors}. Then Theorem~\ref{thm:013115} gives a geometrical meaning to the determinant of a matrix $A$:
+
+
+\begin{itemize}
+\item If A is a $2 \times 2$ matrix, then $|\func{det}(A)|$ is the area of the image of the unit square under multiplication by $A$;
+
+\item If A is a $3 \times 3$ matrix, then $|\func{det}(A)|$ is the volume of the image of the unit cube under multiplication by $A$.
+
+\end{itemize}
+
+\noindent These results, together with the importance of areas and volumes in geometry,
+ were among the reasons for the initial development of determinants.\index{determinants!initial development of}
+
+
+\section*{Exercises for \ref{sec:4_4}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:4_4}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case show that that $T$ is either projection on a line, reflection in a line, or rotation through an angle, and find the line or angle.
+
+\begin{enumerate}[label={\alph*.}]
+\item $T\leftB
+\begin{array}{c}
+x\\
+y 
+\end{array}
+\rightB
+= \frac{1}{5}
+\leftB
+\begin{array}{c}
+x + 2y\\
+2x + 4y 
+\end{array}
+\rightB$
+\item $T\leftB
+\begin{array}{c}
+x\\
+y 
+\end{array}
+\rightB
+= \frac{1}{2}
+\leftB
+\begin{array}{c}
+x - y\\
+y - x
+\end{array}
+\rightB$
+\item $T\leftB
+\begin{array}{c}
+x\\
+y 
+\end{array}
+\rightB
+= \frac{1}{\sqrt{2}}
+\leftB
+\begin{array}{c}
+-x - y\\
+x - y 
+\end{array}
+\rightB$
+\item $T\leftB
+\begin{array}{c}
+x\\
+y 
+\end{array}
+\rightB
+= \frac{1}{5}
+\leftB
+\begin{array}{c}
+-3x + 4y\\
+4x + 3y 
+\end{array}
+\rightB$
+\item $T\leftB
+\begin{array}{c}
+x\\
+y 
+\end{array}
+\rightB =
+\leftB
+\begin{array}{c}
+-y\\
+-x 
+\end{array}
+\rightB$
+\item $T\leftB
+\begin{array}{c}
+x\\
+y 
+\end{array}
+\rightB
+= \frac{1}{2}
+\leftB
+\begin{array}{c}
+x - \sqrt{3}y\\
+\sqrt{3}x + y 
+\end{array}
+\rightB$
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $A = \leftB
+\begin{array}{rr}
+1 & -1\\
+-1 & 1\\
+\end{array}
+\rightB$, projection on $y = -x$.
+
+\setcounter{enumi}{3}
+\item $A = \frac{1}{5}\leftB
+\begin{array}{rr}
+-3 & 4\\
+4 & 3\\
+\end{array}
+\rightB$, reflection in $y = 2x$.
+
+\setcounter{enumi}{5}
+\item  $A = \frac{1}{2}\leftB
+\begin{array}{rr}
+1 & -\sqrt{3}\\
+\sqrt{3} & 1\\
+\end{array}
+\rightB$,
+ rotation through $\frac{\pi}{3}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Determine the effect of the following transformations.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Rotation through $\frac{\pi}{2}$, followed by projection on the $y$ axis, followed by reflection in the line $y = x$.
+
+\item Projection on the line $y = x$ followed by projection on the line $y = -x$.
+
+\item Projection on the $x$ axis followed by reflection in the line $y = x$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The zero transformation.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case solve the problem by finding the matrix of the operator.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Find the projection of 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+-2\\
+3 
+\end{array}
+\rightB$
+ on the plane with equation $3x - 5y + 2z = 0$.
+
+\item Find the projection of 
+$\vect{v} = \leftB
+\begin{array}{r}
+0\\
+1\\
+-3 
+\end{array}
+\rightB$
+ on the plane with equation $2x - y + 4z = 0$.
+
+\item Find the reflection of 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+-2\\
+3 
+\end{array}
+\rightB$
+ in the plane with equation $x - y + 3z = 0$.
+
+\item Find the reflection of 
+$\vect{v} = \leftB
+\begin{array}{r}
+0\\
+1\\
+-3 
+\end{array}
+\rightB$
+ in the plane with equation $2x + y -5z = 0$.
+
+\item Find the reflection of 
+$\vect{v} = \leftB
+\begin{array}{r}
+2\\
+5\\
+-1 
+\end{array}
+\rightB$
+in the line with equation 
+$\leftB
+\begin{array}{r}
+x\\
+y\\
+z 
+\end{array}
+\rightB
+= t
+\leftB
+\begin{array}{r}
+1\\
+1\\
+-2 
+\end{array}
+\rightB$.
+
+\item Find the projection of 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+-1\\
+7 
+\end{array}
+\rightB$
+ on the line with equation $\leftB
+ \begin{array}{r}
+ x\\
+ y\\
+ z 
+ \end{array}
+ \rightB
+ = t
+ \leftB
+ \begin{array}{r}
+ 3\\
+ 0\\
+ 4 
+ \end{array}
+ \rightB$.
+
+\item Find the projection of 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+1\\
+-3
+\end{array}
+\rightB$
+ on the line with equation 
+ $\leftB
+ \begin{array}{r}
+ x\\
+ y\\
+ z 
+ \end{array}
+ \rightB
+ = t
+ \leftB
+ \begin{array}{r}
+ 2\\
+ 0\\
+ -3 
+ \end{array}
+ \rightB$.
+
+\item Find the reflection of 
+$\vect{v} = \leftB
+\begin{array}{r}
+2\\
+-5\\
+0 
+\end{array}
+\rightB$
+ in the line with equation 
+ $\leftB
+ \begin{array}{r}
+ x\\
+ y\\
+ z 
+ \end{array}
+ \rightB
+ = t
+ \leftB
+ \begin{array}{r}
+ 1\\
+ 1\\
+ -3
+ \end{array}
+ \rightB$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$\frac{1}{21}\leftB
+\begin{array}{rrr}
+	17 & 2 & -8\\
+	2 & 20 & 4\\
+	-8 & 4 & 5
+\end{array}
+\rightB
+\leftB
+\begin{array}{r}
+0\\
+1\\
+-3
+\end{array}
+\rightB$
+
+\setcounter{enumi}{3}
+\item  
+$\frac{1}{30}\leftB
+\begin{array}{rrr}
+22 & -4 & 20\\
+-4 & 28 & 10\\
+20 & 10 & -20
+\end{array}
+\rightB
+\leftB
+\begin{array}{r}
+0\\
+1\\
+-3
+\end{array}
+\rightB$
+
+\setcounter{enumi}{5}
+\item  
+$\frac{1}{25}\leftB
+\begin{array}{rrr}
+9 & 0 & 12\\
+0 & 0 & 0\\
+12 & 0 & 16
+\end{array}
+\rightB
+\leftB
+\begin{array}{r}
+1\\
+-1\\
+7
+\end{array}
+\rightB$
+
+\setcounter{enumi}{7}
+\item 
+ $\frac{1}{11}\leftB
+\begin{array}{rrr}
+-9 & 2 & -6\\
+2 & -9 & -6\\
+-6 & -6 & 7
+\end{array}
+\rightB
+\leftB
+\begin{array}{r}
+2\\
+-5\\
+0
+\end{array}
+\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Find the rotation of 
+$\vect{v} = \leftB
+\begin{array}{r}
+2\\
+3\\
+-1 
+\end{array}
+\rightB$
+ about the $z$ axis through $\theta = \frac{\pi}{4}$.
+
+\item Find the rotation of 
+$\vect{v} = \leftB
+\begin{array}{r}
+1\\
+0\\
+3 
+\end{array}
+\rightB$
+ about the $z$ axis through $\theta = \frac{\pi}{6}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  
+$\frac{1}{2}\leftB
+\begin{array}{rrr}
+\sqrt{3} & -1 & 0\\
+1 & \sqrt{3} & 0\\
+0 & 0 & 1
+\end{array}
+\rightB
+\leftB
+\begin{array}{r}
+1\\
+0\\
+3
+\end{array}
+\rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the matrix of the rotation in $\RR^3$ about the $x$ axis through the angle $\theta$ (from the positive $y$ axis to the positive $z$ axis).
+\end{ex}
+
+\begin{ex}
+Find the matrix of the rotation about the $y$ axis through the angle $\theta$ (from the positive $x$ axis to the positive $z$ axis).
+
+\begin{sol}
+$\leftB
+\begin{array}{ccc}
+\cos\theta & 0 & -\sin\theta\\
+0 & 1 & 0\\
+\sin\theta & 0 & \cos\theta
+\end{array}
+\rightB$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is $3 \times 3$, show that the image of the line in $\RR^3$ through $\vect{p}_{0}$ with direction vector $\vect{d}$ is the line through $A\vect{p}_{0}$ with direction vector $A\vect{d}$, assuming that $A\vect{d} \neq \vect{0}$. What happens if $A\vect{d} = \vect{0}$?
+\end{ex}
+
+\begin{ex}
+If $A$ is $3 \times 3$ and invertible, show that the image of the plane through the origin with normal $\vect{n}$ is the plane through the origin with normal $\vect{n}_{1} = B\vect{n}$ where $B = (A^{-1})^{T}$. [\textit{Hint}: Use the fact that $\vect{v} \dotprod  \vect{w} = \vect{v}^{T}\vect{w}$ to show that $\vect{n}_{1} \dotprod (A\vect{p}) = \vect{n} \dotprod \vect{p}$ for each $\vect{p}$ in $\RR^3$.]
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Let $L$ be the line through the origin in $\RR^2$ with direction vector $\vect{d} = \leftB
+\begin{array}{r}
+a\\
+b\\
+\end{array}
+\rightB \neq 0$.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $P_{L}$ denotes projection on $L$, show that $P_{L}$ has matrix $\frac{1}{a^2 + b^2}\leftB
+\begin{array}{cc}
+a^2 & ab\\
+ab & b^2\\
+\end{array}\rightB$.
+
+\item If $Q_{L}$ denotes reflection in $L$, show that $Q_{L}$ has matrix $\frac{1}{a^2 + b^2}\leftB
+\begin{array}{cc}
+a^2 - b^2 & 2ab\\
+2ab & b^2 - a^2\\
+\end{array}\rightB$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\item  Write $\vect{v} = \leftB
+\begin{array}{r}
+x\\
+y
+\end{array}
+\rightB$.
+
+\begin{align*}
+P_{L}(\vect{v}) = \left(\frac{\vect{v} \dotprod \vect{d}}{\vectlength \vect{d} \vectlength^2}\right)\vect{d} & = \frac{ax + by}{a^2 + b^2}\leftB
+\begin{array}{r}
+a\\
+b
+\end{array}
+\rightB  \\
+&  = \frac{1}{a^2 + b^2}\leftB
+\begin{array}{c}
+a^2x + aby\\
+abx + b^2y
+\end{array}
+\rightB \\
+& = \frac{1}{a^2 + b^2}\leftB
+\begin{array}{c}
+a^2 + ab\\
+ab + b^2
+\end{array}
+\rightB \leftB
+\begin{array}{r}
+x\\
+y
+\end{array}
+\rightB
+\end{align*}
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\vect{n}$ be a nonzero vector in $\RR^3$, let $L$ be the line through the origin with direction vector $\vect{n}$, and let $M$ be the plane through the origin with normal $\vect{n}$. Show that $P_{L}(\vect{v}) = Q_{L}(\vect{v}) + P_{M}(\vect{v})$ for all $\vect{v}$ in $\RR^3$. [In this case, we say that $P_{L} = Q_{L} + P_{M}$.]
+\end{ex}
+
+\begin{ex}
+If $M$ is the plane through the origin in $\RR^3$ with normal $\vect{n} = \leftB
+\begin{array}{r}
+a\\
+b\\
+c 
+\end{array}
+\rightB$, show that $Q_{M}$ has matrix
+\begin{equation*}{\small
+\frac{1}{a^2 + b^2 + c^2}}{\footnotesize \leftB
+\begin{array}{ccc}
+b^2 + c^2 - a^2 & -2ab & -2ac \\
+-2ab & a^2 + c^2 - b^2 & -2bc \\
+-2ac & -2bc & a^2 + b^2 - c^2
+\end{array}
+\rightB}
+\end{equation*}
+\end{ex}
+\end{multicols}

@@ -1,0 +1,23 @@
+\begin{tikzpicture}[scale=1.0]
+\draw[dkbluevect, thick] (0, 0)--(-1, 0);
+\draw[dkbluevect, thick] (0, 0)--(150:3.5cm);
+\draw[dkbluevect, thick] (-0.5, 0) arc [start angle=180, end angle=150, radius=0.5] node[left, text=black, pos=0.7] {\scriptsize $30^{\circ}$};
+
+%rotation matrix
+%x' = x cos theta - y sin theta
+%y' = x sin theta + y cos theta
+\path[rotate=-30](0, 0)--(-2.75, 0.25) node (block) {};
+\filldraw[dkbluevect, fill=ltbluevect, rotate=-30] (-3, 0) rectangle +(0.5, 0.5);
+\draw[dkgreenvect, thick, -latex] (block.center)-- ++(0, -1.5) node (ptW) {};
+\draw[dkgreenvect, thick, -latex, rotate=-30] (-2.75, 0.25)-- +(0.75, 0) node (ptW1) {};
+\draw[dkgreenvect, thick, -latex, rotate=-30] (-2.75, 0.25)-- +(0, -1.299) node (ptW2) {}; %cos 30 * 1.5 = 1.299
+
+\draw[dkbluevect, thick, dashed] (ptW2.center)--(ptW.center)--(ptW1.center);
+\node [above=0.25cm of ptW] (ptWArc) {};
+\draw[dkbluevect, thick] (ptWArc) arc [start angle=90, end angle=60, radius=0.5] node[above, text=black, pos=0.9] {\scriptsize $30^{\circ}$};
+
+%vector labels
+\path (ptW) + (0.1, 0.4) node[left] {\small $\vect{w}$};
+\node[above] at (ptW1) {\small $\vect{w}_1$};
+\node[above left] at (ptW2) {\small $\vect{w}_2$};
+\end{tikzpicture}

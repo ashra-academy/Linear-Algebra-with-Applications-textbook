@@ -1,0 +1,108 @@
+LINEAR ALGEBRA with Applications
+===============================
+
+This work is covered by a Creative Commons BY-NC-SA 4.0 License. Please see
+the LICENSE file for the full text.
+
+
+The Latest Version
+------------------
+
+The latest version of this textbook is distributed by Lyryx Learning Inc.
+Our contact information is at the end of this file.
+
+This textbook can be paired with our online assessment system.  We also
+provide editorial assistance to customize this book for your courses.  Please
+contact us for more information.
+
+
+Code Organization
+-----------------
+
+Extract the .zip file on your computer.  It will contain one directory, "LAWAOpenText-2021A-LyryxLearning". Inside this directory are three sub-directories:
+"text": All content is in this directory.
+"styles": Style files required for the content.
+"scripts": Contains two scripts required to run the makefile properly.  
+
+Inside "text":
+
+The top-level Latex file is "Nicholson-LAWA.tex".  This file lists all
+of the required packages and imports the files "content.tex" that define the content to be included in the textbook.
+
+
+
+Customizing the Textbook
+------------------------
+
+To customize the text for your course:
+
+1: Edit frontmatter/courseInfo.txt
+
+  This file contains specific course and institution information to be
+  displayed on title page.
+
+2: Edit content.tex
+
+  This file imports the chapter and section files that will define the content
+  of the textbook.  Chapters and sections can be reorded in this file or
+  removed.
+
+
+Compiling
+---------
+
+This textbook is designed to be compiled using TeX Live 2015 but other
+versions may work as well.  TeX Live can be downloaded from
+https://www.tug.org/texlive/ .  You will need to look through their archive
+to find older versions of the compiler.
+
+
+On Linux: Add TeX Live 2015 to the PATH in your environment or edit the PATH
+  defined in the Makefile.  Then run one of the commands below.
+
+On Windows: Install the Cygwin command-line environment from
+  https://www.cygwin.com/ and add TeX Live 2015 to the PATH in Cygwin.  Then
+  run one of the commands below.  Alternatively, you can use one of the many
+  Latex editors or the built-in Windows command-line and simply run TeX Live
+  directly.
+
+The Makefile:
+
+This is provided for convenience to compile the textbook.  It invokes the
+typical "latex, dvips, ps2pdf" chain of commands.  We use the "--jobname"
+argument to latex to compile variations on the textbook such as for
+print-on-demand services.
+
+Run "make" to compile the main textbook, including cover page and solutions.
+
+Run "make clean" to clean directory and remove unnecessary files after compiling. 
+
+Note that some files are inputted as a PDF; the front/back covers, some front matter. The final compiled file is entitled "LinearAlgebraWithApplications_2021A.pdf". 
+
+Credits
+-------
+
+"Linear Algebra with Applications" is written by W. Keith Nicholson and has been converted to LaTeX by Lyryx Learning. 
+Please see frontmatter/license.tex and frontmatter/preface.tex for full contributions. 
+Please see frontmatter/attribution.tex for attribution guidelines. 
+
+
+Contributing
+------------
+
+We welcome contributions from the community.  If you have new or revised
+content that you wish to share, please contact us at the address below.
+
+
+Contact
+-------
+
+Lyryx Learning Inc
+1425 Kensington Road NW
+Calgary, Alberta
+T2N 3R1
+
+Visit our web site: http://lyryx.com
+
+General information and inquires: info@lyryx.com
+

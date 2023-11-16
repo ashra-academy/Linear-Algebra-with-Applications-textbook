@@ -1,0 +1,665 @@
+\newpage
+\section{An Application to Systems of Differential Equations}
+\label{sec:3_5}
+\index{differential equations}
+
+A function $f$ of a real variable is said to be \textbf{differentiable}\index{differentiable function}\index{function!differentiable function} if its derivative exists and, in this case, we let $f^{\prime}$ denote the derivative. If $f$ and $g$ are differentiable functions, a system
+\begin{align*}
+f^{\prime} &= 3f + 5g \\
+g^{\prime} &= -f + 2g 
+\end{align*}
+is called a \textit{system of first order differential equations,} or a \textit{differential system}\index{differential system!defined} for short. Solving many practical problems often comes down to finding 
+sets of functions that satisfy such a system (often involving more than 
+two functions). In this section we show how diagonalization can help. Of
+ course an acquaintance with calculus is required.
+
+
+\subsection*{The Exponential Function}
+\index{differential system!exponential function}\index{differential system!simplest differential system}\index{exponential function}\index{function!exponential function}
+
+The simplest differential system is the following single equation:
+\begin{equation}\label{eq:diffeq}
+f^{\prime} = af \mbox{ where } a \mbox{ is constant}
+\end{equation}
+It is easily verified that $f(x) = e ^{ax}$ is one solution; in fact, Equation \ref{eq:diffeq} is simple enough for us to find \textit{all} solutions. Suppose that $f$ is any solution, so that $f^{\prime}(x) = af(x)$ for all $x$. Consider the new function $g$ given by $g(x) = f(x)e^{-ax}$. Then the product rule of differentiation gives
+\begin{align*}
+g^{\prime}(x) & = f(x) \left[ -ae^{-ax} \right] + f^{\prime}(x) e^{-ax} \\
+&= -af(x)e^{-ax} + \left[ af(x)\right] e^{-ax} \\
+&= 0
+\end{align*}
+for all $x$. Hence the function $g(x)$ has zero derivative and so must be a constant, say $g(x) = c$. Thus $c = g(x) = f(x)e^{-ax}$, that is
+\begin{equation*}
+f(x) = ce^{ax}
+\end{equation*}
+In other words, every solution $f(x)$ of Equation \ref{eq:diffeq} is just a scalar multiple of $e^{ax}$. Since every such scalar multiple is easily seen to be a solution of Equation \ref{eq:diffeq}, we have proved
+
+
+\begin{theorem}{}{010427}
+The set of solutions to $f^{\prime}= af$ is $\{ce^{ax} \mid  c \mbox{ any constant}\} = \RR e^{ax}$.
+\end{theorem}
+
+\noindent Remarkably, this result together with diagonalization enables us to solve a wide variety of differential systems.
+
+
+\begin{example}{}{010433}
+Assume that the number $n(t)$ of bacteria in a culture at time $t$ has the property that the rate of change of $n$ is proportional to $n$ itself. If there are $n_{0}$ bacteria present when $t = 0$, find the number at time $t$.
+
+
+\begin{solution}
+  Let $k$ denote the proportionality constant. The rate of change of $n(t)$ is its time-derivative $n^{\prime}(t)$, so the given relationship is $n^{\prime}(t) = kn(t)$. Thus Theorem~\ref{thm:010427} shows that all solutions $n$ are given by $n(t) = ce^{kt}$, where $c$ is a constant. In this case, the constant $c$ is determined by the requirement that there be $n_{0}$ bacteria present when $t = 0$. Hence $n_{0} = n(0) = ce^{k0} = c$, so
+\begin{equation*}
+n(t) = n_0 e^{kt}
+\end{equation*}
+gives the number at time $t$. Of course the constant $k$ depends on the strain of bacteria.
+\end{solution}
+\end{example}
+
+The condition that $n(0) = n_{0}$ in Example~\ref{exa:010433} is called an \textbf{initial condition}\index{initial condition} or a \textbf{boundary condition}\index{boundary condition} and serves to select one solution from the available solutions.
+
+
+\subsection*{General Differential Systems}
+\index{diagonalization!general differential systems}\index{differential system!general differential systems}\index{general differential systems}
+
+Solving a variety of problems, 
+particularly in science and engineering, comes down to solving a system 
+of linear differential equations. Diagonalization enters into this as 
+follows. The general problem is to find differentiable functions $f_{1}, f_{2}, \dots , f_{n}$ that satisfy a system of equations of the form
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{ccccccc}
+f_1^{\prime} & = & a_{11}f_1 &+& a_{12}f_2 & + \cdots + & a_{1n}f_n \\
+f_2^{\prime} & = & a_{21}f_1 &+& a_{22}f_2 & + \cdots + & a_{2n}f_n \\
+\vdots & & \vdots & & \vdots & & \vdots \\
+f_n^{\prime} & = & a_{n1}f_1 &+& a_{n2}f_2 & + \cdots + & a_{nn}f_n \\
+\end{array}
+\end{equation*}
+where the $a_{ij}$ are constants. This is called a \textbf{linear system of differential equations}\index{linear system of differential equations} or simply a \textbf{differential system}\index{differential system}. The first step is to put it in matrix form. Write
+\begin{equation*}
+\vect{f} = \leftB \begin{array}{c}
+f_1 \\
+f_2 \\
+\vdots \\
+f_n 
+\end{array}\rightB \quad  \vect{f}^{\prime} = \leftB \begin{array}{c}
+f_1^{\prime} \\
+f_2^{\prime} \\
+\vdots \\
+f_n ^{\prime}
+\end{array}\rightB \quad A = \leftB \begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn} 
+\end{array}\rightB
+\end{equation*}
+Then the system can be written compactly using matrix multiplication:
+\begin{equation*}
+\vect{f}^{\prime} = A \vect{f}
+\end{equation*}
+Hence, given the matrix $A$, the problem is to find a column $\vect{f}$ of differentiable functions that satisfies this condition. This can be done if $A$ is diagonalizable. Here is an example.
+
+
+\begin{example}{}{010460}
+Find a solution to the system
+\begin{equation*}
+\begin{array}{ccr}
+f_1^{\prime} &= &f_1 + 3f_2 \\
+f_2^{\prime} &= &2f_1 + 2f_2
+\end{array}
+\end{equation*}
+that satisfies $f_{1}(0) = 0$, $f_{2}(0) = 5$.
+
+
+\begin{solution}
+  This is $\vect{f}^{\prime} = A\vect{f}$, where $\vect{f} = \leftB \begin{array}{c}
+f_1\\
+f_2\end{array}\rightB$
+ and $A = \leftB \begin{array}{rr}
+1 & 3 \\
+2 & 2 
+\end{array}\rightB$. The reader can verify that $c_{A}(x) = (x - 4)(x + 1)$, and that $\vect{x}_1 = \leftB \begin{array}{c}
+1\\
+1\end{array}\rightB$
+ and $\vect{x}_2 = \leftB \begin{array}{c}
+3\\
+-2\end{array}\rightB$
+ are eigenvectors corresponding to the eigenvalues $4$ and $-1$, respectively. Hence the diagonalization algorithm gives $P^{-1}AP = \leftB \begin{array}{rr}
+4 & 0 \\
+0 & -1 
+\end{array}\rightB$, where $P = \leftB \begin{array}{cc}
+\vect{x}_1 & \vect{x}_2 
+\end{array}\rightB = \leftB \begin{array}{rr}
+1 & 3 \\
+1 & -2
+\end{array}\rightB$.
+ Now consider new functions $g_{1}$ and $g_{2}$ given by $\vect{f} = P\vect{g}$ (equivalently, $\vect{g} = P^{-1} \vect{f}$
+), where $\vect{g} = \leftB \begin{array}{c}
+g_1\\
+g_2\end{array}\rightB$
+ Then
+\begin{equation*}
+\leftB \begin{array}{c}
+f_1\\
+f_2\end{array}\rightB = \leftB \begin{array}{rr}
+1 & 3 \\
+1 & -2
+\end{array}\rightB \leftB \begin{array}{c}
+g_1\\
+g_2
+\end{array}\rightB \quad \mbox{ that is, }
+\begin{array}{l}
+f_1 = g_1 + 3g_2 \\
+f_2 = g_1 - 2g_2 
+\end{array}
+\end{equation*}
+Hence $f_1^{\prime} = g_1^{\prime} + 3g_2^{\prime}$ and $f_2^{\prime} = g_1^{\prime}- 2g_2^{\prime}$ so that
+\begin{equation*}
+\vect{f}^{\prime} = \leftB \begin{array}{c}
+f_1^{\prime} \\
+f_2^{\prime} \end{array}
+\rightB =  \leftB \begin{array}{rr}
+1 & 3 \\
+1 & -2
+\end{array}\rightB \leftB \begin{array}{c}
+g_1^{\prime} \\
+g_2^{\prime} \end{array}
+\rightB = P \vect{g}^{\prime}
+\end{equation*}
+If this is substituted in $\vect{f}^{\prime} = A\vect{f}$, the result is $P\vect{g}^{\prime} = AP\vect{g}$, whence
+\begin{equation*}
+\vect{g}^{\prime} = P^{-1}AP \vect{g}
+\end{equation*}
+But this means that
+\begin{equation*}
+ \leftB \begin{array}{c}
+g_1^{\prime} \\
+g_2^{\prime} \end{array}
+\rightB = \leftB \begin{array}{rr}
+4 & 0 \\
+0 & -1 
+\end{array}\rightB  \leftB \begin{array}{c}
+g_1 \\
+g_2 \end{array}
+\rightB, \quad \mbox{ so }
+\begin{array}{l}
+g_1^{\prime} = 4g_1 \\
+g_2^{\prime} = -g_2
+\end{array}
+\end{equation*}
+Hence Theorem~\ref{thm:010427} gives $g_{1}(x) = ce^{4x}$, $g_{2}(x) = de^{-x}$, where $c$ and $d$ are constants. Finally, then,
+\begin{equation*}
+\leftB \begin{array}{c}
+f_1(x) \\
+f_2(x)
+\end{array}\rightB = 
+P \leftB \begin{array}{c}
+g_1(x) \\
+g_2(x)
+\end{array}\rightB
+= \leftB \begin{array}{rr}
+1 & 3 \\
+1 & -2
+\end{array}\rightB
+\leftB \begin{array}{r}
+ce^{4x} \\
+de^{-x}
+\end{array}\rightB
+= \leftB \begin{array}{r}
+ce^{4x} + 3de^{-x}\\
+ce^{4x} -2de^{-x}
+\end{array}\rightB
+\end{equation*}
+so the \textit{general solution}\index{general solution}\index{differential system!general solution} is
+\begin{equation*}
+\begin{array}{lrr}
+f_1(x) & = &ce^{4x} + 3de^{-x}  \\
+f_2(x) & = &ce^{4x} - 2de^{-x}  
+\end{array}
+\quad  c \mbox{ and } d \mbox{ constants}
+\end{equation*} 
+It is worth observing that this can be written in matrix form as
+\begin{equation*}
+\leftB \begin{array}{c}
+f_1(x) \\
+f_2(x)
+\end{array}\rightB = c \leftB \begin{array}{c}
+1 \\
+1
+\end{array}\rightB e^{4x} + d \leftB \begin{array}{r}
+3 \\
+-2
+\end{array}\rightB e^{-x}
+\end{equation*}
+That is,
+\begin{equation*}
+\vect{f}(x) = c\vect{x}_1 e^{4x} + d \vect{x}_2 e^{-x}
+\end{equation*}
+This form of the solution works more generally, as will be shown.
+
+
+Finally, the requirement that $f_{1}(0) = 0$ and $f_{2}(0) = 5$ in this example determines the constants $c$ and $d$:
+\begin{align*}
+0 & = f_1(0) = ce^0 + 3de^0 = c+3d \\
+5 & = f_2(0) = ce^0 - 2de^0 = c-2d
+\end{align*}
+These equations give $c = 3$ and $d = -1$, so
+\begin{align*}
+f_1(x) &= 3e^{4x}- 3e^{-x} \\
+f_2(x) &= 3e^{4x} +2e^{-x}
+\end{align*}
+satisfy all the requirements.
+\end{solution}
+\end{example}
+
+The technique in this example works in general.
+
+
+\begin{theorem}{}{010514}
+Consider a linear system
+\begin{equation*}
+\vect{f}^{\prime} = A \vect{f}
+\end{equation*}
+of differential equations, where $A$ is an $n \times n$ diagonalizable matrix. Let $P^{-1}AP$ be diagonal, where $P$ is given in terms of its columns
+\begin{equation*}
+P = \leftB \vect{x}_1,\vect{x}_2, \cdots, \vect{x}_n \rightB
+\end{equation*}
+and $\{\vect{x}_{1}, \vect{x}_{2}, \dots , \vect{x}_{n}\}$ are eigenvectors of A. If $\vect{x}_{i}$ corresponds to the eigenvalue $\lambda_{i}$ for each i, then every solution $\vect{f}$ of $\vect{f}{}^{\prime} = A\vect{f}$ has the form
+\begin{equation*}
+\vect{f}(x) = c_1\vect{x}_1 e^{\lambda_1x} +c_2\vect{x}_2 e^{\lambda_2x} + \cdots + c_n\vect{x}_n e^{\lambda_nx}
+\end{equation*}
+where $c_{1}, c_{2}, \dots , c_{n}$ are arbitrary constants.
+\end{theorem}
+
+\begin{proof}
+By Theorem \ref{thm:009214}, the matrix $P = \leftB \begin{array}{cccc} \vect{x}_{1} &  \vect{x}_{2} & \dots & \vect{x}_{n} \end{array} \rightB$ is invertible and
+\begin{equation*}
+P^{-1}AP = \leftB \begin{array}{cccc}
+\lambda_1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots & & \vdots \\
+0 & 0 & \cdots & \lambda_n
+\end{array}\rightB
+\end{equation*}
+As in Example~\ref{exa:010460}, write $\vect{f} = \leftB \begin{array}{c}
+f_1\\
+f_2\\
+\vdots \\
+f_n
+\end{array}\rightB$
+ and define $\vect{g} = \leftB \begin{array}{c}
+g_1\\
+g_2\\
+\vdots \\
+g_n
+\end{array}\rightB$
+ by $\vect{g} = P^{-1}\vect{f}$; equivalently, $\vect{f} = P\vect{g}$. If $P = \leftB p_{ij}\rightB$, this gives
+\begin{equation*}
+f_i = p_{i1}g_1 + p_{i2}g_2 + \cdots + p_{in}g_n
+\end{equation*}
+Since the $p_{ij}$ are constants, differentiation preserves this relationship:
+\begin{equation*}
+f_i^{\prime} = p_{i1}g_1^{\prime} + p_{i2}g_2^{\prime} + \cdots + p_{in}g_n^{\prime}
+\end{equation*}
+so $\vect{f}^{\prime} = P\vect{g}^{\prime}$. Substituting this into $\vect{f}^{\prime} = A\vect{f}$ gives $P\vect{g}^{\prime} = AP\vect{g}$. But then left multiplication by $P^{-1}$ gives $\vect{g}^{\prime} = P^{-1}AP\vect{g}$, so the original system of equations $\vect{f}^{\prime} = A\vect{f}$ for $\vect{f}$ becomes much simpler in terms of $\vect{g}$:
+\begin{equation*}
+ \leftB \begin{array}{c}
+g_1^{\prime}\\
+g_2^{\prime}\\
+\vdots \\
+g_n^{\prime}
+\end{array}\rightB = \leftB \begin{array}{cccc}
+\lambda_1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots & & \vdots \\
+0 & 0 & \cdots & \lambda_n
+\end{array}\rightB \leftB \begin{array}{c}
+g_1\\
+g_2\\
+\vdots \\
+g_n
+\end{array}\rightB
+\end{equation*}
+Hence $g_{i}^{\prime} = \lambda_{i}g_{i}$ holds for each $i$, and Theorem~\ref{thm:010427} implies that the only solutions are
+\begin{equation*}
+g_i(x) = c_i e^{\lambda_i x} \quad c_i \mbox{ some constant}
+\end{equation*}
+Then the relationship $\vect{f} = P\vect{g}$ gives the functions $f_{1}, f_{2}, \dots , f_{n}$ as follows:
+\begin{equation*}
+\vect{f}(x) = \leftB \vect{x}_1, \vect{x}_2, \cdots, \vect{x}_n \rightB
+\leftB \begin{array}{c}
+c_1 e^{\lambda_1 x}\\
+c_2 e^{\lambda_2 x}\\
+\vdots \\
+c_n e^{\lambda_n x}\\
+\end{array}\rightB
+= c_1 \vect{x}_1 e^{\lambda_1 x} + c_2 \vect{x}_2 e^{\lambda_2 x} +\cdots + c_n \vect{x}_n e^{\lambda_n x}
+\end{equation*}
+This is what we wanted.
+\end{proof}
+
+The theorem shows that \textit{every} solution to $\vect{f}^{\prime} = A\vect{f}$ is a linear combination
+\begin{equation*}
+\vect{f}(x) = c_1 \vect{x}_1 e^{\lambda_1 x} + c_2 \vect{x}_2 e^{\lambda_2 x} +\cdots + c_n \vect{x}_n e^{\lambda_n x}
+\end{equation*}
+where the coefficients $c_{i}$ are arbitrary. Hence this is called the \textbf{general solution} to the system of differential equations. In most cases the solution functions $f_{i}(x)$ are required to satisfy boundary conditions, often of the form $f_{i}(a) = b_{i}$, where $a, b_{1}, \dots , b_{n}$ are prescribed numbers. These conditions determine the constants $c_{i}$. The following example illustrates this and displays a situation where one eigenvalue has multiplicity greater than 1.
+
+
+\begin{example}{}{010568}
+Find the general solution to the system
+\begin{equation*}
+\arraycolsep=1pt \begin{array}{rrrrrrr}
+f_1^{\prime} & = & 5f_1 & + & 8f_2 & + & 16f_3 \\
+f_2^{\prime} & = & 4f_1 & + & f_2 & + & 8f_3 \\
+f_3^{\prime} & = & -4f_1 & - & 4f_2 & - & 11f_3 
+\end{array}
+\end{equation*}
+Then find a solution satisfying the boundary conditions $f_{1}(0) = f_{2}(0) = f_{3}(0) = 1$.
+
+
+\begin{solution}
+  The system has the form $\vect{f}^{\prime} = A\vect{f}$, where $ A = \leftB \begin{array}{rrr}
+5 & 8 & 16 \\
+4 & 1 & 8 \\
+-4 & -4 & -11 
+\end{array}\rightB$. In this case $c_{A}(x) = (x + 3)^2(x - 1)$ and eigenvectors corresponding to the eigenvalues $-3$, $-3$, and $1$ are, respectively,
+\begin{equation*}
+\vect{x}_1 = \leftB \begin{array}{r}
+-1 \\
+1 \\
+0
+\end{array}\rightB \quad \vect{x}_2 = \leftB \begin{array}{r}
+-2 \\
+0 \\
+1
+\end{array}\rightB \quad \vect{x}_3 = \leftB \begin{array}{r}
+2 \\
+1 \\
+-1
+\end{array}\rightB
+\end{equation*}
+Hence, by Theorem~\ref{thm:010514}, the general solution is
+\begin{equation*}
+\vect{f}(x) = c_1\leftB \begin{array}{r}
+-1 \\
+1 \\
+0
+\end{array}\rightB e^{-3x} + c_2\leftB \begin{array}{r}
+-2 \\
+0 \\
+1
+\end{array}\rightB e^{-3x} + c_3\leftB \begin{array}{r}
+2 \\
+1 \\
+-1
+\end{array}\rightB e^x, \quad c_i \mbox{ constants.}
+\end{equation*}
+The boundary conditions $f_{1}(0) = f_{2}(0) = f_{3}(0) = 1$ determine the constants $c_{i}$.
+\begin{align*}
+\leftB \begin{array}{c}
+1 \\
+1 \\
+1
+\end{array}\rightB = \vect{f}(0) &= c_1\leftB \begin{array}{r}
+-1 \\
+1 \\
+0
+\end{array}\rightB + c_2\leftB \begin{array}{r}
+-2 \\
+0 \\
+1
+\end{array}\rightB  + c_3\leftB \begin{array}{r}
+2 \\
+1 \\
+-1
+\end{array}\rightB \\
+&= \leftB \begin{array}{rrr}
+-1 & -2 & 2 \\
+1 & 0 & 1 \\
+0 & 1 & -1
+\end{array}\rightB \leftB \begin{array}{c}
+c_1 \\
+c_2 \\
+c_3
+\end{array}\rightB
+\end{align*}
+The solution is $c_{1} = -3$, $c_{2} = 5$, $c_{3} = 4$, so the required specific solution is
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rrrr}
+f_1(x)  = & -7e^{-3x} & + & 8e^x \\
+f_2(x)  = & -3e^{-3x} & + & 4e^x \\
+f_3(x)  = & 5e^{-3x} & - & 4e^x 
+\end{array}
+\end{equation*}
+\end{solution}
+\end{example} 
+
+\section*{Exercises for \ref{sec:3_5}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:3_5}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Use Theorem~\ref{thm:010427}
+ to find the general solution to each of the following systems. Then 
+find a specific solution satisfying the given boundary condition.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\arraycolsep=1pt
+\begin{array}[t]{rrrl}
+f_1^{\prime} & = 2f_1 + 4f_2, && f_1(0)=0 \\
+f_2^{\prime} & = 3f_1 + 3f_2, && f_2(0)=1
+\end{array}$
+
+
+\item $\arraycolsep=1pt
+\begin{array}[t]{rrrlr}
+f_1^{\prime} & = -f_1 + 5f_2,& & f_1(0)=&1 \\
+f_2^{\prime} & = f_1 + 3f_2, && f_2(0)=&-1
+\end{array}$
+
+
+\item $\arraycolsep=1pt
+\begin{array}[t]{rr}
+f_1^{\prime}  = &  	4f_2 + 4f_3 \\
+f_2^{\prime}  = & f_1 + f_2 -2f_3 \\
+f_3^{\prime}  = & -f_1 + f_2 +4f_3 \\
+\end{array}$
+
+$
+f_1(0) = f_2(0) = f_3(0)=1
+$
+
+
+\item $\arraycolsep=1pt
+\begin{array}[t]{rlrr}
+f_1^{\prime}  = & 2f_1 + &f_2 + &2f_3 \\
+f_2^{\prime}  = & 2f_1 + &2f_2 - &2f_3 \\
+f_3^{\prime}  = & 3f_1 + &f_2 + &f_3 \\
+\end{array}$
+
+$
+f_1(0) = f_2(0) = f_3(0)=1
+$
+
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $c_1 \leftB \begin{array}{r}
+1 \\
+1
+\end{array} \rightB e^{4x} + c_2 \leftB \begin{array}{r}
+5 \\
+-1
+\end{array} \rightB e^{-2x};
+c_1 = -\frac{2}{3}, c_2 = \frac{1}{3}$
+
+
+\setcounter{enumi}{3}
+\item   $c_1 \leftB \begin{array}{r}
+-8 \\
+10 \\
+7
+\end{array} \rightB e^{-x} + c_2 \leftB \begin{array}{r}
+1 \\
+-2 \\
+1
+\end{array} \rightB e^{2x} + c_3 \leftB \begin{array}{r}
+1 \\
+0 \\
+1
+\end{array} \rightB e^{4x}$; \\
+$c_1 = 0, c_2 = -\frac{1}{2}, c_3=\frac{3}{2}$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the solution to $f^{\prime}= af$ satisfying $f(x_{0}) = k$ is $f(x) = ke^{a(x-x_0)}$.
+\end{ex}
+
+\begin{ex}
+A
+ radioactive element decays at a rate proportional to the amount 
+present. Suppose an initial mass of 10 g decays to 8 g in 3 hours.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Find the mass $t$ hours later.
+
+\item Find the half-life of the element---the time taken to decay to half its mass.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The solution to (a) is $m(t) = 10 \left( \frac{4}{5} \right)^{t/3}$.
+ Hence we want $t$ such that $10 \left( \frac{4}{5} \right)^{t/3}=5$.
+ We solve for $t$ by taking natural logarithms: 
+\begin{equation*}
+t = \frac{3 \ln (\frac{1}{2})}{\ln (\frac{4}{5})} = 9.32 \mbox{ hours}.
+\end{equation*}
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+The population $N(t)$ of a region at time $t$ increases at a rate proportional to the population. If the population doubles every 5 years and is 3 million initially, find $N(t)$.
+\end{ex}
+
+\begin{ex}
+Let $A$ be an invertible diagonalizable $n \times n$ matrix and let $\vect{b}$ be an $n$-column of constant functions. We can solve the system $\vect{f}^{\prime} = A\vect{f} + \vect{b}$ as follows:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\vect{g}$ satisfies $\vect{g}^{\prime} = A\vect{g}$ (using Theorem~\ref{thm:010514}), show that $\vect{f} = \vect{g} - A^{-1}\vect{b}$ is a solution to $\vect{f}^{\prime} = A\vect{f} + \vect{b}$.
+
+\item Show that every solution to $\vect{f}^{\prime} = A\vect{f} + \vect{b}$ arises as in (a) for some solution $\vect{g}$ to $\vect{g}^{\prime} = A\vect{g}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\item  If $\vect{g}^{\prime} = A\vect{g}$, put $\vect{f} = \vect{g} - A^{-1}\vect{b}$. Then $\vect{f}^{\prime} = \vect{g}^{\prime}$ and $A\vect{f} = A\vect{g} - \vect{b}$, so $\vect{f}^{\prime} = \vect{g}^{\prime} = A\vect{g} = A\vect{f} + \vect{b}$, as required.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:3_5_6}
+Denote the second derivative of $f$ by $f^{\dprime} = (f^{\prime})^{\prime}$. Consider the second order differential equation 
+\begin{equation}\label{eq:secondorderdiff}
+f^{\dprime} - a_1 f^{\prime}-a_2 f = 0, \quad a_1 \mbox{ and } a_2 \mbox{ real numbers} 
+\end{equation}
+\begin{enumerate}[label={\alph*.}]
+\item If $f$ is a solution to Equation \ref{eq:secondorderdiff}
+ let $f_{1} = f$ and $f_{2} = f^{\prime} - a_{1}f$. Show that
+
+$
+\left\lbrace \arraycolsep=1pt
+\begin{array}{l}
+f_1^{\prime} = a_1f_1 + f_2 \\
+f_2^{\prime} = a_2f_1
+\end{array}, \right.  $ \\ that is $ \left. \leftB \arraycolsep=5pt \begin{array}{c}
+f_1^{\prime} \\
+f_2^{\prime}
+\end{array}\rightB = \leftB \arraycolsep=5pt   \begin{array}{cc}
+a_1 & 1 \\
+a_2 & 0 
+\end{array}\rightB \leftB \arraycolsep=5pt  \begin{array}{c}
+f_1 \\
+f_2
+\end{array}\rightB \right.
+$
+
+
+\item Conversely, if $\leftB \begin{array}{c}
+f_1 \\
+f_2
+\end{array}\rightB$
+ is a solution to the system in (a), show that $f_{1}$ is a solution to Equation \ref{eq:secondorderdiff}.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Assume that $f_{1}^{\prime} = a_{1}f_{1} + f_{2}$ and $f_{2}^{\prime} = a_{2}f_{1}$. Differentiating gives $f_{1}^{\dprime} = a_{1}f_{1}^{\prime} + f_{2}{}^{\prime} = a_{1}f_{1}^{\prime} + a_{2}f_{1}$, proving that $f_{1}$ satisfies Equation \ref{eq:secondorderdiff}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:3_5_7}
+Writing $f^{\dprime\prime} = (f^\dprime)^{\prime}$, consider the third order differential equation
+\begin{equation*}
+f^{\dprime\prime} - a_1 f^{\dprime} - a_2 f^{\prime} - a_3 f = 0
+\end{equation*}
+where $a_{1}$, $a_{2}$, and $a_{3}$ are real numbers. Let \\ $f_{1} = f$, $f_{2} = f^{\prime}- a_{1}f$ and $f_{3} = f^\dprime - a_{1}f{}^{\prime} - a_{2}f^\dprime$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $\leftB \begin{array}{c}
+f_1 \\
+f_2 \\
+f_3
+\end{array}\rightB$
+ is a solution to the system
+
+$
+\left\lbrace \arraycolsep=1pt
+\begin{array}{l}
+f_1^{\prime} = a_1f_1 + f_2 \\
+f_2^{\prime} = a_2f_1 + f_3 \\
+f_3^{\prime} = a_3f_1
+\end{array}, \right.$  \\  that is  $ \left. \leftB \arraycolsep=5pt \begin{array}{c}
+f_1^{\prime} \\
+f_2^{\prime} \\
+f_3^{\prime}
+\end{array}\rightB = \leftB \arraycolsep=5pt \begin{array}{ccc}
+a_1 & 1  & 0 \\
+a_2 & 0 & 1 \\
+a_3 & 0 & 0
+\end{array}\rightB \leftB \arraycolsep=5pt \begin{array}{c}
+f_1 \\
+f_2 \\
+f_3
+\end{array}\rightB\right.$
+
+\item Show further that if $\leftB \begin{array}{c}
+f_1 \\
+f_2 \\
+f_3
+\end{array}\rightB$
+ is any solution to this system, then $f = f_{1}$ is a solution to Equation \ref{eq:secondorderdiff}. 
+\end{enumerate}
+\textit{Remark}. A similar construction casts every linear differential equation of order $n$ (with constant coefficients) as an $n \times n$ linear system of first order equations. However, the matrix need not be diagonalizable, so other methods have been developed.
+
+
+\end{ex}
+
+\end{multicols}

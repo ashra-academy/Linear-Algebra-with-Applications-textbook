@@ -1,0 +1,1550 @@
+\section{Linear Transformations}
+\label{sec:2_6}
+
+If $A$ is an $m \times n$ matrix, recall that the transformation $T_{A} : \RR^n \to \RR^m$ defined by
+\begin{equation*}
+T_{A}(\vect{x}) = A\vect{x} \quad \mbox{ for all } \vect{x} \mbox{ in } \RR^n
+\end{equation*}
+is called the \textit{matrix transformation induced}\index{matrix transformation induced} by $A$. In Section~\ref{sec:2_2}, we saw that many important geometric transformations were in fact matrix transformations. These transformations can be characterized in a different way. The new idea is that of a linear transformation, one of the basic notions in linear algebra. We define these transformations in this section, and show that they are really just the matrix transformations looked at in another way. Having these two ways to view them turns out to be useful because, in a given situation, one perspective or the other may be preferable.\index{linear transformations!matrix transformations!another perspective on}
+
+\subsection*{Linear Transformations}
+
+\begin{definition}{Linear Transformations $\RR^n \to \RR^m$}{005688}
+A transformation $T : \RR^n \to \RR^m$ is called a \textbf{linear transformation}\index{linear transformations!defined}\index{linear transformations!described} if it satisfies the following two conditions for all vectors $\vect{x}$ and $\vect{y}$ in $\RR^n$ and all scalars $a$:
+\begin{enumerate}
+\item[T1] \quad $T(\vect{x} + \vect{y}) = T(\vect{x}) + T(\vect{y})$
+\item[T2] \quad $T(a\vect{x}) = aT(\vect{x})$
+\end{enumerate}
+\end{definition}
+
+\noindent Of course, $\vect{x} + \vect{y}$ and $a\vect{x}$ here are computed in $\RR^n$, while $T(\vect{x}) + T(\vect{y})$ and $aT(\vect{x})$ are in $\RR^m$. We say that $T$ \textit{preserves addition}\index{addition!transformations!preserving addition} if T1 holds, and that $T$ \textit{preserves scalar multiplication}\index{scalar multiplication!transformations!preserving scalar multiplication} if T2 holds. Moreover, taking $a = 0$ and $a = -1$ in T2 gives
+\begin{equation*}
+T(\vect{0}) = \vect{0} \quad \mbox{ and } \quad T(-\vect{x}) = -T(\vect{x}) \quad  \mbox{ for all } \vect{x}
+\end{equation*}
+Hence $T$ preserves the zero vector and the negative of a vector. Even more is true.
+
+Recall that a vector $\vect{y}$ in $\RR^n$ is called a \textbf{linear combination}\index{linear combinations!defined} of vectors $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$ if $\vect{y}$ has the form
+\begin{equation*}
+\vect{y} = a_{1}\vect{x}_{1} + a_{2}\vect{x}_{2} + \cdots + a_{k}\vect{x}_{k}
+\end{equation*}
+for some scalars $a_{1}, a_{2}, \dots, a_{k}$. Conditions T1 and T2 combine to show that every linear transformation $T$ \textit{preserves linear combinations} in the sense of the following theorem. This result is used repeatedly in linear algebra.\index{linear combinations!and linear transformations}
+
+\begin{theorem}{Linearity Theorem}{005709}
+If $T : \RR^n \to \RR^m$ is a linear transformation, then for each $k = 1, 2, \dots$
+\begin{equation*}
+T(a_{1}\vect{x}_{1} + a_{2}\vect{x}_{2} + \cdots + a_{k}\vect{x}_{k}) = a_{1}T(\vect{x}_{1}) + a_{2}T(\vect{x}_{2}) + \cdots + a_{k}T(\vect{x}_{k})
+\end{equation*}
+for all scalars $a_{i}$ and all vectors $\vect{x}_{i}$ in $\RR^n$.
+\end{theorem}
+
+\begin{proof}
+If $k = 1$, it reads $T(a_{1}\vect{x}_{1}) = a_{1}T(\vect{x}_{1})$ which is Condition T1. If $k = 2$, we have
+\begin{equation*}
+\begin{array}{llllr}
+T(a_{1}\vect{x}_{1} + a_{2}\vect{x}_{2}) & = & T(a_{1}\vect{x}_{1}) + T(a_{2}\vect{x}_{2}) & & \mbox{ by Condition T1} \\
+& = & a_{1}T(\vect{x}_{1}) + a_{2}T(\vect{x}_{2})  & &  \mbox{by Condition T2}
+\end{array}
+\end{equation*}
+If $k = 3$, we use the case $k = 2$ to obtain
+\begin{equation*}
+\begin{array}{lllll}
+T(a_{1}\vect{x}_{1} + a_{2}\vect{x}_{2} + a_{3}\vect{x}_{3}) & = & T \left[(a_{1}\vect{x}_{1} + a_{2}\vect{x}_{2}) + a_{3}\vect{x}_{3} \right] & & \mbox{collect terms} \\
+& = & T(a_{1}\vect{x}_{1} + a_{2}\vect{x}_{2}) + T(a_{3}\vect{x}_{3}) & & \mbox{by Condition T1} \\
+& = & \left[a_{1}T(\vect{x}_{1}) + a_{2}T(\vect{x}_{2})\right] + T(a_{3}\vect{x}_{3}) & & \mbox{by the case } k = 2 \\
+& = & \left[a_{1}T(\vect{x}_{1}) + a_{2}T(\vect{x}_{2})\right] + a_{3}T(\vect{x}_{3}) & & \mbox{by Condition T2}
+\end{array}
+\end{equation*}
+The proof for any $k$ is similar, using the previous case $k - 1$ and Conditions T1 and T2.
+\end{proof}
+
+\noindent The method of proof in Theorem~\ref{thm:005709} is called \textit{mathematical induction} (Appendix~\ref{chap:appcinduction}).\index{induction!mathematical induction}\index{mathematical induction}
+
+Theorem~\ref{thm:005709} shows that if $T$ is a linear transformation and $T(\vect{x}_{1}), T(\vect{x}_{2}), \dots, T(\vect{x}_{k})$ are all known, then $T(\vect{y})$ can be easily computed for any linear combination $\vect{y}$ of $\vect{x}_{1}, \vect{x}_{2}, \dots, \vect{x}_{k}$. This is a very useful property of linear transformations, and is illustrated in the next example.
+
+\begin{example}{}{005737}
+If $T : \RR^{2} \to \RR^{2}$ is a linear transformation, $T \leftB \begin{array}{r}
+1 \\
+1
+\end{array} \rightB = \leftB \begin{array}{r}
+2 \\
+-3
+\end{array} \rightB$
+ and $T \leftB \begin{array}{r}
+ 1 \\
+ -2
+ \end{array} \rightB = \leftB \begin{array}{r}
+ 5 \\
+ 1
+ \end{array} \rightB$,
+ find $T \leftB \begin{array}{r}
+ 4 \\
+ 3
+ \end{array} \rightB$.
+
+\begin{solution}
+  Write $\vect{z} = \leftB \begin{array}{r}
+  4 \\
+  3
+  \end{array} \rightB$, $\vect{x} = \leftB \begin{array}{r}
+  1 \\
+  1
+  \end{array} \rightB$, and $\vect{y} = \leftB \begin{array}{r}
+ 1 \\
+ -2
+ \end{array} \rightB$
+ for convenience. Then we know $T(\vect{x})$ and $T(\vect{y})$ and we want $T(\vect{z})$, so it is enough by Theorem~\ref{thm:005709} to express $\vect{z}$ as a linear combination of $\vect{x}$ and $\vect{y}$. That is, we want to find numbers $a$ and $b$ such that $\vect{z} = a\vect{x} + b\vect{y}$. Equating entries gives two equations $4 = a + b$ and $3 = a - 2b$. The solution is, $a = \frac{11}{3}$
+ and $b = \frac{1}{3}$, so $\vect{z} = \frac{11}{3}\vect{x} + \frac{1}{3}\vect{y}$.
+ Thus Theorem~\ref{thm:005709} gives
+\begin{equation*}
+T(\vect{z}) = \frac{11}{3}T(\vect{x}) + \frac{1}{3}T(\vect{y}) = \frac{11}{3} \leftB \begin{array}{r}
+2 \\
+-3
+\end{array} \rightB + \frac{1}{3} \leftB \begin{array}{r}
+5 \\
+1
+\end{array} \rightB = \frac{1}{3} \leftB \begin{array}{r}
+27 \\
+-32
+\end{array} \rightB
+\end{equation*}
+This is what we wanted.
+\end{solution}
+\end{example}
+
+\begin{example}{}{005754}
+If $A$ is $m \times n$, the matrix transformation $T_{A} : \RR^n \to \RR^m$, is a linear transformation.
+
+\begin{solution}
+  We have $T_{A}(\vect{x}) = A\vect{x}$ for all $\vect{x}$ in $\RR^n$, so Theorem~\ref{thm:002811} gives
+\begin{equation*}
+T_{A}(\vect{x} + \vect{y}) = A(\vect{x} + \vect{y}) = A\vect{x} + A\vect{y} = T_{A}(\vect{x}) + T_{A}(\vect{y})
+\end{equation*}
+and
+\begin{equation*}
+T_{A}(a\vect{x}) = A(a\vect{x}) = a(A\vect{x}) = aT_{A}(\vect{x})
+\end{equation*}
+hold for all $\vect{x}$ and $\vect{y}$ in $\RR^n$ and all scalars $a$. Hence $T_{A}$ satisfies T1 and T2, and so is linear.
+\end{solution}
+\end{example}
+
+The remarkable thing is that the \textit{converse} of Example~\ref{exa:005754} is true: Every linear transformation \\ $T : \RR^n \to \RR^m$ is actually a matrix transformation. To see why, we define the \textbf{standard basis}\index{standard basis}\index{basis!standard basis}\index{set of all ordered $n$-tuples ($\RR^n$)!standard basis} of $\RR^n$ to be the set of columns
+\begin{equation*}
+\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}
+\end{equation*}
+of the identity matrix $I_{n}$. Then each $\vect{e}_{i}$ is in $\RR^n$ and every vector $\vect{x} = \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{array} \rightB$
+ in $\RR^n$ is a linear combination of the $\vect{e}_{i}$. In fact:
+\begin{equation*}
+\vect{x} = x_{1}\vect{e}_{1} + x_{2}\vect{e}_{2} + \cdots + x_{n}\vect{e}_{n}
+\end{equation*}
+as the reader can verify. Hence Theorem~\ref{thm:005709} shows that
+\begin{equation*}
+T(\vect{x}) = T(x_{1}\vect{e}_{1} + x_{2}\vect{e}_{2} + \cdots + x_{n}\vect{e}_{n}) = x_{1}T(\vect{e}_{1}) + x_{2}T(\vect{e}_{2}) + \cdots + x_{n}T(\vect{e}_{n})
+\end{equation*}
+Now observe that each $T(\vect{e}_{i})$ is a column in $\RR^m$, so
+\begin{equation*}
+A = \leftB \begin{array}{cccc}
+T(\vect{e}_{1}) & T(\vect{e}_{2}) & \cdots & T(\vect{e}_{n})
+\end{array} \rightB
+\end{equation*}
+is an $m \times n$ matrix. Hence we can apply Definition~\ref{def:002668} to get
+\begin{equation*}
+T(\vect{x}) = x_{1}T(\vect{e}_{1}) + x_{2}T(\vect{e}_{2}) + \cdots + x_{n}T(\vect{e}_{n}) = \leftB \begin{array}{cccc}
+T(\vect{e}_{1}) & T(\vect{e}_{2}) & \cdots & T(\vect{e}_{n})
+\end{array} \rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{array} \rightB = A\vect{x}
+\end{equation*}
+Since this holds for every $\vect{x}$ in $\RR^n$, it shows that $T$ is the matrix transformation induced by $A$, and so proves most of the following theorem.
+
+\begin{theorem}{}{005789}
+Let $T : \RR^n \to \RR^m$ be a transformation.
+
+\begin{enumerate}
+\item $T$ is linear if and only if it is a matrix transformation.
+
+\item In this case $T = T_{A}$ is the matrix transformation induced by a unique $m \times n$ matrix $A$, given in terms of its columns by
+\begin{equation*}
+A = \leftB \begin{array}{cccc}
+T(\vect{e}_{1}) & T(\vect{e}_{2}) & \cdots & T(\vect{e}_{n})
+\end{array} \rightB
+\end{equation*}
+where $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is the standard basis of $\RR^n$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+It remains to verify that the matrix $A$ is unique. Suppose that $T$ is induced by another matrix $B$. Then $T(\vect{x}) = B\vect{x}$ for all $\vect{x}$ in $\RR^n$. But $T(\vect{x}) = A\vect{x}$ for each $\vect{x}$, so $B\vect{x} = A\vect{x}$ for every $\vect{x}$. Hence $A = B$ by Theorem~\ref{thm:002985}.
+\end{proof}
+
+Hence we can speak of \textit{the} matrix of a linear transformation. Because of Theorem~\ref{thm:005789} we may (and shall) use the phrases ``linear transformation'' and ``matrix transformation'' interchangeably.
+
+\begin{example}{}{005811}
+Define $T : \RR^3 \to \RR^2$ by $T \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array} \rightB = \leftB \begin{array}{c}
+x_{1} \\
+x_{2}
+\end{array} \rightB$
+ for all $\leftB \begin{array}{c}
+ x_{1} \\
+ x_{2} \\
+ x_{3}
+ \end{array} \rightB$
+ in $\RR^3$. Show that $T$ is a linear transformation and use Theorem~\ref{thm:005789} to find its matrix.
+
+\begin{solution}
+  Write $\vect{x} = \leftB \begin{array}{c}
+  x_{1} \\
+  x_{2} \\
+  x_{3}
+  \end{array} \rightB$
+ and $\vect{y} = \leftB \begin{array}{c}
+ y_{1} \\
+ y_{2} \\
+ y_{3}
+ \end{array} \rightB$, so that $\vect{x} + \vect{y} = \leftB \begin{array}{c}
+ x_{1} + y_{1} \\ 
+ x_{2} + y_{2} \\
+ x_{3} + y_{3}
+ \end{array} \rightB$. Hence
+\begin{equation*}
+T(\vect{x} + \vect{y}) = \leftB \begin{array}{c}
+ x_{1} + y_{1} \\ 
+x_{2} + y_{2}
+\end{array} \rightB = \leftB \begin{array}{c}
+x_{1} \\
+x_{2}
+\end{array} \rightB + \leftB \begin{array}{c}
+y_{1} \\
+y_{2}
+\end{array} \rightB = T(\vect{x}) + T(\vect{y})
+\end{equation*}
+Similarly, the reader can verify that $T(a\vect{x}) = aT(\vect{x})$ for all $a$ in $\RR$, so $T$ is a linear transformation. Now the standard basis of $\RR^3$ is
+\begin{equation*}
+\vect{e}_{1} = \leftB \begin{array}{c}
+1 \\
+0 \\
+0
+\end{array} \rightB, \quad 
+\vect{e}_{2} = \leftB \begin{array}{c}
+0 \\
+1 \\
+0
+\end{array} \rightB, \quad \mbox{ and } \quad
+\vect{e}_{3} = \leftB \begin{array}{c}
+0 \\
+0 \\
+1
+\end{array} \rightB
+\end{equation*}
+so, by Theorem~\ref{thm:005789}, the matrix of $T$ is
+\begin{equation*}
+A = \leftB \begin{array}{ccc}
+T(\vect{e}_{1}) & T(\vect{e}_{2}) & T(\vect{e}_{3})
+\end{array} \rightB = \leftB \begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{array} \rightB
+\end{equation*}
+Of course, the fact that $T \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array} \rightB = \leftB \begin{array}{c}
+x_{1} \\
+x_{2}
+\end{array} \rightB = \leftB \begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0
+\end{array} \rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array} \rightB$
+ shows directly that $T$ is a matrix transformation (hence linear) and reveals the matrix.
+\end{solution}
+\end{example}
+
+To illustrate how Theorem~\ref{thm:005789} is used, we rederive the matrices of the transformations in Examples~\ref{exa:003028} and \ref{exa:003088}.
+
+\begin{example}{}{005834}
+Let $Q_{0} : \RR^2 \to \RR^2$ denote reflection in the $x$ axis (as in Example~\ref{exa:003028}) and let $R_{\frac{\pi}{2}} : \RR^2 \to \RR^2$ denote counterclockwise rotation through $\frac{\pi}{2}$ about the origin (as in Example~\ref{exa:003088}). Use Theorem~\ref{thm:005789} to find the matrices of $Q_{0}$ and $R_{\frac{\pi}{2}}$.
+
+
+\begin{wrapfigure}[5]{l}{5cm} 
+\vspace*{-2em}
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.1}
+\caption{\label{fig:005854}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+\begin{solution}
+  Observe that $Q_{0}$ and $R_{\frac{\pi}{2}}$ are linear by Example~\ref{exa:005754} (they are matrix transformations), so Theorem~\ref{thm:005789} applies to them. The standard basis of $\RR^2$ is $\{\vect{e}_{1}, \vect{e}_{2}\}$ where $\vect{e}_{1} = \leftB \begin{array}{c}
+ 1 \\
+ 0
+ \end{array} \rightB$
+ points along the positive $x$ axis, and $\vect{e}_{2} = \leftB \begin{array}{c}
+ 0 \\
+ 1
+ \end{array} \rightB$
+ points along the positive $y$ axis (see Figure~\ref{fig:005854}).
+
+\hspace*{0.5em} The reflection of $\vect{e}_{1}$ in the $x$ axis is $\vect{e}_{1}$ itself because $\vect{e}_{1}$ points along the $x$ axis, and the reflection of $\vect{e}_{2}$ in the $x$ axis is $-\vect{e}_{2}$ because $\vect{e}_{2}$ is perpendicular to the $x$ axis. In other words, $Q_{0}(\vect{e}_{1}) = \vect{e}_{1}$ and $Q_{0}(\vect{e}_{2}) = -\vect{e}_{2}$. Hence Theorem~\ref{thm:005789} shows that the matrix of $Q_{0}$ is
+\begin{equation*}
+\leftB \begin{array}{cc}
+Q_{0}(\vect{e}_{1}) & Q_{0}(\vect{e}_{2})
+\end{array} \rightB = \leftB \begin{array}{rr}
+\vect{e}_{1} & -\vect{e}_{2}
+\end{array} \rightB = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB
+\end{equation*}
+which agrees with Example~\ref{exa:003028}.
+
+\hspace*{0.5em} Similarly, rotating $\vect{e}_{1}$ through $\frac{\pi}{2}$ counterclockwise about the origin produces $\vect{e}_{2}$, and rotating $\vect{e}_{2}$ through $\frac{\pi}{2}$ counterclockwise about the origin gives $-\vect{e}_{1}$. That is, $R_{\frac{\pi}{2}}(\vect{e}_{1}) = \vect{e}_{2}$ and $R_{\frac{\pi}{2}}(\vect{e}_{2}) = -\vect{e}_{2}$. Hence, again by Theorem~\ref{thm:005789}, the matrix of $R_{\frac{\pi}{2}}$ is
+\begin{equation*}
+\leftB \begin{array}{cc}
+R_{\frac{\pi}{2}}(\vect{e}_{1}) & R_{\frac{\pi}{2}}(\vect{e}_{2})
+\end{array} \rightB = \leftB \begin{array}{rr}
+\vect{e}_{2} & -\vect{e}_{1}
+\end{array} \rightB = \leftB \begin{array}{rr}
+0 & -1 \\
+1 & 0
+\end{array} \rightB
+\end{equation*}
+agreeing with Example~\ref{exa:003088}.
+\end{solution}
+\end{example}
+
+\begin{example}{}{005881}
+\begin{wrapfigure}[6]{l}{5cm} 
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.2}
+\caption{\label{fig:005912}}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+Let $Q_{1} : \RR^2 \to \RR^2$ denote reflection in the line $y = x$. Show that $Q_{1}$ is a matrix transformation, find its matrix, and use it to illustrate Theorem~\ref{thm:005789}.
+
+\begin{solution}
+  Figure~\ref{fig:005912} shows that $Q_{1} \leftB \begin{array}{c}
+  x \\
+  y
+  \end{array} \rightB = \leftB \begin{array}{c}
+  y \\
+  x
+  \end{array} \rightB$. Hence $Q_{1} \leftB \begin{array}{c}
+ x \\
+ y
+ \end{array} \rightB = \leftB \begin{array}{rr}
+ 0 & 1 \\
+ 1 & 0
+ \end{array} \rightB \leftB \begin{array}{c}
+ y \\
+ x
+ \end{array} \rightB$, so $Q_{1}$ is the matrix transformation induced by the matrix $A = \leftB \begin{array}{rr}
+ 0 & 1 \\
+ 1 & 0
+ \end{array} \rightB$. Hence $Q_{1}$ is linear (by Example~\ref{exa:005754}) and so Theorem~\ref{thm:005789} applies. If $\vect{e}_{1} = \leftB \begin{array}{r}
+ 1 \\
+ 0
+ \end{array} \rightB$
+ and $\vect{e}_{2} = \leftB \begin{array}{r}
+ 0 \\
+ 1
+ \end{array} \rightB$
+ are the standard basis of $\RR^2$, then it is clear geometrically that $Q_{1}(\vect{e}_{1}) = \vect{e}_{2}$ and $Q_{1}(\vect{e}_{2}) = \vect{e}_{1}$. Thus (by Theorem~\ref{thm:005789}) the matrix of $Q_{1}$ is $\leftB \begin{array}{cc}
+ Q_{1}(\vect{e}_{1}) & Q_{1}(\vect{e}_{2})
+ \end{array} \rightB = \leftB \begin{array}{cc}
+ \vect{e}_{2} & \vect{e}_{1}
+ \end{array} \rightB = A$ as before.
+
+\end{solution}
+\end{example}
+
+Recall that, given two ``linked'' transformations
+\begin{equation*}
+\RR^k \xrightarrow{T} \RR^n \xrightarrow{S} \RR^m
+\end{equation*}
+we can apply $T$ first and then apply $S$, and so obtain a new transformation
+\begin{equation*}
+S \circ T : \RR^k \to \RR^m
+\end{equation*}
+called the \textbf{composite}\index{composite}\index{linear transformations!composite} of $S$ and $T$, defined by
+\begin{equation*}
+(S \circ T)(\vect{x}) = S\left[T(\vect{x})\right] \mbox{ for all } \vect{x} \mbox{ in } \RR^k
+\end{equation*}
+If $S$ and $T$ are linear, the action of $S \circ T$ can be computed by multiplying their matrices.\index{matrix multiplication!matrix of composite of two linear transformations}
+
+\begin{theorem}{}{005918}
+Let $\RR^k \xrightarrow{T} \RR^n \xrightarrow{S} \RR^m$ be linear transformations, and let $A$ and $B$ be the matrices of $S$ and $T$ respectively. Then $S \circ T$ is linear with matrix $AB$.
+\end{theorem}
+
+\begin{proof}
+$(S \circ T)(\vect{x}) = S\left[T(\vect{x})\right] = A\left[B\vect{x}\right] = (AB)\vect{x}$ for all $\vect{x}$ in $\RR^k$.
+\end{proof}
+
+Theorem~\ref{thm:005918} shows that the action of the composite $S \circ T$ is determined by the matrices of $S$ and $T$. But it also provides a very useful interpretation of matrix multiplication. If $A$ and $B$ are matrices, the product matrix $AB$ induces the transformation resulting from first applying $B$ and then applying $A$. Thus the study of matrices can cast light on geometrical transformations and vice-versa. Here is an example.
+
+\begin{example}{}{005927}
+Show that reflection in the $x$ axis followed by rotation through $\frac{\pi}{2}$ is reflection in the line $y = x$.
+
+\begin{solution}
+  The composite in question is $R_{\frac{\pi}{2}} \circ Q_{0}$ where $Q_{0}$ is reflection in the $x$ axis and $R_{\frac{\pi}{2}}$ is rotation through $\frac{\pi}{2}$. By Example~\ref{exa:005834}, $R_{\frac{\pi}{2}}$ has matrix $A = \leftB \begin{array}{rr}
+ 0 & -1 \\
+ 1 & 0
+ \end{array} \rightB$
+ and $Q_{0}$ has matrix $B = \leftB \begin{array}{rr}
+ 1 & 0 \\
+ 0 & -1
+ \end{array} \rightB$.
+ Hence Theorem~\ref{thm:005918} shows that the matrix of $R_{\frac{\pi}{2}} \circ Q_{0}$
+ is $AB = \leftB \begin{array}{rr}
+ 0 & -1 \\
+ 1 & 0
+ \end{array} \rightB \leftB \begin{array}{rr}
+ 1 & 0 \\
+ 0 & -1
+ \end{array} \rightB = \leftB \begin{array}{rr}
+ 0 & 1 \\
+ 1 & 0
+ \end{array} \rightB$, which is the matrix of reflection in the line $y = x$ by Example~\ref{exa:005811}.
+\end{solution}
+\end{example}
+
+This conclusion can also be seen geometrically. Let $\vect{x}$ be a typical point in $\RR^2$, and assume that $\vect{x}$ makes an angle $\alpha$ with the positive $x$ axis. The effect of first applying $Q_{0}$ and then applying $R_{\frac{\pi}{2}}$ is shown in Figure~\ref{fig:005950}. The fact that $R_{\frac{\pi}{2}}\left[Q_{0}(\vect{x})\right]$ makes the angle $\alpha$ with the positive $y$ axis shows that $R_{\frac{\pi}{2}}\left[Q_{0}(\vect{x})\right]$ is the reflection of $\vect{x}$ in the line $y = x$.
+
+\begin{figure}[H]
+\vspace*{-1em}
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.3}
+\caption{\label{fig:005950}}
+\end{figure}
+\vspace{-1em}
+In Theorem~\ref{thm:005918}, we saw that the matrix of the composite of two linear transformations is the product of their matrices (in fact, matrix products were defined so that this is the case). We are going to apply this fact to rotations, reflections, and projections in the plane. Before proceeding, we pause to present useful geometrical descriptions of vector addition and scalar multiplication in the plane, and to give a short review of angles and the trigonometric functions.
+
+\begin{wrapfigure}{l}{5cm} 
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.4}
+\caption{\label{fig:005961}}
+\end{wrapfigure}
+
+\subsubsection*{Some Geometry}
+\vspace{-1em}
+
+As we have seen, it is convenient to view a vector $\vect{x}$ in $\RR^2$ as an arrow from the origin to the point $\vect{x}$ (see Section~\ref{sec:2_2}). This enables us to visualize what sums and scalar multiples\index{scalar multiples} mean geometrically.\index{sum!geometrical description} For example consider $\vect{x} = \leftB \begin{array}{rr}
+1 \\
+2
+\end{array} \rightB$
+ in $\RR^2$. Then $2\vect{x} = \leftB \begin{array}{rr}
+ 2 \\
+ 4
+ \end{array} \rightB$, $\frac{1}{2}\vect{x} = \leftB \begin{array}{rr}
+ \frac{1}{2} \\
+ 1
+ \end{array} \rightB$
+ and $-\frac{1}{2}\vect{x} = \leftB \begin{array}{rr}
+ -\frac{1}{2} \\
+ -1
+ \end{array} \rightB$, and these are shown as arrows in Figure~\ref{fig:005961}. 
+
+Observe that the arrow for $2\vect{x}$ is twice as long as the arrow for $\vect{x}$ and in the same direction, and that the arrows for $\frac{1}{2}\vect{x}$ is also in the same direction as the arrow for $\vect{x}$, but only half as long. On the other hand, the arrow for $-\frac{1}{2}\vect{x}$ is half as long as the arrow for $\vect{x}$, but in the \textit{opposite} direction. More generally, we have the following geometrical description of scalar multiplication\index{scalar multiplication!geometrical description} in $\RR^2$:
+
+ \begin{wrapfigure}[2]{l}{5cm} 
+ \vspace*{-2em}
+ \centering
+ \input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.5}
+ \caption{\label{fig:005971}}
+ \end{wrapfigure}
+
+\hfill \begin{theorem*}{Scalar Multiple Law}{scalarmultiplelaw}
+Let $\vect{x}$ be a vector in $\RR^2$. The arrow for $k\vect{x}$ is $|k|$ times\footnotemark as long as the arrow for $\vect{x}$, and is in the same direction as the arrow for $\vect{x}$ if $k > 0$, and in the opposite direction if $k < 0$.\index{linear transformations!scalar multiple law}\index{scalar multiple law}
+\end{theorem*}
+\footnotetext{If $k$ is a real number, $|k|$ denotes the \textbf{absolute value}\index{absolute value!notation} of $k$; that is, $|k| = k$ if $k \geq 0$ and $|k| = -k$ if $k < 0$.}
+
+\vspace*{0.1em}
+\begin{wrapfigure}[7]{l}{5cm} 
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.6}
+\caption{\label{fig:005976}}
+\end{wrapfigure}
+
+Now consider two vectors $\vect{x} = \leftB \begin{array}{rr}
+2 \\
+1
+\end{array} \rightB$
+ and $\vect{y} = \leftB \begin{array}{rr}
+ 1 \\
+ 3
+ \end{array} \rightB$
+ in $\RR^2$. They are plotted in Figure~\ref{fig:005971} along with their sum $\vect{x} + \vect{y} = \leftB \begin{array}{rr}
+ 3 \\
+ 4
+ \end{array} \rightB$.
+ It is a routine matter to verify that the four points $\vect{0}$, $\vect{x}$, $\vect{y}$, and $\vect{x} + \vect{y}$ form the vertices of a \textbf{parallelogram}\index{parallelogram!defined}--that is opposite sides are parallel and of the same length. (The reader should verify that the side from $\vect{0}$ to $\vect{x}$ has slope of $\frac{1}{2}$, as does the side from $\vect{y}$ to $\vect{x} + \vect{y}$, so these sides are parallel.) We state this as follows:
+
+
+\begin{wrapfigure}[4]{l}{5cm} 
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.7}
+\caption{\label{fig:005980}}
+\end{wrapfigure}
+
+\hfill \begin{theorem*}{Parallelogram Law}{parallelogramlaw}\index{parallelogram!law}
+Consider vectors $\vect{x}$ and $\vect{y}$ in $\RR^2$. If the arrows for $\vect{x}$ and $\vect{y}$ are drawn (see Figure~\ref{fig:005976}), the arrow for $\vect{x} + \vect{y}$ corresponds to the fourth vertex of the parallelogram determined by the points $\vect{x}$, $\vect{y}$, and $\vect{0}$.
+\end{theorem*}
+
+\noindent We will have more to say about this in Chapter~\ref{chap:4}.
+
+Before proceeding we turn to a brief review of angles and the trigonometric functions. Recall that an angle $\theta$ is said to be in \textbf{standard position}\index{standard position}\index{angles!standard position} if it is measured counterclockwise from the positive $x$ axis (as in Figure~\ref{fig:005980}). Then $\theta$ uniquely determines a point $\vect{p}$ on the \textbf{unit circle}\index{unit circle}\index{angles!unit circle} (radius $1$, centre at the origin). The \textbf{radian} measure\index{radian measure}\index{angles!radian measure} of $\theta$ is the length of the arc on the unit circle from the positive $x$ axis to $\vect{p}$. Thus $360^\circ = 2\pi$ radians, $180^\circ = \pi$, $90^\circ = \frac{\pi}{2}$, and so on.
+
+
+The point $\vect{p}$ in Figure~\ref{fig:005980} is also closely linked to the trigonometric functions\index{trigonometric functions} \textbf{cosine}\index{cosine} and \textbf{sine}\index{sine}, written $\cos \theta$ and $\sin \theta$ respectively. In fact these functions are \textit{defined} to be the $x$ and $y$ coordinates of $\vect{p}$; that is $\vect{p} = \leftB \begin{array}{r}
+\cos \theta \\
+\sin \theta
+\end{array} \rightB$. 
+ This defines $\cos \theta$ and $\sin \theta$ for the arbitrary angle $\theta$ (possibly negative), and agrees with the usual values when $\theta$ is an acute angle $\left(0 \leq \theta \leq \frac{\pi}{2}\right)$
+ as the reader should verify. For more discussion of this, see Appendix~\ref{chap:appacomplexnumbers}.
+\vspace{3em}
+
+\subsection*{Rotations}
+
+\index{linear transformations!rotations}\index{rotations!describing rotations}\index{rotations!linear transformations}
+\begin{wrapfigure}[11]{l}{5cm} 
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.8}
+\caption{\label{fig:005993}}
+\end{wrapfigure}
+
+We can now describe rotations in the plane. Given an angle $\theta$, let
+\begin{equation*}
+R_{\theta} : \RR^2 \to \RR^2
+\end{equation*}
+denote counterclockwise rotation of $\RR^2$ about the origin through the angle $\theta$. The action of $R_{\theta}$ is depicted in Figure~\ref{fig:005993}. We have already looked at $R_{\frac{\pi}{2}}$ (in Example~\ref{exa:003088}) and found it to be a matrix transformation. It turns out that $R_{\theta}$ is a matrix transformation for \textit{every} angle $\theta$ (with a simple formula for the matrix), but it is not clear how to find the matrix. Our approach is to first establish the (somewhat surprising) fact that $R_{\theta}$ is \textit{linear}, and then obtain the matrix from Theorem~\ref{thm:005789}.
+
+\begin{wrapfigure}[11]{l}{5cm} 
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.9}
+\caption{\label{fig:006003}}
+\end{wrapfigure}
+
+Let $\vect{x}$ and $\vect{y}$ be two vectors in $\RR^2$. Then $\vect{x} + \vect{y}$ is the diagonal of the parallelogram determined by $\vect{x}$ and $\vect{y}$ as in Figure~\ref{fig:006003}. 
+
+\noindent The effect of $R_{\theta}$ is to rotate the \textit{entire} parallelogram to obtain the new parallelogram determined by $R_{\theta}(\vect{x})$ and $R_{\theta}(\vect{y})$, with diagonal $R_{\theta}(\vect{x} + \vect{y})$. But this diagonal is $R_{\theta}(\vect{x}) + R_{\theta}(\vect{y})$ by the parallelogram law (applied to the new parallelogram). It follows that
+\begin{equation*}
+R_{\theta}(\vect{x} + \vect{y}) = R_{\theta}(\vect{x}) + R_{\theta}(\vect{y})
+\end{equation*}
+
+\begin{wrapfigure}[9]{l}{5cm} 
+\vspace*{-2em}
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.10}
+\caption{\label{fig:006016}}
+\end{wrapfigure}
+
+A similar argument shows that $R_{\theta}(a\vect{x}) = aR_{\theta}(\vect{x})$ for any scalar $a$, so $R_{\theta} : \RR^2 \to \RR^2$ is indeed a linear transformation.
+
+With linearity established we can find the matrix of $R_{\theta}$. Let $\vect{e}_{1} = \leftB \begin{array}{c}
+1 \\
+0
+\end{array} \rightB$
+ and $\vect{e}_{2} = \leftB \begin{array}{c}
+ 0 \\
+ 1
+ \end{array} \rightB$
+ denote the standard basis of $\RR^2$. By Figure~\ref{fig:006016} we see that
+\begin{equation*}
+R_{\theta}(\vect{e}_{1}) = \leftB \begin{array}{r}
+\cos \theta \\
+\sin \theta
+\end{array} \rightB \quad \mbox{ and } \quad 
+R_{\theta}(\vect{e}_{2}) = \leftB \begin{array}{r}
+-\sin \theta \\
+\cos \theta
+\end{array} \rightB
+\end{equation*}
+
+\noindent Hence Theorem~\ref{thm:005789} shows that $R_{\theta}$ is induced by the matrix
+\begin{equation*}
+\leftB \begin{array}{cc}
+R_{\theta}(\vect{e}_{1}) & R_{\theta}(\vect{e}_{2})
+\end{array} \rightB = \leftB \begin{array}{rr}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta
+\end{array} \rightB
+\end{equation*}
+We record this as
+
+\begin{theorem}{}{006021}
+The rotation $R_{\theta} : \RR^2 \to \RR^2$ is the linear transformation with matrix $\leftB \begin{array}{rr}
+	\cos \theta & -\sin \theta \\
+	\sin \theta & \cos \theta
+\end{array} \rightB$.
+\end{theorem}
+
+For example, $R_{\frac{\pi}{2}}$
+ and $R_{\pi}$ have matrices $\leftB \begin{array}{rr}
+ 0 & -1 \\
+ 1 & 0
+ \end{array} \rightB$
+ and $\leftB \begin{array}{rr}
+ -1 & 0 \\
+ 0 & -1
+ \end{array} \rightB$, respectively, by Theorem~\ref{thm:006021}. The first of these confirms the result in Example~\ref{exa:003088}. The second shows that rotating a vector $\vect{x} = \leftB \begin{array}{c}
+ x \\
+ y
+ \end{array} \rightB$
+ through the angle $\pi$ results in $R_{\pi}(\vect{x}) = \leftB \begin{array}{rr}
+ -1 & 0 \\
+ 0 & -1
+ \end{array} \rightB \leftB \begin{array}{c}
+ x \\
+ y
+ \end{array} \rightB = \leftB \begin{array}{c}
+ -x \\
+ -y
+ \end{array} \rightB = -\vect{x}$.
+ Thus applying $R_{\pi}$ is the same as negating $\vect{x}$, a fact that is evident without Theorem~\ref{thm:006021}.
+
+\begin{example}{}{006036}
+\begin{wrapfigure}[12]{l}{5cm} 
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.11}
+\caption{\label{fig:006048}}
+\end{wrapfigure}
+\setlength{\rightskip}{0pt plus 200pt}
+
+Let $\theta$ and $\phi$ be angles. By finding the matrix of the composite $R_{\theta} \circ R_{\phi}$, obtain expressions for $\cos(\theta + \phi)$ and $\sin(\theta + \phi)$.
+
+\begin{solution}
+ Consider the transformations $\RR^2 \xrightarrow{R_{\phi}} \RR^2 \xrightarrow{R_{\theta}} \RR^2$. Their composite $R_{\theta} \circ R_{\phi}$ is the transformation that first rotates the plane through $\phi$ and then rotates it through $\theta$, and so is the rotation through the angle $\theta + \phi$ (see Figure~\ref{fig:006048}). 
+
+In other words
+\begin{equation*}
+R_{\theta + \phi} = R_{\theta} \circ R_{\phi}
+\end{equation*}
+Theorem~\ref{thm:005918} shows that the corresponding equation holds for the matrices of these transformations, so Theorem~\ref{thm:006021} gives:
+\begin{equation*}
+\leftB \begin{array}{rr}
+\cos(\theta + \phi) & -\sin(\theta + \phi) \\
+\sin(\theta + \phi) & \cos(\theta + \phi)
+\end{array} \rightB = \leftB \begin{array}{rr}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta
+\end{array} \rightB \leftB \begin{array}{rr}
+\cos \phi & -\sin \phi \\
+\sin \phi & \cos \phi
+\end{array} \rightB
+\end{equation*}
+If we perform the matrix multiplication on the right, and then compare first column entries, we obtain
+\begin{align*}
+\cos(\theta + \phi) &= \cos \theta \cos \phi - \sin \theta \sin \phi \\
+\sin(\theta + \phi) &= \sin \theta \cos \phi + \cos \theta \sin \phi
+\end{align*}
+These are the two basic identities from which most of trigonometry can be derived.
+\end{solution}
+\end{example}
+
+\subsection*{Reflections}
+
+\index{linear transformations!reflections}\index{reflections!linear transformations}
+\begin{wrapfigure}[10]{l}{5cm} 
+	\centering
+	\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.12}
+	\caption{\label{fig:006067}}
+\end{wrapfigure}
+
+The line through the origin with slope $m$ has equation $y = mx$, and we let $Q_{m} : \RR^2 \to \RR^2$ denote reflection in the line $y = mx$.
+
+This transformation is described geometrically in Figure~\ref{fig:006067}. In words, $Q_{m}(\vect{x})$ is the ``mirror image'' of $\vect{x}$ in the line $y = mx$. If $m = 0$ then $Q_{0}$ is reflection in the $x$ axis, so we already know $Q_{0}$ is linear. While we could show directly that $Q_{m}$ is linear (with an argument like that for $R_{\theta}$), we prefer to do it another way that is instructive and derives the matrix of $Q_{m}$ directly without using Theorem~\ref{thm:005789}.
+
+Let $\theta$ denote the angle between the positive $x$ axis and the line $y = mx$. The key observation is that the transformation $Q_{m}$ can be accomplished in three steps: First rotate through $-\theta$ (so our line coincides with the $x$ axis), then reflect in the $x$ axis, and finally rotate back through $\theta$. In other words:
+\begin{equation*}
+Q_{m} = R_{\theta} \circ Q_{0} \circ R_{-\theta}
+\end{equation*}
+Since $R_{-\theta}$, $Q_{0}$, and $R_{\theta}$ are all linear, this (with Theorem~\ref{thm:005918}) shows that $Q_{m}$ is linear and that its matrix is the product of the matrices of $R_{\theta}$, $Q_{0}$, and $R_{-\theta}$. If we write $c = \cos \theta$ and $s = \sin \theta$ for simplicity, then the matrices of $R_{\theta}$, $R_{-\theta}$, and $Q_{0}$ are
+\begin{equation*}
+\leftB \begin{array}{rr}
+c & -s \\
+s & c
+\end{array} \rightB, \quad 
+\leftB \begin{array}{rr}
+c & s \\
+-s & c
+\end{array} \rightB, \quad \mbox{ and } \quad \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB \mbox{ respectively.}\footnote{The matrix of $R_{-\theta}$ comes from the matrix of $R_{\theta}$ using the fact that, for all angles $\theta$, $\cos(-\theta) = \cos \theta$ and \\ $\sin(-\theta) = -\sin(\theta)$.}
+\end{equation*}
+Hence, by Theorem~\ref{thm:005918}, the matrix of $Q_{m} = R_{\theta} \circ Q_{0} \circ R_{-\theta}$ is
+\begin{equation*}
+\leftB \begin{array}{rr}
+c & -s \\
+s & c
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB \leftB \begin{array}{rr}
+c & s \\
+-s & c
+\end{array} \rightB = \leftB \begin{array}{cc}
+c^2 - s^2 & 2sc \\
+2sc & s^2 - c^2
+\end{array} \rightB
+\end{equation*}
+
+\begin{wrapfigure}[7]{l}{5cm} 
+	\centering
+        %\vspace*{-3em}
+	\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.13}
+	\caption{\label{fig:006095}}
+\end{wrapfigure}
+
+We can obtain this matrix in terms of $m$ alone. Figure~\ref{fig:006095} shows that
+\begin{equation*}
+\cos \theta = \frac{1}{\sqrt{1 + m^2}} \mbox{ and } \sin \theta = \frac{m}{\sqrt{1 + m^2}}
+\end{equation*}
+so the matrix $\leftB \begin{array}{cc}
+c^2 - s^2 & 2sc \\
+2sc & s^2 - c^2
+\end{array} \rightB$
+ of $Q_{m}$ becomes $\frac{1}{1 + m^2}\leftB \begin{array}{cc}
+ 1 - m^2 & 2m \\
+ 2m & m^2 - 1
+ \end{array} \rightB$.
+%\vspace{1em}
+
+\hfill \begin{theorem}{}{006096}
+Let $Q_{m}$ denote reflection in the line $y = mx$. Then $Q_{m}$ is a linear transformation with matrix $\frac{1}{1 + m^2}\leftB \begin{array}{cc}
+1 - m^2 & 2m \\
+2m & m^2 - 1
+\end{array} \rightB$.
+\end{theorem}
+
+Note that if $m = 0$, the matrix in Theorem~\ref{thm:006096} becomes $\leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array}\rightB$,
+ as expected. Of course this analysis fails for reflection in the $y$ axis because vertical lines have no slope. However it is an easy exercise to verify directly that reflection in the $y$ axis is indeed linear with matrix $\leftB \begin{array}{rr}
+ -1 & 0 \\
+ 0 & 1
+ \end{array}\rightB$.\footnote{Note that $\leftB \begin{array}{rr}
+ 	-1 & 0 \\
+ 	0 & 1
+ 	\end{array}\rightB = \lim\limits_{m \to \infty}\frac{1}{1 + m^2} \leftB \begin{array}{cc}
+ 	1 - m^2 & 2m \\
+ 	2m & m^2 - 1
+ 	\end{array} \rightB$.}
+
+\begin{example}{}{006105}
+Let $T : \RR^2 \to \RR^2$ be rotation through $-\frac{\pi}{2}$ followed by reflection in the $y$ axis. Show that $T$ is a reflection in a line through the origin and find the line.
+
+\begin{solution}
+  The matrix of $R_{-\frac{\pi}{2}}$
+ is $\leftB \def\arraystretch{1.5} \begin{array}{rr}
+ \cos(-\frac{\pi}{2}) & -\sin(-\frac{\pi}{2}) \\
+ \sin(-\frac{\pi}{2}) & \cos(-\frac{\pi}{2})
+ \end{array} \rightB = \leftB \begin{array}{rr}
+ 0 & 1 \\
+ -1 & 0
+ \end{array} \rightB$
+ and the matrix of reflection in the $y$ axis is $\leftB \begin{array}{rr}
+ -1 & 0 \\
+ 0 & 1
+ \end{array} \rightB$.
+ Hence the matrix of $T$ is $\leftB \begin{array}{rr}
+ -1 & 0 \\
+ 0 & 1
+ \end{array} \rightB \leftB \begin{array}{rr}
+ 0 & 1 \\
+ -1 & 0
+ \end{array} \rightB = \leftB \begin{array}{rr}
+ 0 & -1 \\
+ -1 & 0
+ \end{array} \rightB$
+ and this is reflection in the line $y = -x$ (take $m = -1$ in Theorem~\ref{thm:006096}).
+\end{solution}
+\end{example}
+
+\subsection*{Projections}
+\index{linear transformations!projections}\index{projections}
+\begin{wrapfigure}[12]{l}{5cm} 
+\centering
+\input{2-matrix-algebra/figures/6-linear-transformations/figure2.6.14}
+\caption{\label{fig:006136}}
+\end{wrapfigure}
+
+The method in the proof of Theorem~\ref{thm:006096} works more generally. Let $P_{m} : \RR^2 \to \RR^2$ denote projection on the line $y = mx$. This transformation is described geometrically in Figure~\ref{fig:006136}. 
+
+If $m = 0$, then $P_{0} \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \leftB \begin{array}{c}
+x \\
+0
+\end{array} \rightB$
+ for all $\leftB \begin{array}{c}
+ x \\
+ y
+ \end{array} \rightB$
+ in $\RR^2$, so $P_{0}$ is linear with matrix $\leftB \begin{array}{rr}
+ 1 & 0 \\
+ 0 & 0
+ \end{array} \rightB$.
+ Hence the argument above for $Q_{m}$ goes through for $P_{m}$. First observe that
+\begin{equation*}
+P_{m} = R_{\theta} \circ P_{0} \circ R_{-\theta}
+\end{equation*}
+as before. So, $P_{m}$ is linear with matrix
+\begin{equation*}
+\leftB \begin{array}{rr}
+c & -s \\
+s & c
+\end{array} \rightB \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB \leftB \begin{array}{rr}
+c & s \\
+-s & c
+\end{array} \rightB = \leftB \begin{array}{rr}
+c^2 & sc \\
+sc & s^2
+\end{array} \rightB
+\end{equation*}
+where $c = \cos \theta = \frac{1}{\sqrt{1+ m^2}}$ and $s = \sin \theta = \frac{m}{\sqrt{1+ m^2}}$. 
+
+This gives:
+\begin{theorem}{}{006137}
+Let $P_{m} : \RR^2 \to \RR^2$ be projection on the line $y = mx$. Then $P_{m}$ is a linear transformation with matrix $\frac{1}{1 + m^2} \leftB \begin{array}{cc}
+1 & m \\
+m & m^2
+\end{array} \rightB$.
+\end{theorem}
+
+Again, if $m = 0$, then the matrix in Theorem~\ref{thm:006137} reduces to $\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB$
+ as expected. As the $y$ axis has no slope, the analysis fails for projection on the $y$ axis, but this transformation is indeed linear with matrix $\leftB \begin{array}{rr}
+ 0 & 0 \\
+ 0 & 1
+ \end{array} \rightB$
+ as is easily verified directly.
+
+Note that the formula for the matrix of $Q_{m}$ in Theorem \ref{thm:006096} can be derived from the above formula for the matrix of $P_m$. Using Figure \ref{fig:006067}, observe that $Q_{m}(\vect{x}) = \vect{x} + 2[P_{m}(\vect{x}) - \vect{x}]$ so $Q_{m}(x) = 2P_{m}(\vect{x})-\vect{x}$. Substituting the matrices for $P_{m}(\vect{x})$ and $1_{\RR^2}(\vect{x})$ gives the desired formula. 
+
+\begin{example}{}{006148}
+Given $\vect{x}$ in $\RR^2$, write $\vect{y} = P_{m}(\vect{x})$. The fact that $\vect{y}$ lies on the line $y = mx$ means that $P_{m}(\vect{y}) = \vect{y}$. But then
+\begin{equation*}
+(P_{m} \circ P_{m})(\vect{x}) = P_{m}(\vect{y}) = \vect{y} = P_{m}(\vect{x}) \mbox{ for all } \vect{x} \mbox{ in } \RR^2, \mbox{ that is, } P_{m} \circ P_{m} = P_{m}.
+\end{equation*}
+In particular, if we write the matrix of $P_{m}$ as $A = \frac{1}{1 + m^2} \leftB \begin{array}{cc}
+1 & m \\
+m & m^2
+\end{array} \rightB$, then $A^{2} = A$. The reader should verify this directly.
+\end{example}
+
+\section*{Exercises for \ref{sec:2_6}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:2_6}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Let $T : \RR^3 \to \RR^2$ be a linear transformation.
+
+{\footnotesize
+\begin{enumerate}[label={\alph*.}]
+\item Find $T \leftB \begin{array}{r}
+8 \\
+3 \\
+7
+\end{array} \rightB$
+ if $T \leftB \begin{array}{r}
+ 1 \\
+ 0 \\
+ -1
+ \end{array} \rightB = \leftB \begin{array}{r}
+ 	2 \\
+ 	3 
+ \end{array} \rightB$
+ \\ and   $T \leftB \begin{array}{r}
+ 2 \\
+ 1 \\
+ 3
+ \end{array} \rightB = \leftB \begin{array}{r}
+ -1 \\
+ 0
+ \end{array} \rightB$.
+
+\item Find $T \leftB \begin{array}{r}
+5 \\
+6 \\
+-13
+\end{array} \rightB$
+ if $T \leftB \begin{array}{r}
+ 3 \\
+ 2\\
+ -1
+ \end{array} \rightB = \leftB \begin{array}{r}
+ 3 \\
+ 5 
+ \end{array} \rightB$
+\\ and $T \leftB \begin{array}{r}
+ 2 \\
+ 0 \\
+ 5
+ \end{array} \rightB = \leftB \begin{array}{r}
+ -1 \\
+ 2
+ \end{array} \rightB$.
+
+\end{enumerate}}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\leftB \begin{array}{r}
+5 \\
+6 \\
+-13
+\end{array} \rightB = 3 \leftB \begin{array}{r}
+3 \\
+2 \\
+-1
+\end{array} \rightB - 2 \leftB \begin{array}{r}
+2 \\
+0 \\
+5
+\end{array} \rightB$, so\\
+$T \leftB \begin{array}{r}
+5 \\
+6 \\
+-13
+\end{array} \rightB = 3T \leftB \begin{array}{r}
+3 \\
+2 \\
+-1
+\end{array} \rightB - 2T \leftB \begin{array}{r}
+2 \\
+0 \\
+5
+\end{array} \rightB = 3 \leftB \begin{array}{r}
+3 \\
+5
+\end{array} \rightB - 2 \leftB \begin{array}{r}
+-1 \\
+2
+\end{array} \rightB = \leftB \begin{array}{r}
+11 \\
+11
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Let $T : \RR^4 \to \RR^3$ be a linear transformation.
+{\footnotesize
+\begin{enumerate}[label={\alph*.}]
+\item Find $T \leftB \begin{array}{r}
+1 \\
+3 \\
+-2 \\
+-3
+\end{array} \rightB$
+ if $T \leftB \begin{array}{r}
+ 1 \\
+ 1 \\
+ 0 \\
+ -1
+ \end{array} \rightB = \leftB \begin{array}{r}
+ 2 \\
+ 3 \\
+ -1
+ \end{array} \rightB$
+  \\and $T \leftB \begin{array}{r}
+ 0 \\
+ -1 \\
+ 1 \\
+ 1
+ \end{array} \rightB = \leftB \begin{array}{r}
+ 5 \\
+ 0 \\
+ 1
+ \end{array} \rightB$.
+
+\item Find $T \leftB \begin{array}{r}
+5 \\
+-1 \\
+2 \\
+-4
+\end{array} \rightB$
+if $T \leftB \begin{array}{r}
+1 \\
+1 \\
+1 \\
+1
+\end{array} \rightB = \leftB \begin{array}{r}
+5 \\
+1 \\
+-3
+\end{array} \rightB$
+\\and $T \leftB \begin{array}{r}
+-1 \\
+1 \\
+0 \\
+2
+\end{array} \rightB = \leftB \begin{array}{r}
+2 \\
+0 \\
+1
+\end{array} \rightB$.
+
+\end{enumerate}}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  As in 1(b), $T \leftB \begin{array}{r}
+5 \\
+-1 \\
+2 \\
+-4
+\end{array} \rightB = \leftB \begin{array}{r}
+4 \\
+2 \\
+-9
+\end{array} \rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case assume that the transformation $T$ is linear, and use Theorem~\ref{thm:005789} to obtain the matrix $A$ of $T$.
+
+\begin{enumerate}[leftmargin=1em,label={\alph*.}]
+\item $T : \RR^2 \to \RR^2$ is reflection in the line $y = -x$.
+
+\item $T : \RR^2 \to \RR^2$ is given by $T(\vect{x}) = -\vect{x}$ for each $\vect{x}$ in $\RR^2$.
+
+\item $T : \RR^2 \to \RR^2$ is clockwise rotation through $\frac{\pi}{4}$.
+
+\item $T : \RR^2 \to \RR^2$ is counterclockwise rotation through $\frac{\pi}{4}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T(\vect{e}_{1}) = -\vect{e}_{2}$ and $T(\vect{e}_{2}) = -\vect{e}_{1}$. So $A\leftB \begin{array}{cc}
+T(\vect{e}_{1}) & T(\vect{e}_{2})
+\end{array} \rightB = \leftB \begin{array}{cc}
+-\vect{e}_{2} & -\vect{e}_{1}
+\end{array} \rightB = \leftB \begin{array}{rr}
+-1 & 0 \\
+0 & -1
+\end{array} \rightB$.
+
+\setcounter{enumi}{3}
+\item $T(\vect{e}_{1}) = \leftB \def\arraystretch{1.5}\begin{array}{r}
+\frac{\sqrt{2}}{2} \\
+\frac{\sqrt{2}}{2}
+\end{array} \rightB$
+ and $T(\vect{e}_{2}) = \leftB \def\arraystretch{1.5}\begin{array}{r}
+ -\frac{\sqrt{2}}{2} \\
+ \frac{\sqrt{2}}{2}
+ \end{array} \rightB$
+
+So $A = \leftB \begin{array}{cc}
+T(\vect{e}_{1}) & T(\vect{e}_{2})
+\end{array} \rightB = \frac{\sqrt{2}}{2} \leftB \begin{array}{rr}
+1 & -1 \\
+1 & 1
+\end{array} \rightB$.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case use Theorem~\ref{thm:005789} to obtain the matrix $A$ of the transformation $T$. You may assume that $T$ is linear in each case.
+
+\begin{enumerate}[label={\alph*.}]
+\item $T : \RR^3 \to \RR^3$ is reflection in the $x-z$ plane.
+
+\item $T : \RR^3 \to \RR^3$ is reflection in the $y-z$ plane.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $T(\vect{e}_{1}) = -\vect{e}_{1}$, $T(\vect{e}_{2}) = \vect{e}_{2}$ and $T(\vect{e}_{3}) = \vect{e}_{3}$. Hence Theorem~\ref{thm:005789} gives $A\leftB \begin{array}{ccc}
+T(\vect{e}_{1}) & T(\vect{e}_{2}) & T(\vect{e}_{3})
+\end{array} \rightB = \leftB \begin{array}{ccc}
+-\vect{e}_{1} & \vect{e}_{2} & \vect{e}_{3}
+\end{array} \rightB = \leftB \begin{array}{rrr}
+-1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array} \rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T : \RR^n \to \RR^m$ be a linear transformation.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $\vect{x}$ is in $\RR^n$, we say that $\vect{x}$ is in the \textit{kernel} of $T$ if $T(\vect{x}) = \vect{0}$. If $\vect{x}_{1}$ and $\vect{x}_{2}$ are both in the kernel of $T$, show that $a\vect{x}_{1} + b\vect{x}_{2}$ is also in the kernel of $T$ for all scalars $a$ and $b$.
+
+\item If $\vect{y}$ is in $\RR^n$, we say that $\vect{y}$ is in the \textit{image} of $T$ if $\vect{y} = T(\vect{x})$ for some $\vect{x}$ in $\RR^n$. If $\vect{y}_{1}$ and $\vect{y}_{2}$ are both in the image of $T$, show that $a\vect{y}_{1} + b\vect{y}_{2}$ is also in the image of $T$ for all scalars $a$ and $b$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  We have $\vect{y}_{1} = T(\vect{x}_{1})$ for some $\vect{x}_{1}$ in $\RR^n$, and $\vect{y}_{2} = T(\vect{x}_{2})$ for some $\vect{x}_{2}$ in $\RR^n$. So $a\vect{y}_{1} + b\vect{y}_{2} = aT(\vect{x}_{1}) + bT(\vect{x}_{2}) = T(a\vect{x}_{1} + b\vect{x}_{2})$. Hence $a\vect{y}_{1} + b\vect{y}_{2}$ is also in the image of $T$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Use Theorem~\ref{thm:005789} to find the matrix of the \textbf{identity transformation}\index{identity transformation} $1_{\RR^n} : \RR^n \to \RR^n$ defined by $1_{\RR^n}(\vect{x}) = \vect{x}$ for each $\vect{x}$ in $\RR^n$.
+\end{ex}
+
+\begin{ex}
+In each case show that $T : \RR^2 \to \RR^2$ is not a linear transformation.
+\begin{exenumerate}
+\exitem $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \leftB \begin{array}{c}
+xy \\
+0
+\end{array} \rightB$
+\exitem $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \leftB \begin{array}{c}
+0 \\
+y^2
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $T\left(2 \leftB \begin{array}{c}
+0 \\
+1
+\end{array} \rightB \right) \neq 2 \leftB \begin{array}{r}
+0 \\
+-1
+\end{array} \rightB$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case show that $T$ is either reflection in a line or rotation through an angle, and find the line or angle.
+
+\begin{enumerate}[label={\alph*.}]
+\item $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \frac{1}{5} \leftB \begin{array}{c}
+-3x + 4y \\
+4x + 3y
+\end{array} \rightB$
+
+\item $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \frac{1}{\sqrt{2}} \leftB \begin{array}{c}
+x + y \\
+-x + y
+\end{array} \rightB$
+
+\item $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \frac{1}{\sqrt{3}} \leftB \begin{array}{c}
+x - \sqrt{3}y \\
+\sqrt{3}x + y
+\end{array} \rightB$
+
+\item $T \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = -\frac{1}{10} \leftB \begin{array}{c}
+8x + 6y \\
+6x - 8y
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $A = \frac{1}{\sqrt{2}} \leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 1
+\end{array} \rightB$, rotation through $\theta = -\frac{\pi}{4}$.
+
+\setcounter{enumi}{3}
+\item $A = \frac{1}{10} \leftB \begin{array}{rr}
+-8 & -6 \\
+-6 & 8
+\end{array} \rightB$, reflection in the line $y = -3x$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Express reflection in the line $y = -x$ as the composition of a rotation followed by reflection in the line $y = x$.
+\end{ex}
+
+\begin{ex}
+Find the matrix of $T : \RR^3 \to \RR^3$ in each case:
+
+\begin{enumerate}[label={\alph*.}]
+\item $T$ is rotation through $\theta$ about the $x$ axis (from the $y$ axis to the $z$ axis).
+
+\item $T$ is rotation through $\theta$ about the $y$ axis (from the $x$ axis to the $z$ axis).
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\leftB \begin{array}{ccc}
+\cos \theta & 0 & -\sin \theta \\
+0 & 1 & 0 \\
+\sin \theta & 0 & \cos \theta
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $T_{\theta} : \RR^2 \to \RR^2$ denote reflection in the line making an angle $\theta$ with the positive $x$ axis.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the matrix of $T_{\theta}$ is $\leftB \begin{array}{rr}
+\cos 2\theta & \sin 2\theta \\
+\sin 2\theta & -\cos 2\theta
+\end{array} \rightB$ for all $\theta$.
+
+\item Show that $T_{\theta} \circ R_{2\phi} = T_{\theta - \phi}$ for all $\theta$ and $\phi$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+In each case find a rotation or reflection that equals the given transformation.
+
+\begin{enumerate}[label={\alph*.}]
+\item Reflection in the $y$ axis followed by rotation through $\frac{\pi}{2}$.
+
+\item Rotation through $\pi$ followed by reflection in the $x$ axis.
+
+\item Rotation through $\frac{\pi}{2}$ followed by reflection in the line $y = x$.
+
+\item Reflection in the $x$ axis followed by rotation through $\frac{\pi}{2}$.
+
+\item Reflection in the line $y = x$ followed by reflection in the $x$ axis.
+
+\item Reflection in the $x$ axis followed by reflection in the line $y = x$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Reflection in the $y$ axis
+
+\setcounter{enumi}{3}
+\item  Reflection in $y = x$
+
+\setcounter{enumi}{5}
+\item  Rotation through $\frac{\pi}{2}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Let $R$ and $S$ be matrix transformations $\RR^n \to \RR^m$ induced by matrices $A$ and $B$ respectively. In each case, show that $T$ is a matrix transformation and describe its matrix in terms of $A$ and $B$.
+
+\begin{enumerate}[label={\alph*.}]
+\item $T(\vect{x}) = R(\vect{x}) + S(\vect{x})$ for all $\vect{x}$ in $\RR^n$.
+
+\item $T(\vect{x}) = aR(\vect{x})$ for all $\vect{x}$ in $\RR^n$ (where $a$ is a fixed real number).
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $T(\vect{x}) = aR(\vect{x}) = a(A\vect{x}) = (aA)\vect{x}$ for all $\vect{x}$ in $\RR$. Hence $T$ is induced by $aA$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that the following hold for all linear transformations $T : \RR^n \to \RR^m$:
+
+\begin{exenumerate}[column-sep=-5em]
+\exitem $T(\vect{0}) = \vect{0}$
+\exitem $T(-\vect{x}) = -T(\vect{x})$ for all $\vect{x}$ in $\RR^n$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $\vect{x}$ is in $\RR^n$, then $T(-\vect{x}) = T\left[(-1)\vect{x}\right] = (-1)T(\vect{x}) = -T(\vect{x})$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+The transformation $T : \RR^n \to \RR^m$ defined by $T(\vect{x}) = \vect{0}$ for all $\vect{x}$ in $\RR^n$ is called the \textbf{zero transformation}\index{zero transformation}.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the zero transformation is linear and find its matrix.
+
+\item Let $\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}$ denote the columns of the $n \times n$ identity matrix. If $T : \RR^n \to \RR^m$ is linear and $T(\vect{e}_{i}) = \vect{0}$ for each $i$, show that $T$ is the zero transformation. [\textit{Hint}: Theorem~\ref{thm:005709}.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Write the elements of $\RR^n$ and $\RR^m$ as rows. If $A$ is an $m \times n$ matrix, define $T : \RR^m \to \RR^n$ by $T(\vect{y}) = \vect{y}A$ for all rows $\vect{y}$ in $\RR^m$. Show that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $T$ is a linear transformation.
+
+\item the rows of $A$ are $T(\vect{f}_{1}), T(\vect{f}_{2}), \dots, T(\vect{f}_{m})$ where $\vect{f}_{i}$ denotes row $i$ of $I_{m}$. [\textit{Hint}: Show that $\vect{f}_{i} A$ is row $i$ of $A$.]
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $S : \RR^n \to \RR^n$ and $T : \RR^n \to \RR^n$ be linear transformations with matrices $A$ and $B$ respectively.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $B^{2} = B$ if and only if $T^{2} = T$ (where $T^{2}$ means $T \circ T$).
+
+\item Show that $B^{2} = I$ if and only if $T^2 = 1_{\RR^n}$.
+
+\item Show that $AB = BA$ if and only if $S \circ T = T \circ S$.
+
+\item[] [\textit{Hint}: Theorem~\ref{thm:005918}.]
+\end{enumerate}
+
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $B^{2} = I$ then $T^{2}(\vect{x}) = T[T(\vect{x})] = B(B\vect{x}) = B^{2}\vect{x} = I\vect{x} = \vect{x} = 1_{\RR^2}(\vect{x})$ for all $\vect{x}$ in $\RR^n$. Hence $T^{2} = 1_{\RR^2}$. If $T^{2} = 1_{\RR^2}$, then $B^{2}\vect{x} = T^{2}(\vect{x}) = 1_{\RR^2}(\vect{x}) = \vect{x} = I\vect{x}$ for all $\vect{x}$, so $B^{2} = I$ by Theorem~\ref{thm:002985}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Let $Q_{0} : \RR^2 \to \RR^2$ be reflection in the $x$ axis, let $Q_{1} : \RR^2 \to \RR^2$ be reflection in the line $y = x$, let $Q_{-1} : \RR^2 \to \RR^2$ be reflection in the line $y = -x$, and let $R_{\frac{\pi}{2}} : \RR^2 \to \RR^2$ be counterclockwise rotation through $\frac{\pi}{2}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $Q_{1} \circ R_{\frac{\pi}{2}} = Q_{0}$.
+
+\item Show that $Q_{1} \circ Q_{0} = R_{\frac{\pi}{2}}$.
+
+\item Show that $R_{\frac{\pi}{2}} \circ Q_{0} = Q_{1}$.
+
+\item Show that $Q_{0} \circ R_{\frac{\pi}{2}} = Q_{-1}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  The matrix of $Q_{1} \circ Q_{0}$
+ is $\leftB \begin{array}{rr}
+ 0 & 1 \\
+ 1 & 0
+ \end{array} \rightB \leftB \begin{array}{rr}
+ 1 & 0 \\
+ 0 & -1
+ \end{array} \rightB = \leftB \begin{array}{rr}
+ 0 & -1 \\
+ 1 & 0
+ \end{array} \rightB$,
+ which is the matrix of $R_{\frac{\pi}{2}}$.
+
+\setcounter{enumi}{3}
+\item  The matrix of $Q_{0} \circ R_{\frac{\pi}{2}}$
+ is \\ $\leftB \begin{array}{rr}
+ 1 & 0 \\
+ 0 & -1
+ \end{array} \rightB \leftB \begin{array}{rr}
+ 0 & -1 \\
+ 1 & 0
+ \end{array} \rightB = \leftB \begin{array}{rr}
+ 0 & -1 \\
+ -1 & 0
+ \end{array} \rightB$,
+ which is the matrix of $Q_{-1}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+For any slope $m$, show that:
+\begin{exenumerate}
+\exitem $Q_{m} \circ P_{m} = P_{m}$
+\exitem $P_{m} \circ Q_{m} = P_{m}$
+\end{exenumerate}
+\end{ex}
+
+\begin{ex}
+Define $T : \RR^n \to \RR$ by $T(x_{1}, x_{2}, \dots, x_{n}) = x_{1} + x_{2} + \cdots + x_{n}$. Show that $T$ is a linear transformation and find its matrix.
+
+\begin{sol}
+We have $T(\vect{x}) = x_{1} + x_{2} + \cdots + x_{n} = \leftB \begin{array}{cccc}
+1 & 1 & \cdots & 1
+\end{array} \rightB \leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n} \\
+\end{array} \rightB$, so $T$ is the matrix transformation induced by the matrix $A = \leftB \begin{array}{cccc}
+1 & 1 & \cdots & 1
+\end{array} \rightB$. In particular, $T$ is linear. On the other hand, we can use Theorem~\ref{thm:005789} to get $A$, but to do this we must first show directly that $T$ is linear. If we write $\vect{x} = \leftB \begin{array}{c}
+ x_{1} \\
+ x_{2} \\
+ \vdots \\
+ x_{n} \\
+ \end{array} \rightB$
+ and $\vect{y} = \leftB \begin{array}{c}
+ y_{1} \\
+ y_{2} \\
+ \vdots \\
+ y_{n} \\
+ \end{array} \rightB$. Then
+\begin{align*}
+T(\vect{x} + \vect{y}) &= T \leftB \begin{array}{c}
+x_{1} + y_{1} \\
+x_{2} + y_{2} \\
+\vdots \\
+x_{n} + y_{n} \\
+\end{array} \rightB \\
+&= (x_{1} + y_{1}) + (x_{2} + y_{2}) + \cdots + (x_{n} + y_{n}) \\
+&= (x_{1} + x_{2} + \cdots + x_{n}) + (y_{1} + y_{2} + \cdots + y_{n}) \\
+&= T(\vect{x}) + T(\vect{y})
+\end{align*}
+
+Similarly, $T(a\vect{x}) = aT(\vect{x})$ for any scalar $a$, so $T$ is linear. By Theorem~\ref{thm:005789}, $T$ has matrix $A = \leftB \begin{array}{cccc}
+T(\vect{e}_{1}) & T(\vect{e}_{2}) & \cdots & T(\vect{e}_{n})
+\end{array} \rightB = \leftB \begin{array}{cccc}
+1 & 1 & \cdots & 1
+\end{array} \rightB$, as before.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given $c$ in $\RR$, define $T_{c} : \RR^n \to \RR$ by $T_{c}(\vect{x}) = c\vect{x}$ for all $\vect{x}$ in $\RR^n$. Show that $T_{c}$ is a linear transformation and find its matrix.
+\end{ex}
+
+\begin{ex}
+Given vectors $\vect{w}$ and $\vect{x}$ in $\RR^n$, denote their dot product by $\vect{w} \dotprod \vect{x}$.
+
+\begin{enumerate}[label={\alph*.}]
+\item Given $\vect{w}$ in $\RR^n$, define $T_{\vect{w}} : \RR^n \to \RR$ by $T_{\vect{w}}(\vect{x}) = \vect{w} \cdot \vect{x}$ for all $\vect{x}$ in $\RR^n$. Show that $T_{\vect{w}}$ is a linear transformation.
+
+\item Show that \textit{every} linear transformation $T : \RR^n \to \RR$ is given as in (a); that is $T = T_{\vect{w}}$ for some $\vect{w}$ in $\RR^n$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item If $T : \RR^n \to \RR$ is linear, write $T(\vect{e}_{j}) = w_{j}$ for each $j = 1, 2, \dots, n$ where $\{\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}\}$ is the standard basis of $\RR^n$. Since $\vect{x} = x_{1}\vect{e}_{1} + x_{2}\vect{e}_{2} + \cdots  + x_{n}\vect{e}_{n}$, Theorem~\ref{thm:005709} gives
+\begin{align*}
+T(\vect{x}) & = T(x_{1}\vect{e}_{1} + x_{2}\vect{e}_{2} + \cdots + x_{n}\vect{e}_{n}) \\
+&= x_{1}T(\vect{e}_{1}) + x_{2}T(\vect{e}_{2}) + \cdots + x_{n}T(\vect{e}_{n}) \\
+&= x_{1}w_{1} + x_{2}w_{2} + \cdots + x_{n}w_{n} \\
+&= \vect{w} \dotprod \vect{x} = T_{\vect{w}}(\vect{x})
+\end{align*}
+
+where $\vect{w} = \leftB \begin{array}{c}
+w_{1} \\
+w_{2} \\
+\vdots \\
+w_{n} \\
+\end{array} \rightB$.
+ Since this holds for all $\vect{x}$ in $\RR^n$, it shows that $T = T_{\vect{W}}$. This also follows from Theorem~\ref{thm:005789}, but we have first to verify that $T$ is linear. (This comes to showing that $\vect{w} \cdot (\vect{x} + \vect{y}) = \vect{w} \cdot \vect{s} + \vect{w} \cdot \vect{y}$ and $\vect{w} \cdot (a\vect{x}) = a(\vect{w} \cdot \vect{x})$ for all $\vect{x}$ and $\vect{y}$ in $\RR^n$ and all $a$ in $\RR$.) Then $T$ has matrix $A = \leftB \begin{array}{cccc}
+ T(\vect{e}_{1}) & T(\vect{e}_{2}) & \cdots & T(\vect{e}_{n})
+ \end{array} \rightB = \leftB \begin{array}{cccc}
+ w_{1} & w_{2} & \cdots & w_{n}
+ \end{array} \rightB$ by Theorem~\ref{thm:005789}. Hence if $\vect{x} = \leftB \begin{array}{c}
+ x_{1} \\
+ x_{2} \\
+ \vdots \\
+ x_{n}
+ \end{array} \rightB$ in $\RR$, then $T(\vect{x}) = A\vect{x} = \vect{w} \cdot \vect{x}$, as required.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\vect{x} \neq \vect{0}$ and $\vect{y}$ are vectors in $\RR^n$, show that there is a linear transformation $T : \RR^n \to \RR^n$ such that $T(\vect{x}) = \vect{y}$. [\textit{Hint}: By Definition~\ref{def:002668}, find a matrix $A$ such that $A\vect{x} = \vect{y}$.]
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Given $\vect{x}$ in $\RR$ and $a$ in $\RR$, we have \\
+
+\hspace*{-3em}$\begin{array}{lllll}
+(S \circ T)(a\vect{x}) & = & S\left[T(a\vect{x})\right] & & \mbox{Definition of } S \circ T \\
+& = & S\left[aT(\vect{x})\right] & & \mbox{Because } T \mbox{ is linear.} \\
+& = & a\left[S\left[T(\vect{x})\right]\right] & & \mbox{Because } S \mbox{ is linear.} \\
+& = & a\left[S \circ T(\vect{x})\right]& & \mbox{Definition of } S \circ T \\
+\end{array}$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $\RR^n \xrightarrow{T} \RR^m \xrightarrow{S} \RR^k$ be two linear transformations. Show directly that $S \circ T$ is linear. That is:
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $(S \circ T)(\vect{x} + \vect{y}) = (S \circ T)\vect{x} + (S \circ T)\vect{y}$ for all $\vect{x}$, $\vect{y}$ in $\RR^n$.
+
+\item Show that $(S \circ T)(a\vect{x}) = a[(S \circ T)\vect{x}]$ for all $\vect{x}$ in $\RR^n$ and all $a$ in $\RR$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $\RR^n \xrightarrow{T} \RR^m \xrightarrow{S} \RR^k \xrightarrow{R} \RR^k$ be linear. Show that $R \circ (S \circ T) = (R \circ S) \circ T$ by showing directly that $[R \circ (S \circ T)](\vect{x}) = [(R \circ S) \circ T)](\vect{x})$ holds for each vector $\vect{x}$ in $\RR^n$.
+\end{ex}
+
+\end{multicols}

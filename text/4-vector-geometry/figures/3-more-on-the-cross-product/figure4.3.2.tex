@@ -1,0 +1,22 @@
+\begin{tikzpicture}[scale=0.9]
+\coordinate (origin) at (0, 0);
+\coordinate (ptV) at (3, 0);
+
+\path (origin)--(-45:1cm) node (ptU) {};
+\fill[ltbluevect] (origin)--(ptV)-- ++(-45:1cm)--(ptU.center)--cycle;
+
+\draw[dkgreenvect, thick, -latex] (origin)--(45:1.5cm) node (ptW) {};
+\draw[dkgreenvect, thick, -latex] (origin)--(ptV) node[below=0.005, text=black, pos=0.8] {\small $\vect{v}$};
+\draw[dkgreenvect, thick, -latex] (origin)--(ptU.center);
+\draw[dkgreenvect, thick, -latex] (origin)--(0, 1.5) node[right, text=black] {\small $\vect{u} \times \vect{v}$};
+
+\draw[dkbluevect, thick, dashed] (ptW.center)-- ++(3, 0)-- ++(-45:1cm)-- ++(-3, 0) node (ptUPlusW) {} --cycle;
+\draw[dkbluevect, thick, dashed] (ptUPlusW.center)--(ptU.center)-- ++(3, 0)-- ++(45:1.5cm);
+\draw[dkbluevect, thick, dashed] (ptV)-- ++(45:1.5cm);
+\draw[dkbluevect, thick, dashed] (ptV)-- ++(-45:1cm);
+
+\draw[dkbluevect, thick] (ptW.center)-- ++(-90:1.25) node[right, midway] {\small $h$};
+
+\path (origin)--(45:1.5cm) node[left, pos=0.7] {\small $\vect{w}$};
+\path (origin)--(ptU.center) node[left, pos=0.6] {\small $\vect{u}$};
+\end{tikzpicture}

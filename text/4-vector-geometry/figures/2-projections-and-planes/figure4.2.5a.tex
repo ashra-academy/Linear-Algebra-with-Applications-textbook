@@ -1,0 +1,27 @@
+\begin{tikzpicture}[scale=0.9, rotate=30]
+\coordinate(ptQ) at (0, 0);
+\coordinate(ptP) at (2, 1.5);
+\coordinate(ptP1) at (2, 0);
+\coordinate(ptD) at (3, 0);
+
+%lines
+\draw[dkbluevect, thick] (1.8, 0)-- ++(0, 0.2)-- ++(0.2, 0);
+\draw[dkbluevect, thick] (-0.5, 0)--(3.5, 0);
+\draw[dkgreenvect, thick, -latex] (ptQ)--(ptD);
+\draw[dkgreenvect, thick, -latex] (ptP1)--(ptP);
+\draw[dkgreenvect, thick, -latex] (ptQ)--(ptP) node [above=0.2, text=black, pos=0.3] {\footnotesize $\vect{u}$};
+\draw[dkgreenvect, thick, -latex] (0.1, -0.2)--(1.9, -0.2) node[below, text=black, midway] {\footnotesize $\vect{u}_1$};
+
+%dots
+\fill[black] (ptQ) circle (2pt);
+\fill[black] (ptP) circle (2pt);
+\fill[black] (ptP1) circle (2pt);
+
+%labels
+\node[below] at (ptQ) {\footnotesize $Q$};
+\node[above] at (ptP) {\footnotesize $P$};
+\node[below right] at (ptP1) {\footnotesize $P_1$};
+\node[above] at (ptD) {\footnotesize $\vect{d}$};
+\path (ptP1)--(ptP) node [right, pos=0.9] {\footnotesize $\vect{u} - \vect{u}_1$};
+\node[left] at (-0.5, -0.5) {\footnotesize (a)};
+\end{tikzpicture}

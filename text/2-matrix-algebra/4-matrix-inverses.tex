@@ -1,0 +1,1870 @@
+\section{Matrix Inverses}
+\label{sec:2_4}
+
+Three basic operations on matrices, addition, multiplication, and subtraction, are analogs for matrices of the same operations for numbers. In this section we introduce the matrix analog of numerical division.\index{matrix algebra!numerical division}
+
+
+To begin, consider how a numerical equation $ax = b$ is solved when $a$ and $b$ are known numbers. If $a = 0$, there is no solution (unless $b = 0$). But if $a \neq 0$, we can multiply both sides by the inverse $a^{-1} = \frac{1}{a}$ to obtain the solution $x = a^{-1}b$. Of course multiplying by $a^{-1}$ is just dividing by $a$, and the property of $a^{-1}$ that makes this work is that $a^{-1}a = 1$. Moreover, we saw in Section~\ref{sec:2_2} that the role that $1$ plays in arithmetic is played in matrix algebra by the identity matrix $I$. This suggests the following definition. 
+
+
+\begin{definition}{Matrix Inverses}{004202}
+If $A$ is a square matrix, a matrix $B$ is called an \textbf{inverse}\index{inverses!defined}\index{matrix algebra!inverses} of $A$ if and only if
+\begin{equation*}
+AB = I \quad \mbox{ and } \quad BA = I
+\end{equation*}
+A matrix $A$ that has an inverse is called an \textbf{invertible matrix}\index{invertible matrix!defined}\index{matrix!invertible matrix}.\footnotemark
+\end{definition}
+\footnotetext{\label{fn:inversematrices}Only square matrices have inverses. Even though it is plausible that nonsquare matrices $A$ and $B$ could exist such that $AB = I_{m}$ and $BA = I_{n}$, where $A$ is $m \times n$ and $B$ is $n \times m$, we claim that this forces $n = m$. Indeed, if $m < n$ there exists a nonzero column $\vect{x}$ such that $A\vect{x} = \vect{0}$ (by Theorem~\ref{thm:001473}), so $\vect{x} = I_{n}\vect{x} = (BA)\vect{x} = B(A\vect{x}) = B(\vect{0}) = \vect{0}$, a contradiction. Hence $m \geq n$. Similarly, the condition $AB = I_{m}$ implies that $n \geq m$. Hence $m = n$ so $A$ is square.}
+
+\hspace*{0em}\vspace*{-3em}
+\begin{example}{}{004207}
+Show that $B = \leftB \begin{array}{rr}
+-1 & 1 \\
+1 & 0
+\end{array} \rightB$
+ is an inverse of $A = \leftB \begin{array}{rr}
+ 0 & 1 \\
+ 1 & 1
+ \end{array} \rightB$.
+
+\begin{solution}
+  Compute $AB$ and $BA$.
+\begin{equation*}
+AB = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 1
+\end{array} \rightB \leftB \begin{array}{rr}
+-1 & 1 \\
+1 & 0
+\end{array} \rightB = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB \quad
+BA = \leftB \begin{array}{rr}
+-1 & 1 \\
+1 & 0
+\end{array} \rightB \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 1
+\end{array} \rightB = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB
+\end{equation*}
+Hence $AB = I = BA$, so $B$ is indeed an inverse of $A$.
+\end{solution}
+\end{example}
+
+\hspace*{0em}\vspace*{-3em}
+\begin{example}{}{004217}
+Show that $A = \leftB \begin{array}{rr}
+0 & 0 \\
+1 & 3
+\end{array} \rightB$
+ has no inverse.
+
+
+\begin{solution}
+  Let $B = \leftB \begin{array}{rr}
+  a & b \\
+  c & d
+  \end{array} \rightB$
+ denote an arbitrary $2 \times 2$ matrix. Then
+\begin{equation*}
+AB = \leftB \begin{array}{rr}
+0 & 0 \\
+1 & 3
+\end{array} \rightB \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB = \leftB \begin{array}{cc}
+0 & 0 \\
+a + 3c & b + 3d
+\end{array} \rightB
+\end{equation*}
+so $AB$ has a row of zeros. Hence $AB$ cannot equal $I$ for any $B$.
+\end{solution}
+\end{example}
+
+\vspace*{-1em}
+The argument in Example~\ref{exa:004217} shows that no zero matrix has an inverse. But Example~\ref{exa:004217} also shows that, unlike arithmetic, \textit{it is possible for a nonzero matrix to have no inverse}. However, if a matrix \textit{does} have an inverse, it has only one.\index{inverses!nonzero matrix}\index{inverses!and zero matrices}\index{zero matrix!no inverse}
+
+\vspace*{-1em}
+\begin{theorem}{}{004227}
+If $B$ and $C$ are both inverses of $A$, then $B = C$.
+\end{theorem}
+
+\begin{proof}
+Since $B$ and $C$ are both inverses of $A$, we have $CA = I = AB$. Hence 
+\begin{equation*}
+B = IB = (CA)B = C(AB) = CI = C
+\end{equation*}
+\end{proof}
+
+If $A$ is an invertible matrix, the (unique) inverse of $A$ is denoted $A^{-1}$. Hence $A^{-1}$ (when it exists) is a square matrix of the same size as $A$ with the property that
+\begin{equation*}
+AA^{-1} = I \quad \mbox{ and } \quad A^{-1}A = I
+\end{equation*}
+These equations characterize $A^{-1}$ in the following sense: 
+
+\begin{quotation}
+\noindent\textbf{Inverse Criterion:} {\slshape If somehow a matrix $B$ can be found such that $AB = I$ and $BA = I$, then $A$ is invertible and $B$ is the inverse of $A$; in symbols, $B = A^{-1}$.}
+\end{quotation}
+
+\noindent This is a way to verify that the inverse of a matrix exists. Example~\ref{exa:004241} and Example~\ref{exa:004261} offer illustrations.
+
+
+\begin{example}{}{004241}
+If $A = \leftB \begin{array}{rr}
+0 & -1 \\
+1 & -1
+\end{array} \rightB$, show that $A^{3} = I$ and so find $A^{-1}$.
+
+
+\begin{solution}
+  We have $A^{2} = \leftB \begin{array}{rr}
+  0 & -1 \\
+  1 & -1
+  \end{array} \rightB \leftB \begin{array}{rr}
+  0 & -1 \\
+  1 & -1
+  \end{array} \rightB = \leftB \begin{array}{rr}
+  -1 & 1 \\
+  -1 & 0
+  \end{array} \rightB$, and so
+\begin{equation*}
+A^{3} = A^{2}A = \leftB \begin{array}{rr}
+-1 & 1 \\
+-1 & 0
+\end{array} \rightB \leftB \begin{array}{rr}
+0 & -1 \\
+1 & -1
+\end{array} \rightB = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB = I
+\end{equation*}
+Hence $A^{3} = I$, as asserted. This can be written as $A^{2}A = I = AA^{2}$, so it shows that $A^{2}$ is the inverse of $A$. That is, $A^{-1} = A^{2} = \leftB \begin{array}{rr}
+-1 & 1 \\
+-1 & 0
+\end{array} \rightB$.
+\end{solution}
+\end{example}
+
+The next example presents a useful formula for the inverse\index{determinants!and inverses} of a $2 \times 2$ matrix $A = \leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB$ when it exists. To state it, we define the \textbf{determinant}\index{determinants!defined}\index{square matrix ($n \times n$ matrix)!determinants} $\func{det }A$ and the \textbf{adjugate}\index{adjugate}\index{determinants!adjugate} $\func{adj }A$ of the matrix $A$ as follows:
+\begin{equation*}
+\func{det}\leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = ad - bc, \quad \mbox{ and } \quad \func{adj} \leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB = \leftB \begin{array}{rr}
+d & -b \\
+-c & a
+\end{array} \rightB
+\end{equation*}
+\begin{example}{}{004261}
+If $A = \leftB \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \rightB$, show that $A$ has an inverse if and only if $\func{det } A \neq 0$, and in this case
+\begin{equation*}
+A^{-1} = \frac{1}{\func{det } A} \func{adj } A
+\end{equation*}
+\begin{solution}
+  For convenience, write $e = \func{det } A = ad - bc$ and 
+  $B = \func{adj } A = \leftB \begin{array}{rr}
+  d & -b \\
+  -c & a
+  \end{array} \rightB$. Then $AB = eI = BA$ as the reader can verify. So if $e \neq 0$, scalar multiplication by $\frac{1}{e}$ gives 
+\begin{equation*}
+A(\frac{1}{e}B) = I = (\frac{1}{e}B)A
+\end{equation*}
+Hence $A$ is invertible and $A^{-1} = \frac{1}{e}B$. Thus it remains only to show that if $A^{-1}$ exists, then $e \neq 0$.
+
+We prove this by showing that assuming $e = 0$ leads to a contradiction. In fact, if $e = 0$, then $AB = eI = 0$, so left multiplication by $A^{-1}$ gives $A^{-1}AB = A^{-1}0$; that is, $IB = 0$, so $B = 0$. But this implies that $a$, $b$, $c$, and $d$ are \textit{all} zero, so $A = 0$, contrary to the assumption that $A^{-1}$ exists.
+\end{solution}
+\end{example}
+
+\noindent As an illustration, if $A = \leftB \begin{array}{rr}
+2 & 4 \\
+-3 & 8
+\end{array} \rightB$
+ then $\func{det } A = 2 \cdot 8 - 4 \cdot (-3) = 28 \neq 0$. Hence $A$ is invertible and $A^{-1} = \frac{1}{\func{det } A} \func{adj } A = \frac{1}{28} \leftB \begin{array}{rr}
+ 8 &-4 \\
+ 3 & 2
+ \end{array} \rightB$, as the reader is invited to verify.
+
+
+The determinant and adjugate will be defined in Chapter~\ref{chap:3} for any square matrix, and the conclusions in Example~\ref{exa:004261} will be proved in full generality.
+
+
+\subsection*{Inverses and Linear Systems}
+
+
+Matrix inverses can be used to solve certain systems of linear equations. Recall that a \textit{system} of linear equations can be written as a \textit{single} matrix equation\index{inverses!and linear systems}\index{system of linear equations!inverses and}
+\begin{equation*}
+A\vect{x} = \vect{b}
+\end{equation*}
+where $A$ and $\vect{b}$ are known and $\vect{x}$ is to be determined. If $A$ is invertible, we multiply each side of the equation on the left by $A^{-1}$ to get
+\begin{align*}
+A^{-1}A\vect{x} &= A^{-1}\vect{b} \\
+I\vect{x} &= A^{-1}\vect{b} \\
+\vect{x} &= A^{-1}\vect{b}
+\end{align*}
+This gives the solution to the system of equations (the reader should verify that $\vect{x} = A^{-1}\vect{b}$ really does satisfy $A\vect{x} = \vect{b}$). Furthermore, the argument shows that if $\vect{x}$ is \textit{any} solution, then necessarily $\vect{x} = A^{-1}\vect{b}$, so the solution is unique. Of course the technique works only when the coefficient matrix $A$ has an inverse. This proves Theorem~\ref{thm:004292}.
+
+
+\begin{theorem}{}{004292}
+Suppose a system of $n$ equations in $n$ variables is written in matrix form as
+\begin{equation*}
+A\vect{x} = \vect{b}
+\end{equation*}
+If the $n \times n$ coefficient matrix $A$ is invertible, the system has the unique solution
+\begin{equation*}
+\vect{x} = A^{-1}\vect{b}
+\end{equation*}
+\end{theorem}
+
+\begin{example}{}{004298}
+Use Example~\ref{exa:004261} to solve the system $\left\lbrace \arraycolsep=1pt \begin{array}{rrrrr}
+5x_{1} & - & 3x_{2} & = & -4 \\
+7x_{1} & + & 4x_{2} & = & 8
+\end{array} \right.$.
+
+\begin{solution}
+  In matrix form this is $A\vect{x} = \vect{b}$ where $A = \leftB \begin{array}{rr}
+  5 & -3 \\
+  7 & 4
+  \end{array} \rightB$, $\vect{x} = \leftB \begin{array}{c}
+  x_{1} \\
+  x_{2}
+  \end{array} \rightB$, and $\vect{b} = \leftB \begin{array}{r}
+ -4 \\
+ 8
+ \end{array} \rightB$. Then $\func{det } A = 5 \cdot 4 - (-3) \cdot 7 = 41$, so $A$ is invertible and $A^{-1} = \frac{1}{41} \leftB \begin{array}{rr}
+ 4 & 3 \\
+ -7 & 5
+ \end{array} \rightB$
+ by Example~\ref{exa:004261}. Thus Theorem~\ref{thm:004292} gives
+\begin{equation*}
+\vect{x} = A^{-1}\vect{b} = \frac{1}{41} \leftB \begin{array}{rr}
+4 & 3 \\
+-7 & 5
+\end{array} \rightB \leftB \begin{array}{r}
+-4 \\
+8
+\end{array} \rightB = \frac{1}{41} \leftB \begin{array}{r}
+8 \\
+68
+\end{array} \rightB
+\end{equation*}
+so the solution is $x_{1} = \frac{8}{41}$ and $x_{2} = \frac{68}{41}$.
+\end{solution}
+\end{example}
+
+\subsection*{An Inversion Method}
+
+If a matrix $A$ is $n \times n$ and invertible\index{inverses!square matrices!application to}, it is desirable to have an efficient technique for finding the inverse. The following procedure will be justified in Section \ref{sec:2_5}.
+
+\begin{theorem*}{Matrix Inversion Algorithm}{004348}
+If $A$ is an invertible (square) matrix, there exists a sequence of elementary row operations that carry $A$ to the identity matrix $I$ of the same size, written $A \to I$. This same series of row operations carries $I$ to $A^{-1}$; that is, $I \to A^{-1}$. The algorithm can be summarized as follows:
+\begin{equation*}
+\leftB \begin{array}{cc}
+A & I
+\end{array} \rightB \rightarrow 
+\leftB \begin{array}{cc}
+I & A^{-1}
+\end{array} \rightB
+\end{equation*}
+where the row operations on $A$ and $I$ are carried out simultaneously.\index{inverses!inversion algorithm}\index{inversion algorithm}\index{matrix inversion algorithm}
+\end{theorem*}
+
+\begin{example}{}{004354}
+Use the inversion algorithm to find the inverse of the matrix
+\begin{equation*}
+A = \leftB \begin{array}{rrr}
+2 & 7 & 1 \\
+1 & 4 & -1 \\
+1 & 3 & 0
+\end{array} \rightB
+\end{equation*}
+\begin{solution}
+  Apply elementary row operations to the double matrix
+\begin{equation*}
+\leftB \begin{array}{rrr}
+A & I
+\end{array} \rightB = \leftB \begin{array}{rrr|rrr}
+2 & 7 & 1 & 1 & 0 & 0 \\
+1 & 4 & -1 & 0 & 1 & 0 \\
+1 & 3 & 0 & 0 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+so as to carry $A$ to $I$. First interchange rows 1 and 2.
+\begin{equation*}
+\leftB \begin{array}{rrr|rrr}
+1 & 4 & -1 & 0 & 1 & 0 \\
+2 & 7 & 1 & 1 & 0 & 0 \\
+1 & 3 & 0 & 0 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+Next subtract $2$ times row 1 from row 2, and subtract row 1 from row 3.
+\begin{equation*}
+\leftB \begin{array}{rrr|rrr}
+1 & 4 & -1 & 0 & 1 & 0 \\
+0 & -1 & 3 & 1 & -2 & 0 \\
+0 & -1 & 1 & 0 & -1 & 1
+\end{array} \rightB
+\end{equation*}
+Continue to reduced row-echelon form.
+\begin{equation*}
+\leftB \begin{array}{rrr|rrr}
+1 & 0 & 11 & 4 & -7 & 0 \\
+0 & 1 & -3 & -1 & 2 & 0 \\
+0 & 0 & -2 & -1 & 1 & 1
+\end{array} \rightB
+\end{equation*}
+\begin{equation*}
+\leftB \def\arraystretch{1.5} \begin{array}{rrr|rrr}
+1 & 0 & 0 & \frac{-3}{2} & \frac{-3}{2} & \frac{11}{2} \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} & \frac{-3}{2} \\
+0 & 0 & 1 & \frac{1}{2} & \frac{-1}{2} & \frac{-1}{2}
+\end{array} \rightB
+\end{equation*}
+Hence $A^{-1} = \frac{1}{2} \leftB \begin{array}{rrr}
+-3 & -3 & 11 \\
+1 & 1 & -3 \\
+1 & -1 & -1
+\end{array} \rightB$, as is readily verified.
+\end{solution}
+\end{example}
+
+Given any $n \times n$ matrix $A$, Theorem~\ref{thm:001017} shows that $A$ can be carried by elementary row operations to a matrix $R$ in reduced row-echelon form. If $R = I$, the matrix $A$ is invertible (this will be proved in the next section), so the algorithm produces $A^{-1}$. If $R \neq I$, then $R$ has a row of zeros (it is square), so no system of linear equations $A\vect{x} = \vect{b}$ can have a unique solution. But then $A$ is not invertible by Theorem~\ref{thm:004292}. Hence, the algorithm is effective in the sense conveyed in Theorem~\ref{thm:004371}.
+
+
+\begin{theorem}{}{004371}
+If $A$ is an $n \times n$ matrix, either $A$ 
+can be reduced to $I$ by elementary row operations or it cannot. In the 
+first case, the algorithm produces $A^{-1}$; in the second case, $A^{-1}$ does not exist.
+\end{theorem}
+
+\subsection*{Properties of Inverses}
+
+
+The following properties of an invertible matrix are used everywhere.\index{inverses!properties of inverses}
+
+
+\begin{example}{Cancellation Laws}{004379}
+ Let $A$ be an invertible matrix. Show that:\index{cancellation laws}\index{inverses!cancellation laws}
+
+
+\begin{enumerate}
+\item If $AB = AC$, then $B = C$.
+
+\item If $BA = CA$, then $B = C$.
+
+\end{enumerate}
+
+\begin{solution}
+  Given the equation $AB = AC$, left multiply both sides by $A^{-1}$ to obtain $A^{-1}AB = A^{-1}AC$. Thus $IB = IC$, that is $B = C$. This proves (1) and the proof of (2) is left to the reader.
+\end{solution}
+\end{example}
+
+\noindent Properties (1) and (2) in Example~\ref{exa:004379} are described by saying that an invertible matrix can be ``left cancelled'' and ``right cancelled'', respectively\index{invertible matrix!left cancelled}\index{invertible matrix!right cancelled}\index{left cancelled invertible matrix}\index{right cancelled invertible matrix}. Note however that ``mixed'' cancellation does not hold in general: If $A$ is invertible and $AB = CA$, then $B$ and $C$ may \textit{not} be equal, even if both are $2 \times 2$. Here is a specific example:\index{invertible matrix!``mixed'' cancellation}\index{``mixed'' cancellation}
+\begin{equation*}
+A = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB,\ B = \leftB \begin{array}{rr}
+0 & 0 \\
+1 & 2
+\end{array} \rightB, C = \leftB \begin{array}{rr}
+1 & 1 \\
+1 & 1
+\end{array} \rightB
+\end{equation*}
+Sometimes the inverse of a matrix is given by a formula. Example~\ref{exa:004261} is one illustration; Example~\ref{exa:004397} and Example~\ref{exa:004423} provide two more. The idea is the \textit{Inverse Criterion}: If a matrix $B$ can be found such that $AB = I = BA$, then $A$ is invertible and $A^{-1} = B$.
+
+
+\begin{example}{}{004397}
+If $A$ is an invertible matrix, show that the transpose $A^{T}$ is also invertible. Show further that the inverse of $A^{T}$ is just the transpose of $A^{-1}$; in symbols, $(A^{T})^{-1} = (A^{-1})^{T}$.
+
+
+\begin{solution}
+  $A^{-1}$ exists (by assumption). Its transpose $(A^{-1})^{T}$ is the candidate proposed for the inverse of $A^{T}$. Using the inverse criterion, we test it as follows:
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{lllllll}
+A^{T}(A^{-1})^{T} & = & (A^{-1}A)^{T} & = & I^{T} & = & I \\
+(A^{-1})^{T}A^{T} & = & (AA^{-1})^{T} & = & I^{T} & = & I
+\end{array}
+\end{equation*}
+Hence $(A^{-1})^{T}$ is indeed the inverse of $A^{T}$; that is, $(A^{T})^{-1} = (A^{-1})^{T}$.
+\end{solution}
+\end{example}
+
+
+\begin{example}{}{004423}
+If $A$ and $B$ are invertible $n \times n$ matrices, show that their product $AB$ is also invertible and $(AB)^{-1} = B^{-1}A^{-1}$.
+
+\begin{solution}
+  We are given a candidate for the inverse of $AB$, namely $B^{-1}A^{-1}$. We test it as follows:
+\begin{align*}
+(B^{-1}A^{-1})(AB) &= B^{-1}(A^{-1}A)B = B^{-1}IB = B^{-1}B = I \\
+(AB)(B^{-1}A^{-1}) &= A(BB^{-1})A^{-1} = AIA^{-1} = AA^{-1} = I
+\end{align*}
+Hence $B^{-1}A^{-1}$ is the inverse of $AB$; in symbols, $(AB)^{-1} = B^{-1}A^{-1}$.
+\end{solution}
+\end{example}
+
+We now collect several basic properties of matrix inverses for reference.
+
+\begin{theorem}{}{004442}
+All the following matrices are square matrices of the same size.
+
+\begin{enumerate}
+\item $I$ is invertible and $I^{-1} = I$.
+
+\item If $A$ is invertible, so is $A^{-1}$, and $(A^{-1})^{-1} = A$.
+
+\item If $A$ and $B$ are invertible, so is $AB$, and $(AB)^{-1} = B^{-1}A^{-1}$.
+
+\item If $A_{1}, A_{2}, \dots, A_{k}$ are all invertible, so is their product $A_{1}A_{2} \cdots A_{k}$, and 
+\begin{equation*}
+(A_{1}A_{2} \cdots A_{k})^{-1} = A_{k}^{-1} \cdots A_{2}^{-1}A_{1}^{-1}.
+\end{equation*}
+
+\item If $A$ is invertible, so is $A^k$ for any $k \geq 1$, and $(A^{k})^{-1} = (A^{-1})^{k}$.
+
+\item If $A$ is invertible and $a \neq 0$ is a number, then $aA$ is invertible and $(aA)^{-1} = \frac{1}{a}A^{-1}$.
+
+\item If $A$ is invertible, so is its transpose $A^{T}$, and $(A^{T})^{-1} = (A^{-1})^{T}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\vspace*{-0.75em}
+\begin{enumerate}
+\item This is an immediate consequence of the fact that $I^{2} = I$.
+
+\item The equations $AA^{-1} = I = A^{-1}A$ show that $A$ is the inverse of $A^{-1}$; in symbols, $(A^{-1})^{-1} = A$.
+
+\item This is Example~\ref{exa:004423}.
+
+\item Use induction on $k$. If $k = 1$, there is nothing to prove, and if $k = 2$, the result is property 3. If $k > 2$, assume inductively that $(A_1A_2 \cdots A_{k-1})^{-1} = A_{k-1}^{-1} \cdots A_2^{-1}A_1^{-1}$. We apply this fact together with property 3 as follows:
+\begin{align*}
+\leftB A_{1}A_{2} \cdots A_{k-1}A_{k} \rightB^{-1}
+&= \leftB \left(A_{1}A_{2} \cdots A_{k-1}\right)A_{k} \rightB^{-1} \\
+&= A_{k}^{-1}\left(A_{1}A_{2} \cdots A_{k-1}\right)^{-1} \\
+&= A_{k}^{-1}\left(A_{k-1}^{-1} \cdots A_{2}^{-1}A_{1}^{-1}\right)
+\end{align*}
+So the proof by induction is complete.
+
+\item This is property 4 with $A_{1} = A_{2} = \cdots  = A_{k} = A$.
+
+\item This is left as Exercise~\ref{ex:ex2_4_29}.
+
+\item This is Example~\ref{exa:004397}.
+
+\end{enumerate}
+\vspace*{-2em}\end{proof}
+
+The reversal of the order of the inverses in properties 3 and 4 of Theorem~\ref{thm:004442} is a consequence of the fact that matrix multiplication is not 
+commutative. Another manifestation of this comes when matrix equations are dealt with. If a matrix equation $B = C$ is given, it can be \textit{left-multiplied}\index{matrix multiplication!left-multiplication} by a matrix $A$ to yield $AB = AC$. Similarly, \textit{right-multiplication}\index{matrix multiplication!right-multiplication} gives $BA = CA$. However, we cannot mix the two\index{matrix multiplication!non-commutative}: If $B = C$, it need \textit{not} be the case that $AB = CA$ even if $A$ is invertible, for example, $A = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1
+\end{array} \rightB$, $B = \leftB \begin{array}{rr}
+0 & 0 \\
+1 & 0
+\end{array} \rightB = C$.
+
+Part 7 of Theorem~\ref{thm:004442} together with the fact that $(A^{T})^{T} = A$ gives
+
+
+\begin{corollary}{}{004537}
+A square matrix $A$ is invertible if and only if $A^{T}$ is invertible.
+\end{corollary}
+
+\begin{example}{}{004541}
+Find $A$ if $(A^{T} - 2I)^{-1} = \leftB \begin{array}{rr}
+2 & 1 \\
+-1 & 0
+\end{array} \rightB$.
+
+\begin{solution}
+  By Theorem~\ref{thm:004442}(2) and Example~\ref{exa:004261}, we have
+\begin{equation*}
+(A^{T} - 2I) = \leftB \left(A^{T} - 2I\right)^{-1} \rightB^{-1} = \leftB \begin{array}{rr}
+2 & 1 \\
+-1 & 0
+\end{array} \rightB^{-1} = \leftB \begin{array}{rr}
+0 & -1 \\
+1 & 2
+\end{array} \rightB
+\end{equation*}
+Hence $A^{T} = 2I + \leftB \begin{array}{rr}
+0 & -1 \\
+1 & 2
+\end{array} \rightB = \leftB \begin{array}{rr}
+2 & -1 \\
+1 & 4
+\end{array} \rightB$, so $A = \leftB \begin{array}{rr}
+ 2 & 1 \\
+ -1 & 4
+ \end{array} \rightB$
+ by Theorem~\ref{thm:004442}(7).
+\end{solution}
+\end{example}
+
+The following important theorem collects a number of conditions all equivalent\footnote{If $p$ and $q$ are statements, we say that $p$ \textbf{implies}\index{implies} $q$ (written $p \Rightarrow q$) if $q$ is true whenever $p$ is true. The statements are called \textbf{equivalent}\index{equivalent!statements} if both $p \Rightarrow q$ and $q \Rightarrow p$ (written $p \Leftrightarrow q$, spoken ``$p$ if and only if $q$''). See Appendix~\ref{chap:appbproofs}.} to invertibility. It will be referred to frequently below.
+
+
+\begin{theorem}{Inverse Theorem}{004553}
+The following conditions are equivalent for an $n \times n$ matrix $A$:\index{inverse theorem}\index{inverses!inverse theorem}
+
+\begin{enumerate}
+\item $A$ is invertible.
+
+\item The homogeneous system $A\vect{x} = \vect{0}$ has only the trivial solution $\vect{x} = \vect{0}$.
+
+\item $A$ can be carried to the identity matrix $I_{n}$ by elementary row operations.
+
+\item The system $A\vect{x} = \vect{b}$ has at least one solution $\vect{x}$ for every choice of column $\vect{b}$.
+
+\item There exists an $n \times n$ matrix $C$ such that $AC = I_{n}$.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We show that each of these conditions implies the next, and that (5) implies (1).
+
+(1) $\Rightarrow$ (2). If $A^{-1}$ exists, then $A\vect{x} = \vect{0}$ gives $\vect{x} = I_{n}\vect{x} = A^{-1}A\vect{x} = A^{-1}\vect{0} = \vect{0}$.
+
+
+(2) $\Rightarrow$ (3). Assume that (2) is true. Certainly $A \to R$ by row operations where $R$ is a reduced, row-echelon matrix. It suffices to show that $R = I_{n}$. Suppose that this is not the case. Then $R$ has a row of zeros (being square). Now consider the augmented matrix $\leftB \begin{array}{c|c}
+A & \vect{0}
+\end{array} \rightB$ of the system $A\vect{x} = \vect{0}$. Then $\leftB \begin{array}{c|c}
+A & \vect{0}
+\end{array} \rightB \to \leftB \begin{array}{c|c}
+	R & \vect{0}
+\end{array} \rightB$ is the reduced form, and $\leftB \begin{array}{c|c}
+R & \vect{0}
+\end{array} \rightB$ also has a row of zeros. Since $R$ is square there must be at least one nonleading variable, and hence at least one parameter. Hence the system $A\vect{x} = \vect{0}$ has infinitely many solutions, contrary to (2). So $R = I_{n}$ after all.
+
+
+(3) $\Rightarrow$ (4). Consider the augmented matrix $\leftB \begin{array}{c|c}
+A & \vect{b}
+\end{array} \rightB$ of the system $A\vect{x} = \vect{b}$. Using (3), let $A \to I_{n}$ by a sequence of row operations. Then these same operations carry $\leftB \begin{array}{c|c}
+A & \vect{b}
+\end{array} \rightB \to \leftB \begin{array}{c|c}
+I_{n} & \vect{c}
+\end{array} \rightB$ for some column $\vect{c}$. Hence the system $A\vect{x} = \vect{b}$ has a solution (in fact unique) by gaussian elimination. This proves (4).
+
+
+(4) $\Rightarrow$ (5). Write $I_{n} = \leftB \begin{array}{cccc}
+\vect{e}_{1} & \vect{e}_{2} & \cdots & \vect{e}_{n}
+\end{array} \rightB$ where $\vect{e}_{1}, \vect{e}_{2}, \dots, \vect{e}_{n}$ are the columns of $I_{n}$. For each \newline $j = 1, 2, \dots, n$, the system $A\vect{x} = \vect{e}_{j}$ has a solution $\vect{c}_{j}$ by (4), so $A\vect{c}_{j} = \vect{e}_{j}$. Now let $C = \leftB \begin{array}{cccc}
+\vect{c}_{1} & \vect{c}_{2} & \cdots & \vect{c}_{n}
+\end{array} \rightB$ be the $n \times n$ matrix with these matrices $\vect{c}_{j}$ as its columns. Then Definition~\ref{def:003447} gives (5):
+\begin{equation*}
+AC = A \leftB \begin{array}{cccc}
+\vect{c}_{1} & \vect{c}_{2} & \cdots & \vect{c}_{n}
+\end{array} \rightB = \leftB \begin{array}{cccc}
+A\vect{c}_{1} & A\vect{c}_{2} & \cdots & A\vect{c}_{n}
+\end{array} \rightB = \leftB \begin{array}{cccc}
+\vect{e}_{1} & \vect{e}_{2} & \cdots & \vect{e}_{n}
+\end{array} \rightB = I_{n}
+\end{equation*}
+(5) $\Rightarrow$ (1). Assume that (5) is true so that $AC = I_{n}$ for some matrix $C$. Then $C\vect{x} = 0$ implies $\vect{x} = \vect{0}$ (because $\vect{x} = I_{n}\vect{x} = AC\vect{x} = A\vect{0} = \vect{0}$). Thus condition (2) holds for the matrix $C$ rather than $A$. Hence the argument above that (2) $\Rightarrow$ (3) $\Rightarrow$ (4) $\Rightarrow$ (5) (with $A$ replaced by $C$) shows that a matrix $C^\prime$ exists such that $CC^\prime = I_{n}$. But then
+\begin{equation*}
+A = AI_{n} = A(CC^\prime) = (AC)C^\prime = I_{n}C^\prime = C^\prime
+\end{equation*}
+Thus $CA = CC^\prime = I_{n}$ which, together with $AC = I_{n}$, shows that $C$ is the inverse of $A$. This proves (1).
+\end{proof}
+
+The proof of (5) $\Rightarrow$ (1) in Theorem~\ref{thm:004553} shows that if $AC = I$ for square matrices, then necessarily $CA = I$, and hence that $C$ and $A$ are inverses of each other. We record this important fact for reference.
+
+
+\setcounter{CorollaryCounter}{0} 
+\begin{corollary}{}{004612}
+If $A$ and $C$ are square matrices such that $AC = I$, then also $CA = I$. In particular, both $A$ and $C$ are invertible, $C = A^{-1}$, and $A = C^{-1}$.
+\end{corollary}
+
+Here is a quick way to remember Corollary \ref{cor:004612}. If $A$ is a square matrix, then 
+\begin{enumerate}
+\item If $AC=I$ then $C=A^{-1}$.
+\item If $CA=I$ then $C=A^{-1}$.
+\end{enumerate}
+
+\noindent Observe that Corollary~\ref{cor:004612} is false if $A$ and $C$ are not square matrices. For example, we have
+\begin{equation*}
+\leftB \begin{array}{rrr}
+1 & 2 & 1 \\
+1 & 1 & 1
+\end{array} \rightB \leftB \begin{array}{rr}
+-1 & 1 \\
+1 & -1 \\
+0 & 1
+\end{array} \rightB = I_{2} \quad \mbox{ but } 
+\leftB \begin{array}{rr}
+-1 & 1 \\
+1 & -1 \\
+0 & 1
+\end{array} \rightB \leftB \begin{array}{rrr}
+1 & 2 & 1 \\
+1 & 1 & 1
+\end{array} \rightB \neq I_{3}
+\end{equation*}
+In fact, it is verified in the footnote on page~\pageref{fn:inversematrices} that if $AB = I_{m}$ and $BA = I_{n}$, where $A$ is $m \times n$ and $B$ is $n \times m$, then $m = n$ and $A$ and $B$ are (square) inverses of each other.
+
+
+An $n \times n$ matrix $A$ has $\func{rank }n$ if and only if (3) of Theorem~\ref{thm:004553} holds. Hence
+
+
+\begin{corollary}{}{004623}
+An $n \times n$ matrix $A$ is invertible if and only if $\func{rank }A = n$.
+\end{corollary}
+
+Here is a useful fact about inverses of block matrices.
+
+
+\begin{example}{}{004627}
+Let $P = \leftB \begin{array}{cc}
+A & X \\
+0 & B
+\end{array} \rightB$
+ and $Q = \leftB \begin{array}{cc}
+ A & 0 \\
+ Y & B
+ \end{array} \rightB$
+ be block matrices where $A$ is $m \times m$ and $B$ is $n \times n$ (possibly $m \neq n$).
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $P$ is invertible if and only if $A$ and $B$ are both invertible. In this case, show that 
+\begin{equation*}
+P^{-1} = \leftB \begin{array}{cc}
+A^{-1} & -A^{-1}XB^{-1} \\
+0 & B^{-1}
+\end{array} \rightB
+\end{equation*}
+
+
+\item Show that $Q$ is invertible if and only if $A$ and $B$ are both invertible. In this case, show that 
+\begin{equation*}
+Q^{-1} = \leftB \begin{array}{cc}
+A^{-1} & 0 \\
+-B^{-1}YA^{-1} & B^{-1}
+\end{array} \rightB
+\end{equation*}
+
+
+\end{enumerate}
+
+\begin{solution}
+  We do (a.) and leave (b.) for the reader.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A^{-1}$ and $B^{-1}$ both exist, write $R = \leftB \begin{array}{cc}
+A^{-1} & -A^{-1}XB^{-1} \\
+0 & B^{-1}
+\end{array} \rightB$. Using block multiplication, one verifies that $PR = I_{m+n} = RP$, so $P$ is invertible, and $P^{-1} = R$. Conversely, suppose that $P$ is invertible, and write $P^{-1} = \leftB \begin{array}{cc}
+ C & V \\
+ W & D
+ \end{array} \rightB$
+ in block form, where $C$ is $m \times m$ and $D$ is $n \times n$.
+
+
+Then the equation $PP^{-1} = I_{n+m}$ becomes
+\begin{equation*}
+\leftB \begin{array}{cc}
+A & X \\
+0 & B
+\end{array} \rightB \leftB \begin{array}{cc}
+C & V \\
+W & D
+\end{array} \rightB = \leftB \begin{array}{cc}
+AC + XW & AV + XD \\
+BW & BD
+\end{array} \rightB = I_{m + n} = \leftB \begin{array}{cc}
+I_{m} & 0 \\
+0 & I_{n}
+\end{array} \rightB
+\end{equation*}
+using block notation. Equating corresponding blocks, we find
+\begin{equation*}
+AC + XW = I_{m}, \quad BW = 0, \quad \mbox{ and } BD = I_{n}
+\end{equation*}
+Hence $B$ is invertible because $BD = I_{n}$ (by Corollary~\ref{cor:004537}), then $W = 0$ because $BW = 0$, and finally, $AC = I_{m}$ (so $A$ is invertible, again by Corollary~\ref{cor:004537}).
+
+\end{enumerate}
+\end{solution}
+\end{example}
+
+
+\subsection*{Inverses of Matrix Transformations}
+
+
+Let $T = T_{A} : \RR^{n} \to \RR^{n}$ denote the matrix transformation induced by the $n \times n$ matrix $A$. Since $A$ is square, it may very well be invertible, and this leads to the question:\index{inverses!linear transformation}\index{matrix transformations}\index{linear transformations!inverses}
+
+
+\begin{center}
+What does it mean geometrically for $T$ that $A$ is invertible?
+\end{center}
+To answer this, let $T^\prime = T_{A^{-1}} : \RR^{n} \to \RR^{n}$ denote the transformation induced by $A^{-1}$. Then
+\begin{equation}\label{eq:inverse1}
+\begin{array}{lll}
+T^\prime \leftB T(\vect{x}) \rightB = A^{-1} \leftB A\vect{x} \rightB = I\vect{x} = \vect{x} & & \\
+& & \mbox{for all } \vect{x} \mbox{ in } \RR^{n} \\
+T \leftB T^\prime(\vect{x}) \rightB = A \leftB A^{-1}\vect{x} \rightB = I\vect{x} = \vect{x} & &
+\end{array}
+\end{equation} 
+The first of these equations asserts that, if $T$ carries $\vect{x}$ to a vector $T(\vect{x})$, then $T^\prime$ carries $T(\vect{x})$ right back to $\vect{x}$; that is $T^\prime$ ``reverses'' the action of $T$. Similarly $T$ ``reverses'' the action of $T^\prime$. Conditions (\ref{eq:inverse1}) can be stated compactly in terms of composition:
+\begin{equation}\label{eq:inverse2}
+T^\prime \circ T = 1_{\RR^{n}} \quad \mbox{ and } \quad T \circ T^\prime = 1_{\RR^{n}}
+\end{equation}
+When these conditions hold, we say that the matrix transformation $T^\prime$ is an \textbf{inverse}\index{inverses!matrix transformations} of $T$, and we have shown that if the matrix $A$ of $T$ is invertible, then $T$ has an inverse (induced by $A^{-1}$).
+
+The converse is also true: If $T$ has an inverse, then its matrix $A$ must be invertible. Indeed, suppose $S : \RR^{n} \to \RR^{n}$ is any inverse of $T$, so that $S \circ T = 1_{\RR_{n}}$ and $T \circ S = 1_{\RR_{n}}$. It can be shown that $S$ is also a matrix transformation. If $B$ is the matrix of $S$, we have
+\begin{equation*}
+BA\vect{x} = S \leftB T(\vect{x}) \rightB = (S \circ T)(\vect{x}) = 1_{\RR^{n}}(\vect{x}) = \vect{x} = I_{n}\vect{x} \quad \mbox{ for all } \vect{x} \mbox{ in } \RR^{n}
+\end{equation*}
+It follows by Theorem~\ref{thm:002985} that $BA = I_{n}$, and a similar argument shows that $AB = I_{n}$. Hence $A$ is invertible with $A^{-1} = B$. Furthermore, the inverse transformation $S$ has matrix $A^{-1}$, so $S = T^\prime$ using the earlier notation. This proves the following important theorem.
+
+
+\begin{theorem}{}{004693}
+Let $T : \RR^{n} \to \RR^{n}$ denote the matrix transformation induced by an $n \times n$ matrix $A$. Then
+
+\begin{center}
+$A$ is invertible if and only if $T$ has an inverse.
+\end{center}
+
+In this case, $T$ has exactly one inverse (which we denote as $T^{-1}$), and $T^{-1} : \RR^{n} \to \RR^{n}$ is the transformation induced by the matrix $A^{-1}$. In other words
+\begin{equation*}
+\left(T_{A}\right)^{-1} = T_{A^{-1}}
+\end{equation*}
+\end{theorem}
+
+\noindent The geometrical relationship between $T$ and $T^{-1}$ is embodied in equations (\ref{eq:inverse1}) above:
+\begin{equation*}
+T^{-1} \leftB T(\vect{x}) \rightB = \vect{x} \quad \mbox{ and } \quad T \leftB T^{-1}(\vect{x}) \rightB = \vect{x} \quad \mbox{ for all } \vect{x} \mbox{ in } \RR^{n}
+\end{equation*}
+These equations are called the \textbf{fundamental identities}\index{fundamental identities} relating $T$ and $T^{-1}$. Loosely speaking, they assert that each of $T$ and $T^{-1}$ ``reverses'' or ``undoes'' the action of the other.
+
+
+This geometric view of the inverse of a linear transformation provides a new way to find the inverse of a matrix $A$. More precisely, if $A$ is an invertible matrix, we proceed as follows:
+
+
+\begin{enumerate}
+\item \textit{Let} $T$ \textit{be the linear transformation induced by} $A$.
+
+\item \textit{Obtain the linear transformation} $T^{-1}$ \textit{which ``reverses'' the action of} $T$.
+
+\item \textit{Then} $A^{-1}$ \textit{is the matrix of} $T^{-1}$.
+
+\end{enumerate}
+
+\noindent Here is an example.
+
+
+\begin{example}{}{004725}
+\begin{wrapfigure}[7]{l}{5cm}
+\centering
+\input{2-matrix-algebra/figures/4-matrix-inverses/example2.4.12}
+\end{wrapfigure}
+
+\setlength{\rightskip}{0pt plus 200pt}
+Find the inverse of $A = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$
+ by viewing it as a linear transformation $\RR^{2} \to \RR^{2}$.
+
+\begin{solution}
+  If $\vect{x} = \leftB \begin{array}{c}
+  x \\
+  y
+  \end{array} \rightB$
+ the vector $A\vect{x} = \leftB \begin{array}{rr}
+ 0 & 1 \\
+ 1 & 0
+ \end{array} \rightB \leftB \begin{array}{c}
+ x \\
+ y
+ \end{array} \rightB = \leftB \begin{array}{c}
+ y \\
+ x
+ \end{array} \rightB$
+ is the result of reflecting $\vect{x}$ in the line $y = x$ (see the diagram). Hence, if $Q_{1} : \RR^{2} \to \RR^{2}$ denotes reflection in the line $y = x$, then $A$ is the matrix of $Q_{1}$. Now observe that $Q_{1}$ reverses itself because reflecting a vector $\vect{x}$ twice results in $\vect{x}$. Consequently $Q_{1}^{-1} = Q_{1}$. Since $A^{-1}$ is the matrix of $Q_{1}^{-1}$ and $A$ is the matrix of $Q$, it follows that $A^{-1} = A$. Of course this conclusion is clear by simply observing directly that $A^{2} = I$, but the geometric method can often work where these other methods may be less straightforward.
+\end{solution}
+\end{example}
+
+\section*{Exercises for \ref{sec:2_4}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:2_4}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+In each case, show that the matrices are inverses of each other.
+
+\begin{enumerate}[label={\alph*.}]
+\item $\leftB \begin{array}{rr}
+3 & 5 \\
+1 & 2
+\end{array} \rightB$, $\leftB \begin{array}{rr}
+2 & -5 \\
+-1 & 3
+\end{array} \rightB$
+
+\item $\leftB \begin{array}{rr}
+3 & 0 \\
+1 & -4
+\end{array} \rightB$, $\frac{1}{2}\leftB \begin{array}{rr}
+4 & 0 \\
+1 & -3
+\end{array} \rightB$
+
+\item $\leftB \begin{array}{rrr}
+1 & 2 & 0 \\
+0 & 2 & 3 \\
+1 & 3 & 1
+\end{array} \rightB$, $\leftB \begin{array}{rrr}
+7 & 2 & -6 \\
+-3 & -1 & 3 \\
+2 & 1 & -2
+\end{array} \rightB$
+
+\item $\leftB \begin{array}{rr}
+3 & 0 \\
+0 & 5
+\end{array} \rightB$, $\leftB \begin{array}{rr}
+\frac{1}{3} & 0 \\
+0 & \frac{1}{5}
+\end{array} \rightB$
+
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Find the inverse of each of the following matrices.
+\begin{exenumerate}[column-sep=-3em]
+\exitem $\leftB \begin{array}{rr}
+1 & -1 \\
+-1 & 3
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rr}
+4 & 1 \\
+3 & 2
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & 0 & -1 \\
+3 & 2 & 0 \\
+-1 & -1 & 0
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & -1 & 2 \\
+-5 & 7 & -11 \\
+-2 & 3 & -5
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+3 & 5 & 0 \\
+3 & 7 & 1 \\
+1 & 2 & 1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+3 & 1 & -1 \\
+2 & 1 & 0 \\
+1 & 5 & -1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+2 & 4 & 1 \\
+3 & 3 & 2 \\
+4 & 1 & 4
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+3 & 1 & -1 \\
+5 & 2 & 0 \\
+1 & 1 & -1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+3 & 1 & 2 \\
+1 & -1 & 3 \\
+1 & 2 & 4
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+-1 & 4 & 5 & 2 \\
+0 & 0 & 0 & -1 \\
+1 & -2 & -2 & 0 \\
+0 & -1 & -1 & 0
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+1 & 0 & 7 & 5 \\
+0 & 1 & 3 & 6 \\
+1 & -1 & 5 & 2 \\
+1 & -1 & 5 & 1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrrr}
+1 & 2 & 0 & 0 & 0 \\
+0 & 1 & 3 & 0 & 0 \\
+0 & 0 & 1 & 5 & 0 \\
+0 & 0 & 0 & 1 & 7 \\
+0 & 0 & 0 & 0 & 1
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\frac{1}{5} \leftB \begin{array}{rr}
+2 & -1 \\
+-3 & 4
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $\leftB \begin{array}{rrr}
+2 & -1 & 3 \\
+3 & 1 & -1 \\
+1 & 1 & -2
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item $\frac{1}{10} \leftB \begin{array}{rrr}
+1 & 4 & -1 \\
+-2 & 2 & 2 \\
+-9 & 14 & -1
+\end{array} \rightB$
+
+\setcounter{enumi}{7}
+\item $\frac{1}{4} \leftB \begin{array}{rrr}
+2 & 0 & -2 \\
+-5 & 2 & 5 \\
+-3 & 2 & -1
+\end{array} \rightB$
+
+\setcounter{enumi}{9}
+\item $\leftB \begin{array}{rrrr}
+0 & 0 & 1 & -2 \\
+-1 & -2 & -1 & -3 \\
+1 & 2 & 1 & 2 \\
+0 & -1 & 0 & 0
+\end{array} \rightB$
+
+\setcounter{enumi}{11}
+\item $\leftB \begin{array}{rrrrr}
+1 & -2 & 6 & -30 & 210 \\
+0 & 1 & -3 & 15 & -105 \\
+0 & 0 & 1 & -5 & 35 \\
+0 & 0 & 0 & 1 & -7 \\
+0 & 0 & 0 & 0 & 1
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case, solve the systems of equations by finding the inverse of the coefficient matrix.
+\begin{exenumerate}
+\exitem $\arraycolsep=1pt\begin{array}[t]{rrrrr}
+3x & - & y & = & 5 \\
+2x & + & 2y & = & 1
+\end{array}$
+\exitem $\arraycolsep=1pt\begin{array}[t]{rrrrr}
+2x & - & 3y & = & 0 \\
+x & - & 4y & = & 1
+\end{array}$
+\exitem $\arraycolsep=1pt\begin{array}[t]{rrrrrrr}
+x & + & y & + & 2z & = & 5 \\
+x & + & y & + & z & = & 0 \\
+x & + & 2y & + & 4z & = & -2
+\end{array}$
+\exitem $\arraycolsep=1pt\begin{array}[t]{rrrrrrr}
+x & + & 4y & + & 2z & = & 1 \\
+2x & + & 3y & + & 3z & = & -1 \\
+4x & + & y & + & 4z & = & 0
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \frac{1}{5} \leftB \begin{array}{rr}
+4 & -3 \\
+1 & -2
+\end{array} \rightB \leftB \begin{array}{r}
+0 \\
+1
+\end{array} \rightB = \frac{1}{5} \leftB \begin{array}{r}
+-3 \\
+-2
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $\leftB \begin{array}{c}
+x \\
+y \\
+z
+\end{array} \rightB = \frac{1}{5} \leftB \begin{array}{rrr}
+9 & -14 & 6 \\
+4 & -4 & 1 \\
+-10 & 15 & -5
+\end{array} \rightB \leftB \begin{array}{r}
+1 \\
+-1 \\
+0
+\end{array} \rightB = \frac{1}{5} \leftB \begin{array}{r}
+23 \\
+8 \\
+-25
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given $A^{-1} = \leftB \begin{array}{rrr}
+1 & -1 & 3 \\
+2 & 0 & 5 \\
+-1 & 1 & 0
+\end{array} \rightB$:
+
+\begin{enumerate}[label={\alph*.}]
+\item Solve the system of equations $A\vect{x} = \leftB \begin{array}{r}
+1 \\
+-1 \\
+3
+\end{array} \rightB$.
+
+\item Find a matrix $B$ such that \\ $AB = \leftB \begin{array}{rrr}
+1 & -1 & 2 \\
+0 & 1 & 1 \\
+1 & 0 & 0
+\end{array} \rightB$.
+
+\item Find a matrix $C$ such that \\ $CA = \leftB \begin{array}{rrr}
+1 & 2 & -1 \\
+3 & 1 & 1
+\end{array} \rightB$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $B = A^{-1}AB = \leftB \begin{array}{rrr}
+4 & -2 & 1 \\
+7 & -2 & 4 \\
+-1 & 2 & -1
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find $A$ when
+\begin{exenumerate}
+\exitem $(3A)^{-1} = \leftB \begin{array}{rr}
+1 & -1 \\
+0 & 1
+\end{array} \rightB$
+\exitem $(2A)^{T} = \leftB \begin{array}{rr}
+1 & -1 \\
+2 & 3
+\end{array} \rightB^{-1}$
+\exitem* $(I + 3A)^{-1} = \leftB \begin{array}{rr}
+2 & 0 \\
+1 & -1
+\end{array} \rightB$
+\exitem* $(I - 2A^{T})^{-1} = \leftB \begin{array}{rr}
+2 & 1 \\
+1 & 1
+\end{array} \rightB$
+\exitem* $\left(A \leftB \begin{array}{rr}
+1 & -1 \\
+0 & 1
+\end{array} \rightB \right)^{-1} = \leftB \begin{array}{rr}
+2 & 3 \\
+1 & 1
+\end{array} \rightB$
+\exitem* $\left(\leftB \begin{array}{rr}
+1 & 0 \\
+2 & 1
+\end{array} \rightB A\right)^{-1} = \leftB \begin{array}{rr}
+1 & 0 \\
+2 & 2
+\end{array} \rightB$
+\exitem* $\left(A^{T} -2I \right)^{-1} = 2 \leftB \begin{array}{rr}
+1 & 1 \\
+2 & 3
+\end{array} \rightB$
+\exitem* $\left(A^{-1} -2I \right)^{T} = -2 \leftB \begin{array}{rr}
+1 & 1 \\
+1 & 0
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\frac{1}{10} \leftB \begin{array}{rr}
+3 & -2 \\
+1 & 1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $\frac{1}{2} \leftB \begin{array}{rr}
+0 & 1 \\
+1 & -1
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item $\frac{1}{2} \leftB \begin{array}{rr}
+2 & 0 \\
+-6 & 1
+\end{array} \rightB$
+
+\setcounter{enumi}{7}
+\item $-\frac{1}{2} \leftB \begin{array}{rr}
+1 & 1 \\
+1 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find $A$ when:
+\begin{exenumerate}
+\exitem $A^{-1} = \leftB \begin{array}{rrr}
+1 & -1 & 3 \\
+2 & 1 & 1 \\
+0 & 2 & -2
+\end{array} \rightB$
+\exitem $A^{-1} = \leftB \begin{array}{rrr}
+0 & 1 & -1 \\
+1 & 2 & 1 \\
+1 & 0 & 1
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $A = \frac{1}{2} \leftB \begin{array}{rrr}
+2 & -1 & 3 \\
+0 & 1 & -1 \\
+-2 & 1 & -1
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given $\leftB \begin{array}{c}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array} \rightB = \leftB \begin{array}{rrr}
+3 & -1 & 2 \\
+1 & 0 & 4 \\
+2 & 1 & 0
+\end{array} \rightB \leftB \begin{array}{c}
+y_{1} \\
+y_{2} \\
+y_{3}
+\end{array} \rightB$
+ and $\leftB \begin{array}{c}
+ z_{1} \\
+ z_{2} \\
+ z_{3}
+ \end{array} \rightB = \leftB \begin{array}{rrr}
+ 1 & -1 & 1 \\
+ 2 & -3 & 0 \\
+ -1 & 1 & -2
+ \end{array} \rightB \leftB \begin{array}{c}
+ y_{1} \\
+ y_{2} \\
+ y_{3}
+ \end{array} \rightB$, express the variables $x_{1}$, $x_{2}$, and $x_{3}$ in terms of $z_{1}$, $z_{2}$, and $z_{3}$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item In the system $\arraycolsep=1pt\begin{array}{rrrrr}
+3x & + & 4y & = & 7 \\
+4x & + & 5y & = & 1
+\end{array}$, substitute the new variables $x^\prime$ and $y^\prime$ given by $\arraycolsep=1pt\begin{array}{rrrrr}
+ x & = & -5x^\prime & + & 4y^\prime \\
+ y & = & 4x^\prime & - & 3y^\prime
+ \end{array}$. Then find $x$ and $y$.
+
+\item Explain part (a) by writing the equations as $A \leftB \begin{array}{c}
+x \\
+y
+\end{array} \rightB = \leftB \begin{array}{r}
+7 \\
+1
+\end{array} \rightB$
+ and $\leftB \begin{array}{r}
+ x \\
+ y
+ \end{array} \rightB = B \leftB \begin{array}{c}
+ x^\prime \\
+ y^\prime
+ \end{array} \rightB$. What is the relationship between $A$ and $B$?
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $A$ and $B$ are inverses.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case either prove the assertion or give an example showing that it is false.
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A \neq 0$ is a square matrix, then $A$ is invertible.
+
+\item If $A$ and $B$ are both invertible, then $A + B$ is invertible.
+
+\item If $A$ and $B$ are both invertible, then $(A^{-1}B)^{T}$ is invertible.
+
+\item If $A^{4} = 3I$, then $A$ is invertible.
+
+\item If $A^{2} = A$ and $A \neq 0$, then $A$ is invertible.
+
+\item If $AB = B$ for some $B \neq 0$, then $A$ is invertible.
+
+\item If $A$ is invertible and skew symmetric ($A^{T} = -A$), the same is true of $A^{-1}$.
+
+\item If $A^{2}$ is invertible, then $A$ is invertible.
+
+\item If $AB = I$, then $A$ and $B$ commute.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  False. $\leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1
+\end{array} \rightB + \leftB \begin{array}{rr}
+1 & 0 \\
+0 & -1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item  True. $A^{-1} = \frac{1}{3}A^{3}$
+
+\setcounter{enumi}{5}
+\item  False. $A = B = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB$
+
+\setcounter{enumi}{7}
+\item  True. If $(A^{2})B = I$, then $A(AB) = I$; use Theorem~\ref{thm:004553}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:ex2_4_10}
+\begin{enumerate}[label={\alph*.}]
+\item If $A$, $B$, and $C$ are square matrices and $AB = I$, $ I = CA$, show that $A$ is invertible and $B = C = A^{-1}$.
+
+\item If $C^{-1} = A$, find the inverse of $C^{T}$ in terms of $A$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(C^{T})^{-1} = (C^{-1})^{T} = A^{T}$ because $C^{-1} = (A^{-1})^{-1} = A$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Suppose $CA = I_{m}$, where $C$ is $m \times n$ and $A$ is $n \times m$. Consider the system $A\vect{x} = \vect{b}$ of $n$ equations in $m$ variables.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that this system has a unique solution $CB$ if it is consistent.
+
+\item If $C = \leftB \begin{array}{rrr}
+0 & -5 & 1 \\
+3 & 0 & -1
+\end{array} \rightB$
+ and $A = \leftB \begin{array}{rr}
+ 2 & -3 \\
+ 1 & -2 \\
+ 6 & -10
+ \end{array} \rightB$, find $\vect{x}$ (if it exists) when 
+\newline (i) $\vect{b} = \leftB \begin{array}{r}
+ 1 \\
+ 0 \\
+ 3
+ \end{array} \rightB$; and (ii) $\vect{b} = \leftB \begin{array}{r}
+ 7 \\
+ 4 \\
+ 22
+ \end{array} \rightB$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+
+\setcounter{enumi}{1}
+\item 
+(i) Inconsistent.
+
+(ii) $\leftB \begin{array}{c}
+x_{1} \\
+x_{2}
+\end{array} \rightB = \leftB \begin{array}{r}
+2 \\
+-1
+\end{array} \rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Verify that $A = \leftB \begin{array}{rr}
+1 & -1 \\
+0 & 2
+\end{array} \rightB$
+ satisfies $A^{2} - 3A + 2I = 0$, and use this fact to show that \\$A^{-1} = \frac{1}{2}(3I - A)$.
+\end{ex}
+
+\begin{ex}
+Let $Q = \leftB \begin{array}{rrrr}
+a & -b & -c & -d \\
+b & a & -d & c \\
+c & d & a & -b \\
+d & -c & b & a
+\end{array} \rightB$. Compute $QQ^{T}$ and so find $Q^{-1}$ if $Q \neq 0$.
+\end{ex}
+
+\begin{ex}
+Let $U = \leftB \begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array} \rightB$. Show that each of $U$, $-U$, and $-I_{2}$ is its own inverse and that the product of any two of these is the third.
+\end{ex}
+
+\begin{ex}
+Consider $A = \leftB \begin{array}{rr}
+1 & 1 \\
+-1 & 0
+\end{array} \rightB$, \\ $B = \leftB \begin{array}{rr}
+0 & -1 \\
+1 & 0
+\end{array} \rightB$, $C = \leftB \begin{array}{rrr}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+5 & 0 & 0
+\end{array} \rightB$. Find the inverses by computing (a) $A^{6}$; (b) $B^{4}$; and (c) $C^{3}$.
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $B^{4} = I$, so $B^{-1} = B^{3} = \leftB \begin{array}{rr}
+0 & 1 \\
+-1 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the inverse of $\leftB \begin{array}{rrr}
+1 & 0 & 1 \\
+c & 1 & c \\
+3 & c & 2
+\end{array} \rightB$
+ in terms of $c$.
+
+\begin{sol}
+$\leftB \begin{array}{crr}
+c^{2} - 2 & -c & 1 \\
+-c & 1 & 0 \\
+3 - c^{2} & c & -1
+\end{array} \rightB$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $c \neq 0$, find the inverse of $\leftB \begin{array}{rrr}
+1 & -1 & 1 \\
+2 & -1 & 2 \\
+0 & 2 & c
+\end{array} \rightB$
+ in terms of $c$.
+\end{ex}
+
+\begin{ex}
+Show that $A$ has no inverse when:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A$ has a row of zeros.
+
+\item $A$ has a column of zeros.
+
+\item each row of $A$ sums to $0$. \newline [\textit{Hint}: Theorem~\ref{thm:004553}(2).]
+
+\item each column of $A$ sums to $0$.
+
+
+[\textit{Hint}: Corollary~\ref{cor:004537}, Theorem~\ref{thm:004442}.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If column $j$ of $A$ is zero, $A\vect{y} = \vect{0}$ where $\vect{y}$ is column $j$ of the identity matrix. Use Theorem~\ref{thm:004553}.
+
+\setcounter{enumi}{3}
+\item  If each column of $A$ sums to $0$, $XA = 0$ where $X$ is the row of $1$s. Hence $A^{T}X^{T} = 0$ so $A$ has no inverse by Theorem~\ref{thm:004553} ($X^{T} \neq 0$).
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ denote a square matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Let $YA = 0$ for some matrix $Y \neq 0$. Show that $A$ has no inverse. [\textit{Hint}: Corollary~\ref{cor:004537}, Theorem~\ref{thm:004442}.]
+
+\item Use part (a) to show that (i) $\leftB \begin{array}{rrr}
+1 & -1 & 1 \\
+0 & 1 & 1 \\
+1 & 0 & 2
+\end{array} \rightB$; and (ii) $\leftB \begin{array}{rrr}
+ 2 & 1 & -1 \\
+ 1 & 1 & 0 \\
+ 1 & 0 & -1
+ \end{array} \rightB$
+ have no inverse.
+
+
+[\textit{Hint}: For part (ii) compare row 3 with the difference between row 1 and row 2.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item (ii) $(-1, 1, 1)A = 0$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ is invertible, show that
+\begin{exenumerate}[column-sep=-5em]
+\exitem $A^{2} \neq 0$.
+\exitem $A^{k} \neq 0$ for all \\$k = 1, 2, \dots$.
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Each power $A^{k}$ is invertible by Theorem~\ref{thm:004442} (because $A$ is invertible). Hence $A^{k}$ cannot be $0$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Suppose $AB = 0$, where $A$ and $B$ are square matrices. Show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If one of $A$ and $B$ has an inverse, the other is zero.
+
+\item It is impossible for both $A$ and $B$ to have inverses.
+
+\item $(BA)^{2} = 0$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  By (a), if one has an inverse the other is zero and so has no inverse.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the inverse of the $x$-expansion in Example~\ref{exa:003128} and describe it geometrically.
+
+\begin{sol}
+If $A = \leftB \begin{array}{rr}
+a & 0 \\
+0 & 1
+\end{array} \rightB$, $a > 1$, then $A^{-1} = \leftB \begin{array}{rr}
+ \frac{1}{a} & 0 \\
+ 0 & 1
+ \end{array} \rightB$
+ is an x-compression because $\frac{1}{a} < 1$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the inverse of the shear transformation in Example \ref{exa:003136} and describe it geometrically.
+\end{ex}
+
+
+\begin{ex}
+In each case assume that $A$ is a square matrix that satisfies the given condition. Show that $A$ is invertible and find a formula for $A^{-1}$ in terms of $A$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $A^{3} - 3A + 2I = 0$.
+
+\item $A^{4} + 2A^{3} - A - 4I = 0$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $A^{-1} = \frac{1}{4} (A^3 +2A^2-1)$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ denote $n \times n$ matrices.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ and $AB$ are invertible, show that $B$ is invertible using only (2) and (3) of Theorem~\ref{thm:004442}.
+
+\item If $AB$ is invertible, show that both $A$ and $B$ are invertible using Theorem~\ref{thm:004553}.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $B\vect{x} = \vect{0}$, then $(AB)\vect{x} = (A)B\vect{x} = \vect{0}$, so $\vect{x} = \vect{0}$ because $AB$ is invertible. Hence $B$ is invertible by Theorem~\ref{thm:004553}. But then $A = (AB)B^{-1}$ is invertible by Theorem~\ref{thm:004442}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case find the inverse of the matrix $A$ using Example~\ref{exa:004627}.
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rrr}
+-1 & 1 & 2 \\
+0 & 2 & -1 \\
+0 & 1 & -1
+\end{array} \rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+3 & 1 & 0 \\
+5 & 2 & 0 \\
+1 & 3 & -1
+\end{array} \rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+3 & 4 & 0 & 0 \\
+2 & 3 & 0 & 0 \\
+1 & -1 & 1 & 3 \\
+3 & 1 & 1 & 4 
+\end{array} \rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+2 & 1 & 5 & 2 \\
+1 & 1 & -1 & 0 \\
+0 & 0 & 1 & -1 \\
+0 & 0 & 1 & -2 
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\leftB \begin{array}{rr|r}
+2 & -1 & 0 \\
+-5 & 3 & 0 \\
+\hline
+-13 & 8 & -1
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $\leftB \begin{array}{rr|rr}
+1 & -1 & -14 & 8 \\
+-1 & 2 & 16 & -9 \\
+\hline
+0 & 0 & 2 & -1 \\
+0 & 0 & 1 & -1
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ and $B$ are invertible symmetric matrices such that $AB = BA$, show that $A^{-1}$, $AB$, $AB^{-1}$, and $A^{-1}B^{-1}$ are also invertible and symmetric.
+\end{ex}
+
+\begin{ex}
+Let $A$ be an $n \times n$ matrix and let $I$ be the $n \times n$ identity matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A^{2} = 0$, verify that $(I - A)^{-1} = I + A$.
+
+\item If $A^{3} = 0$, verify that $(I - A)^{-1} = I + A + A^{2}$.
+
+\item Find the inverse of $\leftB \begin{array}{rrr}
+1 & 2 & -1 \\
+0 & 1 & 3 \\
+0 & 0 & 1
+\end{array} \rightB$.
+
+\item If $A^{n} = 0$, find the formula for $(I - A)^{-1}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{3}
+\item If $A^{n} = 0$, $(I - A)^{-1} = I + A + \cdots + A^{n-1}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} \label{ex:ex2_4_29}
+Prove property 6 of Theorem~\ref{thm:004442}: If $A$ is invertible and $a \neq 0$, then $aA$ is invertible and $(aA)^{-1} = \frac{1}{a}A^{-1}$
+\end{ex}
+
+\begin{ex}
+Let $A$, $B$, and $C$ denote $n \times n$ matrices. Using only Theorem~\ref{thm:004442}, show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$, $C$, and $ABC$ are all invertible, $B$ is invertible.
+
+\item If $AB$ and $BA$ are both invertible, $A$ and $B$ are both invertible.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $A[B(AB)^{-1}] = I = [(BA)^{-1}B]A$, so $A$ is invertible by Exercise~\ref{ex:ex2_4_10}.
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ denote invertible $n \times n$ matrices.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A^{-1} = B^{-1}$, does it mean that $A = B$? Explain.
+
+\item Show that $A = B$ if and only if $A^{-1}B = I$.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $A$, $B$, and $C$ be $n \times n$ matrices, with $A$ and $B$ invertible. Show that
+
+
+\begin{enumerate}[label={\alph*.}]
+\item If $A$ commutes with $C$, then $A^{-1}$ commutes with $C$.
+
+\item If $A$ commutes with $B$, then $A^{-1}$ commutes with $B^{-1}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\item  Have $AC = CA$. Left-multiply by $A^{-1}$ to get $C = A^{-1}CA$. Then right-multiply by $A^{-1}$ to get $CA^{-1} = A^{-1}C$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be square matrices of the same size.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $(AB)^{2} = A^{2}B^{2}$ if $AB = BA$.
+
+\item If $A$ and $B$ are invertible and $(AB)^{2} = A^{2}B^{2}$, show that $AB = BA$.
+
+\item If $A = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 0
+\end{array} \rightB$
+ and $B = \leftB \begin{array}{rr}
+ 1 & 1 \\
+ 0 & 0
+ \end{array} \rightB$, show that $(AB)^{2} = A^{2}B^{2}$ but $AB \neq BA$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Given $ABAB = AABB$. Left multiply by $A^{-1}$, then right multiply by $B^{-1}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be $n \times n$ matrices for which $AB$ is invertible. Show that $A$ and $B$ are both invertible.
+
+\begin{sol}
+If $B\vect{x} = \vect{0}$ where $\vect{x}$ is $n \times 1$, then $AB\vect{x} = \vect{0}$ so $\vect{x} = \vect{0}$ as $AB$ is invertible. Hence $B$ is invertible by Theorem~\ref{thm:004553}, so $A = (AB)B^{-1}$ is invertible.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Consider $A = \leftB \begin{array}{rrr}
+1 & 3 & -1 \\
+2 & 1 & 5 \\
+1 & -7 & 13
+\end{array} \rightB$, \newline $B = \leftB \begin{array}{rrr}
+1 & 1 & 2 \\
+3 & 0 & -3 \\
+-2 & 5 & 17
+\end{array} \rightB$.
+
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A$ is not invertible by finding a nonzero $1 \times 3$ matrix $Y$ such that $YA = 0$.
+
+
+[\textit{Hint}: Row 3 of $A$ equals $2\mbox{(row 2) }- 3\mbox{(row 1)}$.]
+
+\item Show that $B$ is not invertible.
+
+
+[\textit{Hint}: Column 3 $= 3\mbox{(column 2) } - \mbox{ column 1}$.]
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $B \leftB \begin{array}{r}
+-1 \\
+3 \\
+-1
+\end{array} \rightB = 0$
+ so $B$ is not invertible by Theorem~\ref{thm:004553}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that a square matrix $A$ is invertible if and only if it can be left-cancelled: $AB = AC$ implies $B = C$.
+\end{ex}
+
+\begin{ex}
+If $U^{2} = I$, show that $I + U$ is not invertible unless $U = I$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item If $J$ is the $4 \times 4$ matrix with every entry $1$, show that $I - \frac{1}{2}J$
+ is self-inverse and symmetric.
+
+\item If $X$ is $n \times m$ and satisfies $X^{T}X = I_{m}$, show that $I_{n} - 2XX^{T}$ is self-inverse and symmetric.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Write $U = I_{n} - 2XX^{T}$. Then $U^{T} = I_{n}^{T} - 2X^{TT}X^{T} = U$, and $U^{2} = I_{n}^{2} - (2XX^{T})I_{n} - I_{n}(2XX^{T}) + 4(XX^{T})(XX^{T}) = I_{n} - 4XX^{T} + 4XX^{T} = I_{n}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+An $n \times n$ matrix $P$ is called an idempotent if $P^{2} = P$. Show that:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $I$ is the only invertible idempotent.
+
+\item $P$ is an idempotent if and only if $I - 2P$ is self-inverse.
+
+\item $U$ is self-inverse if and only if $U = I - 2P$ for some idempotent $P$.
+
+\item $I - aP$ is invertible for any $a \neq 1$, and that \newline $(I - aP)^{-1} = I + \left(\frac{a}{1 - a}\right)^{P}$.
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $(I - 2P)^{2} = I - 4P + 4P^{2}$, and this equals $I$ if and only if $P^{2} = P$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A^{2} = kA$, where $k \neq 0$, show that $A$ is invertible if and only if $A = kI$.
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ denote $n \times n$ invertible matrices.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $A^{-1} + B^{-1} = A^{-1}(A + B)B^{-1}$.
+
+\item If $A + B$ is also invertible, show that $A^{-1} + B^{-1}$ is invertible and find a formula for $(A^{-1} + B^{-1})^{-1}$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $(A^{-1} + B^{-1})^{-1} = B(A + B)^{-1}A$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Let $A$ and $B$ be $n \times n$ matrices, and let $I$ be the $n \times n$ identity matrix.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Verify that $A(I + BA) = (I + AB)A$ and that \newline $(I + BA)B = B(I + AB)$.
+
+\item If $I + AB$ is invertible, verify that $I + BA$ is also invertible and that $(I + BA)^{-1} = I - B(I + AB)^{-1}A$.
+
+\end{enumerate}
+\end{ex}
+\end{multicols}
+

@@ -1,0 +1,1465 @@
+\section{The Cofactor Expansion}
+\label{sec:3_1}
+
+In Section~\ref{sec:2_4} we defined the determinant of a $2 \times 2$ matrix
+$A = \leftB
+\begin{array}{cc}
+a & b \\
+c & d
+\end{array}
+\rightB$ 
+ as follows:\footnote{Determinants are commonly written $|A| = \func{det } A$ using vertical bars. We will use both notations.\index{determinants!notation}}
+\begin{equation*}
+\func{det } A = \left| \begin{array}{cc}
+a & b \\
+c & d 
+\end{array} \right|  = ad - bc
+\end{equation*}
+and showed (in Example~\ref{exa:004261}) that $A$ has an inverse if and only if det $A \neq 0$. One objective of this chapter is to do this for \textit{any} square matrix  A. There is no difficulty for $1 \times 1$ matrices: If $A = \leftB a \rightB$, we define $\func{det} A = \func{det} \leftB a \rightB  = a$ and note that $A$ is invertible if and only if $a \neq 0$.\index{determinants!defined}\index{determinants!and inverses}\index{determinants!square matrices}\index{inverses!determinants}\index{invertible matrix!determinants}\index{square matrix ($n \times n$ matrix)!determinants}
+
+
+If $A$ is $3 \times 3$ and invertible, we look for a suitable definition of $\func{det } A$ by trying to carry $A$ to the identity matrix by row operations. The first column is not zero ($A$ is invertible); suppose the (1, 1)-entry $a$ is not zero. Then row operations give
+\begin{equation*}
+A = \leftB \begin{array}{ccc}
+a & b & c \\
+d & e & f \\
+g & h & i 
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{ccc}
+a & b & c \\
+ad & ae & af \\
+ag & ah & ai 
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{ccc}
+a & b & c \\
+0 & ae-bd & af-cd \\
+0 & ah-bg & ai-cg 
+\end{array} \rightB
+=
+\leftB \begin{array}{ccc}
+a & b & c \\
+0 & u & af-cd \\
+0 & v & ai-cg 
+\end{array} \rightB
+\end{equation*}
+where $u = ae - bd$ and $v = ah - bg$. Since $A$ is invertible, one of $u$ and $v$ is nonzero (by Example \ref{exa:004627}); suppose that $u \neq 0$. Then the reduction proceeds
+\begin{equation*}
+A \rightarrow \leftB \begin{array}{ccc}
+a & b & c \\
+0 & u & af-cd \\
+0 & v & ai-cg 
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{ccc}
+a & b & c \\
+0 & u & af-cd \\
+0 & uv & u(ai-cg) 
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{ccc}
+a & b & c \\
+0 & u & af-cd \\
+0 & 0 & w 
+\end{array} \rightB
+\end{equation*}
+where $w = u(ai - cg)- v(af - cd) = a(aei + bfg + cdh - ceg - afh - bdi)$. We define
+\begin{equation}\label{eq:detdefinition}
+\func{det } A = aei + bfg + cdh - ceg - afh - bdi
+\end{equation}
+and observe that $\func{det } A \neq 0$ because $a \func{det } A = w \neq 0$ (is invertible).
+
+
+To motivate the definition below, collect the terms in Equation \ref{eq:detdefinition} involving the entries $a$, $b$, and $c$ in row 1 of $A$:
+\begin{align*}
+\func{det } A = \left| \begin{array}{ccc}
+a & b & c \\
+d & e & f \\
+g & h & i 
+\end{array} \right| &= aei + bfg + cdh - ceg - afh - bdi \\
+&= a (ei-fh) - b(di-fg) + c(dh-eg) \\
+&= a \left| \begin{array}{cc}
+e & f \\
+h & i 
+\end{array} \right| -  b \left| \begin{array}{cc}
+d & f \\
+g & i 
+\end{array} \right|
++ c \left| \begin{array}{cc}
+d & e \\
+g & h 
+\end{array} \right|
+\end{align*}
+This last expression can be described as follows: To compute the determinant of a $3 \times 3$ matrix $A$,
+ multiply each entry in row 1 by a sign times the determinant of the $2 \times
+ 2$ matrix obtained by deleting the row and column of that entry, and add
+ the results. The signs alternate down row 1, starting with $+$. It is 
+this observation that we generalize below. \index{determinants!$3 \times 3$}
+
+\begin{example}{}{007706}
+\begin{align*}
+\func{det}\leftB \begin{array}{rrr}
+2 & 3 & 7 \\
+-4 & 0 & 6 \\
+1 & 5 & 0 
+ \end{array} \rightB
+&= 2 \left| \begin{array}{rr}
+0 & 6 \\
+5 & 0 
+\end{array} \right| 
+- 3 \left| \begin{array}{rr}
+-4 & 6 \\
+1 & 0 
+\end{array} \right| 
++ 7 \left| \begin{array}{rr}
+-4 & 0 \\
+1 & 5 
+\end{array} \right| \\
+&= 2 (-30) - 3(-6) + 7(-20) \\ 
+&= -182
+\end{align*}
+\end{example}
+
+This suggests an inductive method of 
+defining the determinant of any square matrix in terms of determinants 
+of matrices one size smaller. The idea is to define determinants of $3 \times 3$
+ matrices in terms of determinants of $2 \times 2$ matrices, then we do $4 \times 4$ 
+matrices in terms of $3 \times 3$ matrices, and so on.\index{determinants!inductive method of determination}\index{induction!determinant!determination of}
+
+To describe this, we need some terminology.
+
+\begin{definition}{Cofactors of a Matrix}{007711}
+Assume that determinants of $(n - 1) \times (n - 1)$ matrices have been defined. Given the $n \times n$ matrix $A$, let 
+\begin{equation*}
+A_{ij} \mbox{ denote the } (n - 1) \times (n - 1) \mbox{ matrix  obtained from } A \mbox{ by deleting row } i \mbox{ and column } j.
+\end{equation*}
+Then the $(i,j)$-\textbf{cofactor} $c_{ij}(A)$ is the scalar defined by \index{cofactor}\index{determinants!cofactor expansion}
+\begin{equation*}
+c_{ij}(A) = (-1)^{i+j} \func{det}(A_{ij})
+\end{equation*}
+Here $(-1)^{i+j}$ is called the \textbf{sign} of the $(i, j)$-position. \index{sign}
+\end{definition}
+
+\noindent The sign of a position is clearly $1$ or $-1$, and the following diagram is useful for remembering it:
+\begin{equation*}
+\leftB \begin{array}{ccccc}
++ & - & + & - & \cdots \\
+- & + & - & + & \cdots \\
++ & - & + & - & \cdots \\
+- & + & - & + & \cdots \\
+\vdots & \vdots & \vdots & \vdots & \\
+\end{array}\rightB
+\end{equation*}
+Note that the signs alternate along each row and column with $+$ in the upper left corner.
+
+
+\begin{example}{}{007723}
+Find the cofactors of positions $(1, 2), (3, 1)$, and $(2, 3)$ in the following matrix.
+\begin{equation*}
+A = \leftB \begin{array}{rrr}
+3 & -1 & 6 \\
+5 & 2 & 7 \\
+8 & 9 & 4
+\end{array} \rightB
+\end{equation*}
+\begin{solution}
+Here $A_{12}$ is the matrix $\leftB \begin{array}{rr}
+5 & 7 \\
+8 & 4 
+\end{array} \rightB$ 
+ that remains when row $1$ and column $2$ are deleted. The sign of position $(1, 2)$ is $(-1)^{1+2} = -1$ (this is also the $(1, 2)$-entry in the sign diagram), so the $(1, 2)$-cofactor is
+\begin{equation*}
+c_{12}(A) = (-1)^{1+2} \left| \begin{array}{rr}
+5 & 7 \\
+8 & 4 
+\end{array} \right| 
+=
+(-1)(5 \cdot 4 - 7 \cdot 8) = (-1)(-36)=36
+\end{equation*}
+Turning to position $(3, 1)$, we find
+\begin{equation*}
+c_{31}(A) = (-1)^{3+1}A_{31}= (-1)^{3+1} \left| \begin{array}{rr}
+-1 & 6 \\
+2 & 7 
+\end{array} \right| 
+=(+1)(-7-12)=-19
+\end{equation*}
+Finally, the $(2, 3)$-cofactor is
+\begin{equation*}
+c_{23}(A) = (-1)^{2+3}A_{23}= (-1)^{2+3} \left| \begin{array}{rr}
+3 & -1 \\
+8 & 9 
+\end{array} \right| 
+=
+(-1)(27+8)=-35
+\end{equation*}
+Clearly other cofactors can be found---there are nine in all, one for each position in the matrix.
+\end{solution}
+\end{example}
+
+We can now define $\func{det } A$ for any square matrix $A$
+
+\begin{definition}{Cofactor expansion of a Matrix}{007740}
+Assume that determinants of $(n - 1) \times (n - 1)$ matrices have been defined. If $A = \leftB a_{ij} \rightB$ is $n \times n$ define
+\begin{equation*}
+\func{det } A = a_{11}c_{11}(A) +  a_{12}c_{12}(A) + \cdots +  a_{1n}c_{1n}(A)
+\end{equation*}
+This is called the \textbf{cofactor expansion} of $\func{det } A$ along row $1$. \index{cofactor expansion}\index{determinants!cofactor expansion}\index{determinants!$n\times n$}
+\end{definition}
+
+It asserts that $\func{det } A$ can be computed by multiplying the entries of row $1$ by the corresponding 
+cofactors, and adding the results. The astonishing thing is that $\func{det } A$ can be computed by taking the cofactor expansion along \textit{any row or column}: Simply multiply each entry of that row or column by the corresponding cofactor and add.
+
+
+\begin{theorem}{Cofactor Expansion Theorem\footnotemark}{007747}
+The determinant of an $n \times n$ matrix $A$
+ can be computed by using the cofactor expansion along any row or column
+ of $A$. That is $\func{det } A$ can be computed by multiplying each entry of the 
+row or column by the corresponding cofactor and adding the results. \index{cofactor expansion theorem}
+\end{theorem}
+\footnotetext{The cofactor expansion is due to Pierre Simon de Laplace (1749--1827), who 
+discovered it in 1772 as part of a study of linear differential 
+equations. Laplace is primarily remembered for his work in astronomy and
+ applied mathematics.\index{Laplace, Pierre Simon de} }
+
+The proof will be given in Section~\ref{sec:3_6}.
+
+\begin{example}{}{007753}
+Compute the determinant of
+$
+A = \leftB \begin{array}{rrr}
+3 & 4 & 5 \\
+1 & 7 & 2 \\
+9 & 8 & -6
+\end{array}
+\rightB$.
+
+\begin{solution}
+The cofactor expansion along the first row is as follows:
+\begin{align*}
+\func{det } A &= 3c_{11}(A) + 4c_{12}(A) + 5c_{13}(A) \\
+&= 3 \left| \begin{array}{rr}
+7 & 2 \\
+8 & -6 
+\end{array} \right| - 4 \left| \begin{array}{rr}
+1 & 2 \\
+9 & -6 
+\end{array} \right| + 5 
+\left| \begin{array}{rr}
+1 & 7 \\
+9 & 8 
+\end{array} \right| \\ 
+&= 3 (-58) - 4(-24) + 5(-55) \\
+&= -353
+\end{align*}
+Note that the signs alternate along the row (indeed along \textit{any} row or column). Now we compute $\func{det } A$ by expanding along the first column.
+\begin{align*}
+\func{det } A &= 3c_{11}(A) + 1c_{21}(A) + 9c_{31}(A) \\
+&= 3 \left| \begin{array}{rr}
+7 & 2 \\
+8 & -6 
+\end{array} \right| - \left| \begin{array}{rr}
+4 & 5 \\
+8 & -6 
+\end{array} \right| + 9 
+\left| \begin{array}{rr}
+4 & 5 \\
+7 & 2 
+\end{array} \right| \\ 
+&= 3 (-58) - (-64) + 9(-27) \\
+&= -353
+\end{align*}
+The reader is invited to verify that $\func{det } A$ can be computed by expanding along any other row or column.
+\end{solution}
+\end{example}
+
+The fact that the cofactor expansion along \textit{any row or column} of a matrix $A$ always gives the same result (the determinant of $A$) is remarkable, to say the least. The choice of a particular row or column can simplify the calculation.
+
+\begin{example}{}{007765}
+Compute $\func{det } A$ where
+$A = \leftB \begin{array}{rrrr}
+3 & 0 & 0 & 0 \\
+5 & 1 & 2 & 0 \\
+2 & 6 & 0 & -1 \\
+-6 & 3 & 1 & 0 
+\end{array}
+\rightB$.
+
+\begin{solution}
+The first choice we must make is which row or column to use in the 
+cofactor expansion. The expansion involves multiplying entries by 
+cofactors, so the work is minimized when the row or column contains as 
+many zero entries as possible. Row $1$ is a best choice in this matrix 
+(column $4$ would do as well), and the expansion is
+\begin{align*}
+\func{det } A &= 3c_{11}(A) + 0c_{12}(A) + 0c_{13}(A) + 0c_{14}(A) \\
+&= 3 \left| \begin{array}{rrr}
+1 & 2 & 0 \\
+6 & 0 & -1 \\
+3 & 1 & 0
+\end{array}
+\right|
+\end{align*}
+This is the first stage of the calculation, and we have succeeded in expressing the determinant of the $4 \times 4$ matrix $A$
+ in terms of the determinant of a $3 \times 3$ matrix. The next stage involves 
+this $3 \times 3$ matrix. Again, we can use any row or column for the cofactor 
+expansion. The third column is preferred (with two zeros), so
+\begin{align*}
+\func{det } A &= 3 \left( 0 \left| \begin{array}{rr}
+6 & 0 \\
+3 & 1 
+\end{array}
+\right| - (-1)
+ \left| \begin{array}{rr}
+1 & 2 \\
+3 & 1 
+\end{array}
+\right|
++ 0
+ \left| \begin{array}{rr}
+1 & 2 \\
+6 & 0 
+\end{array}
+\right|
+ \right) \\
+&= 3 [ 0 + 1(-5) + 0] \\
+&= -15
+\end{align*}
+This completes the calculation.
+\end{solution}
+\end{example}
+
+Computing the determinant of a matrix $A$ can be tedious. For example, if $A$
+ is a $4 \times 4$ matrix, the cofactor expansion along any row or column 
+involves calculating four cofactors, each of which involves the 
+determinant of a $3 \times 3$ matrix. And if $A$ is $5 \times 5$, the expansion 
+involves five determinants of $4 \times 4$ matrices! There is a clear need for 
+some techniques to cut down the work.\footnote{If $A = \leftB \begin{array}{rrr}
+a & b & c \\
+d & e & f \\
+g & h & i 
+\end{array} \rightB$ 
+ we can calculate $\func{det } A$ by considering 
+$\leftB \begin{array}{rrrrr}
+a & b & c & a & b\\
+d & e & f & d & e \\
+g & h & i & g & h 
+\end{array} \rightB$ 
+obtained from $A$ by adjoining columns $1$ and $2$ on the right. Then $\func{det } A = aei + bfg + cdh - ceg - afh - bdi$, where the positive terms $aei, bfg,$ and $cdh$ are the products down and to the right starting at $a,b$, and $c$, and the negative terms $ceg, afh$, and $bdi$ are the products down and to the left starting at $c, a$, and $b$. \textbf{Warning}: This rule does \textbf{not} apply to $n \times n$ matrices where $n > 3$ or $n = 2$.}
+
+
+The motivation for the method is the observation (see Example~\ref{exa:007765})
+ that calculating a determinant is simplified a great deal when a row or
+ column consists mostly of zeros. (In fact, when a row or column 
+consists \textit{entirely} of zeros, the determinant is zero---simply expand along that row or column.)
+
+
+Recall next that one method of \textit{creating}\index{matrix!zeros, creating in matrix}
+ zeros in a matrix is to apply elementary row operations to it. Hence, a
+ natural question to ask is what effect such a row operation has on the 
+determinant of the matrix. It turns out that the effect is easy to 
+determine and that elementary \textit{column} operations\index{columns!elementary column operations} can be used in 
+the same way. These observations lead to a technique for evaluating 
+determinants that greatly reduces the labour involved. The necessary 
+information is given in Theorem~\ref{thm:007779}.
+
+
+\begin{theorem}{}{007779}
+Let $A$ denote an $n \times n$ matrix.
+
+\begin{enumerate}
+\item If A has a row or column of zeros, $\func{det } A = 0$.
+\item If two distinct rows (or columns) of $A$ are interchanged, the determinant of the resulting matrix is $- \func{det } A$.
+
+\item If a row (or column) of $A$ is multiplied by a constant $u$, the determinant of the resulting matrix is $u(\func{det } A)$.
+
+\item If two distinct rows (or columns) of $A$ are identical, $\func{det } A = 0$.
+
+\item If
+ a multiple of one row of $A$ is added to a different row (or if a 
+multiple of a column is added to a different column), the determinant of
+ the resulting matrix is $\func{det } A$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We prove properties 2, 4, and 5 and leave the rest as exercises.
+
+\textit{Property 2}. If $A$ is $n \times n$, this follows by induction on $n$. If $n = 2$, the verification is left to the reader. If $n > 2$ and two rows are interchanged, let $B$ denote the resulting matrix. Expand $\func{det } A$ and $\func{det } B$ along a row \textit{other than} the two that were interchanged. The entries in this row are the same for both $A$ and $B$, but the cofactors in $B$ are the negatives of those in $A$ (by induction) because the corresponding $(n - 1) \times (n - 1)$ matrices have two rows interchanged. Hence, $\func{det } B = - \func{det } A$, as required. A similar argument works if two columns are interchanged.
+
+
+\textit{Property 4}. If two rows of $A$ are equal, let $B$ be the matrix obtained by interchanging them. Then $B = A$, so $\func{det } B = det A$. But $\func{det } B = -\func{det } A$ by property 2, so $\func{det } A = \func{det } B = 0$. Again, the same argument works for columns.
+
+
+\textit{Property 5}. Let $B$ be obtained from $A = \leftB a_{ij}\rightB$ by adding $u$ times row $p$ to row $q$. Then row $q$ of $B$ is 
+\begin{equation*}
+(a_{q1} + ua_{p1},a_{q2} + ua_{p2}, \dots , a_{qn} + ua_{pn})
+\end{equation*}
+The cofactors of these elements in $B$ are the same as in $A$ (they do not involve row $q$): in symbols, $c_{qj}(B) = c_{qj}(A)$ for each $j$. Hence, expanding $B$ along row $q$ gives
+\begin{align*}
+\func{det } B &= (a_{q1} + ua_{p1})c_{q1}(A) + (a_{q2} + ua_{p2})c_{q2}(A) + \cdots + (a_{qn}+ua_{pn})c_{qn}(A) \\
+&= [a_{q1}c_{q1}(A) + a_{q2}c_{q2}(A) + \cdots + a_{qn}c_{qn}(A)] + u[a_{p1}c_{q1}(A) + a_{p2}c_{q2}(A) + \cdots + a_{pn}c_{qn}(A)] \\
+&= \func{det } A + u \func{det } C
+\end{align*}
+where $C$ is the matrix obtained from $A$ by replacing row $q$ by row $p$ (and both expansions are along row $q$). Because rows $p$ and $q$ of $C$ are equal, $\func{det } C = 0$ by property 4. Hence, $\func{det } B = \func{det } A$, as required. As before, a similar proof holds for columns.
+\end{proof}
+
+To illustrate Theorem~\ref{thm:007779}, consider the following determinants.
+
+\begin{tabu}{lX[2]}
+$
+\left|
+\begin{array}{rrr}
+3 & -1 & 2 \\
+2 & 5 & 1 \\
+0 & 0 & 0 
+\end{array} \right|  =0$  & (because the last row consists of zeros) \\
+\\
+$ \left| \begin{array}{rrr}
+3 & -1 & 5 \\
+2 & 8 & 7 \\
+1 & 2 & -1 
+\end{array} \right| = - \left| \begin{array}{rrr}
+5 & -1 & 3 \\
+7 & 8 & 2 \\
+-1 & 2 & 1 \end{array}\right|$ & (because two columns are interchanged) \\
+\\
+$
+\left|
+\begin{array}{rrr}
+8 & 1 & 2 \\
+3 & 0 & 9 \\
+1 & 2 & -1 
+\end{array} \right|
+= 3 \left|
+\begin{array}{rrr}
+8 & 1 & 2 \\
+1 & 0 & 3 \\
+1 & 2 & -1 
+\end{array} \right|$  &  (because the second row of the matrix on the left is $3$ times the second row of the matrix on the right) \\
+\\
+$
+\left|
+\begin{array}{rrr}
+2 & 1 & 2 \\
+4 & 0 & 4 \\
+1 & 3 & 1 
+\end{array} \right| =0$  & (because two columns are identical) \\
+\\
+$
+\left|
+\begin{array}{rrr}
+2 & 5 & 2 \\
+-1 & 2 & 9 \\
+3 & 1 & 1 
+\end{array} \right|
+= \left|
+\begin{array}{rrr}
+0 & 9 & 20 \\
+-1 & 2 & 9 \\
+3 & 1 & 1 
+\end{array} \right|$  &  (because twice the second row of the matrix on the left was added to the first row) \\
+\end{tabu}
+
+\medskip
+
+The following four examples illustrate how Theorem~\ref{thm:007779} is used to evaluate determinants.
+
+\begin{example}{}{007817}
+Evaluate $\func{det } A$ when 
+$A = \leftB \begin{array}{rrr}
+1 & -1 & 3 \\
+1 & 0 & -1 \\
+2 & 1 & 6 
+\end{array}
+\rightB$.
+
+\begin{solution}
+ The matrix does have zero entries, so expansion along (say) the second 
+row would involve somewhat less work. However, a column operation can be
+ used to get a zero in position $(2, 3$)---namely, add column 1 to column 3.
+ Because this does not change the value of the determinant, we obtain
+\begin{equation*}
+\func{det } A = \left| \begin{array}{rrr}
+1 & -1 & 3 \\
+1 & 0 & -1 \\
+2 & 1 & 6 
+\end{array} \right| =  \left| \begin{array}{rrr}
+1 & -1 & 4 \\
+1 & 0 & 0 \\
+2 & 1 & 8 
+\end{array} \right|
+= - \left| \begin{array}{rr}
+-1 & 4 \\
+1 & 8 
+\end{array} \right|
+=12
+\end{equation*}
+where we expanded the second $3 \times 3$ matrix along row 2.
+\end{solution}
+\end{example}
+
+\begin{example}{}{007825}
+If $\func{det} \leftB \begin{array}{rrr}
+a & b & c \\
+p & q & r \\
+x & y & z
+\end{array}
+\rightB = 6$,
+ evaluate $\func{det } A$ where $A = \leftB \begin{array}{ccc}
+a+x & b+y & c+z \\
+3x & 3y & 3z \\
+-p & -q & -r
+\end{array}\rightB$.
+ 
+\begin{solution}
+First take common factors out of rows 2 and 3.
+\begin{equation*}
+\func{det } A = 3(-1) \func{det} \leftB \begin{array}{ccc}
+a+x & b+y & c+z \\
+x & y & z \\
+p & q & r 
+\end{array}
+\rightB
+\end{equation*}
+Now subtract the second row from the first and interchange the last two rows.
+\begin{equation*}
+\func{det } A = -3 \func{det} \leftB \begin{array}{ccc}
+a & b & c \\
+x & y & z \\
+p & q & r 
+\end{array}
+\rightB
+= 3 \func{det} \leftB \begin{array}{ccc}
+a & b & c \\
+p & q & r \\
+x & y & z 
+\end{array}
+\rightB
+ = 3 \cdot 6 = 18
+\end{equation*}
+\end{solution}
+\end{example}
+
+The determinant of a matrix is a sum of products of its entries\index{sum!of product of matrix entries}. In particular, if these entries are polynomials in $x$, then the determinant itself is a polynomial in $x$. It is often of interest to determine which values of $x$ make the determinant zero, so it is very useful if the determinant is given in factored form. Theorem~\ref{thm:007779} can help.\index{determinants!defined}\index{polynomials!as matrix entries and determinants}
+
+\begin{example}{}{007837}
+Find the values of $x$ for which $\func{det } A = 0$, where 
+$A = \leftB \begin{array}{ccc}
+1 & x & x \\
+x & 1 & x \\
+x & x & 1 
+\end{array}
+\rightB$.
+
+\begin{solution}
+To evaluate $\func{det } A$, first subtract $x$ times row 1 from rows 2 and 3.
+\begin{equation*}
+\func{det } A = \left| \begin{array}{ccc}
+1 & x & x \\
+x & 1 & x \\
+x & x & 1
+\end{array} \right|
+= 
+\left| \begin{array}{ccc}
+1 & x & x \\
+0 & 1-x^2 & x-x^2 \\
+0 & x-x^2 & 1-x^2
+\end{array} \right|
+= 
+\left| \begin{array}{cc}
+1-x^2 & x-x^2  \\
+x-x^2 & 1-x^2 
+\end{array} \right|
+\end{equation*}
+At this stage we could simply evaluate the determinant (the result is $2x^3-3x^2+1$). But then we would have to factor this polynomial to find the values of $x$
+ that make it zero. However, this factorization can be obtained directly
+ by first factoring each entry in the determinant and taking a common 
+factor of $(1-x)$ from each row.
+\begin{align*}
+\func{det } A = \left| \begin{array}{cc}
+(1-x)(1+x) & x(1-x) \\
+x(1-x) & (1-x)(1+x)
+\end{array}
+\right| &= 
+(1-x)^2 \left| \begin{array}{cc}
+1+x & x \\
+x & 1+x
+\end{array} \right| \\
+&= (1-x)^2(2x+1)
+\end{align*}
+Hence, $\func{det } A = 0$ means $(1 - x)^2(2x + 1) = 0$, that is $x = 1$ or $x = -\frac{1}{2}$.
+\end{solution}
+\end{example}
+
+
+\begin{example}{}{007851}
+If $a_1$, $a_2$, and $a_3$ are given show that
+\begin{equation*}
+\func{det}\leftB \begin{array}{ccc}
+1 & a_1 & a_1^2 \\
+1 & a_2 & a_2^2 \\
+1 & a_3 & a_3^2 
+\end{array}
+\rightB = (a_3-a_1)(a_3-a_2)(a_2-a_1)
+\end{equation*}
+\begin{solution}
+Begin by subtracting row 1 from rows 2 and 3, and then expand along column 1:
+\begin{equation*}
+\func{det} \leftB \begin{array}{ccc}
+1 & a_1 & a_1^2 \\
+1 & a_2 & a_2^2 \\
+1 & a_3 & a_3^2 
+\end{array}
+\rightB = \func{det} \leftB \begin{array}{ccc}
+1 & a_1 & a_1^2 \\
+0 & a_2-a_1 & a_2^2-a_1^2 \\
+0 & a_3-a_1 & a_3^2-a_1^2
+\end{array}
+\rightB
+= \func{det} \leftB \begin{array}{cc}
+a_2-a_1 & a_2^2-a_1^2 \\
+a_3-a_1 & a_3^2-a_1^2  
+\end{array}
+\rightB
+\end{equation*}
+Now $(a_2 - a_1)$ and $(a_3 - a_1)$ are common factors in rows 1 and 2, respectively, so
+\begin{align*}
+\func{det} \leftB \begin{array}{ccc}
+1 & a_1 & a_1^2 \\
+1 & a_2 & a_2^2 \\
+1 & a_3 & a_3^2 
+\end{array}
+\rightB &= (a_2-a_1)(a_3-a_1)\func{det} \leftB \begin{array}{cc}
+1& a_2+a_1 \\
+1 & a_3+a_1
+\end{array} \rightB \\
+&= (a_2-a_1)(a_3-a_1)(a_3-a_2)
+\end{align*}
+\end{solution}
+\end{example}
+
+\noindent The matrix in Example~\ref{exa:007851} is called a Vandermonde matrix, and the formula for its determinant can be generalized to the $n \times n$ case (see Theorem \ref{thm:008552}).\index{determinants!Vandermonde matrix}\index{matrix!Vandermonde matrix}\index{Vandermonde matrix}
+
+
+If $A$ is an $n \times n$ matrix, forming $uA$ means multiplying \textit{every} row of $A$ by $u$. Applying property 3 of Theorem~\ref{thm:007779}, we can take the common factor $u$ out of each row and so obtain the following useful result.
+
+
+\begin{theorem}{}{007870}
+If A is an $ n \times n$ matrix, then $\func{det}(uA) = u^n \func{det } A$ for any number $u$.
+\end{theorem}
+
+The next example displays a type of matrix whose determinant is easy to compute.
+
+\begin{example}{}{007875}
+Evaluate $\func{det } A$ if 
+$A = \leftB \begin{array}{rrrr}
+a & 0 & 0 & 0 \\
+u & b & 0 & 0 \\
+v & w & c & 0 \\
+x & y & z & d 
+\end{array} \rightB$.
+
+
+\begin{solution}
+Expand along row 1 to get $\func{det } A = a \left| \begin{array}{rrr}
+b & 0 & 0 \\
+w & c & 0 \\
+y & z & d 
+\end{array} \right|$. Now expand this along the top row to get  $\func{det } A = ab \left| \begin{array}{cc}
+c & 0 \\
+z & d 
+ \end{array} \right| = abcd$, the product of the main diagonal entries.
+\end{solution}
+\end{example}
+
+A square matrix is called a \textbf{lower triangular matrix}\index{lower triangular matrix}\index{matrix!lower triangular matrix}\index{square matrix ($n \times n$ matrix)!lower triangular matrix} if all entries above the main diagonal are zero (as in Example~\ref{exa:007875}). Similarly, an \textbf{upper triangular matrix}\index{upper triangular matrix}\index{matrix!upper triangular matrix}\index{square matrix ($n \times n$ matrix)!upper triangular matrix} is one for which all entries below the main diagonal are zero. A \textbf{triangular matrix}\index{triangular matrices}\index{matrix!triangular matrices}\index{square matrix ($n \times n$ matrix)!triangular matrix} is one that is either upper or lower triangular. Theorem~\ref{thm:007885} gives an easy rule for calculating the determinant of any triangular matrix. The proof is like the solution to Example~\ref{exa:007875}.
+
+
+\begin{theorem}{}{007885}
+If A is a square triangular matrix, then det A is the product of the entries on the main diagonal.\index{determinants!triangular matrix}
+\end{theorem}
+
+\noindent Theorem~\ref{thm:007885} is useful in computer calculations because it is a routine matter to carry a matrix to triangular form using row operations.
+
+Block matrices such as those in the 
+next theorem arise frequently in practice, and the theorem gives an easy
+ method for computing their determinants. This dovetails with Example \ref{exa:004627}.\index{block matrix}
+
+\begin{theorem}{}{007890}
+Consider matrices 
+$\leftB \begin{array}{cc}
+A & X \\
+0 & B 
+\end{array} \rightB$
+and $\leftB \begin{array}{cc}
+A & 0 \\
+Y & B 
+\end{array} \rightB$ in block form, where $A$ and $B$ are square matrices. Then
+\begin{equation*}
+\func{det} \leftB \begin{array}{cc}
+A & X \\
+0 & B 
+\end{array}\rightB = \func{det } A \func{det } B \mbox{ and }
+\func{det} \leftB \begin{array}{cc}
+A & 0 \\
+Y & B 
+\end{array}\rightB = \func{det } A \func{det } B
+\end{equation*}\index{determinants!block matrix}
+\end{theorem}
+
+\begin{proof}
+Write $ T = \func{det} \leftB \begin{array}{cc}
+A & X \\
+0 & B 
+\end{array}\rightB$
+ and proceed by induction on $k$ where $A$ is $k \times k$. If $k = 1$, it is the cofactor expansion along column 1. In general let $S_i(T)$ denote the matrix obtained from $T$ by deleting row $i$ and column 1. Then the cofactor expansion of $\func{det } T$ along the first column is
+\begin{equation}\label{eq:cofexpdeterminant}
+\func{det } T = a_{11}\func{det}(S_1(T))-a_{21}\func{det}(S_2(T)) + \cdots \pm a_{k1}\func{det}(S_k(T))
+\end{equation}
+where $a_{11}, a_{21}, \cdots, a_{k1}$  are the entries in the first column of $A$. But $S_i(T) = \leftB \begin{array}{cc}
+S_i(A) & X_i \\
+0 & B 
+\end{array} \rightB$ 
+ for each $i = 1, 2, \cdots, k$, so $\func{det}(S_i(T)) = \func{det}(S_i(A)) \cdot \func{det } B$ by induction. Hence, Equation \ref{eq:cofexpdeterminant} becomes
+\begin{align*}
+\func{det } T &= \left\{ a_{11}\func{det}(S_1(T))-a_{21}\func{det}(S_2(T)) + \cdots \pm a_{k1}\func{det}(S_k(T))\right\} \func{det } B \\
+&= \left\{ \func{det } A \right\} \func{det } B
+\end{align*}
+as required. The lower triangular case is similar.
+\end{proof}
+
+\begin{example}{}{007910}
+\begin{equation*}
+\func{det} \leftB \begin{array}{rrrr}
+2 & 3 & 1 & 3 \\
+1 & -2 & -1 & 1 \\
+0 & 1 & 0 & 1 \\
+0 & 4 & 0 & 1
+\end{array} \rightB
+= 
+- \left| \begin{array}{rrrr}
+2 & 1 & 3 & 3 \\
+1 & -1 & -2 & 1 \\
+0 & 0 & 1 & 1 \\
+0 & 0 & 4 & 1
+\end{array} \right|
+=
+-\left| \begin{array}{rr}
+2 & 1 \\
+1 & -1 
+\end{array} \right|
+\left| \begin{array}{rr}
+1 & 1 \\
+4 & 1 
+\end{array} \right|
+= - (-3)(-3) = -9
+\end{equation*}
+\end{example}
+
+The next result shows that $\func{det } A$ is a linear transformation when regarded as a function of a fixed column of $A$. The proof is Exercise \ref{ex:3_1_21}.
+
+\begin{theorem}{}{007914}
+Given columns $\vect{c}_{1}, \cdots , \vect{c}_{j-1}, \vect{c}_{j+1}, \cdots , \vect{c}_{n}$ in $\RR^n$, define $T: \RR^n \to \RR$ by 
+\begin{equation*}
+T(\vect{x}) = \func{det} \leftB 
+\begin{array}{ccccccc}
+\vect{c}_1 & \cdots & \vect{c}_{j-1} & \vect{x} & \vect{c}_{j+1} & \cdots & \vect{c}_n
+\end{array} \rightB
+\mbox{ for all } \vect{x} \mbox{ in } \RR^n
+\end{equation*}
+Then, for all $\vect{x}$ and $\vect{y}$ in $\RR^n$ and all $a$ in $\RR$,
+\begin{equation*}
+T(\vect{x}+\vect{y})= T(\vect{x}) + T(\vect{y}) \quad \mbox{ and } \quad T(a\vect{x}) = aT(\vect{x})
+\end{equation*}
+\end{theorem}
+
+\section*{Exercises for \ref{sec:3_1}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:3_1}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+Compute the determinants of the following matrices.
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rr}
+2 & -1 \\
+3 & 2
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rr}
+6 & 9 \\
+8 & 12
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rr}
+a^2 & ab \\
+ab & b^2
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{cc}
+a+1 & a \\
+a & a-1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rr}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+2 & 0 & -3 \\
+1 & 2 & 5 \\
+0 & 3 & 0
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+0 & a & 0 \\
+b & c & d \\
+0 & e & 0
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+1 & b & c \\
+b & c & 1 \\
+c & 1 & b
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+0 & a & b \\
+a & 0 & c \\
+b & c & 0
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+0 & 1 & -1 & 0 \\
+3 & 0 & 0 & 2 \\
+0 & 1 & 2 & 1 \\
+5 & 0 & 0 & 7
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+1 & 0 & 3 & 1 \\
+2 & 2 & 6 & 0 \\
+-1 & 0 & -3 & 1 \\
+4 & 1 & 12 & 0
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+3 & 1 & -5 & 2 \\
+1 & 3 & 0 & 1 \\
+1 & 0 & 5 & 2 \\
+1 & 1 & 2 & -1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+4 & -1 & 3 & -1 \\
+3 & 1 & 0 & 2 \\
+0 & 1 & 2 & 2 \\
+1 & 2 & -1 & 1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+1 & -1 & 5 & 5 \\
+3 & 1 & 2 & 4 \\
+-1 & -3 & 8 & 0 \\
+1 & 1 & 2 & -1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+0 & 0 & 0 & a \\
+0 & 0 & b & p \\
+0 & c & q & k \\
+d & s & t & u
+\end{array} \rightB$
+\end{exenumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $0$
+\setcounter{enumi}{3}
+\item $-1$
+\setcounter{enumi}{5}
+\item $-39$
+\setcounter{enumi}{7}
+\item $0$
+\setcounter{enumi}{9}
+\item $2abc$
+\setcounter{enumi}{11}
+\item $0$
+\setcounter{enumi}{13}
+\item $-56$
+\setcounter{enumi}{15}
+\item $abcd$
+\setcounter{enumi}{17}
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that $\func{det } A = 0$ if $A$ has a row or column consisting of zeros.
+\end{ex}
+
+\begin{ex}
+Show that the sign of the position in the last row and the last column of $A$ is always $+1$.
+\end{ex}
+
+\begin{ex}
+Show that $\func{det } I = 1$ for any identity matrix $I$.
+\end{ex}
+
+\begin{ex}
+Evaluate the determinant of each matrix by reducing it to upper triangular form.
+
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rrr}
+1 & -1 & 2 \\
+3 & 1 & 1 \\
+2 & -1 & 3
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+-1 & 3 & 1 \\
+2 & 5 & 3  \\
+1 & -2 & 1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+-1 & -1 & 1 & 0 \\
+2 & 1 & 1 & 3 \\
+0 & 1 & 1 & 2 \\
+1 & 3 & -1 & 2
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrrr}
+2 & 3 & 1 & 1 \\
+0 & 2 & -1 & 3 \\
+0 & 5 & 1 & 1 \\
+1 & 1 & 2 & 5
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $-17$
+
+\setcounter{enumi}{3}
+\item  $106$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Evaluate by cursory inspection:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\func{det} \leftB \begin{array}{ccc}
+a & b & c  \\
+a+1 & b+1 & c+1  \\
+a-1 & b-1 & c-1 
+\end{array} \rightB$
+
+\item $\func{det} \leftB \begin{array}{ccc}
+a & b & c  \\
+a+b & 2b & c+b  \\
+2 & 2 & 2 
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $0$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\func{det} \leftB \begin{array}{rrr}
+a & b & c  \\
+p & q & r  \\
+x & y & z 
+\end{array} \rightB = -1$
+compute:
+
+\begin{enumerate}[label={\alph*.}]
+\item $\func{det} \leftB \begin{array}{ccc}
+-x & -y & -z  \\
+3p+a & 3q+b & 3r+c  \\
+2p & 2q & 2r 
+\end{array} \rightB$
+
+
+\item $\func{det} \leftB \begin{array}{ccc}
+-2a & -2b & -2c  \\
+2p+x & 2q+y & 2r+z  \\
+3x & 3y & 3z 
+\end{array} \rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $12$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that:
+
+
+\begin{enumerate}[leftmargin=1em,label={\alph*.}]
+\item $\func{det} \leftB \begin{array}{rrr}
+p+x & q+y & r+z  \\
+a+x & b+y & c+z  \\
+a+p & b+q & c+r 
+\end{array} \rightB = 2\func{det} \leftB \begin{array}{rrr}
+a & b & c  \\
+p & q & r  \\
+x & y & z 
+\end{array} \rightB$
+
+
+\item  $\func{det} \leftB \begin{array}{rrr}
+2a+p & 2b+q & 2c+r  \\
+2p+x & 2q+y & 2r+z  \\
+2x+a & 2y+b & 2z+c 
+\end{array} \rightB = 9\func{det} \leftB \begin{array}{rrr}
+a & b & c  \\
+p & q & r  \\
+x & y & z 
+\end{array} \rightB$
+
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\func{det} \leftB \begin{array}{rrr}
+2a+p & 2b+q & 2c+r  \\
+2p+x & 2q+y & 2r+z  \\
+2x+a & 2y+b & 2z+c 
+\end{array} \rightB$ \\ 
+$= 3 \func{det} \leftB \begin{array}{rrr}
+a+p+x & b+q+y & c+r+z  \\
+2p+x & 2q+y & 2r+z  \\
+2x+a & 2y+b & 2z+c 
+\end{array} \rightB$ \\
+$= 3 \func{det} \leftB \begin{array}{rrr}
+a+p+x & b+q+y & c+r+z  \\
+p-a & q-b & r-c  \\
+x-p & y-q & z-r 
+\end{array} \rightB$ \\
+$= 3 \func{det} \leftB \begin{array}{rrr}
+3x & 3y & 3z  \\
+p-a & q-b & r-c  \\
+x-p & y-q & z-r 
+\end{array} \rightB \cdots$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case either prove the statement or give an example showing that it is false:
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\func{det}(A + B) = \func{det } A + \func{det } B.$
+
+\item If $\func{det } A = 0$, then $A$ has two equal rows.
+
+\item If $A$ is $2 \times 2$, then $\func{det}(A^T) = \func{det } A$.
+
+\item If $R$ is the reduced row-echelon form of $A$, then $\func{det } A = \func{det } R$.
+
+\item If $A$ is $2 \times 2$, then $\func{det}(7A) = 49 \func{det } A$.
+
+\item $\func{det}(A^T) = - \func{det } A$.
+
+\item $\func{det}(-A) = - \func{det } A$.
+
+\item If $\func{det } A = \func{det } B$ where $A$ and $B$ are the same size, then $A$ = $B$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  False. $A = \leftB \begin{array}{rr}
+1 & 1 \\
+2 & 2 
+\end{array} \rightB$ 
+
+
+\setcounter{enumi}{3}
+\item  False. $A = \leftB \begin{array}{rr}
+2 & 0 \\
+0 & 1 
+\end{array} \rightB \rightarrow
+R = \leftB \begin{array}{rr}
+1 & 0 \\
+0 & 1 
+\end{array} \rightB
+$ 
+
+
+\setcounter{enumi}{5}
+\item  False. $A = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1 
+\end{array} \rightB$ 
+
+
+\setcounter{enumi}{7}
+\item  False. $A = \leftB \begin{array}{rr}
+1 & 1 \\
+0 & 1 
+\end{array} \rightB$ 
+ and $B = \leftB \begin{array}{rr}
+1 & 0 \\
+1 & 1 
+\end{array} \rightB$ 
+
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\columnbreak
+\begin{ex}
+Compute the determinant of each matrix, using Theorem~\ref{thm:007890}.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\leftB \begin{array}{rrrrr}
+1 & -1 & 2 & 0 & -2 \\
+0 & 1 & 0 & 4 & 1 \\
+1 & 1 & 5 & 0 & 0 \\
+0 & 0 & 0 & 3 & -1 \\
+0 & 0 & 0 & 1 & 1 
+\end{array}
+\rightB$
+
+\item $\leftB \begin{array}{rrrrr}
+1 & 2 & 0 & 3 & 0 \\
+-1 & 3 & 1 & 4 & 0 \\
+0 & 0 & 2 & 1 & 1 \\
+0 & 0 & -1 & 0 & 2 \\
+0 & 0 & 3 & 0 & 1 
+\end{array}
+\rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $35$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $\func{det } A = 2, \func{det } B = -1$, and $\func{det } C = 3$, find:
+
+\begin{exenumerate}
+\exitem $\func{det} \leftB \begin{array}{ccc}
+A & X & Y \\
+0 & B & Z \\
+0 & 0 & C
+\end{array}\rightB$
+\exitem $\func{det} \leftB \begin{array}{ccc}
+A & 0 & 0 \\
+X & B & 0 \\
+Y & Z & C
+\end{array}\rightB$
+\exitem $\func{det} \leftB \begin{array}{ccc}
+A & X & Y \\
+0 & B & 0 \\
+0 & Z & C
+\end{array}\rightB$
+\exitem $\func{det} \leftB \begin{array}{ccc}
+A & X & 0 \\
+0 & B & 0 \\
+Y & Z & C
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $-6$
+
+\setcounter{enumi}{3}
+\item  $-6$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $A$ has three columns with only the top two entries nonzero, show that $\func{det } A = 0$.
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Find $\func{det } A$ if $A$ is $3 \times 3$ and $\func{det}(2A) = 6$.
+
+\item Under what conditions is $\func{det}(-A) = \func{det } A$?
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Evaluate by first adding all other rows to the first row.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item $\func{det } \leftB \begin{array}{ccc}
+x-1 & 2 & 3 \\
+2 & -3 & x-2 \\
+-2 & x & -2
+\end{array}\rightB$
+
+
+\item $\func{det } \leftB \begin{array}{ccc}
+x-1 & -3 & 1 \\
+2 & -1 & x-1 \\
+-3 & x+2 & -2
+\end{array}\rightB$
+
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $-(x-2)(x^2 + 2x-12)$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+\begin{enumerate}[label={\alph*.}]
+\item Find $b$ if 
+$\func{det} \leftB \begin{array}{rrr}
+5 & -1 & x \\
+2 & 6 & y \\
+-5 & 4 & z
+\end{array}\rightB = ax + by + cz$.
+
+\item Find $c$ if 
+$\func{det} \leftB \begin{array}{rrr}
+2 & x & -1 \\
+1 & y & 3 \\
+-3 & z & 4
+\end{array}\rightB = ax + by + cz$.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $-7$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the real numbers $x$ and $y$ such that $\func{det } A = 0$ if:
+
+
+\begin{exenumerate}
+\exitem $A = \leftB \begin{array}{rrr}
+0 & x & y \\
+y & 0 & x \\
+x & y & 0 
+\end{array}\rightB$
+\exitem $A = \leftB \begin{array}{rrr}
+1 & x & x \\
+-x & -2 & x \\
+-x & -x & -3 
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+1 & x & x^2 & x^3  \\
+x & x^2 & x^3 & 1 \\
+x^2 & x^3 & 1 & x \\
+x^3 & 1 & x & x^2 
+\end{array}\rightB$
+\exitem* $A = \leftB \begin{array}{rrrr}
+x & y & 0 & 0  \\
+0 & x & y & 0 \\
+0 & 0 & x & y \\
+y & 0 & 0 & x 
+\end{array}\rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ \pm \frac{\sqrt{6}}{2}$
+
+
+\setcounter{enumi}{3}
+\item  $x = \pm y$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that \\ $\func{det} \leftB \begin{array}{rrrr}
+0 & 1 & 1 & 1  \\
+1 & 0 & x & x \\
+1 & x & 0 & x \\
+1 & x & x & 0 
+\end{array}\rightB = -3x^2$
+\end{ex}
+
+\begin{ex}
+Show that \\$\func{det} \leftB \begin{array}{rrrr}
+1 & x & x^2 & x^3  \\
+a & 1 & x & x^2 \\
+p & b & 1 & x \\
+q & r & c & 1 
+\end{array}\rightB = (1-ax)(1-bx)(1-cx).$
+\end{ex}
+
+\begin{ex} \label{ex:3.1.19}
+\newline Given the polynomial $p(x) = a + bx + cx^2 + dx^3 + x^4$, the matrix $C = \leftB \begin{array}{rrrr}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+-a & -b & -c & -d 
+\end{array}\rightB$
+ is called the \textbf{companion matrix}\index{matrix!companion matrix}\index{companion matrix}\index{polynomials!companion matrix} of $p(x)$. Show that $\func{det}(xI - C) = p(x)$.
+\end{ex}
+
+\begin{ex}
+Show that \\ $\func{det} \leftB \begin{array}{rrr}
+a+x & b+x & c+x   \\
+b+x & c+x & a+x  \\
+c+x & a+x & b+x  
+\end{array}\rightB \\ = (a+b+c+3x)[(ab+ac+bc)-(a^2+b^2+c^2)]$
+\end{ex}
+
+\begin{ex}\label{ex:3_1_21}.
+Prove Theorem~\ref{thm:007914}. [\textit{Hint}: Expand the determinant along column \textit{j}.] 
+
+\begin{sol}
+Let $\vect{x} = \leftB \begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{array} \rightB$,  $\vect{y} = \leftB \begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \rightB$ 
+ and $A = \leftB \begin{array}{ccccc} \vect{c}_1 & \cdots & \vect{x} + \vect{y}& \cdots & \vect{c}_n \end{array}\rightB$ where $\vect{x} + \vect{y}$ is in column $j$. Expanding $\func{det } A$ along column $j$ (the one containing $\vect{x} + \vect{y}$):
+
+\begin{align*}
+T(\vect{x} + \vect{y}) = \func{det } A &= \sum_{i=1}^{n} (x_i + y_i)c_{ij}(A) \\
+&= \sum_{i=1}^{n} x_ic_{ij}(A) + \sum_{i=1}^{n} y_ic_{ij}(A)\\
+&= T(\vect{x}) + T(\vect{y})
+\end{align*}
+
+Similarly for $T(a\vect{x}) = aT(\vect{x})$.
+\end{sol}
+\end{ex}
+\columnbreak
+\begin{ex}
+Show that
+\begin{equation*}
+\func{det} \leftB \begin{array}{ccccc}
+0 & 0 & \cdots & 0 & a_1 \\
+0 & 0 & \cdots & a_2 & * \\
+\vdots & \vdots & & \vdots & \vdots \\
+0 & a_{n-1} & \cdots & * & * \\
+a_n & * & \cdots & * & *
+\end{array}
+\rightB
+= 
+(-1)^k a_1a_2 \cdots a_n
+\end{equation*}
+where either $n = 2k$ or $n = 2k + 1$, and $*$-entries are arbitrary.
+\end{ex}
+
+\begin{ex}
+By expanding along the first column, show that:
+\begin{equation*}
+\func{det} \leftB \begin{array}{ccccccc}
+1 & 1 & 0 & 0 & \cdots & 0 & 0 \\
+0 & 1 & 1 & 0 & \cdots & 0 & 0 \\
+0 & 0 & 1 & 1 & \cdots & 0 & 0 \\
+\vdots & \vdots & \vdots & \vdots & & \vdots & \vdots \\
+0 & 0 & 0 & 0 & \cdots & 1 & 1 \\
+1 & 0 & 0 & 0 & \cdots & 0 & 1 \\
+\end{array}
+\rightB
+= 1 + (-1)^{n+1}
+ \end{equation*}
+
+if the matrix is $n \times n, n \geq 2$.
+\end{ex}
+
+\begin{ex}
+Form matrix $B$ from a matrix $A$ by writing the columns of $A$ in reverse order. Express $\func{det } B$ in terms of $\func{det } A$.
+
+\begin{sol}
+If $A$ is $n \times n$, then $\func{det } B = (-1)^k \func{det } A$ where $n = 2k$ or $n = 2k + 1$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Prove property 3 of Theorem~\ref{thm:007779} by expanding along the row (or column) in question.
+\end{ex}
+
+\begin{ex}
+Show that the line through two distinct points $(x_{1}, y_{1})$ and $(x_{2}, y_{2})$ in the plane has equation
+\begin{equation*}
+\func{det} 
+\leftB \begin{array}{ccc}
+x & y & 1 \\
+x_1 & y_1 & 1 \\
+x_2 & y_2 & 1 
+\end{array}
+\rightB = 0
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+Let $A$ be an $n \times n$ matrix. Given a polynomial $p(x) = a_0 + a_1x + \cdots  + a_mx^m$, we write \\$p(A) = a_{0}I + a_1A + \cdots  + a_mA^m$. 
+
+For example, if $p(x) = 2-3x+5x^2$, then \\ $p(A) = 2I -3A +5A^2$. The \textit{characteristic polynomial} of $A$ is defined to be $c_A(x) = \func{det} [xI - A]$, and the Cayley-Hamilton theorem asserts that $c_A(A) = 0$ for any matrix $A$.
+
+
+\begin{enumerate}[label={\alph*.}]
+\item Verify the theorem for
+\begin{multicols}{2}
+\begin{enumerate}[label={\roman*.}]
+\item 
+$A = \leftB \begin{array}{rr}
+3 & 2 \\
+1 & -1 
+\end{array}\rightB$
+\item
+$A = \leftB \begin{array}{rrr}
+1 & -1 & 1 \\
+0 & 1 & 0 \\
+8 & 2 & 2 
+\end{array}\rightB
+$
+\end{enumerate}
+\end{multicols}
+\item Prove the theorem for $
+A = \leftB \begin{array}{rr}
+a & b \\
+c & d 
+\end{array}\rightB
+$
+\end{enumerate}
+\end{ex}
+
+
+\end{multicols}

@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+\coordinate(origin) at (0, 0);
+\draw[dkbluevect, thick] (origin) -- (-150:0.5);
+\draw[dkbluevect, thick] (origin) -- (30:2.8) node[right, text=black] {\footnotesize $L$};
+\draw[dkgreenvect, thick, -latex] (origin)--(30:cos{30} * 2) node[right=0.15, text=black] {\footnotesize $P_L(\vect{v})$};
+\draw[dkgreenvect, thick, -latex] (origin)--(60:2) node (ptV) {};
+\draw[dkgreenvect, thick, -latex] (origin)--(2, 0) node (ptQ) {};
+\draw[dkbluevect, thick, dashed] (ptQ.center)--(ptV.center);
+
+\node[below] at (origin) {\footnotesize $\vect{0}$};
+\node[left] at (ptV) {\footnotesize $\vect{v}$};
+\node[below] at (ptQ) {\footnotesize $Q_L(\vect{v})$};
+\end{tikzpicture}

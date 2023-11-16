@@ -1,0 +1,304 @@
+% % % % % % % % % % % % %
+% % % % % % % %
+% %
+% % Style common to Calculus and Linear Algebra textbooks
+% %
+% % % % % % % %
+% % % % % % % % % % % % %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Colour common to math texts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Links and urls colour
+\definecolor{linkcolour}{HTML}{013030}
+
+% Colour for grey square in page header
+\definecolor{headersquarecolour}{HTML}{BDBDBD}
+
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% . . . End of Colours . . . 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lyryx header and subheader fonts 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\headerfont}{\fontfamily{fos}\selectfont}
+\newcommand*{\subheaderfont}{\robotocondensed\selectfont}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% . . . End of Lyryx fonts . . . 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The following commands changes the position of floats by overriding the Latex defaults.
+% Changes the fraction of floats appearing at the top and bottom, and the fraction of the page that is text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\renewcommand\floatpagefraction{.9}
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Headers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\AtBeginDocument{\renewcommand\contentsname{Table of Contents}}
+
+
+
+% Chapter header formatting
+\titleformat{\chapter}{}{}{0pt}{
+	\phantomsection
+	\tikz[overlay,remember picture]
+	\fill[mainchapterboxcolour]
+	([yshift=-0.75cm,xshift=1.75cm]current page.north west) rectangle 
+	([yshift=-3cm,xshift=-1cm] current page.north east);
+	\begin{tikzpicture}[overlay,remember picture]
+	\node[anchor=south west,xshift=2cm,yshift=-2.2cm,font=\Huge\bf\headerfont,text=chaptertextcolour] 
+	at (current page.north west) 
+	{\chaptername\ \thechapter}; 
+	\node[rectangle,fill=chapternameboxcolour,text=white,font=\large\bf\headerfont,inner ysep=12pt,inner xsep=20pt,anchor=east,xshift=-2cm,yshift=-3cm] 
+	at (current page.north east) {#1};
+	\end{tikzpicture}
+}
+\titlespacing*{\chapter}{0pt}{0pt}{10mm}
+
+% Unnumbered chapters are treated like parts becaus they are usually appendices
+\titleformat{name=\chapter,numberless}[display]{}{}{0pt}{
+	\phantomsection
+	\tikz[overlay,remember picture]
+	\fill[mainchapterboxcolour]
+	([yshift=-0.75cm,xshift=1.75cm]current page.north west) rectangle 
+	([yshift=-3cm,xshift=-1cm] current page.north east);
+	\begin{tikzpicture}[overlay,remember picture]
+	\node[rectangle,fill=chapternameboxcolour,text=white,font=\Large\bf\headerfont,inner ysep=12pt,inner xsep=20pt,anchor=east,xshift=-2cm,yshift=-3cm] 
+	at (current page.north east) {#1};
+	\end{tikzpicture}
+}
+[
+	\addcontentsline{toc}{chapter}{#1}
+	\setcounter{section}{0}
+	\markboth{#1}{}
+]
+
+% Color section headings
+\titleformat{\section}
+{
+%	\Large\bfseries\color{sectionheadercolour}
+	\Large\bf\color{sectionheadercolour}\subheaderfont
+}
+{\thesection}{1em}{\phantomsection #1}
+[
+]
+\titlespacing*{\section}{0pt}{0.5em}{0.5em}
+
+% Color subsection headings
+\titleformat{\subsection}
+{
+%	\large\bfseries\color{sectionheadercolour}
+	\large\bf\color{sectionheadercolour}\subheaderfont
+}
+{\thesubsection}{1em}{\phantomsection #1}
+[
+]
+\titlespacing*{\subsection}{0pt}{0.5em}{0.5em}
+
+% Color subsubsection headings
+\titleformat{\subsubsection}
+{
+%	\large\bfseries\color{sectionheadercolour}
+	\large\bf\color{sectionheadercolour}\subheaderfont
+}
+{\thesubsubsection}{1em}{\phantomsection #1}
+[
+]
+\titlespacing*{\subsubsection}{0pt}{0pt}{0.5em}
+
+
+
+
+% To allow numbering of subsubsections
+\setcounter{secnumdepth}{3}
+
+% To include subsubsections in the TOC
+\setcounter{tocdepth}{3}
+
+% Looks like a subsection but works in multicols:
+\newcommand{\solsection}[1]{\noindent\colorbox{solutioncolour!80!white}{\makebox[\linewidth][l]{\bf{#1}}}\vspace*{-1.5em}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fancy page header commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\newcommand\graysquare{\textcolor{headersquarecolour}{\rule{1ex}{1ex}}} % gray square between page number and chapter/section name
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+\fancyhf{}
+\fancyhead[RO]{\subheaderfont\rightmark\hspace{0.5em}\graysquare\hspace{0.5em}\thepage}
+\fancyhead[LE]{\subheaderfont\thepage\hspace{0.5em}\graysquare\hspace{0.5em}\leftmark}
+\renewcommand{\headrulewidth}{0pt}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Defines setup and colours for hyperlinks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\hypersetup{
+	pdfborder=0 0 0,
+	colorlinks=true,
+	allcolors=linkcolour, % Default color
+	linkcolor=linkcolour, % Chapter/Section links, figures, tables, etc
+	urlcolor=linkcolour, % Exploration links
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Exercises & Solutions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+% Counter for exercises
+% This option will only restart numbering at the end of the chapter
+%\newcounter{ex}[chapter]
+%\renewcommand{\theex}{\thesection.\arabic{ex}}
+
+%%%%%%%%%%% Exercises
+% This option will restart numbering at the end of each section 
+\newcounter{ex}[section]
+\renewcommand{\theex}{%
+	\ifnum\the\value{section}=0 %
+		\thechapter.\arabic{ex}%
+	\else%
+		\thesection.\arabic{ex}%
+	\fi%
+}
+
+
+% ex env
+% can \def\myextitle{#1} if we want to save the title for use in the solution
+%% \newenvironment{ex}{
+%% 	\par\medskip\noindent\refstepcounter{ex}\textbf{Exercise \theex}\hspace{0.25em}
+%% }{
+%% \par\medskip
+%% }
+
+\newenvironment{ex}{
+	\small \par\noindent\refstepcounter{ex}\textbf{Exercise \theex}\hspace{0.25em}
+}{
+\par\smallskip
+}
+
+% answers package will place solutions in an solout env
+\newenvironment{solout}[1]{
+	\par\noindent\textbf{#1}\par \raggedright
+}{
+\par\smallskip
+}
+
+%%%%%%%%%%%%% Supplementary Exercises
+%Supplementary Exercise counter
+\newcounter{supex}[chapter]
+\renewcommand{\thesupex}{\thechapter.\arabic{supex}}
+
+% supplementary ex env
+% can \def\myextitle{#1} if we want to save the title for use in the solution
+\newenvironment{supex}{
+	\small \par\noindent\refstepcounter{supex}\textbf{Exercise \thesupex}\hspace{0.25em}
+}{
+\par\smallskip
+}
+
+% answers package will place solutions in an solout env ** Supp. exercises
+\newenvironment{supsolout}[1]{
+	\par\noindent\textbf{Supplementary Exercise }\textbf{#1}\par
+}{
+\par\smallskip
+}
+
+%%%%%%%%%%%%%% Solutions 
+% answers package uses this command to copy params from exercise environment to solout
+\newcommand{\soloutparams}{{\theex}}
+\newcommand{\supsoloutparams}{{\thesupex}}
+
+% exsolution env, where output is sent to exsolutions file and text placed in exsolout envs
+\Newassociation{sol}{Answer}{solutions}
+\Newassociation{supsol}{suppAnswer}{solutions}
+\renewcommand{\suppAnswerlabel}[1]{\textbf{Supplementary Exercise #1.}}
+%%Below line fixes error that occurs in solutions when the exercise contains the task environment
+\AtBeginEnvironment{sol}{\addtocounter{ex}{-1}\refstepcounter{ex}}
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Redefining enumerate styles for only part of the book
+% Changes all first level items in listed to (a),(b),(c),etc
+
+\newenvironment{enumialphparenastyle}{
+	\let\oldlabelenumi=\labelenumi
+	\renewcommand{\labelenumi}{\textrm{(\alph{enumi})}}
+}{
+\let\labelenumi=\oldlabelenumi
+}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A hack to do something like the center environment, but without spaces around it
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\newenvironment{center*}[0]{\bgroup \centering}
+{
+	
+	\egroup
+}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Special commands and shorthand commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% These commands may be used to update older Latex commands...? 
+\def\xrefn#1{\ref{#1}} % References
+\def\figrdef#1{\label{#1}} % Labelling
+
+% Shorthand command for displaystyle -- shows mathematical symbols in their full size
+\def\ds{\displaystyle}
+
+% Change appearance of numbered equations
+\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
+
+% Bold font for definitions
+\def\dfont#1{{\bf{#1}}}
+
+% Italicized font for emphasis
+\def\ifont#1{{\it{{#1}}}}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

@@ -1,0 +1,23 @@
+\begin{circuitikz}[scale=0.75, transform shape]
+\draw[dkgreenvect, text=black] (0,3) to [battery1, v= $ 10\; V$, color=dkgreenvect] (-3,3)
+      to [R, l= $ 20 \Omega $, color=dkgreenvect] (-3,0)
+      to [short, i_=$I_1$, color=dkgreenvect] (-1.5,0)
+      to [short, i_=$I_6$, color=dkgreenvect] (0,0)
+      to [battery1, v^= $ 5\; V$, i>^=$I_2$, color=dkgreenvect] (0,3)
+(0,0) to [R = $ 5 \Omega $, i_=$I_4$, color=dkgreenvect] (3,0)
+      to (3.25,0)
+      to [battery1, v= $ 20\; V$, color=dkgreenvect] (3.25,3)
+      to [R, l_= $ 10 \Omega $, i=$I_3$, color=dkgreenvect] (0,3)
+(3,0) to (3,-2.5)
+	  to [battery1, v_= $ 10\; V$, i>^=$I_5$, color=dkgreenvect] (-1.5,-2.5) 
+	  to [R = $ 5 \Omega $, color=dkgreenvect] (-1.5,0)
+;
+\fill[black] (0,0) circle (2pt) ;
+\fill[black] (0,3) circle (2pt) ;
+\fill[black] (3,0) circle (2pt) ;
+\fill[black] (-1.5,0) circle (2pt) ;
+\node[above] at (3,0) {$D$};
+\node[above] at (0,3) {$A$};
+\node[above] at (-1.5,0) {$B$};
+\node[below] at (0,0) {$C$};
+\end{circuitikz}

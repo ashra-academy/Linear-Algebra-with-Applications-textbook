@@ -1,0 +1,431 @@
+\section[An Application to Input-Output Economic Models]{An Application to Input-Output Economic Models\footnote{The applications in this section and the next are independent and may be taken in any order.}}
+\label{sec:2_8}
+
+
+In 1973 Wassily Leontief\index{Leontief, Wassily} was awarded the Nobel prize in economics for his work on mathematical models.\footnote{See W. W. Leontief, ``The world economy of the year 2000,'' \textit{Scientific American,} Sept. 1980.} Roughly speaking, an economic system in this model consists of several industries, each of which produces a product and each of which uses some of the production of the other industries. The following example is typical.\index{economic models!input-output}\index{economic system}\index{input-output economic models}\index{matrix algebra!input-output economic models!application to}
+
+\begin{example}{}{006965}
+A primitive society has three basic needs: food, shelter, and clothing. There are thus three industries in the society---the farming, housing, and garment industries---that produce these commodities. Each of these industries consumes a certain proportion of the total output of each commodity according to the following table.
+\begin{equation*}
+	\begin{tabu}{|cc|ccc|}
+		\hline
+		& & \multicolumn{3}{c|}{\textbf{OUTPUT}} \\ \cline{3-5}
+		& & \multicolumn{1}{c|}{\textbf{Farming}} & \multicolumn{1}{c|}{\textbf{Housing}} & \textbf{Garment} \\
+		& \multicolumn{1}{|c|}{\textbf{Farming}} & \multicolumn{1}{c|}{0.4} & \multicolumn{1}{c|}{0.2} & 0.3 \\
+		\textbf{CONSUMPTION} & \multicolumn{1}{|c|}{\textbf{Housing}} & \multicolumn{1}{c|}{0.2} & \multicolumn{1}{c|}{0.6} & 0.4 \\
+		& \multicolumn{1}{|c|}{\textbf{Garment}} & \multicolumn{1}{c|}{0.4} & \multicolumn{1}{c|}{0.2} & 0.3 \\ \hline
+	\end{tabu}
+\end{equation*}
+Find the annual prices that each industry must charge for its income to equal its expenditures.
+
+\begin{solution}
+  Let $p_{1}$, $p_{2}$, and $p_{3}$ be the prices charged per year by the farming, housing, and garment industries, respectively, for their total output. To see how these prices are determined, consider the farming industry. It receives $p_{1}$ for its production in any year. But it \textit{consumes} products from all these industries in the following amounts (from row 1 of the table): $40\%$ of the food, $20\%$ of the housing, and $30\%$ of the clothing. Hence, the expenditures of the farming industry are $0.4p_{1} + 0.2p_{2} + 0.3p_{3}$, so
+\begin{equation*}
+0.4p_{1} + 0.2p_{2} + 0.3p_{3} = p_{1}
+\end{equation*}
+A similar analysis of the other two industries leads to the following system of equations.
+\begin{align*}
+0.4p_{1} + 0.2p_{2} + 0.3p_{3} &= p_{1} \\
+0.2p_{1} + 0.6p_{2} + 0.4p_{3} &= p_{2} \\
+0.4p_{1} + 0.2p_{2} + 0.3p_{3} &= p_{3}
+\end{align*}
+This has the matrix form $E\vect{p} = \vect{p}$, where
+\begin{equation*}
+E = \leftB \begin{array}{rrr}
+0.4 & 0.2 & 0.3 \\
+0.2 & 0.6 & 0.4 \\
+0.4 & 0.2 & 0.3
+\end{array} \rightB \quad \mbox{ and } \quad
+\vect{p} = \leftB \begin{array}{c}
+p_{1} \\
+p_{2} \\
+p_{3}
+\end{array} \rightB
+\end{equation*}
+The equations can be written as the homogeneous system
+\begin{equation*}
+(I - E)\vect{p} = \vect{0}
+\end{equation*}
+where $I$ is the $3 \times 3$ identity matrix, and the solutions are
+\begin{equation*}
+\vect{p} = \leftB \begin{array}{c}
+2t \\
+3t \\
+2t
+\end{array} \rightB
+\end{equation*}
+where $t$ is a parameter. Thus, the pricing must be such that the total output of the farming industry has the same value as the total output of the garment industry, whereas the total value of the housing industry must be $\frac{3}{2}$ as much.
+\end{solution}
+\end{example}
+
+In general, suppose an economy has $n$ industries, each of which uses some (possibly none) of the production of every industry. We assume first that the economy is \textbf{closed}\index{closed economy} (that is, no product is exported or imported) and that all product is used. Given two industries $i$ and $j$, let $e_{ij}$ denote the proportion of the total annual output of industry $j$ that is consumed by industry $i$. Then $E = \leftB e_{ij} \rightB$ is called the \textbf{input-output} matrix\index{input-output matrix}\index{matrix!input-output matrix} for the economy. Clearly,
+\begin{equation}\label{eq:IOcond1}
+0 \leq e_{ij} \leq 1 \quad \mbox{for all } i \mbox{ and } j
+\end{equation}
+Moreover, all the output from industry $j$ is used by \textit{some} industry (the model is closed), so
+\begin{equation}\label{eq:IOcond2}
+e_{1j} + e_{2j} + \cdots + e_{ij} = 1 \quad \mbox{for each } j
+\end{equation}
+This condition asserts that each column of $E$ sums to $1$. Matrices satisfying conditions (\ref{eq:IOcond1}) and (\ref{eq:IOcond2}) are called \textbf{stochastic matrices}\index{stochastic matrices}\index{matrix!stochastic matrices}.
+
+As in Example~\ref{exa:006965}, let $p_{i}$ denote the price of the total annual production of industry $i$. Then $p_{i}$ is the annual revenue of industry $i$. On the other hand, industry $i$ spends $e_{i1}p_{1} + e_{i2}p_{2} + \cdots + e_{in}p_{n}$ annually for the product it uses ($e_{ij}p_{j}$ is the cost for product from industry $j$). The closed economic system is said to be in \textbf{equilibrium}\index{equilibrium} if the annual expenditure equals the annual revenue for each industry---that is, if
+\begin{equation*}
+e_{1j}p_{1} + e_{2j}p_{2} + \cdots + e_{ij}p_{n} = p_{i} \quad \mbox{for each } i = 1, 2, \dots, n
+\end{equation*}
+If we write $\vect{p} = \leftB \begin{array}{c}
+p_{1} \\
+p_{2} \\
+\vdots \\
+p_{n}
+\end{array} \rightB$,
+ these equations can be written as the matrix equation
+\begin{equation*}
+E\vect{p} = \vect{p}
+\end{equation*}
+This is called the \textbf{equilibrium condition}\index{equilibrium condition}, and the solutions $\vect{p}$ are called \textbf{equilibrium price structures}\index{equilibrium price structures}. The equilibrium condition can be written as
+\begin{equation*}
+(I - E)\vect{p} = \vect{0}
+\end{equation*}
+which is a system of homogeneous equations for $\vect{p}$. Moreover, there is always a nontrivial solution $\vect{p}$. Indeed, the column sums of $I - E$ are all $0$ (because $E$ is stochastic), so the row-echelon form of $I - E$ has a row of zeros. In fact, more is true:
+
+\begin{theorem}{}{007013}
+Let $E$ be any $n \times n$ stochastic matrix. Then there is a nonzero $n \times 1$ vector $\vect{p}$ with nonnegative entries such that $E\vect{p} = \vect{p}$. If all the entries of $E$ are positive, the matrix $\vect{p}$ can be chosen with all entries positive.
+\end{theorem}
+
+Theorem~\ref{thm:007013} guarantees the existence of an equilibrium price structure for any closed input-output system of the type discussed here. The proof is beyond the scope of this book.\footnote{The interested reader is referred to P. Lancaster's \textit{Theory of Matrices} (New York: Academic Press, 1969)\index{Lancaster, P.} or to E. Seneta's \textit{Non-negative Matrices} (New York: Wiley, 1973)\index{Seneta, E.}.}
+
+\begin{example}{}{007017}
+Find the equilibrium price structures for four industries if the input-output matrix is
+\begin{equation*}
+E = \leftB \begin{array}{rrrr}
+0.6 & 0.2 & 0.1 & 0.1 \\
+0.3 & 0.4 & 0.2 & 0 \\
+0.1 & 0.3 & 0.5 & 0.2 \\
+0 & 0.1 & 0.2 & 0.7
+\end{array} \rightB
+\end{equation*}
+Find the prices if the total value of business is $\$1000$.
+
+\begin{solution}
+  If $\vect{p} = \leftB \begin{array}{c}
+  p_{1} \\
+  p_{2} \\
+  p_{3} \\
+  p_{4}
+  \end{array} \rightB$
+ is the equilibrium price structure, then the equilibrium condition reads $E\vect{p} = \vect{p}$. When we write this as $(I - E)\vect{p} = \vect{0}$, the methods of Chapter~\ref{chap:1} yield the following family of solutions:
+\begin{equation*}
+\vect{p} = \leftB \begin{array}{c}
+44t \\
+39t \\
+51t \\
+47t
+\end{array} \rightB
+\end{equation*}
+where $t$ is a parameter. If we insist that $p_{1} + p_{2} + p_{3} + p_{4} = 1000$, then $t = 5.525$. Hence
+\begin{equation*}
+\vect{p} = \leftB \begin{array}{c}
+243.09 \\
+215.47 \\
+281.76 \\
+259.67
+\end{array} \rightB
+\end{equation*}
+to five figures.
+\end{solution}
+\end{example}
+
+\subsection*{The Open Model}
+
+We now assume that there is a demand for products in the \textbf{open sector}\index{open sector}\index{open model of the economy} of the economy, which is the part of the economy other than the producing industries (for example, consumers). Let $d_{i}$ denote the total value of the demand for product $i$ in the open sector. If $p_{i}$ and $e_{ij}$ are as before, the value of the annual demand for product $i$ by the producing industries themselves is $e_{i1}p_{1} + e_{i2}p_{2} + \cdots + e_{in}p_{n}$, so the total annual revenue $p_{i}$ of industry $i$ breaks down as follows:
+\begin{equation*}
+p_{i} = (e_{i1}p_{1} + e_{i2}p_{2} + \cdots + e_{in}p_{n}) + d_{i} \quad \mbox{for each } i = 1, 2, \dots, n
+\end{equation*}
+The column $\vect{d} = \leftB \begin{array}{c}
+d_{1} \\
+\vdots \\
+d_{n}
+\end{array} \rightB$
+ is called the \textbf{demand matrix}\index{matrix!demand matrix}\index{demand matrix}, and this gives a matrix equation
+\begin{equation*}
+\vect{p} = E\vect{p} + \vect{d}
+\end{equation*}
+or
+\begin{equation}\label{eq:demandmatrix}
+(I - E)\vect{p} = \vect{d}
+\end{equation}
+This is a system of linear equations for $\vect{p}$, and we ask for a solution $\vect{p}$ with every entry nonnegative. Note that every entry of $E$ is between $0$ and $1$, but the column sums of $E$ need not equal $1$ as in the closed model.
+
+Before proceeding, it is convenient to introduce a useful notation. If $A = \leftB a_{ij} \rightB$ and $B = \leftB b_{ij} \rightB$ are matrices of the same size, we write $A > B$ if $a_{ij} > b_{ij}$ for all $i$ and $j$, and we write $A \geq B$ if $a_{ij} \geq b_{ij}$ for all $i$ and $j$. Thus $P \geq 0$ means that every entry of $P$ is nonnegative. Note that $A \geq 0$ and $B \geq 0$ implies that $AB \geq 0$.
+
+Now, given a demand matrix $\vect{d} \geq \vect{0}$, we look for a production matrix $\vect{p} \geq \vect{0}$ satisfying equation (\ref{eq:demandmatrix}). This certainly exists if $I - E$ is invertible and $(I - E)^{-1} \geq 0$. On the other hand, the fact that $\vect{d} \geq \vect{0}$ means any solution $\vect{p}$ to equation (\ref{eq:demandmatrix}) satisfies $\vect{p} \geq E\vect{p}$. Hence, the following theorem is not too surprising.
+
+\begin{theorem}{}{007060}
+Let $E \geq 0$ be a square matrix. Then $I - E$ is invertible and $(I - E)^{-1} \geq 0$ if and only if there exists a column $\vect{p} > \vect{0}$ such that $\vect{p} > E\vect{p}$.
+\end{theorem}
+
+\begin{proof}[Heuristic Proof]
+
+\noindent If $(I - E)^{-1} \geq 0$, the existence of $\vect{p} > \vect{0}$ with $\vect{p} > E\vect{p}$ is left as Exercise~\ref{ex:ex2_8_11}. Conversely, suppose such a column $\vect{p}$ exists. Observe that
+\begin{equation*}
+(I - E)(I + E + E^2 + \cdots + E^{k-1}) = I - E^k
+\end{equation*}
+holds for all $k \geq 2$. If we can show that every entry of $E^{k}$ approaches $0$ as $k$ becomes large then, intuitively, the infinite matrix sum
+\begin{equation*}
+U = I + E + E^2 + \cdots
+\end{equation*}
+exists and $(I - E)U = I$. Since $U \geq 0$, this does it. To show that $E^{k}$ approaches $0$, it suffices to show that $EP < \mu P$ for some number $\mu$ with $0 < \mu < 1$ (then $E^{k}P < \mu^{k}P$ for all $k \geq 1$ by induction). The existence of $\mu$ is left as Exercise~\ref{ex:ex2_8_12}.
+\end{proof}
+
+The condition $\vect{p} > E\vect{p}$ in Theorem~\ref{thm:007060} has a simple economic interpretation. If $\vect{p}$ is a production matrix, entry $i$ of $E\vect{p}$ is the total value of all product used by industry $i$ in a year. Hence, the condition $\vect{p} > E\vect{p}$ means that, for each $i$, the value of product produced by industry $i$ exceeds the value of the product it uses. In other words, each industry runs at a profit.
+
+\begin{example}{}{007075}
+If $E = \leftB \begin{array}{rrr}
+0.6 & 0.2 & 0.3 \\
+0.1 & 0.4 & 0.2 \\
+0.2 & 0.5 & 0.1
+\end{array} \rightB$,
+ show that $I - E$ is invertible and $(I - E)^{-1} \geq 0$.
+
+
+\begin{solution}
+  Use $\vect{p} = (3, 2, 2)^{T}$ in Theorem~\ref{thm:007060}.
+\end{solution}
+\end{example}
+
+If $\vect{p}_{0} = (1, 1, 1)^{T}$, the entries of $E\vect{p}_{0}$ are the row sums of $E$. Hence $\vect{p}_{0} > E\vect{p}_{0}$ holds if the row sums of $E$ are all less than $1$. This proves the first of the following useful facts (the second is Exercise~\ref{ex:ex2_8_10}).
+
+\begin{corollary}{}{007090}
+Let $E \geq 0$ be a square matrix. In each case, $I - E$ is invertible and $(I - E)^{-1} \geq 0$:
+
+\begin{enumerate}
+\item All row sums of $E$ are less than $1$.
+
+\item All column sums of $E$ are less than $1$.
+
+\end{enumerate}
+\end{corollary}
+
+\vspace*{-2em}
+\section*{Exercises for \ref{sec:2_8}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:2_8}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\vspace*{-2em}
+\begin{ex}
+Find the possible equilibrium price structures when the input-output matrices are:
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rrr}
+0.1 & 0.2 & 0.3 \\
+0.6 & 0.2 & 0.3 \\
+0.3 & 0.6 & 0.4
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+0.5 & 0 & 0.5 \\
+0.1 & 0.9 & 0.2 \\
+0.4 & 0.1 & 0.3
+\end{array} \rightB$
+\exitem* $\leftB \begin{array}{rrrr}
+0.3 & 0.1 & 0.1 & 0.2 \\
+0.2 & 0.3 & 0.1 & 0 \\
+0.3 & 0.3 & 0.2 & 0.3 \\
+0.2 & 0.3 & 0.6 & 0.5
+\end{array} \rightB$
+\exitem* $\leftB \begin{array}{rrrr}
+0.5 & 0 & 0.1 & 0.1 \\
+0.2 & 0.7 & 0 & 0.1 \\
+0.1 & 0.2 & 0.8 & 0.2 \\
+0.2 & 0.1 & 0.1 & 0.6
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\leftB \begin{array}{r}
+t \\
+3t \\
+t
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item $\leftB \begin{array}{r}
+14t \\
+17t \\
+47t \\
+23t
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Three industries $A$, $B$, and $C$ are such that all the output of $A$ is used by $B$, all the output of $B$ is used by $C$, and all the output of $C$ is used by $A$. Find the possible equilibrium price structures.
+
+\begin{sol}
+$\leftB \begin{array}{r}
+t \\
+t \\
+t
+\end{array} \rightB$
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the possible equilibrium price structures for three industries where the input-output matrix is $\leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0
+\end{array} \rightB$. Discuss why there are two parameters here.
+\end{ex}
+
+\begin{ex}
+Prove Theorem~\ref{thm:007013} for a $2 \times 2$ stochastic matrix $E$ by first writing it in the form $E = \leftB \begin{array}{cc}
+a & b \\
+1 - a & 1 - b
+\end{array} \rightB$, where $0 \leq a \leq 1$ and $0 \leq b \leq 1$.
+
+\begin{sol}
+$P = \leftB \begin{array}{c}
+bt \\
+(1 - a)t
+\end{array} \rightB$
+ is nonzero (for some $t$) unless $b = 0$ and $a = 1$. In that case, $\leftB \begin{array}{r}
+ 1 \\
+ 1
+ \end{array} \rightB$
+ is a solution. If the entries of $E$ are positive, then $P = \leftB \begin{array}{c}
+ b \\
+ 1 - a
+ \end{array} \rightB$
+ has positive entries.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $E$ is an $n \times n$ stochastic matrix and $\vect{c}$ is an $n \times 1$ matrix, show that the sum of the entries of $\vect{c}$ equals the sum of the entries of the $n \times 1$ matrix $E\vect{c}$.
+\end{ex}
+
+\begin{ex}
+Let $W = \leftB \begin{array}{ccccc}
+1 & 1 & 1 & \cdots & 1
+\end{array} \rightB$. Let $E$ and $F$ denote $n \times n$ matrices with nonnegative entries.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that $E$ is a stochastic matrix if and only if $WE = W$.
+
+\item Use part (a.) to deduce that, if $E$ and $F$ are both stochastic matrices, then $EF$ is also stochastic.
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Find a $2 \times 2$ matrix $E$ with entries between $0$ and $1$ such that:
+
+\begin{enumerate}[label={\alph*.}]
+\item $I - E$ has no inverse.
+
+\item $I - E$ has an inverse but not all entries of $(I - E)^{-1}$ are nonnegative.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item $\leftB \begin{array}{rr}
+0.4 & 0.8 \\
+0.7 & 0.2
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+If $E$ is a $2 \times 2$ matrix with entries between $0$ and $1$, show that $I - E$ is invertible and $(I - E)^{-1} \geq 0$ if and only if $\func{tr }E < 1 + \func{det }E$. Here, if $E = \leftB \begin{array}{rr}
+a & b \\
+c & d
+\end{array} \rightB$,
+ then $\func{tr }E = a + d$ and $\func{det }E = ad - bc$.
+
+\begin{sol}
+If $E = \leftB \begin{array}{rr}
+	a & b \\
+	c & d
+\end{array} \rightB$,
+ then $I - E = \leftB \begin{array}{cc}
+ 1 - a & -b \\
+ -c & 1 - d
+ \end{array} \rightB$,
+ so $\func{det}(I - E) = (1 - a)(1 - d) - bc = 1 - \func{tr }E + \func{det }E$. If $\func{det}(I - E) \neq 0$, then $(I - E)^{-1} = \frac{1}{\func{det}(I - E)} \leftB \begin{array}{cc}
+ 1 - d & b \\
+ c & 1 - a
+ \end{array} \rightB$, so $(I - E)^{-1} \geq 0$ if $\func{det}(I - E) > 0$, that is, $\func{tr }E < 1 + \func{det } E$.
+ The converse is now clear.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each case show that $I - E$ is invertible and $(I - E)^{-1} \geq 0$.
+\begin{exenumerate}
+\exitem $\leftB \begin{array}{rrr}
+0.6 & 0.5 & 0.1 \\
+0.1 & 0.3 & 0.3 \\
+0.2 & 0.1 & 0.4
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+0.7 & 0.1 & 0.3 \\
+0.2 & 0.5 & 0.2 \\
+0.1 & 0.1 & 0.4
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+0.6 & 0.2 & 0.1 \\
+0.3 & 0.4 & 0.2 \\
+0.2 & 0.5 & 0.1
+\end{array} \rightB$
+\exitem $\leftB \begin{array}{rrr}
+0.8 & 0.1 & 0.1 \\
+0.3 & 0.1 & 0.2 \\
+0.3 & 0.3 & 0.2
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Use $\vect{p} = \leftB \begin{array}{r}
+3 \\
+2 \\
+1
+\end{array} \rightB$
+ in Theorem~\ref{thm:007060}.
+
+\setcounter{enumi}{3}
+\item  $\vect{p} = \leftB \begin{array}{r}
+3 \\
+2 \\
+2
+\end{array} \rightB$
+ in Theorem~\ref{thm:007060}.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}\label{ex:ex2_8_10}
+Prove that (1) implies (2) in the Corollary to Theorem~\ref{thm:007060}.
+\end{ex}
+
+\begin{ex}\label{ex:ex2_8_11}
+If $(I - E)^{-1} \geq 0$, find $\vect{p} > 0$ such that $\vect{p} > E\vect{p}$.
+\end{ex}
+
+\begin{ex}\label{ex:ex2_8_12}
+If $E\vect{p} < \vect{p}$ where $E \geq 0$ and $\vect{p} > 0$, find a number $\mu$ such that $E\vect{p} < \mu\vect{p}$ and $0 < \mu < 1$.
+
+
+[\textit{Hint}: If $E\vect{p} = (q_{1}, \dots, q_{n})^{T}$ and $\vect{p} = (p_{1}, \dots, p_{n})^{T}$, take any number $\mu$ where $\func{max}\left\lbrace \frac{q_{1}}{p_{1}}, \dots, \frac{q_{n}}{p_{n}} \right\rbrace < \mu < 1$.]
+\end{ex}
+
+\end{multicols}

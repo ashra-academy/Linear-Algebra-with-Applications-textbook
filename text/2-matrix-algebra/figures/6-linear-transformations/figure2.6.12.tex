@@ -1,0 +1,37 @@
+
+\begin{tikzpicture}
+\begin{axis}[disabledatascaling, 
+	clip mode=individual, 
+    width=5cm, 
+    height=4.5cm, 
+    xlabel={$x$}, 
+    ylabel={$y$}, 
+    axis lines=middle, 
+    xtick=\empty, 
+    ytick=\empty, 
+    xticklabels=\empty, 
+    yticklabels=\empty, 
+    every axis x label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=west,
+    },
+    every axis y label/.style={
+      at={(ticklabel* cs:1.05)},
+      anchor=south,
+    },
+    domain=-0.25:1.25, 
+    samples=100, 
+    xmin=-0.25, 
+    xmax=1.5, 
+    ymin=-0.25, 
+    ymax=1.25]
+\addplot[dkgreenvect, thick] {0.5*x};
+\draw[dkbluevect,thick,dashed,shorten <= 0.06cm] (1,0.25)--(0.8,0.65);
+\draw[dkgreenvect,thick,-latex](0,0)--(0.8,0.65) node[font=\footnotesize,text=black,above]{$Q_{m}(\vect{x})$};
+\draw[dkgreenvect,thick,-latex](0,0)--(1,0.25) node[font=\footnotesize,text=black,right]{$\vect{x}$};
+\fill[black] (0.8,0.65) circle (2pt);
+\fill[black] (1,0.25) circle (2pt);
+\node[below right,font=\footnotesize] at (0,0){$\vect{0}$};
+\node[below right,font=\footnotesize] at (1.15,0.85){$y = mx$};
+\end{axis} 
+\end{tikzpicture}

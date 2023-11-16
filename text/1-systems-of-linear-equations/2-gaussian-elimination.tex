@@ -1,0 +1,1179 @@
+\section{Gaussian Elimination}
+\label{sec:1_2}
+
+\index{gaussian elimination!systems of linear equations and}\index{system of linear equations!gaussian elimination}
+The algebraic method\index{algebraic method}\index{solution!algebraic method} introduced in the preceding section can be summarized as follows: Given a system of linear equations, use a sequence of elementary row operations to carry the augmented matrix to a ``nice'' matrix (meaning that the corresponding equations are easy to solve). In Example \ref{exa:000809}, this nice matrix took the form
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+	1 & 0 & 0 & * \\
+	0 & 1 & 0 & * \\
+	0 & 0 & 1 & *
+\end{array} \rightB
+\end{equation*}
+The following definitions identify the nice matrices that arise in this process.
+
+\newpage
+\begin{definition}{Row-Echelon Form (Reduced)}{000992}
+A matrix is said to be in \index{row-echelon form}\textbf{row-echelon form} (and will be called a \index{row-echelon matrix}\index{matrix form!row-echelon form}\index{matrix!row-echelon matrix}\textbf{row-echelon matrix}) if it satisfies the following three conditions:
+
+\begin{enumerate}
+\item All \index{zero rows}\index{rows!zero rows}\textbf{zero rows} (consisting entirely of zeros) are at the bottom.
+
+\item The first nonzero entry from the left in each nonzero row is a $1$, called the \textbf{leading 1}\index{leading $1$}\index{rows!leading $1$} for that row.
+
+\item Each leading $1$ is to the right of all leading $1$s in the rows above it.
+
+\end{enumerate}
+
+A row-echelon matrix is said to be in \index{reduced row-echelon form}\textbf{reduced row-echelon form} (and will be called a \index{reduced row-echelon matrix}\index{matrix!reduced row-echelon matrix}\index{matrix form!reduced row-echelon form}\textbf{reduced row-echelon matrix}) if, in addition, it satisfies the following condition:
+
+\begin{enumerate}
+\setcounter{enumi}{3}
+\item Each leading $1$ is the only nonzero entry in its column.
+
+\end{enumerate}
+\end{definition}
+
+\noindent The row-echelon matrices have a ``staircase'' form\index{staircase form}, as indicated by the following example (the asterisks indicate arbitrary numbers).
+\begin{equation*}
+\leftB \begin{array}{rrrrrrr}
+	\multicolumn{1}{r|}{0} & 1 & * & * & * & * & * \\ 
+	\cline{2-3}
+	0 & 0 & \multicolumn{1}{r|}{0} & 1 & * & * & * \\
+	\cline{4-4}
+	0 & 0 & 0 & \multicolumn{1}{r|}{0} & 1 & * & * \\
+	\cline{5-6}
+	0 & 0 & 0 & 0 & 0 & \multicolumn{1}{r|}{0} & 1 \\
+	\cline{7-7}
+	0 & 0 & 0 & 0 & 0 & 0 & 0 
+\end{array} \rightB
+\end{equation*}
+The leading $1$s proceed ``down and to the right'' through the matrix. Entries above and to the right of the leading $1$s are arbitrary, but all entries below and to the left of them are zero. Hence, a matrix in row-echelon form is in reduced form if, in addition, the entries directly above each leading $1$ are all zero. Note that a matrix in row-echelon form can, with a few more row operations, be carried to reduced form (use row operations to create zeros above each leading one in succession, beginning from the right).
+
+\begin{example}{}{001009}
+The following matrices are in row-echelon form (for any choice of numbers in $*$-positions).
+\begin{equation*}
+\leftB \begin{array}{rrr}
+	1 & * & * \\
+	0 & 0 & 1
+\end{array} \rightB
+\leftB \begin{array}{rrrr}
+	0 & 1 & * & * \\
+	0 & 0 & 1 & * \\
+	0 & 0 & 0 & 0
+\end{array} \rightB
+\leftB \begin{array}{rrrr}
+	1 & * & * & * \\
+	0 & 1 & * & * \\
+	0 & 0 & 0 & 1 
+\end{array} \rightB
+\leftB \begin{array}{rrr}
+	1 & * & * \\
+	0 & 1 & * \\
+	0 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+The following, on the other hand, are in reduced row-echelon form.
+\begin{equation*}
+\leftB \begin{array}{rrr}
+	1 & * & 0 \\
+	0 & 0 & 1
+\end{array} \rightB
+\leftB \begin{array}{rrrr}
+	0 & 1 & 0 & * \\
+	0 & 0 & 1 & * \\
+	0 & 0 & 0 & 0
+\end{array} \rightB
+\leftB \begin{array}{rrrr}
+	1 & 0 & * & 0 \\
+	0 & 1 & * & 0 \\
+	0 & 0 & 0 & 1
+\end{array} \rightB
+\leftB \begin{array}{rrr}
+	1 & 0 & 0 \\
+	0 & 1 & 0 \\
+	0 & 0 & 1
+\end{array} \rightB
+\end{equation*}
+The choice of the positions for the leading $1$s determines the (reduced) row-echelon form (apart from the numbers in $*$-positions).
+\end{example}
+
+The importance of row-echelon matrices comes from the following theorem.\index{matrix!row-echelon matrix}\index{row-echelon matrix}
+
+\begin{theorem}{}{001017}
+Every matrix can be brought to (reduced) row-echelon form by a sequence of elementary row operations. \index{matrix form!reduced row-echelon form}\index{matrix form!row-echelon form}\index{reduced row-echelon form}\index{reduced row-echelon matrix}\index{row-echelon form}\index{row-echelon matrix}
+\end{theorem}
+
+In fact we can give a step-by-step procedure for actually finding a row-echelon matrix. Observe that while there are many sequences of row operations that will bring a matrix to row-echelon form, the one we use is systematic and is easy to program on a computer. Note that the algorithm deals with matrices in general, possibly with columns of zeros. 
+
+\begin{theorem*}{Gaussian\footnotemark Algorithm\footnotemark}{001021}
+%\begin{figure}[H]
+%\centering
+%\includegraphics{1-systems-of-linear-equations/figures/2-gaussian-elimination/ufg01001}
+%\caption{\label{fig:001023}}
+%\end{figure}
+
+\begin{itemize}
+\item[] Step 1. If the matrix consists entirely of zeros, stop---it is already in row-echelon form.
+
+\item[] Step 2. Otherwise, find the first column from the left containing a nonzero entry (call it $a$), and move the row containing that entry to the top position.
+\item[] Step 3. Now multiply the new top row by $1/a$ to create a leading $1$.
+
+\item[] Step 4. By subtracting multiples of that row from rows below it, make each entry below the leading $1$ zero.
+\end{itemize}
+
+This completes the first row, and all further row operations are carried out on the remaining rows.
+
+\begin{itemize}
+\item[] Step 5. Repeat steps 1--4 on the matrix consisting of the remaining rows.
+\end{itemize}
+The process stops when either no rows remain at step 5 or the remaining rows consist entirely of zeros. \index{gaussian algorithm}
+\end{theorem*}
+\addtocounter{footnote}{-1}
+\footnotetext{Carl Friedrich Gauss (1777--1855)\index{Gauss, Carl Friedrich} ranks with Archimedes\index{Archimedes} and Newton\index{Newton, Sir Isaac} as one of the three greatest mathematicians of all time. He was a child prodigy and, at the age of 21, he gave the first proof that every polynomial has a complex root. In 1801 he published a timeless masterpiece, \textit{Disquisitiones Arithmeticae}\index{\textit{Disquisitiones Arithmeticae} (Gauss)}, in which he founded modern number theory. He went on to make ground-breaking contributions to nearly every branch of mathematics, often well before others rediscovered and published the results.}
+\stepcounter{footnote}\footnotetext{The algorithm was known to the ancient Chinese.}
+
+Observe that the gaussian algorithm is recursive\index{recursive algorithm}: When the first leading $1$ has been obtained, the procedure is repeated on the remaining rows of the matrix. This makes the algorithm easy to use on a computer. Note that the solution to Example \ref{exa:000809} did not use the gaussian algorithm as written because the first leading $1$ was not created by dividing row 1 by $3$. The reason for this is that it avoids fractions. However, the general pattern is clear: Create the leading $1$s from left to right, using each of them in turn to create zeros below it. Here are two more examples.
+
+\begin{example}{}{001040}
+Solve the following system of equations.
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrlrcr}
+	3x & + & y & - & 4z & = & -1 \\
+	 x &  &   & + & 10z & = & 5 \\
+	4x & + & y & + & 6z & = & 1
+\end{array}
+\end{equation*}
+\begin{solution}
+The corresponding augmented matrix is
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+	3 & 1 & -4 & -1 \\
+	1 & 0 & 10 & 5 \\
+	4 & 1 &  6  & 1
+\end{array} \rightB
+\end{equation*}
+Create the first leading one by interchanging rows 1 and 2
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+	1 & 0 & 10 & 5 \\
+	3 & 1 & -4 & -1 \\
+	4 & 1 & 6 & 1
+\end{array} \rightB
+\end{equation*}
+Now subtract $3$ times row 1 from row 2, and subtract $4$ times row 1 from row 3. The result is
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+	1 & 0 & 10 & 5 \\
+	0 & 1 & -34 & -16 \\
+	0 & 1 & -34 & -19
+\end{array} \rightB
+\end{equation*}
+Now subtract row 2 from row 3 to obtain
+\begin{equation*}
+\leftB \begin{array}{rrr|r}
+	1 & 0 & 10 & 5 \\
+	0 & 1 & -34 & -16 \\
+	0 & 0 & 0 & -3
+\end{array} \rightB
+\end{equation*}
+This means that the following reduced system of equations
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrlrcr}
+	x &  &   & + & 10z & = & 5 \\
+	  &  & y & - & 34z & = &-16 \\
+	  &  &   &   &   0 & = & -3
+\end{array}
+\end{equation*}
+is equivalent to the original system. In other words, the two have the same solutions. But this last system clearly has no solution (the last equation requires that $x$, $y$ and $z$ satisfy $0x + 0y + 0z = -3$, and no such numbers exist). Hence the original system has no solution.
+\end{solution}
+\end{example}
+
+\begin{example}{}{001056}
+Solve the following system of equations.
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrlrlrcr}
+	 x_1 & - & 2x_2 & - & x_3 & + & 3x_4 & = & 1 \\
+	2x_1 & - & 4x_2 & + & x_3 &   &      & = & 5 \\
+	 x_1 & - & 2x_2 & + & 2x_3& - & 3x_4 & = & 4
+\end{array}
+\end{equation*}
+\begin{solution}
+The augmented matrix is
+\begin{equation*}
+\leftB \begin{array}{rrrr|r}
+	1 & -2 & -1 &  3 & 1 \\
+	2 & -4 &  1 &  0 & 5 \\
+	1 & -2 &  2 & -3 & 4
+\end{array} \rightB
+\end{equation*}
+Subtracting twice row 1 from row 2 and subtracting row 1 from row 3 gives
+\begin{equation*}
+\leftB \begin{array}{rrrr|r}
+	1 & -2 & -1 &  3 & 1 \\
+	0 & 0  & 3  & -6 & 3 \\
+	0 & 0  & 3  & -6 & 3
+\end{array} \rightB
+\end{equation*}
+Now subtract row 2 from row 3 and multiply row 2 by $\frac{1}{3}$ to get
+\begin{equation*}
+\leftB \begin{array}{rrrr|r}
+	1 & -2 & -1 &  3 & 1 \\
+	0 &  0 &  1 & -2 & 1 \\
+	0 & 0  & 0 & 0 & 0
+\end{array} \rightB
+\end{equation*}
+This is in row-echelon form, and we take it to reduced form by adding row 2 to row 1:
+\begin{equation*}
+\leftB \begin{array}{rrrr|r}
+	1 & -2 & 0 & 1 & 2 \\
+	0 &  0 & 1 & -2 & 1 \\
+	0 &  0  & 0 & 0 & 0
+\end{array} \rightB
+\end{equation*}
+The corresponding reduced system of equations is
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrlrlrcr}
+	 x_1 & - & 2x_2 &   &     & + &  x_4 & = & 2 \\
+	     &   &      &   & x_3 & - & 2x_4 & = & 1 \\
+	     &   &      &   &     &   &    0 & = & 0
+\end{array}
+\end{equation*}
+The leading ones are in columns 1 and 3 here, so the corresponding variables $x_1$ and $x_3$ are called leading variables. Because the matrix is in reduced row-echelon form, these equations can be used to solve for the leading variables in terms of the nonleading variables $x_2$ and $x_4$. More precisely, in the present example we set $x_2 = s$ and $x_4 = t$ where $s$ and $t$ are arbitrary, so these equations become
+\begin{equation*}
+x_1 - 2s + t = 2 \quad \mbox{and} \quad x_3 - 2t = 1
+\end{equation*}
+Finally the solutions are given by
+\begin{align*}
+x_1 &= 2 + 2s - t \\
+x_2 &= s \\
+x_3 &= 1 + 2t \\
+x_4 &= t
+\end{align*}
+where $s$ and $t$ are arbitrary.
+\end{solution}
+\end{example}
+
+The solution of Example \ref{exa:001056} is typical of the general case. To solve a linear system, the augmented matrix\index{augmented matrix}\index{matrix!augmented matrix} is carried to reduced row-echelon form, and the variables corresponding to the leading ones are called \index{leading variables}\textbf{leading variables}. Because the matrix is in reduced form, each leading variable occurs in exactly one equation, so that equation can be solved to give a formula for the leading variable in terms of the nonleading variables. It is 
+customary to call the nonleading variables ``free'' variables\index{free variables}, and to label them by new variables $s, t, \dots$, called \index{parameters}\textbf{parameters}. Hence, as in Example \ref{exa:001056}, every variable $x_i$ is given by a formula in terms of the parameters $s$ and $t$. Moreover, every choice of these parameters leads to a solution to the system, and every solution arises in this way. This procedure works in general, and has come to be called
+
+\begin{theorem*}{Gaussian Elimination}{001084}
+To solve a system of linear equations proceed as follows:\index{gaussian elimination!defined}\index{solution!solution to a system}\index{system of linear equations!gaussian elimination}
+
+\begin{enumerate}
+\item Carry the augmented matrix\index{augmented matrix}\index{matrix!augmented matrix} to a reduced row-echelon matrix using elementary row operations.
+
+\item If a row $\leftB \begin{array}{cccccc}
+0 & 0 & 0 & \cdots & 0 & 1
+\end{array} \rightB$ occurs, the system is inconsistent.
+
+\item Otherwise, assign the nonleading variables (if any) as parameters, and use the equations corresponding to the reduced row-echelon matrix to solve for the leading variables in terms of the parameters.
+
+\end{enumerate}
+\end{theorem*}
+
+There is a variant of this procedure, wherein the augmented matrix is carried only to row-echelon form. The nonleading variables are assigned as parameters as before. Then the last equation (corresponding to the row-echelon form) is used to solve for the last leading variable in terms of the parameters. This last leading variable is then substituted into all the preceding equations. Then, the second last equation yields the second last leading variable, which is also substituted back. The process continues to give the general solution\index{general solution}\index{solution!general solution}. This procedure is called \index{back substitution}\textbf{back-substitution}. This procedure can be shown to be numerically more efficient and so is important when solving very large systems.\footnote{With $n$ equations where $n$ is large, gaussian elimination requires roughly $n^3/2$ multiplications and divisions, whereas this number is roughly $n^3/3$ if back substitution is used.}
+
+\begin{example}{}{001095}
+Find a condition on the numbers $a$, $b$, and $c$ such that the following system of equations is consistent. When that condition is satisfied, find all solutions (in terms of $a$, $b$, and $c$).\index{gaussian elimination!example}
+\begin{equation*}
+\arraycolsep=1pt
+\begin{array}{rlrlrcr}
+	 x_1 & + & 3x_2 & + & x_3 & = & a \\
+	-x_1 & - & 2x_2 & + & x_3 & = & b \\
+	3x_1 & + & 7x_2 & - & x_3 & = & c
+\end{array}
+\end{equation*}
+\begin{solution}
+We use gaussian elimination except that now the augmented matrix
+\begin{equation*}
+\leftB
+\begin{array}{rrr|c}
+1 & 3 & 1 & a\\
+-1 & -2 & 1 & b \\
+3 & 7 & -1 & c
+\end{array}
+\rightB
+\end{equation*}
+has entries $a$, $b$, and $c$ as well as known numbers. The first leading one is in place, so we create zeros below it in column 1:
+\begin{equation*}
+\leftB \begin{array}{rrr|c}
+1 &  3 & 1 & a \\
+0 &  1 & 2 & a + b \\
+0 & -2& -4 & c -3a
+\end{array} \rightB
+\end{equation*}
+The second leading $1$ has appeared, so use it to create zeros in the rest of column 2:
+\begin{equation*}
+\leftB \begin{array}{rrr|c}
+	1 &  0 & -5 & -2a - 3b \\
+	0 &  1 & 2 & a + b \\
+	0 &  0 & 0 & c - a + 2b
+\end{array} \rightB
+\end{equation*}
+Now the whole solution depends on the number $c - a + 2b = c - (a - 2b)$. The last row corresponds to an equation $0 = c - (a - 2b)$. If $c \neq a - 2b$, there is \textit{no} solution (just as in Example \ref{exa:001040}). Hence:
+
+\begin{quotation}
+
+The system is consistent if and only if $c = a - 2b$.
+
+\end{quotation}
+
+In this case the last matrix becomes
+\begin{equation*}
+\leftB \begin{array}{rrr|c}
+1 &  0 & -5 & -2a - 3b \\
+0 &  1 & 2 & a + b \\
+0 &  0 & 0 & 0
+\end{array} \rightB
+\end{equation*}
+Thus, if $c = a - 2b$, taking $x_3 = t$ where $t$ is a parameter gives the solutions
+\begin{equation*}
+x_1 = 5t - (2a + 3b) \quad x_2 = (a + b) - 2t \quad x_3 = t.
+\end{equation*}
+\end{solution}
+\end{example}
+
+\subsection*{Rank}
+
+It can be proven that the \textit{reduced} row-echelon form of a matrix $A$ is uniquely determined by $A$. That is, no matter which series of row operations is used to carry $A$ to a reduced row-echelon matrix, the result will always be the same matrix. (A proof is given at the end of Section \ref{sec:2_5}.) By contrast, this is not true for row-echelon matrices: Different series of row operations can carry the same matrix $A$ to \textit{different} row-echelon matrices. Indeed, the matrix $A = 
+\leftB \begin{array}{rrr}
+	1 & -1 & 4 \\
+	2 & -1 & 2
+\end{array} \rightB$ can be carried (by one row operation) to the row-echelon matrix $
+ \leftB \begin{array}{rrr}
+	 1 & -1 & 4 \\
+	 0 & 1 & -6
+ \end{array} \rightB$, and then by another row operation to the (reduced) row-echelon matrix $
+\leftB \begin{array}{rrr}
+	1 & 0 & -2 \\
+	0 & 1 & -6
+\end{array} \rightB$. However, it \textit{is} true that the number $r$ of leading 1s must be the same in each of these row-echelon matrices (this will be proved in Chapter \ref{chap:5}). Hence, the number $r$ depends only on $A$ and not on the way in which $A$ is carried to row-echelon form.
+
+\begin{definition}{Rank of a Matrix}{001120}
+The \index{rank!matrix}\index{matrix!rank}\textbf{rank} of matrix $A$ is the number of leading $1$s in any row-echelon matrix to which $A$ can be carried by row operations.
+\end{definition}
+
+\begin{example}{}{001123}
+Compute the rank of $A =  
+\leftB \begin{array}{rrrr}
+	1 & 1 & -1 & 4 \\
+	2 & 1 &  3 & 0 \\
+	0 & 1 & -5 & 8
+\end{array} \rightB$.
+
+\begin{solution}
+The reduction of $A$ to row-echelon form is
+\begin{equation*}
+A =  
+\leftB \begin{array}{rrrr}
+1 & 1 & -1 & 4 \\
+2 & 1 &  3 & 0 \\
+0 & 1 & -5 & 8
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrr}
+1 & 1 & -1 & 4 \\
+0 & -1 &  5 & -8 \\
+0 &  1 & -5 & 8
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{rrrr}
+1 & 1 & -1 & 4 \\
+0 & 1 &  -5 & 8 \\
+0 &  0 & 0 & 0
+\end{array} \rightB
+\end{equation*}
+Because this row-echelon matrix has two leading $1$s, rank $A = 2$.
+\end{solution}
+\end{example}
+
+Suppose that rank $A = r$, where $A$ is a matrix with $m$ rows and $n$ columns. Then $r \leq m$ because the leading $1$s lie in different rows, and $r \leq  n$ because the leading $1$s lie in different columns. Moreover, the rank has a useful application to equations. Recall that a system of linear equations is called consistent if it has at least one solution.
+
+\begin{theorem}{}{001133}
+Suppose a system of $m$ equations in $n$ variables is \textbf{consistent}, and that the rank of the augmented matrix is $r$.\index{solution!consistent system}\index{system of linear equations!consistent system}\index{system of linear equations!rank of a matrix}
+
+\begin{enumerate}
+\item The set of solutions involves exactly $n - r$ parameters.
+
+\item If $r < n$, the system has infinitely many solutions.
+
+\item If $r = n$, the system has a unique solution.
+
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The fact that the rank of the augmented matrix is $r$ means there are exactly $r$ leading variables, and hence exactly $n - r$ nonleading variables. These nonleading variables are all assigned as parameters in the gaussian algorithm, so the set of solutions involves exactly $n - r$ parameters. Hence if $r < n$, there is at least one parameter, and so infinitely many solutions. If $r = n$, there are no parameters and so a unique solution.
+\end{proof}
+
+Theorem \ref{thm:001133} shows that, for any system of linear equations, exactly three possibilities exist:
+
+\begin{enumerate}\raggedright
+\item \textit{No solution. This occurs when a row} $\leftB \begin{array}{ccccc} 0 & 0 & \cdots & 0 & 1 \end{array} \rightB$ \textit{occurs in the row-echelon form. This is the case where the system is inconsistent.}
+
+\item \textit{Unique solution. This occurs when} every \textit{variable is a leading variable.}
+
+\item \textit{Infinitely many solutions. This occurs when the system is consistent and there is at least one nonleading variable, so at least one parameter is involved.}\index{consistent system}
+
+\end{enumerate}
+
+\begin{example}{}{001154}
+Suppose the matrix $A$ in Example \ref{exa:001123} is the augmented matrix of a system of $m = 3$ linear equations in $n = 3$ variables. As rank $A = r = 2$, the set of solutions will have $n - r = 1$ parameter. The reader can verify this fact directly.
+\end{example}
+
+Many important problems involve \textbf{linear inequalities} rather than \textbf{linear equations}\index{linear equation!vs. linear inequalities}\index{linear inequalities}. For example, a condition on the variables $x$ and $y$ might take the form of an inequality $2x - 5y \leq 4$ rather than an equality $2x - 5y = 4$. There is a technique (called the \index{simplex algorithm}\textbf{simplex algorithm}) for finding solutions to a system of such inequalities that maximizes a function of the form $p = ax + by$ where $a$ and $b$ are fixed constants. 
+
+
+\section*{Exercises for \ref{sec:1_2}}
+
+\begin{Filesave}{solutions}
+\solsection{Section~\ref{sec:1_2}}
+\end{Filesave}
+
+\begin{multicols}{2}
+\begin{ex}
+	\label{ex:1_2_1}
+Which of the following matrices are in reduced row-echelon form? Which are in row-echelon form?
+
+\begin{exenumerate}
+\exitem 
+$\leftB \begin{array}{rrr}
+	1 & -1 & 2 \\
+	0 &  0 & 0 \\
+	0 &  0 & 1		
+\end{array} \rightB$
+\exitem 
+$\leftB \begin{array}{rrrr}
+	2 & 1 & -1 & 3 \\
+	0 & 0 &  0 & 0
+\end{array} \rightB$
+\exitem 
+$\leftB \begin{array}{rrrr}
+1 & -2 & 3 & 5 \\
+0 & 0 &  0 & 1
+\end{array} \rightB$
+\exitem 
+$\leftB \begin{array}{rrrrr}
+	1 & 0 & 0 & 3 & 1\\
+	0 & 0 & 0 & 1 & 1 \\
+	0 & 0 & 0 & 0 & 1
+\end{array} \rightB$
+\exitem
+$\leftB \begin{array}{rr}
+	1 & 1 \\
+	0 & 1		
+\end{array} \rightB$
+\exitem 
+$\leftB \begin{array}{rrr}
+	0 &  0 & 1 \\
+	0 &  0 & 1 \\
+	0 &  0 & 1		
+\end{array} \rightB$
+\end{exenumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  No, no
+\setcounter{enumi}{3}
+\item  No, yes
+\setcounter{enumi}{5}
+\item  No, no
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Carry each of the following matrices to reduced row-echelon form.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\leftB \begin{array}{rrrrrrr}
+	0 & -1 & 2 & 1 & 2 & 1 & -1 \\
+	0 & 1 & -2 & 2 & 7 & 2 & 4 \\
+	0 & -2 & 4 & 3 & 7 & 1 & 0 \\
+	0 & 3  &-6 & 1 & 6 & 4 & 1
+\end{array} \rightB$
+
+\item 
+$\leftB \begin{array}{rrrrrrr}
+	0 & -1 & 3 & 1 & 3 & 2 & 1 \\
+	0 & -2 & 6 & 1 & -5 & 0 & -1 \\
+	0 & 3 & -9 & 2 & 4 & 1 & -1 \\
+	0 & 1 & -3 & -1 & 3 & 0 & 1
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item 
+$\leftB \begin{array}{rrrrrrr}
+	0 & 1 & -3 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 1 & 0 & 0 & -1 \\
+	0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 1 & 1 \\
+\end{array} \rightB$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+The augmented matrix of a system of linear equations has been carried to the following by row operations. In each case solve the system.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\leftB \begin{array}{rrrrrr|r}
+	1 & 2 & 0 & 3 & 1 & 0 & -1 \\
+	0 & 0 & 1 &-1 & 1 & 0 &  2 \\
+	0 & 0 & 0 & 0 & 0 & 1 &  3 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0
+\end{array} \rightB$
+
+\item 
+$\leftB \begin{array}{rrrrrr|r}
+	1 & -2 & 0 & 2 & 0 & 1 &  1 \\
+	0 &  0 & 1 & 5 & 0 &-3 & -1 \\
+	0 & 0 &  0 & 0 & 1 & 6 &  1 \\
+	0 & 0 &  0 & 0 & 0 & 0 & 0
+\end{array} \rightB$
+
+\item 
+$\leftB \begin{array}{rrrrr|r}
+	1 & 2 & 1 & 3 & 1 & 1 \\
+	0 & 1 &-1 & 0 & 1 & 1 \\
+	0 & 0 & 0 & 1 & -1& 0 \\
+	0 & 0 & 0 & 0 & 0 & 0
+\end{array} \rightB$
+
+\item 
+$\leftB \begin{array}{rrrrr|r}
+	1 & -1 & 2 & 4 & 6 &  2 \\
+	0 &  1 & 2 & 1 & -1 & -1 \\
+	0 &  0 & 0 & 1 & 0 & 1 \\
+	0 &  0 & 0 & 0 & 0 & 0
+\end{array} \rightB$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x_1 = 2r - 2s - t + 1$, $x_2 = r$, $x_3 = -5s + 3t - 1$, $x_4 = s$, $x_5 = - 6t + 1$, $x_6 = t$
+
+\setcounter{enumi}{3}
+\item  $x_1 = - 4s - 5t - 4$, $x_2 = -2s + t - 2$, $x_3 = s$, $x_4 = 1$, $x_5 = t$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all solutions (if any) to each of the following systems of linear equations.
+
+\begin{exenumerate}
+\exitem
+$\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	 x & - & 2y & = & 1 \\
+	4y & - &  x & = & -2
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	3x & - & y  & = & 0 \\
+	2x & - & 3y & = & 1
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	2x & + & y  & = & 5 \\
+	3x & + & 2y & = & 6
+\end{array}$
+\exitem
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	3x & - &  y & = & 2\\
+	2y & - & 6x & = & -4
+\end{array}$
+\exitem
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	3x & - &  y & = & 4 \\
+	2y & - & 6x & = & 1
+\end{array}$
+\exitem
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	2x & - & 3y & = & 5 \\
+	3y & - & 2x & = & 2
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x = -\frac{1}{7}$, $y = - \frac{3}{7}$ 
+\setcounter{enumi}{3}
+\item  $x = \frac{1}{3}(t + 2)$, $y = t$
+\setcounter{enumi}{5}
+\item  No solution
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find all solutions (if any) to each of the following systems of linear equations.
+
+\begin{exenumerate}
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	 x & + &  y & + & 2z & = & 8 \\
+	3x & - &  y & + &  z & = & 0 \\
+	-x & + & 3y & + & 4z & = & -4 \\
+\end{array}$
+\exitem %b
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	-2x & + & 3y & + & 3z & = & -9 \\
+	 3x & - & 4y & + &  z & = & 5 \\
+	-5x & + & 7y & + & 2z & = & -14
+\end{array}$
+\exitem %c
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	 x & + &  y & - &  z & = & 10\\
+	-x & + & 4y & + & 5z & = & -5 \\
+	 x & + & 6y & + & 3z & = & 15
+\end{array}$
+\exitem %d
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	 x & + & 2y & - &  z & = & 2 \\
+	2x & + & 5y & - & 3z & = & 1 \\
+	 x & + & 4y & - & 3z & = & 3
+\end{array}$
+\exitem %e
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	5x & + & y &   &   & = & 2 \\
+	3x & - & y & + & 2z& = & 1 \\
+	 x & + & y & - & z & = & 5 
+\end{array}$
+\exitem %f
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	3x & - & 2y & + & z & = & -2 \\
+ 	 x & - & y & + & 3z & = & 5 \\
+	-x & + & y & + & z & = & -1
+\end{array}$
+\exitem %g
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	 x & + & y & + & z & = & 2 \\
+	 x &  &    & + & z & = & 1 \\
+	2x & + & 5y & + & 2z & = & 7
+\end{array}$
+\exitem %h
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	 x & + & 2y& - & 4z & = & 10 \\
+	2x & - & y & + & 2z & = & 5 \\
+	 x & + & y & - & 2z & = & 7	
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x = -15t - 21$, $y = -11t - 17$, $z = t$
+
+\setcounter{enumi}{3}
+\item  No solution
+
+\setcounter{enumi}{5}
+\item  $x = -7$, $y = -9$, $z = 1$
+
+\setcounter{enumi}{7}
+\item  $x = 4$, $y = 3 + 2t$, $z = t$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Express the last equation of each system as a sum of multiples of the first two equations. [\textit{Hint}: Label the equations, use the gaussian algorithm.]
+
+\begin{exenumerate}
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+ 	 x_1 & + & x_2 & + &  x_3 & = & 1 \\
+	2x_1 & - & x_2 & + & 3x_3 & = & 3 \\
+	 x_1 & - & 2x_2& + & 2x_3 & = & 2
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	 x_1 & + & 2x_2 & - & 3x_3 & = & -3 \\
+	 x_1 & + & 3x_2 & - & 5x_3 & = & 5 \\
+	 x_1 & - & 2x_2 & + & 5x_3 & = & -35
+\end{array}$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Denote the equations as $E_1$, $E_2$, and $E_3$. Apply gaussian elimination to column 1 of the augmented matrix, and observe that $E_3 - E_1 = -4(E_2 - E_1)$. Hence $E_3 = 5 E_1 - 4 E_2$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex} %2.7
+Find all solutions to the following systems.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrlrcr}
+	3x_1 & + & 8x_2 & - & 3x_3 & - & 14x_4 & = & 2 \\
+	2x_1 & + & 3x_2 & - &  x_3 & - &  2x_4 & = & 1 \\
+	 x_1 & - & 2x_2 & + &  x_3 & + & 10x_4 & = & 0 \\
+	 x_1 & + & 5x_2 & - & 2x_3 & - & 12x_4 & = & 1 \\
+\end{array}$
+
+\item
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrlrcr}
+	 x_1 & - & x_2 & + & x_3 & - & x_4 & = & 0 \\
+	-x_1 & + & x_2 & + & x_3 & + & x_4 & = & 0 \\
+	 x_1 & + & x_2 & - & x_3 & + & x_4 & = & 0 \\
+	 x_1 & + & x_2 & + & x_3 & + & x_4 & = & 0 \\
+\end{array}$
+
+\item 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrlrcr}
+	 x_1 & - &  x_2 & + &  x_3 & - & 2x_4 & = & 1 \\
+	-x_1 & + &  x_2 & + &  x_3 & + &  x_4 & = & -1\\
+	-x_1 & + & 2x_2 & + & 3x_3 & - &  x_4 & = & 2 \\
+	 x_1 & - &  x_2 & + & 2x_3 & + &  x_4 & = & 1 \\
+\end{array}$
+
+\item 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrlrcr}
+	x_1 & + &  x_2 & + & 2x_3 & - &  x_4 & = & 4 \\
+	    &   & 3x_2 & - &  x_3 & + & 4x_4 & = & 2 \\
+	x_1 & + & 2x_2 & - & 3x_3 & + & 5x_4 & = & 0 \\
+	x_1 & + &  x_2 & - & 5x_3 & + & 6x_4 & = & -3 \\
+\end{array}$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $x_1 = 0$, $x_2 = -t$, $x_3 = 0$, $x_4 = t$
+
+\setcounter{enumi}{3}
+\item  $x_1 = 1$, $x_2 = 1 -t$, $x_3 = 1 + t$, $x_4 = t$
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each of the following, find (if possible) conditions on $a$ and $b$ such that the system has no solution, one solution, and infinitely many solutions.
+
+\begin{exenumerate}
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	x & - & 2y & = & 1 \\
+	ax & + & by & = & 5
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	 x & + & by& = & -1 \\
+	ax & + & 2y & = & 5
+\end{array}$
+\exitem 
+$\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	x & - & by & = & -1 \\
+	x & + & ay & = & 3 
+\end{array}$
+\exitem
+$\arraycolsep=1pt
+\begin{array}[t]{rlrcr}
+	ax & + & y & = & 1 \\
+	2x & + & y & = & b
+\end{array}$
+\end{exenumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  If $ab \neq 2$, unique solution $ x = \frac{-2 - 5b}{2 - ab} $, $y = \frac{a + 5}{2 - ab}$.
+ If $ab = 2$: no solution if $a \neq -5$; if $a = -5$, the solutions are $x = -1 + \frac{2}{5} t$, $y = t$.
+
+\setcounter{enumi}{3}
+\item  If $a \neq 2$, unique solution $x = \frac{1 - b}{a - 2}$, $y = \frac{ab - 2}{a - 2}$. If $a = 2$, no solution if $b \neq 1$; if $b = 1$, the solutions are $x = \frac{1}{2}(1 - t)$, $y = t$.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+In each of the following, find (if possible) conditions on $a$, $b$, and $c$ such that the system has no solution, one solution, or infinitely many solutions.
+
+\begin{exenumerate}
+\exitem %a
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	3x & + & y & - &  z & = & a \\
+	 x & - & y & + & 2z & = & b \\
+	5x & + & 3y & - & 4z & = & c
+\end{array}$
+\exitem %b
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	2x & + & y & - & z & = & a \\
+	   &   &2y & + & 3z & = & b \\
+	 x &   &   & - &  z & = & c
+\end{array}$
+\exitem %c
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	-x & + & 3y & + & 2z & = & -8 \\
+	 x &   &    & + &  z & = & 2 \\
+	3x & + & 3y & + & az & = & b
+\end{array}$
+\exitem %d
+$\arraycolsep=1pt
+\begin{array}[t]{rcr}
+	x + ay & = & 0 \\
+	y + bz & = & 0 \\
+	z + cx & = & 0
+\end{array}$
+\exitem* %e
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	3x & - & y & + & 2z & = & 3 \\
+	 x & + & y & - &  z & = & 2 \\
+	2x & - &2y & + & 3z & = & b
+\end{array}$
+\exitem* %f
+$\arraycolsep=1pt
+\begin{array}[t]{rlrlrcr}
+	 x & + & ay & - & z & = & 1 \\
+	-x & + &(a - 2)y & + & z & = & -1 \\
+	2x & + & 2y & + & (a - 2)z & = & 1
+\end{array}$
+\end{exenumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  Unique solution $x = -2a + b + 5c$, \newline $y = 3a - b - 6c$, $z = -2a + b + c $, for any $a$, $b$, $c$.
+
+\setcounter{enumi}{3}
+\item  If $abc \neq -1$, unique solution $ x = y = z = 0 $; if $abc = -1$ the solutions are $x = abt$, $y = -bt$, $z = t$.
+
+\setcounter{enumi}{5}
+\item  If $a = 1$, solutions $x = -t$, $y = t$, $z = -1$. If $a = 0$, there is no solution. If $a \neq 1$ and $a \neq 0$, unique solution $x = \frac{a - 1}{a} $, $ y = 0$, $z = \frac{-1}{a}$.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the rank of each of the matrices in Exercise \ref{ex:1_2_1}.
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $1$
+\setcounter{enumi}{3}
+\item  $3$
+\setcounter{enumi}{5}
+\item  $1$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find the rank of each of the following matrices.
+
+\begin{exenumerate}
+\exitem %a
+$\leftB \begin{array}{rrr}
+	1 & 1 & 2 \\
+	3 & -1 & 1 \\
+	-1 & 3 & 4
+\end{array} \rightB$
+\exitem %b
+$\leftB \begin{array}{rrr}
+	-2 & 3 & 3 \\
+	3 & -4 & 1 \\
+	-5 & 7 & 2
+\end{array} \rightB$
+\exitem %c
+$\leftB \begin{array}{rrrr}
+	1 & 1 & -1 & 3 \\
+	-1 & 4 & 5 & -2 \\
+	1 & 6 & 3 & 4
+\end{array} \rightB$
+\exitem %d
+$\leftB \begin{array}{rrrr}
+	3 & -2 & 1 & -2 \\
+	1 & -1 & 3 & 5 \\
+	-1 & 1 & 1 & -1
+\end{array} \rightB$
+\exitem* %e
+$\leftB \begin{array}{cccc}
+	1 & 2 & -1 & 0 \\
+	0 & a & 1 - a & a^2 + 1 \\
+	1 & 2 - a & -1 & -2a^2
+\end{array} \rightB$
+\exitem* %f
+$\leftB \begin{array}{cccc}
+	1 & 1 & 2 & a^2 \\
+	1 & 1 - a & 2 & 0 \\
+	2 & 2 - a & 6 - a & 4
+\end{array} \rightB$
+\end{exenumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $2$
+\setcounter{enumi}{3}
+\item  $3$
+\setcounter{enumi}{5}
+\item $2$ if $a = 0$ or $a = 2$; $3$, otherwise.
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Consider a system of linear equations with augmented matrix $A$ and coefficient matrix $C$. In each case either prove the statement or give an example showing that it is false.
+
+\begin{enumerate}[label={\alph*.}]
+\item If there is more than one solution, $A$ has a row of zeros.
+
+\item If $A$ has a row of zeros, there is more than one solution.
+
+\item If there is no solution, the reduced row-echelon form of $C$ has a row of zeros.
+
+\item If the row-echelon form of $C$ has a row of zeros, there is no solution.
+
+\item There is no system that is inconsistent for every choice of constants.
+
+\item If the system is consistent for some choice of constants, it is consistent for every choice of constants.
+
+\end{enumerate}
+
+\noindent Now assume that the augmented matrix $A$ has 3 rows and 5 columns.
+
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{6}
+\item If the system is consistent, there is more than one solution.
+
+\item The rank of $A$ is at most $3$.
+
+\item If $\func{rank} A = 3$, the system is consistent.
+
+\item If $\func{rank} C = 3$, the system is consistent.
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  False. 
+$A = \leftB \begin{array}{rr|r}
+	1 & 0 & 1 \\
+	0 & 1 & 1 \\
+	0 & 0 & 0	
+\end{array} \rightB$
+
+\setcounter{enumi}{3}
+\item  False. 
+$A = \leftB \begin{array}{rr|r}
+	1 & 0 & 1 \\
+	0 & 1 & 0 \\
+	0 & 0 & 0	
+\end{array} \rightB$
+
+\setcounter{enumi}{5}
+\item  False.
+$\arraycolsep=1pt
+\begin{array}{rcl}
+ 	 2x - y & = & 0 \\
+	-4x + 2y & = & 0 \\
+\end{array}$ is consistent but $\arraycolsep=1pt
+\begin{array}{rcl}
+	 2x - y & = & 1 \\
+	-4x + 2y & = & 1 \\
+\end{array}$ is not.
+
+\setcounter{enumi}{7}
+\item  True, $A$ has 3 rows, so there are at most 3 leading $1$s.
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Find a sequence of row operations carrying
+\begin{equation*}
+\leftB \begin{array}{ccc}
+	b_1 + c_1 & b_2 + c_2 & b_3 + c_3 \\
+	c_1 + a_1 & c_2 + a_2 & c_3 + a_3 \\
+	a_1 + b_1 & a_2 + b_2 & a_3 + b_3 
+\end{array} \rightB
+\mbox{to}
+\leftB \begin{array}{rrr}
+	a_1 & a_2 & a_3 \\
+	b_1 & b_2 & b_3 \\
+	c_1 & c_2 & c_3 
+\end{array} \rightB
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+In each case, show that the reduced row-echelon form is as given.
+
+\begin{enumerate}[label={\alph*.}]
+\item 
+$\leftB \begin{array}{rrr}
+	p & 0 & a \\
+	b & 0 & 0 \\
+	q & c & r
+\end{array} \rightB$ with $abc \neq 0$; $
+\leftB \begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 
+\end{array} \rightB$
+
+\item
+$\leftB \begin{array}{rrr}
+1 & a & b + c \\
+1 & b & c + a \\
+1 & c & a + b
+\end{array} \rightB$ where $c \neq a$ or $b \neq a$; 
+$\leftB \begin{array}{rrr}
+1 & 0 & * \\
+0 & 1 & * \\
+0 & 0 & 0 
+\end{array} \rightB$
+\end{enumerate}
+
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item Since one of $b-a$ and $c-a$ is nonzero, then
+$\leftB \begin{array}{ccc}
+	1 & a & b + c \\
+	1 & b & c + a \\
+	1 & b & c + a
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{ccc}
+	1 & a & b + c \\
+	0 & b - a & a - b \\
+	0 & c - a & a - c 
+\end{array} \rightB \rightarrow
+\leftB \begin{array}{ccc}
+	1 & a & b + c \\
+	0 & 1 & -1 \\
+	0 & 0 & 0 
+\end{array} \rightB
+\rightarrow
+\leftB \begin{array}{ccc}
+	1 & 0 & b + c + a\\
+	0 & 1 & -1 \\
+	0 & 0 & 0 
+\end{array} \rightB$
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Show that 
+$\left \{
+\arraycolsep=1pt
+\begin{array}{rlrlrcr}
+	  az & + &   by & + &   cz & = & 0 \\
+	a_1x & + & b_1y & + & c_1z & = & 0
+\end{array}
+\right.$ always has a solution other than $x = 0$, $y = 0$, $z = 0$.
+\end{ex}
+
+
+\begin{ex}
+Find the circle $x^2 + y^2 + ax + by + c = 0$ passing through the following points.
+
+\begin{enumerate}[label={\alph*.}]
+\item $(-2, 1)$, $(5, 0)$, and $(4, 1)$
+
+\item $(1, 1)$, $(5, -3)$, and $(-3, -3)$
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}[label={\alph*.}]
+\setcounter{enumi}{1}
+\item  $ x^2 + y^2 - 2x + 6y - 6 = 0 $
+
+\end{enumerate}
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Three Nissans, two Fords, and four Chevrolets can be rented for \$106 per day. At the same rates two Nissans, four Fords, and three Chevrolets cost \$107 per day, whereas four Nissans, three Fords, and two Chevrolets cost \$102 per day. Find the rental rates for all three kinds of cars.
+\end{ex}
+
+\begin{ex}
+A school has three clubs and each student is required to belong to exactly one club. One year the students switched club membership as follows:
+
+\noindent Club A. $ \frac{4}{10} $  remain in A, $ \frac{1}{10} $ switch to B, $ \frac{5}{10} $ switch to C.
+
+\noindent Club B. $ \frac{7}{10} $ remain in B, $ \frac{2}{10}$ switch to A, $ \frac{1}{10} $ switch to C.
+
+\noindent Club C. $ \frac{6}{10} $ remain in C, $ \frac{2}{10} $ switch to A, $ \frac{2}{10} $ switch to B.
+
+If the fraction of the student population in each club is unchanged, find each of these fractions.
+
+\begin{sol}
+$ \frac{5}{20} $ in $A$, $\frac{7}{20}$ in $B$, $\frac{8}{20}$ in $C$.
+\end{sol}
+\end{ex}
+
+\begin{ex}
+Given points $(p_1, q_1)$, $(p_2, q_2)$, and $(p_3, q_3)$ in the plane with $p_1$, $p_2$, and $p_3$ distinct, show that they lie on some curve with equation $y = a + bx + cx^2$. [\textit{Hint}: Solve for $a$, $b$, and $c$.]
+\end{ex}
+
+\begin{ex}
+The scores of three players in a tournament have been lost. The only information available is the total of the scores for players 1 and 2, the total for players 2 and 3, and the total for players 3 and 1.
+
+\begin{enumerate}[label={\alph*.}]
+\item Show that the individual scores can be rediscovered.
+
+\item Is this possible with four players (knowing the totals for players 1 and 2, 2 and 3, 3 and 4, and 4 and 1)?
+
+\end{enumerate}
+\end{ex}
+
+\begin{ex}
+A boy finds \$1.05 in dimes, nickels, and pennies. If there are 17 coins in all, how many coins of each type can he have?
+\end{ex}
+
+\begin{ex}
+If a consistent system has more variables than equations, show that it has infinitely many solutions. [\textit{Hint}: Use Theorem \ref{thm:001133}.]
+\end{ex}
+\end{multicols}
+
